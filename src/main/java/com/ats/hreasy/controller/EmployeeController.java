@@ -517,7 +517,7 @@ public class EmployeeController {
 					emp.setIsEmp(1);
 					emp.setLeavingReason("NA");
 					emp.setLocationId(locId);
-
+//w
 					emp.setLoginName("NA");
 					emp.setLoginTime(currDate);
 					emp.setMotherName("NA");
