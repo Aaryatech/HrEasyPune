@@ -39,6 +39,7 @@ public class Constants {
 	public static String[] allextension = { "txt", "doc", "pdf", "xls", "jpg", "jpeg", "gif", "png" };
 	public static String[] values = { "jpg", "jpeg", "gif", "png" };
 	public static Object getImageSaveUrl;
+	public static String docSaveUrl;
 
 	public static RestTemplate getRestTemplate() {
 		rest = new RestTemplate();
