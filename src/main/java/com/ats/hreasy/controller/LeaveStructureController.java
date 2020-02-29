@@ -146,7 +146,7 @@ public class LeaveStructureController {
 				if (ret == false) {
 
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-					map.add("limitKey", "default_previlage");
+					map.add("limitKey", "default_compoff");
 					Setting defaultPrv = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
 							map, Setting.class);
 
@@ -504,11 +504,16 @@ public class LeaveStructureController {
 						editStructure.setExVar1("0");
 					}
 
+					int compofffind = 0;
+
 					for (int i = 0; i < leaveTypeList.size(); i++) {
 						int flag = 0;
 
 						for (int j = 0; j < editStructure.getDetailList().size(); j++) {
 
+							if (editStructure.getDetailList().get(j).getLvTypeId() == 1) {
+								compofffind = 1;
+							}
 							try {
 
 								if (editStructure.getDetailList().get(j).getLvTypeId() == leaveTypeList.get(i)
@@ -619,6 +624,26 @@ public class LeaveStructureController {
 
 					}
 
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map.add("limitKey", "default_compoff");
+					Setting defaultPrv = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+							map, Setting.class);
+
+					if (Integer.parseInt(defaultPrv.getValue()) == 1 && compofffind == 0) {
+
+						LeaveStructureDetails detail = new LeaveStructureDetails();
+						detail.setDelStatus(1);
+						detail.setExInt1(0);
+						detail.setExInt2(0);
+						detail.setExVar1("NA");
+						detail.setExVar2("NA");
+						detail.setIsActive(1);
+						detail.setLvsAllotedLeaves(0);
+						detail.setLvTypeId(1);
+						detail.setMakerUserId(userObj.getUserId());
+						detail.setMakerDatetime(dateTime);
+						editStructure.getDetailList().add(detail);
+					}
 					// System.out.println(editStructure);
 
 					LeaveStructureHeader res = Constants.getRestTemplate().postForObject(
@@ -1143,7 +1168,7 @@ public class LeaveStructureController {
 					Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
 							map, Setting.class);
 					model.addObject("day", dayInMonth.getValue());
-					
+
 				} catch (Exception e) {
 					model.addObject("structId", 0);
 				}

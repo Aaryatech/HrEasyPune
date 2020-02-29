@@ -228,8 +228,8 @@
 												onchange="calholidayWebservice()">
 												<option></option>
 												<option selected value="1">Full Day</option>
-												<option value="2">1st Half</option>
-												<option value="3">2nd Half</option>
+												<!-- <option value="2">1st Half</option>
+												<option value="3">2nd Half</option> -->
 
 
 											</select><span class="validation-invalid-label" id="error_dayType"
