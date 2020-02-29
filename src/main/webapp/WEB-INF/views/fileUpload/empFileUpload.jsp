@@ -129,7 +129,7 @@
 														<div class="col-md-4">
 															<button type="submit" id="btnUploadCSVSubmit"
 																name="btnUploadCSVSubmit" class="btn btn-primary">
-																Uplaod File <i class="icon-paperplane ml-2"></i>
+																Upload File <i class="icon-paperplane ml-2"></i>
 															</button>
 														</div>
 
@@ -144,45 +144,45 @@
 												href="http://gfplphp.aaryatechindia.in/uploads/att_template/attendance_sample.csv"
 												target="_blank" id="genTemplate1" title=".csv Format"><i
 													class="icon-file-download"></i> Download Template</a></span>
-													
+
+										</div>
+										<div class="rows">
+
+											<form
+												action="${pageContext.request.contextPath}/empSalaryDetailUpload"
+												method="POST" enctype="multipart/form-data" method="post"
+												id="submitInsertLocaion"
+												class="form-inline1 justify-content-center">
+
+
+												<div class="form-group row ">
+													<label class="col-md-2 col-form-label" for="doc">Attach
+														Salary File:</label>
+													<div class="col-md-6">
+														<div class="fallback">
+															<input name="fileSal" type="file" /><span
+																class="form-text text-muted">Accepted formats:
+																xls </span> <span
+																class="hidedefault   validation-invalid-label"
+																style="display: none;" id="error_empCode">Please
+																Select File .</span>
+
+
+														</div>
 													</div>
-													<div class="rows">
-													<%-- 
-													<form
-													action="${pageContext.request.contextPath}/empSalaryDetailUpload"
-													method="POST" enctype="multipart/form-data" method="post"
-													id="submitInsertLocaion"
-													class="form-inline1 justify-content-center">
-
-
-													<div class="form-group row ">
-														<label class="col-md-2 col-form-label" for="doc">Attach Salary
-															File:</label>
-														<div class="col-md-6">
-															<div class="fallback">
-																<input name="fileSal" type="file" /><span
-																	class="form-text text-muted">Accepted formats:
-																	xls </span> <span
-																	class="hidedefault   validation-invalid-label"
-																	style="display: none;" id="error_empCode">Please
-																	Select File .</span>
-
-
-															</div>
-														</div>
-														<div class="col-md-4">
-															<button type="submit" id="btnUploadCSVSubmit"
-																name="btnUploadSubmit" class="btn btn-primary">
-																Uplaod File <i class="icon-paperplane ml-2"></i>
-															</button>
-														</div>
-
-
-
+													<div class="col-md-4">
+														<button type="submit" id="btnUploadCSVSubmit"
+															name="btnUploadSubmit" class="btn btn-primary">
+															Uplaod File <i class="icon-paperplane ml-2"></i>
+														</button>
 													</div>
 
 
-												</form> --%>
+
+												</div>
+
+
+											</form>
 										</div>
 
 									</div>

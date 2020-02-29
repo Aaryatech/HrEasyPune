@@ -167,7 +167,7 @@
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="otApplicable"> Performance Incentive Applicable <span
+											for="otApplicable"> Performance Incentive Applicable (in Days)<span
 											class="text-danger"> *</span>:
 										</label>
 										<div class="col-lg-4">
@@ -216,7 +216,7 @@
 									
 										<label
 												class="col-form-label text-info font-weight-bold col-lg-2"
-												for="prodApplicable">Production Incentive Applicable<span
+												for="prodApplicable">Production Incentive Applicable(in Hrs)<span
 												class="text-danger"> *</span>:
 											</label>
 											<div class="col-lg-4">

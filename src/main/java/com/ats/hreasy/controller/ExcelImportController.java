@@ -763,9 +763,9 @@ public class ExcelImportController {
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			upload.saveUploadedFiles(fileNew.get(0), Constants.docSaveUrl, imageName);
+			upload.saveUploadedFiles(fileNew.get(0), Constants.docSaveUrlSal, imageName);
 
-			String fileIn = Constants.docSaveUrl + imageName;
+			String fileIn = Constants.docSaveUrlSal + imageName;
 
 			MultiValueMap<String, Object> map = null;
 
@@ -773,7 +773,7 @@ public class ExcelImportController {
 			System.err.println("-------" + imageName);
 
 			// temp.xls2020-02-27_19:30:03_abc.xls
-			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
+			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrlSal + imageName));
 
 			// Create Workbook instance holding reference to .xlsx file
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -833,6 +833,41 @@ public class ExcelImportController {
 						if (row.getCell(6) != null)
 							basic = row.getCell(6).getNumericCellValue();
 
+						
+						// Employee Allowances
+						double dearnessAllwnc = 0;
+						if (row.getCell(7) != null)
+							dearnessAllwnc = row.getCell(7).getNumericCellValue();
+
+						double houseRentAllwnc = 0;
+						if (row.getCell(8) != null)
+							houseRentAllwnc = row.getCell(8).getNumericCellValue();
+
+						double educationAllwnc = 0;
+						if (row.getCell(9) != null)
+							educationAllwnc = row.getCell(9).getNumericCellValue();
+
+						double tiffinAllwnc = 0;
+						if (row.getCell(10) != null)
+							tiffinAllwnc = row.getCell(10).getNumericCellValue();
+
+						double leaveTravelAllwnc = 0;
+						if (row.getCell(11) != null)
+							leaveTravelAllwnc = row.getCell(11).getNumericCellValue();
+
+						double conveyanceAllwnc = 0;
+						if (row.getCell(12) != null)
+							conveyanceAllwnc = row.getCell(12).getNumericCellValue();
+						double mobileAllw = 0;
+						if (row.getCell(13) != null)
+							mobileAllw = row.getCell(14).getNumericCellValue();
+
+						double otherAll = 0;
+						if (row.getCell(15) != null)
+							otherAll = row.getCell(15).getNumericCellValue();
+						 
+						
+						
 						String pfApplicable = null;
 						if (row.getCell(7) != null)
 							pfApplicable = row.getCell(7).getStringCellValue();
@@ -849,37 +884,6 @@ public class ExcelImportController {
 						if (row.getCell(10) != null)
 							isPtApplicable = row.getCell(10).getStringCellValue();
 
-						// Employee Allowances
-						double dearnessAllwnc = 0;
-						if (row.getCell(11) != null)
-							dearnessAllwnc = row.getCell(11).getNumericCellValue();
-
-						double houseRentAllwnc = 0;
-						if (row.getCell(12) != null)
-							houseRentAllwnc = row.getCell(12).getNumericCellValue();
-
-						double educationAllwnc = 0;
-						if (row.getCell(13) != null)
-							educationAllwnc = row.getCell(13).getNumericCellValue();
-
-						double tiffinAllwnc = 0;
-						if (row.getCell(13) != null)
-							tiffinAllwnc = row.getCell(13).getNumericCellValue();
-
-						double leaveTravelAllwnc = 0;
-						if (row.getCell(14) != null)
-							leaveTravelAllwnc = row.getCell(14).getNumericCellValue();
-
-						double conveyanceAllwnc = 0;
-						if (row.getCell(15) != null)
-							conveyanceAllwnc = row.getCell(15).getNumericCellValue();
-						double mobileAllw = 0;
-						if (row.getCell(16) != null)
-							mobileAllw = row.getCell(16).getNumericCellValue();
-
-						double otherAll = 0;
-						if (row.getCell(17) != null)
-							otherAll = row.getCell(17).getNumericCellValue();
 
 						EmpSalaryInfo empSal = new EmpSalaryInfo();
 

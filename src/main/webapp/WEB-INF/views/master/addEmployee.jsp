@@ -650,6 +650,35 @@
 													</button>
 												</div>
 											</div> -->
+
+
+
+											<div class="form-group row">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="skillId"> Skill <span class="text-danger">*</span>:
+												</label>
+												<div class="col-lg-4">
+													<select name="skillId" data-placeholder="Select Skill Rate"
+														id="skillId"
+														class="form-control form-control-select2 select2-hidden-accessible">
+														<option value="">Select</option>
+														<c:forEach items="${skillList1}" var="skillList1">
+															<c:choose>
+																<c:when test="${skillList1.skillId==emp.exInt2}">
+																	<option selected="selected"
+																		value="${skillList1.skillId}">${skillList1.name}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${skillList1.skillId}">${skillList1.name}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select> <span class="hidedefault   validation-invalid-label"
+														style="display: none;" id="error_skillId">This
+														field is required.</span>
+												</div>
+											</div>
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
@@ -1566,8 +1595,8 @@
 																	value="${allowanceValue}"
 																	id="allowncesVal${allowanceList.allowanceId}"
 																	name="allowncesVal${allowanceList.allowanceId}"
-																	autocomplete="off" onchange1="calAllValues()"> <input
-																	type="hidden"
+																	autocomplete="off" onchange1="calAllValues()">
+																<input type="hidden"
 																	id="empSalAllownaceId${allowanceList.allowanceId}"
 																	name="empSalAllownaceId${allowanceList.allowanceId}"
 																	value="${empSalAlwncId}">
@@ -2300,12 +2329,10 @@
 								var tot = (parseDouble(document
 										.getElementById("basic").value) + (parseDouble(x)))
 										.toFixed(2);
-								 
 
 								var gross = parseDouble(
 										document.getElementById("grossSal").value)
 										.toFixed(2);
-							 
 
 								if (tot != gross) {
 
@@ -2536,6 +2563,16 @@
 
 												} else {
 													$("#error_mobile1").hide()
+												}
+
+												if (!$("#skillId").val()) {
+
+													isError = true;
+
+													$("#error_skillId").show()
+
+												} else {
+													$("#error_skillId").hide()
 												}
 
 												if ($("#mobile2").val().trim() > 0) {

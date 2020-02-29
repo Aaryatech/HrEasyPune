@@ -53,6 +53,7 @@ import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.SalaryTypesMaster;
 import com.ats.hreasy.model.Setting;
+import com.ats.hreasy.model.SkillRates;
 import com.ats.hreasy.model.TblEmpBankInfo;
 import com.ats.hreasy.model.TblEmpInfo;
 import com.ats.hreasy.model.TblEmpNominees;
@@ -262,6 +263,13 @@ public class EmployeeController {
 						.postForObject(Constants.url + "/getMstEmpTypeList", map, MstEmpType[].class);
 
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
+				
+				
+				SkillRates[] skillList = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getSkillRateList"  , SkillRates[].class);
+
+				List<SkillRates> skillList1 = new ArrayList<SkillRates>(Arrays.asList(skillList));
+				System.err.println("skillList1--"+skillList1.toString());
 
 				model = new ModelAndView("master/addEmployee");
 
@@ -276,6 +284,7 @@ public class EmployeeController {
 				model.addObject("allowanceList", allowanceList);
 				model.addObject("empDocList", empDocList);
 				model.addObject("emp", emp);
+				model.addObject("skillList1", skillList1);
 				model.addObject("imgUrl", Constants.empDocShowUrl);
 				session.setAttribute("empTab", 1);
 
@@ -343,6 +352,7 @@ public class EmployeeController {
 				int desigId = 0;
 				int empType = 0;
 				int locId = 0;
+				int skillId=0;
 				try {
 					empId = Integer.parseInt(request.getParameter("empId"));
  					deptId = Integer.parseInt(request.getParameter("deptId"));
@@ -353,7 +363,13 @@ public class EmployeeController {
 					empId = 0;
  				}
 				
-
+				
+				 
+				try {
+					skillId = Integer.parseInt(request.getParameter("skillId"));
+				} catch (Exception e1) {
+					skillId=0;
+				}
 				try {
  					contract = Integer.parseInt(request.getParameter("contractor"));
 					 
@@ -437,7 +453,7 @@ public class EmployeeController {
 					emp.setSocietySerialNo("NA");
 					emp.setUan(request.getParameter("uan"));
 					// emp.setExInt1(0);
-					emp.setExInt2(0);
+					emp.setExInt2(skillId);
 					// emp.setExVar1("NA");
 					emp.setExVar2("NA");
 					emp.setDelStatus(1);
@@ -504,6 +520,7 @@ public class EmployeeController {
 					emp.setEmpCode(request.getParameter("empCode").toUpperCase());
 					emp.setEmpType(empType);
 					emp.setEsicNo(request.getParameter("esic"));
+					
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
 					map = new LinkedMultiValueMap<>();
@@ -534,7 +551,7 @@ public class EmployeeController {
 					emp.setSocietySerialNo("NA");
 					emp.setUan(request.getParameter("uan"));
 					// emp.setExInt1(0);
-					emp.setExInt2(0);
+					emp.setExInt2(skillId);
 					// emp.setExVar1("NA");
 					emp.setExVar2("NA");
 					emp.setDelStatus(1);
@@ -740,6 +757,13 @@ public class EmployeeController {
 						.postForObject(Constants.url + "/getMstEmpTypeList", map, MstEmpType[].class);
 
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
+				
+				
+				SkillRates[] skillList = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getSkillRateList"  , SkillRates[].class);
+
+				List<SkillRates> skillList1 = new ArrayList<SkillRates>(Arrays.asList(skillList));
+				
 
 				model = new ModelAndView("master/addEmployee");
 
@@ -754,6 +778,7 @@ public class EmployeeController {
 				model.addObject("bankList", bankList);
 				model.addObject("allowanceList", allowanceList);
 				model.addObject("empDocList", empDocList);
+				model.addObject("skillList1", skillList1);
 				model.addObject("imgUrl", Constants.empDocShowUrl);
 
 				map = new LinkedMultiValueMap<>();
@@ -812,13 +837,7 @@ public class EmployeeController {
 				map.add("EmpId", Integer.parseInt(empId));
 				userRes = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
 						User.class);
-				
-				
-				
-			
-			
-
-			
+				 
 				
 				model.addObject("empAllowanceId", empSalInfo);
 				model.addObject("empAllowncList", empAllowncList);
