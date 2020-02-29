@@ -417,6 +417,7 @@
 			var res = daterange.split(" to ");
 			var inputValue = document.getElementById("leaveTypeId").value;
 			var noOfDays = document.getElementById("noOfDays").value;
+			document.getElementById("submtbtn").disabled = true;
 			$
 					.getJSON(
 							'${checkDatesRange}',
@@ -1206,7 +1207,7 @@
 
 												if ($("#leaveLimit").val() == 1
 														&& $("#leaveTypeId")
-																.val() != 2) {
+																.val() > 2 ) {
 													//alert("Hii..");
 													if (checkDays(parseFloat($(
 															"#noOfDays").val())) == true) {
