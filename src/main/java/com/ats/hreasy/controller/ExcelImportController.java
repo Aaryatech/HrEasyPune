@@ -88,6 +88,9 @@ public class ExcelImportController {
 
 				mav = "fileUpload/empFileUpload";
 
+				model.addAttribute("templatePath", Constants.templateShowUrl);
+				model.addAttribute("fileName", "temp.xls");
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -748,7 +751,7 @@ public class ExcelImportController {
 	}
 
 	@RequestMapping(value = "/empSalaryDetailUpload", method = RequestMethod.POST)
-	public String empSalaryDetailUpload(@RequestParam("fileNew") List<MultipartFile> fileNew,
+	public String empSalaryDetailUpload(@RequestParam("fileSal") List<MultipartFile> fileSal,
 			HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 
@@ -759,11 +762,11 @@ public class ExcelImportController {
 			Date date = new Date();
 			VpsImageUpload upload = new VpsImageUpload();
 			String imageName = new String();
-			imageName = dateTimeInGMT.format(date) + "_" + fileNew.get(0).getOriginalFilename();
+			imageName = dateTimeInGMT.format(date) + "_" + fileSal.get(0).getOriginalFilename();
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			upload.saveUploadedFiles(fileNew.get(0), Constants.docSaveUrlSal, imageName);
+			upload.saveUploadedFiles(fileSal.get(0), Constants.docSaveUrlSal, imageName);
 
 			String fileIn = Constants.docSaveUrlSal + imageName;
 
@@ -807,12 +810,6 @@ public class ExcelImportController {
 					EmployeeMaster res = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getEmpInfoByEmpCode", map, EmployeeMaster.class);
 
-					MultiValueMap<String, Object> mapEmp = new LinkedMultiValueMap<>();
-					mapEmp.add("empCode", empCode);
-					EmployeeRelatedTbls checkEmpCode = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getEmpRelatedInfo", mapEmp, EmployeeRelatedTbls.class);
-					System.out.println("checkEmpCode Resp--------" + checkEmpCode);
-
 					/****************************************
 					 * Employee Salary
 					 **********************************************/
@@ -833,7 +830,6 @@ public class ExcelImportController {
 						if (row.getCell(6) != null)
 							basic = row.getCell(6).getNumericCellValue();
 
-						
 						// Employee Allowances
 						double dearnessAllwnc = 0;
 						if (row.getCell(7) != null)
@@ -863,27 +859,30 @@ public class ExcelImportController {
 							mobileAllw = row.getCell(14).getNumericCellValue();
 
 						double otherAll = 0;
-						if (row.getCell(15) != null)
-							otherAll = row.getCell(15).getNumericCellValue();
-						 
-						
-						
+						if (row.getCell(14) != null)
+							otherAll = row.getCell(14).getNumericCellValue();
+
 						String pfApplicable = null;
-						if (row.getCell(7) != null)
-							pfApplicable = row.getCell(7).getStringCellValue();
+						if (row.getCell(15) != null)
+							pfApplicable = row.getCell(15).getStringCellValue();
 
 						String esicApplicable = null;
-						if (row.getCell(8) != null)
-							esicApplicable = row.getCell(8).getStringCellValue();
+						if (row.getCell(16) != null)
+							esicApplicable = row.getCell(16).getStringCellValue();
 
 						String isMlwfApplicable = null;
-						if (row.getCell(9) != null)
-							isMlwfApplicable = row.getCell(9).getStringCellValue();
+						if (row.getCell(17) != null)
+							isMlwfApplicable = row.getCell(17).getStringCellValue();
 
 						String isPtApplicable = null;
-						if (row.getCell(10) != null)
-							isPtApplicable = row.getCell(10).getStringCellValue();
+						if (row.getCell(18) != null)
+							isPtApplicable = row.getCell(18).getStringCellValue();
 
+						MultiValueMap<String, Object> mapEmp = new LinkedMultiValueMap<>();
+						mapEmp.add("empCode", empCode);
+						EmployeeRelatedTbls checkEmpCode = Constants.getRestTemplate()
+								.postForObject(Constants.url + "/getEmpRelatedInfo", mapEmp, EmployeeRelatedTbls.class);
+						System.out.println("checkEmpCode Resp--------" + checkEmpCode);
 
 						EmpSalaryInfo empSal = new EmpSalaryInfo();
 

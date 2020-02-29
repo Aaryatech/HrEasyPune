@@ -141,8 +141,8 @@
 												</form>
 											</div>
 											<span class="text-info"> <a
-												href="http://gfplphp.aaryatechindia.in/uploads/att_template/attendance_sample.csv"
-												target="_blank" id="genTemplate1" title=".csv Format"><i
+												href="${templatePath}${fileName}"
+												target="_blank" id="genTemplate1" title=".xls Format"><i
 													class="icon-file-download"></i> Download Template</a></span>
 
 										</div>
