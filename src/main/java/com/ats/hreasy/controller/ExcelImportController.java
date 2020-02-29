@@ -748,8 +748,8 @@ public class ExcelImportController {
 	}
 
 	@RequestMapping(value = "/empSalaryDetailUpload", method = RequestMethod.POST)
-	public String empSalaryDetailUpload(@RequestParam("fileNew") List<MultipartFile> fileNew, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String empSalaryDetailUpload(@RequestParam("fileNew") List<MultipartFile> fileNew,
+			HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 
 		try {
@@ -787,7 +787,6 @@ public class ExcelImportController {
 					Allowances[].class);
 			allowanceList = new ArrayList<Allowances>(Arrays.asList(allowanceArr));
 
-			 
 			Row row;
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 
@@ -803,252 +802,253 @@ public class ExcelImportController {
 
 				System.err.println("empCode" + empCode);
 				if (empCode != 0) {
-					
-					
+					map = new LinkedMultiValueMap<>();
+					map.add("empCode", empCode);
+					EmployeeMaster res = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getEmpInfoByEmpCode", map, EmployeeMaster.class);
+
 					MultiValueMap<String, Object> mapEmp = new LinkedMultiValueMap<>();
 					mapEmp.add("empCode", empCode);
 					EmployeeRelatedTbls checkEmpCode = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getEmpRelatedInfo", mapEmp, EmployeeRelatedTbls.class);
 					System.out.println("checkEmpCode Resp--------" + checkEmpCode);
 
-					 
 					/****************************************
 					 * Employee Salary
 					 **********************************************/
 
 					/************************* Employee Salary *******************************/
-					
-					
-					if(checkEmpCode.getEmpId()!=0) {
-						 
-					String salBasis = null;
-					if (row.getCell(4) != null)
-						salBasis = row.getCell(4).getStringCellValue();
 
-					int grossSal = 0;
-					if (row.getCell(5) != null)
-						grossSal = (int) row.getCell(5).getNumericCellValue();
+					if (res.getEmpId() != 0) {
 
-					double basic = 0;
-					if (row.getCell(6) != null)
-						basic = row.getCell(6).getNumericCellValue();
+						String salBasis = null;
+						if (row.getCell(4) != null)
+							salBasis = row.getCell(4).getStringCellValue();
 
-					String pfApplicable = null;
-					if (row.getCell(7) != null)
-						pfApplicable = row.getCell(7).getStringCellValue();
+						int grossSal = 0;
+						if (row.getCell(5) != null)
+							grossSal = (int) row.getCell(5).getNumericCellValue();
 
-					String esicApplicable = null;
-					if (row.getCell(8) != null)
-						esicApplicable = row.getCell(8).getStringCellValue();
+						double basic = 0;
+						if (row.getCell(6) != null)
+							basic = row.getCell(6).getNumericCellValue();
 
-					String isMlwfApplicable = null;
-					if (row.getCell(9) != null)
-						isMlwfApplicable = row.getCell(9).getStringCellValue();
+						String pfApplicable = null;
+						if (row.getCell(7) != null)
+							pfApplicable = row.getCell(7).getStringCellValue();
 
-					String isPtApplicable = null;
-					if (row.getCell(10) != null)
-						isPtApplicable = row.getCell(10).getStringCellValue();
+						String esicApplicable = null;
+						if (row.getCell(8) != null)
+							esicApplicable = row.getCell(8).getStringCellValue();
 
-					// Employee Allowances
-					double dearnessAllwnc = 0;
-					if (row.getCell(11) != null)
-						dearnessAllwnc = row.getCell(11).getNumericCellValue();
+						String isMlwfApplicable = null;
+						if (row.getCell(9) != null)
+							isMlwfApplicable = row.getCell(9).getStringCellValue();
 
-					double houseRentAllwnc = 0;
-					if (row.getCell(12) != null)
-						houseRentAllwnc = row.getCell(12).getNumericCellValue();
+						String isPtApplicable = null;
+						if (row.getCell(10) != null)
+							isPtApplicable = row.getCell(10).getStringCellValue();
 
-					double educationAllwnc = 0;
-					if (row.getCell(13) != null)
-						educationAllwnc = row.getCell(13).getNumericCellValue();
+						// Employee Allowances
+						double dearnessAllwnc = 0;
+						if (row.getCell(11) != null)
+							dearnessAllwnc = row.getCell(11).getNumericCellValue();
 
-					double tiffinAllwnc = 0;
-					if (row.getCell(13) != null)
-						tiffinAllwnc = row.getCell(13).getNumericCellValue();
+						double houseRentAllwnc = 0;
+						if (row.getCell(12) != null)
+							houseRentAllwnc = row.getCell(12).getNumericCellValue();
 
-					double leaveTravelAllwnc = 0;
-					if (row.getCell(14) != null)
-						leaveTravelAllwnc = row.getCell(14).getNumericCellValue();
+						double educationAllwnc = 0;
+						if (row.getCell(13) != null)
+							educationAllwnc = row.getCell(13).getNumericCellValue();
 
-					double conveyanceAllwnc = 0;
-					if (row.getCell(15) != null)
-						conveyanceAllwnc = row.getCell(15).getNumericCellValue();
-					double mobileAllw = 0;
-					if (row.getCell(16) != null)
-						mobileAllw = row.getCell(16).getNumericCellValue();
+						double tiffinAllwnc = 0;
+						if (row.getCell(13) != null)
+							tiffinAllwnc = row.getCell(13).getNumericCellValue();
 
-					double otherAll = 0;
-					if (row.getCell(17) != null)
-						otherAll = row.getCell(17).getNumericCellValue();
+						double leaveTravelAllwnc = 0;
+						if (row.getCell(14) != null)
+							leaveTravelAllwnc = row.getCell(14).getNumericCellValue();
 
-					EmpSalaryInfo empSal = new EmpSalaryInfo();
+						double conveyanceAllwnc = 0;
+						if (row.getCell(15) != null)
+							conveyanceAllwnc = row.getCell(15).getNumericCellValue();
+						double mobileAllw = 0;
+						if (row.getCell(16) != null)
+							mobileAllw = row.getCell(16).getNumericCellValue();
 
-					if (checkEmpCode != null) {
-						empSal.setSalaryInfoId(checkEmpCode.getSalaryInfoId());
+						double otherAll = 0;
+						if (row.getCell(17) != null)
+							otherAll = row.getCell(17).getNumericCellValue();
 
-					} 
-					empSal.setEmpId(checkEmpCode.getEmpId());
+						EmpSalaryInfo empSal = new EmpSalaryInfo();
+
+						if (checkEmpCode != null) {
+							empSal.setSalaryInfoId(checkEmpCode.getSalaryInfoId());
+
+						}
+						empSal.setEmpId(checkEmpCode.getEmpId());
 						/*
 						 * empSal.setCmpLeavingDate(cmpLeavDate); empSal.setCmpJoiningDate(cmpJoinDate);
 						 * empSal.setEpfJoiningDate(epfJoinDate);
 						 */
-					empSal.setSalBasis(salBasis);
-					empSal.setBasic(basic);
-					empSal.setPfType("0");
-					empSal.setPfEmpPer(0);
-					empSal.setPfEmplrPer(0);
-					empSal.setEsicApplicable(esicApplicable);
-					empSal.setCeilingLimitEmpApplicable("no");
-					empSal.setCeilingLimitEmployerApplicable("no");
-					empSal.setMlwfApplicable(isMlwfApplicable);
-					empSal.setPtApplicable(isPtApplicable);
-					empSal.setDelStatus(1);
-					empSal.setPfApplicable(pfApplicable);
-					empSal.setGrossSalary(grossSal);
-					empSal.setSalaryTypeId(1);
-					EmpSalaryInfo empSalInfo = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/saveEmployeeIdSalary", empSal, EmpSalaryInfo.class);
-					System.out.println("Emp SalInfo-----------" + empSalInfo);
+						empSal.setSalBasis(salBasis);
+						empSal.setBasic(basic);
+						empSal.setPfType("0");
+						empSal.setPfEmpPer(0);
+						empSal.setPfEmplrPer(0);
+						empSal.setEsicApplicable(esicApplicable);
+						empSal.setCeilingLimitEmpApplicable("no");
+						empSal.setCeilingLimitEmployerApplicable("no");
+						empSal.setMlwfApplicable(isMlwfApplicable);
+						empSal.setPtApplicable(isPtApplicable);
+						empSal.setDelStatus(1);
+						empSal.setPfApplicable(pfApplicable);
+						empSal.setGrossSalary(grossSal);
+						empSal.setSalaryTypeId(1);
+						EmpSalaryInfo empSalInfo = Constants.getRestTemplate()
+								.postForObject(Constants.url + "/saveEmployeeIdSalary", empSal, EmpSalaryInfo.class);
+						System.out.println("Emp SalInfo-----------" + empSalInfo);
 
-					// Salary Allowances
-					map = new LinkedMultiValueMap<>();
-					map.add("empId", checkEmpCode.getEmpId());
-					EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+						// Salary Allowances
+						map = new LinkedMultiValueMap<>();
+						map.add("empId", checkEmpCode.getEmpId());
+						EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate().postForObject(
+								Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
 
-					List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(
-							Arrays.asList(empSalAllowance));
+						List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(
+								Arrays.asList(empSalAllowance));
 
-					List<EmpSalAllowance> allowncList = new ArrayList<EmpSalAllowance>();
-					EmpSalAllowance empSalAllwance = new EmpSalAllowance();
-					try {
+						List<EmpSalAllowance> allowncList = new ArrayList<EmpSalAllowance>();
+						EmpSalAllowance empSalAllwance = new EmpSalAllowance();
+						try {
 
-						int keyVal1 = 0;
-						int keyVal2 = 0;
-						int keyVal3 = 0;
-						int keyVal4 = 0;
-						int keyVal5 = 0;
-						int keyVal6 = 0;
-						int keyVal7 = 0;
-						int keyVal8 = 0;
-						for (int k = 0; k < empAllowncList.size(); k++) {
+							int keyVal1 = 0;
+							int keyVal2 = 0;
+							int keyVal3 = 0;
+							int keyVal4 = 0;
+							int keyVal5 = 0;
+							int keyVal6 = 0;
+							int keyVal7 = 0;
+							int keyVal8 = 0;
+							for (int k = 0; k < empAllowncList.size(); k++) {
 
-							if (empAllowncList.get(k).getAllowanceId() == 1) {
-								keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 1) {
-								keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 9) {
-								keyVal2 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 14) {
-								keyVal3 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 5) {
-								keyVal4 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 10) {
-								keyVal5 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 11) {
-								keyVal6 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 19) {
-								keyVal7 = empAllowncList.get(k).getEmpSalAllowanceId();
-							} else if (empAllowncList.get(k).getAllowanceId() == 173) {
-								keyVal8 = empAllowncList.get(k).getEmpSalAllowanceId();
+								if (empAllowncList.get(k).getAllowanceId() == 1) {
+									keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 1) {
+									keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 9) {
+									keyVal2 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 14) {
+									keyVal3 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 5) {
+									keyVal4 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 10) {
+									keyVal5 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 11) {
+									keyVal6 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 19) {
+									keyVal7 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 173) {
+									keyVal8 = empAllowncList.get(k).getEmpSalAllowanceId();
+								}
+
 							}
 
+							empSalAllwance = new EmpSalAllowance();
+
+							empSalAllwance.setEmpSalAllowanceId(keyVal1);
+							empSalAllwance.setAllowanceId(1);
+							empSalAllwance.setAllowanceValue(dearnessAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal2);
+							empSalAllwance.setAllowanceId(9);
+							empSalAllwance.setAllowanceValue(houseRentAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal3);
+
+							empSalAllwance.setAllowanceId(14);
+							empSalAllwance.setAllowanceValue(educationAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal4);
+
+							empSalAllwance.setAllowanceId(5);
+							empSalAllwance.setAllowanceValue(tiffinAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal5);
+
+							empSalAllwance.setAllowanceId(10);
+							empSalAllwance.setAllowanceValue(leaveTravelAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal6);
+
+							empSalAllwance.setAllowanceId(11);
+							empSalAllwance.setAllowanceValue(conveyanceAllwnc);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal7);
+
+							empSalAllwance.setAllowanceId(19);
+							empSalAllwance.setAllowanceValue(otherAll);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+							empSalAllwance = new EmpSalAllowance();
+							empSalAllwance.setEmpSalAllowanceId(keyVal8);
+
+							empSalAllwance.setAllowanceId(173);
+							empSalAllwance.setAllowanceValue(mobileAllw);
+							empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+							empSalAllwance.setDelStatus(1);
+							empSalAllwance.setExInt1(0);
+							empSalAllwance.setExInt2(0);
+							allowncList.add(empSalAllwance);
+
+						} catch (Exception e) {
+							// empSellAllwance.setSalaryInfoId(0);
 						}
-
-						empSalAllwance = new EmpSalAllowance();
-
-						empSalAllwance.setEmpSalAllowanceId(keyVal1);
-						empSalAllwance.setAllowanceId(1);
-						empSalAllwance.setAllowanceValue(dearnessAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal2);
-						empSalAllwance.setAllowanceId(9);
-						empSalAllwance.setAllowanceValue(houseRentAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal3);
-
-						empSalAllwance.setAllowanceId(14);
-						empSalAllwance.setAllowanceValue(educationAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal4);
-
-						empSalAllwance.setAllowanceId(5);
-						empSalAllwance.setAllowanceValue(tiffinAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal5);
-
-						empSalAllwance.setAllowanceId(10);
-						empSalAllwance.setAllowanceValue(leaveTravelAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal6);
-
-						empSalAllwance.setAllowanceId(11);
-						empSalAllwance.setAllowanceValue(conveyanceAllwnc);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal7);
-
-						empSalAllwance.setAllowanceId(19);
-						empSalAllwance.setAllowanceValue(otherAll);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-						empSalAllwance = new EmpSalAllowance();
-						empSalAllwance.setEmpSalAllowanceId(keyVal8);
-
-						empSalAllwance.setAllowanceId(173);
-						empSalAllwance.setAllowanceValue(mobileAllw);
-						empSalAllwance.setEmpId(checkEmpCode.getEmpId());
-						empSalAllwance.setDelStatus(1);
-						empSalAllwance.setExInt1(0);
-						empSalAllwance.setExInt2(0);
-						allowncList.add(empSalAllwance);
-
-					} catch (Exception e) {
-						// empSellAllwance.setSalaryInfoId(0);
+						EmpSalAllowance[] allowance = Constants.getRestTemplate().postForObject(
+								Constants.url + "/saveEmpSalAllowanceInfo", allowncList, EmpSalAllowance[].class);
+						System.out.println("Allowance--------" + allowance);
 					}
-					EmpSalAllowance[] allowance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/saveEmpSalAllowanceInfo", allowncList, EmpSalAllowance[].class);
-					System.out.println("Allowance--------" + allowance);
-				}
 				}
 			} // For Loop End
 
@@ -1058,4 +1058,5 @@ public class ExcelImportController {
 
 		return "redirect:/showEmpFileUpload";
 	}
+
 }

@@ -777,18 +777,21 @@ public class EmployeeController {
 				EmployeeMaster emp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeById", map,
 						EmployeeMaster.class);
 				// System.out.println("Edit Emp-------" + emp);
-
+				model.addObject("emp", emp);
+				model.addObject("hodDeptIds", emp.getExVar1().split(","));
 				TblEmpInfo empPersInfo = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmployeePersonalInfo", map, TblEmpInfo.class);
 				// System.out.println("Edit EmpPersonal Info-------" + empPersInfo);
-
+				model.addObject("empPersInfo", empPersInfo);
 				TblEmpNominees empNom = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeNominee",
 						map, TblEmpNominees.class);
 				// System.out.println("Edit Emp Nominee Info-------" + empNom);
+ 				model.addObject("empNom", empNom); // model.addObject("empNom", empIdNom);
 
 				TblEmpBankInfo empBank = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmployeeBankInfo", map, TblEmpBankInfo.class);
 				// System.out.println("Edit Emp Bank Info-------" + empBank);
+				model.addObject("empBank", empBank);
 
 				EmpSalaryInfo empSalInfo = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmployeeSalInfo", map, EmpSalaryInfo.class);
@@ -809,16 +812,18 @@ public class EmployeeController {
 				map.add("EmpId", Integer.parseInt(empId));
 				userRes = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
 						User.class);
-				model.addObject("locationIds", userRes.getLocId().split(","));
-				model.addObject("hodDeptIds", emp.getExVar1().split(","));
-				model.addObject("emp", emp);
-				model.addObject("empPersInfo", empPersInfo); // model.addObject("empPersInfo", empIdInfo);
-				model.addObject("empNom", empNom); // model.addObject("empNom", empIdNom);
-				model.addObject("empBank", empBank);
+				
+				
+				
+			
+			
 
+			
+				
 				model.addObject("empAllowanceId", empSalInfo);
 				model.addObject("empAllowncList", empAllowncList);
 				model.addObject("docList", docList);
+				model.addObject("locationIds", userRes.getLocId().split(","));
 
 				model.addObject("userRes", userRes);
 			}

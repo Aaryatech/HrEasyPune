@@ -145,10 +145,11 @@
 												target="_blank" id="genTemplate1" title=".csv Format"><i
 													class="icon-file-download"></i> Download Template</a></span>
 													
-													
-													
+													</div>
+													<div class="rows">
+													<%-- 
 													<form
-													action="${pageContext.request.contextPath}/empDetailUploadCSV"
+													action="${pageContext.request.contextPath}/empSalaryDetailUpload"
 													method="POST" enctype="multipart/form-data" method="post"
 													id="submitInsertLocaion"
 													class="form-inline1 justify-content-center">
@@ -181,7 +182,7 @@
 													</div>
 
 
-												</form>
+												</form> --%>
 										</div>
 
 									</div>

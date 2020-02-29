@@ -8,7 +8,9 @@
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
 <style type="text/css">
-.select2-selection--multiple .select2-selection__rendered{border-bottom:1px solid #ddd;}
+.select2-selection--multiple .select2-selection__rendered {
+	border-bottom: 1px solid #ddd;
+}
 </style>
 
 <body>
@@ -1513,8 +1515,8 @@
 													for="basic">Basic Rs. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control numbersOnly"  
-														placeholder="Basic Rs." name="basic" id="basic"  
+													<input type="text" class="form-control numbersOnly"
+														placeholder="Basic Rs." name="basic" id="basic"
 														onchange="trim(this)" value="${empAllowanceId.basic}">
 													<!-- <span class="hidedefault   validation-invalid-label"
 														style="display: none;" id="error_salBasis">This
@@ -1564,7 +1566,7 @@
 																	value="${allowanceValue}"
 																	id="allowncesVal${allowanceList.allowanceId}"
 																	name="allowncesVal${allowanceList.allowanceId}"
-																	autocomplete="off" onchange="trim(this)"> <input
+																	autocomplete="off" onchange1="calAllValues()"> <input
 																	type="hidden"
 																	id="empSalAllownaceId${allowanceList.allowanceId}"
 																	name="empSalAllownaceId${allowanceList.allowanceId}"
@@ -1584,6 +1586,12 @@
 													</div>
 
 												</c:forEach>
+
+												<span class="hidedefault  validation-invalid-label"
+													style="display: none;" id="calc_err">Enter
+													Basic,Allowances and Gross Properly.</span>
+
+
 											</div>
 
 											<div class="form-group row">
@@ -2262,36 +2270,51 @@
 	</script>
 
 	<script type="text/javascript">
-		function calAllValues(grossSal) {
-	 
-		 
-			$.getJSON('${getBasicSalCalc}',
+		function calAllValues() {
 
-			{
+			var grossSal = 0;
 
-				grossSal : grossSal,
-				ajax : 'true'
+			$
+					.getJSON(
+							'${getBasicSalCalc}',
 
-			}, function(data) {
+							{
 
-				var x = 0.0;
-				$.each(data,
-						function(key, dt) {
-					
- 
-							document.getElementById("allowncesVal"
-									+ dt.allowanceId).value = dt.exVar1;
+								grossSal : grossSal,
+								ajax : 'true'
 
-							x = parseFloat(x) + parseFloat(dt.exVar1);
+							},
+							function(data) {
+
+								var x = 0.0;
+								$.each(data, function(key, dt) {
+
+									var allVal = document
+											.getElementById("allowncesVal"
+													+ dt.allowanceId).value;
+
+									x = parseDouble(x) + parseDouble(allVal);
+
+								})
+
+								var tot = (parseDouble(document
+										.getElementById("basic").value) + (parseDouble(x)))
+										.toFixed(2);
 								 
-						})
-						
-						
-						document.getElementById("basic").value = (parseFloat(grossSal)
-						- parseFloat(x)).toFixed(2);
 
-			});
-		 
+								var gross = parseDouble(
+										document.getElementById("grossSal").value)
+										.toFixed(2);
+							 
+
+								if (tot != gross) {
+
+									$("#calc_err").show()
+								} else {
+									$("#calc_err").hide()
+								}
+
+							});
 
 		}
 	</script>
@@ -2735,7 +2758,7 @@
 												var isError = false;
 												var errMsg = "";
 
-												/* if (!$("#basic").val()
+												if (!$("#basic").val()
 														|| parseFloat($(
 																"#basic").val()) <= 0) {
 
@@ -2746,11 +2769,11 @@
 												} else {
 													$("#error_salBasis").hide()
 												}
-												 */
-												
+
 												if (!$("#grossSal").val()
 														|| parseFloat($(
-																"#grossSal").val()) <= 0) {
+																"#grossSal")
+																.val()) <= 0) {
 
 													isError = true;
 
@@ -2759,9 +2782,14 @@
 												} else {
 													$("#error_grossSal").hide()
 												}
-												
-												
-												
+
+												/* var isVisible = $('#calc_err')
+														.is(':visible');
+
+												if (isVisible == true) {
+
+													isError = true;
+												} */
 
 												var x = document
 														.getElementById("pfApplicable").value;
