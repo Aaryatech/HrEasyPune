@@ -19,6 +19,11 @@ public class SkillRates {
 	private String exVar2;
 
 	private boolean error;
+	
+	
+	private int makerUserId;
+
+	private String makerEnterDatetime;
 
 	public int getSkillId() {
 		return skillId;
@@ -100,11 +105,29 @@ public class SkillRates {
 		this.error = error;
 	}
 
+	public int getMakerUserId() {
+		return makerUserId;
+	}
+
+	public void setMakerUserId(int makerUserId) {
+		this.makerUserId = makerUserId;
+	}
+
+	public String getMakerEnterDatetime() {
+		return makerEnterDatetime;
+	}
+
+	public void setMakerEnterDatetime(String makerEnterDatetime) {
+		this.makerEnterDatetime = makerEnterDatetime;
+	}
+
 	@Override
 	public String toString() {
 		return "SkillRates [skillId=" + skillId + ", name=" + name + ", rate=" + rate + ", skillDate=" + skillDate
 				+ ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1
-				+ ", exVar2=" + exVar2 + ", error=" + error + "]";
+				+ ", exVar2=" + exVar2 + ", error=" + error + ", makerUserId=" + makerUserId + ", makerEnterDatetime="
+				+ makerEnterDatetime + "]";
 	}
+ 
 
 }

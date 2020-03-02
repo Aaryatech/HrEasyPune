@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Bonus List</h5></td>
+								<td width="60%"><h5 class="card-title">Skill Rate List</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
-										<a href="${pageContext.request.contextPath}/showAddBonus"
+										<a href="${pageContext.request.contextPath}/skillAdd"
 											class="breadcrumb-elements-item">
 											<button type="button" class="btn btn-primary">Add
-												Bonus</button>
+												Skill Rate</button>
 										</a>
 									</c:if></td>
 							</tr>
@@ -98,60 +98,36 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Title</th>
-									<th>From Date</th>
-									<th>To Date</th>
-									<th>Bonus Percentage</th>
-									<th>Exgratia Percentage</th>
-									<th>Remarks</th>
+									<th>Skill Name</th>
+									<th>Rate</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 
 
-								<c:forEach items="${bonusList}" var="bonusList"
+								<c:forEach items="${skillList}" var="skillList"
 									varStatus="count">
 									<tr>
 										<td>${count.index+1}</td>
-										<td>${bonusList.fyTitle}</td>
-										<td>${bonusList.fyFromdt}</td>
-										<td>${bonusList.fyTodt}</td>
-										<td>${bonusList.bonusPercentage}</td>
-										<td>${bonusList.exgratiaPercentage}</td>
-										<td>${bonusList.remark}</td>
+										<td>${skillList.name}</td>
+										<td>${skillList.rate}</td>
+
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
-												<c:if test="${bonusList.exInt2 == 0}">
-													<a
-														href="${pageContext.request.contextPath}/editBonus?bonusId=${bonusList.exVar1}"
-														class="list-icons-item text-primary-600"
-														data-popup="tooltip" title="" data-original-title="Edit"><i
-														class="icon-pencil7"></i></a>
-												</c:if>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												<c:if test="${bonusList.exInt2 == 0}">
-													<a href="javascript:void(0)"
-														class="list-icons-item text-danger-600 bootbox_custom"
-														data-uuid="${bonusList.exVar1}" data-popup="tooltip"
-														title="" data-original-title="Delete"><i
-														class="icon-trash"></i></a>
-												</c:if>
-											</c:if> <c:if test="${bonusList.exVar2 ne '1'}">
-
 												<a
-													href="${pageContext.request.contextPath}/showEmpListToAssignBonus?bonusId=${bonusList.exVar1}"
+													href="${pageContext.request.contextPath}/editSkillRate?skillId=${skillList.exVar1}"
 													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title="Assign Bonus"
-													data-original-title="Edit"><i class="icon-gift "></i></a>
-											</c:if>
-											<c:if test="${bonusList.bonusAppBelowAmount == 1}">
+													data-popup="tooltip" title="" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
+											</c:if> <c:if test="${deleteAccess == 0}">
 
-												<a
-													href="${pageContext.request.contextPath}/showEmpListToAssignExgratia?bonusId=${bonusList.exVar1}"
-													class="list-icons-item text-warning" data-popup="tooltip"
-													title="Assign Exgratia" data-original-title="Edit"><i
-													class="icon-gift "></i></a>
+
+												<a href="javascript:void(0)"
+													class="list-icons-item text-danger-600 bootbox_custom"
+													data-uuid="${skillList.exVar1}" data-popup="tooltip"
+													title="" data-original-title="Delete"><i
+													class="icon-trash"></i></a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -200,7 +176,7 @@
 										},
 										callback : function(result) {
 											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteBonus?bonusId="
+												location.href = "${pageContext.request.contextPath}/deleteSkillRate?skillId="
 														+ uuid;
 
 											}

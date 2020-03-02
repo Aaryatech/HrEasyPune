@@ -99,6 +99,67 @@ public class ExcelImportController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/showEmpSalUpload", method = RequestMethod.GET)
+	public String showEmpSalUpload(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = null;
+
+		/*
+		 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
+		 * session.getAttribute("moduleJsonList"); Info view =
+		 * AcessController.checkAccess("showEmpSalUpload", "showEmpSalUpload", 1, 0, 0,
+		 * 0, newModuleList); if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+		try {
+
+			mav = "fileUpload/empSalFileUpload";
+
+			model.addAttribute("templatePath", Constants.templateShowUrl);
+			model.addAttribute("fileName", "temp.xls");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+	}
+
+	@RequestMapping(value = "/showEmpAdvUpload", method = RequestMethod.GET)
+	public String showEmpAdvUpload(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = null;
+
+		/*
+		 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
+		 * session.getAttribute("moduleJsonList"); Info view =
+		 * AcessController.checkAccess("showEmpAdvUpload", "showEmpAdvUpload", 1, 0, 0,
+		 * 0, newModuleList); if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+
+		try {
+
+			mav = "fileUpload/empAdvFileUpload";
+
+			model.addAttribute("templatePath", Constants.templateShowUrl);
+			model.addAttribute("fileName", "temp.xls");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			// }
+		}
+		return mav;
+	}
+
 	@RequestMapping(value = "/empDetailUploadCSV", method = RequestMethod.POST)
 	public String empDetailUploadCSV(@RequestParam("fileNew") List<MultipartFile> fileNew, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -178,6 +239,26 @@ public class ExcelImportController {
 			 * 
 			 * }
 			 */
+			
+			
+	  map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+					Location[].class);
+
+			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+			
+ 
+			
+ 			// System.err.println("emp id are " + locId2);
+			StringBuilder sbEmp = new StringBuilder();
+			for (int j = 0; j < locationList.size(); j++) {
+				sbEmp = sbEmp.append(locationList.get(j).getLocId() + ",");
+
+			}
+			String items1 = sbEmp.toString();
+			items1 = items1.substring(0, items1.length() - 1);
+			 System.err.println("items1"+items1);
 
 			Row row;
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -296,7 +377,7 @@ public class ExcelImportController {
 					uinfo.setEmpTypeId(empSaveResp.getEmpType());
 					uinfo.setUserName(empSaveResp.getEmpCode());
 					uinfo.setUserPwd(hashtext);
-					uinfo.setLocId("0");
+					uinfo.setLocId(items1);
 					uinfo.setExInt1(1);
 					uinfo.setExInt2(1);
 					uinfo.setExInt3(1);
@@ -814,8 +895,6 @@ public class ExcelImportController {
 					map.add("empCode", empCode);
 					EmployeeMaster res = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getEmpInfoByEmpCode", map, EmployeeMaster.class);
-
-				 
 
 					int n = 0;
 					try {

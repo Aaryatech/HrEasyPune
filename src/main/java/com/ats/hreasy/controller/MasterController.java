@@ -32,6 +32,7 @@ import com.ats.hreasy.model.LeaveType;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.SelfGroup;
+import com.ats.hreasy.model.SkillRates;
 import com.ats.hreasy.model.WeekoffCategory;
 import com.ats.hreasy.model.Bonus.BonusMaster;
 
@@ -743,7 +744,8 @@ public class MasterController {
 		try {
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("holidayCategoryAdd", "showHolidayCatList", 0, 1, 0, 0, newModuleList);
+			Info view = AcessController.checkAccess("holidayCategoryAdd", "showHolidayCatList", 0, 1, 0, 0,
+					newModuleList);
 
 			if (view.isError() == true) {
 
@@ -768,7 +770,7 @@ public class MasterController {
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 		String a = new String();
-	 
+
 		a = "redirect:/showHolidayCatList";
 		try {
 
@@ -831,7 +833,7 @@ public class MasterController {
 			e.printStackTrace();
 			session.setAttribute("errorMsg", "Failed to Insert Record");
 		}
-	 
+
 		return a;
 	}
 
@@ -1250,6 +1252,255 @@ public class MasterController {
 
 		return mav;
 
+	}
+
+	// Skill Master
+
+	@RequestMapping(value = "/skillAdd", method = RequestMethod.GET)
+	public String skillAdd(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("skillAdd", "showSkillList", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				mav = "accessDenied";
+
+			} else {
+
+				mav = "master/skillAdd";
+				SkillRates editSkill = new SkillRates();
+				model.addAttribute("title", "Add Skill Rate");
+
+				model.addAttribute("editSkill", editSkill);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/submitInsertSkill", method = RequestMethod.POST)
+	public String submitInsertSkill(HttpServletRequest request, HttpServletResponse response) {
+		String a = null;
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("skillAdd", "showSkillList", 0, 1, 0, 0, newModuleList);
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showSkillList";
+			try {
+
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+				int skillId = 0;
+				try {
+					skillId = Integer.parseInt(request.getParameter("skillId"));
+				} catch (Exception e) {
+					skillId = 0;
+				}
+
+				String skillName = request.getParameter("skillName");
+				String skillRate = request.getParameter("skillRate");
+
+				Boolean ret = false;
+
+				if (FormValidation.Validaton(skillName, "") == true) {
+
+					ret = true;
+					System.out.println("skillName" + ret);
+				}
+				if (FormValidation.Validaton(skillRate, "") == true) {
+
+					ret = true;
+					System.out.println("skillRate" + ret);
+				}
+
+				if (ret == false) {
+
+					SkillRates skill = new SkillRates();
+
+					skill.setExInt1(0);
+					skill.setExInt2(0);
+					skill.setExVar1("NA");
+					skill.setExVar2("NA");
+					skill.setName(skillName);
+					skill.setRate(skillRate);
+					skill.setSkillId(skillId);
+					skill.setSkillDate(sf1.format(date));
+					skill.setDelStatus(1);
+					skill.setMakerUserId(userObj.getUserId());
+					skill.setMakerEnterDatetime(sf.format(date));
+
+					SkillRates res = Constants.getRestTemplate().postForObject(Constants.url + "/saveSkillRate", skill,
+							SkillRates.class);
+
+					if (res != null) {
+						session.setAttribute("successMsg", "Skill Rate Inserted Successfully");
+					} else {
+						session.setAttribute("errorMsg", "Failed to Insert Record");
+					}
+
+				} else {
+					session.setAttribute("errorMsg", "Failed to Insert Record");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Insert Record");
+			}
+		}
+
+		return a;
+
+	}
+
+	@RequestMapping(value = "/showSkillList", method = RequestMethod.GET)
+	public String showSkillList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+
+		String mav = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("showSkillList", "showSkillList", 1, 0, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				mav = "accessDenied";
+
+			} else {
+
+				mav = "master/skillList";
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				SkillRates[] skill = Constants.getRestTemplate().getForObject(Constants.url + "/getSkillRateList",
+						SkillRates[].class);
+
+				List<SkillRates> skillList = new ArrayList<SkillRates>(Arrays.asList(skill));
+
+				for (int i = 0; i < skillList.size(); i++) {
+
+					skillList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(skillList.get(i).getSkillId())));
+				}
+
+				model.addAttribute("skillList", skillList);
+
+				Info add = AcessController.checkAccess("showSkillList", "showSkillList", 0, 1, 0, 0, newModuleList);
+				Info edit = AcessController.checkAccess("showSkillList", "showSkillList", 0, 0, 1, 0, newModuleList);
+				Info delete = AcessController.checkAccess("showSkillList", "showSkillList", 0, 0, 0, 1, newModuleList);
+
+				if (add.isError() == false) {
+					System.out.println(" add   Accessable ");
+					model.addAttribute("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");
+					model.addAttribute("deleteAccess", 0);
+
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/deleteSkillRate", method = RequestMethod.GET)
+	public String deleteSkillRate(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		String a = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("deleteSkillRate", "showSkillList", 0, 0, 0, 1, newModuleList);
+			if (view.isError() == true) {
+
+				a = "redirect:/accessDenied";
+
+			}
+
+			else {
+
+				a = "redirect:/showSkillList";
+
+				String base64encodedString = request.getParameter("skillId");
+				String skillId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("skillId", skillId);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteSkillRate", map,
+						Info.class);
+
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", info.getMsg());
+				} else {
+					session.setAttribute("errorMsg", info.getMsg());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Delete");
+		}
+		return a;
+	}
+
+	@RequestMapping(value = "/editSkillRate", method = RequestMethod.GET)
+	public String editSkillRate(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editSkillRate", "showSkillList", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				mav = "accessDenied";
+
+			} else {
+
+				mav = "master/skillAdd";
+				model.addAttribute("title", "Edit Skill Rate");
+				String base64encodedString = request.getParameter("skillId");
+				String skillId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("skillId", skillId);
+				SkillRates editSkill = Constants.getRestTemplate().postForObject(Constants.url + "/getSkillById", map,
+						SkillRates.class);
+				model.addAttribute("editSkill", editSkill);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 	}
 
 }
