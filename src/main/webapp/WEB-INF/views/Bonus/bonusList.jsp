@@ -145,14 +145,14 @@
 											href="${pageContext.request.contextPath}/showEmpListToAssignBonus?bonusId=${bonusList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="Assign Bonus" data-original-title="Edit"><i
-												class="icon-pencil7"></i></a> </c:if><c:if
+												class="icon-percent"></i></a> </c:if><c:if
 												test="${bonusList.bonusAppBelowAmount == 1}">
 
 												<a
 													href="${pageContext.request.contextPath}/showEmpListToAssignExgratia?bonusId=${bonusList.exVar1}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="Assign Exgratia"
-													data-original-title="Edit"><i class="icon-pencil7"></i></a>
+													data-original-title="Edit"><i class="icon-enter"></i></a>
 											</c:if></td>
 									</tr>
 								</c:forEach>

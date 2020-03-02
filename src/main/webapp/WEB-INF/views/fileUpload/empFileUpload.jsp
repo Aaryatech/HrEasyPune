@@ -184,6 +184,48 @@
 
 											</form>
 										</div>
+										
+										
+										
+										<div class="rows">
+
+											<form
+												action="${pageContext.request.contextPath}/empAdvanceDetailUpload"
+												method="POST" enctype="multipart/form-data" method="post"
+												id="submitInsertLocaion"
+												class="form-inline1 justify-content-center">
+
+
+												<div class="form-group row ">
+													<label class="col-md-2 col-form-label" for="doc">Attach
+														Advance File:</label>
+													<div class="col-md-6">
+														<div class="fallback">
+															<input name="fileAdvance" type="file" /><span
+																class="form-text text-muted">Accepted formats:
+																xls </span> <span
+																class="hidedefault   validation-invalid-label"
+																style="display: none;" id="error_empCode">Please
+																Select File .</span>
+
+
+														</div>
+													</div>
+													<div class="col-md-4">
+														<button type="submit" id="btnUploadCSVSubmit"
+															name="btnUploadSubmit" class="btn btn-primary">
+															Uplaod File <i class="icon-paperplane ml-2"></i>
+														</button>
+													</div>
+
+
+
+												</div>
+
+
+											</form>
+										</div>
+										
 
 									</div>
 								</div>

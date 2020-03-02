@@ -60,6 +60,7 @@ import com.ats.hreasy.model.TblEmpBankInfo;
 import com.ats.hreasy.model.TblEmpInfo;
 import com.ats.hreasy.model.TblEmpNominees;
 import com.ats.hreasy.model.User;
+import com.ats.hreasy.model.Advance.Advance;
 import com.itextpdf.text.pdf.codec.Base64.InputStream;
 
 @Controller
@@ -185,14 +186,16 @@ public class ExcelImportController {
 				row = (Row) sheet.getRow(i); // sheet number
 
 				/* ********m_employees ****************************/
-				int empCode = 0;
+				String empCode = null;
+				DataFormatter formatter = new DataFormatter();
 				if (row.getCell(0) != null)
-					empCode = (int) row.getCell(0).getNumericCellValue();
+					empCode = formatter.formatCellValue(row.getCell(0));
+
 				else
 					break;
 
 				System.err.println("empCode" + empCode);
-				if (empCode != 0) {
+				if (empCode != null) {
 					System.err.println("entry " + i);
 
 					MultiValueMap<String, Object> mapEmp = new LinkedMultiValueMap<>();
@@ -350,7 +353,7 @@ public class ExcelImportController {
 						emerNam = row.getCell(36).getStringCellValue();
 					String emerCon = null;
 
-					DataFormatter formatter = new DataFormatter();
+					formatter = new DataFormatter();
 
 					if (row.getCell(37) != null)
 						emerCon = formatter.formatCellValue(row.getCell(37));
@@ -797,26 +800,32 @@ public class ExcelImportController {
 				row = (Row) sheet.getRow(i); // sheet number
 
 				/* ********m_employees ****************************/
-				int empCode = 0;
+				String empCode = null;
+				DataFormatter formatter = new DataFormatter();
 				if (row.getCell(0) != null)
-					empCode = (int) row.getCell(0).getNumericCellValue();
+					empCode = formatter.formatCellValue(row.getCell(0));
+
 				else
 					break;
 
 				System.err.println("empCode" + empCode);
-				if (empCode != 0) {
+				if (empCode != null) {
 					map = new LinkedMultiValueMap<>();
 					map.add("empCode", empCode);
 					EmployeeMaster res = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getEmpInfoByEmpCode", map, EmployeeMaster.class);
 
-					/****************************************
-					 * Employee Salary
-					 **********************************************/
+				 
 
-					/************************* Employee Salary *******************************/
+					int n = 0;
+					try {
+						n = res.getEmpId();
 
-					if (res.getEmpId() != 0) {
+					} catch (Exception e) {
+						n = 0;
+					}
+
+					if (n != 0) {
 
 						String salBasis = null;
 						if (row.getCell(4) != null)
@@ -1054,6 +1063,131 @@ public class ExcelImportController {
 					}
 				}
 			} // For Loop End
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/showEmpFileUpload";
+	}
+
+	@RequestMapping(value = "/empAdvanceDetailUpload", method = RequestMethod.POST)
+	public String empAdvanceDetailUpload(@RequestParam("fileAdvance") List<MultipartFile> fileAdvance,
+			HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+
+		try {
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+			Date date = new Date();
+			VpsImageUpload upload = new VpsImageUpload();
+			String imageName = new String();
+			imageName = dateTimeInGMT.format(date) + "_" + fileAdvance.get(0).getOriginalFilename();
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+			upload.saveUploadedFiles(fileAdvance.get(0), Constants.advSaveUrlSal, imageName);
+
+			String fileIn = Constants.advSaveUrlSal + imageName;
+
+			MultiValueMap<String, Object> map = null;
+
+			List<Allowances> allowanceList = new ArrayList<Allowances>();
+			System.err.println("-------" + imageName);
+
+			// temp.xls2020-02-27_19:30:03_abc.xls
+			FileInputStream file = new FileInputStream(new File(Constants.advSaveUrlSal + imageName));
+
+			// Create Workbook instance holding reference to .xlsx file
+			HSSFWorkbook workbook = new HSSFWorkbook(file);
+
+			HSSFSheet sheet = workbook.getSheetAt(0);
+			List<Advance> advList = new ArrayList<>();
+			Row row;
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+
+				// points to the starting of excel i.e excel first row
+				row = (Row) sheet.getRow(i); // sheet number
+
+				/* ********m_employees ****************************/
+				String empCode = null;
+
+				DataFormatter formatter = new DataFormatter();
+				if (row.getCell(0) != null)
+					empCode = formatter.formatCellValue(row.getCell(0));
+
+				else
+					break;
+
+				if (empCode != null) {
+					map = new LinkedMultiValueMap<>();
+					map.add("empCode", empCode);
+					EmployeeMaster res = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getEmpInfoByEmpCode", map, EmployeeMaster.class);
+
+					/************************* Employee Advance *******************************/
+					int n = 0;
+					try {
+						n = res.getEmpId();
+
+					} catch (Exception e) {
+						n = 0;
+					}
+
+					if (n != 0) {
+
+						long voucherNo = 0;
+
+						if (row.getCell(4) != null)
+							voucherNo = (int) row.getCell(4).getNumericCellValue();
+
+						String advDate = null;
+						if (row.getCell(5) != null)
+							advDate = row.getCell(5).getStringCellValue();
+
+						double advanceAmt = 0;
+						if (row.getCell(6) != null)
+							advanceAmt = row.getCell(6).getNumericCellValue();
+
+						// Employee Allowances
+						String dedMonth = null;
+						if (row.getCell(7) != null)
+							dedMonth = row.getCell(7).getStringCellValue();
+
+						String temp[] = dedMonth.split("-");
+						Advance adv = new Advance();
+						adv.setAdvAmount(advanceAmt);
+						adv.setAdvDate(DateConvertor.convertToYMD(advDate));
+						adv.setAdvRemainingAmount(advanceAmt);
+						adv.setAdvRemarks("");
+						adv.setCmpId(1);
+						adv.setEmpId(res.getEmpId());
+						adv.setDedMonth(Integer.parseInt(temp[0]));
+						adv.setDedYear(Integer.parseInt(temp[1]));
+						adv.setExInt1(0);
+						adv.setExInt2(0);
+						adv.setExVar1("NA");
+						adv.setExVar2("NA");
+						adv.setVoucherNo(String.valueOf(voucherNo));
+						adv.setIsDed(0);
+						adv.setIsUsed(0);
+						adv.setLoginName(String.valueOf(userObj.getEmpId()));
+						adv.setLoginTime(dateTimeInGMT.format(date));
+						adv.setSkipId(0);
+						/*
+						 * adv.setSkipLoginName("0"); adv.setSkipLoginTime("0000-00-00 00:00:00");
+						 * adv.setSkipRemarks("");
+						 */
+						adv.setDelStatus(1);
+						advList.add(adv);
+
+					}
+				}
+			} // For Loop End
+
+			Info res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveAdvanceList", advList,
+					Info.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
