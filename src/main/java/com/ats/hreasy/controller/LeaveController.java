@@ -49,6 +49,7 @@ import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AuthorityInformation;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyAttendance;
+import com.ats.hreasy.model.DailyRecordForCompOff;
 import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.EmpLeaveHistoryRep;
 import com.ats.hreasy.model.EmployeeMaster;
@@ -58,6 +59,7 @@ import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.GetLeaveStatus;
 import com.ats.hreasy.model.Info;
+import com.ats.hreasy.model.InfoForCompOffList;
 import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveCount;
 import com.ats.hreasy.model.LeaveDetail;
@@ -67,6 +69,7 @@ import com.ats.hreasy.model.LeaveSummary;
 import com.ats.hreasy.model.LeaveTrail;
 import com.ats.hreasy.model.LeaveType;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.PayableDayAndPresentDays;
 import com.ats.hreasy.model.Setting;
 import com.itextpdf.text.BaseColor;
@@ -743,8 +746,14 @@ public class LeaveController {
 			Setting isContinueLeave = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
 					Setting.class);
 			model.addObject("CONTILEAVE", isContinueLeave);
+			
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
+					MstEmpType.class);
+			model.addObject("mstEmpType", mstEmpType);
 
-			System.out.println(isContinueLeave);
+			//System.out.println(isContinueLeave);
 
 			/*
 			 * CalenderYear currYr = Constants.getRestTemplate().getForObject(Constants.url
@@ -755,6 +764,7 @@ public class LeaveController {
 			model.addObject("currYr", calculateYear);
 
 		} catch (Exception e) {
+			leaveHistoryList = new ArrayList<LeaveHistory>();
 			e.printStackTrace();
 		}
 		return model;
@@ -791,9 +801,9 @@ public class LeaveController {
 	}
 
 	@RequestMapping(value = "/checkDatesRange", method = RequestMethod.GET)
-	public @ResponseBody Info checkDatesRange(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody InfoForCompOffList checkDatesRange(HttpServletRequest request, HttpServletResponse response) {
 
-		Info leaveResponse = new Info();
+		InfoForCompOffList leaveResponse = new InfoForCompOffList();
 
 		try {
 
@@ -821,13 +831,14 @@ public class LeaveController {
 			map.add("noOfDays", noOfDays);
 			System.out.println(map);
 			leaveResponse = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/checkDateForRepetedLeaveValidation", map, Info.class);
+					.postForObject(Constants.url + "/checkDateForRepetedLeaveValidation", map, InfoForCompOffList.class);
 
-			System.out.println(leaveResponse);
+			//System.out.println(leaveResponse);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			List<DailyRecordForCompOff> dailyrecordlistforcompoff = new ArrayList<>();
+			leaveResponse.setDailyrecordlistforcompoff(dailyrecordlistforcompoff);
 		}
 
 		return leaveResponse;

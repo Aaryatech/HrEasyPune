@@ -163,7 +163,37 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${leaveHistoryList}" var="leaveHistoryList">
-												<tr>
+
+
+												<c:choose>
+													<c:when test="${leaveHistoryList.lvTypeId==1}">
+														<c:if test="${mstEmpType.whWork eq 'Compoff'}">
+															<tr>
+																<td>${leaveHistoryList.lvTitle}</td>
+																<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
+																<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
+																<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
+																<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
+																<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+
+															</tr>
+														</c:if>
+
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td>${leaveHistoryList.lvTitle}</td>
+															<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
+															<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
+															<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
+															<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
+															<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+
+														</tr>
+													</c:otherwise>
+
+												</c:choose>
+												<%-- <tr>
 													<td>${leaveHistoryList.lvTitle}</td>
 													<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
 													<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
@@ -171,7 +201,7 @@
 													<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
 													<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
 
-												</tr>
+												</tr> --%>
 											</c:forEach>
 
 
@@ -188,8 +218,10 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="leaveTypeId">Select
-											Leave Type <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="leaveTypeId">Select Leave Type <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-4">
 											<select name="leaveTypeId"
@@ -200,18 +232,23 @@
 												<option></option>
 												<c:forEach items="${leaveHistoryList}"
 													var="leaveHistoryList">
+
 													<c:choose>
-														<c:when
-															test="${leaveHistoryList.lvTypeId == editLeave.lvTypeId}">
-															<option value="${leaveHistoryList.lvTypeId}"
-																selected="selected"
-																data-leavestrname="${leaveHistoryList.lvTitle}">${leaveHistoryList.lvTitle}</option>
+														<c:when test="${leaveHistoryList.lvTypeId==1}">
+															<c:if test="${mstEmpType.whWork eq 'Compoff'}">
+																<option value="${leaveHistoryList.lvTypeId}"
+																	data-leavestrname="${leaveHistoryList.lvTitle}">${leaveHistoryList.lvTitle}</option>
+															</c:if>
 														</c:when>
 														<c:otherwise>
 															<option value="${leaveHistoryList.lvTypeId}"
 																data-leavestrname="${leaveHistoryList.lvTitle}">${leaveHistoryList.lvTitle}</option>
 														</c:otherwise>
 													</c:choose>
+													<%-- <%-- <option value="${leaveHistoryList.lvTypeId}"
+														data-leavestrname="${leaveHistoryList.lvTitle}">${leaveHistoryList.lvTitle}</option> --%> --%>
+
+
 												</c:forEach>
 											</select> <span class="validation-invalid-label"
 												id="error_leaveTypeId" style="display: none;">This
@@ -237,8 +274,9 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2">Date Range<span
-											style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2">Date
+											Range<span style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control daterange-basic_new "
@@ -247,7 +285,10 @@
 											<span class="validation-invalid-label" id="error_Range"
 												style="display: none;">This field is required.</span> <span
 												class="validation-invalid-label" id="error_insuf"
-												style="display: none;">Insufficient Leaves.</span>
+												style="display: none;">Insufficient Leaves.</span> <span
+												id="error_compoffinformation"
+												style="display: none; color: red;">Insufficient
+												Leaves.</span>
 
 										</div>
 									</div>
@@ -256,8 +297,10 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="noOfDays">
-											No. of Days<span style="color: red">* </span> :
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="noOfDays"> No. of Days<span style="color: red">*
+										</span> :
 										</label>
 										<div class="col-lg-4">
 											<input type="text" class="form-control numbersOnly"
@@ -268,8 +311,10 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="noOfDaysExclude">
-											Excluding Weekly Off <span style="color: red">* </span>
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="noOfDaysExclude"> Excluding Weekly Off <span
+											style="color: red">* </span>
 										</label>
 										<div class="col-lg-4">
 											<input type="text" class="form-control numbersOnly"
@@ -283,8 +328,9 @@
 
 									<div id="fileDive" style="display: none;">
 										<div class="form-group row">
-											<label class="col-form-label text-info font-weight-bold col-lg-2" for="documentFile">
-												Fitness Certificate </label>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="documentFile"> Fitness Certificate </label>
 											<div class="col-lg-5">
 
 												<input type="file" class="form-control" id="documentFile"
@@ -299,8 +345,10 @@
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="lvngReson">Remark<span
-											style="color: red">* </span> :
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="lvngReson">Remark<span style="color: red">*
+										</span> :
 										</label>
 										<div class="col-lg-10">
 											<textarea rows="3" cols="3" class="form-control"
@@ -326,7 +374,9 @@
 										type="hidden" class="form-control" id="leaveCanApply"
 										value="0" name="leaveCanApply"> <input type="hidden"
 										class="form-control numbersOnly" id="fileRequired"
-										name="fileRequired" value="0">
+										name="fileRequired" value="0"> <input type="hidden"
+										class="form-control" id="compoffleavecount" value="0"
+										name="compoffleavecount">
 									<div class="col-md-12" style="text-align: center;">
 
 										<c:choose>
@@ -418,6 +468,8 @@
 			var inputValue = document.getElementById("leaveTypeId").value;
 			var noOfDays = document.getElementById("noOfDays").value;
 			document.getElementById("submtbtn").disabled = true;
+			$("#error_compoffinformation").hide();
+
 			$
 					.getJSON(
 							'${checkDatesRange}',
@@ -440,8 +492,17 @@
 									document.getElementById("leaveCanApply").value = 0;
 									$("#error_leaveRepeatValidation").hide();
 								}
+
+								document.getElementById("tempNoDays").value = parseFloat(data.dailyrecordlistforcompoff.length);
 								document
 										.getElementById("error_leaveRepeatValidation").innerHTML = data.msg;
+								if (inputValue == 1) {
+									document
+											.getElementById("error_compoffinformation").innerHTML = "Your compoff pending "
+											+ data.dailyrecordlistforcompoff.length;
+									$("#error_compoffinformation").show();
+								}
+
 								document.getElementById("submtbtn").disabled = false;
 							});
 		}
@@ -1207,7 +1268,7 @@
 
 												if ($("#leaveLimit").val() == 1
 														&& $("#leaveTypeId")
-																.val() > 2 ) {
+																.val() != 2) {
 													//alert("Hii..");
 													if (checkDays(parseFloat($(
 															"#noOfDays").val())) == true) {
@@ -1222,7 +1283,9 @@
 																.hide()
 													}
 												} else {
+
 													$("#error_insuf").hide()
+
 												}
 
 												if (!$("#leaveRemark").val()) {
