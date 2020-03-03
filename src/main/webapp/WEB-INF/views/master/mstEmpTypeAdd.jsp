@@ -163,16 +163,16 @@
 										</div>
 
 									</div>
- 
+
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="otApplicable"> Performance Incentive Applicable (in Days)<span
+											for="otApplicable"> Production Incentive <span
 											class="text-danger"> *</span>:
 										</label>
 										<div class="col-lg-4">
 											<select name="otApplicable" data-placeholder="Please Select"
-												id="otApplicable" onchange="setDate()"
+												id="otApplicable" onchange1="setDate()"
 												class="form-control form-control-select2 select2-hidden-accessible"
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
@@ -191,8 +191,8 @@
 
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-2"
-												for="otType"> Performance Incentive Type<span class="text-danger">
-													* </span>:
+												for="otType"> Performance Incentive Type<span
+												class="text-danger"> * </span>:
 											</label>
 											<div class="col-lg-4">
 												<select name="otType" data-placeholder="Please Select"
@@ -213,31 +213,31 @@
 
 
 									<div class="form-group row">
-									
-										<label
-												class="col-form-label text-info font-weight-bold col-lg-2"
-												for="prodApplicable">Production Incentive Applicable(in Hrs)<span
-												class="text-danger"> *</span>:
-											</label>
-											<div class="col-lg-4">
-												<select name="prodApplicable"
-													data-placeholder="Please Select" id="prodApplicable"
-													onchange="setDate()"
-													class="form-control form-control-select2 select2-hidden-accessible"
-													tabindex="-1" aria-hidden="true">
-													<option value="">Please Select</option>
-													<option value="1">Yes</option>
-													<option value="0">No</option>
+
+										<!-- <label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="prodApplicable">Production Incentive
+											Applicable(in Hrs)<span class="text-danger"> *</span>:
+										</label>
+										<div class="col-lg-4">
+											<select name="prodApplicable"
+												data-placeholder="Please Select" id="prodApplicable"
+												onchange="setDate()"
+												class="form-control form-control-select2 select2-hidden-accessible"
+												tabindex="-1" aria-hidden="true">
+												<option value="">Please Select</option>
+												<option value="1">Yes</option>
+												<option value="0">No</option>
 
 
 
-												</select> <span class="validation-invalid-label"
-													id="error_prodApplicable" style="display: none;">This
-													field is required.</span>
-											</div>
+											</select> <span class="validation-invalid-label"
+												id="error_prodApplicable" style="display: none;">This
+												field is required.</span>
+										</div> -->
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="weekOffWork"> Weekly off Holiday Work <span
+											for="weekOffWork"> Weekly off/Holiday Work <span
 											class="text-danger"> * </span>:
 										</label>
 										<div class="col-lg-4">
@@ -247,18 +247,18 @@
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
 												<option value="Compoff">Compoff</option>
-												<option value="OT">OT</option>
+												<option value="OT">Performance Incentive</option>
 												<option value="NA">NA</option>
 
 											</select> <span class="validation-invalid-label"
 												id="error_weekOffWork" style="display: none;">This
 												field is required.</span>
 										</div>
-									 
-										
-										</div>
 
- 									<input type="hidden" id="minHr" name="minHr" value="0">
+
+									</div>
+
+									<input type="hidden" id="minHr" name="minHr" value="0">
 
 
 									<div class="form-group row">

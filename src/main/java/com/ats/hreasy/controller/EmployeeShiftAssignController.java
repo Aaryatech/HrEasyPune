@@ -313,7 +313,7 @@ public class EmployeeShiftAssignController {
 				String halfDayDed = request.getParameter("halfDayDed");
 				String minWorkRule = request.getParameter("minWorkRule");
 				String woRemarks = request.getParameter("woRemarks");
-				String prodApplicable = request.getParameter("prodApplicable");
+				//String prodApplicable = request.getParameter("prodApplicable");
 
 				Boolean ret = false;
 
@@ -358,11 +358,7 @@ public class EmployeeShiftAssignController {
 				 * 
 				 * ret = true; System.out.println("woRemarks" + ret); }
 				 */
-				if (FormValidation.Validaton(prodApplicable, "") == true) {
-
-					ret = true;
-					System.out.println("prodApplicable" + ret);
-				}
+				 
 				// System.err.println("minWorkHr"+minWorkHr);
 
 				if (ret == false) {
@@ -391,7 +387,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setMinworkApplicable(minWorkRule);
 					mstEmpType.setOtTime("0");
 					mstEmpType.setMaxLateTimeAllowed(0);
-					mstEmpType.setProdIncentiveApp(prodApplicable);
+					mstEmpType.setProdIncentiveApp("0");
 					mstEmpType.setExInt1(0);
 					mstEmpType.setExInt2(0);
 					mstEmpType.setExVar1("NA");
@@ -609,7 +605,7 @@ public class EmployeeShiftAssignController {
 				String minWorkRule = request.getParameter("minWorkRule");
 				String woRemarks = request.getParameter("woRemarks");
 				String empTypeId = request.getParameter("empTypeId");
-				String prodApplicable = request.getParameter("prodApplicable");
+				//String prodApplicable = request.getParameter("prodApplicable");
 
 				if (otApplicable.equals("Yes")) {
 					otType = request.getParameter("otType");
@@ -662,11 +658,11 @@ public class EmployeeShiftAssignController {
 				 * 
 				 * ret = true; System.out.println("woRemarks" + ret); }
 				 */
-				if (FormValidation.Validaton(prodApplicable, "") == true) {
+				/*if (FormValidation.Validaton(prodApplicable, "") == true) {
 
 					ret = true;
 					System.out.println("prodApplicable" + ret);
-				}
+				}*/
 				if (ret == false) {
 					// String mnghr1 = HoursConversion.convertHoursToMin(minWorkHr);
 					MstEmpType mstEmpType = new MstEmpType();
@@ -693,7 +689,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setMinworkApplicable(minWorkRule);
 					mstEmpType.setOtTime("0");
 					mstEmpType.setMaxLateTimeAllowed(0);
-					mstEmpType.setProdIncentiveApp(prodApplicable);
+					mstEmpType.setProdIncentiveApp("0");
 					mstEmpType.setExInt1(0);
 					mstEmpType.setExInt2(0);
 					mstEmpType.setExVar1("NA");
