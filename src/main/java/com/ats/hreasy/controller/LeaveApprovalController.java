@@ -62,7 +62,7 @@ public class LeaveApprovalController {
 			lvEmp.setLeaveFromdt(DateConvertor.convertToDMY(lvEmp.getLeaveFromdt()));
 			lvEmp.setLeaveTodt(DateConvertor.convertToDMY(lvEmp.getLeaveTodt()));
 			model.addObject("lvEmp", lvEmp);
-			 
+
 			model.addObject("imageUrl", Constants.leaveDocShowUrl);
 
 		} catch (Exception e) {
@@ -149,12 +149,22 @@ public class LeaveApprovalController {
 						session.setAttribute("errorMsg", "Failed to " + msg + " Leave");
 					}
 
-					if (stat1 == 3 || stat1 == 7) {
+					map = new LinkedMultiValueMap<>();
+					map.add("leaveId", leaveId);
+					GetLeaveApplyAuthwise lvEmp = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getLeaveApplyDetailsByLeaveId", map, GetLeaveApplyAuthwise.class);
 
-						map = new LinkedMultiValueMap<>();
-						map.add("leaveId", leaveId);
-						GetLeaveApplyAuthwise lvEmp = Constants.getRestTemplate().postForObject(
-								Constants.url + "/getLeaveApplyDetailsByLeaveId", map, GetLeaveApplyAuthwise.class);
+					if (stat1 == 8 || stat1 == 9 || stat1 == 7) {
+						if (lvEmp.getLvTypeId() == 1) {
+							map = new LinkedMultiValueMap<>();
+							map.add("dailydaillyIds", lvEmp.getExVar2());
+							map.add("status", 0);
+							Info updatestatus = Constants.getRestTemplate()
+									.postForObject(Constants.url + "/updateweeklyoffotStatutoused", map, Info.class);
+						}
+					}
+
+					if (stat1 == 3 || stat1 == 7) {
 
 						UpateAttendaceCommon upateAttendaceCommon = new UpateAttendaceCommon();
 						Info updateAttendaceInfo = upateAttendaceCommon.changeInDailyDailyAfterLeaveTransaction(

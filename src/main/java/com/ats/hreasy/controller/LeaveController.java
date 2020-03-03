@@ -545,8 +545,8 @@ public class LeaveController {
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("empId", userObj.getEmpId());
 
-				GetEmployeeDetails[] employeeDepartment = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getAuthorityWiseEmpListByEmpId", map, GetEmployeeDetails[].class);
+				GetEmployeeDetails[] employeeDepartment = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAuthorityWiseEmpListByEmpId", map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> employeeDepartmentlist = new ArrayList<GetEmployeeDetails>(
 						Arrays.asList(employeeDepartment));
@@ -702,23 +702,21 @@ public class LeaveController {
 				model.addObject("lvsId", leaveHistoryList.get(0).getLvsId());
 			}
 
-			/*map = new LinkedMultiValueMap<>();
-			map.add("empId", empId);
-			map.add("fromDate", calculateYear.getCalYrFromDate());
-			map.add("toDate", calculateYear.getCalYrToDate());
-			PayableDayAndPresentDays payableDayAndPresentDays = Constants.getRestTemplate().postForObject(
-					Constants.url + "/getPayableDayandPresentDayByEmpId", map, PayableDayAndPresentDays.class);
-
-			if (payableDayAndPresentDays.isError() == false) {
-				for (int i = 0; i < leaveHistoryList.size(); i++) {
-					if (leaveHistoryList.get(i).getLvTypeId() == 1) {
-
-						leaveHistoryList.get(i)
-								.setLvsAllotedLeaves((int) (payableDayAndPresentDays.getPayableDays() / 24));
-						break;
-					}
-				}
-			}*/
+			/*
+			 * map = new LinkedMultiValueMap<>(); map.add("empId", empId);
+			 * map.add("fromDate", calculateYear.getCalYrFromDate()); map.add("toDate",
+			 * calculateYear.getCalYrToDate()); PayableDayAndPresentDays
+			 * payableDayAndPresentDays = Constants.getRestTemplate().postForObject(
+			 * Constants.url + "/getPayableDayandPresentDayByEmpId", map,
+			 * PayableDayAndPresentDays.class);
+			 * 
+			 * if (payableDayAndPresentDays.isError() == false) { for (int i = 0; i <
+			 * leaveHistoryList.size(); i++) { if (leaveHistoryList.get(i).getLvTypeId() ==
+			 * 1) {
+			 * 
+			 * leaveHistoryList.get(i) .setLvsAllotedLeaves((int)
+			 * (payableDayAndPresentDays.getPayableDays() / 24)); break; } } }
+			 */
 
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("empId", empId);
@@ -746,14 +744,14 @@ public class LeaveController {
 			Setting isContinueLeave = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
 					Setting.class);
 			model.addObject("CONTILEAVE", isContinueLeave);
-			
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 					MstEmpType.class);
 			model.addObject("mstEmpType", mstEmpType);
 
-			//System.out.println(isContinueLeave);
+			// System.out.println(isContinueLeave);
 
 			/*
 			 * CalenderYear currYr = Constants.getRestTemplate().getForObject(Constants.url
@@ -800,6 +798,8 @@ public class LeaveController {
 		return info;
 	}
 
+	List<DailyRecordForCompOff> dailyrecordlistforcompoff = new ArrayList<>();
+
 	@RequestMapping(value = "/checkDatesRange", method = RequestMethod.GET)
 	public @ResponseBody InfoForCompOffList checkDatesRange(HttpServletRequest request, HttpServletResponse response) {
 
@@ -830,14 +830,14 @@ public class LeaveController {
 			map.add("shortName", shortName);
 			map.add("noOfDays", noOfDays);
 			System.out.println(map);
-			leaveResponse = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/checkDateForRepetedLeaveValidation", map, InfoForCompOffList.class);
-
-			//System.out.println(leaveResponse);
+			leaveResponse = Constants.getRestTemplate().postForObject(
+					Constants.url + "/checkDateForRepetedLeaveValidation", map, InfoForCompOffList.class);
+			dailyrecordlistforcompoff = leaveResponse.getDailyrecordlistforcompoff();
+			// System.out.println(leaveResponse);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			List<DailyRecordForCompOff> dailyrecordlistforcompoff = new ArrayList<>();
+			dailyrecordlistforcompoff = new ArrayList<>();
 			leaveResponse.setDailyrecordlistforcompoff(dailyrecordlistforcompoff);
 		}
 
@@ -894,7 +894,7 @@ public class LeaveController {
 				if (documentFile.get(0).getOriginalFilename() != "") {
 
 					VpsImageUpload upload = new VpsImageUpload();
-					String imageName = dateTimeInGMT.format(date)+"_"+documentFile.get(0).getOriginalFilename();
+					String imageName = dateTimeInGMT.format(date) + "_" + documentFile.get(0).getOriginalFilename();
 					infoImage = upload.saveUploadedImge(documentFile.get(0), Constants.leaveDocSaveUrl, imageName,
 							Constants.values, 0, 0, 0, 0, 0);
 					infoImage.setMsg(imageName);
@@ -987,7 +987,16 @@ public class LeaveController {
 				leaveSummary.setExInt2(1);
 				leaveSummary.setExInt3(1);
 				leaveSummary.setExVar1("NA");
-				leaveSummary.setExVar2("NA");
+
+				if (leaveTypeId == 1) {
+					String dailyIds = "0";
+					for (int i = 0; i < dailyrecordlistforcompoff.size(); i++) {
+						dailyIds = dailyIds + "," + dailyrecordlistforcompoff.get(i).getId();
+					}
+					leaveSummary.setExVar2(dailyIds.substring(2,dailyIds.length()));
+				} else {
+					leaveSummary.setExVar2("0");
+				}
 				leaveSummary.setExVar3(infoImage.getMsg());
 				leaveSummary.setIsActive(1);
 				leaveSummary.setDelStatus(1);
@@ -1030,7 +1039,16 @@ public class LeaveController {
 							session.setAttribute("errorMsg", "Failed to Apply Leave");
 						}
 
+						if (leaveTypeId == 1) {
+							map = new LinkedMultiValueMap<>();
+							map.add("dailydaillyIds", leaveSummary.getExVar2());
+							map.add("status", 1);
+							Info updatestatus = Constants.getRestTemplate()
+									.postForObject(Constants.url + "/updateweeklyoffotStatutoused", map, Info.class);
+						}
+
 						if (stat == 3) {
+
 							UpateAttendaceCommon upateAttendaceCommon = new UpateAttendaceCommon();
 
 							Info updateAttendaceInfo = upateAttendaceCommon.changeInDailyDailyAfterLeaveTransaction(
