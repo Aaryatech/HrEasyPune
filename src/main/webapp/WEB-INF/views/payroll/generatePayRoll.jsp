@@ -109,7 +109,8 @@
 											<th class="text-center">Performance Bonus</th>
 											<th class="text-center">Production Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Performance Incentive</th>
-											<th class="text-center">Reward <!-- (OT AMT) --></th>
+											<th class="text-center">Reward</th>
+											<th class="text-center">Night Allowance</th>
 											<th class="text-center">Net Salary</th>
 										</tr>
 
@@ -311,6 +312,12 @@
 												<%
 													out.println(
 																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+												%>
+											</td>
+											<td class="text-right">
+												<%
+													out.println(
+																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
