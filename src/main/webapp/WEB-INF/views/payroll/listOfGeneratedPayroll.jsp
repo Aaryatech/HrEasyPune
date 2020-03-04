@@ -233,7 +233,7 @@
 											<%
 												}
 											%>
-											<th class="text-center">Absent Deduction</th>
+											<!-- <th class="text-center">Absent Deduction</th> -->
 											<th class="text-center">Gross Salary</th>
 											<th class="text-center">Adv</th>
 											<th class="text-center">Loan</th>
@@ -250,6 +250,7 @@
 											<th class="text-center">Production Incentive</th>
 											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Reward</th>
+											<th class="text-center">Night Allowance</th>
 											<th class="text-center">Net Salary</th>
 
 										</tr>
@@ -364,12 +365,12 @@
 											<%
 												}
 											%>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
@@ -455,19 +456,25 @@
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
-												%>
-											</td>
-											<td class="text-right">
-												<%
-													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
+												%>
+											</td>
+											<td class="text-right">
+												<%
+													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+												%>
+											</td>
+											<td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
@@ -558,13 +565,13 @@
 				list.push($(this).val());
 			});
 
-			if(list.length>0){
+			if (list.length > 0) {
 				window.open('pdfForReport?url=/pdf/generatedPayrollPdf/' + list
 						+ '/' + selectMonth);
-			}else{
+			} else {
 				alert("Select Minimum one employee")
 			}
-			
+
 		}
 	</script>
 

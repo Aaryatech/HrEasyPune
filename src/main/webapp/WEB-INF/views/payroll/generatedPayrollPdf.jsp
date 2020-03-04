@@ -177,8 +177,9 @@ hr {
 					style="border-left: 1px solid #313131; border-bottom: 1px solid #313131; padding: 8px; color: #000; font-size: 12px;"
 					align="center"><table width="100%">
 						<tr>
-							<td width="16.66%" style="color: #000; font-size: 12px;"
-								align="center">Payable Days: ${list.payableDays}</td>
+							<td width="16.66%" valign="top"
+								style="color: #000; font-size: 12px;" align="center">Payable
+								Days: ${list.payableDays}</td>
 
 							<td width="16.66%" valign="top"
 								style="color: #000; font-size: 12px;" align="center">Present
@@ -187,7 +188,8 @@ hr {
 							<td width="16.66%" valign="top"
 								style="color: #000; font-size: 12px;" align="center">Weekly
 								Off : ${list.weeklyOff}</td>
-							<td width="16.66%" style="color: #000; font-size: 12px;">Paid
+							<td width="16.66%" valign="top"
+								style="color: #000; font-size: 12px;" align="center">Paid
 								Leave: ${list.paidLeave}</td>
 
 							<td width="16.66%" valign="top"
@@ -195,8 +197,8 @@ hr {
 								${list.paidHoliday}</td>
 
 							<td width="16.66%" valign="top"
-								style="color: #000; font-size: 12px;" align="center">Absent:
-								${list.unpaidLeave}</td>
+								style="color: #000; font-size: 12px;" align="center">Unpaid/Absent:
+								${list.unpaidLeave}/${list.absentDays}</td>
 						</tr>
 					</table></td>
 			</tr>
@@ -267,7 +269,7 @@ hr {
 
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.productionInsentive}</td>
+								align="right">${list.otWages}</td>
 
 						</tr>
 						<tr>
@@ -277,7 +279,7 @@ hr {
 
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.otWages}</td>
+								align="right">${list.productionInsentive}</td>
 
 						</tr>
 						<tr>
@@ -288,6 +290,17 @@ hr {
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; padding-right: 5px;"
 								align="right">${list.reward}</td>
+
+						</tr>
+
+						<tr>
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+								align="left">Night Allowance</td>
+
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; padding-right: 5px;"
+								align="right">${list.nightAllow}</td>
 
 						</tr>
 
@@ -385,16 +398,7 @@ hr {
 								align="right">${list.loanDed}</td>
 
 						</tr>
-						<tr>
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">AB Deduction</td>
 
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.abDeduction}</td>
-
-						</tr>
 					</table>
 				</td>
 			</tr>

@@ -97,7 +97,8 @@ public class GetPayrollGeneratedList {
 	private float paidHoliday;
 	private float paidLeave;
 	private float unpaidLeave;
-	 
+	private float absentDays;
+	
 	List<SalAllownceCal> payrollAllownceList;
 	private String moneyInword;
 	
@@ -845,6 +846,14 @@ public class GetPayrollGeneratedList {
 		this.subCmpId = subCmpId;
 	}
 
+	public float getAbsentDays() {
+		return absentDays;
+	}
+
+	public void setAbsentDays(float absentDays) {
+		this.absentDays = absentDays;
+	}
+
 	@Override
 	public String toString() {
 		return "GetPayrollGeneratedList [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -878,8 +887,8 @@ public class GetPayrollGeneratedList {
 				+ ", reward=" + reward + ", subCmpId=" + subCmpId + ", name=" + name + ", empTypeName=" + empTypeName
 				+ ", departName=" + departName + ", designName=" + designName + ", payableDays=" + payableDays
 				+ ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff + ", paidHoliday=" + paidHoliday
-				+ ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave + ", payrollAllownceList="
-				+ payrollAllownceList + ", moneyInword=" + moneyInword + "]";
+				+ ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave + ", absentDays=" + absentDays
+				+ ", payrollAllownceList=" + payrollAllownceList + ", moneyInword=" + moneyInword + "]";
 	}
 	
 	
