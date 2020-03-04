@@ -84,16 +84,20 @@
 										class="col-form-label col-lg-1">${summaryAttendance.paidLeave}</label>
 									<label class="col-form-label col-lg-1"> Unpaid Leave :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label>
-									<label class="col-form-label col-lg-1"> Total Late Mark
-										: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totlateDays}</label>
+									<label class="col-form-label col-lg-1"> Absent Days : </label>
+									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays}</label>
 									<label class="col-form-label col-lg-1"> Payable Days :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.payableDays}</label>
-									<label class="col-form-label col-lg-1"> Total OT Hrs: </label>
-									<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
-								</div>
-								<div class="form-group row">
 									<label class="col-form-label col-lg-1"> NCP Days : </label> <label
 										class="col-form-label col-lg-1">${summaryAttendance.ncpDays}</label>
+								</div>
+								<div class="form-group row">
+
+									<label class="col-form-label col-lg-1"> Total Late Mark
+										: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totlateDays}</label>
+
+									<label class="col-form-label col-lg-1"> Total OT Hrs: </label>
+									<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
 
 								</div>
 
