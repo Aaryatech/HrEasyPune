@@ -165,6 +165,9 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		private String atsummUid;
 		private int calculationDone; 
 		private String dob; 
+		private int skillId; 
+		private double rate;
+		
 		private List<SalAllownceTemp> getAllowanceTempList;
 		public String getUuid() {
 			return uuid;
@@ -1096,6 +1099,18 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		public void setReward(double reward) {
 			this.reward = reward;
 		}
+		public int getSkillId() {
+			return skillId;
+		}
+		public void setSkillId(int skillId) {
+			this.skillId = skillId;
+		}
+		public double getRate() {
+			return rate;
+		}
+		public void setRate(double rate) {
+			this.rate = rate;
+		}
 		@Override
 		public String toString() {
 			return "EmpSalInfoDaiyInfoTempInfo [uuid=" + uuid + ", id=" + id + ", cmpId=" + cmpId + ", empId=" + empId
@@ -1155,8 +1170,8 @@ public class EmpSalInfoDaiyInfoTempInfo {
 					+ weeklyOffHolidayOff + ", weeklyOffHolidayOffPresent=" + weeklyOffHolidayOffPresent
 					+ ", weeklyOffHolidayOffPresentHalfday=" + weeklyOffHolidayOffPresentHalfday + ", hdpresentHdleave="
 					+ hdpresentHdleave + ", totEarlyGoing=" + totEarlyGoing + ", atsummUid=" + atsummUid
-					+ ", calculationDone=" + calculationDone + ", dob=" + dob + ", getAllowanceTempList="
-					+ getAllowanceTempList + "]";
+					+ ", calculationDone=" + calculationDone + ", dob=" + dob + ", skillId=" + skillId + ", rate="
+					+ rate + ", getAllowanceTempList=" + getAllowanceTempList + "]";
 		}
 		
 		

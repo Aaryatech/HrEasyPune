@@ -100,8 +100,8 @@
 									<th width="5%">Sr. No.</th>
 									<th>Name</th>
 									<th>Weekly off Holiday Work</th>
-									<th>Performance Incentive Applicable</th>
-									<th>Performance Incentive Type</th>
+									<!-- <th>Performance Incentive Applicable</th>
+									<th>Performance Incentive Type</th> -->
 									<th>Production Incentive Applicable</th>
 
 									<!-- 	<th>Late Mark</th>
@@ -123,10 +123,13 @@
 									<tr>
 										<td>${count.index+1}</td>
 										<td class="text-left">${locationList.name}</td>
-										<td class="text-left">${locationList.whWork}</td>
+										<td class="text-left"><c:choose>
+												<c:when test="${locationList.whWork eq 'OT'}">Performance Incentive</c:when>
+												<c:otherwise>${locationList.whWork}</c:otherwise>
+											</c:choose></td>
+										<%-- <td class="text-left">${locationList.otApplicable=='Yes' ? 'Yes': locationList.otApplicable=='No' ? 'No'  : ''}</td>
+										<td class="text-left">${locationList.otType=='0' ? 'No': locationList.otType=='1' ? '1 HR of Gross Salary x 1'  :locationList.otType=='1.5' ? '1 HR of Gross Salary x 1.5'  :locationList.otType=='2' ? '1 HR of Gross Salary x 2'  : ''}</td> --%>
 										<td class="text-left">${locationList.otApplicable=='Yes' ? 'Yes': locationList.otApplicable=='No' ? 'No'  : ''}</td>
-										<td class="text-left">${locationList.otType=='0' ? 'No': locationList.otType=='1' ? '1 HR of Gross Salary x 1'  :locationList.otType=='1.5' ? '1 HR of Gross Salary x 1.5'  :locationList.otType=='2' ? '1 HR of Gross Salary x 2'  : ''}</td>
-										<td class="text-left">${locationList.prodIncentiveApp=='1' ? 'Yes': locationList.prodIncentiveApp=='0' ? 'No'  : ''}</td>
 
 
 										<%-- 	<td class="text-left">${locationList.lmApplicable==1 ? 'Yes': locationList.lmApplicable==0 ? 'No'  : ''}</td>

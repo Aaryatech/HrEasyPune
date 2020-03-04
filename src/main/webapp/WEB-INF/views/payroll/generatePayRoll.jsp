@@ -12,6 +12,7 @@
 <%@ page import="com.ats.hreasy.common.ReportCostants"%>
 <%@ page import="com.ats.hreasy.model.Setting"%><%@ page
 	import="com.ats.hreasy.model.LoginResponse"%>
+<%@ page import="com.ats.hreasy.model.Allowances"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,8 +89,11 @@
 											<th class="text-center">EMP Code</th>
 											<th width="20%" class="text-center">EMP Name</th>
 											<th class="text-center">Basic</th>
-											<th class="text-center">Allowance</th>
-											<th class="text-center">Absent Deduction</th>
+											<!-- <th class="text-center">Allowance</th> -->
+											<c:forEach items="${allowanceslist}" var="allowanceslist">
+												<th class="text-center">${allowanceslist.shortName}</th>
+											</c:forEach>
+											<!-- <th class="text-center">Absent Deduction</th> -->
 											<th class="text-center">Gross Earning</th>
 											<th class="text-center">Adv</th>
 											<th class="text-center">Loan</th>
@@ -103,8 +107,8 @@
 											<th class="text-center">Gross Ded</th>
 											<th class="text-center">Claim ADD</th>
 											<th class="text-center">Performance Bonus</th>
-											<th class="text-center">Production Incentive</th>
-											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
+											<th class="text-center">Production Incentive <!-- (OT AMT) --></th>
+											<th class="text-center">Performance Incentive</th>
 											<th class="text-center">Reward <!-- (OT AMT) --></th>
 											<th class="text-center">Net Salary</th>
 										</tr>
@@ -139,7 +143,7 @@
 												session.setAttribute("amount_round", amount_round);
 												session.setAttribute("monthAndYear",
 														request.getAttribute("month") + "-" + request.getAttribute("year"));
-
+												Allowances[] allowanceslist = (Allowances[]) request.getAttribute("allowanceslist");
 												for (int i = 0; i < list.size(); i++) {
 										%><tr>
 											<td>
@@ -163,7 +167,7 @@
 																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													double totalAllow = 0;
 															for (int j = 0; j < list.get(i).getGetAllowanceTempList().size(); j++) {
@@ -171,13 +175,50 @@
 															}
 															out.println(String.format("%.2f", ReportCostants.castNumber(totalAllow, amount_round)));
 												%>
-											</td>
+											</td> --%>
+
+											<%
+												for (int k = 0; k < allowanceslist.length; k++) {
+
+															int find = 0;
+															for (int j = 0; j < list.get(i).getGetAllowanceTempList().size(); j++) {
+																if (allowanceslist[k].getAllowanceId() == list.get(i).getGetAllowanceTempList().get(j)
+																		.getAllowanceId()) {
+											%>
+
 											<td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																				ReportCostants.castNumber(
+																						list.get(i).getGetAllowanceTempList().get(j).getAllowanceValueCal(),
+																						amount_round)));
+												%>
+											</td>
+											<%
+												find = 1;
+																	break;
+																}
+															}
+
+															if (find == 0) {
+											%>
+
+											<td class="text-right">
+												<%
+													out.println(String.format("%.2f", ReportCostants.castNumber(0, amount_round)));
+												%>
+											</td>
+											<%
+												}
+														}
+											%>
+
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																	ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
@@ -256,14 +297,14 @@
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
+													out.println(
+																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
+													out.println(String.format("%.2f",
+																	ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">

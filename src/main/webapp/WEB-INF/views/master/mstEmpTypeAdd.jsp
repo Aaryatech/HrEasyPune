@@ -421,7 +421,7 @@
 					$("#error_otApplicable").hide()
 				}
 
-				if ($("#otApplicable").val() == 'Yes') {
+				/* if ($("#otApplicable").val() == 'Yes') {
 					if (!$("#otType").val()) {
 
 						isError = true;
@@ -432,7 +432,7 @@
 						$("#error_otType").hide()
 					}
 
-				}
+				} */
 
 				if (!$("#weekOffWork").val()) {
 
@@ -463,7 +463,7 @@
 					$("#error_halfDayDed").hide()
 				}
 
-				if (!$("#prodApplicable").val()) {
+				/* if (!$("#prodApplicable").val()) {
 
 					isError = true;
 
@@ -471,7 +471,7 @@
 
 				} else {
 					$("#error_prodApplicable").hide()
-				}
+				} */
 
 				if (!isError) {
 

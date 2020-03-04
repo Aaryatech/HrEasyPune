@@ -493,13 +493,13 @@
 									$("#error_leaveRepeatValidation").hide();
 								}
 
-								document.getElementById("tempNoDays").value = parseFloat(data.dailyrecordlistforcompoff.length);
 								document
 										.getElementById("error_leaveRepeatValidation").innerHTML = data.msg;
 								if (inputValue == 1) {
 									document
 											.getElementById("error_compoffinformation").innerHTML = "Your compoff pending "
 											+ data.dailyrecordlistforcompoff.length;
+									document.getElementById("tempNoDays").value = parseFloat(data.dailyrecordlistforcompoff.length);
 									$("#error_compoffinformation").show();
 								}
 
@@ -513,8 +513,8 @@
 			//alert(x2);
 			var x1 = parseFloat(document.getElementById("tempNoDays").value);
 			//var x2=	document.getElementById("noOfDaysExclude").value;
-			//alert("x1 is "+x1);
-			//alert("x2 is "+x2);
+			//alert("x1 is " + x1);
+			//alert("x2 is " + x2);
 
 			if (parseInt(x2, 10) > parseInt(x1, 10)) {
 				/* alert("Insufficient Leaves");

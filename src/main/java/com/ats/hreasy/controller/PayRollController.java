@@ -224,6 +224,11 @@ public class PayRollController {
 				request.setAttribute("empIds", empIds);
 				model.addAttribute("empIds", empIds);
 				model.addAttribute("date", date);
+
+				Allowances[] allowanceslist = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getAllAllowances", Allowances[].class);
+				request.setAttribute("allowanceslist", allowanceslist);
+				model.addAttribute("allowanceslist", allowanceslist);
 			}
 
 			/*
@@ -303,6 +308,8 @@ public class PayRollController {
 			HttpSession session = request.getSession();
 			EmpSalInfoDaiyInfoTempInfo[] getSalDynamicTempRecord = (EmpSalInfoDaiyInfoTempInfo[]) session
 					.getAttribute("payrollexelList");
+			Allowances[] allowanceslist = (Allowances[]) request.getAttribute("allowanceslist");
+			
 			int amount_round = (int) session.getAttribute("amount_round");
 			String monthAndYear = (String) session.getAttribute("monthAndYear");
 			List<EmpSalInfoDaiyInfoTempInfo> list = new ArrayList<>(Arrays.asList(getSalDynamicTempRecord));
@@ -317,7 +324,10 @@ public class PayRollController {
 			rowData.add("EMP Code");
 			rowData.add("EMP Name");
 			rowData.add("Basic");
-			rowData.add("Allowance");
+			//rowData.add("Allowance");
+			for (int i = 0; i < allowanceslist.length; i++) {
+				rowData.add(allowanceslist[i].getShortName());
+			}
 			rowData.add("Absent Deduction");
 			rowData.add("Gross Earning");
 			rowData.add("Adv");
@@ -703,18 +713,19 @@ public class PayRollController {
 			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
 			model.addObject("list", list);
 
-			/*map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
-			MstCompany companyInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getCompanyById", map,
-					MstCompany.class);
-			model.addObject("companyInfo", companyInfo);*/
-			
+			/*
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("companyId", 1);
+			 * MstCompany companyInfo =
+			 * Constants.getRestTemplate().postForObject(Constants.url + "/getCompanyById",
+			 * map, MstCompany.class); model.addObject("companyInfo", companyInfo);
+			 */
+
 			MstCompanySub[] companyList = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getAllSubCompanies", MstCompanySub[].class);
 			model.addObject("companyList", companyList);
 
 			model.addObject("logoUrl", Constants.companyLogoShowUrl);
-			
+
 			String[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August",
 					"September", "October", "November", "December" };
 			String monthName = monthNames[Integer.parseInt(monthyear[0]) - 1];

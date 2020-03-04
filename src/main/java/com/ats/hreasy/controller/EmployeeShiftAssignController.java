@@ -301,14 +301,14 @@ public class EmployeeShiftAssignController {
 
 				String lateMark = request.getParameter("lateMark");
 				String weekOffWork = request.getParameter("weekOffWork");
-				String otType = null;
+				//String otType = null;
 				String minWorkHr = request.getParameter("minHr");
 				String otApplicable = request.getParameter("otApplicable");
-				if (otApplicable.equals("Yes")) {
+				/*if (otApplicable.equals("Yes")) {
 					otType = request.getParameter("otType");
 				} else {
 					otType = "";
-				}
+				}*/
 				String typeName = request.getParameter("typeName");
 				String halfDayDed = request.getParameter("halfDayDed");
 				String minWorkRule = request.getParameter("minWorkRule");
@@ -376,7 +376,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setHalfDay(halfDayDed);
 					mstEmpType.setLmApplicable(lateMark);
 					mstEmpType.setOtApplicable(otApplicable);
-					mstEmpType.setOtType(otType);
+					mstEmpType.setOtType("");
 					mstEmpType.setDelStatus(1);
 					mstEmpType.setWhWork(weekOffWork);
 					mstEmpType.setMinWorkHr(minWorkHr);
@@ -597,7 +597,7 @@ public class EmployeeShiftAssignController {
 
 				String lateMark = request.getParameter("lateMark");
 				String weekOffWork = request.getParameter("weekOffWork");
-				String otType = null;
+				//String otType = null;
 				String minWorkHr = request.getParameter("minHr");
 				String otApplicable = request.getParameter("otApplicable");
 				String typeName = request.getParameter("typeName");
@@ -607,11 +607,11 @@ public class EmployeeShiftAssignController {
 				String empTypeId = request.getParameter("empTypeId");
 				//String prodApplicable = request.getParameter("prodApplicable");
 
-				if (otApplicable.equals("Yes")) {
+				/*if (otApplicable.equals("Yes")) {
 					otType = request.getParameter("otType");
 				} else {
 					otType = "";
-				}
+				}*/
 
 				System.err.println("empTypeId" + empTypeId);
 
@@ -677,7 +677,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setHalfDay(halfDayDed);
 					mstEmpType.setLmApplicable(lateMark);
 					mstEmpType.setOtApplicable(otApplicable);
-					mstEmpType.setOtType(otType);
+					mstEmpType.setOtType("");
 					mstEmpType.setDelStatus(1);
 					mstEmpType.setWhWork(weekOffWork);
 					mstEmpType.setEmpTypeId(Integer.parseInt(empTypeId));
