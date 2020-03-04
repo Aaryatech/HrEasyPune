@@ -22,7 +22,7 @@ import java.util.Random;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
- 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -158,31 +158,30 @@ public class HomeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		String mav = "welcome";
-
-		try {
-
-			/*
-			 * String testString = request.getParameter("pass"); MessageDigest md =
-			 * MessageDigest.getInstance("MD5"); byte[] messageDigest =
-			 * md.digest(testString.getBytes()); BigInteger number = new BigInteger(1,
-			 * messageDigest); String hashtext = number.toString(16);
-			 * 
-			 * System.out.println(hashtext);
-			 */
-			/*RandomString randomString = new RandomString();
-			String password = randomString.nextString();
-			System.out.println(password);*/
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return mav;
-	}
+	/*
+	 * @RequestMapping(value = "/dashboard", method = RequestMethod.GET) public
+	 * String dashboard(HttpServletRequest request, HttpServletResponse response,
+	 * Model model) {
+	 * 
+	 * String mav = "welcome";
+	 * 
+	 * try {
+	 * 
+	 * 
+	 * String testString = request.getParameter("pass"); MessageDigest md =
+	 * MessageDigest.getInstance("MD5"); byte[] messageDigest =
+	 * md.digest(testString.getBytes()); BigInteger number = new BigInteger(1,
+	 * messageDigest); String hashtext = number.toString(16);
+	 * 
+	 * System.out.println(hashtext);
+	 * 
+	 * RandomString randomString = new RandomString(); String password =
+	 * randomString.nextString(); System.out.println(password);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); }
+	 * 
+	 * return mav; }
+	 */
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -228,8 +227,10 @@ public class HomeController {
 		final String username = "purchase.monginis1@gmail.com";
 		final String password = "purchase1234#";
 
-		/*final String username = "akshaykasar72@gmail.com";
-		final String password = "Mh151772";*/
+		/*
+		 * final String username = "akshaykasar72@gmail.com"; final String password =
+		 * "Mh151772";
+		 */
 
 		System.out.println("username** " + username);
 		System.out.println("password** " + password);
@@ -293,34 +294,33 @@ public class HomeController {
 		 */
 		return "success";
 	}
-	
-	
+
 	@RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
 	public @ResponseBody String downloadFile(HttpServletRequest request, HttpServletResponse response) {
-		 
+
 		try {
-			/*URL url = new URL("http://97.74.228.55:8080/uploads/ITEM/15:03:14-download.jpg");
-			URLConnection connection = url.openConnection();
-			InputStream is = connection.getInputStream();*/
-			 
+			/*
+			 * URL url = new
+			 * URL("http://97.74.228.55:8080/uploads/ITEM/15:03:14-download.jpg");
+			 * URLConnection connection = url.openConnection(); InputStream is =
+			 * connection.getInputStream();
+			 */
+
 			String dataDirectory = "/home/lenovo/Downloads/";
-			/*request.getServletContext().getRealPath("/WEB-INF/downloads/pdf/");*/
-			String fileName  = "8_StandardReport.xls";
-	        Path file = Paths.get(dataDirectory, fileName);
-	        if (Files.exists(file)) 
-	        {
-	            response.setContentType("application/pdf");
-	            response.addHeader("Content-Disposition", "attachment; filename="+fileName);
-	            try
-	            {
-	                Files.copy(file, response.getOutputStream());
-	                response.getOutputStream().flush();
-	            } 
-	            catch (IOException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-		}catch(Exception e) {
+			/* request.getServletContext().getRealPath("/WEB-INF/downloads/pdf/"); */
+			String fileName = "8_StandardReport.xls";
+			Path file = Paths.get(dataDirectory, fileName);
+			if (Files.exists(file)) {
+				response.setContentType("application/pdf");
+				response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+				try {
+					Files.copy(file, response.getOutputStream());
+					response.getOutputStream().flush();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "success";
