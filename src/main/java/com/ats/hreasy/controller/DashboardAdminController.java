@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ats.hreasy.common.Constants;
-
+import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.model.CalenderYear;
+import com.ats.hreasy.model.GetLeaveApplyAuthwise;
+import com.ats.hreasy.model.LeaveApply;
+import com.ats.hreasy.model.LeaveHistory;
+import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
 import com.ats.hreasy.model.dashboard.DeptWiseWeekoffDash;
 import com.ats.hreasy.model.dashboard.GetAllPendingMasterDet;
+import com.ats.hreasy.model.dashboard.GetLeaveHistForDash;
 import com.ats.hreasy.model.dashboard.GetNewHiresDash;
 import com.ats.hreasy.model.dashboard.LeavePenDash;
 import com.ats.hreasy.model.dashboard.LoanAdvDashDet;
@@ -37,8 +46,10 @@ public class DashboardAdminController {
 
 		String mav = "welcome";
 		Date date = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 		try {
 
 			String fiterdate = sf.format(date);
@@ -54,6 +65,7 @@ public class DashboardAdminController {
 			if (fiterdate == null) {
 				fiterdate = sf.format(date);
 			}
+			model.addAttribute("fiterdate", fiterdate);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
@@ -85,6 +97,21 @@ public class DashboardAdminController {
 
 			model.addAttribute("deptwiseWkoff", deptwiseWkoff);
 
+			DeptWiseWeekoffDash[] perf = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDeptWisePerformanceBonus", map, DeptWiseWeekoffDash[].class);
+
+			List<DeptWiseWeekoffDash> perfList = new ArrayList<DeptWiseWeekoffDash>(Arrays.asList(perf));
+
+			model.addAttribute("perfList", perfList);
+
+			DeptWiseWeekoffDash[] deptWiseLvAb = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpAbsentLv", map, DeptWiseWeekoffDash[].class);
+
+			List<DeptWiseWeekoffDash> deptWiseLvAbLList = new ArrayList<DeptWiseWeekoffDash>(
+					Arrays.asList(deptWiseLvAb));
+
+			model.addAttribute("deptWiseLvAbLList", deptWiseLvAbLList);
+
 			map = new LinkedMultiValueMap<>();
 			map.add("type", 1);
 			map.add("fiterdate", fiterdate);
@@ -112,10 +139,48 @@ public class DashboardAdminController {
 			LoanAdvDashDet loanDet = Constants.getRestTemplate().postForObject(Constants.url + "/getAdvLoanDash", map,
 					LoanAdvDashDet.class);
 			model.addAttribute("loanDet", loanDet);
-			
-			
-			System.err.println("--"+masterDet.toString());
 
+			System.err.println("--" + masterDet.toString());
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+			map.add("currYrId", calculateYear.getCalYrId());
+
+			GetLeaveApplyAuthwise[] employeeDoc = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLeaveApplyListForPending", map, GetLeaveApplyAuthwise[].class);
+			List<GetLeaveApplyAuthwise> leaveList = new ArrayList<GetLeaveApplyAuthwise>(Arrays.asList(employeeDoc));
+
+			model.addAttribute("list1Count", leaveList.size());
+
+			// leave Mngt
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+			map.add("currYrId", calculateYear.getCalYrId());
+
+			LeaveHistory[] leaveHistory = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLeaveHistoryList", map, LeaveHistory[].class);
+
+			List<LeaveHistory> leaveHistoryList = new ArrayList<LeaveHistory>(Arrays.asList(leaveHistory));
+			model.addAttribute("leaveHistoryList", leaveHistoryList);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
+					MstEmpType.class);
+			model.addAttribute("mstEmpType", mstEmpType);
+ 
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+ 
+			GetLeaveHistForDash[] lvAppl = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLeaveHistForDash", map, GetLeaveHistForDash[].class);
+
+			List<GetLeaveHistForDash> lvApplList = new ArrayList<GetLeaveHistForDash>(Arrays.asList(lvAppl));
+
+			model.addAttribute("lvApplList", lvApplList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
