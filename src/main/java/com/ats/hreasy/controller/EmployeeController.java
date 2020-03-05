@@ -269,8 +269,7 @@ public class EmployeeController {
 						.getForObject(Constants.url + "/getSkillRateList"  , SkillRates[].class);
 
 				List<SkillRates> skillList1 = new ArrayList<SkillRates>(Arrays.asList(skillList));
-				System.err.println("skillList1--"+skillList1.toString());
-
+ 
 				model = new ModelAndView("master/addEmployee");
 
 				model.addObject("empTypeList", empTypeList1);

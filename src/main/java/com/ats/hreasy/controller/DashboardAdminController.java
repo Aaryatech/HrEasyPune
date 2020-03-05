@@ -55,18 +55,26 @@ public class DashboardAdminController {
 			String fiterdate = sf1.format(date);
 
 			try {
-				fiterdate = sf1.format (request.getParameter("fiterdate"));
+				fiterdate = DateConvertor.convertToYMD(request.getParameter("fiterdate"));
+				System.err.println("fiterdate--"+DateConvertor.convertToYMD(request.getParameter("fiterdate")));
+
+				model.addAttribute("fiterdate", request.getParameter("fiterdate"));
 
 			} catch (Exception e) {
 				fiterdate = sf1.format(date);
+				model.addAttribute("fiterdate", sf.format(date));
+
 
 			}
-
 			if (fiterdate == null) {
 				fiterdate = sf1.format(date);
-			}
-			model.addAttribute("fiterdate", sf.format(date));
+				model.addAttribute("fiterdate", sf.format(date));
 
+			}
+			System.err.println("fiterdate"+fiterdate);
+		
+			
+		
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
 
