@@ -115,13 +115,13 @@
 										<td>${list.fromtime}</td>
 										<td>${list.totime}</td>
 
-										<td class="text-center"><c:if test="${editAccess == 0}">
+										<td class="text-center"><%-- <c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editShift?compId=${list.id}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
+											</c:if> --%> <c:if test="${deleteAccess == 0}">
 												<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
 													data-uuid="${list.id}" data-popup="tooltip" title=""
