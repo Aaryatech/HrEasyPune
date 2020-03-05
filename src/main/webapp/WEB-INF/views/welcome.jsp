@@ -855,6 +855,200 @@
 
 							</div>
 
+
+
+							<!--  -->
+
+
+							<div class="row">
+								<div class="col-md-4">
+									<div class="card bg-primary">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">My Attendance (Current Month)</h6>
+
+										</div>
+
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Present</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${attnLastMon.presentDays}</div>
+														</a></td>
+
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>LWP Leaves</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${attnLastMon.unpaidLeave}</div>
+														</a></td>
+
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Paid Leaves</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${attnLastMon.paidLeave}</div>
+														</a></td>
+
+													</tr>
+
+
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-md-4">
+									<div class="card bg-warning">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">My Deductions</h6>
+
+										</div>
+
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
+
+
+													<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
+														varStatus="count">
+														<tr>
+
+															<td><a href="#" class="text-white">
+																	<div>${dedWiseDedList.nameSd}</div>
+															</a></td>
+
+
+															<td><a href="#" class="text-white">
+																	<div>${dedWiseDedList.empCount}</div>
+															</a></td>
+
+														</tr>
+													</c:forEach>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Total Advance</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${icent.perfIncentive}</div>
+														</a></td>
+
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Total Loan</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${icent.prodIncentive}</div>
+														</a></td>
+
+													</tr>
+
+
+
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="col-md-4">
+									<div class="card bg-warning">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">My Rewards</h6>
+
+										</div>
+
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
+
+
+													<c:forEach items="${rewardWiseDedList}"
+														var="rewardWiseDedList" varStatus="count">
+														<tr>
+
+															<td><a href="#" class="text-white">
+																	<div>${rewardWiseDedList.nameSd}</div>
+															</a></td>
+
+
+															<td><a href="#" class="text-white">
+																	<div>${rewardWiseDedList.empCount}</div>
+															</a></td>
+
+														</tr>
+													</c:forEach>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Performance Incentive(Amt/Days)</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${perfList.prodAmt}/${perfList.prodDays}</div>
+														</a></td>
+
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Production Incentive(Amt/Days)</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${prodList.prodAmt}/${prodList.prodDays}</div>
+														</a></td>
+
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
 							<!-- HR Dash  -->
 
 							<div class="row">
@@ -960,32 +1154,47 @@
 							<!--Leave Details -->
 
 							<div class="row">
-								<div class="table-responsive">
-									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="printtable1">
+								<div class="col-md-12">
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+											id="printtable22">
 
 
-										<thead>
-											<tr class="bg-blue" style="text-align: center;">
+											<thead>
+												<tr class="bg-blue">
 
-												<th>Leave Type</th>
-												<th>Opening Leave</th>
-												<th>Earned</th>
-												<th>Approved</th>
-												<th>Applied</th>
-												<th>Balanced</th>
-
-
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${leaveHistoryList}" var="leaveHistoryList">
+													<th>Leave Type</th>
+													<th>Opening Leave</th>
+													<th>Earned</th>
+													<th>Approved</th>
+													<th>Applied</th>
+													<th>Balanced</th>
 
 
-												<c:choose>
-													<c:when test="${leaveHistoryList.lvTypeId==1}">
-														<c:if test="${mstEmpType.whWork eq 'Compoff'}">
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${leaveHistoryList}"
+													var="leaveHistoryList">
+
+
+													<c:choose>
+														<c:when test="${leaveHistoryList.lvTypeId==1}">
+															<c:if test="${mstEmpType.whWork eq 'Compoff'}">
+																<tr>
+																	<td>${leaveHistoryList.lvTitle}</td>
+																	<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
+																	<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
+																	<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
+																	<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
+																	<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+
+																</tr>
+															</c:if>
+
+														</c:when>
+														<c:otherwise>
 															<tr>
 																<td>${leaveHistoryList.lvTitle}</td>
 																<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
@@ -995,141 +1204,151 @@
 																<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
 
 															</tr>
-														</c:if>
+														</c:otherwise>
 
-													</c:when>
-													<c:otherwise>
-														<tr>
-															<td>${leaveHistoryList.lvTitle}</td>
-															<td style="text-align: right;">${leaveHistoryList.balLeave}</td>
-															<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
-															<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
-															<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
-															<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+													</c:choose>
 
-														</tr>
-													</c:otherwise>
-
-												</c:choose>
-
-											</c:forEach>
+												</c:forEach>
 
 
 
 
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
+
 								</div>
-
-
 								<!--Leave History -->
 							</div>
 
 							<div class="row">
-								<div class="table-responsive">
-									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="printtable1">
+								<div class="col-md-12">
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+											id="printtable11">
 
 
-										<thead>
-											<tr class="bg-blue" style="text-align: center;">
+											<thead>
+												<tr class="bg-blue">
 
-												<th>Sr. No.</th>
-												<th>Leave Type</th>
-												<th>Dates</th>
-												<th>Days</th>
-												<th>Remark</th>
- 												<th>Status</th>
-  
+													<th>Sr. No.</th>
+													<th>Leave Type</th>
+													<th>Dates</th>
+													<th>Days</th>
+													<th>Remark</th>
+													<th>Status</th>
 
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${lvApplList}" var="lvApplList"
-												varStatus="count">
-
-
-
-												<tr>
-													<td>${count.index+1}</td>
-													<td>${lvApplList.lvTitleShort}</td>
-													<td>${lvApplList.leaveFromdt}to
-														${lvApplList.leaveTodt}</td>
-													<td style="text-align: right;">${lvApplList.leaveNumDays}</td>
-
-
-													<td>${lvApplList.leaveEmpReason}</td>
-													<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1==2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
 
 												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${lvApplList}" var="lvApplList"
+													varStatus="count">
 
 
-											</c:forEach>
+
+													<tr>
+														<td>${count.index+1}</td>
+														<td>${lvApplList.lvTitleShort}</td>
+														<td>${lvApplList.leaveFromdt}to
+															${lvApplList.leaveTodt}</td>
+														<td style="text-align: right;">${lvApplList.leaveNumDays}</td>
+
+
+														<td>${lvApplList.leaveEmpReason}</td>
+														<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1==2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
+
+													</tr>
+
+
+												</c:forEach>
 
 
 
 
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
-								
-								
-								<div class="row">
-								<div class="table-responsive">
-									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="printtable1">
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card bg-primary">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">Employee Diversity Report</h6>
+
+										</div>
+
+										<div class="card-body">
+
+											<div class="row">
+												<div class="col-md-3">Gender</div>
+												<div class="col-md-3">Age</div>
+												<div class="col-md-3">Experience</div>
+												<div class="col-md-3">Salary</div>
+											</div>
 
 
-										<thead>
-											<tr class="bg-blue" style="text-align: center;">
+											<div class="row">
+												<div class="col-md-3">
+													Male:${ageDiv.maleEmp} <br> Female:${ageDiv.femaleEmp}
+													<br> Other:${ageDiv.othEmp} <br>------<br>
+													<c:forEach items="${deptWiseEmpCntList}"
+														var="deptWiseEmpCntList" varStatus="count">
+<%-- 														<c:if test="${deptWiseEmpCntList.empCount >0}">
+ --%>													
+													 ${deptWiseEmpCntList.nameSd}:   ${deptWiseEmpCntList.empCount}<%-- </c:if> --%>
+														<br>
+													</c:forEach>
 
-												<th>Sr. No.</th>
-												<th>Gender</th>
-												<th>Age</th>
-												<th>Experience</th>
-												<th>Salary Band</th>
-    
-											</tr>
-										</thead>
-										<tbody>
-											 
-
-												<tr>
-													<td>${count.index+1}</td>
-													<td>${lvApplList.lvTitleShort}</td>
-													<td>${lvApplList.leaveFromdt}to
-														${lvApplList.leaveTodt}</td>
-													<td style="text-align: right;">${lvApplList.leaveNumDays}</td>
-
-
-													<td>${lvApplList.leaveEmpReason}</td>
-													<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1==2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
-
-												</tr>
-
-
+												</div>
+												<div class="col-md-3">
+												 
+18-20:  ${ageDiversity.ageRange1}<br>
+21-25:  ${ageDiversity.ageRange2}<br>
+26-30:  ${ageDiversity.ageRange3}<br>
+31-35:  ${ageDiversity.ageRange5}<br>
+36-40: ${ageDiversity.ageRange6}<br>
+41-45:  ${ageDiversity.ageRange7}<br>
+46-50: ${ageDiversity.ageRange8}<br>
+51-55: ${ageDiversity.ageRange9}<br>
+56-60: ${ageDiversity.ageRange10}<br>
+60-65: ${ageDiversity.ageRange11}<br>
 										 
+												</div>
+												<div class="col-md-3">												
 
+0 Year:  ${expDiversity.ageRange1}<br>
+1 Year:${expDiversity.ageRange2}<br>
+2 Year:${expDiversity.ageRange3}<br>
+5 Year:${expDiversity.ageRange4}<br>
+10 Year:${expDiversity.ageRange5}<br>
+10+ : ${expDiversity.ageRange6}<br>
+												
+											</div>
+												<div class="col-md-3">												 
+ up to 10000 :  ${salDiversity.ageRange1}<br>
+10000-20000:  ${salDiversity.ageRange2}<br>
+21000-30000:  ${salDiversity.ageRange3}<br>
 
-
-
-										</tbody>
-									</table>
+31000-40000:${salDiversity.ageRange4}<br>
+41000-50000:  ${salDiversity.ageRange5}<br>
+51000-60000: ${salDiversity.ageRange6}<br>
+61000-70000 :  ${salDiversity.ageRange7}<br>
+71000-80000: ${salDiversity.ageRange8}<br>
+81000-9000: ${salDiversity.ageRange9}<br>
+91000-100000: ${salDiversity.ageRange10}<br>
+ 											</div>
+										</div>
+									</div>
 								</div>
-
-
 							</div>
-
-
-							</div>
-
-
 
 						</div>
 
-						<div></div>
+
 						<!-- /highlighting rows and columns -->
 					</form>
 				</div>

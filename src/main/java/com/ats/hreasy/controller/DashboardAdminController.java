@@ -1,6 +1,7 @@
 package com.ats.hreasy.controller;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -20,22 +21,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
-import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
-import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
 import com.ats.hreasy.model.dashboard.DeptWiseWeekoffDash;
 import com.ats.hreasy.model.dashboard.GetAllPendingMasterDet;
 import com.ats.hreasy.model.dashboard.GetLeaveHistForDash;
 import com.ats.hreasy.model.dashboard.GetNewHiresDash;
+import com.ats.hreasy.model.dashboard.IncentivesAmtDash;
 import com.ats.hreasy.model.dashboard.LeavePenDash;
 import com.ats.hreasy.model.dashboard.LoanAdvDashDet;
 import com.ats.hreasy.model.dashboard.PayRewardDedDash;
+import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 
 @Controller
@@ -57,7 +59,6 @@ public class DashboardAdminController {
 
 			try {
 				fiterdate = DateConvertor.convertToYMD(request.getParameter("fiterdate"));
-				System.err.println("fiterdate--" + DateConvertor.convertToYMD(request.getParameter("fiterdate")));
 
 				model.addAttribute("fiterdate", request.getParameter("fiterdate"));
 
@@ -71,7 +72,8 @@ public class DashboardAdminController {
 				model.addAttribute("fiterdate", sf.format(date));
 
 			}
-			System.err.println("fiterdate" + fiterdate);
+			
+			model.addAttribute("userType", userObj.getDesignType());
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
@@ -126,9 +128,19 @@ public class DashboardAdminController {
 			List<DeptWiseWeekoffDash> deptWiseEmpCntList = new ArrayList<DeptWiseWeekoffDash>(
 					Arrays.asList(deptWiseEmpCnt));
 
+			for (int i = 0; i < deptWiseEmpCntList.size(); i++) {
+				System.err.println(i);
+				if (deptWiseEmpCntList.get(i).getEmpCount() == 0) {
+					
+					System.err.println("5555");
+					deptWiseEmpCntList.remove(i);
+				}
+
+			}
+
 			model.addAttribute("deptWiseEmpCntList", deptWiseEmpCntList);
 
-			GetNewHiresDash ageDiv = Constants.getRestTemplate().postForObject(Constants.url + "/getAgeDiversity", map,
+			GetNewHiresDash ageDiv = Constants.getRestTemplate().getForObject(Constants.url + "/getAgeDiversity",
 					GetNewHiresDash.class);
 			model.addAttribute("ageDiv", ageDiv);
 
@@ -169,8 +181,6 @@ public class DashboardAdminController {
 					LoanAdvDashDet.class);
 			model.addAttribute("loanDet", loanDet);
 
-			System.err.println("--" + masterDet.toString());
-
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 			map = new LinkedMultiValueMap<>();
@@ -210,6 +220,56 @@ public class DashboardAdminController {
 			List<GetLeaveHistForDash> lvApplList = new ArrayList<GetLeaveHistForDash>(Arrays.asList(lvAppl));
 
 			model.addAttribute("lvApplList", lvApplList);
+
+			map = new LinkedMultiValueMap<>();
+
+			map.add("fiterdate", fiterdate);
+			map.add("empId", userObj.getEmpId());
+			SummaryDailyAttendance attnLastMon = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpLastMonthAttn", map, SummaryDailyAttendance.class);
+			model.addAttribute("attnLastMon", attnLastMon);
+
+			map = new LinkedMultiValueMap<>();
+
+			map.add("empId", userObj.getEmpId());
+
+			DeptWiseWeekoffDash[] dedWiseDed = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDedTypewiseDeduction", map, DeptWiseWeekoffDash[].class);
+
+			List<DeptWiseWeekoffDash> dedWiseDedList = new ArrayList<DeptWiseWeekoffDash>(Arrays.asList(dedWiseDed));
+
+			model.addAttribute("dedWiseDedList", dedWiseDedList);
+
+			System.err.println("dedWiseDedList---" + dedWiseDedList.toString());
+
+			DeptWiseWeekoffDash[] rewardWiseDed = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getRewardWisewiseDeduction", map, DeptWiseWeekoffDash[].class);
+
+			List<DeptWiseWeekoffDash> rewardWiseDedList = new ArrayList<DeptWiseWeekoffDash>(
+					Arrays.asList(rewardWiseDed));
+
+			model.addAttribute("rewardWiseDedList", rewardWiseDedList);
+
+			System.err.println("rewardWiseDedList---" + rewardWiseDedList.toString());
+
+			map = new LinkedMultiValueMap<>();
+			map.add("fiterdate", fiterdate);
+			map.add("empId", userObj.getEmpId());
+
+			PerformanceProdDash[] perfProd = Constants.getRestTemplate().postForObject(Constants.url + "/getPerfProd",
+					map, PerformanceProdDash[].class);
+
+			List<PerformanceProdDash> perfProdList = new ArrayList<PerformanceProdDash>(Arrays.asList(perfProd));
+
+			model.addAttribute("perfList", perfProdList.get(0));
+			model.addAttribute("prodList", perfProdList.get(1));
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+			IncentivesAmtDash icent = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTotAmtsDash",
+					map, IncentivesAmtDash.class);
+			model.addAttribute("icent", icent);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
