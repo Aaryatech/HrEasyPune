@@ -221,7 +221,8 @@ public class ShiftController {
 				String othour = request.getParameter("othour");
 				int lateMin = Integer.parseInt(request.getParameter("lateMin"));
 				int groupId = Integer.parseInt(request.getParameter("groupId"));
-
+				int isNightShift = Integer.parseInt(request.getParameter("isNightShift"));
+				
 				String changeWith = request.getParameter("changeWith");
 
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -236,6 +237,8 @@ public class ShiftController {
 				shiftMaster.setSelfGroupId(groupId);
 				shiftMaster.setOtCalculatedTime(outtime + ":00");
 				shiftMaster.setCompanyId(1);
+				shiftMaster.setDepartmentId(isNightShift);
+				
 				String[] hfhour = hfdayhour.split(":");
 				String[] ot = othour.split(":");
 

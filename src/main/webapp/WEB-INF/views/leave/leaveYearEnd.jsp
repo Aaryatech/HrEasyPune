@@ -245,7 +245,6 @@
 														tabindex="-1" aria-hidden="true" required="required">
 														<option value="">Select Structure Allotment</option>
 														<c:forEach items="${lStrList}" var="lStrList">
-
 															<c:choose>
 																<c:when test="${lStrList.lvsId==structId}">
 																	<option value="${lStrList.lvsId}" selected>${lStrList.lvsName}
@@ -256,8 +255,6 @@
 																	</option>
 																</c:otherwise>
 															</c:choose>
-
-
 														</c:forEach>
 													</select>
 												</div>
