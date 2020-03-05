@@ -1073,6 +1073,54 @@
 										</tbody>
 									</table>
 								</div>
+								
+								
+								<div class="row">
+								<div class="table-responsive">
+									<table
+										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+										id="printtable1">
+
+
+										<thead>
+											<tr class="bg-blue" style="text-align: center;">
+
+												<th>Sr. No.</th>
+												<th>Gender</th>
+												<th>Age</th>
+												<th>Experience</th>
+												<th>Salary Band</th>
+    
+											</tr>
+										</thead>
+										<tbody>
+											 
+
+												<tr>
+													<td>${count.index+1}</td>
+													<td>${lvApplList.lvTitleShort}</td>
+													<td>${lvApplList.leaveFromdt}to
+														${lvApplList.leaveTodt}</td>
+													<td style="text-align: right;">${lvApplList.leaveNumDays}</td>
+
+
+													<td>${lvApplList.leaveEmpReason}</td>
+													<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1==2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
+
+												</tr>
+
+
+										 
+
+
+
+
+										</tbody>
+									</table>
+								</div>
+
+
+							</div>
 
 
 							</div>

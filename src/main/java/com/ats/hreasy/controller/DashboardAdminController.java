@@ -27,6 +27,7 @@ import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
 import com.ats.hreasy.model.dashboard.DeptWiseWeekoffDash;
 import com.ats.hreasy.model.dashboard.GetAllPendingMasterDet;
@@ -56,7 +57,7 @@ public class DashboardAdminController {
 
 			try {
 				fiterdate = DateConvertor.convertToYMD(request.getParameter("fiterdate"));
-				System.err.println("fiterdate--"+DateConvertor.convertToYMD(request.getParameter("fiterdate")));
+				System.err.println("fiterdate--" + DateConvertor.convertToYMD(request.getParameter("fiterdate")));
 
 				model.addAttribute("fiterdate", request.getParameter("fiterdate"));
 
@@ -64,17 +65,14 @@ public class DashboardAdminController {
 				fiterdate = sf1.format(date);
 				model.addAttribute("fiterdate", sf.format(date));
 
-
 			}
 			if (fiterdate == null) {
 				fiterdate = sf1.format(date);
 				model.addAttribute("fiterdate", sf.format(date));
 
 			}
-			System.err.println("fiterdate"+fiterdate);
-		
-			
-		
+			System.err.println("fiterdate" + fiterdate);
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
 
@@ -119,6 +117,29 @@ public class DashboardAdminController {
 					Arrays.asList(deptWiseLvAb));
 
 			model.addAttribute("deptWiseLvAbLList", deptWiseLvAbLList);
+
+			// Diversity rep
+
+			DeptWiseWeekoffDash[] deptWiseEmpCnt = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getDashDeptWiseEmpCount", DeptWiseWeekoffDash[].class);
+
+			List<DeptWiseWeekoffDash> deptWiseEmpCntList = new ArrayList<DeptWiseWeekoffDash>(
+					Arrays.asList(deptWiseEmpCnt));
+
+			model.addAttribute("deptWiseEmpCntList", deptWiseEmpCntList);
+
+			GetNewHiresDash ageDiv = Constants.getRestTemplate().postForObject(Constants.url + "/getAgeDiversity", map,
+					GetNewHiresDash.class);
+			model.addAttribute("ageDiv", ageDiv);
+
+			AgeDiversityDash[] diverse = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getAgeDiversityDetail", map, AgeDiversityDash[].class);
+			List<AgeDiversityDash> diverseList = new ArrayList<AgeDiversityDash>(Arrays.asList(diverse));
+
+			model.addAttribute("ageDiversity", diverseList.get(0));
+			model.addAttribute("expDiversity", diverseList.get(1));
+			model.addAttribute("salDiversity", diverseList.get(2));
+			// end Diversity rep
 
 			map = new LinkedMultiValueMap<>();
 			map.add("type", 1);
@@ -179,10 +200,10 @@ public class DashboardAdminController {
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 					MstEmpType.class);
 			model.addAttribute("mstEmpType", mstEmpType);
- 
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", userObj.getEmpId());
- 
+
 			GetLeaveHistForDash[] lvAppl = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLeaveHistForDash", map, GetLeaveHistForDash[].class);
 

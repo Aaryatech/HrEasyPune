@@ -103,7 +103,7 @@
 									<th>To Date</th>
 									<th>Bonus Percentage</th>
 									<th>Exgratia Percentage</th>
-									<th>Remarks</th>
+									<!-- <th>Remarks</th> -->
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -119,8 +119,8 @@
 										<td>${bonusList.fyTodt}</td>
 										<td>${bonusList.bonusPercentage}</td>
 										<td>${bonusList.exgratiaPercentage}</td>
-										<td>${bonusList.remark}</td>
-
+<%-- 										<td>${bonusList.remark}</td>
+ --%>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<c:if test="${bonusList.exInt2 == 0}">
 													<a

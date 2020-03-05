@@ -773,10 +773,10 @@
 														<option value="0"
 															${empPersInfo.gender=='0' ? 'selected' : ''}>Please
 															Select</option>
-														<option value="m"
-															${empPersInfo.gender=='m' ? 'selected' : ''}>Male</option>
-														<option value="f"
-															${empPersInfo.gender=='f' ? 'selected' : ''}>Female</option>
+														<option value="Male"
+															${empPersInfo.gender=='Male' ? 'selected' : ''}>Male</option>
+														<option value="Female"
+															${empPersInfo.gender=='Female' ? 'selected' : ''}>Female</option>
 													</select> <span class="hidedefault   validation-invalid-label"
 														id="error_gender" style="display: none;">This field
 														is required.</span>

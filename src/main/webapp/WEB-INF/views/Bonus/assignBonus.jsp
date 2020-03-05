@@ -218,11 +218,11 @@
 											<!-- 	<th>Total Days</th> -->
 											<th>Total Wages</th>
 											<th>Gross Bonus Amt</th>
-											<th>Ded Bonus Puja Amt</th>
+										<!-- 	<th>Ded Bonus Puja Amt</th>
 											<th>Ded Bonus Adv Amt</th>
-											<th>Ded Bonus Loss_amt</th>
-											<th>Net Bonus Amt</th>
-											<th>Paid Bonus Amt</th>
+											<th>Ded Bonus Loss_amt</th> -->
+										<!-- 	<th>Net Bonus Amt</th>
+											<th>Paid Bonus Amt</th> -->
 											<th width="10%" class="text-center">Actions</th>
 										</tr>
 									</thead>
@@ -240,11 +240,11 @@
  --%>
 												<td>${bonusList.totalBonusWages}</td>
 												<td>${bonusList.grossBonusAmt}</td>
-												<td>${bonusList.dedBonusPujaAmt}</td>
+												<%-- <td>${bonusList.dedBonusPujaAmt}</td>
 												<td>${bonusList.dedBonusAdvAmt}</td>
-												<td>${bonusList.dedBonusLossAmt}</td>
-												<td>${bonusList.netBonusAmt}</td>
-												<td>${bonusList.paidBonusAmt}</td>
+												<td>${bonusList.dedBonusLossAmt}</td> --%>
+									<%-- 			<td>${bonusList.netBonusAmt}</td>
+												<td>${bonusList.paidBonusAmt}</td> --%>
 
 												<%-- 												<c:if test="${payRollFinal==1}">
  --%>
