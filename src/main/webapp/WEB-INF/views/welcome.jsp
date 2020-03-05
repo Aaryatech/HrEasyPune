@@ -1040,8 +1040,8 @@
 												<th>Dates</th>
 												<th>Days</th>
 												<th>Remark</th>
-												<th>Status</th>
-
+<!-- 												<th>Status</th>
+ -->
 
 											</tr>
 										</thead>
@@ -1060,8 +1060,8 @@
 
 
 													<td>${lvApplList.leaveEmpReason}</td>
-													<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1=2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
-
+<%-- 													<td>${lvApplList.exInt1==1 ? 'Applied': lvApplList.exInt1==7 ? 'cancelled by employee': lvApplList.exInt1=2 ? ' ia approval' : lvApplList.exInt1==8 ? 'ia reject' : lvApplList.exInt1==3 ? 'fa approval & leave confirmed' :lvApplList.exInt1==9 ? 'fa reject'   : ''}</td>
+ --%>
 												</tr>
 
 

@@ -52,20 +52,20 @@ public class DashboardAdminController {
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 		try {
 
-			String fiterdate = sf.format(date);
+			String fiterdate = sf1.format(date);
 
 			try {
-				fiterdate = request.getParameter("fiterdate");
+				fiterdate = sf1.format (request.getParameter("fiterdate"));
 
 			} catch (Exception e) {
-				fiterdate = sf.format(date);
+				fiterdate = sf1.format(date);
 
 			}
 
 			if (fiterdate == null) {
-				fiterdate = sf.format(date);
+				fiterdate = sf1.format(date);
 			}
-			model.addAttribute("fiterdate", fiterdate);
+			model.addAttribute("fiterdate", sf.format(date));
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
