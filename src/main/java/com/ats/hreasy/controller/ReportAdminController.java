@@ -2714,11 +2714,11 @@ public class ReportAdminController {
 			table.addCell(hcell);
 
 			int index = 0;
-			  loanAmtTot = 0;
-			  loanEmiAmtTot = 0;
-			  loanEmiIntrestAmtTot = 0;
-			  paindingTot = 0;
-			  paidTot = 0;
+			loanAmtTot = 0;
+			loanEmiAmtTot = 0;
+			loanEmiIntrestAmtTot = 0;
+			paindingTot = 0;
+			paidTot = 0;
 			for (int i = 0; i < progList.size(); i++) {
 				// System.err.println("I " + i);
 				LoanDedReport prog = progList.get(i);
@@ -5344,10 +5344,10 @@ public class ReportAdminController {
 			table.addCell(hcell);
 
 			int index = 0;
-			  salWagesTot = 0;
-			  empCalTot = 0;
-			  empr = 0;
-			  tot = 0;
+			salWagesTot = 0;
+			empCalTot = 0;
+			empr = 0;
+			tot = 0;
 			for (int i = 0; i < progList.size(); i++) {
 				// System.err.println("I " + i);
 				StatutoryEsicRep prog = progList.get(i);
@@ -5815,7 +5815,7 @@ public class ReportAdminController {
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
-				bonusAmt=0;
+				bonusAmt = 0;
 				for (int i = 0; i < progList.size(); i++) {
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
@@ -6910,7 +6910,7 @@ public class ReportAdminController {
 
 				// System.err.println("I " + i);
 				LeaveApply prog = progList.get(i);
-				int stat = progList.get(i).getFinalStatus();
+				int stat = progList.get(i).getExInt1();
 				String status = new String();
 				if (stat == 1) {
 					status = " applied & pending for approval";
@@ -7030,7 +7030,7 @@ public class ReportAdminController {
 				int cnt = 1;
 				for (int i = 0; i < progList.size(); i++) {
 
-					int stat = progList.get(i).getFinalStatus();
+					int stat = progList.get(i).getExInt1();
 					String status = new String();
 					if (stat == 1) {
 						status = " applied & pending for approval";
@@ -7097,13 +7097,13 @@ public class ReportAdminController {
 
 		String reportName = "Employee Payment Deduction";
 
- 		Boolean ret = false;
+		Boolean ret = false;
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			int dedTot=0;
+			double dedTot = 0;
 
-			int empId =0;
+			int empId = 0;
 			try {
 				empId = Integer.parseInt(request.getParameter("empId1"));
 
@@ -7111,8 +7111,7 @@ public class ReportAdminController {
 				empId = 0;
 
 			}
-			 
-			
+
 			String fromDate = request.getParameter("datepickerFromRep");
 			String toDate = request.getParameter("datepickerToRep");
 
@@ -7160,12 +7159,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(8);
+			PdfPTable table = new PdfPTable(7);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f, 3.5f, 3.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -7211,12 +7210,6 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Deduction Total", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-
 			hcell = new PdfPCell(new Phrase("Deduction Remark", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
@@ -7235,8 +7228,7 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMakerEnterDatetime(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -7248,8 +7240,6 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-
-			
 
 				cell = new PdfPCell(new Phrase("" + prog.getMonth() + "-" + prog.getYear(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -7269,19 +7259,13 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getDedTotal(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-				table.addCell(cell);
-
 				cell = new PdfPCell(new Phrase("" + prog.getDedRemark(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-				
-				dedTot=dedTot+prog.getDedTotal();
+
+				dedTot = dedTot + prog.getDedRate();
 
 			}
 
@@ -7294,16 +7278,14 @@ public class ReportAdminController {
 			document.add(new Paragraph("\n"));
 			document.add(new Paragraph(
 					"Employee Name: " + emp.getFirstName() + " " + emp.getMiddleName() + " " + emp.getSurname()));
-			document.add(new Paragraph("Year: " + fromDate +" to "+ toDate));
+			document.add(new Paragraph("Year: " + fromDate + " to " + toDate));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
 			document.add(table);
-			
-			
-			document.add(new Paragraph("Total Deduction Amt: " + dedTot));
 
+			document.add(new Paragraph("Total Deduction Amt: " + dedTot));
 
 			int totalPages = writer.getPageNumber();
 
@@ -7353,13 +7335,12 @@ public class ReportAdminController {
 				rowData.add("Deduction Month-Year");
 				rowData.add("Deduction Type");
 				rowData.add("Deduction Rate");
-				rowData.add("Deduction Total");
 				rowData.add("Deduction Remark");
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
-				  dedTot=0; 
+				dedTot = 0;
 				for (int i = 0; i < progList.size(); i++) {
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
@@ -7372,19 +7353,20 @@ public class ReportAdminController {
 
 					rowData.add("" + progList.get(i).getExVar2());
 					rowData.add("" + progList.get(i).getDedRate());
-					rowData.add("" + progList.get(i).getDedTotal());
 					rowData.add("" + progList.get(i).getDedRemark());
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
-					dedTot=dedTot+ progList.get(i).getDedTotal();
- 				}
+					dedTot = dedTot + progList.get(i).getDedRate();
+				}
 
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " Year:" + fromDate +" to "+ toDate + "Emp Name"
-							+ emp.getFirstName() + " " + emp.getMiddleName() + " " + emp.getSurname(), "Total Deduction Amt: " + dedTot, 'H');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
+							" Year:" + fromDate + " to " + toDate + "Emp Name" + emp.getFirstName() + " "
+									+ emp.getMiddleName() + " " + emp.getSurname(),
+							"Total Deduction Amt: " + dedTot, 'G');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -7409,22 +7391,20 @@ public class ReportAdminController {
 
 		}
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/showEmpDedRepAll", method = RequestMethod.GET)
 	public void showEmpDedRepAll(HttpServletRequest request, HttpServletResponse response) {
 
 		String reportName = "Employee Payment Deduction";
 
- 		Boolean ret = false;
+		Boolean ret = false;
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			int dedTot=0; 
+			int dedTot = 0;
 			String leaveDateRange = request.getParameter("leaveDateRange");
 			String[] arrOfStr = leaveDateRange.split("to", 2);
-		 
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", 0);
 			map.add("fromDate", arrOfStr[0]);
@@ -7538,8 +7518,7 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMakerEnterDatetime(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -7551,8 +7530,6 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-
-			
 
 				cell = new PdfPCell(new Phrase("" + prog.getMonth() + "-" + prog.getYear(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -7583,8 +7560,8 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-				
-				dedTot=dedTot+prog.getDedTotal();
+
+				dedTot = dedTot + prog.getDedTotal();
 
 			}
 
@@ -7595,18 +7572,15 @@ public class ReportAdminController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph(
-					"" ));
+			document.add(new Paragraph(""));
 			document.add(new Paragraph("Year: " + leaveDateRange));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
 			document.add(table);
-			
-			
-			document.add(new Paragraph("Total Deduction Amt: " + dedTot));
 
+			document.add(new Paragraph("Total Deduction Amt: " + dedTot));
 
 			int totalPages = writer.getPageNumber();
 
@@ -7662,7 +7636,7 @@ public class ReportAdminController {
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
-				  dedTot=0; 
+				dedTot = 0;
 				for (int i = 0; i < progList.size(); i++) {
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
@@ -7680,13 +7654,14 @@ public class ReportAdminController {
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
-					dedTot=dedTot+ progList.get(i).getDedTotal();
- 				}
+					dedTot = dedTot + progList.get(i).getDedTotal();
+				}
 
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " Year:" + leaveDateRange, "Total Deduction Amt: " + dedTot, 'H');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " Year:" + leaveDateRange,
+							"Total Deduction Amt: " + dedTot, 'H');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
