@@ -196,8 +196,8 @@ public class AttendenceController {
 
 			try {
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				Integer countSal = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getSalStructCountEmp", map, Integer.class);
+				Integer countSal = Constants.getRestTemplate().postForObject(Constants.url + "/getSalStructCountEmp",
+						map, Integer.class);
 				model.addAttribute("countSal", countSal);
 				Date dt = new Date();
 				Calendar temp = Calendar.getInstance();
@@ -215,7 +215,7 @@ public class AttendenceController {
 
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-				  map = new LinkedMultiValueMap<String, Object>();
+				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDate", sf.format(firstDay));
 				map.add("toDate", sf.format(lastDay));
 				InfoForUploadAttendance infoForUploadAttendance = Constants.getRestTemplate().postForObject(
@@ -233,11 +233,6 @@ public class AttendenceController {
 				model.addAttribute("monthName", monthName);
 				model.addAttribute("year", year);
 				model.addAttribute("infoForUploadAttendance", infoForUploadAttendance);
-				
-				
-				
-				
-
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -558,6 +553,30 @@ public class AttendenceController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("dailyId", dailyId);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/getDailyDailyRecordByDailyId", map,
+					GetDailyDailyRecord.class);
+			// System.out.println(info);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+
+	}
+
+	@RequestMapping(value = "/markAsCompOff", method = RequestMethod.POST)
+	@ResponseBody
+	public GetDailyDailyRecord markAsCompOff(HttpServletRequest request, HttpServletResponse response) {
+
+		GetDailyDailyRecord info = new GetDailyDailyRecord();
+
+		try {
+
+			int dailyId = Integer.parseInt(request.getParameter("dailyId"));
+			String sts = request.getParameter("sts");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("dailyId", dailyId);
+			map.add("sts", sts);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateMarkAsCompOff", map,
 					GetDailyDailyRecord.class);
 			// System.out.println(info);
 		} catch (Exception e) {

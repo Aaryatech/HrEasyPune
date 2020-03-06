@@ -283,12 +283,34 @@
 													<td class="text-right">${dailyrecordList.otHr}</td>
 													<td>${dailyrecordList.currentShiftname}</td>
 													<td class="text-center"><c:if
-															test="${dailyrecordList.isFixed==0}">
-															<a href="#"
-																onclick="editAttendanceDetail(${dailyrecordList.id})"
-																class="list-icons-item text-primary-600"
-																data-popup="tooltip" title=""><i
-																class="icon-pencil7"></i></a>
+															test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">
+
+															<c:choose>
+																<c:when
+																	test="${(dailyrecordList.attStatus eq 'WO-OT' 
+																	|| dailyrecordList.attStatus eq 'PH-OT' 
+																	|| dailyrecordList.attStatus eq 'PH-WO-P')}">
+																	<a href="#"
+																		onclick="editAttendanceDetail(${dailyrecordList.id})"
+																		class="list-icons-item text-primary-600"
+																		data-popup="tooltip" title="edit"><i
+																		class="icon-pencil7"></i></a>&nbsp;
+																		<%-- onclick="markAsCompOff(${dailyrecordList.id},'${dailyrecordList.attStatus}')" --%>
+																	<a href="#"
+																		class="list-icons-item text-primary-600 bootbox_custom"
+																		data-dailyid="${dailyrecordList.id}"
+																		data-attstatus="${dailyrecordList.attStatus}"
+																		data-popup="tooltip" title="Mark As Compoff">Mark
+																		as Compoff</a>
+																</c:when>
+																<c:otherwise>
+																	<a href="#"
+																		onclick="editAttendanceDetail(${dailyrecordList.id})"
+																		class="list-icons-item text-primary-600"
+																		data-popup="tooltip" title=""><i
+																		class="icon-pencil7"></i></a>
+																</c:otherwise>
+															</c:choose>
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -310,7 +332,33 @@
 
 			</div>
 			<!-- /content area -->
+			<!-- Info modal -->
+			<div id="modal_step1" class="modal fade " data-backdrop="false"
+				tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-info">
+							<h6 class="modal-title">Updating Attendance</h6>
+							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+						</div>
 
+						<div class="modal-body">
+							<h6 class="font-weight-semibold text-center">
+								<h6>Please wait.....</h6>
+							</h6>
+
+							<hr>
+							<p class="text-center text-info">If it is taking time please
+								reload the page</p>
+						</div>
+
+						<div class="modal-footer">
+							<!--   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
@@ -388,6 +436,32 @@
 
 		}
 		
+	function markAsCompOff(dailyId,sts) {
+ 
+			//alert(sts);
+			
+			var fd = new FormData();
+			fd.append('dailyId', dailyId);
+			fd.append('sts', sts);
+			$('#modal_step1').modal('show');
+			
+			  $
+			.ajax({
+				url : '${pageContext.request.contextPath}/markAsCompOff',
+				type : 'post',
+				dataType : 'json',
+				data : fd,
+				contentType : false,
+				processData : false,
+				success : function(response) {
+
+					location.reload(true);
+					 
+				},
+			}); 
+
+		}
+		
 	function saveAttendanceDetail() {
   
 		var selectStatus = document.getElementById("selectStatus").value;  
@@ -408,7 +482,8 @@
 		if(document.getElementById("lateMark").checked==true){
 			lateMark=1;
 		}
-		 
+		$('#modal_step1').modal('show');
+		
 			var fd = new FormData();
 			fd.append('dailyId', dailyId);
 			fd.append('otHours', otHours);
@@ -437,7 +512,55 @@
 
 		}
 	</script>
+	<script>
+		// Custom bootbox dialog
+		$('.bootbox_custom')
+				.on(
+						'click',
+						function() {
+							var dailyId = $(this).data("dailyid")
+							var sts = $(this).data("attstatus") // will return the number 123
+							  
+										bootbox.confirm({
+										title : 'Confirm ',
+										message : 'Are you sure you want to Mark as Compoff ? you Can not edit attendance again',
+										buttons : {
+											confirm : {
+												label : 'Yes',
+												className : 'btn-success'
+											},
+											cancel : {
+												label : 'Cancel',
+												className : 'btn-link'
+											}
+										},
+										callback : function(result) {
+											if (result) {
+												var fd = new FormData();
+												fd.append('dailyId', dailyId);
+												fd.append('sts', sts);
+												$('#modal_step1').modal('show');
+												
+												   $
+												.ajax({
+													url : '${pageContext.request.contextPath}/markAsCompOff',
+													type : 'post',
+													dataType : 'json',
+													data : fd,
+													contentType : false,
+													processData : false,
+													success : function(response) {
 
+														location.reload(true);
+														 
+													},
+												});  
+
+											}
+										}
+									});
+						});
+	</Script>
 
 
 	<!-- Scrollable modal -->
