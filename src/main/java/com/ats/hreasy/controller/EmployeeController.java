@@ -44,7 +44,7 @@ import com.ats.hreasy.model.EmpType;
 import com.ats.hreasy.model.EmployeDoc;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
- import com.ats.hreasy.model.HolidayCategory;
+import com.ats.hreasy.model.HolidayCategory;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
@@ -263,13 +263,12 @@ public class EmployeeController {
 						.postForObject(Constants.url + "/getMstEmpTypeList", map, MstEmpType[].class);
 
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
-				
-				
-				SkillRates[] skillList = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getSkillRateList"  , SkillRates[].class);
+
+				SkillRates[] skillList = Constants.getRestTemplate().getForObject(Constants.url + "/getSkillRateList",
+						SkillRates[].class);
 
 				List<SkillRates> skillList1 = new ArrayList<SkillRates>(Arrays.asList(skillList));
- 
+
 				model = new ModelAndView("master/addEmployee");
 
 				model.addObject("empTypeList", empTypeList1);
@@ -318,25 +317,21 @@ public class EmployeeController {
 			redirect = "redirect:/accessDenied";
 
 		} else {
-			
-			
-			String mname=new String();
-			
+
+			String mname = new String();
+
 			try {
 				mname = request.getParameter("mname");
-				 
+
 			} catch (Exception e) {
-				 
+
 				mname = "";
 			}
-			
-			
-			
+
 			int empId = Integer.parseInt(request.getParameter("empId"));
 
 			if (empId != 0) {
 
-				
 				System.err.println("record exists");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("empId", empId);
@@ -351,29 +346,27 @@ public class EmployeeController {
 				int desigId = 0;
 				int empType = 0;
 				int locId = 0;
-				int skillId=0;
+				int skillId = 0;
 				try {
 					empId = Integer.parseInt(request.getParameter("empId"));
- 					deptId = Integer.parseInt(request.getParameter("deptId"));
+					deptId = Integer.parseInt(request.getParameter("deptId"));
 					desigId = Integer.parseInt(request.getParameter("desigId"));
 					empType = Integer.parseInt(request.getParameter("empType"));
 					locId = Integer.parseInt(request.getParameter("locId"));
 				} catch (Exception e) {
 					empId = 0;
- 				}
-				
-				
-				 
+				}
+
 				try {
 					skillId = Integer.parseInt(request.getParameter("skillId"));
 				} catch (Exception e1) {
-					skillId=0;
+					skillId = 0;
 				}
 				try {
- 					contract = Integer.parseInt(request.getParameter("contractor"));
-					 
+					contract = Integer.parseInt(request.getParameter("contractor"));
+
 				} catch (Exception e) {
-					 
+
 					contract = 0;
 				}
 				int ishod = Integer.parseInt(request.getParameter("ishod"));
@@ -421,7 +414,7 @@ public class EmployeeController {
 					emp.setAddedFrom(1);
 					emp.setCmpCode(1);
 					emp.setContractorId(contract);
- 					emp.setDepartId(deptId);
+					emp.setDepartId(deptId);
 					emp.setDesignationId(desigId);
 					emp.setEarnLeaveOpeningBalance(0);
 					emp.setEmailId("NA");
@@ -519,7 +512,7 @@ public class EmployeeController {
 					emp.setEmpCode(request.getParameter("empCode").toUpperCase());
 					emp.setEmpType(empType);
 					emp.setEsicNo(request.getParameter("esic"));
-					
+
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
 					map = new LinkedMultiValueMap<>();
@@ -756,13 +749,11 @@ public class EmployeeController {
 						.postForObject(Constants.url + "/getMstEmpTypeList", map, MstEmpType[].class);
 
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
-				
-				
-				SkillRates[] skillList = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getSkillRateList"  , SkillRates[].class);
+
+				SkillRates[] skillList = Constants.getRestTemplate().getForObject(Constants.url + "/getSkillRateList",
+						SkillRates[].class);
 
 				List<SkillRates> skillList1 = new ArrayList<SkillRates>(Arrays.asList(skillList));
-				
 
 				model = new ModelAndView("master/addEmployee");
 
@@ -794,7 +785,7 @@ public class EmployeeController {
 				String base64encodedString = request.getParameter("empId");
 				String empId = FormValidation.DecodeKey(base64encodedString);
 
-			 //System.out.println("Encrypt-----" + empId);
+				// System.out.println("Encrypt-----" + empId);
 				map = new LinkedMultiValueMap<>();
 				map.add("empId", Integer.parseInt(empId));
 
@@ -810,7 +801,7 @@ public class EmployeeController {
 				TblEmpNominees empNom = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeNominee",
 						map, TblEmpNominees.class);
 				// System.out.println("Edit Emp Nominee Info-------" + empNom);
- 				model.addObject("empNom", empNom); // model.addObject("empNom", empIdNom);
+				model.addObject("empNom", empNom); // model.addObject("empNom", empIdNom);
 
 				TblEmpBankInfo empBank = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmployeeBankInfo", map, TblEmpBankInfo.class);
@@ -836,8 +827,7 @@ public class EmployeeController {
 				map.add("EmpId", Integer.parseInt(empId));
 				userRes = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
 						User.class);
-				 
-				
+
 				model.addObject("empAllowanceId", empSalInfo);
 				model.addObject("empAllowncList", empAllowncList);
 				model.addObject("docList", docList);
@@ -1255,7 +1245,7 @@ public class EmployeeController {
 			double empEsicPer = 0;
 			double employerEsicPer = 0;
 			double societyContri = 0;
-			double grossSal=0;
+			double grossSal = 0;
 
 			try {
 				empId = Integer.parseInt(request.getParameter("empId"));
@@ -1303,18 +1293,15 @@ public class EmployeeController {
 				societyContri = 0;
 			}
 
-			
-			  try {
-			  
-			  grossSal = Double.parseDouble(request.getParameter("grossSal"));
-			  
-			  } catch (Exception e) {
-			  
-			  grossSal = 0; }
-			  
-			 
-			
-			
+			try {
+
+				grossSal = Double.parseDouble(request.getParameter("grossSal"));
+
+			} catch (Exception e) {
+
+				grossSal = 0;
+			}
+
 			/* if(empIdSal!=null) { */
 
 			if (empId != 0) {
@@ -1323,7 +1310,6 @@ public class EmployeeController {
 				map.add("empId", empId);
 				empSal = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeSalInfo", map,
 						EmpSalaryInfo.class);
- 
 
 			}
 			empSal.setSalaryInfoId(empSalInfoId); // empSal.setSalaryInfoId(empIdSal.getSalaryInfoId());
@@ -1349,7 +1335,6 @@ public class EmployeeController {
 
 			if (request.getParameter("esicApplicable").equals("yes")) {
 
- 
 				empSal.setEmployeeEsicPercentage(Double.parseDouble(request.getParameter("empEsicPer")));
 				empSal.setEmployerEsicPercentage(Double.parseDouble(request.getParameter("employerEsicPer")));
 			} else {
@@ -1373,11 +1358,11 @@ public class EmployeeController {
 			empSal.setExVar1("NA");
 			empSal.setExVar2("NA");
 			empSal.setSalaryTypeId(1);
-			
+
 			int allwnSalId = 0;
- 			List<EmpSalAllowance> allowncList = new ArrayList<EmpSalAllowance>();
- 			
- 			double allow_temp=0;
+			List<EmpSalAllowance> allowncList = new ArrayList<EmpSalAllowance>();
+
+			double allow_temp = 0;
 			for (int i = 0; i < allowanceList.size(); i++) {
 
 				EmpSalAllowance empSellAllwance = new EmpSalAllowance();
@@ -1396,9 +1381,9 @@ public class EmployeeController {
 				}
 
 				if (allwncValue >= 0) {
-					
-					allow_temp=allow_temp+allwncValue;
-					 
+
+					allow_temp = allow_temp + allwncValue;
+
 					empSellAllwance.setEmpSalAllowanceId(allwnSalId);
 					empSellAllwance.setEmpId(Integer.parseInt(request.getParameter("empId")));
 					empSellAllwance.setAllowanceId(allowanceList.get(i).getAllowanceId());
@@ -1416,40 +1401,35 @@ public class EmployeeController {
 				}
 
 			}
-			
-			
-			if(grossSal==basic+allow_temp) {
-				
-		
- 
-			EmpSalaryInfo empIdSal = Constants.getRestTemplate().postForObject(Constants.url + "/saveEmployeeIdSalary",
-					empSal, EmpSalaryInfo.class);
 
-			
- 			if (empIdSal != null) {
- 
-				
-				EmpSalAllowance[] allowance = Constants.getRestTemplate().postForObject(
-						Constants.url + "/saveEmpSalAllowanceInfo", allowncList, EmpSalAllowance[].class);
+			if (grossSal == basic + allow_temp) {
 
-				if (allowance != null) {
+				EmpSalaryInfo empIdSal = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/saveEmployeeIdSalary", empSal, EmpSalaryInfo.class);
 
-					session.setAttribute("successMsg", "Record Updated Successfully");
-					String  empEncryptId = FormValidation.Encrypt(String.valueOf(empId));
-					// System.out.println("Emp Encrypt Id---" + empEncryptId);
+				if (empIdSal != null) {
 
-					redirect = "redirect:/employeeEdit?empId=" + empEncryptId;
+					EmpSalAllowance[] allowance = Constants.getRestTemplate().postForObject(
+							Constants.url + "/saveEmpSalAllowanceInfo", allowncList, EmpSalAllowance[].class);
+
+					if (allowance != null) {
+
+						session.setAttribute("successMsg", "Record Updated Successfully");
+						String empEncryptId = FormValidation.Encrypt(String.valueOf(empId));
+						// System.out.println("Emp Encrypt Id---" + empEncryptId);
+
+						redirect = "redirect:/employeeEdit?empId=" + empEncryptId;
+					} else {
+						session.setAttribute("errorMsg", "Failed to Update Record");
+						redirect = "redirect:/employeeAdd";
+					}
 				} else {
 					session.setAttribute("errorMsg", "Failed to Update Record");
 					redirect = "redirect:/employeeAdd";
 				}
+
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
-				redirect = "redirect:/employeeAdd";
-			}
- 			
-			}else {
-				String  empEncryptId = FormValidation.Encrypt(String.valueOf(empId));
+				String empEncryptId = FormValidation.Encrypt(String.valueOf(empId));
 
 				session.setAttribute("errorMsg", "Enter The Salary Values Properly");
 				redirect = "redirect:/employeeEdit?empId=" + empEncryptId;
@@ -1590,30 +1570,42 @@ public class EmployeeController {
 	@RequestMapping(value = "/getBasicSalCalc", method = RequestMethod.GET)
 	public @ResponseBody List<Allowances> getBasicSalCalc(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
-		
-		
-		List<Allowances> allowanceListNew=new ArrayList<Allowances>();
- 		try {
- 			 
- 			 
- 			double  grossSal =Double.parseDouble( request.getParameter("grossSal"));
 
- 			 
-			Allowances[] allowanceArr = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllAllowances", Allowances[].class);
+		List<Allowances> allowanceListNew = new ArrayList<Allowances>();
+		try {
+
+			double grossSal = Double.parseDouble(request.getParameter("grossSal"));
+
+			Allowances[] allowanceArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAllowances",
+					Allowances[].class);
 			allowanceListNew = new ArrayList<Allowances>(Arrays.asList(allowanceArr));
 
-			
-			for(int i=0;i<allowanceListNew.size();i++) {
-				
-				double per= allowanceListNew.get(i).getGrossSalPer();
-				double tempVal=(grossSal*per)/100;
+			for (int i = 0; i < allowanceListNew.size(); i++) {
+
+				double per = allowanceListNew.get(i).getGrossSalPer();
+				double tempVal = (grossSal * per) / 100;
 				allowanceListNew.get(i).setExVar1(String.valueOf(tempVal));
- 				
+
 			}
- 		 
-		 
-		 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allowanceListNew;
+
+	}
+
+	@RequestMapping(value = "/getAllAllw", method = RequestMethod.GET)
+	public @ResponseBody List<Allowances> getAllAllw(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+
+		List<Allowances> allowanceListNew = new ArrayList<Allowances>();
+		try {
+
+			Allowances[] allowanceArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAllowances",
+					Allowances[].class);
+			allowanceListNew = new ArrayList<Allowances>(Arrays.asList(allowanceArr));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1695,7 +1687,6 @@ public class EmployeeController {
 			items = items.substring(0, items.length() - 1);
 
 			StringBuilder sbEmp = new StringBuilder();
- 
 
 			map.add("empIdList", items);
 			map.add("upDateId", holiCatId);
