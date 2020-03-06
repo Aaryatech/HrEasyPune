@@ -26,8 +26,20 @@ public class GetLoan {
 	
 	private int currentOutstanding;
 	
+	private int loanEmiIntrest;
 	
 	
+	
+	
+	
+
+	public int getLoanEmiIntrest() {
+		return loanEmiIntrest;
+	}
+
+	public void setLoanEmiIntrest(int loanEmiIntrest) {
+		this.loanEmiIntrest = loanEmiIntrest;
+	}
 
 	public String getExVar1() {
 		return exVar1;
@@ -137,11 +149,11 @@ public class GetLoan {
 	public String toString() {
 		return "GetLoan [empId=" + empId + ", loanAmt=" + loanAmt + ", loanRepayAmt=" + loanRepayAmt + ", loanEmi="
 				+ loanEmi + ", empCode=" + empCode + ", firstName=" + firstName + ", middleName=" + middleName
-				+ ", surname=" + surname + ", designation=" + designation + ", currentOutstanding=" + currentOutstanding
-				+ "]";
+				+ ", surname=" + surname + ", designation=" + designation + ", exVar1=" + exVar1 + ", exVar2=" + exVar2
+				+ ", exVar3=" + exVar3 + ", currentOutstanding=" + currentOutstanding + ", loanEmiIntrest="
+				+ loanEmiIntrest + "]";
 	}
-	
-	
-	 
+
+ 
 
 }

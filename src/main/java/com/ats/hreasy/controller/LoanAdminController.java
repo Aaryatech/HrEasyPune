@@ -536,7 +536,7 @@ class LoanAdminController {
 						.postForObject(Constants.url + "/getLoanHistoryEmpWiseDetailComp", map, LoanMain[].class);
 
 				employeeInfoList = new ArrayList<LoanMain>(Arrays.asList(employeeInfo));
-				//System.out.println("employeeInfoList" + employeeInfoList.toString());
+				// System.out.println("employeeInfoList" + employeeInfoList.toString());
 				model.addObject("loanList", employeeInfoList);
 
 				for (int i = 0; i < employeeInfoList.size(); i++) {
@@ -545,19 +545,17 @@ class LoanAdminController {
 					employeeInfoList.get(i)
 							.setExVar2(FormValidation.Encrypt(String.valueOf(employeeInfoList.get(i).getEmpId())));
 
-					String a =new String();
-					
-					
-					if(employeeInfoList.get(i).getSkipLoginTime()!=null) {
+					String a = new String();
+
+					if (employeeInfoList.get(i).getSkipLoginTime() != null) {
 						Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 								.parse(employeeInfoList.get(i).getSkipLoginTime());
 
 						// System.out.println("date------" + sf.format(date));
-						  a = sf.format(date1);
-					}else {
-						a="";
+						a = sf.format(date1);
+					} else {
+						a = "";
 					}
-					
 
 					// System.out.println("a------" + a);
 
@@ -590,12 +588,12 @@ class LoanAdminController {
 
 			String base64encodedString1 = request.getParameter("empId");
 			String empId = FormValidation.DecodeKey(base64encodedString1);
-			//System.out.println("showSkipLoan empId -------" + empId);
+			// System.out.println("showSkipLoan empId -------" + empId);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			GetEmployeeDetails empPersInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAllEmployeeDetailByEmpId", map, GetEmployeeDetails.class);
-			//System.out.println("  EmpPersonal Info-------" + empPersInfo.toString());
+			// System.out.println(" EmpPersonal Info-------" + empPersInfo.toString());
 
 			String empPersInfoString = empPersInfo.getEmpCode().concat(" ").concat(empPersInfo.getFirstName())
 					.concat(" ").concat(empPersInfo.getSurname()).concat("[")
@@ -609,7 +607,7 @@ class LoanAdminController {
 			LoanMain advList = Constants.getRestTemplate().postForObject(Constants.url + "/getLoanById", map,
 					LoanMain.class);
 
-			//System.err.println("-----" + advList.toString());
+			// System.err.println("-----" + advList.toString());
 			model.addObject("advList", advList);
 
 			String skipStr = new String();
@@ -702,6 +700,8 @@ class LoanAdminController {
 			Date date2 = new Date();
 			SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+			SimpleDateFormat sfNew = new SimpleDateFormat("yyyy-MM-dd");
+
 			Date date = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 
@@ -745,18 +745,23 @@ class LoanAdminController {
 						LoanDetails.class);
 
 				if (res != null) {
-					session.setAttribute("successMsg", "Loan Closed Successfully");
 
 					map = new LinkedMultiValueMap<>();
 					map.add("dateTimeUpdate", sf2.format(date2));
 					map.add("userId", userObj.getEmpId());
 					map.add("loanId", id);
-					map.add("closeDate", DateConvertor.convertToYMD(closeDate));
+					map.add("closeDate", sfNew.format(date));
 					map.add("currentTotpaid", advList.getCurrentTotpaid() + Integer.parseInt(foreclose_amt));
 					map.add("currentOut", advList.getCurrentOutstanding() - Integer.parseInt(foreclose_amt));
 					map.add("repayAmt", advList.getLoanRepayAmt());
 					Info info = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/updateLoanMainAfterForeclose", map, Info.class);
+
+					if (info.isError() == false) {
+						session.setAttribute("successMsg", "Loan Closed Successfully");
+					} else {
+						session.setAttribute("errorMsg", "Failed to Close Loan");
+					}
 
 				} else {
 					session.setAttribute("errorMsg", "Failed to Close Loan");
@@ -777,7 +782,7 @@ class LoanAdminController {
 
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-	//	System.out.println("inside");
+		// System.out.println("inside");
 		String empId = null;
 		try {
 
@@ -792,7 +797,7 @@ class LoanAdminController {
 
 			String remark = request.getParameter("remark");
 			String closeDate = request.getParameter("joiningDate");
-			//System.err.println("closeDate" + closeDate);
+			// System.err.println("closeDate" + closeDate);
 			String partialAmt = request.getParameter("partialAmt");
 			int id = Integer.parseInt(request.getParameter("id"));
 

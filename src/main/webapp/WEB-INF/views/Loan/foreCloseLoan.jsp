@@ -113,7 +113,7 @@
 											Emp Name: </label> <label class="col-form-label col-lg-2" for="locId"
 											style="color: red;">${empPersInfoString} </label> <label
 											class="col-form-label col-lg-2" for="locId"> Total
-											Gross Salary: : </label> <label class="col-form-label col-lg-2"
+											Gross Salary:  </label> <label class="col-form-label col-lg-2"
 											for="locId" style="color: red;">
 											${empPersInfo.grossSalary} </label>
 
@@ -219,7 +219,11 @@
 										<div class="col-lg-4">
 											<input type="text" class="form-control" readonly="readonly"
 												placeholder="Enter  Amount" id="foreclose_amt" name="foreclose_amt"
-												value="${advList.currentOutstanding}" autocomplete="off" onchange="calAmt()">  
+												value="${advList.currentOutstanding}" autocomplete="off" onchange="calAmt()"> 
+												
+												
+													<span class="validation-invalid-label" id="error_foreclose_amt"
+												style="display: none;">This field is required.</span> 
 										</div>
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="joiningDate"> 
 											Date <span style="color: red">* </span>:
@@ -311,6 +315,17 @@
 
 				} else {
  					$("#error_reason").hide()
+				}
+				
+				
+
+				if ($("#foreclose_amt").val()==0) {
+ 					isError = true;
+
+					$("#error_foreclose_amt").show()
+
+				} else {
+ 					$("#error_foreclose_amt").hide()
 				}
 
 				if (!isError) {

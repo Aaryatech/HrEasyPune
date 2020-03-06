@@ -99,8 +99,7 @@
 									}
 								%>
 
-								<form
-									action="${pageContext.request.contextPath}/submitSkipLoan"
+								<form action="${pageContext.request.contextPath}/submitSkipLoan"
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${empPersInfo.empId}" id="empId"
 										name="empId"> <input type="hidden"
@@ -128,14 +127,21 @@
 
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="advanceAmt">Date
-											 : </label> <label class="col-form-label col-lg-2" for="voucherNo">
+											: </label> <label class="col-form-label col-lg-2" for="voucherNo">
 											${advList.loanAddDate} </label>
+									</div>
+
+
+									<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="month">Loan
+											EMI : </label> <label class="col-form-label col-lg-2" for="voucherNo">
+											${advList.loanEmiIntrest} </label>
 									</div>
 
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="month">Loan
 											Amount : </label> <label class="col-form-label col-lg-2"
-											for="voucherNo"> ${advList.loanAmt} </label>
+											for="voucherNo"> ${advList.loanRepayAmt} </label>
 									</div>
 
 
@@ -146,7 +152,7 @@
 											for="voucherNo"> ${advList.remark} </label>
 									</div>
 
-									<div class="form-group row">
+									<%-- <div class="form-group row">
 										<label class="col-form-label col-lg-2" for="month">
 											Prev Skipped Reason : </label>
 										<c:if test="${advList.skipId==0}">
@@ -163,13 +169,13 @@
 											</label>
 										</c:if>
 
-									</div>
+									</div> --%>
 
-									<div class="form-group row">
+								<%-- 	<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="month">Skipped
 											Time : </label> <label class="col-form-label col-lg-2"
 											for="voucherNo"> ${advList.skipId} </label>
-									</div>
+									</div> --%>
 
 
 									<div class="form-group row">
@@ -180,8 +186,10 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="remark">
-											Skipping Reason <span style="color: red">*</span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="remark"> Skipping Reason <span
+											style="color: red">*</span>:
 										</label>
 										<div class="col-lg-4">
 											<textarea class="form-control"
@@ -202,9 +210,7 @@
 											</button>
 											 -->
 											<input type="submit" class="btn btn-primary" value="Submit"
-									id="submtbtn">
-											 
-											<a
+												id="submtbtn"> <a
 												href="${pageContext.request.contextPath}/showLoanListForAction?empId=${encEmpId}"><button
 													type="button" class="btn btn-light">
 													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
@@ -261,25 +267,22 @@
 				} else {
 					$("#error_remark").hide()
 				}
-				
-			 
+
 				if (!isError) {
 
-				 
-						$('#modal_scrollable')
-						.modal('show');
+					$('#modal_scrollable').modal('show');
 
- 						return false;
-						
-					}
-					//end ajax send this to php page
-				
+					return false;
+
+				}
+				//end ajax send this to php page
+
 				return false;
 			});
 		});
 		//
 	</script>
-<script>
+	<script>
 		function submitForm() {
 			$('#modal_scrollable').modal('hide');
 			document.getElementById("submtbtn").disabled = true;
@@ -287,7 +290,7 @@
 
 		}
 	</script>
-		<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -297,9 +300,10 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want  To Submit This Record </h5>
+					<h5 class="modal-title">Are You Sure You Want To Submit This
+						Record</h5>
 					<br>
-				 
+
 				</div>
 
 				<div class="modal-footer pt-3">
