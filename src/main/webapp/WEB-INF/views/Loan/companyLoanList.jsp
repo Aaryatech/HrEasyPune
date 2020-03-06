@@ -43,8 +43,8 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Company Loan List
-									</h5></td>
+								<td width="60%"><h5 class="card-title">Company Loan
+										List</h5></td>
 
 							</tr>
 						</table>
@@ -156,8 +156,9 @@
 
 									<th width="10%">Sr. No.</th>
 									<th>Emp Code</th>
-									<th>Designation</th>
 									<th>Name</th>
+									<th>Designation</th>
+
 									<th>Loan Amount</th>
 									<th>Repay Amount</th>
 									<th>Loan EMI</th>
@@ -166,23 +167,29 @@
 								</tr>
 							</thead>
 							<tbody>
-	 
-								<c:forEach items="${loanList}" var="empdetList" varStatus="count">
+
+								<c:forEach items="${loanList}" var="empdetList"
+									varStatus="count">
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${empdetList.empCode}</td>
-										<td>${empdetList.designation}</td>
 										<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+
+										<td>${empdetList.designation}</td>
 										<td>${empdetList.loanAmt}</td>
 										<td>${empdetList.loanRepayAmt}</td>
 										<td>${empdetList.loanEmi}</td>
 										<td>${empdetList.currentOutstanding}</td>
-										<td><c:if test="${editAccess == 0}"><a
+										<td><c:if test="${editAccess == 0}">
+												<a
 													href="${pageContext.request.contextPath}/showLoanListForAction?empId=${empdetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="Loan Details" data-original-title="Edit"><i class="icon-paragraph-justify2"
-													 ></i></a></c:if></td>
-										
- 									</tr>
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="Loan Details"
+													data-original-title="Edit"><i
+													class="icon-paragraph-justify2"></i></a>
+											</c:if></td>
+
+									</tr>
 								</c:forEach>
 
 							</tbody>
@@ -207,34 +214,54 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
-		function show() { 
-				$.getJSON('${getLoanHistory}', {
-					 
-					ajax : 'true',
-				},
+		function show() {
+			$
+					.getJSON(
+							'${getLoanHistory}',
+							{
 
-				function(data) {
+								ajax : 'true',
+							},
 
-					//	alert("Data " +JSON.stringify(data));
+							function(data) {
 
-					var dataTable = $('#printtable1').DataTable();
-					dataTable.clear().draw();
+								//	alert("Data " +JSON.stringify(data));
 
-					$.each(data, function(i, v) {
-						
-						var acButton = '<a href="${pageContext.request.contextPath}/showLoanListForAction?empId='+v.exVar1+'&calYrId='+v.exVar3+'&status='+v.exVar2+'"><i class="icon-pencil7" title="Detail History" style="color: black;">';	
+								var dataTable = $('#printtable1').DataTable();
+								dataTable.clear().draw();
 
+								$
+										.each(
+												data,
+												function(i, v) {
 
-						dataTable.row.add(
-								[ i + 1, v.empCode, v.designation, v.surname+' '+v.firstName,
-										v.loanAmt, v.loanRepayAmt, v.loanEmi,
-										v.currentOutstanding,acButton
+													var acButton = '<a href="${pageContext.request.contextPath}/showLoanListForAction?empId='
+															+ v.exVar1
+															+ '&calYrId='
+															+ v.exVar3
+															+ '&status='
+															+ v.exVar2
+															+ '"><i class="icon-pencil7" title="Detail History" style="color: black;">';
 
-								]).draw();
-					});
+													dataTable.row
+															.add(
+																	[
+																			i + 1,
+																			v.empCode,
+																			v.designation,
+																			v.surname
+																					+ ' '
+																					+ v.firstName,
+																			v.loanAmt,
+																			v.loanRepayAmt,
+																			v.loanEmi,
+																			v.currentOutstanding,
+																			acButton
 
-				});
- 	 
+																	]).draw();
+												});
+
+							});
 
 		}
 	</script>

@@ -43,8 +43,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Loan History
-									</h5></td>
+								<td width="60%"><h5 class="card-title">Loan History</h5></td>
 
 							</tr>
 						</table>
@@ -90,8 +89,8 @@
 
 						<div class="form-group row">
 
-							<label class="col-form-label text-info font-weight-bold col-lg-2" for="locId"> Year<span
-								style="color: red">* </span>:
+							<label class="col-form-label text-info font-weight-bold col-lg-2"
+								for="locId"> Year<span style="color: red">* </span>:
 							</label>
 							<div class="col-lg-4">
 								<select name="calYrId" data-placeholder="Select  " id="calYrId"
@@ -108,8 +107,8 @@
 							</div>
 
 
-							<label class="col-form-label text-info font-weight-bold col-lg-2" for="status">
-								Status<span style="color: red">* </span>:
+							<label class="col-form-label text-info font-weight-bold col-lg-2"
+								for="status"> Status<span style="color: red">* </span>:
 							</label>
 							<div class="col-lg-4">
 								<select name="status" data-placeholder="Select  " id="status"
@@ -155,8 +154,9 @@
 
 									<th width="10%">Sr. No.</th>
 									<th>Emp Code</th>
-									<th>Designation</th>
 									<th>Name</th>
+									<th>Designation</th>
+
 									<th>Loan Amount</th>
 									<th>Repay Amount</th>
 									<th>Loan EMI</th>
@@ -233,33 +233,57 @@
 
 			if (valid == true) {
 
-				$.getJSON('${getLoanHistory}', {
-					calYrId : calYrId,
-					status : status,
-					ajax : 'true',
-				},
+				$
+						.getJSON(
+								'${getLoanHistory}',
+								{
+									calYrId : calYrId,
+									status : status,
+									ajax : 'true',
+								},
 
-				function(data) {
+								function(data) {
 
-					//	alert("Data " +JSON.stringify(data));
+									//	alert("Data " +JSON.stringify(data));
 
-					var dataTable = $('#printtable1').DataTable();
-					dataTable.clear().draw();
+									var dataTable = $('#printtable1')
+											.DataTable();
+									dataTable.clear().draw();
 
-					$.each(data, function(i, v) {
-						
-						var acButton = '<a href="${pageContext.request.contextPath}/showLoanDetailHistory?empId='+v.exVar1+'&calYrId='+v.exVar3+'&status='+v.exVar2+'"><i class="icon-three-bars" title="Detail History" style="color: black;">';	
+									$
+											.each(
+													data,
+													function(i, v) {
 
+														var acButton = '<a href="${pageContext.request.contextPath}/showLoanDetailHistory?empId='
+																+ v.exVar1
+																+ '&calYrId='
+																+ v.exVar3
+																+ '&status='
+																+ v.exVar2
+																+ '"><i class="icon-three-bars" title="Detail History" style="color: black;">';
 
-						dataTable.row.add(
-								[ i + 1, v.empCode, v.designation, v.surname+' '+v.firstName,
-										v.loanAmt, v.loanRepayAmt, v.loanEmi,
-										v.currentOutstanding,acButton
+														dataTable.row
+																.add(
+																		[
+																				i + 1,
+																				v.empCode,
+																				
+																				v.surname
+																						+ ' '
+																						+ v.firstName,
+																						v.designation,
+																				v.loanAmt,
+																				v.loanRepayAmt,
+																				v.loanEmi,
+																				v.currentOutstanding,
+																				acButton
 
-								]).draw();
-					});
+																		])
+																.draw();
+													});
 
-				});
+								});
 
 			}//end of if valid ==true
 
