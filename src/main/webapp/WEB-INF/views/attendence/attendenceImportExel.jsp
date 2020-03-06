@@ -559,6 +559,8 @@
 											} else {
 
 											}
+											
+											location.reload(true);
 											// $('#modal_step1').modal('hide');
 										},
 										error : function(xhr, status, error) {
@@ -616,6 +618,8 @@
 						} else {
 
 						}
+						
+						location.reload(true);
 					},
 				});
 				//  alert(file);
@@ -666,6 +670,8 @@
 											} else {
 
 											}
+											
+											location.reload(true);
 										},
 									});
 							//  alert(file);
