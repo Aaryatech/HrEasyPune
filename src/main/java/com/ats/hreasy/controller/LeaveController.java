@@ -844,7 +844,6 @@ public class LeaveController {
 		return leaveResponse;
 	}
 
-	
 	@RequestMapping(value = "/calholidayWebservice", method = RequestMethod.GET)
 	public @ResponseBody LeaveCount calholidayWebservice(HttpServletRequest request, HttpServletResponse response) {
 
@@ -991,10 +990,10 @@ public class LeaveController {
 
 				if (leaveTypeId == 1) {
 					String dailyIds = "0";
-					for (int i = 0; i < dailyrecordlistforcompoff.size(); i++) {
+					for (int i = 0; i < noOfDays; i++) {
 						dailyIds = dailyIds + "," + dailyrecordlistforcompoff.get(i).getId();
 					}
-					leaveSummary.setExVar2(dailyIds.substring(2,dailyIds.length()));
+					leaveSummary.setExVar2(dailyIds.substring(2, dailyIds.length()));
 				} else {
 					leaveSummary.setExVar2("0");
 				}
