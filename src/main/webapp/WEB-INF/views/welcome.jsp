@@ -978,206 +978,225 @@
 								</div>
 							</c:if>
 
-							<c:if test="${userType == 0 || isAuth > 0 }">
-
-								<div class="row">
-
-									<div class="col-md-4">
-										<div class="card bg-warning">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title">My Deductions</h6>
-
-											</div>
-
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
 
 
-														<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
-															varStatus="count">
-															<tr>
+							<div class="row">
 
-																<td><a href="#" class="text-white">
-																		<div>${dedWiseDedList.nameSd}</div>
-																</a></td>
+								<div class="col-md-4">
+									<div class="card bg-warning">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">My Deductions</h6>
 
-
-																<td><a href="#" class="text-white">
-																		<div>${dedWiseDedList.empCount}</div>
-																</a></td>
-
-															</tr>
-														</c:forEach>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Advance</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${icent.perfIncentive}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Loan</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${icent.prodIncentive}</div>
-															</a></td>
-
-														</tr>
-
-
-
-													</table>
-												</div>
-											</div>
 										</div>
 
-									</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
 
 
-									<div class="col-md-4">
-										<div class="card bg-warning">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title">My Rewards</h6>
-
-											</div>
-
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-														<c:forEach items="${rewardWiseDedList}"
-															var="rewardWiseDedList" varStatus="count">
-															<tr>
-
-																<td><a href="#" class="text-white">
-																		<div>${rewardWiseDedList.nameSd}</div>
-																</a></td>
-
-
-																<td><a href="#" class="text-white">
-																		<div>${rewardWiseDedList.empCount}</div>
-																</a></td>
-
-															</tr>
-														</c:forEach>
-
-
+													<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
+														varStatus="count">
 														<tr>
 
 															<td><a href="#" class="text-white">
-																	<div>Performance Incentive(Amt/Days)</div>
+																	<div>${dedWiseDedList.nameSd}</div>
 															</a></td>
 
 
 															<td><a href="#" class="text-white">
-																	<div>${perfList.prodAmt}/${perfList.prodDays}</div>
+																	<div>${dedWiseDedList.empCount}</div>
 															</a></td>
 
 														</tr>
+													</c:forEach>
 
 
-														<tr>
+													<tr>
 
-															<td><a href="#" class="text-white">
-																	<div>Production Incentive(Amt/Days)</div>
-															</a></td>
+														<td><a href="#" class="text-white">
+																<div>Total Advance</div>
+														</a></td>
 
 
-															<td><a href="#" class="text-white">
-																	<div>${prodList.prodAmt}/${prodList.prodDays}</div>
-															</a></td>
+														<td><a href="#" class="text-white">
+																<div>${icent.perfIncentive}</div>
+														</a></td>
 
-														</tr>
-													</table>
-												</div>
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Total Loan</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${icent.prodIncentive}</div>
+														</a></td>
+
+													</tr>
+
+
+
+												</table>
 											</div>
 										</div>
-
-									</div>
-
-
-									<div class="col-md-4">
-										<div class="card bg-primary">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Important Links</h6>
-
-											</div>
-
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<tr>
-
-															<td><a
-																href="${pageContext.request.contextPath}/showApplyForLeave"
-																class="text-white">
-																	<div>Apply Leave</div>
-															</a></td>
-
-														</tr>
-
-
-														<c:if test="${isAuth > 0 }">
-
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}//viewPayDeduction"
-																	class="text-white">
-																		<div>Pay Deduction</div>
-																</a></td>
-															</tr>
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/viewEmpRewarAddList"
-																	class="text-white">
-																		<div>Add Reward</div>
-																</a></td>
-															</tr>
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showEmpListToAddAdvance"
-																	class="text-white">
-																		<div>Add Advance</div>
-																</a></td>
-
-															</tr>
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showEmpListToAddLoan"
-																	class="text-white">
-																		<div>Add Loan</div>
-																</a></td>
-
-
-
-
-															</tr>
-														</c:if>
-													</table>
-												</div>
-											</div>
-										</div>
-
 									</div>
 
 								</div>
-							</c:if>
+
+
+								<div class="col-md-4">
+									<div class="card bg-warning">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">My Rewards</h6>
+
+										</div>
+
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
+
+
+													<c:forEach items="${rewardWiseDedList}"
+														var="rewardWiseDedList" varStatus="count">
+														<tr>
+
+															<td><a href="#" class="text-white">
+																	<div>${rewardWiseDedList.nameSd}</div>
+															</a></td>
+
+
+															<td><a href="#" class="text-white">
+																	<div>${rewardWiseDedList.empCount}</div>
+															</a></td>
+
+														</tr>
+													</c:forEach>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Performance Incentive(Amt/Days)</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${perfList.prodAmt}/${perfList.prodDays}</div>
+														</a></td>
+
+													</tr>
+
+
+													<tr>
+
+														<td><a href="#" class="text-white">
+																<div>Production Incentive(Amt/Days)</div>
+														</a></td>
+
+
+														<td><a href="#" class="text-white">
+																<div>${prodList.prodAmt}/${prodList.prodDays}</div>
+														</a></td>
+
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="col-md-4">
+									<div class="card bg-primary">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title">Important Links</h6>
+
+										</div>
+
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table text-nowrap">
+
+													<tr>
+
+														<td><a
+															href="${pageContext.request.contextPath}/showApplyForLeave"
+															class="text-white">
+																<div>Apply Leave</div>
+														</a></td>
+
+													</tr>
+
+
+													<c:if test="${isAuth > 0 || userType==2}">
+
+														<tr>
+															<td><a
+																href="${pageContext.request.contextPath}//viewPayDeduction"
+																class="text-white">
+																	<div>Pay Deduction</div>
+															</a></td>
+														</tr>
+														<tr>
+															<td><a
+																href="${pageContext.request.contextPath}/viewEmpRewarAddList"
+																class="text-white">
+																	<div>Add Reward</div>
+															</a></td>
+														</tr>
+														<tr>
+															<td><a
+																href="${pageContext.request.contextPath}/showEmpListToAddAdvance"
+																class="text-white">
+																	<div>Add Advance</div>
+															</a></td>
+
+														</tr>
+														<tr>
+															<td><a
+																href="${pageContext.request.contextPath}/showEmpListToAddLoan"
+																class="text-white">
+																	<div>Add Loan</div>
+															</a></td>
+
+
+
+
+														</tr>
+
+
+														<c:if test="${userType==2}">
+															<tr>
+																<td><a
+																	href="${pageContext.request.contextPath}/attendanceSelectMonth"
+																	class="text-white">
+																		<div>Upload Attendence</div>
+																</a></td>
+
+															</tr>
+
+
+															<tr>
+																<td><a href="#" class="text-white">
+																		<div>Add OT Hour</div>
+																</a></td>
+
+															</tr>
+														</c:if>
+													</c:if>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
 
 							<!-- HR Dash  -->
 
@@ -1249,90 +1268,7 @@
 									</div>
 
 
-									<div class="col-md-4">
-										<div class="card bg-primary">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Important Links(HR)</h6>
 
-											</div>
-
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<tr>
-
-															<td><a
-																href="${pageContext.request.contextPath}/showApplyForLeave"
-																class="text-white">
-																	<div>Apply Leave</div>
-															</a></td>
-
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}//viewPayDeduction"
-																class="text-white">
-																	<div>Pay Deduction</div>
-															</a></td>
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/viewEmpRewarAddList"
-																class="text-white">
-																	<div>Add Reward</div>
-															</a></td>
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/showEmpListToAddAdvance"
-																class="text-white">
-																	<div>Add Advance</div>
-															</a></td>
-
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/showEmpListToAddLoan"
-																class="text-white">
-																	<div>Add Loan</div>
-															</a></td>
-
-
-
-
-														</tr>
-
-
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/attendanceSelectMonth"
-																class="text-white">
-																	<div>Upload Attendence</div>
-															</a></td>
-
-
-
-
-														</tr>
-
-
-														<tr>
-															<td><a href="#" class="text-white">
-																	<div>Add OT Hour</div>
-															</a></td>
-
-
-
-
-														</tr>
-
-													</table>
-												</div>
-											</div>
-										</div>
-
-									</div>
 
 
 								</div>
