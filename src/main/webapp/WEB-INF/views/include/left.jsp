@@ -20,7 +20,7 @@
 	<div class="sidebar-content">
 
 		<!-- User menu -->
-		<div class="sidebar-user-material">
+		<%-- <div class="sidebar-user-material">
 			<div class="sidebar-user-material-body">
 				<div class="card-body text-center">
 					<c:choose>
@@ -49,7 +49,7 @@
 						Ana, CA</span> -->
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		<!-- /user menu -->
 
 
