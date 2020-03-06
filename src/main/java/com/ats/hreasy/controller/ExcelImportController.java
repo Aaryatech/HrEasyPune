@@ -120,7 +120,7 @@ public class ExcelImportController {
 			mav = "fileUpload/empSalFileUpload";
 
 			model.addAttribute("templatePath", Constants.templateShowUrl);
-			model.addAttribute("fileName", "temp.xls");
+			model.addAttribute("fileName", "salary.xls");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,7 +151,7 @@ public class ExcelImportController {
 			mav = "fileUpload/empAdvFileUpload";
 
 			model.addAttribute("templatePath", Constants.templateShowUrl);
-			model.addAttribute("fileName", "temp.xls");
+			model.addAttribute("fileName", "advance.xls");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -850,9 +850,9 @@ public class ExcelImportController {
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			upload.saveUploadedFiles(fileSal.get(0), Constants.docSaveUrlSal, imageName);
+			upload.saveUploadedFiles(fileSal.get(0), Constants.docSaveUrl, imageName);
 
-			String fileIn = Constants.docSaveUrlSal + imageName;
+			String fileIn = Constants.docSaveUrl + imageName;
 
 			MultiValueMap<String, Object> map = null;
 
@@ -860,7 +860,7 @@ public class ExcelImportController {
 			System.err.println("-------" + imageName);
 
 			// temp.xls2020-02-27_19:30:03_abc.xls
-			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrlSal + imageName));
+			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
 
 			// Create Workbook instance holding reference to .xlsx file
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -1166,9 +1166,9 @@ public class ExcelImportController {
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			upload.saveUploadedFiles(fileAdvance.get(0), Constants.advSaveUrlSal, imageName);
+			upload.saveUploadedFiles(fileAdvance.get(0), Constants.docSaveUrl, imageName);
 
-			String fileIn = Constants.advSaveUrlSal + imageName;
+			String fileIn = Constants.docSaveUrl + imageName;
 
 			MultiValueMap<String, Object> map = null;
 
@@ -1176,7 +1176,7 @@ public class ExcelImportController {
 			System.err.println("-------" + imageName);
 
 			// temp.xls2020-02-27_19:30:03_abc.xls
-			FileInputStream file = new FileInputStream(new File(Constants.advSaveUrlSal + imageName));
+			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
 
 			// Create Workbook instance holding reference to .xlsx file
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
