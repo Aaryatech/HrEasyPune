@@ -73,9 +73,27 @@ public class DashboardAdminController {
 
 			}
 			
+			
+			
 			model.addAttribute("userType", userObj.getDesignType());
+			
+			
+			
+			
+			
+			
+			
+			
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			
+			map.add("empId", userObj.getEmpId());
+			
+			Integer n = Constants.getRestTemplate().postForObject(Constants.url + "/chkIsAuth", map,
+					Integer.class);
+			model.addAttribute("isAuth", n);
+			
+			map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
 
 			BirthHoliDash birth = Constants.getRestTemplate()
@@ -108,9 +126,11 @@ public class DashboardAdminController {
 			DeptWiseWeekoffDash[] perf = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getDeptWisePerformanceBonus", map, DeptWiseWeekoffDash[].class);
 
-			List<DeptWiseWeekoffDash> perfList = new ArrayList<DeptWiseWeekoffDash>(Arrays.asList(perf));
+			List<DeptWiseWeekoffDash> perfListDept = new ArrayList<DeptWiseWeekoffDash>(Arrays.asList(perf));
 
-			model.addAttribute("perfList", perfList);
+			model.addAttribute("perfListDept", perfListDept);
+			
+			System.err.println("perfListDept"+perfListDept.toString());
 
 			DeptWiseWeekoffDash[] deptWiseLvAb = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAbsentLv", map, DeptWiseWeekoffDash[].class);
@@ -128,15 +148,7 @@ public class DashboardAdminController {
 			List<DeptWiseWeekoffDash> deptWiseEmpCntList = new ArrayList<DeptWiseWeekoffDash>(
 					Arrays.asList(deptWiseEmpCnt));
 
-			for (int i = 0; i < deptWiseEmpCntList.size(); i++) {
-				System.err.println(i);
-				if (deptWiseEmpCntList.get(i).getEmpCount() == 0) {
-					
-					System.err.println("5555");
-					deptWiseEmpCntList.remove(i);
-				}
-
-			}
+			 
 
 			model.addAttribute("deptWiseEmpCntList", deptWiseEmpCntList);
 
