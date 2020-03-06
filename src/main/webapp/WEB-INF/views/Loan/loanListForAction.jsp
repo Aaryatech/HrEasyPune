@@ -161,8 +161,7 @@
 													href="${pageContext.request.contextPath}/showSkipLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title=""
-													data-original-title="Skip Loan"><i
-													class="icon-last"></i></a>
+													data-original-title="Skip Loan"><i class="icon-last"></i></a>
 											</c:if> <a
 											href="${pageContext.request.contextPath}/showForeCloseLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"

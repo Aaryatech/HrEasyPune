@@ -76,13 +76,7 @@ public class DashboardAdminController {
 			
 			
 			model.addAttribute("userType", userObj.getDesignType());
-			
-			
-			
-			
-			
-			
-			
+		 
 			
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();

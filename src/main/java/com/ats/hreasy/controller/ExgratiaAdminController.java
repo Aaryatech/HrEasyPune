@@ -298,7 +298,7 @@ public class ExgratiaAdminController {
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteBonusCalcExratia", map,
 					Info.class);
 
-			a = "redirect:/showEmpListToAssignBonus?bonusId=" + FormValidation.Encrypt(bonusId);
+			a = "redirect:/showEmpListToAssignExgratia?bonusId=" + FormValidation.Encrypt(bonusId);
 			if (info.isError() == false) {
 				session.setAttribute("successMsg", "Deleted Successfully");
 			} else {

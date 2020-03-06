@@ -51,7 +51,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Bulk Data Upload</h5></td>
+										<td width="60%"><h5 class="card-title"> Employee Bulk Data Upload</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -131,6 +131,12 @@
 																name="btnUploadCSVSubmit" class="btn btn-primary">
 																Upload File <i class="icon-paperplane ml-2"></i>
 															</button>
+															
+																<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													type="button" class="btn btn-primary">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													Cancel
+												</button></a>
 														</div>
 
 
@@ -146,94 +152,7 @@
 													class="icon-file-download"></i> Download Template</a></span>
 
 										</div>
-										<div class="rows">
 
-											<form
-												action="${pageContext.request.contextPath}/empSalaryDetailUpload"
-												method="POST" enctype="multipart/form-data" method="post"
-												id="empSalaryDetailUpload"
-												class="form-inline1 justify-content-center">
-
-
-												<div class="form-group row ">
-													<label class="col-md-2 col-form-label" for="fileSal">Attach
-														Salary File:</label>
-													<div class="col-md-6">
-														<div class="fallback">
-															<input name="fileSal" type="file" id="fileSal" /><span
-																class="form-text text-muted">Accepted formats:
-																xls </span> <span
-																class="hidedefault   validation-invalid-label"
-																style="display: none;" id="error_fileSal">Please
-																Select File .</span>
-
-
-														</div>
-													</div>
-													<div class="col-md-4">
-														<button type="submit" id="btnUploadSalSubmit"
-															name="btnUploadSubmit" class="btn btn-primary">
-															Uplaod File <i class="icon-paperplane ml-2"></i>
-														</button>
-													</div>
-
-
-
-												</div>
-
-
-											</form>
-										</div>
-										<span class="text-info"> <a
-											href="${templatePath}${fileName}" target="_blank"
-											id="genTemplate1" title=".xls Format"><i
-												class="icon-file-download"></i> Download Template</a></span>
-
-
-
-
-										<div class="rows">
-
-											<form
-												action="${pageContext.request.contextPath}/empAdvanceDetailUpload"
-												method="POST" enctype="multipart/form-data" method="post"
-												id="empAdvanceDetailUpload"
-												class="form-inline1 justify-content-center">
-
-
-												<div class="form-group row ">
-													<label class="col-md-2 col-form-label" for="fileAdvance">Attach
-														Advance File:</label>
-													<div class="col-md-6">
-														<div class="fallback">
-															<input name="fileAdvance" type="file" id="fileAdvance" /><span
-																class="form-text text-muted">Accepted formats:
-																xls </span> <span
-																class="hidedefault   validation-invalid-label"
-																style="display: none;" id="error_fileAdvance">Please
-																Select File .</span>
-
-
-														</div>
-													</div>
-													<div class="col-md-4">
-														<button type="submit" id="btnUploadAdvSubmit"
-															name="btnUploadSubmit" class="btn btn-primary">
-															Uplaod File <i class="icon-paperplane ml-2"></i>
-														</button>
-													</div>
-
-
-
-												</div>
-
-
-											</form>
-										</div>
-										<span class="text-info"> <a
-											href="${templatePath}${fileName}" target="_blank"
-											id="genTemplate1" title=".xls Format"><i
-												class="icon-file-download"></i> Download Template</a></span>
 
 
 
@@ -300,90 +219,6 @@
 		//
 	</script>
 
-
-
-	<script>
-		$(document)
-				.ready(
-						function($) {
-
-							$("#empAdvanceDetailUpload")
-									.submit(
-											function(e) {
-
-												var isError = false;
-												var errMsg = "";
-											 
-												if ($("#fileAdvance").val() != "") {
-
-													$("#error_fileAdvance")
-															.hide()
-												} else {
-
-													isError = true;
-													$("#error_fileAdvance")
-															.show()
-
-												}
-
-												if (!isError) {
-
-													var x = true;
-													if (x == true) {
-
-														document
-																.getElementById("btnUploadAdvSubmit").disabled = true;
-														return true;
-													}
-													//end ajax send this to php page
-												}
-												return false;
-											});
-						});
-		//
-	</script>
-
-
-
-	<script>
-		$(document)
-				.ready(
-						function($) {
-
-							$("#empSalaryDetailUpload")
-									.submit(
-											function(e) {
-
-												var isError = false;
-												var errMsg = "";
- 												if ($("#fileSal").val() != "") {
-
-													$("#error_fileSal").hide()
-												} else {
-
-													isError = true;
-													$("#error_fileSal").show()
-
-												}
-
-												if (!isError) {
-
-													var x = true;
-													if (x == true) {
-
-														document
-																.getElementById("btnUploadSalSubmit").disabled = true;
-														return true;
-													}
-													//end ajax send this to php page
-												}
-												return false;
-											});
-						});
-		//
-	</script>
-
-
-
+ 
 </body>
 </html>
