@@ -30,7 +30,9 @@
 
 				<div class="card-header header-elements-inline"></div>
 
-				<div class="card-body"></div>
+				<div class="card-body">
+					<h6>Dashboard</h6>
+				</div>
 
 			</div>
 			<div class="content">
@@ -40,27 +42,28 @@
 				<div class="card">
 
 					<form action="${pageContext.request.contextPath}/dashboard">
-
-						<div class="form-group row">
-							<label class="col-form-label text-info font-weight-bold col-lg-2"
-								for="dob">Date <span class="text-danger">*</span>:
-							</label>
-							<div class="col-lg-4">
-								<input type="text" class="form-control datepickerclass"
-									placeholder=" " id="fiterdate" name="fiterdate"
-									value="${fiterdate}" autocomplete="off" onchange="trim(this)">
-								<span class="hidedefault  validation-invalid-label"
-									id="error_empDob" style="display: none;">This field is
-									required.</span>
-							</div>
-							<div class="col-lg-2">
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
-									id="submtbtn">
-									Submit <i class="icon-paperplane ml-2"></i>
-								</button>
+						<div class="card-body">
+							<div class="form-group row">
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="dob">Date <span class="text-danger">*</span>:
+								</label>
+								<div class="col-lg-4">
+									<input type="text" class="form-control datepickerclass"
+										placeholder=" " id="fiterdate" name="fiterdate"
+										value="${fiterdate}" autocomplete="off" onchange="trim(this)">
+									<span class="hidedefault  validation-invalid-label"
+										id="error_empDob" style="display: none;">This field is
+										required.</span>
+								</div>
+								<div class="col-lg-2">
+									<button type="submit" class="btn bg-blue ml-3 legitRipple"
+										id="submtbtn">
+										Submit <i class="icon-paperplane ml-2"></i>
+									</button>
+								</div>
 							</div>
 						</div>
-
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-4">
