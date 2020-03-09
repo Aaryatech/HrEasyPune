@@ -99,7 +99,11 @@
 									<label class="col-form-label col-lg-1"> Total OT Hrs: </label>
 									<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
 
+									<label class="col-form-label col-lg-1"> Total Late Mark
+										Deduction : </label> <label class="col-form-label col-lg-1">${summaryAttendance.totlateDays}</label>
+
 								</div>
+
 
 							</div>
 							<hr>
