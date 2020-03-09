@@ -56,10 +56,11 @@
 								<h6 class="card-title">
 									Attendance process for month <strong> ${monthName}
 										&nbsp;${year}</strong>
-								</h6><br/>
+								</h6>
+								<br />
 								<c:if test="${countSal>0}">
-									<label class="text-danger"> Shift Are not
-										Assigned To Employee </label>
+									<label class="text-danger"> Shift Are not Assigned To
+										Employee </label>
 								</c:if>
 								<div class="header-elements"></div>
 							</div>
@@ -157,7 +158,34 @@
 			</div>
 			<!-- /content area -->
 
+			<!-- Info modal -->
+			<div id="myModal_checklist" class="modal fade " data-backdrop="false"
+				tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-info">
+							<h6 class="modal-title">Checklist</h6>
+							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+						</div>
 
+						<div class="modal-body">
+							<h6 class="font-weight-semibold text-center">
+								*Note : Assign Company, Location,Employee Type, Holiday Category
+								and Weeklyoff Category, Shift,Skill Rate to All Employee.<br>
+								*Note : Leaves Sanction All Leaves If Pending.<br> *Note :
+								All Attendance Are Uploaded for Employee.
+							</h6>
+
+
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 			<!-- /footer -->
@@ -337,7 +365,11 @@
 		});
 	</script>
 
-
+	<script type="text/javascript">
+		$(window).on('load', function() {
+			$('#myModal_checklist').modal('show');
+		});
+	</script>
 
 </body>
 </html>

@@ -92,8 +92,10 @@
 							action="${pageContext.request.contextPath}/selectMonthForPayRoll"
 							id="selectMonthForPayRoll" method="get">
 							<div class="form-group row">
-								<label class="col-form-label text-info font-weight-bold col-lg-2" for="datepicker">
-									Select Month <span style="color: red">* </span> :
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="datepicker"> Select Month <span style="color: red">*
+								</span> :
 								</label>
 								<div class="col-md-2">
 									<input type="text" name="selectMonth" id="datepicker"
@@ -108,7 +110,7 @@
 							</div>
 						</form>
 						<form action="${pageContext.request.contextPath}/viewDynamicValue"
-							id="submitInsertLeave" method="post">
+							id="viewDynamicValue" method="post">
 
 							<input type="hidden" name="searchDate" id="searchDate"
 								value="${date}" />
@@ -207,13 +209,14 @@
 									</tbody>
 								</table>
 							</div>
-
+							<span class="validation-invalid-label" id="error_emp"
+								style="display: none;">Select Minimum one employee.</span>
 							<c:if test="${date!=null && empList.size()>0}">
 								<br>
 								<div class="text-center">
 
-									<button type="submit" class="btn bg-blue ml-3 legitRipple"
-										id="submtbtn">
+									<button type="button" class="btn bg-blue ml-3 legitRipple"
+										id="submtbtn" onclick="submitForm()">
 										Submit <i class="icon-paperplane ml-2"></i>
 									</button>
 
@@ -228,7 +231,33 @@
 			</div>
 			<!-- /content area -->
 
+			<!-- Info modal -->
+			<div id="myModal_checklist" class="modal fade " data-backdrop="false"
+				tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-info">
+							<h6 class="modal-title">Checklist</h6>
+							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+						</div>
 
+						<div class="modal-body">
+							<h6 class="font-weight-semibold text-center">
+								*Note : Confirm Salary Structure of employee.<br>*Note :
+								Assign Skill Rate Of Employee.
+							</h6>
+
+
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /info modal -->
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 			<!-- /footer -->
@@ -262,8 +291,26 @@
 			}
 		});
 	</script>
-	
-	
+
+	<script type="text/javascript">
+		/* $(window).on('load', function() {
+			$('#myModal_checklist').modal('show');
+		}); */
+		function submitForm() {
+			$("#error_emp").hide();
+			var list = [];
+
+			$("input:checkbox[name=selectEmp]:checked").each(function() {
+				list.push($(this).val());
+			});
+			if (list.length > 0) {
+				document.getElementById('viewDynamicValue').submit();
+			} else {
+				//alert("Select Minimum one employee")
+				$("#error_emp").show();
+			}
+		}
+	</script>
 	<script type="text/javascript">
 		// Single picker
 		/* $("#datepicker").datepicker({
@@ -284,20 +331,17 @@
 				separator : ' to '
 			}
 		});
-		 $(document).ready(function() {
-		        // month selector
-		        $('#datepicker').datepicker({
-		            autoclose: true,
-		            format: "mm-yyyy",
-		            viewMode: "months",
-		            minViewMode: "months"
+		$(document).ready(function() {
+			// month selector
+			$('#datepicker').datepicker({
+				autoclose : true,
+				format : "mm-yyyy",
+				viewMode : "months",
+				minViewMode : "months"
 
-		        });
+			});
 
-
-		    });
-		
-		
+		});
 	</script>
 </body>
 </html>

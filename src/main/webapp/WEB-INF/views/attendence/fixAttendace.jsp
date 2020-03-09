@@ -50,10 +50,12 @@
 
 						<form
 							action="${pageContext.request.contextPath}/submitFixAttendaceByDateAndEmp"
-							id="submitInsertLeave" method="post">
+							id="submitFixAttendaceByDateAndEmp" method="post">
 							<div class="form-group row">
-								<label class="col-form-label text-info font-weight-bold col-lg-2" for="date">From
-									Date <span style="color: red">* </span> :
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="date">From Date <span style="color: red">*
+								</span> :
 								</label>
 								<div class="col-md-2">
 									<input type="text" class="form-control datepickerclass"
@@ -61,8 +63,9 @@
 										value="" autocomplete="off">
 								</div>
 								<div class="col-lg-1"></div>
-								<label class="col-form-label text-info font-weight-bold col-lg-2" for="date">To
-									Date <span style="color: red">* </span> :
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="date">To Date <span style="color: red">* </span> :
 								</label>
 								<div class="col-md-2">
 									<input type="text" class="form-control datepickerclass"
@@ -70,12 +73,13 @@
 										autocomplete="off">
 								</div>
 
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="button"
+									class="btn bg-blue ml-3 legitRipple bootbox_custom"
 									id="submtbtn">
 									Submit <i class="icon-paperplane ml-2"></i>
 								</button>
 
-							</div> 
+							</div>
 							<div id="loader" style="display: none;">
 								<img
 									src="${pageContext.request.contextPath}/resources/assets/images/giphy.gif"
@@ -112,6 +116,8 @@
 									</tbody>
 								</table>
 							</div>
+							<span class="validation-invalid-label" id="error_emp"
+								style="display: none;">Select Minimum one employee.</span>
 						</form>
 
 					</div>
@@ -146,10 +152,8 @@
 				</div>
 
 				<div class="modal-body">
-					<h6 class="font-weight-semibold text-center">
-						*Note : Leaves Sanction All Leaves If Pending.<br> *Note :
-						All Attendance Are Uploaded for Employee.
-					</h6>
+					<h6 class="font-weight-semibold text-center">*Note : Upload
+						All Attendance Between Date You Want to Fix.</h6>
 
 
 				</div>
@@ -205,5 +209,52 @@
 			$('#myModal_checklist').modal('show');
 		});
 	</script>
+
+	<script>
+		// Custom bootbox dialog
+		$('.bootbox_custom')
+				.on(
+						'click',
+						function() {
+							//var uuid = $(this).data("uuid") // will return the number 123
+							$("#error_emp").hide();
+							var list = [];
+
+							$("input:checkbox[name=selectEmp]:checked").each(
+									function() {
+										list.push($(this).val());
+									});
+							if (list.length > 0) {
+
+								bootbox
+										.confirm({
+											title : 'Confirm ',
+											message : 'Are you sure want to Fix Attendace. Once it Fixed you will not able to edit any records?',
+											buttons : {
+												confirm : {
+													label : 'Yes',
+													className : 'btn-success'
+												},
+												cancel : {
+													label : 'Cancel',
+													className : 'btn-link'
+												}
+											},
+											callback : function(result) {
+												if (result) {
+													document
+															.getElementById(
+																	'submitFixAttendaceByDateAndEmp')
+															.submit();
+
+												}
+											}
+										});
+							} else {
+								//alert("Select Minimum one employee")
+								$("#error_emp").show();
+							}
+						});
+	</Script>
 </body>
 </html>

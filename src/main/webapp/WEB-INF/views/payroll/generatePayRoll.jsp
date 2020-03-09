@@ -316,8 +316,8 @@
 											</td>
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+													out.println(String.format("%.2f",
+																	ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
@@ -502,7 +502,7 @@
 							bootbox
 									.confirm({
 										title : 'Confirm ',
-										message : 'Are you sure want to generate the payroll. Once it Gerenerated you will not able to edit any records/data like TDS,Advance, Loan etc?',
+										message : 'Are you sure want to generate the payroll? Once it Gerenerated you will not able to edit any records/data like TDS,Advance, Loan etc',
 										buttons : {
 											confirm : {
 												label : 'Yes',
