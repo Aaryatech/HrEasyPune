@@ -135,10 +135,10 @@
 												class="form-control form-control-select2 select2-hidden-accessible"
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
-												<option value="1"
-													${employee.minworkApplicable == '1' ? 'selected' : ''}>Yes</option>
-												<option value="0"
-													${employee.minworkApplicable == '0' ? 'selected' : ''}>No</option>
+												<option value="Yes"
+													${employee.minworkApplicable == 'Yes' ? 'selected' : ''}>Yes</option>
+												<option value="No"
+													${employee.minworkApplicable == 'No' ? 'selected' : ''}>No</option>
 
 											</select> <span class="validation-invalid-label"
 												id="error_minWorkRule" style="display: none;">This
@@ -156,10 +156,10 @@
 												class="form-control form-control-select2 select2-hidden-accessible"
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
-												<option value="1"
-													${employee.halfDay == '1' ? 'selected' : ''}>Yes</option>
-												<option value="0"
-													${employee.halfDay == '0' ? 'selected' : ''}>No</option>
+												<option value="Yes"
+													${employee.halfDay == 'Yes' ? 'selected' : ''}>Yes</option>
+												<option value="No"
+													${employee.halfDay == 'No' ? 'selected' : ''}>No</option>
 
 
 

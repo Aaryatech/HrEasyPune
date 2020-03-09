@@ -77,13 +77,13 @@ public class ExcelImportController {
 		HttpSession session = request.getSession();
 		String mav = null;
 
-		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 		Info view = AcessController.checkAccess("showEmpFileUpload", "showEmpFileUpload", 1, 0, 0, 0, newModuleList);
 		if (view.isError() == true) {
 
 			mav = "accessDenied";
 
-		} else {
+		} else {*/
 
 			try {
 
@@ -95,7 +95,7 @@ public class ExcelImportController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 		return mav;
 	}
 

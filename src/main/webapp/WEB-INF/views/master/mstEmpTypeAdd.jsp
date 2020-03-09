@@ -132,8 +132,8 @@
 												class="form-control form-control-select2 select2-hidden-accessible"
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
-												<option value="1">Yes</option>
-												<option value="0">No</option>
+												<option value="Yes">Yes</option>
+												<option value="No">No</option>
 
 
 
@@ -153,8 +153,8 @@
 												class="form-control form-control-select2 select2-hidden-accessible"
 												tabindex="-1" aria-hidden="true">
 												<option value="">Please Select</option>
-												<option value="1">Yes</option>
-												<option value="0">No</option>
+												<option value="Yes">Yes</option>
+												<option value="No">No</option>
 
 
 
