@@ -135,7 +135,7 @@ body1 {
 							</div>
                                 <div class="checkbox clearfix">
                                      
-                                    <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a>
+                                   <%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn-md btn-theme btn-block">Login</button>

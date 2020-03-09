@@ -38,7 +38,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Fix Attendance</h5>
+						<h5 class="card-title">Freeze Attendance</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -229,7 +229,7 @@
 								bootbox
 										.confirm({
 											title : 'Confirm ',
-											message : 'Are you sure want to Fix Attendace. Once it Fixed you will not able to edit any records?',
+											message : 'Are you sure want to Freeze Attendace? Once it Fixed you will not able to edit any records.',
 											buttons : {
 												confirm : {
 													label : 'Yes',

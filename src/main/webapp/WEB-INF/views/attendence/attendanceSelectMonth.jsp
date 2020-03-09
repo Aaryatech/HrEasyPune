@@ -172,8 +172,7 @@
 							<h6 class="font-weight-semibold text-center">
 								*Note : Assign Company, Location,Employee Type, Holiday Category
 								and Weeklyoff Category, Shift,Skill Rate to All Employee.<br>
-								*Note : Leaves Sanction All Leaves If Pending.<br> *Note :
-								All Attendance Are Uploaded for Employee.
+								*Note : Sanction Leaves All Leaves If Pending.
 							</h6>
 
 
