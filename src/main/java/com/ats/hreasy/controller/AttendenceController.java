@@ -44,6 +44,7 @@ import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.EmpInfo;
+import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
 import com.ats.hreasy.model.FileUploadedData;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
@@ -637,6 +638,9 @@ public class AttendenceController {
 
 	}
 
+	int month = 0;
+	int year = 0;
+
 	@RequestMapping(value = "/fixAttendaceByDateAndEmp", method = RequestMethod.GET)
 	public String fixAttendaceByDateAndEmp(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
@@ -645,7 +649,8 @@ public class AttendenceController {
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 		Info view = AcessController.checkAccess("fixAttendaceByDateAndEmp", "fixAttendaceByDateAndEmp", 1, 0, 0, 0,
 				newModuleList);
-
+		month = 0;
+		year = 0;
 		if (view.isError() == true) {
 
 			mav = "accessDenied";
@@ -655,10 +660,20 @@ public class AttendenceController {
 
 			try {
 
-				EmpInfo[] empInfo = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getEmpListForFixAttendace", EmpInfo[].class);
-				List<EmpInfo> empList = new ArrayList<EmpInfo>(Arrays.asList(empInfo));
+				String selectMonth = request.getParameter("selectMonth");
+				String[] mnth = selectMonth.split("-");
+				month = Integer.parseInt(mnth[0]);
+				year = Integer.parseInt(mnth[1]);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("month", month);
+				map.add("year", year);
+				map.add("isFixed", 0);
+				map.add("sts", "O");
+				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
+				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
 				model.addAttribute("empList", empList);
+				model.addAttribute("selectMonth", selectMonth);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -674,17 +689,21 @@ public class AttendenceController {
 		try {
 
 			String[] empIds = request.getParameterValues("selectEmp");
-			String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
+			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
 			String empId = new String();
 
 			for (int i = 0; i < empIds.length; i++) {
 				empId = empId + "," + empIds[i];
 			}
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
-			map.add("toDate", DateConvertor.convertToYMD(toDate));
+			map.add("fromDate", sf.format(firstDay));
+			map.add("toDate", sf.format(lastDay));
 			map.add("empIds", empId.substring(1, empId.length()));
+			map.add("isFixed", 1);
+			map.add("sts", "F");
 			// System.out.println(map);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/fixAttendanceByDateOfEmpLoyee", map,
 					Info.class);
@@ -692,6 +711,79 @@ public class AttendenceController {
 			e.printStackTrace();
 		}
 		return "redirect:/fixAttendaceByDateAndEmp";
+
+	}
+
+	@RequestMapping(value = "/unfixAttendaceByDateAndEmp", method = RequestMethod.GET)
+	public String unfixAttendaceByDateAndEmp(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("unfixAttendaceByDateAndEmp", "unfixAttendaceByDateAndEmp", 1, 0, 0, 0,
+				newModuleList);
+		month = 0;
+		year = 0;
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+			mav = "attendence/unfixAttendace";
+
+			try {
+
+				String selectMonth = request.getParameter("selectMonth");
+				String[] mnth = selectMonth.split("-");
+				month = Integer.parseInt(mnth[0]);
+				year = Integer.parseInt(mnth[1]);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("month", month);
+				map.add("year", year);
+				map.add("isFixed", 1);
+				map.add("sts", "F");
+				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
+				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
+				model.addAttribute("empList", empList);
+				model.addAttribute("selectMonth", selectMonth);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/submitunFixAttendaceByDateAndEmp", method = RequestMethod.POST)
+	public String submitunFixAttendaceByDateAndEmp(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			String[] empIds = request.getParameterValues("selectEmp");
+			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
+			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+			String empId = new String();
+
+			for (int i = 0; i < empIds.length; i++) {
+				empId = empId + "," + empIds[i];
+			}
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", sf.format(firstDay));
+			map.add("toDate", sf.format(lastDay));
+			map.add("empIds", empId.substring(1, empId.length()));
+			map.add("isFixed", 0);
+			map.add("sts", "O");
+			// System.out.println(map);
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/fixAttendanceByDateOfEmpLoyee", map,
+					Info.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/unfixAttendaceByDateAndEmp";
 
 	}
 

@@ -43,7 +43,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Freeze Attendance</h5>
+						<h5 class="card-title">Unfreeze Attendance</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -57,7 +57,7 @@
 							action="${pageContext.request.contextPath}/submitFixAttendaceByDateAndEmp"
 							id="submitFixAttendaceByDateAndEmp" method="post"> --%>
 						<form
-							action="${pageContext.request.contextPath}/fixAttendaceByDateAndEmp"
+							action="${pageContext.request.contextPath}/unfixAttendaceByDateAndEmp"
 							id="fixAttendaceByDateAndEmp" method="get">
 
 							<!-- <div class="form-group row">
@@ -115,7 +115,7 @@
 								style="display: block; margin-left: auto; margin-right: auto">
 						</div>
 						<form
-							action="${pageContext.request.contextPath}/submitFixAttendaceByDateAndEmp"
+							action="${pageContext.request.contextPath}/submitunFixAttendaceByDateAndEmp"
 							id="submitFixAttendaceByDateAndEmp" method="post">
 							<div class="table-responsive">
 								<table
@@ -155,7 +155,7 @@
 									<button type="button"
 										class="btn bg-blue ml-3 legitRipple bootbox_custom"
 										id="submtbtn">
-										Freeze <i class="icon-paperplane ml-2"></i>
+										Unfreeze <i class="icon-paperplane ml-2"></i>
 									</button>
 
 								</div>
@@ -265,49 +265,46 @@
 
 	<script>
 		// Custom bootbox dialog
-		$('.bootbox_custom')
-				.on(
-						'click',
-						function() {
-							//var uuid = $(this).data("uuid") // will return the number 123
-							$("#error_emp").hide();
-							var list = [];
+		$('.bootbox_custom').on(
+				'click',
+				function() {
+					//var uuid = $(this).data("uuid") // will return the number 123
+					$("#error_emp").hide();
+					var list = [];
 
-							$("input:checkbox[name=selectEmp]:checked").each(
-									function() {
-										list.push($(this).val());
-									});
-							if (list.length > 0) {
+					$("input:checkbox[name=selectEmp]:checked").each(
+							function() {
+								list.push($(this).val());
+							});
+					if (list.length > 0) {
 
-								bootbox
-										.confirm({
-											title : 'Confirm ',
-											message : 'Have you upload attendance of the selected month of employee?',
-											buttons : {
-												confirm : {
-													label : 'Yes',
-													className : 'btn-success'
-												},
-												cancel : {
-													label : 'Cancel',
-													className : 'btn-link'
-												}
-											},
-											callback : function(result) {
-												if (result) {
-													document
-															.getElementById(
-																	'submitFixAttendaceByDateAndEmp')
-															.submit();
+						bootbox.confirm({
+							title : 'Confirm ',
+							message : 'Do you wnat unfreeze attendance?',
+							buttons : {
+								confirm : {
+									label : 'Yes',
+									className : 'btn-success'
+								},
+								cancel : {
+									label : 'Cancel',
+									className : 'btn-link'
+								}
+							},
+							callback : function(result) {
+								if (result) {
+									document.getElementById(
+											'submitFixAttendaceByDateAndEmp')
+											.submit();
 
-												}
-											}
-										});
-							} else {
-								//alert("Select Minimum one employee")
-								$("#error_emp").show();
+								}
 							}
 						});
+					} else {
+						//alert("Select Minimum one employee")
+						$("#error_emp").show();
+					}
+				});
 	</Script>
 </body>
 </html>
