@@ -225,7 +225,8 @@
 											%>
 											<%
 												for (int i = 0; i < allowancelist.size(); i++) {
-											%><th class="text-center">
+											%><th class="text-center"
+												title="<%out.println(allowancelist.get(i).getName());%>">
 												<%
 													out.println(allowancelist.get(i).getShortName());
 												%>
@@ -246,7 +247,7 @@
 											<th class="text-center">Society Contribution</th>
 											<th class="text-center">Gross Ded</th>
 											<th class="text-center">Claim ADD</th>
-											<th class="text-center">Performance Bonus</th>
+											<!-- <th class="text-center">Performance Bonus</th> -->
 											<th class="text-center">Production Incentive</th>
 											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Reward</th>
@@ -447,12 +448,12 @@
 																		ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",

@@ -342,7 +342,7 @@ public class PayRollController {
 			rowData.add("Society Contribution");
 			rowData.add("Gross Ded");
 			rowData.add("Claim Add");
-			rowData.add("Performance Bonus");
+			/*rowData.add("Performance Bonus");*/
 			rowData.add("Production Incentive");
 			rowData.add("Performance Incentive");
 			rowData.add("Reward");
@@ -411,8 +411,8 @@ public class PayRollController {
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
 				rowData.add(""
 						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-				rowData.add("" + String.format("%.2f",
-						ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+				/*rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));*/
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 				rowData.add("" + String.format("%.2f",
@@ -563,7 +563,7 @@ public class PayRollController {
 			rowData.add("Society Contribution");
 			rowData.add("Gross Ded");
 			rowData.add("Claim ADD");
-			rowData.add("Performance Bonus");
+			/*rowData.add("Performance Bonus");*/
 			rowData.add("Production Incentive");
 			rowData.add("Performance Incentive");
 			rowData.add("Reward");
@@ -662,8 +662,8 @@ public class PayRollController {
 						rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+						/*rowData.add("" + String.format("%.2f",
+								ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));*/
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 						rowData.add("" + String.format("%.2f",

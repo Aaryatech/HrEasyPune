@@ -91,7 +91,7 @@
 											<th class="text-center">Basic</th>
 											<!-- <th class="text-center">Allowance</th> -->
 											<c:forEach items="${allowanceslist}" var="allowanceslist">
-												<th class="text-center">${allowanceslist.shortName}</th>
+												<th class="text-center" title="${allowanceslist.name}">${allowanceslist.shortName}</th>
 											</c:forEach>
 											<!-- <th class="text-center">Absent Deduction</th> -->
 											<th class="text-center">Gross Earning</th>
@@ -106,7 +106,7 @@
 											<th class="text-center">Society Contribution</th>
 											<th class="text-center">Gross Ded</th>
 											<th class="text-center">Claim ADD</th>
-											<th class="text-center">Performance Bonus</th>
+											<!-- <th class="text-center">Performance Bonus</th> -->
 											<th class="text-center">Production Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Performance Incentive</th>
 											<th class="text-center">Reward</th>
@@ -290,12 +290,12 @@
 																	ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																	ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													out.println(

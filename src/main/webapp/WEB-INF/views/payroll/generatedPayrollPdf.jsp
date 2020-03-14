@@ -251,7 +251,7 @@ hr {
 								align="right">${list.miscExpAdd}</td>
 
 						</tr>
-						<tr>
+						<%-- <tr>
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 								align="left">Performance Bonus</td>
@@ -260,7 +260,7 @@ hr {
 								style="color: #000; font-size: 12px; padding-right: 5px;"
 								align="right">${list.performanceBonus}</td>
 
-						</tr>
+						</tr> --%>
 
 						<tr>
 							<td width="50%" valign="top"
