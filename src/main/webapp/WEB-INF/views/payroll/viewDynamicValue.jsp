@@ -47,6 +47,18 @@
 							<h5 class="card-title">Edit Attendance Detail</h5>
 						</div>
 						<div class="card-body">
+
+							<div class="form-group row">
+								<label class="col-form-label col-lg-2" for="empName">
+									EMP Name : </label>
+								<div class="col-lg-2">
+									<input type="text" class="form-control" placeholder="EMP Name"
+										id="empName" name="empName" autocomplete="off" disabled>
+
+								</div>
+
+							</div>
+
 							<div class="form-group row">
 								<label class="col-form-label col-lg-2" for="empCode">
 									EMP Code : </label>
@@ -64,18 +76,20 @@
 								<div class="col-lg-2">
 									<input type="text" class="form-control numbersOnly"
 										placeholder="IT Ammount" id="itAmt" name="itAmt"
-										autocomplete="off">
+										autocomplete="off"> <input type="hidden"
+										class="form-control numbersOnly" placeholder="Status"
+										id="perBonus" name="perBonus" autocomplete="off">
 
 								</div>
 								<div class="col-lg-1"></div>
-								<label class="col-form-label col-lg-2" for="perBonus">
+								<!-- <label class="col-form-label col-lg-2" for="perBonus">
 									Performance Bonus : </label>
 								<div class="col-lg-2">
 									<input type="text" class="form-control numbersOnly"
 										placeholder="Status" id="perBonus" name="perBonus"
 										autocomplete="off">
 
-								</div>
+								</div> -->
 							</div>
 
 							<!-- <div class="form-group row">
@@ -141,7 +155,7 @@
 											<th class="text-center">Loan EMI</th>
 											<th class="text-center">Pay Ded</th>
 											<th class="text-center">IT Ded</th>
-											<th class="text-center">Performance Bonus</th>
+											<!-- <th class="text-center">Performance Bonus</th> -->
 											<th class="text-center">Reward</th>
 											<th class="text-center">Edit</th>
 										</tr>
@@ -161,11 +175,12 @@
 												<td class="text-right">${empList.loanDed}</td>
 												<td class="text-right">${empList.payDed}</td>
 												<td class="text-right">${empList.itded}</td>
-												<td class="text-right">${empList.performanceBonus}</td>
+												<%-- <td class="text-right">${empList.performanceBonus}</td> --%>
 												<td class="text-right">${empList.reward}</td>
 												<td class="text-center"><a href="#"
 													onclick="editBonus(${empList.id})"
-													data-original-title="Edit"><i class="icon-pencil7"></i></a></td>
+													data-original-title="Edit" title="Edit"><i
+														class="icon-pencil7"></i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -191,6 +206,33 @@
 			</div>
 			<!-- /content area -->
 
+			<!-- Info modal -->
+			<div id="modal_step1" class="modal fade " data-backdrop="false"
+				tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-info">
+							<h6 class="modal-title">Updating Record...</h6>
+							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+						</div>
+
+						<div class="modal-body">
+							<h6 class="font-weight-semibold text-center">
+								<h6>Please wait.....</h6>
+							</h6>
+
+							<hr>
+							<p class="text-center text-info">If it is taking time please
+								reload the page</p>
+						</div>
+
+						<div class="modal-footer">
+							<!--   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
@@ -253,8 +295,9 @@
 				processData : false,
 				success : function(response) {
 
-					document.getElementById("editBonusDiv").style.display = 'block';  
+					document.getElementById("editBonusDiv").style.display = 'block';   
 					document.getElementById("tempSalDaynamicId").value = response.id; 
+					document.getElementById("empName").value = response.empName; 
 					document.getElementById("empCode").value = response.empCode; 
 					document.getElementById("itAmt").value = response.itded; 
 					document.getElementById("perBonus").value = response.performanceBonus; 
@@ -282,6 +325,8 @@
 			}
 			
 			if(flag==0){
+				
+				$('#modal_step1').modal('show');
 				var fd = new FormData();
 				fd.append('tempSalDaynamicId', tempSalDaynamicId);
 				fd.append('itAmt', itAmt);

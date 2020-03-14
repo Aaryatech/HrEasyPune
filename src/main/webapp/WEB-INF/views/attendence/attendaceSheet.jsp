@@ -112,9 +112,9 @@
 												<th style="text-align: center;">EMP Name</th>
 												<th style="text-align: center;">Month</th>
 												<th style="text-align: center;">Year</th>
-												<c:forEach items="${attendanceSheetData.dates}" var="dates"
-													varStatus="count">
-													<th style="text-align: center;">${count.index+1}</th>
+												<c:forEach items="${attendanceSheetData.dateAndDayList}"
+													var="dates" varStatus="count">
+													<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
 												</c:forEach>
 												<th style="text-align: center;">Edit</th>
 											</tr>
