@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,7 @@ import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.EmpInfo;
 import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
 import com.ats.hreasy.model.FileUploadedData;
+import com.ats.hreasy.model.FreezeLogs;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
@@ -707,6 +709,29 @@ public class AttendenceController {
 			// System.out.println(map);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/fixAttendanceByDateOfEmpLoyee", map,
 					Info.class);
+
+			String userAgent = request.getHeader("User-Agent");
+			InetAddress addr = InetAddress.getByName(request.getRemoteAddr());
+			String hostName = addr.getHostName();
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			Date date = new Date();
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			FreezeLogs savefreezeLogs = new FreezeLogs();
+			savefreezeLogs.setIpAddress(hostName);
+			savefreezeLogs.setUserAgent(userAgent);
+			savefreezeLogs.setUserId(userObj.getUserId());
+			savefreezeLogs.setMakerEnterDatetime(dt.format(date));
+			savefreezeLogs.setEmployeeIds(empId.substring(1, empId.length()));
+			savefreezeLogs.setFreezeMonth(month + "-" + year);
+			savefreezeLogs.setFreezeType("F");
+			savefreezeLogs.setComments("");
+
+			FreezeLogs save = Constants.getRestTemplate().postForObject(Constants.url + "/freezeUnfreezeLogs",
+					savefreezeLogs, FreezeLogs.class);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -780,6 +805,29 @@ public class AttendenceController {
 			// System.out.println(map);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/fixAttendanceByDateOfEmpLoyee", map,
 					Info.class);
+
+			String userAgent = request.getHeader("User-Agent");
+			InetAddress addr = InetAddress.getByName(request.getRemoteAddr());
+			String hostName = addr.getHostName();
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			Date date = new Date();
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			FreezeLogs savefreezeLogs = new FreezeLogs();
+			savefreezeLogs.setIpAddress(hostName);
+			savefreezeLogs.setUserAgent(userAgent);
+			savefreezeLogs.setUserId(userObj.getUserId());
+			savefreezeLogs.setMakerEnterDatetime(dt.format(date));
+			savefreezeLogs.setEmployeeIds(empId.substring(1, empId.length()));
+			savefreezeLogs.setFreezeMonth(month + "-" + year);
+			savefreezeLogs.setFreezeType("O");
+			savefreezeLogs.setComments("");
+
+			FreezeLogs save = Constants.getRestTemplate().postForObject(Constants.url + "/freezeUnfreezeLogs",
+					savefreezeLogs, FreezeLogs.class);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
