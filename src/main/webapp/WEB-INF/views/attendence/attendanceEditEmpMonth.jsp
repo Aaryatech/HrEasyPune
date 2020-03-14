@@ -58,6 +58,41 @@
 
 							<div class="card-body">
 
+								<%
+									if (session.getAttribute("errorMsg") != null) {
+								%>
+								<div
+									class="alert bg-danger text-white alert-styled-left alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert">
+										<span>×</span>
+									</button>
+									<span class="font-weight-semibold">Oh snap!</span>
+									<%
+										out.println(session.getAttribute("errorMsg"));
+									%>
+								</div>
+
+								<%
+									session.removeAttribute("errorMsg");
+									}
+								%>
+								<%
+									if (session.getAttribute("successMsg") != null) {
+								%>
+								<div
+									class="alert bg-success text-white alert-styled-left alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert">
+										<span>×</span>
+									</button>
+									<span class="font-weight-semibold">Well done!</span>
+									<%
+										out.println(session.getAttribute("successMsg"));
+									%>
+								</div>
+								<%
+									session.removeAttribute("successMsg");
+									}
+								%>
 								<div class="form-group row">
 									<label class="col-form-label col-lg-2"> Employee Code :
 									</label> <label class="col-form-label col-lg-2">
@@ -94,7 +129,7 @@
 								<div class="form-group row">
 
 									<label class="col-form-label col-lg-1"> Total Late Mark
-										: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totlateDays}</label>
+										: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totLate}</label>
 
 									<label class="col-form-label col-lg-1"> Total OT Hrs: </label>
 									<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>

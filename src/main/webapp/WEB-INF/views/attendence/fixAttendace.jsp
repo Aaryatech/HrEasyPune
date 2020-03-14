@@ -60,35 +60,41 @@
 							action="${pageContext.request.contextPath}/fixAttendaceByDateAndEmp"
 							id="fixAttendaceByDateAndEmp" method="get">
 
-							<!-- <div class="form-group row">
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="date">From Date <span style="color: red">*
-								</span> :
-								</label>
-								<div class="col-md-2">
-									<input type="text" class="form-control datepickerclass"
-										placeholder="Select Date " id="fromDate" name="fromDate"
-										value="" autocomplete="off">
-								</div>
-								<div class="col-lg-1"></div>
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="date">To Date <span style="color: red">* </span> :
-								</label>
-								<div class="col-md-2">
-									<input type="text" class="form-control datepickerclass"
-										placeholder="Select Date " id="toDate" name="toDate" value=""
-										autocomplete="off">
+							<%
+									if (session.getAttribute("errorMsg") != null) {
+								%>
+								<div
+									class="alert bg-danger text-white alert-styled-left alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert">
+										<span>×</span>
+									</button>
+									<span class="font-weight-semibold">Oh snap!</span>
+									<%
+										out.println(session.getAttribute("errorMsg"));
+									%>
 								</div>
 
-								<button type="button"
-									class="btn bg-blue ml-3 legitRipple bootbox_custom"
-									id="submtbtn">
-									Submit <i class="icon-paperplane ml-2"></i>
-								</button>
-
-							</div> -->
+								<%
+									session.removeAttribute("errorMsg");
+									}
+								%>
+								<%
+									if (session.getAttribute("successMsg") != null) {
+								%>
+								<div
+									class="alert bg-success text-white alert-styled-left alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert">
+										<span>×</span>
+									</button>
+									<span class="font-weight-semibold">Well done!</span>
+									<%
+										out.println(session.getAttribute("successMsg"));
+									%>
+								</div>
+								<%
+									session.removeAttribute("successMsg");
+									}
+								%>
 
 							<div class="form-group row">
 								<label

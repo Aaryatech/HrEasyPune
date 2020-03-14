@@ -62,7 +62,10 @@
 									</tr>
 								</table>
 							</div>
-							<%-- <div class="card-body">
+
+
+							<div class="card-body">
+
 								<%
 									if (session.getAttribute("errorMsg") != null) {
 								%>
@@ -98,46 +101,6 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
-
-								<form
-									action="${pageContext.request.contextPath}/submitImportExel"
-									id="submitInsertLocaion1" method="post"
-									enctype="multipart/form-data">
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="doc">Select
-											File <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-6">
-											<input type="file" class="form-control"
-												placeholder="Enter Location Name" id="doc" name="doc"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_locName"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-
-
-
-									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
-
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
-												id="submtbtn">
-												Submit <i class="icon-paperplane ml-2"></i>
-											</button>
-											<a href="${pageContext.request.contextPath}/showLocationList"><button
-													type="button" class="btn btn-primary">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
-													Cancel
-												</button></a>
-										</div>
-									</div>
-								</form>
-							</div> --%>
-
-
-							<div class="card-body">
-
 								<ul
 									class="nav nav-tabs nav-tabs-solid nav-justified rounded border-0">
 									<li class="nav-item mr-1"><c:choose>
@@ -265,7 +228,6 @@
 												<form action="#" method="POST" enctype="multipart/form-data"
 													method="post" accept-charset="utf-8"
 													class="form-inline1 justify-content-center">
-
 
 													<div class="form-group row ">
 														<label class="col-md-2 col-form-label" for="doc">Attach
@@ -559,7 +521,7 @@
 											} else {
 
 											}
-											
+
 											location.reload(true);
 											// $('#modal_step1').modal('hide');
 										},
@@ -618,7 +580,7 @@
 						} else {
 
 						}
-						
+
 						location.reload(true);
 					},
 				});
@@ -670,7 +632,7 @@
 											} else {
 
 											}
-											
+
 											location.reload(true);
 										},
 									});

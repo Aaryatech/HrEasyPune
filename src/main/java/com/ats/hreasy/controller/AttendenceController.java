@@ -268,7 +268,11 @@ public class AttendenceController {
 			map.add("userId", userObj.getUserId());
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/initiallyInsertDailyRecord", map,
 					Info.class);
-			System.out.println(info);
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Step 1 Completed Successfully");
+			} else {
+				session.setAttribute("errorMsg", "Error in Step 1");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			info = new Info();
@@ -365,6 +369,11 @@ public class AttendenceController {
 
 				//
 
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", "Attendance Updated Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Update Attendance");
+				}
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -405,6 +414,11 @@ public class AttendenceController {
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/finalUpdateDailySumaryRecord", map,
 					Info.class);
 			// System.out.println(info);
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Step 3 Completed Successfully");
+			} else {
+				session.setAttribute("errorMsg", "Error in Step 3");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			info = new Info();
@@ -567,21 +581,25 @@ public class AttendenceController {
 
 	@RequestMapping(value = "/markAsCompOff", method = RequestMethod.POST)
 	@ResponseBody
-	public GetDailyDailyRecord markAsCompOff(HttpServletRequest request, HttpServletResponse response) {
+	public Info markAsCompOff(HttpServletRequest request, HttpServletResponse response) {
 
-		GetDailyDailyRecord info = new GetDailyDailyRecord();
+		Info info = new Info();
 
 		try {
-
+			HttpSession session = request.getSession();
 			int dailyId = Integer.parseInt(request.getParameter("dailyId"));
 			String sts = request.getParameter("sts");
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("dailyId", dailyId);
 			map.add("sts", sts);
-			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateMarkAsCompOff", map,
-					GetDailyDailyRecord.class);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateMarkAsCompOff", map, Info.class);
 			// System.out.println(info);
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Attendance Updated Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update Attendance.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -632,6 +650,12 @@ public class AttendenceController {
 			System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingle", map,
 					Info.class);
+
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Attendance Updated Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update Attendance.");
+			}
 			// System.out.println(info);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -731,7 +755,11 @@ public class AttendenceController {
 
 			FreezeLogs save = Constants.getRestTemplate().postForObject(Constants.url + "/freezeUnfreezeLogs",
 					savefreezeLogs, FreezeLogs.class);
-
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Freeze Attendance Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Freeze Attendance.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -827,7 +855,11 @@ public class AttendenceController {
 
 			FreezeLogs save = Constants.getRestTemplate().postForObject(Constants.url + "/freezeUnfreezeLogs",
 					savefreezeLogs, FreezeLogs.class);
-
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Unfreeze Attendance Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Unfreeze Attendance.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
