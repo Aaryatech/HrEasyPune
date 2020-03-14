@@ -138,6 +138,8 @@
 											<th class="text-center">Designation</th>
 											<th class="text-center">Location</th>
 											<th class="text-center">Salary Basis</th>
+											<th class="text-center">Gross Sal</th>
+											<th class="text-center">Basic</th>
 											<!-- <th class="text-center">PT</th>
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
@@ -158,6 +160,7 @@
 											<c:forEach items="${allownceList}" var="allownceList">
 												<th class="text-center" title="${allownceList.name}">${allownceList.shortName}</th>
 											</c:forEach>
+
 										</tr>
 
 
@@ -177,6 +180,8 @@
 												<td>${empList.designation}</td>
 												<td>${empList.locName}</td>
 												<td>${empList.salBasis}</td>
+												<td class="text-right">${empList.grossSalary}</td>
+												<td class="text-right">${empList.basic}</td>
 												<%-- <td>${empList.pfType}</td>
 												<td>${empList.pfApplicable}</td>
 												<td>${empList.esicApplicable}</td>
@@ -194,14 +199,14 @@
 												<td>${empList.empCode}</td>
 												<td>${empList.empCode}</td> --%>
 												<c:forEach items="${allownceList}" var="allownceList">
-													<th class="text-right"><c:forEach
+													<td class="text-right"><c:forEach
 															items="${empList.empAllowanceList}"
 															var="empAllowanceList">
 															<c:if
 																test="${allownceList.allowanceId==empAllowanceList.allowanceId}">
 															${empAllowanceList.value}
 														</c:if>
-														</c:forEach></th>
+														</c:forEach></td>
 												</c:forEach>
 											</tr>
 										</c:forEach>
