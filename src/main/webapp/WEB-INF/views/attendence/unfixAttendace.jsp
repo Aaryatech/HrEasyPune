@@ -157,6 +157,21 @@
 
 							<c:if test="${selectMonth!=null && empList.size()>0}">
 								<br>
+								<div class="form-group row">
+									<label
+										class="col-form-label text-info font-weight-bold col-lg-2"
+										for="cmnt">Comment <span class="text-danger">*
+									</span>:
+									</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" placeholder="Comment"
+											id="cmnt" value=" " name="cmnt" autocomplete="off"
+											onchange="trim(this)"> <span
+											class="validation-invalid-label" id="error_cmnt"
+											style="display: none;">This field is required.</span>
+
+									</div>
+								</div>
 								<div class="text-center">
 									<button type="button"
 										class="btn bg-blue ml-3 legitRipple bootbox_custom"
@@ -262,6 +277,14 @@
 				});
 			}
 		});
+
+		function trim(el) {
+			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+			replace(/\n +/, "\n"); // Removes spaces after newlines
+
+			return;
+		}
 	</script>
 	<!-- <script type="text/javascript">
 		$(window).on('load', function() {
@@ -276,13 +299,24 @@
 				function() {
 					//var uuid = $(this).data("uuid") // will return the number 123
 					$("#error_emp").hide();
-					var list = [];
+					$("#error_cmnt").hide();
 
+					var list = [];
+					var isError = false;
 					$("input:checkbox[name=selectEmp]:checked").each(
 							function() {
 								list.push($(this).val());
 							});
-					if (list.length > 0) {
+					if (!$("#cmnt").val()) {
+						isError = true;
+						$("#error_cmnt").show();
+					}
+					if (list.length < 1) {
+						isError = true;
+						$("#error_emp").show();
+					}
+
+					if (!isError) {
 
 						bootbox.confirm({
 							title : 'Confirm ',
@@ -306,9 +340,6 @@
 								}
 							}
 						});
-					} else {
-						//alert("Select Minimum one employee")
-						$("#error_emp").show();
 					}
 				});
 	</Script>

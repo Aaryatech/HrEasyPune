@@ -815,6 +815,8 @@ public class AttendenceController {
 		try {
 
 			String[] empIds = request.getParameterValues("selectEmp");
+			String comnt = request.getParameter("cmnt");
+			
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -851,7 +853,7 @@ public class AttendenceController {
 			savefreezeLogs.setEmployeeIds(empId.substring(1, empId.length()));
 			savefreezeLogs.setFreezeMonth(month + "-" + year);
 			savefreezeLogs.setFreezeType("O");
-			savefreezeLogs.setComments("");
+			savefreezeLogs.setComments(comnt);
 
 			FreezeLogs save = Constants.getRestTemplate().postForObject(Constants.url + "/freezeUnfreezeLogs",
 					savefreezeLogs, FreezeLogs.class);
