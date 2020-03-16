@@ -149,7 +149,7 @@ System.out.println("val**"+flagNew);%> --%>
 													class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control"
+													<input type="text" class="form-control" maxlength="30"
 														value="${company.companyName}" id="companyName"
 														onchange="trim(this)" placeholder="Company Name"
 														name="companyName" autocomplete="off"> <span
@@ -164,7 +164,7 @@ System.out.println("val**"+flagNew);%> --%>
 													class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control"
+													<input type="text" class="form-control" maxlength="20"
 														value="${company.nameSd}" id="companyShortName"
 														onchange="trim(this)" placeholder="Company Short Name"
 														name="companyShortName" autocomplete="off"> <span
@@ -232,7 +232,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="landline1">Landine No. 1 <span
+													for="landline1">Landline No. 1 <span
 													class="text-danger">* </span>:
 												</label>
 												<div class="col-lg-4">
@@ -246,7 +246,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 
 
-												<label class="col-form-label col-lg-2" for="landline2">Landine
+												<label class="col-form-label col-lg-2" for="landline2">Landline
 													No. 2 <span class="text-danger"></span>:
 												</label>
 												<div class="col-lg-4">
@@ -530,7 +530,7 @@ System.out.println("val**"+flagNew);%> --%>
 														<input type="text" class="form-control"
 															value="${company.pfSignatory1}" id="pfSignatory1"
 															autocomplete="off" onchange="trim(this)"
-															placeholder="PF Signatory1" name="pfSignatory1">
+															placeholder="PF Signatory 1" name="pfSignatory1">
 														<span class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_ptNo">This field
 															is required.</span>
@@ -540,12 +540,12 @@ System.out.println("val**"+flagNew);%> --%>
 												<div class="form-group row">
 
 													<label class="col-form-label col-lg-2" for="pfSignatory2">PF
-														Signatory2 <span class="text-danger"></span>:
+														Signatory 2 <span class="text-danger"></span>:
 													</label>
 													<div class="col-lg-4">
 														<input type="text" class="form-control"
 															value="${company.pfSignatory2}" id="pfSignatory2"
-															onchange="trim(this)" placeholder="PF Signatory2"
+															onchange="trim(this)" placeholder="PF Signatory 2"
 															name="pfSignatory2" autocomplete="off"> <span
 															class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_tanNo">This field
@@ -553,13 +553,13 @@ System.out.println("val**"+flagNew);%> --%>
 													</div>
 
 													<label class="col-form-label col-lg-2" for="pfSignatory3">PF
-														Signatory3 <span class="text-danger"></span>:
+														Signatory 3 <span class="text-danger"></span>:
 													</label>
 													<div class="col-lg-4">
 														<input type="text" class="form-control"
 															value="${company.pfSignatory3}" id="pfSignatory3"
 															autocomplete="off" onchange="trim(this)"
-															placeholder="PF Signatory3" name="pfSignatory3">
+															placeholder="PF Signatory 3" name="pfSignatory3">
 														<span class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_ptNo">This field
 															is required.</span>
@@ -641,7 +641,7 @@ System.out.println("val**"+flagNew);%> --%>
 														<input type="text" class="form-control"
 															value="${company.esicSignatory1}" id="esicSignatory1"
 															autocomplete="off" onchange="trim(this)"
-															placeholder="ESIC Signatory1" name="esicSignatory1">
+															placeholder="ESIC Signatory 1" name="esicSignatory1">
 														<span class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_ptNo">This field
 															is required.</span>
@@ -651,12 +651,12 @@ System.out.println("val**"+flagNew);%> --%>
 												<div class="form-group row">
 
 													<label class="col-form-label col-lg-2" for="esicSignatory2">ESIC
-														Signatory2<span class="text-danger"></span>:
+														Signatory 2<span class="text-danger"></span>:
 													</label>
 													<div class="col-lg-4">
 														<input type="text" class="form-control"
 															value="${company.esicSignatory2}" id="esicSignatory2"
-															onchange="trim(this)" placeholder="ESIC Signatory2"
+															onchange="trim(this)" placeholder="ESIC Signatory 2"
 															name="esicSignatory2" autocomplete="off"> <span
 															class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_tanNo">This field
@@ -664,13 +664,13 @@ System.out.println("val**"+flagNew);%> --%>
 													</div>
 
 													<label class="col-form-label col-lg-2" for="esicSignatory3">ESIC
-														Signatory3 <span class="text-danger"></span>:
+														Signatory 3 <span class="text-danger"></span>:
 													</label>
 													<div class="col-lg-4">
 														<input type="text" class="form-control"
 															value="${company.esicSignatory3}" id="esicSignatory1"
 															autocomplete="off" onchange="trim(this)"
-															placeholder="ESIC Signatory3" name="esicSignatory1">
+															placeholder="ESIC Signatory 3" name="esicSignatory1">
 														<span class="hidedefault  validation-invalid-label"
 															style="display: none;" id="error_ptNo">This field
 															is required.</span>

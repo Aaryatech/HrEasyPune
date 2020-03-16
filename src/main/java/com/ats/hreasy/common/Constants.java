@@ -14,12 +14,12 @@ public class Constants {
 	public static final String docSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 
 	public static final String companyLogoSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
-	public static final String empDocSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
+	public static final String empDocSaveUrl = "/home/maddy/ats-11/";//"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String leaveDocSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String imageSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 
 	public static final String companyLogoShowUrl = "http://localhost:8080/media/";
-	public static final String empDocShowUrl = "http://localhost:8080/media/";
+	public static final String empDocShowUrl = "http://localhost:8080/home/maddy/ats-11/";///"http://localhost:8080/media/";
 	public static final String leaveDocShowUrl = "http://localhost:8080/media/";
 	public static final String imageShowUrl = "http://localhost:8080/media/";
 	public static final String templateShowUrl = "http://localhost:8080/hrdocument/templatedoc/";
