@@ -6,6 +6,11 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/dashboard.css"
+	rel="stylesheet" type="text/css">
+	
+
 </head>
 
 <body>
@@ -25,7 +30,7 @@
 
 		<!-- Main content -->
 		<div class="content-wrapper">
-			<div class="card">
+			<!-- <div class="card">
 
 
 				<div class="card-header header-elements-inline"></div>
@@ -34,7 +39,7 @@
 					<h6>Dashboard</h6>
 				</div>
 
-			</div>
+			</div>-->
 			<div class="content">
 
 
@@ -43,7 +48,7 @@
 
 					<form action="${pageContext.request.contextPath}/dashboard">
 						<div class="card-body">
-							<div class="form-group row">
+							<div class="form-group row title_row">
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
 									for="dob">Date <span class="text-danger">*</span>:
@@ -51,7 +56,7 @@
 								<div class="col-lg-4">
 									<input type="text" class="form-control datepickerclass"
 										placeholder=" " id="fiterdate" name="fiterdate"
-										value="${fiterdate}" autocomplete="off" onchange="trim(this)">
+										value="${fiterdate}" autocomplete="off" onchange1="trim(this)">
 									<span class="hidedefault  validation-invalid-label"
 										id="error_empDob" style="display: none;">This field is
 										required.</span>
@@ -64,35 +69,31 @@
 								</div>
 							</div>
 						</div>
-						<div class="card-body">
+						<div class="card-body fixed_height">
+
 							<div class="row">
 								<div class="col-md-4">
 									<div class="card bg-primary">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">Today's Birthday</h6>
+											<h6 class="card-title dash_title">Today's Birthday</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-
-													<c:forEach items="${birth.birthListToday}" var="birth"
-														varStatus="count">
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>
-																		<i class="icon-gift "> [${birth.empCode}]
-																			${birth.name}</i>
-																	</div>
-															</a></td>
-
-														</tr>
-													</c:forEach>
-												</table>
+										<div class="card-body white_bg">
+										
+											<div class="dashboard_bx">
+												<c:forEach items="${birth.birthListToday}" var="birth" varStatus="count">
+												<div class="dashboard_one">
+													
+	<div class="dashboard_single"><a href="#" class="text-white"><i class="icon-gift "> [${birth.empCode}]${birth.name}</i></a></div>
+													
+													
+												</div>
+												</c:forEach>
 											</div>
+											
+																				
+												
 										</div>
 									</div>
 
@@ -101,30 +102,23 @@
 								<div class="col-md-4">
 									<div class="card bg-purple-300 text-white">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">Upcomming Birthday(next 7 days)</h6>
+											<h6 class="card-title dash_title">Upcomming Birthday(next 7 days)</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-
-													<c:forEach items="${birth.birthListUpcoming}" var="birth"
-														varStatus="count">
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>
-																		<i class="icon-gift "> [${birth.empCode}]
-																			${birth.name}</i>
-																	</div>
-															</a></td>
-
-														</tr>
-													</c:forEach>
-												</table>
+										<div class="card-body white_bg">
+											<div class="dashboard_bx">
+												<c:forEach items="${birth.birthListUpcoming}" var="birth" varStatus="count">
+												<div class="dashboard_one">
+													
+	<div class="dashboard_single"><a href="#" class="text-white"><i class="icon-gift "> [${birth.empCode}] ${birth.name}</i></a></div>
+													
+													
+												</div>
+												</c:forEach>
 											</div>
+											
+											
 										</div>
 									</div>
 
@@ -135,32 +129,22 @@
 								<div class="col-md-4">
 									<div class="card bg-warning">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">Upcoming Holidays (next 30 days)</h6>
+											<h6 class="card-title dash_title">Upcoming Holidays (next 30 days)</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-
-													<c:forEach items="${birth.holiList}" var="birth"
-														varStatus="count">
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>${birth.holidayName}</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${birth.holidayDate}</div>
-															</a></td>
-
-														</tr>
-													</c:forEach>
-												</table>
+										<div class="card-body white_bg">
+											
+											<div class="dashboard_bx">
+												<c:forEach items="${birth.holiList}" var="birth" varStatus="count">
+												<div class="dashboard_one">													
+													<div class="dashboard_l"><a href="#" class="text-white">${birth.holidayName}</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${birth.holidayDate}</a></div>
+													<div class="clr"></div>													
+												</div>
+												</c:forEach>
 											</div>
+										
 										</div>
 									</div>
 
@@ -174,70 +158,39 @@
 									<div class="col-md-4">
 										<div class="card bg-primary">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">New Hires (Past 30 days)</h6>
+												<h6 class="card-title dash_title">New Hires (Past 30 days)</h6>
 
 											</div>
 
-											<div class="card-body">
+											<div class="card-body white_bg">
 												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${newHire.maleEmp+newHire.femaleEmp+newHire.othEmp}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Male</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${newHire.maleEmp}</div>
-															</a></td>
-
-														</tr>
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Female</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${newHire.femaleEmp}</div>
-															</a></td>
-
-														</tr>
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Other</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${newHire.othEmp}</div>
-															</a></td>
-
-														</tr>
-
-													</table>
+												
+												<div class="dashboard_bx">												
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Total</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${newHire.maleEmp+newHire.femaleEmp+newHire.othEmp}</a></div>
+														<div class="clr"></div>													
+													</div>
+													
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Male</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${newHire.maleEmp}</a></div>
+														<div class="clr"></div>													
+													</div>
+													
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Female</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${newHire.femaleEmp}</a></div>
+														<div class="clr"></div>													
+													</div>
+													
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Other</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${newHire.othEmp}</a></div>
+														<div class="clr"></div>													
+													</div>												
+												</div>
+													
 												</div>
 											</div>
 										</div>
@@ -247,60 +200,33 @@
 									<div class="col-md-4">
 										<div class="card bg-purple-300 text-white">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Leave Application Pending</h6>
+												<h6 class="card-title dash_title">Leave Application Pending</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>New Application</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${lvDet.newApp}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Initial Authority Pending/Approved</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${lvDet.newApp}/${lvDet.finalPending}</div>
-															</a></td>
-
-														</tr>
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Final Authority Pending</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${lvDet.finalPending}</div>
-															</a></td>
-
-														</tr>
-
-
-
-													</table>
+											<div class="card-body white_bg">
+											
+												<div class="dashboard_bx">												
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">New Application</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${lvDet.newApp}</a></div>
+														<div class="clr"></div>													
+													</div>
+													
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Initial Authority Pending/Approved</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${lvDet.newApp}/${lvDet.finalPending}</a></div>
+														<div class="clr"></div>													
+													</div>
+													
+													<div class="dashboard_one">													
+														<div class="dashboard_l"><a href="#" class="text-white">Final Authority Pending</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${lvDet.finalPending}</a></div>
+														<div class="clr"></div>													
+													</div>
 												</div>
+											
+												
 											</div>
 										</div>
 
@@ -313,93 +239,56 @@
 									<div class="col-md-4">
 										<div class="card bg-primary">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Attendance Previous Day(Date:
+												<h6 class="card-title dash_title">Attendance Previous Day(Date:
 													${attnDet.attnDate})</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Emp</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnDet.preEmp+attnDet.lvEmp+attnDet.woEmp+attnDet.absentEmp}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Present</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnDet.preEmp}</div>
-															</a></td>
-
-														</tr>
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Leave</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnDet.lvEmp}</div>
-															</a></td>
-
-														</tr>
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Weekly Off Taken</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnDet.woEmp}</div>
-															</a></td>
-
-														</tr>
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Absent</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnDet.absentEmp}</div>
-															</a></td>
-
-														</tr>
-
-
-
-
-
-													</table>
-												</div>
+											<div class="card-body white_bg">											
+												
+												
+													<div class="dashboard_bx">
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Total Emp</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${attnDet.preEmp+attnDet.lvEmp+attnDet.woEmp+attnDet.absentEmp}</a></div>
+															<div class="clr"></div>
+														</div>
+													
+													
+													
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Present</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${attnDet.preEmp}</a></div>
+															<div class="clr"></div>
+														</div>
+													
+													
+													
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Leave</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${attnDet.lvEmp}</a></div>
+															<div class="clr"></div>
+														</div>
+													
+													
+													
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Weekly Off Taken</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${attnDet.woEmp}</a></div>
+															<div class="clr"></div>
+														</div>
+													
+													
+													
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Absent</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${attnDet.absentEmp}</a></div>
+															<div class="clr"></div>
+														</div>
+													</div>											
+													
+											
+											
 											</div>
 										</div>
 
@@ -417,25 +306,18 @@
 									<div class="col-md-4">
 										<div class="card bg-purple-300 text-white">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Pay Deduction (Current Month)</h6>
+												<h6 class="card-title dash_title">Pay Deduction (Current Month)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<tr>
-															<td><a href="#" class="text-white">
-																	<div>Total Emp/amount</div>
-															</a></td>
-															<td><a href="#" class="text-white">
-																	<div>${dedDet.empCount}/${dedDet.tot}</div>
-															</a></td>
-
-														</tr>
-													</table>
-												</div>
+											<div class="card-body white_bg">
+												<div class="dashboard_bx">
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Emp/amount</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${dedDet.empCount}/${dedDet.tot}</a></div>
+														<div class="clr"></div>
+													</div>
+												</div>												
 
 											</div>
 										</div>
@@ -449,32 +331,22 @@
 									<div class="col-md-4">
 										<div class="card bg-warning">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Today Leavs/Absent(Total:)</h6>
+												<h6 class="card-title dash_title">Today Leavs/Absent(Total:)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-														<c:forEach items="${deptWiseLvAbLList}"
-															var="deptWiseLvAbLList" varStatus="count">
-															<tr>
-
-																<td><a href="#" class="text-white">
-																		<div>${deptWiseLvAbLList.nameSd}</div>
-																</a></td>
-
-
-																<td><a href="#" class="text-white">
-																		<div>${deptWiseLvAbLList.empCount}</div>
-																</a></td>
-
-															</tr>
-														</c:forEach>
-													</table>
-												</div>
+											<div class="card-body white_bg">
+												<div class="dashboard_bx">
+													<c:forEach items="${deptWiseLvAbLList}" var="deptWiseLvAbLList" varStatus="count">
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">${deptWiseLvAbLList.nameSd}</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${deptWiseLvAbLList.empCount}</a></div>
+														<div class="clr"></div>
+													</div>
+													</c:forEach>
+												</div>											
+											
+												
 											</div>
 										</div>
 
@@ -485,33 +357,25 @@
 									<div class="col-md-4">
 										<div class="card bg-warning">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Today Weekly Off(Total:)</h6>
+												<h6 class="card-title dash_title">Today Weekly Off(Total:)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-														<c:forEach items="${deptwiseWkoff}" var="deptwiseWkoff"
-															varStatus="count">
-															<tr>
-
-																<td><a href="#" class="text-white">
-																		<div>${deptwiseWkoff.nameSd}</div>
-																</a></td>
-
-
-																<td><a href="#" class="text-white">
-																		<div>${deptwiseWkoff.empCount}</div>
-																</a></td>
-
-															</tr>
-														</c:forEach>
-													</table>
+											<div class="card-body white_bg">
+											
+												<div class="dashboard_bx">
+													<c:forEach items="${deptwiseWkoff}" var="deptwiseWkoff" varStatus="count">
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">${deptwiseWkoff.nameSd}</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${deptwiseWkoff.empCount}</a></div>
+														<div class="clr"></div>
+													</div>
+													</c:forEach>
 												</div>
-											</div>
+											
+											
+											
+												</div>
 										</div>
 
 									</div>
@@ -525,48 +389,29 @@
 									<div class="col-md-4">
 										<div class="card bg-primary">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Advance Deduction (Current Moth)</h6>
+												<h6 class="card-title dash_title">Advance Deduction (Current Moth)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Emp/amount</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${advDet.emp}/${advDet.advTot}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Skip Emp/Amt</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${advDet.skipId}/${advDet.skipTott}</div>
-															</a></td>
-
-														</tr>
-
-
-
-
-													</table>
+											<div class="card-body white_bg">
+											
+												<div class="dashboard_bx">
+													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Emp/amount</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${advDet.emp}/${advDet.advTot}</a></div>
+														<div class="clr"></div>
+													</div>
+													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Skip Emp/Amt</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${advDet.skipId}/${advDet.skipTott}</a></div>
+														<div class="clr"></div>
+													</div>
+													
 												</div>
+																						
+												
 											</div>
 										</div>
 
@@ -575,45 +420,24 @@
 									<div class="col-md-4">
 										<div class="card bg-purple-300 text-white">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Loan Deduction (Current Moth)</h6>
+												<h6 class="card-title dash_title">Loan Deduction (Current Moth)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Emp/amount</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${loanDet.emp}/${loanDet.advTot}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Total Skip Emp/Amt</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${loanDet.skipId}/${loanDet.skipTott}</div>
-															</a></td>
-
-														</tr>
-
-													</table>
-												</div>
+											<div class="card-body white_bg">
+												<div class="dashboard_bx">													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Emp/amount</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${loanDet.emp}/${loanDet.advTot}</a></div>
+														<div class="clr"></div>
+													</div>
+													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Skip Emp/Amt</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${loanDet.skipId}/${loanDet.skipTott}</a></div>
+														<div class="clr"></div>
+													</div>
+												</div>	
 
 											</div>
 										</div>
@@ -629,246 +453,173 @@
 
 											</div>
 
-											<div class="card-body">
+											<div class="card-body white_bg">
 												<div class="table-responsive">
-													<table class="table text-nowrap">
-														<c:if test="${masterDet.companyCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/companySubAdd"
+												
+													<div class="dashboard_bx">	
+													<c:if test="${masterDet.companyCount==0}">												
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/companySubAdd"
+																	class="text-white"> Add Company:0</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.emptypeCount==0}">											
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/mstEmpTypeAdd"
+																	class="text-white"> Add Emp Type:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.locCount==0}">									
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/locationAdd"
+																	class="text-white"> Add Location:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.desnCount==0}">									
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/dsesignationAdd"
+																	class="text-white"> Add Designation:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.deptCount==0}">							
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/departmentAdd"
+																	class="text-white"> Add Department:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hoCount==0}">						
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/holidayAdd"
+																	class="text-white"> Add Holiday:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hocatCount==0}">					
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/holidayCategoryAdd"
+																	class="text-white"> Add Holiday Cat:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.wocatCount==0}">				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
+																	class="text-white"> Add Weekly off Cat:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.shiftCount==0}">				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/addShift"
+																	class="text-white"> Add Shift:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvtypeCount==0}">				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveTypeAdd"
+																	class="text-white"> Add Leave Type:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvstructCount==0}">			
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/addLeaveStructure"
+																	class="text-white"> Add Leave Structure:0 </a>
+													</div>
+													</c:if>
+													
+													<!--Pending  -->
+													
+													<c:if test="${masterDet.compPending!=0}">			
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignSubCompany"
+																	class="text-white"> Assign Company:${masterDet.compPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.typePending!=0}">		
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignEmpType"
+																	class="text-white"> Assign Emp Type:${masterDet.typePending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.locPending!=0}">	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignLocation"
 																	class="text-white">
-																		<div>Add Company:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.emptypeCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/mstEmpTypeAdd"
+																		Assign Location:${masterDet.locPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.desnPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignDesignation"
+																	class="text-white"> Assign Designation:${masterDet.desnPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.deptPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignDept"
 																	class="text-white">
-																		<div>Add Emp Type:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.locCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/locationAdd"
+																		Assign Department:${masterDet.deptPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hocatPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}//assignHolidayCategory"
 																	class="text-white">
-																		<div>Add Location:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.desnCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/dsesignationAdd"
+																		Assign Holiday:${masterDet.hocatPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.wocatPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignWeekoffCategory"
 																	class="text-white">
-																		<div>Add Designation:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.deptCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/departmentAdd"
+																		Assign Weekly off
+																			Cat:${masterDet.wocatPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.shiftPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showEmpListToAssignShift"
 																	class="text-white">
-																		<div>Add Department:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.hoCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/holidayAdd"
-																	class="text-white">
-																		<div>Add Holiday:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.hocatCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/holidayCategoryAdd"
-																	class="text-white">
-																		<div>Add Holiday Cat:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.wocatCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/weekoffCategoryAdd"
-																	class="text-white">
-																		<div>Add Weekly off Cat:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.shiftCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/addShift"
-																	class="text-white">
-																		<div>Add Shift:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.lvtypeCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/leaveTypeAdd"
-																	class="text-white">
-																		<div>Add Leave Type:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-														<c:if test="${masterDet.lvstructCount==0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/addLeaveStructure"
-																	class="text-white">
-																		<div>Add Leave Structure:0</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<tr></tr>
-
-
-														<!--Pending  -->
-
-
-														<c:if test="${masterDet.compPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/assignSubCompany"
-																	class="text-white">
-																		<div>Assign Company:${masterDet.compPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.typePending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showAssignEmpType"
-																	class="text-white">
-																		<div>Assign Emp Type:${masterDet.typePending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.locPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showAssignLocation"
-																	class="text-white">
-																		<div>Assign Location:${masterDet.locPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.desnPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showAssignDesignation"
-																	class="text-white">
-																		<div>Assign Designation:${masterDet.desnPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.deptPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/assignDept"
-																	class="text-white">
-																		<div>Assign Department:${masterDet.deptPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-														<c:if test="${masterDet.hocatPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}//assignHolidayCategory"
-																	class="text-white">
-																		<div>Assign Holiday:${masterDet.hocatPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.wocatPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/assignWeekoffCategory"
-																	class="text-white">
-																		<div>Assign Weekly off
-																			Cat:${masterDet.wocatPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.shiftPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/showEmpListToAssignShift"
-																	class="text-white">
-																		<div>Assign Shift:${masterDet.shiftPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-														<c:if test="${masterDet.lvStruvtPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/leaveStructureAllotment"
-																	class="text-white">
-																		<div>Assign Leave
-																			Type:${masterDet.lvStruvtPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-														<c:if test="${masterDet.lvAuthPending!=0}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/leaveAuthorityList"
-																	class="text-white">
-																		<div>Assign Leave
-																			Structure:${masterDet.lvAuthPending}</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-
-
-
-													</table>
+																		Assign Shift:${masterDet.shiftPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvStruvtPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveStructureAllotment"
+																	class="text-white"> Assign Leave Type:${masterDet.lvStruvtPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvAuthPending!=0}">
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveAuthorityList"
+																	class="text-white"> Assign Leave
+																			Structure:${masterDet.lvAuthPending}
+																</a>
+													</div>
+													</c:if>
+													
+													</div>
 												</div>
 											</div>
 										</div>
@@ -880,66 +631,38 @@
 							</c:if>
 
 
-							<!--  -->
-
 							<c:if test="${userType == 2 || isAuth > 0 }">
 
 								<div class="row">
 									<div class="col-md-4">
 										<div class="card bg-primary">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">My Attendance (Current Month)</h6>
+												<h6 class="card-title dash_title">My Attendance (Current Month)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Present</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnLastMon.presentDays}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>LWP Leaves</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnLastMon.unpaidLeave}</div>
-															</a></td>
-
-														</tr>
-
-
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>Paid Leaves</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${attnLastMon.paidLeave}</div>
-															</a></td>
-
-														</tr>
-
-
-													</table>
-												</div>
+											<div class="card-body white_bg">
+											
+												<div class="dashboard_bx">													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Present</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${attnLastMon.presentDays}</a></div>
+														<div class="clr"></div>
+													</div>
+													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">LWP Leaves</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${attnLastMon.unpaidLeave}</a></div>
+														<div class="clr"></div>
+													</div>
+													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Paid Leaves</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${attnLastMon.paidLeave}</a></div>
+														<div class="clr"></div>
+													</div>
+												</div>	
+												
 											</div>
 										</div>
 
@@ -949,29 +672,19 @@
 										<div class="col-md-4">
 											<div class="card bg-primary">
 												<div class="card-header header-elements-inline">
-													<h6 class="card-title">Today's Task</h6>
+													<h6 class="card-title dash_title">Today's Task</h6>
 
 												</div>
 
-												<div class="card-body">
-													<div class="table-responsive">
-														<table class="table text-nowrap">
-
-															<tr>
-
-																<td><a href="#" class="text-white">
-																		<div>Total Pending Application</div>
-																</a></td>
-
-
-																<td><a href="#" class="text-white">
-																		<div>${list1Count}</div>
-																</a></td>
-
-															</tr>
-
-														</table>
+												<div class="card-body white_bg">
+													<div class="dashboard_bx">													
+														<div class="dashboard_one">
+															<div class="dashboard_l"><a href="#" class="text-white">Total Pending Application</a></div>
+															<div class="dashboard_r"><a href="#" class="text-white">${list1Count}</a></div>
+															<div class="clr"></div>
+														</div>
 													</div>
+													
 												</div>
 											</div>
 
@@ -988,63 +701,35 @@
 								<div class="col-md-4">
 									<div class="card bg-warning">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">My Deductions</h6>
+											<h6 class="card-title dash_title">My Deductions</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-
-													<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
-														varStatus="count">
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>${dedWiseDedList.nameSd}</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${dedWiseDedList.empCount}</div>
-															</a></td>
-
-														</tr>
-													</c:forEach>
-
-
-													<tr>
-
-														<td><a href="#" class="text-white">
-																<div>Total Advance</div>
-														</a></td>
-
-
-														<td><a href="#" class="text-white">
-																<div>${icent.perfIncentive}</div>
-														</a></td>
-
-													</tr>
-
-
-													<tr>
-
-														<td><a href="#" class="text-white">
-																<div>Total Loan</div>
-														</a></td>
-
-
-														<td><a href="#" class="text-white">
-																<div>${icent.prodIncentive}</div>
-														</a></td>
-
-													</tr>
-
-
-
-												</table>
+										<div class="card-body white_bg">
+										
+											<div class="dashboard_bx">	
+												<c:forEach items="${dedWiseDedList}" var="dedWiseDedList" varStatus="count">												
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">${dedWiseDedList.nameSd}</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${dedWiseDedList.empCount}</a></div>
+													<div class="clr"></div>
+												</div>
+												</c:forEach>
+												
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">Total Advance</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${icent.perfIncentive}</a></div>
+													<div class="clr"></div>
+												</div>
+												
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">Total Loan</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${icent.prodIncentive}</a></div>
+													<div class="clr"></div>
+												</div>
 											</div>
+										
+											
 										</div>
 									</div>
 
@@ -1054,60 +739,37 @@
 								<div class="col-md-4">
 									<div class="card bg-warning">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">My Rewards</h6>
+											<h6 class="card-title dash_title">My Rewards</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-
-													<c:forEach items="${rewardWiseDedList}"
-														var="rewardWiseDedList" varStatus="count">
-														<tr>
-
-															<td><a href="#" class="text-white">
-																	<div>${rewardWiseDedList.nameSd}</div>
-															</a></td>
-
-
-															<td><a href="#" class="text-white">
-																	<div>${rewardWiseDedList.empCount}</div>
-															</a></td>
-
-														</tr>
-													</c:forEach>
-
-
-													<tr>
-
-														<td><a href="#" class="text-white">
-																<div>Performance Incentive(Amt/Days)</div>
-														</a></td>
-
-
-														<td><a href="#" class="text-white">
-																<div>${perfList.prodAmt}/${perfList.prodDays}</div>
-														</a></td>
-
-													</tr>
-
-
-													<tr>
-
-														<td><a href="#" class="text-white">
-																<div>Production Incentive(Amt/Days)</div>
-														</a></td>
-
-
-														<td><a href="#" class="text-white">
-																<div>${prodList.prodAmt}/${prodList.prodDays}</div>
-														</a></td>
-
-													</tr>
-												</table>
-											</div>
+										<div class="card-body white_bg">
+										
+											<div class="dashboard_bx">	
+												<c:forEach items="${rewardWiseDedList}"
+														var="rewardWiseDedList" varStatus="count">	
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">${rewardWiseDedList.nameSd}</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${rewardWiseDedList.empCount}</a></div>
+													<div class="clr"></div>
+												</div>
+												</c:forEach>
+												
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">Performance Incentive(Amt/Days)</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${perfList.prodAmt}/${perfList.prodDays}</a></div>
+													<div class="clr"></div>
+												</div>
+												
+												<div class="dashboard_one">
+													<div class="dashboard_l"><a href="#" class="text-white">Production Incentive(Amt/Days)</a></div>
+													<div class="dashboard_r"><a href="#" class="text-white">${prodList.prodAmt}/${prodList.prodDays}</a></div>
+													<div class="clr"></div>
+												</div>
+												
+												</div>
+										
+											
 										</div>
 									</div>
 
@@ -1117,82 +779,49 @@
 								<div class="col-md-4">
 									<div class="card bg-primary">
 										<div class="card-header header-elements-inline">
-											<h6 class="card-title">Important Links</h6>
+											<h6 class="card-title dash_title">Important Links</h6>
 
 										</div>
 
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table text-nowrap">
-
-													<tr>
-
-														<td><a
-															href="${pageContext.request.contextPath}/showApplyForLeave"
-															class="text-white">
-																<div>Apply Leave</div>
-														</a></td>
-
-													</tr>
-
-
-													<c:if test="${isAuth > 0 || userType==2}">
-
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}//viewPayDeduction"
-																class="text-white">
-																	<div>Pay Deduction</div>
-															</a></td>
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/viewEmpRewarAddList"
-																class="text-white">
-																	<div>Add Reward</div>
-															</a></td>
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/showEmpListToAddAdvance"
-																class="text-white">
-																	<div>Add Advance</div>
-															</a></td>
-
-														</tr>
-														<tr>
-															<td><a
-																href="${pageContext.request.contextPath}/showEmpListToAddLoan"
-																class="text-white">
-																	<div>Add Loan</div>
-															</a></td>
-
-
-
-
-														</tr>
-
-
-														<c:if test="${userType==2}">
-															<tr>
-																<td><a
-																	href="${pageContext.request.contextPath}/attendanceSelectMonth"
-																	class="text-white">
-																		<div>Upload Attendence</div>
-																</a></td>
-
-															</tr>
-
-
-															<tr>
-																<td><a href="#" class="text-white">
-																		<div>Add OT Hour</div>
-																</a></td>
-
-															</tr>
-														</c:if>
-													</c:if>
-												</table>
+										<div class="card-body white_bg">
+											<div class="dashboard_bx">
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/showApplyForLeave"
+															class="text-white"> Apply Leave </a>
+												</div>
+												
+												<c:if test="${isAuth > 0 || userType==2}">
+												
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}//viewPayDeduction"
+																class="text-white"> Pay Deduction</a>
+												</div>
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/viewEmpRewarAddList"
+																class="text-white"> Add Reward </a>
+												</div>
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/showEmpListToAddAdvance"
+																class="text-white"> Add Advance </a>
+												</div>
+												
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/showEmpListToAddLoan"
+																class="text-white"> Add Loan </a>
+												</div>
+												
+												<c:if test="${userType==2}">
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/attendanceSelectMonth"
+																	class="text-white"> Upload Attendence </a>
+												</div>
+												</c:if>
+												<div class="dashboard_single">
+													<a href="#" class="text-white"> Add OT Hour </a>
+												</div>
+												
+												
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -1210,25 +839,21 @@
 									<div class="col-md-4">
 										<div class="card bg-warning">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Reward (Current Month)</h6>
+												<h6 class="card-title dash_title">Reward (Current Month)</h6>
 
 											</div>
 
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<tr>
-															<td><a href="#" class="text-white">
-																	<div>Total Emp/amount</div>
-															</a></td>
-															<td><a href="#" class="text-white">
-																	<div>${rewardDet.empCount}/${rewardDet.tot}</div>
-															</a></td>
-
-														</tr>
-													</table>
+											<div class="card-body white_bg">
+											
+												<div class="dashboard_bx">													
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">Total Emp/amount</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${rewardDet.empCount}/${rewardDet.tot}</a></div>
+														<div class="clr"></div>
+													</div>
 												</div>
+											
+												
 											</div>
 										</div>
 
@@ -1238,33 +863,26 @@
 									<div class="col-md-4">
 										<div class="card bg-warning">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Performance Bonus (Current
+												<h6 class="card-title dash_title">Performance Bonus (Current
 													Month)</h6>
 
 											</div>
-											<div class="card-body">
-												<div class="table-responsive">
-													<table class="table text-nowrap">
-
-														<c:forEach items="${perfListDept}" var="perfListDept"
-															varStatus="count">
-
-															<tr>
-
-																<td><a href="#" class="text-white">
-																		<div>${perfListDept.nameSd}</div>
-																</a></td>
-
-
-																<td><a href="#" class="text-white">
-																		<div>${perfListDept.empCount}</div>
-																</a></td>
-
-															</tr>
-														</c:forEach>
-
-													</table>
+											<div class="card-body white_bg">
+												
+												<div class="dashboard_bx">	
+													<c:forEach items="${perfListDept}" var="perfListDept" varStatus="count">
+																									
+													<div class="dashboard_one">
+														<div class="dashboard_l"><a href="#" class="text-white">${perfListDept.nameSd}</a></div>
+														<div class="dashboard_r"><a href="#" class="text-white">${perfListDept.empCount}</a></div>
+														<div class="clr"></div>
+													</div>
+													</c:forEach>													
 												</div>
+											
+											
+											
+												
 											</div>
 										</div>
 
@@ -1280,7 +898,7 @@
 
 							<div class="row">
 								<div class="col-md-12">
-									<div class="table-responsive">
+									<div class="table-responsive marg_btm">
 										<table
 											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 											id="printtable22">
@@ -1481,6 +1099,7 @@
 							</c:if>
 
 						</div>
+
 						<!-- /highlighting rows and columns -->
 					</form>
 				</div>
