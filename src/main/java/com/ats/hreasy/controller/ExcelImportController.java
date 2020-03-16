@@ -384,7 +384,7 @@ public class ExcelImportController {
 								.postForObject(Constants.url + "/saveEmployee", emp, EmployeeMaster.class);
 
 						/************************* Employee User Info *******************************/
-						RandomString randomString = new RandomString();
+						/*RandomString randomString = new RandomString();
 						String password = "1947";
 						MessageDigest md = MessageDigest.getInstance("MD5");
 						byte[] messageDigest = md.digest(password.getBytes());
@@ -414,9 +414,9 @@ public class ExcelImportController {
 							uinfo.setUser_id(0);
 						}
 
-						// System.out.println(locIdList + "" + uinfo.getLocId());
+						 
 						User res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveUserInfo", uinfo,
-								User.class);
+								User.class);*/
 
 						/************************* Employee othet Info *******************************/
 						String empInfoMiddlename = null;
