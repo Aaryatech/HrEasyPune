@@ -702,7 +702,7 @@
 
 										<form
 											action="${pageContext.request.contextPath}/submitEmpOtherInfo"
-											id="submitEmpOtherInfo" method="post">
+											id="submitEmpOtherInfo" method="post" enctype="multipart/form-data">
 											<div class="form-group row">
 												<div class="col-lg-6">
 													<input type="hidden" id="empId" name="empId"
@@ -976,9 +976,32 @@
 														<option value="xxxl"
 															${empPersInfo.uniformSize=='xxxl' ? 'selected' : ''}>XXXL</option>
 													</select>
-												</div>
+												</div>	
 											</div>
 
+
+										<div class="form-group row">
+													<label class="col-form-label col-lg-2" for="bloodgroup">Profile
+													Image : </label>
+												<div class="col-lg-4">
+													<input type="file" class="form-control" 
+																id="doc" type="file" name="doc"
+																accept=".jpg,.png,.jpeg">  <span class="hidedefault   validation-invalid-label"
+														style="display: none;" id="error_bloodgroup">This
+														field is required.</span>
+												</div>
+												<c:if test="${empPersInfo.exVar1 != '' && empPersInfo.exVar1 != null}">
+															<div class="col-lg-5">
+																 <img src="${imgUrl}${empPersInfo.exVar1}" title="Profile Pic" 
+																 height="50" width="50" alt="profile pic">
+															</div>
+														</c:if>
+											</div>
+
+
+	
+											
+												
 											<!-- <div class="form-group text-center">
 												<div class="col-lg-12">
 													<button type="reset" class="btn btn-light legitRipple">Reset</button>

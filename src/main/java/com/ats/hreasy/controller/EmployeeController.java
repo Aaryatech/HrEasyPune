@@ -960,11 +960,11 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/submitEmpOtherInfo", method = RequestMethod.POST)
-	public String submitEmpOtherInfo(HttpServletRequest request, HttpServletResponse response) {
+	public String submitEmpOtherInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam("doc") MultipartFile doc) {
 		HttpSession session = request.getSession();
 		session.setAttribute("empTab", 2);
 		try {
-
+			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 			int empId = 0;
 			int empInfoId = 0;
 			try {
@@ -975,6 +975,16 @@ public class EmployeeController {
 				empInfoId = 0;
 			}
 
+			String img = doc.getOriginalFilename();
+			String imageName = empId + "_" + doc.getOriginalFilename() + "_"
+					+ dateTimeInGMT.format(date);
+
+			System.out.println("Profile Image------------"+img);
+			
+			VpsImageUpload upload = new VpsImageUpload();
+			Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, imageName,
+					Constants.values, 0, 0, 0, 0, 0);
+			
 			TblEmpInfo empInfo = new TblEmpInfo();
 			// if(empIdInfo!=null) {
 
@@ -1006,7 +1016,7 @@ public class EmployeeController {
 			empInfo.setDelStatus(1);
 			empInfo.setExInt1(0);
 			empInfo.setExInt2(0);
-			empInfo.setExVar1("NA");
+			empInfo.setExVar1(imageName);  /// Profile Image
 			empInfo.setExVar2("NA");
 
 			// System.out.println("TblEmpInfo----" + empInfo);
@@ -1028,12 +1038,13 @@ public class EmployeeController {
 			/*
 			 * }else { redirect = "redirect:/employeeAdd"; }
 			 */
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMsg", "Failed to Update Record");
 		}
+		
 		return redirect;
-
 	}
 
 	@RequestMapping(value = "/submitEmpRelationInfo", method = RequestMethod.POST)
