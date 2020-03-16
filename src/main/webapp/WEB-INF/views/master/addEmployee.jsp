@@ -1544,9 +1544,11 @@
 													for="basic">Basic Rs. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control numbersOnly"
+													<input type="text"
+														class="form-control numbersOnly sumallow"
 														placeholder="Basic Rs." name="basic" id="basic"
-														onchange="trim(this)" value="${empAllowanceId.basic}">
+														onchange="getsumbasicallow()"
+														value="${empAllowanceId.basic}">
 													<!-- <span class="hidedefault   validation-invalid-label"
 														style="display: none;" id="error_salBasis">This
 														field is required.</span> -->
@@ -1588,14 +1590,18 @@
 													<div class=" col-lg-6">
 														<div class="form-group row">
 															<label class="col-form-label col-lg-2"
-																for="allownces${allowanceList.allowanceId}">${allowanceList.shortName}
+																for="allowncesVal${allowanceList.allowanceId}"
+																title="${allowanceList.name}">${allowanceList.shortName}
 																(${allowanceList.grossSalPer} %): </label>
 															<div class="col-lg-10">
-																<input type="text" class="form-control numbersOnly"
+																<input type="text"
+																	class="form-control numbersOnly sumallow"
 																	value="${allowanceValue}"
 																	id="allowncesVal${allowanceList.allowanceId}"
 																	name="allowncesVal${allowanceList.allowanceId}"
-																	autocomplete="off" onchange1="calAllValues()">
+																	autocomplete="off" onchange="getsumbasicallow()"
+																	placeholder="${allowanceList.name}" title="${allowanceList.name}">
+																<!-- onchange1="calAllValues()" -->
 																<input type="hidden"
 																	id="empSalAllownaceId${allowanceList.allowanceId}"
 																	name="empSalAllownaceId${allowanceList.allowanceId}"
@@ -1621,6 +1627,21 @@
 													Basic,Allowances and Gross Properly.</span>
 
 
+											</div>
+
+											<div class="form-group row">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="basiallowtotal">Total : </label>
+
+												<div class="col-lg-4">
+													<input type="text" class="form-control numbersOnly"
+														id="basiallowtotal" name="basiallowtotal"
+														autocomplete="off" disabled> <span
+														class="hidedefault   validation-invalid-label"
+														style="display: none;" id="error_basiallowtotal">Gross
+														Salary and total not matched.</span>
+												</div>
 											</div>
 
 											<div class="form-group row">
@@ -2344,6 +2365,16 @@
 							});
 
 		}
+		function getsumbasicallow() {
+			var id = document.getElementsByClassName("sumallow");
+			var sum = 0;
+
+			for (var i = 0; i < id.length; i++) {
+				sum = sum + parseFloat(id[i].value);
+			}
+			document.getElementById("basiallowtotal").value = sum.toFixed(2);
+
+		}
 	</script>
 
 	<script type="text/javascript">
@@ -2818,6 +2849,20 @@
 													//return false;
 												} else {
 													$("#error_grossSal").hide()
+												}
+												if (parseFloat($("#grossSal")
+														.val()) != parseFloat($(
+														"#basiallowtotal")
+														.val())) {
+
+													isError = true;
+
+													$("#error_basiallowtotal")
+															.show()
+													//return false;
+												} else {
+													$("#error_basiallowtotal")
+															.hide()
 												}
 
 												/* var isVisible = $('#calc_err')
