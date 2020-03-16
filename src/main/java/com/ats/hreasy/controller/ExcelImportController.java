@@ -461,7 +461,7 @@ public class ExcelImportController {
 						TblEmpInfo empInfo = new TblEmpInfo();
 						empInfo.setEmpId(empSaveResp.getEmpId());
 						empInfo.setMiddleName(empInfoMiddlename);
-						empInfo.setMiddleNameRelation(middlenamerelation);
+						empInfo.setMiddleNameRelation(middlenamerelation.toLowerCase());
 						empInfo.setDob(dob);
 						empInfo.setGender(gender);
 						empInfo.setAddress(address);
@@ -691,13 +691,13 @@ public class ExcelImportController {
 						empSal.setPfType("statutory");
 						empSal.setPfEmpPer(0);
 						empSal.setPfEmplrPer(0);
-						empSal.setEsicApplicable(esicApplicable);
+						empSal.setEsicApplicable(esicApplicable.toLowerCase());
 						empSal.setCeilingLimitEmpApplicable("no");
 						empSal.setCeilingLimitEmployerApplicable("no");
-						empSal.setMlwfApplicable(isMlwfApplicable);
-						empSal.setPtApplicable(isPtApplicable);
+						empSal.setMlwfApplicable(isMlwfApplicable.toLowerCase());
+						empSal.setPtApplicable(isPtApplicable.toLowerCase());
 						empSal.setDelStatus(1);
-						empSal.setPfApplicable(pfApplicable);
+						empSal.setPfApplicable(pfApplicable.toLowerCase());
 						empSal.setGrossSalary(grossSal);
 						empSal.setSalaryTypeId(1);
 						EmpSalaryInfo empSalInfo = Constants.getRestTemplate()

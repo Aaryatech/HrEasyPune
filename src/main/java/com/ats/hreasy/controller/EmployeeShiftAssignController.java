@@ -28,6 +28,7 @@ import com.ats.hreasy.common.HoursConversion;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.Designation;
+import com.ats.hreasy.model.EmpType;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.HolidayCategory;
@@ -1432,6 +1433,95 @@ public class EmployeeShiftAssignController {
 		}
 
 		return "redirect:/showAssignSkillRate";
+	}
+
+	@RequestMapping(value = "/showAssignAccessRole", method = RequestMethod.GET)
+	public String showAssignAccessRole(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+		String ret = new String();
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showAssignAccessRole", "showAssignAccessRole", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+			ret = "accessDenied";
+
+		} else {
+
+			ret = "master/assignAccessRole";
+
+			try {
+
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getAllEmployeeDetailAccesssRole", GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				model.addAttribute("empdetList", empdetList);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("compId", 1);
+				EmpType[] EmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeList", map,
+						EmpType[].class);
+
+				List<EmpType> empTypeList = new ArrayList<EmpType>(Arrays.asList(EmpType));
+
+				model.addAttribute("empTypeList", empTypeList);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
+
+	@RequestMapping(value = "/submitAssignAccessRole", method = RequestMethod.POST)
+	public String submitAssignAccessRole(HttpServletRequest request, HttpServletResponse response) {
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		try {
+
+			String[] empId = request.getParameterValues("empId");
+
+			StringBuilder sb1 = new StringBuilder();
+
+			List<Integer> empIdList = new ArrayList<>();
+
+			for (int i = 0; i < empId.length; i++) {
+				sb1 = sb1.append(empId[i] + ",");
+				empIdList.add(Integer.parseInt(empId[i]));
+
+				// System.out.println("empId id are**" + empId[i]);
+
+			}
+
+			String accessId = null;
+			try {
+				accessId = request.getParameter("accessId");
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+			String items = sb1.toString();
+
+			items = items.substring(0, items.length() - 1);
+
+			StringBuilder sbEmp = new StringBuilder();
+
+			map.add("empIdList", items);
+			map.add("upDateId", accessId);
+			map.add("flag", 11);
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/empParamAssignmentUpdate", map,
+					Info.class);
+
+		} catch (Exception e) {
+			System.err.println("Exce in Saving Cust Login Detail " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAssignAccessRole";
 	}
 
 }
