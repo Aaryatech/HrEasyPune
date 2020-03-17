@@ -49,12 +49,21 @@
 					<div class="card-body fixed_height">
 						<div class="row">
 							<div class="col-md-4 prof_pic">
-<img src="https://buffer.com/library/wp-content/uploads/2015/03/adjust-tie-1024x683.jpeg" alt="">								
+								<div class="prof_pic"><img src="https://buffer.com/library/wp-content/uploads/2015/03/adjust-tie-1024x683.jpeg" alt=""></div>
+								<div class="prof_list">
+									<ul>
+										<li><a href="#section_one"><i class="fas fa-angle-right"></i> Basic Information </a><li>
+										<li><a href="#section_two"><i class="fas fa-angle-right"></i> Personal Information </a><li>
+										<li><a href="#section_three"><i class="fas fa-angle-right"></i> Relative Information </a><li>
+										<li><a href="#section_four"><i class="fas fa-angle-right"></i> Employee Bank Details </a><li>
+										<li><a href="#section_five"><i class="fas fa-angle-right"></i> Employee Salary Details </a></li>
+									</ul>
+								</div>								
 							</div>
 							<div class="col-md-8">
 								
 								<!-- basic information -->
-								<div class="basic_info">
+								<div class="basic_info"id="section_one">
 									<h3 class="info_title">Basic Information 
 									<span>
 										<a href="#"><i class="icon-pencil7"></i></a>
@@ -141,7 +150,7 @@
 					</div>
 					
 					<!-- basic information -->
-					<div class="basic_info">
+					<div class="basic_info" id="section_two">
 					<h3 class="info_title">Personal Information </h3>
 					<div class="row">
 						<div class="col-md-3"><div class="profile_one">Middle Name :  <span>Madhukar</span></div></div>
@@ -167,7 +176,7 @@
 				</div>
 				
 				<!-- basic information -->
-				<div class="basic_info">
+				<div class="basic_info"id="section_three">
 				<h3 class="info_title">Relative Information </h3>
 				<div class="row">
 					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
@@ -201,7 +210,7 @@
 				</div>	
 				
 				<!-- Employee Bank Details -->
-				<div class="basic_info">
+				<div class="basic_info" id="section_four">
 				<h3 class="info_title">Employee Bank Details </h3>
 				<div class="row">
 					<div class="col-md-3"><div class="profile_one">Account No :<span>20030650986</span></div></div>
@@ -210,7 +219,7 @@
 				</div>
 				
 				<!-- Employee Salary Details -->
-				<div class="basic_info">
+				<div class="basic_info" id="section_five">
 				<h3 class="info_title">Employee Salary Details </h3>
 				<div class="row">
 					<div class="col-md-3"><div class="profile_one">Gross Salary Rs : <span>15000.0</span></div></div>
@@ -265,6 +274,33 @@
 
 	</div>
 	<!-- /page content -->
+	
+	<script type="text/javascript">
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
 
 </body>
 </html>
