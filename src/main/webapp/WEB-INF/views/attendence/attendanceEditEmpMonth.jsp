@@ -279,7 +279,8 @@
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late MIN</th>
 												<th class="text-center">WR. Hrs</th>
-												<th class="text-center">OT Hrs</th>
+												<th class="text-center">Production Incentive <br>Hrs
+												</th>
 												<th class="text-center">OShift/Loc</th>
 												<th class="text-center">Action</th>
 

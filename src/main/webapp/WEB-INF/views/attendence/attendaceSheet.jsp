@@ -168,12 +168,13 @@
 												<th class="text-center">Paid Leave</th>
 												<th class="text-center">Unpaid Holiday</th>
 												<th class="text-center">Unpaid Leave</th>
-												<th class="text-center">Late Hrs</th>
+												<th class="text-center">Late Min</th>
 												<th class="text-center">Late Days</th>
 												<th class="text-center">Payable Days</th>
 												<th class="text-center">NCP Days</th>
 												<th class="text-center">Total Hrs</th>
-												<th class="text-center">Total OT Hrs</th>
+												<th class="text-center">Production Incentive <br>Hrs
+												</th>
 												<th class="text-center">Attendance Type</th>
 											</tr>
 										</thead>
@@ -194,7 +195,7 @@
 													<td class="text-right">${summrylist.unpaidHoliday}</td>
 													<td class="text-right">${summrylist.unpaidLeave}</td>
 													<td class="text-right">${summrylist.totlateMins}</td>
-													<td class="text-right">${summrylist.totlateDays}</td>
+													<td class="text-right">${summrylist.totLate}</td>
 													<td class="text-right">${summrylist.payableDays}</td>
 													<td class="text-right">${summrylist.ncpDays}</td>
 													<td class="text-right">${summrylist.totworkingHrs}</td>

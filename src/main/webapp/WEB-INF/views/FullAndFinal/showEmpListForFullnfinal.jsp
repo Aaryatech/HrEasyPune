@@ -115,23 +115,10 @@
 										<%-- <td>${empList.micrCode}</td>
 										<td>${empList.ifscCode}</td>  --%>
 
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/employeeEdit?empId=${empList.exVar1}"
-													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title="" data-original-title="Edit"><i
-													class="icon-pencil7"></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-
-												<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${empList.exVar1}" data-popup="tooltip" title=""
-													data-original-title="Delete"><i class="icon-trash"></i></a>
-											</c:if> <a
-											href="${pageContext.request.contextPath}/showEmpGraphs?empId=${empList.exVar1}"
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="" data-original-title="Graphs & Reports"><i
-												class="icon-history" style="color: black;"></i></a></td>
+										<td class="text-center"><a href="javascript:void(0)"
+											class="list-icons-item text-danger-600 bootbox_custom"
+											data-uuid="${empList.exVar1}" data-popup="tooltip" title=""
+											data-original-title="Delete"><i class="icon-list"></i></a></td>
 									</tr>
 								</c:forEach>
 
