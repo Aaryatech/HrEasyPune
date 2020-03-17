@@ -98,10 +98,14 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Shift Name</th>
-									<th width="15%">In Time</th>
-									<th width="15%">Out Time</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Shift Name</th>
+									<th width="10%" class="text-center">In Time</th>
+									<th width="10%" class="text-center">Out Time</th>
+									<th width="10%" class="text-center">Shift Hour</th>
+									<th width="10%" class="text-center">Half Day Hour</th>
+									<th width="10%" class="text-center">Late Allowed MIN</th>
+									<th width="10%" class="text-center">Is Night Shift</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -112,10 +116,17 @@
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${list.shiftname}</td>
-										<td>${list.fromtime}</td>
-										<td>${list.totime}</td>
-
-										<td class="text-center"><%-- <c:if test="${editAccess == 0}">
+										<td class="text-center">${list.fromtime}</td>
+										<td class="text-center">${list.totime}</td>
+										<td class="text-right">${list.shiftHr}</td>
+										<td class="text-right">${list.shiftHalfdayHr}</td>
+										<td class="text-right">${list.maxLateTimeAllowed}</td>
+										<td class="text-center"><c:choose>
+												<c:when test="${list.departmentId==1}">Yes</c:when>
+												<c:otherwise>No</c:otherwise>
+											</c:choose></td>
+										<td class="text-center">
+											<%-- <c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editShift?compId=${list.id}"
 													class="list-icons-item text-primary-600"
@@ -126,7 +137,8 @@
 													class="list-icons-item text-danger-600 bootbox_custom"
 													data-uuid="${list.id}" data-popup="tooltip" title=""
 													data-original-title="Delete"><i class="icon-trash"></i></a>
-											</c:if></td>
+											</c:if>
+										</td>
 									</tr>
 								</c:forEach>
 

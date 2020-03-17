@@ -58,7 +58,7 @@ public class ShiftController {
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 				map.add("locationIds", userObj.getLocationIds());
 				ShiftMaster[] shiftMaster = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/showShiftListByLocationIds", map, ShiftMaster[].class);
+						.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
 
 				List<ShiftMaster> shiftList = new ArrayList<>(Arrays.asList(shiftMaster));
 
