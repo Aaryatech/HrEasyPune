@@ -14117,15 +14117,12 @@ textarea#HandsontableCopyPaste {
   background: url(../../../../../../global_assets/images/login_cover.jpg) no-repeat;
   background-size: cover; }
 
-.login-form {
-  width: 100%; }
-  .login-form .nav-item:first-child .nav-link {
-    border-top-left-radius: 0.125rem; }
-  .login-form .nav-item:last-child .nav-link {
-    border-top-right-radius: 0.125rem; }
-  @media (min-width: 576px) {
-    .login-form {
-      width: 20rem; } }
+.login-form { width: 100%; }
+ .login-form .nav-item:first-child .nav-link {border-top-left-radius: 0.125rem; }
+  .login-form .nav-item:last-child .nav-link {border-top-right-radius: 0.125rem; }
+ @media (min-width: 576px) {
+   .login-form {width: 20rem; } 
+ }
 
 /* ------------------------------------------------------------------------------
  *

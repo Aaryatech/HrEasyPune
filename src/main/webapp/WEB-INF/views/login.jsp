@@ -76,15 +76,17 @@ body1 {
         <div class="col-md-12 pad-0">
             <div class="row login-box-6">
                 <div class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
-                    <a href="http://aaryatechindia.in/" target="_blank">
-                        <img src="${pageContext.request.contextPath}/resources/global_assets/images/companylogo.png" class="logo" alt="logo">
+                    <a href="http://aaryatechindia.in/" target="_blank" class="hr_logo">
+                        <img src="${pageContext.request.contextPath}/resources/global_assets/images/companylogo.png" 
+                        class="logo" alt="logo">
                     </a>
-                    <p><span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
+                    <a href="http://aaryatechindia.in/" target="_blank" class="hr_logo" ><img
+						src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
+						width="" height="80" alt=""></a>
+                    <p><span class="navbar-text lgn_powerd"> &copy; 2019 - 2022. <a href="#">Powered
 					</a> by <a href="http://aaryatechindia.in/" class="navbar-text" target="_blank">AARYA
 							TECH SOLUTIONS</a></p>
-                    <a href="http://aaryatechindia.in/" target="_blank" ><img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
-						width="60" height="50" alt=""></a>
+                    
                     
                 </div>
                 <div class="col-lg-7 col-md-12 col-sm-12 col-pad-0 align-self-center">
@@ -106,7 +108,8 @@ body1 {
 								%>
 							</c:if>
 						
-                            <form class="login-form"
+                          <!-- class="login-form" -->  
+                          <form 
 					action="${pageContext.request.contextPath}/loginProcess"
 					id="submitInsertEmpType" method="post">
 						<c:if test="${sessionScope.errorMsg!=null}">

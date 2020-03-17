@@ -39,6 +39,83 @@
 
 			</div>-->
 			<div class="content">
+			
+			
+				<!-- new html start here -->
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="card">
+							<div class="tab_round">
+								<div class="row">
+									<div class="col-lg-3">
+										<div class="shift_round bg-purple-300">
+											<div class="round_size"><span>980</span> Present Employee </div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="shift_round bg-pink-400"">
+											<div class="round_size"><span>32</span> Late Employee </div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="shift_round bg-warning">
+											<div class="round_size"><span>11</span> Leave Employee </div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="shift_round bg-primary">
+											<div class="round_size"><span>26</span> Absent Employee </div>
+										</div>
+									</div>
+								</div>
+								
+								
+								<!-- tab start here -->
+								<div class="row">
+									<div class="late_employee">
+										<h3 class="bg-pink-400 employee_title">Late Employee</h3>
+										
+										<div class="a">
+											
+											<div class="datatable-scroll-wrap">
+											<table class="table table-bordered table-hover datatable-highlight1" >
+							<thead>
+								<tr class="bg-blue" role="row">
+								<th class="sorting_desc" >Employee Name</th>
+								<th class="sorting">Department</th>
+								<th class="sorting">Late Minutes</th>
+								<th class="sorting">Monthly Latemark</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>20 Minutes</td>
+								<td>234 Minutes</td>										
+							</tr>
+							</tbody>
+						</table></div>
+											
+										</div>
+										
+										
+										
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+			
+			
+			
+			
 
 
 				<!-- Highlighting rows and columns -->
@@ -537,7 +614,7 @@
 									<div class="col-md-4">
 										<div class="card bg-warning">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title">Pending Master one time</h6>
+												<h6 class="card-title dash_title">Pending Master one time</h6>
 
 											</div>
 
