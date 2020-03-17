@@ -6,9 +6,7 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-<link
-	href="${pageContext.request.contextPath}/resources/assets/css/dashboard.css"
-	rel="stylesheet" type="text/css">
+
 	
 
 </head>
