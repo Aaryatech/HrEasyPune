@@ -22,6 +22,8 @@
 	<link
 	href="${pageContext.request.contextPath}/resources/assets/css/dashboard.css"
 	rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Cuprum:400,700&display=swap" rel="stylesheet"> 
+	<!-- font-family: 'Cuprum', sans-serif; -->
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
