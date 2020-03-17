@@ -69,6 +69,7 @@ public class ProfileController {
 			String skill = "NA";
 			String empType = "NA";
 			String empAccessRole = "NA";
+			String accessblLoc = "NA";
 			/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 			Info view = AcessController.checkAccess("getEmployeeProfile", "getEmployeeProfile", 1, 0, 0, 0, newModuleList);
 
@@ -82,7 +83,7 @@ public class ProfileController {
 				String base64encodedString = request.getParameter("empId");
 				String empId = FormValidation.DecodeKey(base64encodedString);
 
-				System.out.println("Decrypt-----" + empId);
+				//System.out.println("Decrypt-----" + empId);
 				map = new LinkedMultiValueMap<>();
 				map.add("empId", Integer.parseInt(empId));
 
@@ -97,6 +98,10 @@ public class ProfileController {
 				 skill = getEmpSkill(emp.getExInt2());
 				 empType = getEmpType(emp.getEmpType());
 				 empAccessRole = getEmpAccessRoll(Integer.parseInt(emp.getEmpCategory()));
+				 
+				accessblLoc = getAccessblLoc(Integer.parseInt(empId)); 
+				//System.out.println("Accessable Location--------"+accessblLoc);
+				 
 				}catch (Exception e) {
 					 compName= "NA";
 					 deptName = "NA";
@@ -106,18 +111,9 @@ public class ProfileController {
 					 skill = "NA";
 					 empType = "NA";
 					 empAccessRole = "NA";
+					 accessblLoc = "NA";
 				}
-				
-				/*map = new LinkedMultiValueMap<>();
-				map.add("EmpId", Integer.parseInt(empId));
-				
-				User user = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
-						User.class);
-				String accessblLoc = getAccessblLoc(user.getLocId()); 
-				System.out.println("Accessable Location--------"+accessblLoc);*/
-				
-				
-				
+								
 				emp.setCompName(compName);
 				emp.setDepartName(deptName);
 				emp.setLocation(locName);
@@ -126,9 +122,8 @@ public class ProfileController {
 				emp.setSkillType(skill);
 				emp.setEmpWorkType(empType);
 				emp.setEmpCat(empAccessRole);
-				
-				empAllDtls.setEmpDtl(emp);
-				
+				emp.setAccessiblLocs(accessblLoc);
+				empAllDtls.setEmpDtl(emp);				
 				
 							
 				TblEmpInfo empPersInfo = Constants.getRestTemplate()
@@ -175,12 +170,32 @@ public class ProfileController {
 
 	}
 
-	/*public String getAccessblLoc(String locId) {
-		System.out.println("Accessable Location--------"+locId);
-		Location location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById", map,
-				Location.class);
-		return locId;
-	}*/
+	public String getAccessblLoc(int  empId) {	
+		MultiValueMap<String, Object> map = null;
+		
+		map = new LinkedMultiValueMap<>();
+		map.add("EmpId", empId);		
+		User user = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
+				User.class);
+		//System.out.println("Accessable Location Ids--------"+user.getLocId());
+		
+		map.add("locIds", user.getLocId());
+		Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationsByIds", map,
+		Location[].class);
+		
+		List<Location> locList = new ArrayList<Location>(Arrays.asList(location));
+		//System.out.println("Accessable Location Found--------"+locList);
+		
+		 StringBuffer sb = new StringBuffer();
+	      
+	     for (int i = 0; i < location.length; i++) {
+			sb.append(location[i].getLocName());
+			sb.append(" / ");
+		}
+	      String str = sb.toString();
+	    //  System.out.println("Built String-------------"+str);
+		return str;
+	}
 
 	public String getEmpAccessRoll(int empTypeId) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();

@@ -126,9 +126,9 @@
 										
 										<td>
 										<a href="#" onclick="getEmpData('${empList.exVar1}')"
-											class="breadcrumb-elements-item"  data-toggle="modal" data-target="#modal_large">
+											class="breadcrumb-elements-item" >
 										${empList.firstName}&nbsp;${empList.middleName}&nbsp;${empList.surname}</a>
-										</td>
+										</td><!--  data-toggle="modal" data-target="#modal_large" -->
 										<td>${empList.empTypeName}</td>
 										<td>${empList.deptName}</td>
 										<td>${empList.empDesgn}</td>
@@ -181,7 +181,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Large modal</h5>
+					<h5 class="modal-title">Employee Details</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 
@@ -190,13 +190,13 @@
 				
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"> Profile</h5>
+						<h5 class="card-title">Emp Code : <span id="emp_code"></span></h5> 
 					</div>
 
 					<div class="card-body fixed_height">
 						<div class="row">
 							<div class="col-md-4 prof_pic">
-<img src="https://buffer.com/library/wp-content/uploads/2015/03/adjust-tie-1024x683.jpeg" alt="" width="100%"> 								
+<img src="https://buffer.com/library/wp-content/uploads/2015/03/adjust-tie-1024x683.jpeg" alt="" width="100%" id="emp_img"> 								
 							</div>
 							<div class="col-md-8">
 								
@@ -204,20 +204,27 @@
 								<div class="basic_info">
 									<h3 class="info_title">Basic Information 
 									<span>
-										<a href="#"><i class="icon-pencil7"></i></a>
-										<a href="#"><i class="icon-history"></i></a>
+									<c:if test="${editAccess == 0}">
+										<a
+													href="${pageContext.request.contextPath}/employeeEdit?empId="
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
+													
+											</c:if> <c:if test="${deleteAccess == 0}">										
+										<a href="javascript:void(0)"
+													class="list-icons-item text-danger-600 bootbox_custom"
+													data-uuid="id" data-popup="tooltip" title=""
+													data-original-title="Delete"><i class="icon-trash"></i></a></c:if>
+										<a
+											href="${pageContext.request.contextPath}/showEmpGraphs?empId="
+											class="list-icons-item text-primary-600" data-popup="tooltip"
+											title="" data-original-title="Graphs & Reports"><i
+												class="icon-history" style="color: black;"></i></a>
 									</span></h3>
 								
 									<div class="row">
-										<div class="col-md-4">
-											<div class="profile_one">Emp Code : <span id="emp_code"></span></div>
-										</div>
-										<div class="col-md-4">
-											&nbsp;
-										</div>
-										<div class="col-md-4">
-											&nbsp;
-										</div>
+										
 										<div class="col-md-4">
 											<div class="profile_one">First Name : <span id="emp_fname"></span></div>
 										</div>
@@ -270,7 +277,7 @@
 											<div class="profile_one">PF Number :  <span id="emp_pf"></span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Accessible Location :  <span id="emp_access_loc">Kondwa, Budruk, Pune*</span></div>
+											<div class="profile_one">Accessible Location :  <span id="emp_access_loc"></span></div>
 										</div>
 										<div class="col-md-4">
 											<div class="profile_one">Designation Type : <span id="emp_desig_type"></span></div>
@@ -460,6 +467,7 @@
 				ajax : 'true'
 
 			}, function(data) {
+				$('#modal_large').modal('toggle');
 				//alert(JSON.stringify( data.empAllowncDtl));
 				document.getElementById("emp_code").innerHTML = data.empDtl.empCode;
 				document.getElementById("emp_fname").innerHTML = data.empDtl.firstName;
@@ -480,6 +488,7 @@
 				document.getElementById("emp_esic").innerHTML = data.empDtl.esicNo;
 				document.getElementById("emp_pan").innerHTML = data.empDtl.panCardNo;
 				document.getElementById("emp_pf").innerHTML = data.empDtl.pfNo;
+				document.getElementById("emp_access_loc").innerHTML = data.empDtl.accessiblLocs;
 				
 				if(data.empDtl.exInt1==0){
 					document.getElementById("emp_desig_type").innerHTML = 'Employee';
@@ -527,8 +536,10 @@
 				}else{
 					document.getElementById("uniform").innerHTML = 'NA';
 				}
+				document.getElementById("emp_img").innerHTML = data.empPersDtl.exVar1;
 				
-				/*  Personal Information*/
+				
+				/*  Relative Information*/
 				document.getElementById("person1").innerHTML = data.empNomDtl.name;
 				document.getElementById("person2").innerHTML = data.empNomDtl.name2;
 				document.getElementById("person3").innerHTML = data.empNomDtl.name3;
