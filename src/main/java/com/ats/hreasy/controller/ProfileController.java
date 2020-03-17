@@ -161,7 +161,7 @@ public class ProfileController {
 
 				
 
-			System.err.println("Employee Detail Data-----------"+empAllDtls);
+			//System.err.println("Employee Detail Data-----------"+empAllDtls);
 			/*}*/
 		} catch (Exception e) {
 			e.getMessage();
