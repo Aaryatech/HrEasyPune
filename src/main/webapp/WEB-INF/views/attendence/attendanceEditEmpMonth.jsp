@@ -123,8 +123,8 @@
 									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays}</label>
 									<label class="col-form-label col-lg-1"> Payable Days :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.payableDays}</label>
-									<label class="col-form-label col-lg-1"> Total OT Hrs: </label>
-									<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
+									<label class="col-form-label col-lg-1"> Production
+										Incentive Hrs: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
 									<%-- <label class="col-form-label col-lg-1"> NCP Days : </label> <label
 										class="col-form-label col-lg-1">${summaryAttendance.ncpDays}</label> --%>
 								</div>
@@ -209,7 +209,7 @@
 
 										<div class="form-group row">
 											<label class="col-form-label col-lg-2" for="otHours">
-												OT Hours : </label>
+												Production Incentive Hrs : </label>
 											<div class="col-lg-2">
 												<input type="time" class="form-control"
 													placeholder="OT Hours" id="otHours" name="otHours"
