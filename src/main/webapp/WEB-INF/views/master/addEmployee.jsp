@@ -982,7 +982,7 @@
 
 
 											<div class="form-group row">
-												<label class="col-form-label col-lg-2" for="bloodgroup">Profile
+												<label class="col-form-label col-lg-2" for="doc">Profile
 													Image : </label>
 												<div class="col-lg-4">
 													<input type="file" class="form-control" id="doc"

@@ -50,6 +50,18 @@ public class EmployeeMaster {
 	private int exInt2;
 	private String exVar1;
 	private String exVar2;
+	
+	private String compName;
+	private String empWorkType;
+	private String departName;
+	private String desingntn;
+	private String location;
+	private String contractorName;
+	private String empCat;
+	private String skillType;
+	private String accessiblLocs;
+	
+	
 
 	private int holidayCategory;
 
@@ -447,6 +459,78 @@ public class EmployeeMaster {
 		this.exVar2 = exVar2;
 	}
 
+	public String getCompName() {
+		return compName;
+	}
+
+	public void setCompName(String compName) {
+		this.compName = compName;
+	}
+
+	public String getEmpWorkType() {
+		return empWorkType;
+	}
+
+	public void setEmpWorkType(String empWorkType) {
+		this.empWorkType = empWorkType;
+	}
+
+	public String getDepartName() {
+		return departName;
+	}
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
+	}
+
+	public String getDesingntn() {
+		return desingntn;
+	}
+
+	public void setDesingntn(String desingntn) {
+		this.desingntn = desingntn;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getContractorName() {
+		return contractorName;
+	}
+
+	public void setContractorName(String contractorName) {
+		this.contractorName = contractorName;
+	}
+
+	public String getEmpCat() {
+		return empCat;
+	}
+
+	public void setEmpCat(String empCat) {
+		this.empCat = empCat;
+	}
+
+	public String getSkillType() {
+		return skillType;
+	}
+
+	public void setSkillType(String skillType) {
+		this.skillType = skillType;
+	}
+
+	public String getAccessiblLocs() {
+		return accessiblLocs;
+	}
+
+	public void setAccessiblLocs(String accessiblLocs) {
+		this.accessiblLocs = accessiblLocs;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeMaster [empId=" + empId + ", empCode=" + empCode + ", subCmpId=" + subCmpId + ", cmpCode="
@@ -463,8 +547,12 @@ public class EmployeeMaster {
 				+ loginTime + ", plCalcBase=" + plCalcBase + ", earnLeaveOpeningBalance=" + earnLeaveOpeningBalance
 				+ ", empCategory=" + empCategory + ", exgratiaPerc=" + exgratiaPerc + ", newBasicRate=" + newBasicRate
 				+ ", newHraRate=" + newHraRate + ", newDaRate=" + newDaRate + ", delStatus=" + delStatus + ", exInt1="
-				+ exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + ", holidayCategory="
+				+ exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + ", compName=" + compName
+				+ ", empWorkType=" + empWorkType + ", departName=" + departName + ", desingntn=" + desingntn
+				+ ", location=" + location + ", contractorName=" + contractorName + ", empCat=" + empCat
+				+ ", skillType=" + skillType + ", accessiblLocs=" + accessiblLocs + ", holidayCategory="
 				+ holidayCategory + ", weekendCategory=" + weekendCategory + "]";
 	}
 
+	
 }
