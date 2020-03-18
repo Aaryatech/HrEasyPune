@@ -145,8 +145,8 @@
 									</div>
 								</div>
 
-								 
- 
+
+
 								<h6 class="card-title">Claim Detail</h6>
 								<table
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
@@ -157,7 +157,7 @@
 											<th>Claim Type</th>
 											<th>Amount</th>
 											<th>Remark</th>
-										 
+
 										</tr>
 									</thead>
 									<tbody>
@@ -173,7 +173,7 @@
 												<c:forEach items="${claimTypeList}" var="claimTypeList">
 													<c:if
 														test="${claimTypeList.clmTypeId==lvTypeList.claimTypeId}">
-													 
+
 													</c:if>
 												</c:forEach>
 											</tr>
@@ -220,24 +220,27 @@
 												<td>${empTrailList.makerEnterDatetime}</td>
 
 												<c:if test="${empTrailList.claimStatus==1}">
-													<td><span class="badge badge-info">Applied</span></td>
+													<td><span class="badge badge-info">Initial
+															Applied</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==2}">
-													<td><span class="badge badge-secondary">Applied</span></td>
+													<td><span class="badge badge-secondary">Initial
+															Approved</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==3}">
 													<td><span class="badge badge-success">Final
 															Approved</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==7}">
-													<td><span class="badge badge-danger">Leave
-															Cancelled</span></td>
+													<td><span class="badge badge-danger"> Cancelled</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==8}">
-													<td><span class="badge badge-danger"> Rejected</span></td>
+													<td><span class="badge badge-danger">Initial
+															Rejected</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==9}">
-													<td><span class="badge badge-danger"> Rejected</span></td>
+													<td><span class="badge badge-danger"> Final
+															Rejected</span></td>
 												</c:if>
 
 
@@ -263,7 +266,7 @@
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-								 
+
 									<input type="hidden" id="empId" name="empId" value="${empId}">
 									<input type="hidden" id="leaveId" name="claimId"
 										value="${claimId}"> <input type="hidden" id="stat"

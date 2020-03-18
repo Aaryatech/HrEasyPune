@@ -29,29 +29,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
 
-
-				<div
-					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-					<div class="d-flex">
-						<div class="breadcrumb">
-							<a href="index.html" class="breadcrumb-item"><i
-								class="icon-home2 mr-2"></i> Home</a> <span
-								class="breadcrumb-item active">Dashboard</span>
-
-						</div>
-
-
-						<a href="#" class="header-elements-toggle text-default d-md-none"><i
-							class="icon-more"></i></a>
-					</div>
-
-
-
-
-				</div>
-			</div>
 			<!-- /page header -->
 
 
@@ -62,7 +40,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 
-					
+
 					<div class="card-header header-elements-inline">
 						<h5 class="card-title">Claim List</h5>
 						<!-- <div class="header-elements">
@@ -71,7 +49,7 @@
 							</div>
 						</div> -->
 					</div>
-<%
+					<%
 						if (session.getAttribute("errorMsg") != null) {
 					%>
 					<div
@@ -132,7 +110,7 @@
 											<th>Department</th>
 											<th>Claim Date</th>
 											<th>Claim Amount</th>
- 											<th>Status</th>
+											<th>Status</th>
 
 											<th class="text-center" width="10%">Actions</th>
 										</tr>
@@ -148,18 +126,18 @@
 												<td>${claimList.empCode}</td>
 												<td>${claimList.empName}</td>
 												<td>${claimList.projectTitle}</td>
-												<td>${claimList.caFromDt} to ${claimList.caToDt}</td>
+												<td>${claimList.caFromDt}to ${claimList.caToDt}</td>
 												<td>${claimList.claimAmount}</td>
- 
+
 
 												<c:choose>
 													<c:when test="${claimList.claimStatus==1}">
-														<td><span class="badge badge-info">Initial Pending
-																</span></td>
+														<td><span class="badge badge-info">Initial
+																Pending </span></td>
 													</c:when>
 													<c:when test="${claimList.claimStatus==2}">
-														<td><span class="badge badge-secondary">Final Pending
-																</span></td>
+														<td><span class="badge badge-secondary">Final
+																Pending </span></td>
 													</c:when>
 
 												</c:choose>
@@ -221,14 +199,14 @@
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 									id="printtable1">
 									<thead>
-									<tr>
-										<th width="10%">Sr.no</th>
+										<tr>
+											<th width="10%">Sr.no</th>
 											<th>Employee Code</th>
 											<th>Employee Name</th>
 											<th>Department</th>
 											<th>Claim Date</th>
 											<th>Claim Amount</th>
- 											<th>Status</th>
+											<th>Status</th>
 
 											<th class="text-center" width="10%">Actions</th>
 										</tr>
@@ -244,31 +222,31 @@
 												<td>${claimList1.empCode}</td>
 												<td>${claimList1.empName}</td>
 												<td>${claimList1.projectTitle}</td>
-												<td>${claimList1.caFromDt} to ${claimList1.caToDt}</td>
+												<td>${claimList1.caFromDt}to ${claimList1.caToDt}</td>
 												<td>${claimList1.claimAmount}</td>
- 												<c:if test="${claimList1.claimStatus==1}">
-													<td><span class="badge badge-info">Initial Pending & Final Pending
-															</span></td>
+												<c:if test="${claimList1.claimStatus==1}">
+													<td><span class="badge badge-info">Initial
+															Pending & Final Pending </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==2}">
-													<td><span class="badge badge-secondary">Final Pending
-														</span></td>
+													<td><span class="badge badge-secondary">Final
+															Pending </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==3}">
-													<td><span class="badge badge-success">Final Approved
-															</span></td>
+													<td><span class="badge badge-success">Final
+															Approved </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==7}">
-													<td><span class="badge badge-danger">Leave Cancelled
-															</span></td>
+													<td><span class="badge badge-danger">Leave
+															Cancelled </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==8}">
-													<td><span class="badge badge-danger">Initial Rejected
-															</span></td>
+													<td><span class="badge badge-danger">Initial
+															Rejected </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==9}">
-													<td><span class="badge badge-danger">Final Rejected
-															</span></td>
+													<td><span class="badge badge-danger">Final
+															Rejected </span></td>
 												</c:if>
 												<td class="text-center"><c:choose>
 														<c:when test="${claimList1.caFinAuthEmpId==empIdOrig}">

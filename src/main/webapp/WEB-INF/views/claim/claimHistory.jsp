@@ -27,10 +27,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
-
-
-			</div>
+			<div class="page-header page-header-light"></div>
 			<!-- /page header -->
 
 
@@ -40,17 +37,18 @@
 
 				<!-- Highlighting rows and columns -->
 				<div class="card">
-					
+
 					<div class="card-header header-elements-inline">
- 						<table width="100%">
+						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Claim List</h5></td>
-								<td width="40%" align="right">
-								 <a
+								<td width="60%"><h5 class="card-title">Employee Claim
+										List</h5></td>
+								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showApplyForClaim"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Employee List  </button>
-								</a> </td>
+										<button type="button" class="btn btn-primary">Employee
+											List</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
@@ -99,7 +97,7 @@
 								<tr class="bg-blue">
 									<th width="10%">Sr.no</th>
 									<th>Claim Title</th>
- 									<th>From Date</th>
+									<th>From Date</th>
 									<th>To Date</th>
 									<th>Total Amount</th>
 									<th>Status</th>
@@ -116,7 +114,7 @@
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${lvTypeList.claimTitle}</td>
- 										<td>${lvTypeList.claimFromDate}</td>
+										<td>${lvTypeList.claimFromDate}</td>
 										<td>${lvTypeList.claimToDate}</td>
 										<td>${lvTypeList.claimAmount}</td>
 										<c:if test="${lvTypeList.claimFinalStatus==1}">
@@ -132,8 +130,7 @@
 													Approved</span></td>
 										</c:if>
 										<c:if test="${lvTypeList.claimFinalStatus==7}">
-											<td><span class="badge badge-danger">Leave
-													Cancelled</span></td>
+											<td><span class="badge badge-danger"> Cancelled</span></td>
 										</c:if>
 										<c:if test="${lvTypeList.claimFinalStatus==8}">
 											<td><span class="badge badge-danger">Initial
@@ -151,8 +148,7 @@
 											href="${pageContext.request.contextPath}/showClaimHistDetailList?claimId=${lvTypeList.exVar1}"
 											title="History"><i class="icon-history"
 												style="color: black;"></i></a>
-												 --%>
-												 <a
+												 --%> <a
 											href="${pageContext.request.contextPath}/showClaimDetailList?claimId=${lvTypeList.exVar1}"
 											title="Claim Detail"><i class="icon-history"
 												style="color: black;"></i></a></td>
