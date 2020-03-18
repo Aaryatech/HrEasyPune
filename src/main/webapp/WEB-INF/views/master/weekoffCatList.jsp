@@ -97,9 +97,9 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Weekoff Category Name</th>
-									<th>Weekoff Category Short Name</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Weekoff Category Name</th>
+									<th class="text-center">Weekoff Category Short Name</th>
 								 
 									<th width="10%" class="text-center">Actions</th>
 								</tr>

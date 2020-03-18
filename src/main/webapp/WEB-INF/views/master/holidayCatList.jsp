@@ -99,9 +99,9 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Holiday Category Name</th>
-									<th>Holiday Category Short Name</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Holiday Category Name</th>
+									<th class="text-center">Holiday Category Short Name</th>
 
 									<th width="10%" class="text-center">Actions</th>
 								</tr>

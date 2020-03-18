@@ -99,11 +99,11 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Category</th>
+									<th class="text-center">Category</th>
 									<!-- <th>Location Name</th> -->
-									<th>Weekly Off Type</th>
+									<th class="text-center">Weekly Off Type</th>
 									<!-- 	<th>Weekly Off Presently</th> -->
-									<th>Day</th>
+									<th class="text-center">Day</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -113,9 +113,9 @@
 								<c:forEach items="${weekOffList}" var="week" varStatus="count">
 									<tr>
 										<td>${count.index+1}</td>
-										<td>${week.weekOffCat}</td>
+										<td class="text-left">${week.weekOffCat}</td>
 									<%-- 	<td>${week.locName}</td> --%>
-										<td><c:choose>
+										<td class="text-left"><c:choose>
 												<c:when test="${week.woType==1}">
 												
 												Even
@@ -151,7 +151,7 @@
 												</c:otherwise>
 											</c:choose></td>
 										<%-- 	<td>${week.woPresently}</td> --%>
-										<td><c:choose>
+										<td class="text-left"><c:choose>
 												<c:when test="${week.woDay==1}">
 												
 												MONDAY

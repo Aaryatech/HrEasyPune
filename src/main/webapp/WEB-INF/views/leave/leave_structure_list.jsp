@@ -100,8 +100,8 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Name</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Name</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -111,10 +111,10 @@
 								<c:forEach items="${lvStructureList}" var="structure"
 									varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
+										<td class="text-left">${count.index+1}</td>
 
 
-										<td>${structure.lvsName}</td>
+										<td class="text-left">${structure.lvsName}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
