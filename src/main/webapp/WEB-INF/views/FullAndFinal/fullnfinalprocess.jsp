@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,6 +180,16 @@
 								</div>
 								<div class="card-body">
 									<div id="incashmentDiv" style="display: none;">
+										<div class="form-group row">
+											<label class="col-form-label col-lg-2"> Per Day: </label> <label
+												class="col-form-label col-lg-2 text-info font-weight-bold"
+												for="locId"> <fmt:formatNumber type="number"
+													maxFractionDigits="2" minFractionDigits="2"
+													groupingUsed="false"
+													value=" ${((empBasicAllownceForLeaveInCash.basic+
+																	empBasicAllownceForLeaveInCash.allowanceValue)/day)}" />
+											</label>
+										</div>
 										<div class="table-responsive">
 											<table
 												class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
@@ -202,7 +213,9 @@
 													<c:forEach items="${previousleavehistorylist}"
 														var="previousleavehistorylist" varStatus="count">
 														<tr>
-
+															<c:set
+																value="${previousleavehistorylist.balLeave+previousleavehistorylist.lvsAllotedLeaves-previousleavehistorylist.sactionLeave-previousleavehistorylist.aplliedLeaeve}"
+																var="ballv"></c:set>
 															<td>${previousleavehistorylist.lvTitle}</td>
 															<td>${previousleavehistorylist.balLeave}</td>
 															<td>${previousleavehistorylist.lvsAllotedLeaves}</td>
