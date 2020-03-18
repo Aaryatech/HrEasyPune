@@ -9,7 +9,11 @@
 
 
 </head>
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 <body>
 
 	<!-- Main navbar -->
@@ -117,13 +121,13 @@
 										<td>${claimList.claimTitle}</td>
 										<td>${claimList.exVar3}</td>
 										<td>${claimList.exVar1}</td>
-										<td>${claimList.cafromDt} to ${claimList.caToDt}</td>
+										<td>${claimList.cafromDt}to${claimList.caToDt}</td>
 										<td>${claimList.claimAmount}</td>
 										<td>${claimList.month}-${claimList.year}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a href="#"
-													onclick="chkAssign('${claimList.caHeadId}','${claimList.claimTitle}','${claimList.claimAmount}','${claimList.exVar1}','${claimList.exVar3}','${claimList.cafromDt}','${claimList.caToDt}')"
+													onclick="chkAssign('${claimList.caHeadId}','${claimList.claimTitle}','${claimList.claimAmount}','${claimList.exVar1}','${claimList.exVar3}','${claimList.cafromDt}','${claimList.caToDt}','${claimList.month}','${claimList.year}')"
 													title="Edit"><i class="icon-pencil7"
 													style="color: black;" data-toggle="modal"
 													data-target="#modal_edit"></i></a>
@@ -230,7 +234,8 @@
 		}
 	</script>
 	<script type="text/javascript">
-		function chkAssign(id, title, amt, empName, empCode, fromDate, toDate) {
+		function chkAssign(id, title, amt, empName, empCode, fromDate, toDate,
+				month, year) {
 			//alert(1);
 			document.getElementById("clmHeadId").value = id;
 			$('#claimAmt1').html(amt);
@@ -238,6 +243,7 @@
 			$('#empName1').html(empName);
 			$('#claimTitle1').html(title);
 			$('#claimDate1').html(fromDate + " To " + toDate);
+			document.getElementById("workDate1").value = month + "-" + year;
 			$('#modal_scrollable').modal('show');
 
 		}
@@ -246,13 +252,24 @@
 
 	<script type="text/javascript">
 		// Single picker
-		$('.datepickerclass').daterangepicker({
+		/* $('.datepickerclass').daterangepicker({
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,
 			locale : {
 				format : 'DD-MM-YYYY'
 			}
+		}); */
+		$(document).ready(function() {
+			// month selector
+			$('#workDate1').datepicker({
+				autoclose : true,
+				format : "mm-yyyy",
+				viewMode : "months",
+				minViewMode : "months"
+
+			});
+
 		});
 
 		//daterange-basic_new

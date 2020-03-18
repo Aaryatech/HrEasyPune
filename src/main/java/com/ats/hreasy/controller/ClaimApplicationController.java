@@ -1512,8 +1512,8 @@ public class ClaimApplicationController {
 				map.add("dateTimeUpdate", sf2.format(date2));
 				map.add("userId", userObj.getEmpId());
 				map.add("clmHeadId", clmHeadId);
-				map.add("month", String.valueOf(temp[1]));
-				map.add("year", String.valueOf(temp[2]));
+				map.add("month", String.valueOf(temp[0]));
+				map.add("year", String.valueOf(temp[1]));
 
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateClmPaidDate", map,
 						Info.class);
