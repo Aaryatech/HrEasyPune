@@ -112,13 +112,13 @@
 										<td>${empList.deptName}</td>
 										<td>${empList.empDesgn}</td>
 										<td>${empList.locName}</td>
-										<%-- <td>${empList.micrCode}</td>
-										<td>${empList.ifscCode}</td>  --%>
 
-										<td class="text-center"><a href="javascript:void(0)"
-											class="list-icons-item text-danger-600 bootbox_custom"
-											data-uuid="${empList.exVar1}" data-popup="tooltip" title=""
-											data-original-title="Delete"><i class="icon-list"></i></a></td>
+										<td class="text-center"><a
+											href="${pageContext.request.contextPath}/showfullnfinal?empId=${empList.exVar1}"
+											class="list-icons-item text-primary-600" data-popup="tooltip"
+											title="Full And Final Process"
+											data-original-title="Full And Final Process"><i
+												class="icon-list"></i></a></td>
 									</tr>
 								</c:forEach>
 
