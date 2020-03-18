@@ -98,12 +98,13 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Location Name</th>
-									<th>Location Short Name</th>
-									<th>Contact Person</th>
-									<th>Contact Person No.</th>
-									<th>Contact Person Email</th>
-									<th width="10%" class="text-center">Actions</th>
+									<th style="text-align: center;">Location Name</th>
+									<th style="text-align: center;">Location Short Name</th>
+									<th style="text-align: center;">Contact Person</th>
+									<th style="text-align: center;">Contact Person No.</th>
+									<th style="text-align: center;">Contact Person Email</th>
+									<th width="10%" class="text-center"
+									style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -116,7 +117,7 @@
 										<td class="text-left">${locationList.locName}</td>
 										<td class="text-left">${locationList.locNameShort}</td>
 										<td>${locationList.locHrContactPerson}</td>
-										<td>${locationList.locHrContactNumber}</td>
+										<td style="text-align: center;">${locationList.locHrContactNumber}</td>
 										<td class="text-left">${locationList.locHrContactEmail}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">

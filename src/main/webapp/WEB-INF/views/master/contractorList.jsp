@@ -97,14 +97,14 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
+									<th width="10%" class="text-center">Sr. No.</th>
 								<!-- 	<th>Service </th> -->
-									<th>Organisation</th>									
-									<th>Licence No.</th>									
-									<th>Office No.</th>
-									<th>Owner</th>
-									<th>Mobile No.</th>
-									<th>Duration</th>
+									<th class="text-center">Organization</th>									
+									<th class="text-center">License No.</th>									
+									<th class="text-center">Office No.</th>
+									<th class="text-center">Owner</th>
+									<th class="text-center">Mobile No.</th>
+									<th class="text-center">Duration</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -114,14 +114,14 @@
 								<c:forEach items="${contractorsList}" var="contractorsList"
 									varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
+										<td class="text-left">${count.index+1}</td>
 										<%-- <td>${contractorsList.service}</td> --%>
-										<td>${contractorsList.orgName}</td>
-										<td>${contractorsList.licenceNo}</td>
-										<td>${contractorsList.officeNo}</td>
-										<td>${contractorsList.owner}</td>
-										<td>${contractorsList.mobileNo}</td>
-										<td>${contractorsList.duration}</td>
+										<td class="text-left">${contractorsList.orgName}</td>
+										<td class="text-left">${contractorsList.licenceNo}</td>
+										<td class="text-left">${contractorsList.officeNo}</td>
+										<td class="text-left">${contractorsList.owner}</td>
+										<td class="text-center">${contractorsList.mobileNo}</td>
+										<td class="text-left">${contractorsList.duration}</td>
 										
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a

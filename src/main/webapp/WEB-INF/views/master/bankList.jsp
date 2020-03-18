@@ -97,11 +97,11 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Name </th>
-									<th>Branch Name</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Name </th>
+									<th class="text-center">Branch Name</th>
 									<!-- <th>MICR Code</th> -->
-									<th>IFSC Code</th>
+									<th class="text-center">IFSC Code</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -111,11 +111,11 @@
 								<c:forEach items="${bankList}" var="bankList"
 									varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
+										<td class="text-left">${count.index+1}</td>
 										<td class="text-left">${bankList.name}</td>
 										<td class="text-left">${bankList.branchName}</td>
 <%-- 										<td>${bankList.micrCode}</td>
- --%>										<td>${bankList.ifscCode}</td>
+ --%>									<td class="text-center">${bankList.ifscCode}</td>
 										
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a

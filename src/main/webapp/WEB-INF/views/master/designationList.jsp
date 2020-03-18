@@ -97,11 +97,12 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Designation </th>
-									<th>Designation Short Name</th>									
-									<th>Remark</th>
-									<th width="10%" class="text-center">Actions</th>
+									<th width="10%" style="text-align: center;">Sr. No.</th>
+									<th style="text-align: center;">Designation </th>
+									<th style="text-align: center;">Designation Short Name</th>									
+									<th style="text-align: center;">Remark</th>
+									<th width="10%" class="text-center"
+									 style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -110,10 +111,10 @@
 								<c:forEach items="${designationList}" var="designationList"
 									varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
-										<td>${designationList.name}</td>
-										<td>${designationList.nameSd}</td>
-										<td>${designationList.remarks}</td>
+										<td style="text-align: left;">${count.index+1}</td>
+										<td style="text-align: left;">${designationList.name}</td>
+										<td style="text-align: left;">${designationList.nameSd}</td>
+										<td style="text-align: left;">${designationList.remarks}</td>
 										
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a

@@ -99,10 +99,11 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Department</th>
-									<th>Department Short Name</th>
-									<th>Remark</th>
-									<th width="10%" class="text-center">Actions</th>
+									<th style="text-align: center;">Department</th>
+									<th style="text-align: center;">Department Short Name</th>
+									<th style="text-align: center;">Remark</th>
+									<th width="10%" class="text-center"
+									 style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -111,10 +112,10 @@
 								<c:forEach items="${departmentList}" var="departmentList"
 									varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
-										<td>${departmentList.name}</td>
-										<td>${departmentList.nameSd}</td>
-										<td>${departmentList.remarks}</td>
+										<td style="text-align: left;">${count.index+1}</td>
+										<td style="text-align: left;">${departmentList.name}</td>
+										<td style="text-align: left;">${departmentList.nameSd}</td>
+										<td style="text-align: left;">${departmentList.remarks}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a

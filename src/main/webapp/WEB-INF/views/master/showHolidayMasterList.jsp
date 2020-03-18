@@ -126,9 +126,9 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Holiday Title</th>
-									<th>Date</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Holiday Title</th>
+									<th class="text-center">Date</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -137,9 +137,9 @@
 
 								<c:forEach items="${holList}" var="holiday" varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
-										<td>${holiday.holidayName}</td>
-										<td>${holiday.holidayDate}</td>
+										<td class="text-left">${count.index+1}</td>
+										<td class="text-left">${holiday.holidayName}</td>
+										<td class="text-center">${holiday.holidayDate}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editHolidayMaster?holidayId=${holiday.holidayId}"

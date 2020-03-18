@@ -97,12 +97,12 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="5%">Sr. No.</th>
-									<th>Name</th>
-									<th>Weekly off Holiday Work</th>
+									<th width="5%" style="text-align: center;">Sr. No.</th>
+									<th style="text-align: center;">Name</th>
+									<th style="text-align: center;">Weekly off Holiday Work</th>
 									<!-- <th>Performance Incentive Applicable</th>
 									<th>Performance Incentive Type</th> -->
-									<th>Production Incentive Applicable</th>
+									<th style="text-align: center;">Production Incentive Applicable</th>
 
 									<!-- 	<th>Late Mark</th>
 									<th>Half Day Deduction</th> -->
@@ -112,7 +112,8 @@
 									<!-- <th>Remarks</th> -->
 
 
-									<th width="10%" class="text-center">Actions</th>
+									<th width="10%" class="text-center" style="text-align: center;"
+									>Actions</th>
 								</tr>
 							</thead>
 							<tbody>

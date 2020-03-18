@@ -841,14 +841,14 @@ System.out.println("val**"+flagNew);%> --%>
 
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="manager">Managers Under Shop Act <span
+													for="manager">Manager Under Shop Act <span
 													class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control"
 														value="${company.managerUnderAct}" id="manager"
 														onchange="trim(this)"
-														placeholder="Managers Under Shop Act " name="manager"
+														placeholder="Manager Under Shop Act " name="manager"
 														autocomplete="off"> <span
 														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_manager">This

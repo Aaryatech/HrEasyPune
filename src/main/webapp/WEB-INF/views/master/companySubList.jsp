@@ -97,12 +97,13 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Company Name</th>
-									<th>Short Name</th>
-									<th>Address</th>
-									<th>Contact</th>
-									<th width="10%" class="text-center">Actions</th>
+									<th width="10%" style="text-align: center;">Sr. No.</th>
+									<th style="text-align: center;">Company Name</th>
+									<th style="text-align: center;">Short Name</th>
+									<th style="text-align: center;">Address</th>
+									<th style="text-align: center;">Contact</th>
+									<th width="10%" class="text-center" 
+									style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -111,10 +112,10 @@
 								<c:forEach items="${companyList}" var="list" varStatus="count">
 									<tr>
 										<td>${count.index+1}</td>
-										<td>${list.companyName}</td>
-										<td>${list.nameSd}</td>
-										<td>${list.longAdd1}</td>
-										<td>${list.landline1}</td>
+										<td style="text-align: left;">${list.companyName}</td>
+										<td style="text-align: left;">${list.nameSd}</td>
+										<td style="text-align: left;">${list.longAdd1}</td>
+										<td style="text-align: center;">${list.landline1}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
