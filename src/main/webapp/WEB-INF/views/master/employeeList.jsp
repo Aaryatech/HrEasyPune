@@ -140,10 +140,10 @@
 
 										<td class="text-center">
 												<a
-													href="${pageContext.request.contextPath}/getProfile?empId=${empList.exVar1}"
+													href="${pageContext.request.contextPath}/getProfilenormal?empId=${empList.exVar1}"
 													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title="" data-original-title="Edit"><i
-													class="icon-pencil7"></i></a>
+													data-popup="tooltip" title="" data-original-title="View Employee"><i
+													class="icon-list"></i></a>
 										<c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/employeeEdit?empId=${empList.exVar1}"
@@ -185,7 +185,8 @@
 
 	</div>
 		<!-- Large modal -->
-	<div id="modal_large" class="modal fade" tabindex="-1">
+	<div id="modal_large1" class="modal fade" tabindex="-1">
+	 
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -193,232 +194,13 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body" id="modalbody">
 					
 				
 
-					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Emp Code : <span id="emp_code"></span></h5> 
-					</div>
+					 
 
-					<div class="card-body fixed_height">
-						<div class="row">
-							<div class="col-md-4 prof_pic">
-<img src="https://buffer.com/library/wp-content/uploads/2015/03/adjust-tie-1024x683.jpeg" alt="" width="100%" id="emp_img"> 								
-							</div>
-							<div class="col-md-8">
-								
-								<!-- basic information -->
-								<div class="basic_info">
-									<%-- <h3 class="info_title">Basic Information 
-									<span>
-									<c:if test="${editAccess == 0}">
-										<a
-													href="${pageContext.request.contextPath}/employeeEdit?empId="
-													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title="" data-original-title="Edit"><i
-													class="icon-pencil7"></i></a>
-													
-											</c:if> <c:if test="${deleteAccess == 0}">										
-										<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="id" data-popup="tooltip" title=""
-													data-original-title="Delete"><i class="icon-trash"></i></a></c:if>
-										<a
-											href="${pageContext.request.contextPath}/showEmpGraphs?empId="
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="" data-original-title="Graphs & Reports"><i
-												class="icon-history" style="color: black;"></i></a>
-									</span></h3> --%>
-								
-									<div class="row">
-										
-										<div class="col-md-4">
-											<div class="profile_one">First Name : <span id="emp_fname"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Middle Name : <span id="emp_mname"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Last Name : <span id="emp_lname"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Company : <span id="emp_comp"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Location : <span id="emp_loc"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Designation : <span id="emp_desig"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Department : <span id="emp_depart"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Contractor : <span id="emp_contractor"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Emp Type : <span id="emp_type"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Contact No. : <span id="emp_mob1"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Other Mobile No. : <span id="emp_mob2"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Emp Category (Access Role) : <span id="emp_cat"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">UAN Number : <span id="emp_uan"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">ESIC Number : <span id="emp_esic"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Aadhaar Number : <span id="emp_aadhar"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">PAN Number :  <span id="emp_pan"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">PF Number :  <span id="emp_pf"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Accessible Location :  <span id="emp_access_loc"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Designation Type : <span id="emp_desig_type"></span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Skill : <span id="emp_skill"></span></div>
-										</div>
-									</div>
-									
-									
-								
-								
-							</div>
-						</div>
-					</div>
-					
-					<!-- basic information -->
-					<div class="basic_info">
-					<h3 class="info_title">Personal Information </h3>
-					<div class="row">
-						<div class="col-md-3"><div class="profile_one">Middle Name :  <span id="mid_name"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Relation : <span id="relation"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Date of Birth : <span id="dob"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Gender : <span id="gender"></span></div></div>
-						
-						<div class="col-md-3"><div class="profile_one">Marital Status :  <span id="marital_status"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Email Address : <span id="email"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Current Address : <span id="curr_address"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Parmanent Address : <span id="permnt_address"></span></div></div>
-						
-						<div class="col-md-3"><div class="profile_one">Qualification : <span id="qualification"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Name : <span id="emerName"></span ></div></div>
-						<div class="col-md-3"><div class="profile_one">Emergency Contact 1 : <span id="emerContact1"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Emergency Contact 2 : <span id="emerContact2"></span></div></div>
-						
-						<div class="col-md-3"><div class="profile_one">Emergency Person Address : <span id="emerPersonAdd">Flat No.10, Chandra park Society S.N. 11/2, Kondhwa Bk. Opp Kantini Apt. Pune.411048</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Blood Group : <span id="blood_group"></span></div></div>
-						<div class="col-md-3"><div class="profile_one">Uniform Size : <span id="uniform"></span></div></div>
-					</div>
-				
-				</div>
-				
-				<!-- basic information -->
-				<div class="basic_info">
-				<h3 class="info_title">Relative Information </h3>
-				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person1"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob1"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation1"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation1"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person2"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob2"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation2"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation2"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person3"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob3"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation3"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation3"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person4"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob4"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation4"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation4"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person5"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob5"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation5"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation5"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span id="person6"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span id="nom_dob6"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span id="relation6"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span id="occupation6"></span></div></div>
-					
-					
-					
-				</div>
-				</div>	
-				
-				<!-- Employee Bank Details -->
-				<div class="basic_info">
-				<h3 class="info_title">Employee Bank Details </h3>
-				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Account No :<span id="ac_no"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Bank :  <span id="bank_name"></span></div></div>					
-				</div>
-				</div>
-				
-				<!-- Employee Salary Details -->
-				<div class="basic_info">
-				<h3 class="info_title">Employee Salary Details </h3>
-				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Gross Salary Rs : <span id="gross_sal"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Basic Rs :  <span id="basic_sal"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Society Contribution Rs. : <span id="society_Contri"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">DA (0.0 %) :  <span id="allwnce_DA"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">FA (0.0 %) : <span id="allwnce_FA"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">HRA (20.0 %) : <span id="allwnce_HRA"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">CA (0.0 %) :  <span id="allwnce_CA"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">EA (0.0 %) :  <span id="allwnce_EA"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">TA (0.0 %) : <span id="allwnce_TA"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">OTH (20.0 %) :  <span id="allwnce_OTH"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">MA (20.0 %) :  <span id="allwnce_MA"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Total :  <span id="alwncTtl"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">PF Applicable :  <span id="pf_applicable"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">PF Type :  <span id="pf_type"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">PF Employee Per :   <span id="pf_emp_per"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">ESIC Applicable :  <span id="esic_applicable"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">MLWF Applicable : <span id="mlwf_applicable"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">PT Applicable :  <span id="pt_applicable"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Salary Basis :   <span id="salary_basis"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">EPF Joining Date :  <span id="epf_join_date"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">Joining Date : <span id="cmp_join_date"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Leaving Date :  <span id="cmp_leave_date"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">Leaving Reason :  <span id="leave_reason"></span></div></div>
-					<div class="col-md-3"><div class="profile_one">LR For ESIC :  <span id="esic_leave_reason"></span></div></div>
-					
-					<div class="col-md-3"><div class="profile_one">LR For PF : <span id="lr_pf"></span></div></div>
-							
-				</div>
-				</div>
-					
-
-				</div>
-				<!-- /highlighting rows and columns -->
-
+					 
 			
 					
 				</div>
@@ -487,7 +269,20 @@
 	function getEmpData(empId) {
 		//alert(empId)
 		
-				$.getJSON('${showEmployeeProfile}',
+		//alert(var1+':'+var2);
+		   
+		   var strhref ="${pageContext.request.contextPath}/getProfile?empId="+empId;
+		   $("#modalbody").load(strhref);
+		   $("#modal_large1").modal("show");
+		   $('#modal_large1').on('hidden.bs.modal', function () {
+			 $("#modalbody").html("");
+		   }); 
+		   
+		$(document).ready(function(){
+ 
+		
+		
+			/* 	$.getJSON('${showEmployeeProfile}',
 
 			{
 
@@ -499,7 +294,7 @@
 				//alert(JSON.stringify( data));
 				 document.getElementById("emp_code").innerHTML = data.empDtl.empCode;
 				document.getElementById("emp_fname").innerHTML = data.empDtl.firstName;
-				document.getElementById("emp_mname").innerHTML = data.empDtl.middleName;
+				document.getElementById("emp_mname").innerHTML = data.empDtl.empMidName;
 				document.getElementById("emp_lname").innerHTML = data.empDtl.surname;
 				document.getElementById("emp_comp").innerHTML = data.empDtl.companyName;
 				document.getElementById("emp_type").innerHTML = data.empDtl.empType;
@@ -529,7 +324,7 @@
 				}
 				
 				
-				 /*  Personal Information*/
+				// Personal Information 
 				document.getElementById("mid_name").innerHTML = data.empDtl.middleName;
 				document.getElementById("marital_status").innerHTML = data.empDtl.maritalStatus;
 				document.getElementById("dob").innerHTML = data.empDtl.dob;
@@ -567,7 +362,7 @@
 				document.getElementById("emp_img").innerHTML = data.empDtl.exVar1;
 				
 				
-				/*  Relative Information*/
+				// Relative Information 
 				document.getElementById("person1").innerHTML = data.empDtl.name1;
 				document.getElementById("person2").innerHTML = data.empDtl.name2;
 				document.getElementById("person3").innerHTML = data.empDtl.name3;
@@ -582,7 +377,7 @@
 				document.getElementById("nom_dob5").innerHTML = data.empDtl.dob5;
 				document.getElementById("nom_dob6").innerHTML = data.empDtl.dob6;
 				
-				/* Relation 1 */
+				// Relation 1  
 				if(data.empDtl.relation1=='f'){
 					document.getElementById("relation1").innerHTML = 'Father';
 				}else if(data.empDtl.relation1=='m'){
@@ -602,7 +397,7 @@
 				}
 				
 				
-				/* Relation 2 */				
+				// Relation 2  			
 				if(data.empDtl.relation2=='f'){
 					document.getElementById("relation2").innerHTML = 'Father';
 				}else if(data.empDtl.relation2=='m'){
@@ -621,7 +416,7 @@
 					document.getElementById("relation2").innerHTML = 'NA';
 				}
 				
-				/* Relation 3 */				
+				// Relation 3  				
 				if(data.empDtl.relation3=='f'){
 					document.getElementById("relation3").innerHTML = 'Father';
 				}else if(data.empDtl.relation3=='m'){
@@ -640,7 +435,7 @@
 					document.getElementById("relation3").innerHTML = 'NA';
 				}
 				
-				/* Relation 4 */
+				// Relation 4  
 				if(data.empDtl.relation4=='f'){
 					document.getElementById("relatio4n").innerHTML = 'Father';
 				}else if(data.empDtl.relation4=='m'){
@@ -659,7 +454,7 @@
 					document.getElementById("relation4").innerHTML = 'NA';
 				}
 				
-				/* Relation 5 */
+				// Relation 5  
 				if(data.empDtl.relation5=='f'){
 					document.getElementById("relation5").innerHTML = 'Father';
 				}else if(data.empDtl.relation5=='m'){
@@ -678,7 +473,7 @@
 					document.getElementById("relation5").innerHTML = 'NA';
 				}
 				
-				/* Relation 6 */
+				// Relation 6  
 				if(data.empDtl.relation6=='f'){
 					document.getElementById("relation6").innerHTML = 'Father';
 				}else if(data.empDtl.relation6=='m'){
@@ -706,11 +501,11 @@
 				
 				
 				
-				/* Bank Details */
+				// Bank Details  
 				document.getElementById("ac_no").innerHTML = data.empDtl.accNo;
 				document.getElementById("bank_name").innerHTML = data.empDtl.bankName;
 				
-				/* Salary And Allowance Details */
+				// Salary And Allowance Details  
 				document.getElementById("basic_sal").innerHTML = data.empDtl.basic;
 				document.getElementById("gross_sal").innerHTML = data.empDtl.grossSalary;
 				document.getElementById("society_Contri").innerHTML = data.empDtl.societyContribution;
@@ -824,7 +619,7 @@
 					document.getElementById("lr_pf").innerHTML = 'Death in Service';
 				}else if(data.empDtl.leavingReasonPf==5){
 					document.getElementById("lr_pf").innerHTML = 'Permanent Disablement';
-				}
+				} */
 			});
 	}
 	

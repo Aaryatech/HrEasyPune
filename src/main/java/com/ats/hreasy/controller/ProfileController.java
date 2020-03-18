@@ -50,7 +50,7 @@ public class ProfileController {
 	@RequestMapping(value = "/getProfile", method = RequestMethod.GET)
 	public String getProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		String mav = "profile";
+		String mav = "profilemodal";
 
 		MultiValueMap<String, Object> map = null;
 		EmployeeAllDetails empAllDtls = null;
@@ -95,7 +95,54 @@ public class ProfileController {
 
 	}
 
+	@RequestMapping(value = "/getProfilenormal", method = RequestMethod.GET)
+	public String getProfilenormal(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "profilenormal";
+
+		MultiValueMap<String, Object> map = null;
+		EmployeeAllDetails empAllDtls = null;
+		try {
+
+			empAllDtls = new EmployeeAllDetails();
+			String base64encodedString = request.getParameter("empId");
+			String empId = FormValidation.DecodeKey(base64encodedString);
+
+			System.out.println("Decrypt-----" + empId);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);
+			
+			System.out.println("empInfo--------" + empInfo);
+			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
+			System.out.println("Accessable Location--------" + accessblLoc);
+			empInfo.setAcciessbleLocations(accessblLoc);
+			
+			model.addAttribute("empInfo", empInfo);
+			
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+
+			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
+			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			model.addAttribute("empAllowncList", empAllowncList);
+
+			System.err.println("Employee Detail Data-----------" + empAllDtls);
+		
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
 	
+		return mav;
+
+	}
+
 
 	public String getAccessblLoc(int empId) {
 		MultiValueMap<String, Object> map = null;

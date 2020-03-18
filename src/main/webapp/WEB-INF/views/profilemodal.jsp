@@ -1,33 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-<link
-	href="${pageContext.request.contextPath}/resources/assets/css/dashboard.css"
-	rel="stylesheet" type="text/css">
-</head>
-
-<body>
-
-	<!-- Main navbar -->
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-	<!-- /main navbar -->
-
+ 
+	 
 
 	<!-- Page content -->
-	<div class="page-content">
-
-		<!-- Main sidebar -->
-		<jsp:include page="/WEB-INF/views/include/left.jsp"></jsp:include>
-		<!-- /main sidebar -->
-
+ 
+	 
 
 		<!-- Main content -->
-		<div class="content-wrapper">
+		
 
 			<!-- Page header -->
 			<div class="page-header page-header-light"></div>
@@ -43,7 +25,7 @@
 
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"> Profile</h5>
+						<h5 class="card-title"> Emp Code : ${empInfo.empCode }</h5>
 					</div>
 
 					<div class="card-body fixed_height">
@@ -71,74 +53,76 @@
 									</span></h3>
 								
 									<div class="row">
+									
 										<div class="col-md-4">
-											<div class="profile_one">Emp Code : <span>AD001</span></div>
+											<div class="profile_one">First Name : <span>${empInfo.firstName }</span></div>
 										</div>
 										<div class="col-md-4">
-											&nbsp;
+											<div class="profile_one">Middle Name : <span>${empInfo.empMidName }</span></div>
 										</div>
 										<div class="col-md-4">
-											&nbsp;
+											<div class="profile_one">Last Name : <span>${empInfo.surname }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">First Name : <span>Akshay</span></div>
+											<div class="profile_one">Company : <span>${empInfo.companyName }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Middle Name : <span>Madhukar</span></div>
+											<div class="profile_one">Location : <span>${empInfo.location }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Last Name : <span>Raoandore</span></div>
+											<div class="profile_one">Designation : <span>${empInfo.desingnation }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Company : <span>Lutf Foods Pvt. Ltd.</span></div>
+											<div class="profile_one">Department : <span>${empInfo.departName }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Location : <span>Kondwa, Budruk, Pune</span></div>
+											<div class="profile_one">Contractor : <span>${empInfo.contractorName }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Designation : <span>Account Manager</span></div>
+											<div class="profile_one">Emp Type : <span>${empInfo.empType }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Department : <span>Quality Control</span></div>
+											<div class="profile_one">Contact No. : <span>${empInfo.mobileNo1 }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Contractor : <span>Vijeya Interprises</span></div>
+											<div class="profile_one">Other Mobile No. : <span>${empInfo.mobileNo2 }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Emp Type : <span>Staff</span></div>
+											<div class="profile_one">Emp Category (Access Role) : <span>${empInfo.empCategory }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Contact No. : <span>3112131212</span></div>
+											<div class="profile_one">UAN Number : <span>${empInfo.uan }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Other Mobile No. : <span>1234567890</span></div>
+											<div class="profile_one">ESIC Number : <span>${empInfo.esicNo }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">Emp Category (Access Role) : <span>Admin</span></div>
+											<div class="profile_one">Aadhaar Number : <span>${empInfo.aadharNo }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">UAN Number : <span>100235072792</span></div>
+											<div class="profile_one">PAN Number :  <span>${empInfo.panCardNo }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">ESIC Number : <span>NA</span></div>
+											<div class="profile_one">PF Number :  <span>${empInfo.pfNo }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">dAadhaar Number : <span>477787712211</span></div>
+											<div class="profile_one">Accessible Location :  <span>${empInfo.acciessbleLocations }</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">PAN Number :  <span>477787712211</span></div>
+										<c:set var="authority" value="NA"></c:set>
+										<c:if test="${empInfo.authorityDesigType==0}">
+											<c:set var="authority" value="Employee"></c:set>
+										</c:if>
+										<c:if test="${empInfo.authorityDesigType==1 }">
+											<c:set var="authority" value="HOD"></c:set>
+										</c:if>
+										<c:if test="${empInfo.authorityDesigType==2 }">
+											<c:set var="authority" value="HR"></c:set>
+										</c:if>
+											<div class="profile_one">Designation Type : <span>${authority}</span></div>
 										</div>
 										<div class="col-md-4">
-											<div class="profile_one">PF Number :  <span>127.0</span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Accessible Location :  <span>Kondwa, Budruk, Pune</span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Designation Type : <span>Employee</span></div>
-										</div>
-										<div class="col-md-4">
-											<div class="profile_one">Skill : <span>Semiskilled</span></div>
+											<div class="profile_one">Skill : <span>${empInfo.skill }</span></div>
 										</div>
 									</div>
 									
@@ -264,15 +248,13 @@
 			</div>
 			<!-- /content area -->
 
-
-			<!-- Footer -->
-			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
-			<!-- /footer -->
+ 
 
 		</div>
 		<!-- /main content -->
 
-	</div>
+	 
+	 
 	<!-- /page content -->
 	
 	<script type="text/javascript">

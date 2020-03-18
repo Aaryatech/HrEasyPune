@@ -1,13 +1,12 @@
 package com.ats.hreasy.model;
 
-import java.sql.Date;
-
 
 public class ViewEmployee {	
 	private int empId ;
 	private String empCode ;
 	private int cmpCode;
 	private String firstName ;
+	private String empMidName;
 	private String surname;
 	private String mobileNo1;
 	private String mobileNo2;
@@ -113,6 +112,13 @@ public class ViewEmployee {
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	    
+	public String getEmpMidName() {
+		return empMidName;
+	}
+	public void setEmpMidName(String empMidName) {
+		this.empMidName = empMidName;
 	}
 	public String getSurname() {
 		return surname;
@@ -570,30 +576,31 @@ public class ViewEmployee {
 	@Override
 	public String toString() {
 		return "ViewEmployee [empId=" + empId + ", empCode=" + empCode + ", cmpCode=" + cmpCode + ", firstName="
-				+ firstName + ", surname=" + surname + ", mobileNo1=" + mobileNo1 + ", mobileNo2=" + mobileNo2
-				+ ", companyName=" + companyName + ", uan=" + uan + ", esicNo=" + esicNo + ", aadharNo=" + aadharNo
-				+ ", panCardNo=" + panCardNo + ", pfNo=" + pfNo + ", contractorName=" + contractorName + ", skill="
-				+ skill + ", desingnation=" + desingnation + ", location=" + location + ", departName=" + departName
-				+ ", authorityDesigType=" + authorityDesigType + ", empType=" + empType + ", empCategory=" + empCategory
-				+ ", middleName=" + middleName + ", middleNameRelation=" + middleNameRelation + ", dob=" + dob
-				+ ", gender=" + gender + ", maritalStatus=" + maritalStatus + ", email=" + email + ", address="
-				+ address + ", permanentAddress=" + permanentAddress + ", empQualification=" + empQualification
-				+ ", emerName=" + emerName + ", emerContactNo1=" + emerContactNo1 + ", emerContactNo2=" + emerContactNo2
-				+ ", emerContactAddr=" + emerContactAddr + ", bloodGroup=" + bloodGroup + ", uniformSize=" + uniformSize
-				+ ", name1=" + name1 + ", relation1=" + relation1 + ", dob1=" + dob1 + ", name2=" + name2
-				+ ", relation2=" + relation2 + ", dob2=" + dob2 + ", name3=" + name3 + ", relation3=" + relation3
-				+ ", dob3=" + dob3 + ", name4=" + name4 + ", relation4=" + relation4 + ", dob4=" + dob4 + ", name5="
-				+ name5 + ", relation5=" + relation5 + ", dob5=" + dob5 + ", name6=" + name6 + ", relation6="
-				+ relation6 + ", dob6=" + dob6 + ", occupation1=" + occupation1 + ", occupation2=" + occupation2
-				+ ", occupation3=" + occupation3 + ", occupation4=" + occupation4 + ", occupation5=" + occupation5
-				+ ", occupation6=" + occupation6 + ", bankName=" + bankName + ", accNo=" + accNo + ", grossSalary="
-				+ grossSalary + ", basic=" + basic + ", societyContribution=" + societyContribution + ", pfApplicable="
-				+ pfApplicable + ", pfType=" + pfType + ", pfEmpPer=" + pfEmpPer + ", esicApplicable=" + esicApplicable
-				+ ", mlwfApplicable=" + mlwfApplicable + ", ptApplicable=" + ptApplicable + ", salBasis=" + salBasis
-				+ ", cmpJoiningDate=" + cmpJoiningDate + ", cmpLeavingDate=" + cmpLeavingDate + ", epfJoiningDate="
-				+ epfJoiningDate + ", leavingReason=" + leavingReason + ", leavingReasonEsic=" + leavingReasonEsic
-				+ ", leavingReasonPf=" + leavingReasonPf + ", acciessbleLocations=" + acciessbleLocations + "]";
+				+ firstName + ", empMidName=" + empMidName + ", surname=" + surname + ", mobileNo1=" + mobileNo1
+				+ ", mobileNo2=" + mobileNo2 + ", companyName=" + companyName + ", uan=" + uan + ", esicNo=" + esicNo
+				+ ", aadharNo=" + aadharNo + ", panCardNo=" + panCardNo + ", pfNo=" + pfNo + ", contractorName="
+				+ contractorName + ", skill=" + skill + ", desingnation=" + desingnation + ", location=" + location
+				+ ", departName=" + departName + ", authorityDesigType=" + authorityDesigType + ", empType=" + empType
+				+ ", empCategory=" + empCategory + ", middleName=" + middleName + ", middleNameRelation="
+				+ middleNameRelation + ", dob=" + dob + ", gender=" + gender + ", maritalStatus=" + maritalStatus
+				+ ", email=" + email + ", address=" + address + ", permanentAddress=" + permanentAddress
+				+ ", empQualification=" + empQualification + ", emerName=" + emerName + ", emerContactNo1="
+				+ emerContactNo1 + ", emerContactNo2=" + emerContactNo2 + ", emerContactAddr=" + emerContactAddr
+				+ ", bloodGroup=" + bloodGroup + ", uniformSize=" + uniformSize + ", name1=" + name1 + ", relation1="
+				+ relation1 + ", dob1=" + dob1 + ", name2=" + name2 + ", relation2=" + relation2 + ", dob2=" + dob2
+				+ ", name3=" + name3 + ", relation3=" + relation3 + ", dob3=" + dob3 + ", name4=" + name4
+				+ ", relation4=" + relation4 + ", dob4=" + dob4 + ", name5=" + name5 + ", relation5=" + relation5
+				+ ", dob5=" + dob5 + ", name6=" + name6 + ", relation6=" + relation6 + ", dob6=" + dob6
+				+ ", occupation1=" + occupation1 + ", occupation2=" + occupation2 + ", occupation3=" + occupation3
+				+ ", occupation4=" + occupation4 + ", occupation5=" + occupation5 + ", occupation6=" + occupation6
+				+ ", bankName=" + bankName + ", accNo=" + accNo + ", grossSalary=" + grossSalary + ", basic=" + basic
+				+ ", societyContribution=" + societyContribution + ", pfApplicable=" + pfApplicable + ", pfType="
+				+ pfType + ", pfEmpPer=" + pfEmpPer + ", esicApplicable=" + esicApplicable + ", mlwfApplicable="
+				+ mlwfApplicable + ", ptApplicable=" + ptApplicable + ", salBasis=" + salBasis + ", cmpJoiningDate="
+				+ cmpJoiningDate + ", cmpLeavingDate=" + cmpLeavingDate + ", epfJoiningDate=" + epfJoiningDate
+				+ ", leavingReason=" + leavingReason + ", leavingReasonEsic=" + leavingReasonEsic + ", leavingReasonPf="
+				+ leavingReasonPf + ", acciessbleLocations=" + acciessbleLocations + "]";
 	}
-	
+
 	
 }
