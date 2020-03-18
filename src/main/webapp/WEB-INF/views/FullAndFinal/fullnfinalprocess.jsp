@@ -190,45 +190,60 @@
 																	empBasicAllownceForLeaveInCash.allowanceValue)/day)}" />
 											</label>
 										</div>
-										<div class="table-responsive">
-											<table
-												class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-												id="printtable1">
+										<div class="form-group row">
+											<div class="table-responsive">
+												<table
+													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+													id="printtable1">
 
 
-												<thead>
-													<tr class="bg-blue" style="text-align: center;">
+													<thead>
+														<tr class="bg-blue" style="text-align: center;">
 
-														<th width="20%">Leave Type</th>
-														<th width="10%">Previous Year Opening Bal</th>
-														<th width="10%">Previous Year Earned</th>
-														<th width="10%">Previous Year Approved</th>
-														<th width="10%">Previous Year Applied</th>
-														<th width="10%">Previous Year Balanced</th>
-													</tr>
-												</thead>
-
-
-												<tbody>
-													<c:forEach items="${previousleavehistorylist}"
-														var="previousleavehistorylist" varStatus="count">
-														<tr>
-															<c:set
-																value="${previousleavehistorylist.balLeave+previousleavehistorylist.lvsAllotedLeaves-previousleavehistorylist.sactionLeave-previousleavehistorylist.aplliedLeaeve}"
-																var="ballv"></c:set>
-															<td>${previousleavehistorylist.lvTitle}</td>
-															<td>${previousleavehistorylist.balLeave}</td>
-															<td>${previousleavehistorylist.lvsAllotedLeaves}</td>
-															<td>${previousleavehistorylist.sactionLeave}</td>
-															<td>${previousleavehistorylist.aplliedLeaeve}</td>
-															<td>${ballv}</td>
-
+															<th width="20%">Leave Type</th>
+															<th width="10%">Previous Year Opening Bal</th>
+															<th width="10%">Previous Year Earned</th>
+															<th width="10%">Previous Year Approved</th>
+															<th width="10%">Previous Year Applied</th>
+															<th width="10%">Previous Year Balanced</th>
 														</tr>
-													</c:forEach>
-												</tbody>
-											</table>
+													</thead>
+
+
+													<tbody>
+														<c:forEach items="${previousleavehistorylist}"
+															var="previousleavehistorylist" varStatus="count">
+															<tr>
+																<c:set
+																	value="${previousleavehistorylist.balLeave+previousleavehistorylist.lvsAllotedLeaves-previousleavehistorylist.sactionLeave-previousleavehistorylist.aplliedLeaeve}"
+																	var="ballv"></c:set>
+																<td>${previousleavehistorylist.lvTitle}</td>
+																<td>${previousleavehistorylist.balLeave}</td>
+																<td>${previousleavehistorylist.lvsAllotedLeaves}</td>
+																<td>${previousleavehistorylist.sactionLeave}</td>
+																<td>${previousleavehistorylist.aplliedLeaeve}</td>
+																<td>${ballv}</td>
+
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="leavecashamt">Leave Cash AMT<span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-4">
+												<input type="text" class="form-control numbersOnly"
+													value="0" placeholder="Leave Cash Amount" id="leavecashamt"
+													name="leavecashamt" autocomplete="off">
+											</div>
 										</div>
 									</div>
+
 								</div>
 
 								<div class="card-header header-elements-inline">
@@ -287,7 +302,7 @@
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="bonusamt">Bonus & Exgratia<span
+											for="bonusamt">Bonus & Exgratia <span
 											class="text-danger">* </span>:
 										</label>
 										<div class="col-lg-4">
@@ -328,7 +343,16 @@
 										</div>
 									</div>
 
+									<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="remark">Remark
+											: </label>
+										<div class="col-lg-10">
+											<textarea rows="3" cols="3" class="form-control"
+												placeholder="Any Remark" onchange="trim(this)" id="remark"
+												name="remark" autocomplete="off"></textarea>
 
+										</div>
+									</div>
 
 								</div>
 
@@ -463,7 +487,7 @@
 		});
 
 		function isLeavecashChange() {
-
+			//document.getElementById("leavecashamt").value = 0;
 			if (document.getElementById("isleavecash").checked == true) {
 				$("#incashmentDiv").show();
 				document.getElementById("isleavecash").value = 1;
