@@ -137,24 +137,47 @@
 					<div class="basic_info" id="section_two">
 					<h3 class="info_title">Personal Information </h3>
 					<div class="row">
-						<div class="col-md-3"><div class="profile_one">Middle Name :  <span>Madhukar</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Relation : <span>Father</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Date of Birth : <span>18-07-1974</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Gender : <span>Male</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Middle Name :  <span>${empInfo.middleName }</span></div></div>
+						<c:set var="relation" value="NA"></c:set>
+						<c:if test="${empInfo.middleNameRelation=='father'}">
+							<c:set var="relation" value="Father"></c:set>
+						</c:if>
+						<c:if test="${empInfo.middleNameRelation=='husband'}">
+							<c:set var="relation" value="Husband"></c:set>
+						</c:if>
+						<div class="col-md-3"><div class="profile_one">Relation : <span>${relation}</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Date of Birth : <span>${empInfo.dob }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Gender : <span>${empInfo.gender }</span></div></div>
 						
-						<div class="col-md-3"><div class="profile_one">Marital Status :  <span>Unmarried</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Email Address : <span>akshayaaryatech@gmail.com</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Current Address : <span>Flat No.10, Chandra park Society S.N. 11/2, Kondhwa Bk. Opp Kantini Apt. Pune.411048</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Parmanent Address : <span>Flat No.10, Chandra park Society S.N. 11/2, Kondhwa Bk. Opp Kantini Apt. Raighad.411048- </span></div></div>
+						<div class="col-md-3"><div class="profile_one">Marital Status :  <span>${empInfo.maritalStatus }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Email Address : <span>${empInfo.email }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Current Address : <span>${empInfo.address }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Parmanent Address : <span>${empInfo.permanentAddress }</span></div></div>
 						
-						<div class="col-md-3"><div class="profile_one">Qualification : <span>Bachlor of Arts</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Name : <span>Ravindra</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Emergency Contact 1 :  <span>+91 9730703269</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Emergency Contact 2 :  <span>+91 9730703269</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Qualification : <span>${empInfo.empQualification }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Name : <span>${empInfo.emerName }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Emergency Contact 1 :  <span>${empInfo.emerContactNo1 }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Emergency Contact 2 :  <span>${empInfo.emerContactNo2 }</span></div></div>
 						
-						<div class="col-md-3"><div class="profile_one">Emergency Person Address :  <span>Flat No.10, Chandra park Society S.N. 11/2, Kondhwa Bk. Opp Kantini Apt. Pune.411048</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Blood Group :  <span>AB+</span></div></div>
-						<div class="col-md-3"><div class="profile_one">Uniform Size :  <span>XXL</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Emergency Person Address :  <span>${empInfo.emerContactAddr }</span></div></div>
+						<div class="col-md-3"><div class="profile_one">Blood Group :  <span>${empInfo.bloodGroup }</span></div></div>
+						<c:set var="size" value="NA"></c:set>
+						<c:if test="${empInfo.uniformSize=='medium' }">
+							<c:set var="size" value="MEDIUM"></c:set>
+						</c:if>
+						<c:if test="${empInfo.uniformSize=='large' }">
+							<c:set var="size" value="LARGE"></c:set>
+						</c:if>
+						<c:if test="${empInfo.uniformSize=='xl' }">
+							<c:set var="size" value="XL"></c:set>
+						</c:if>
+						<c:if test="${empInfo.uniformSize=='xxl' }">
+							<c:set var="size" value="XXL"></c:set>
+						</c:if>
+						<c:if test="${empInfo.uniformSize=='xxxl' }">
+							<c:set var="size" value="XXXL"></c:set>
+						</c:if>
+						<div class="col-md-3"><div class="profile_one">Uniform Size :  <span>${size}</span></div></div>
 					</div>
 				
 				</div>
@@ -163,32 +186,35 @@
 				<div class="basic_info"id="section_three">
 				<h3 class="info_title">Relative Information </h3>
 				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>18-07-1974</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span>Father</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span>Farming</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Person Name :<span>${empInfo.name1}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>${empInfo.dob1}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Relation :  
+					<span>${empInfo.relation1 == 'f' ? 'Father' : empInfo.relation1=='m' ? 'Mother' : empInfo.relation1=='s1' ? 'Spouse' : empInfo.relation1=='b' ? 'Brother' : empInfo.relation1=='s2' ? 'Sister' : empInfo.relation1=='s3' ? 'Son' :  empInfo.relation1=='d' ? 'Daughter' : ''}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Occupation :  <span>${empInfo.occupation1}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>18-07-1974</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span>Mother</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span>House Wife</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Person Name :<span>${empInfo.name2}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>${empInfo.dob2}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Relation :  
+					<span>${empInfo.relation2 == 'f' ? 'Father' : empInfo.relation2=='m' ? 'Mother' : empInfo.relation2=='s1' ? 'Spouse' : empInfo.relation2=='b' ? 'Brother' : empInfo.relation2=='s2' ? 'Sister' : empInfo.relation2=='s3' ? 'Son' :  empInfo.relation2=='d' ? 'Daughter' : ''}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Occupation :  <span>${empInfo.occupation2}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>18-07-1997</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span>Spuse</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span>Student</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Person Name :<span>${empInfo.name3}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>${empInfo.dob3}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Relation :  
+					<span>${empInfo.relation3 == 'f' ? 'Father' : empInfo.relation3=='m' ? 'Mother' : empInfo.relation3=='s1' ? 'Spouse' : empInfo.relation3=='b' ? 'Brother' : empInfo.relation3=='s2' ? 'Sister' : empInfo.relation3=='s3' ? 'Son' :  empInfo.relation3=='d' ? 'Daughter' : ''}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Occupation :  <span>${empInfo.occupation3}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>18-07-1990</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span>Brother</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span>Businesman</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Person Name :<span>${empInfo.name4}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>${empInfo.dob4}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Relation :  
+					<span>${empInfo.relation4 == 'f' ? 'Father' : empInfo.relation4=='m' ? 'Mother' : empInfo.relation4=='s1' ? 'Spouse' : empInfo.relation4=='b' ? 'Brother' : empInfo.relation4=='s2' ? 'Sister' : empInfo.relation4=='s3' ? 'Son' :  empInfo.relation4=='d' ? 'Daughter' : ''}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Occupation :  <span>${empInfo.occupation4}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">Person Name :<span>Madhukar</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>18-07-1999</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Relation :  <span>Sister</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Occupation :  <span>Student</span></div></div>
-					
-					
+					<div class="col-md-3"><div class="profile_one">Person Name :<span>${empInfo.name5}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Date of Birth :  <span>${empInfo.dob5}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Relation : 
+					<span>${empInfo.relation5 == 'f' ? 'Father' : empInfo.relation5=='m' ? 'Mother' : empInfo.relation5=='s1' ? 'Spouse' : empInfo.relation5=='b' ? 'Brother' : empInfo.relation5=='s2' ? 'Sister' : empInfo.relation5=='s3' ? 'Son' :  empInfo.relation5=='d' ? 'Daughter' : ''}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Occupation :  <span>${empInfo.occupation5}</span></div></div>
 					
 				</div>
 				</div>	
@@ -197,8 +223,8 @@
 				<div class="basic_info" id="section_four">
 				<h3 class="info_title">Employee Bank Details </h3>
 				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Account No :<span>20030650986</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Bank :  <span>State Bank of India</span></div></div>					
+					<div class="col-md-3"><div class="profile_one">Account No :<span>${empInfo.accNo}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Bank :  <span>${empInfo.bankName}</span></div></div>					
 				</div>
 				</div>
 				
@@ -206,8 +232,8 @@
 				<div class="basic_info" id="section_five">
 				<h3 class="info_title">Employee Salary Details </h3>
 				<div class="row">
-					<div class="col-md-3"><div class="profile_one">Gross Salary Rs : <span>15000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Basic Rs :  <span>7000.0</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Gross Salary Rs : <span>${empInfo.grossSalary}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Basic Rs :  <span>${empInfo.basic}</span></div></div>
 					<div class="col-md-3"><div class="profile_one">Society Contribution Rs. :   <span>2000.0</span></div></div>
 					<div class="col-md-3"><div class="profile_one">DA (0.0 %) :  <span>1000.0</span></div></div>
 					
@@ -221,22 +247,22 @@
 					<div class="col-md-3"><div class="profile_one">MA (20.0 %) :  <span>1000.0</span></div></div>
 					<div class="col-md-3"><div class="profile_one">Total :  <span>15000.0</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">PF Applicable :  <span>Yes</span></div></div>
-					<div class="col-md-3"><div class="profile_one">PF Type :  <span>Statutory</span></div></div>
-					<div class="col-md-3"><div class="profile_one">PF Employee Per :   <span>0.12</span></div></div>
-					<div class="col-md-3"><div class="profile_one">ESIC Applicable :  <span>Yes</span></div></div>
+					<div class="col-md-3"><div class="profile_one">PF Applicable :  <span>${empInfo.pfApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
+					<div class="col-md-3"><div class="profile_one">PF Type :  <span>${empInfo.pfType}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">PF Employee Per :   <span>${empInfo.pfEmpPer}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">ESIC Applicable :  <span>${empInfo.esicApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">MLWF Applicable : <span>Yes</span></div></div>
-					<div class="col-md-3"><div class="profile_one">PT Applicable :  <span>Yes</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Salary Basis :   <span>Monthly</span></div></div>
-					<div class="col-md-3"><div class="profile_one">EPF Joining Date :  <span>01-12-2003</span></div></div>
+					<div class="col-md-3"><div class="profile_one">MLWF Applicable : <span>${empInfo.mlwfApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
+					<div class="col-md-3"><div class="profile_one">PT Applicable :  <span>${empInfo.ptApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Salary Basis :   <span>${empInfo.salBasis}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">EPF Joining Date :  <span>${empInfo.epfJoiningDate}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">Joining Date : <span>01-12-2003</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Leaving Date :  <span>Leaving Date</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Leaving Reason :  <span>Leaving Reason</span></div></div>
-					<div class="col-md-3"><div class="profile_one">LR For ESIC :  <span>4 Out of Courage</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Joining Date : <span>${empInfo.cmpJoiningDate}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Leaving Date :  <span>${empInfo.leavingReason}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Leaving Reason :  <span>${empInfo.cmpLeavingDate}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">LR For ESIC :  <span>${empInfo.leavingReasonEsic}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">LR For PF : <span>P-Permanent Disablement</span></div></div>
+					<div class="col-md-3"><div class="profile_one">LR For PF : <span>${empInfo.leavingReasonPf}</span></div></div>
 							
 				</div>
 				</div>
