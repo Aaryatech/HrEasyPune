@@ -37,6 +37,7 @@ import com.ats.hreasy.model.TblEmpBankInfo;
 import com.ats.hreasy.model.TblEmpInfo;
 import com.ats.hreasy.model.TblEmpNominees;
 import com.ats.hreasy.model.User;
+import com.ats.hreasy.model.ViewEmployee;
 
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -51,149 +52,74 @@ public class ProfileController {
 
 		String mav = "profile";
 
+		MultiValueMap<String, Object> map = null;
+		EmployeeAllDetails empAllDtls = null;
+		try {
+
+			empAllDtls = new EmployeeAllDetails();
+			String base64encodedString = request.getParameter("empId");
+			String empId = FormValidation.DecodeKey(base64encodedString);
+
+			System.out.println("Decrypt-----" + empId);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);
+			
+			System.out.println("empInfo--------" + empInfo);
+			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
+			System.out.println("Accessable Location--------" + accessblLoc);
+			empInfo.setAcciessbleLocations(accessblLoc);
+			
+			model.addAttribute("empInfo", empInfo);
+			
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+
+			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
+			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			model.addAttribute("empAllowncList", empAllowncList);
+
+			System.err.println("Employee Detail Data-----------" + empAllDtls);
+		
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+	
 		return mav;
 
 	}
 
-	@RequestMapping(value = "/getEmployeeProfile", method = RequestMethod.GET)
-	@ResponseBody 
-	public EmployeeAllDetails getEmployeeProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
+	
+
+	public String getAccessblLoc(int empId) {
 		MultiValueMap<String, Object> map = null;
-		EmployeeAllDetails empAllDtls = null;
-		try {
-			String compName= "NA";
-			String deptName = "NA";
-			String locName = "NA";
-			String designation = "NA";
-			String contractorName = "NA";
-			String skill = "NA";
-			String empType = "NA";
-			String empAccessRole = "NA";
-			String accessblLoc = "NA";
-			/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("getEmployeeProfile", "getEmployeeProfile", 1, 0, 0, 0, newModuleList);
 
-			if (view.isError() == true) {
-
-				mav = "accessDenied";
-
-			} else {*/
-			
-				empAllDtls = new EmployeeAllDetails();
-				String base64encodedString = request.getParameter("empId");
-				String empId = FormValidation.DecodeKey(base64encodedString);
-
-				//System.out.println("Decrypt-----" + empId);
-				map = new LinkedMultiValueMap<>();
-				map.add("empId", Integer.parseInt(empId));
-
-				EmployeeMaster emp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeById", map,
-				EmployeeMaster.class);
-				try {
-				 compName= getCompany(emp.getCmpCode());
-				 deptName = getDepartment(emp.getDepartId());
-				 locName = getLocation(emp.getLocationId());
-				 designation = getDesignation(emp.getDesignationId());
-				 contractorName = getContractor(emp.getContractorId());
-				 skill = getEmpSkill(emp.getExInt2());
-				 empType = getEmpType(emp.getEmpType());
-				 empAccessRole = getEmpAccessRoll(Integer.parseInt(emp.getEmpCategory()));
-				 
-				accessblLoc = getAccessblLoc(Integer.parseInt(empId)); 
-				//System.out.println("Accessable Location--------"+accessblLoc);
-				 
-				}catch (Exception e) {
-					 compName= "NA";
-					 deptName = "NA";
-					 locName = "NA";
-					 designation = "NA";
-					 contractorName = "NA";
-					 skill = "NA";
-					 empType = "NA";
-					 empAccessRole = "NA";
-					 accessblLoc = "NA";
-				}
-								
-				emp.setCompName(compName);
-				emp.setDepartName(deptName);
-				emp.setLocation(locName);
-				emp.setDesingntn(designation);
-				emp.setContractorName(contractorName);
-				emp.setSkillType(skill);
-				emp.setEmpWorkType(empType);
-				emp.setEmpCat(empAccessRole);
-				emp.setAccessiblLocs(accessblLoc);
-				empAllDtls.setEmpDtl(emp);				
-				
-							
-				TblEmpInfo empPersInfo = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmployeePersonalInfo", map, TblEmpInfo.class);
-				// System.out.println("Edit EmpPersonal Info-------" + empPersInfo);
-				empAllDtls.setEmpPersDtl(empPersInfo);
-
-				
-				TblEmpNominees empNom = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeNominee",
-						map, TblEmpNominees.class);
-				// System.out.println("Edit Emp Nominee Info-------" + empNom);
-				empAllDtls.setEmpNomDtl(empNom);
-
-				TblEmpBankInfo empBank = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmployeeBankInfo", map, TblEmpBankInfo.class);
-				// System.out.println("Edit Emp Bank Info-------" + empBank);
-				empAllDtls.setEmpBankDtl(empBank);
-
-				EmpSalaryInfo empSalInfo = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmployeeSalInfo", map, EmpSalaryInfo.class);
-				// System.out.println("Salary Info-------" + empSalInfo);
-				empAllDtls.setEmpSalDtl(empSalInfo);
-
-				EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
-
-				List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
-				// System.out.println("EmpSalAllowance Info-------" +empAllowncList);
-				empAllDtls.setEmpAllowncDtl(empAllowncList);
-
-				EmployeDoc[] docArr = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeDocs", map,
-						EmployeDoc[].class);
-				List<EmployeDoc> docList = new ArrayList<EmployeDoc>(Arrays.asList(docArr));
-				empAllDtls.setDocDtl(docList);
-
-				
-
-			//System.err.println("Employee Detail Data-----------"+empAllDtls);
-			/*}*/
-		} catch (Exception e) {
-			e.getMessage();
-		}
-		return empAllDtls;
-
-	}
-
-	public String getAccessblLoc(int  empId) {	
-		MultiValueMap<String, Object> map = null;
-		
 		map = new LinkedMultiValueMap<>();
-		map.add("EmpId", empId);		
-		User user = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map,
-				User.class);
-		//System.out.println("Accessable Location Ids--------"+user.getLocId());
-		
+		map.add("EmpId", empId);
+		User user = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map, User.class);
+		System.out.println("Accessable Location Ids--------"+user.getLocId());
+
 		map.add("locIds", user.getLocId());
 		Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationsByIds", map,
-		Location[].class);
-		
+				Location[].class);
+
 		List<Location> locList = new ArrayList<Location>(Arrays.asList(location));
-		//System.out.println("Accessable Location Found--------"+locList);
-		
-		 StringBuffer sb = new StringBuffer();
-	      
-	     for (int i = 0; i < location.length; i++) {
+		System.out.println("Accessable Location Found--------"+locList);
+
+		StringBuffer sb = new StringBuffer();
+
+		for (int i = 0; i < location.length; i++) {
 			sb.append(location[i].getLocName());
 			sb.append(" / ");
 		}
-	      String str = sb.toString();
-	    //  System.out.println("Built String-------------"+str);
+		String str = sb.toString();
+		System.out.println("Built String-------------"+str);
 		return str;
 	}
 
@@ -208,11 +134,10 @@ public class ProfileController {
 	public String getEmpType(int empType) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 		map.add("empTypeId", empType);
-		MstEmpType empTypeList = Constants.getRestTemplate()
-				.postForObject(Constants.url + "/getMstEmpTypeById", map, MstEmpType.class);
+		MstEmpType empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeById", map,
+				MstEmpType.class);
 		return empTypeList.getName();
 	}
-
 
 	public String getEmpSkill(int skillId) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -225,16 +150,16 @@ public class ProfileController {
 	public String getContractor(int contractorId) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 		map.add("contractorId", contractorId);
-		Contractor contractor = Constants.getRestTemplate()
-				.postForObject(Constants.url + "/getContractorById", map, Contractor.class);
+		Contractor contractor = Constants.getRestTemplate().postForObject(Constants.url + "/getContractorById", map,
+				Contractor.class);
 		return contractor.getOwner();
 	}
 
 	public String getDesignation(int designationId) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 		map.add("desigId", designationId);
-		Designation designation = Constants.getRestTemplate()
-				.postForObject(Constants.url + "/getDesignationById", map, Designation.class);
+		Designation designation = Constants.getRestTemplate().postForObject(Constants.url + "/getDesignationById", map,
+				Designation.class);
 		return designation.getName();
 	}
 
@@ -249,8 +174,8 @@ public class ProfileController {
 	public String getDepartment(int departId) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 		map.add("deptId", departId);
-		Department department = Constants.getRestTemplate()
-				.postForObject(Constants.url + "/getDepartmentById", map, Department.class);
+		Department department = Constants.getRestTemplate().postForObject(Constants.url + "/getDepartmentById", map,
+				Department.class);
 		return department.getName();
 	}
 
@@ -259,7 +184,50 @@ public class ProfileController {
 		map.add("companyId", cmpCode);
 		MstCompany comp = Constants.getRestTemplate().postForObject(Constants.url + "/getCompanyById", map,
 				MstCompany.class);
-		
+
 		return comp.getCompanyName();
+	}
+
+	@RequestMapping(value = "/showEmployeeProfile", method = RequestMethod.GET)
+	@ResponseBody
+	public EmployeeAllDetails showEmployeeProfile(HttpServletRequest request, HttpServletResponse response) {
+		MultiValueMap<String, Object> map = null;
+		EmployeeAllDetails empAllDtls = null;
+		try {
+
+			empAllDtls = new EmployeeAllDetails();
+			String base64encodedString = request.getParameter("empId");
+			String empId = FormValidation.DecodeKey(base64encodedString);
+
+			System.out.println("Decrypt-----" + empId);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);
+			
+			System.out.println("empInfo--------" + empInfo);
+			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
+			System.out.println("Accessable Location--------" + accessblLoc);
+			empInfo.setAcciessbleLocations(accessblLoc);
+			empAllDtls.setEmpDtl(empInfo);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", Integer.parseInt(empId));
+			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+
+			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
+			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			empAllDtls.setEmpAllowncDtl(empAllowncList);
+
+			System.err.println("Employee Detail Data-----------" + empAllDtls);
+		
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return empAllDtls;
+
 	}
 }

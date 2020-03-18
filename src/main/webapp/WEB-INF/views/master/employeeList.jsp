@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<c:url var="getEmployeeProfile" value="/getEmployeeProfile"></c:url>
+<%-- <c:url var="getEmployeeProfile" value="/getEmployeeProfile"></c:url> --%>
+<c:url var="showEmployeeProfile" value="/showEmployeeProfile"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -136,7 +137,14 @@
 										<%-- <td>${empList.micrCode}</td>
 										<td>${empList.ifscCode}</td>  --%>
 
-										<td class="text-center"><c:if test="${editAccess == 0}">
+
+										<td class="text-center">
+												<a
+													href="${pageContext.request.contextPath}/getProfile?empId=${empList.exVar1}"
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
+										<c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/employeeEdit?empId=${empList.exVar1}"
 													class="list-icons-item text-primary-600"
@@ -202,7 +210,7 @@
 								
 								<!-- basic information -->
 								<div class="basic_info">
-									<h3 class="info_title">Basic Information 
+									<%-- <h3 class="info_title">Basic Information 
 									<span>
 									<c:if test="${editAccess == 0}">
 										<a
@@ -221,7 +229,7 @@
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Graphs & Reports"><i
 												class="icon-history" style="color: black;"></i></a>
-									</span></h3>
+									</span></h3> --%>
 								
 									<div class="row">
 										
@@ -456,10 +464,30 @@
 						});
 	</Script>
 	<script type="text/javascript">
+	$('#block-page').on('click', function() {
+		$.blockUI({
+			message : '<i class="icon-spinner4 spinner"></i>',
+			timeout : 2000, //unblock after 2 seconds
+			overlayCSS : {
+				backgroundColor : '#1b2024',
+				opacity : 0.8,
+				cursor : 'wait'
+			},
+			css : {
+				border : 0,
+				color : '#fff',
+				padding : 0,
+				backgroundColor : 'transparent'
+			}
+		});
+	}); 
+
+	</script>
+	<script type="text/javascript">
 	function getEmpData(empId) {
 		//alert(empId)
 		
-				$.getJSON('${getEmployeeProfile}',
+				$.getJSON('${showEmployeeProfile}',
 
 			{
 
@@ -468,18 +496,18 @@
 
 			}, function(data) {
 				$('#modal_large').modal('toggle');
-				//alert(JSON.stringify( data.empAllowncDtl));
-				document.getElementById("emp_code").innerHTML = data.empDtl.empCode;
+				//alert(JSON.stringify( data));
+				 document.getElementById("emp_code").innerHTML = data.empDtl.empCode;
 				document.getElementById("emp_fname").innerHTML = data.empDtl.firstName;
 				document.getElementById("emp_mname").innerHTML = data.empDtl.middleName;
 				document.getElementById("emp_lname").innerHTML = data.empDtl.surname;
-				document.getElementById("emp_comp").innerHTML = data.empDtl.compName;
-				document.getElementById("emp_type").innerHTML = data.empDtl.empWorkType;
+				document.getElementById("emp_comp").innerHTML = data.empDtl.companyName;
+				document.getElementById("emp_type").innerHTML = data.empDtl.empType;
 				document.getElementById("emp_depart").innerHTML = data.empDtl.departName;
-				document.getElementById("emp_desig").innerHTML = data.empDtl.desingntn;
+				document.getElementById("emp_desig").innerHTML = data.empDtl.desingnation;
 				document.getElementById("emp_contractor").innerHTML = data.empDtl.contractorName;
-				document.getElementById("emp_cat").innerHTML = data.empDtl.empCat;
-				document.getElementById("emp_skill").innerHTML = data.empDtl.skillType;
+				document.getElementById("emp_cat").innerHTML = data.empDtl.empCategory;
+				document.getElementById("emp_skill").innerHTML = data.empDtl.skill;
 				document.getElementById("emp_loc").innerHTML = data.empDtl.location;
 				document.getElementById("emp_mob1").innerHTML = data.empDtl.mobileNo1;
 				document.getElementById("emp_mob2").innerHTML = data.empDtl.mobileNo2;
@@ -488,13 +516,13 @@
 				document.getElementById("emp_esic").innerHTML = data.empDtl.esicNo;
 				document.getElementById("emp_pan").innerHTML = data.empDtl.panCardNo;
 				document.getElementById("emp_pf").innerHTML = data.empDtl.pfNo;
-				document.getElementById("emp_access_loc").innerHTML = data.empDtl.accessiblLocs;
+				document.getElementById("emp_access_loc").innerHTML = data.empDtl.acciessbleLocations;
 				
-				if(data.empDtl.exInt1==0){
+				if(data.empDtl.authorityDesigType==0){
 					document.getElementById("emp_desig_type").innerHTML = 'Employee';
-				}else if(data.empDtl.exInt1==1){
+				}else if(data.empDtl.authorityDesigType==1){
 					document.getElementById("emp_desig_type").innerHTML = 'HOD';
-				}else if(data.empDtl.exInt1==2){
+				}else if(data.empDtl.authorityDesigType==2){
 					document.getElementById("emp_desig_type").innerHTML = 'HR';
 				}else{
 					document.getElementById("emp_desig_type").innerHTML = 'NA';
@@ -502,72 +530,72 @@
 				
 				
 				 /*  Personal Information*/
-				document.getElementById("mid_name").innerHTML = data.empPersDtl.middleName;
-				document.getElementById("marital_status").innerHTML = data.empPersDtl.maritalStatus;
-				document.getElementById("dob").innerHTML = data.empPersDtl.dob;
-				document.getElementById("gender").innerHTML = data.empPersDtl.gender;
-				if(data.empPersDtl.middleNameRelation=='father'){
+				document.getElementById("mid_name").innerHTML = data.empDtl.middleName;
+				document.getElementById("marital_status").innerHTML = data.empDtl.maritalStatus;
+				document.getElementById("dob").innerHTML = data.empDtl.dob;
+				document.getElementById("gender").innerHTML = data.empDtl.gender;
+				if(data.empDtl.middleNameRelation=='father'){
 					document.getElementById("relation").innerHTML = 'Father';
-				}else if(data.empPersDtl.middleNameRelation=='husband'){
+				}else if(data.empDtl.middleNameRelation=='husband'){
 					document.getElementById("relation").innerHTML = 'Husband';
 				}else{
 					document.getElementById("relation").innerHTML = 'NA';
 				}
-				document.getElementById("email").innerHTML = data.empPersDtl.email;
-				document.getElementById("curr_address").innerHTML = data.empPersDtl.address;
-				document.getElementById("permnt_address").innerHTML = data.empPersDtl.permanentAddress;
-				document.getElementById("qualification").innerHTML = data.empPersDtl.empQualification;
-				document.getElementById("emerName").innerHTML = data.empPersDtl.emerName;
-				document.getElementById("emerContact1").innerHTML = data.empPersDtl.emerContactNo1;
-				document.getElementById("emerContact2").innerHTML = data.empPersDtl.emerContactNo2;
-				document.getElementById("emerPersonAdd").innerHTML = data.empPersDtl.emerContactAddr;
-				document.getElementById("blood_group").innerHTML = data.empPersDtl.bloodGroup;
+				document.getElementById("email").innerHTML = data.empDtl.email;
+				document.getElementById("curr_address").innerHTML = data.empDtl.address;
+				document.getElementById("permnt_address").innerHTML = data.empDtl.permanentAddress;
+				document.getElementById("qualification").innerHTML = data.empDtl.empQualification;
+				document.getElementById("emerName").innerHTML = data.empDtl.emerName;
+				document.getElementById("emerContact1").innerHTML = data.empDtl.emerContactNo1;
+				document.getElementById("emerContact2").innerHTML = data.empDtl.emerContactNo2;
+				document.getElementById("emerPersonAdd").innerHTML = data.empDtl.emerContactAddr;
+				document.getElementById("blood_group").innerHTML = data.empDtl.bloodGroup;
 				
-				if(data.empPersDtl.uniformSize=='medium'){
+				if(data.empDtl.uniformSize=='medium'){
 					document.getElementById("uniform").innerHTML = 'MEDIUM';
-				}else if(data.empPersDtl.uniformSize=='large'){
+				}else if(data.empDtl.uniformSize=='large'){
 					document.getElementById("uniform").innerHTML = 'LARGE';
-				}else if(data.empPersDtl.uniformSize=='xl'){
+				}else if(data.empDtl.uniformSize=='xl'){
 					document.getElementById("uniform").innerHTML = 'XL';
-				}else if(data.empPersDtl.uniformSize=='xxl'){
+				}else if(data.empDtl.uniformSize=='xxl'){
 					document.getElementById("uniform").innerHTML = 'XXL';
-				}else if(data.empPersDtl.uniformSize=='xxxl'){
+				}else if(data.empDtl.uniformSize=='xxxl'){
 					document.getElementById("uniform").innerHTML = 'XXXL';
 				}else{
 					document.getElementById("uniform").innerHTML = 'NA';
 				}
-				document.getElementById("emp_img").innerHTML = data.empPersDtl.exVar1;
+				document.getElementById("emp_img").innerHTML = data.empDtl.exVar1;
 				
 				
 				/*  Relative Information*/
-				document.getElementById("person1").innerHTML = data.empNomDtl.name;
-				document.getElementById("person2").innerHTML = data.empNomDtl.name2;
-				document.getElementById("person3").innerHTML = data.empNomDtl.name3;
-				document.getElementById("person4").innerHTML = data.empNomDtl.name4;
-				document.getElementById("person5").innerHTML = data.empNomDtl.name5;
-				document.getElementById("person6").innerHTML = data.empNomDtl.name6;
+				document.getElementById("person1").innerHTML = data.empDtl.name1;
+				document.getElementById("person2").innerHTML = data.empDtl.name2;
+				document.getElementById("person3").innerHTML = data.empDtl.name3;
+				document.getElementById("person4").innerHTML = data.empDtl.name4;
+				document.getElementById("person5").innerHTML = data.empDtl.name5;
+				document.getElementById("person6").innerHTML = data.empDtl.name6;
 				
-				document.getElementById("nom_dob1").innerHTML = data.empNomDtl.dob;
-				document.getElementById("nom_dob2").innerHTML = data.empNomDtl.dob2;
-				document.getElementById("nom_dob3").innerHTML = data.empNomDtl.dob3;
-				document.getElementById("nom_dob4").innerHTML = data.empNomDtl.dob4;
-				document.getElementById("nom_dob5").innerHTML = data.empNomDtl.dob5;
-				document.getElementById("nom_dob6").innerHTML = data.empNomDtl.dob6;
+				document.getElementById("nom_dob1").innerHTML = data.empDtl.dob1;
+				document.getElementById("nom_dob2").innerHTML = data.empDtl.dob2;
+				document.getElementById("nom_dob3").innerHTML = data.empDtl.dob3;
+				document.getElementById("nom_dob4").innerHTML = data.empDtl.dob4;
+				document.getElementById("nom_dob5").innerHTML = data.empDtl.dob5;
+				document.getElementById("nom_dob6").innerHTML = data.empDtl.dob6;
 				
 				/* Relation 1 */
-				if(data.empNomDtl.relation=='f'){
+				if(data.empDtl.relation1=='f'){
 					document.getElementById("relation1").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation=='m'){
+				}else if(data.empDtl.relation1=='m'){
 					document.getElementById("relation1").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation=='s1'){
+				}else if(data.empDtl.relation1=='s1'){
 					document.getElementById("relation1").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation=='b'){
+				}else if(data.empDtl.relation1=='b'){
 					document.getElementById("relation1").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation=='s2'){
+				}else if(data.empDtl.relation1=='s2'){
 					document.getElementById("relation1").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation=='s3'){
+				}else if(data.empDtl.relation1=='s3'){
 					document.getElementById("relation1").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation=='d'){
+				}else if(data.empDtl.relation1=='d'){
 					document.getElementById("relation1").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation1").innerHTML = 'NA';
@@ -575,117 +603,117 @@
 				
 				
 				/* Relation 2 */				
-				if(data.empNomDtl.relation2=='f'){
+				if(data.empDtl.relation2=='f'){
 					document.getElementById("relation2").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation2=='m'){
+				}else if(data.empDtl.relation2=='m'){
 					document.getElementById("relation2").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation2=='s1'){
+				}else if(data.empDtl.relation2=='s1'){
 					document.getElementById("relation2").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation2=='b'){
+				}else if(data.empDtl.relation2=='b'){
 					document.getElementById("relation2").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation2=='s2'){
+				}else if(data.empDtl.relation2=='s2'){
 					document.getElementById("relation2").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation2=='s3'){
+				}else if(data.empDtl.relation2=='s3'){
 					document.getElementById("relation2").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation2=='d'){
+				}else if(data.empDtl.relation2=='d'){
 					document.getElementById("relation2").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation2").innerHTML = 'NA';
 				}
 				
 				/* Relation 3 */				
-				if(data.empNomDtl.relation3=='f'){
+				if(data.empDtl.relation3=='f'){
 					document.getElementById("relation3").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation3=='m'){
+				}else if(data.empDtl.relation3=='m'){
 					document.getElementById("relation3").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation3=='s1'){
+				}else if(data.empDtl.relation3=='s1'){
 					document.getElementById("relation3").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation3=='b'){
+				}else if(data.empDtl.relation3=='b'){
 					document.getElementById("relation3").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation3=='s2'){
+				}else if(data.empDtl.relation3=='s2'){
 					document.getElementById("relation3").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation3=='s3'){
+				}else if(data.empDtl.relation3=='s3'){
 					document.getElementById("relation3").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation3=='d'){
+				}else if(data.empDtl.relation3=='d'){
 					document.getElementById("relation3").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation3").innerHTML = 'NA';
 				}
 				
 				/* Relation 4 */
-				if(data.empNomDtl.relation4=='f'){
+				if(data.empDtl.relation4=='f'){
 					document.getElementById("relatio4n").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation4=='m'){
+				}else if(data.empDtl.relation4=='m'){
 					document.getElementById("relation4").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation4=='s1'){
+				}else if(data.empDtl.relation4=='s1'){
 					document.getElementById("relation4").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation4=='b'){
+				}else if(data.empDtl.relation4=='b'){
 					document.getElementById("relation4").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation4=='s2'){
+				}else if(data.empDtl.relation4=='s2'){
 					document.getElementById("relation4").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation4=='s3'){
+				}else if(data.empDtl.relation4=='s3'){
 					document.getElementById("relation4").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation4=='d'){
+				}else if(data.empDtl.relation4=='d'){
 					document.getElementById("relation4").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation4").innerHTML = 'NA';
 				}
 				
 				/* Relation 5 */
-				if(data.empNomDtl.relation5=='f'){
+				if(data.empDtl.relation5=='f'){
 					document.getElementById("relation5").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation5=='m'){
+				}else if(data.empDtl.relation5=='m'){
 					document.getElementById("relation5").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation5=='s1'){
+				}else if(data.empDtl.relation5=='s1'){
 					document.getElementById("relation5").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation5=='b'){
+				}else if(data.empDtl.relation5=='b'){
 					document.getElementById("relation5").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation5=='s2'){
+				}else if(data.empDtl.relation5=='s2'){
 					document.getElementById("relation5").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation5=='s3'){
+				}else if(data.empDtl.relation5=='s3'){
 					document.getElementById("relation5").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation5=='d'){
+				}else if(data.empDtl.relation5=='d'){
 					document.getElementById("relation5").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation5").innerHTML = 'NA';
 				}
 				
 				/* Relation 6 */
-				if(data.empNomDtl.relation6=='f'){
+				if(data.empDtl.relation6=='f'){
 					document.getElementById("relation6").innerHTML = 'Father';
-				}else if(data.empNomDtl.relation6=='m'){
+				}else if(data.empDtl.relation6=='m'){
 					document.getElementById("relation6").innerHTML = 'Mother';
-				}else if(data.empNomDtl.relation6=='s1'){
+				}else if(data.empDtl.relation6=='s1'){
 					document.getElementById("relation6").innerHTML = 'Spouse';
-				}else if(data.empNomDtl.relation6=='b'){
+				}else if(data.empDtl.relation6=='b'){
 					document.getElementById("relation6").innerHTML = 'Brother';
-				}else if(data.empNomDtl.relation6=='s2'){
+				}else if(data.empDtl.relation6=='s2'){
 					document.getElementById("relation6").innerHTML = 'Sister';
-				}else if(data.empNomDtl.relation6=='s3'){
+				}else if(data.empDtl.relation6=='s3'){
 					document.getElementById("relation6").innerHTML = 'Son';
-				}else if(data.empNomDtl.relation6=='d'){
+				}else if(data.empDtl.relation6=='d'){
 					document.getElementById("relation6").innerHTML = 'Daughter';
 				}else{
 					document.getElementById("relation").innerHTML = 'NA';
 				}
 				
-				document.getElementById("occupation1").innerHTML = data.empNomDtl.occupation1;
-				document.getElementById("occupation2").innerHTML = data.empNomDtl.occupation2;
-				document.getElementById("occupation3").innerHTML = data.empNomDtl.occupation3;
-				document.getElementById("occupation4").innerHTML = data.empNomDtl.occupation4;
-				document.getElementById("occupation5").innerHTML = data.empNomDtl.occupation5;
-				document.getElementById("occupation6").innerHTML = data.empNomDtl.occupation6;
+				document.getElementById("occupation1").innerHTML = data.empDtl.occupation1;
+				document.getElementById("occupation2").innerHTML = data.empDtl.occupation2;
+				document.getElementById("occupation3").innerHTML = data.empDtl.occupation3;
+				document.getElementById("occupation4").innerHTML = data.empDtl.occupation4;
+				document.getElementById("occupation5").innerHTML = data.empDtl.occupation5;
+				document.getElementById("occupation6").innerHTML = data.empDtl.occupation6;
 				
 				
 				
 				/* Bank Details */
-				document.getElementById("ac_no").innerHTML = data.empBankDtl.accNo;
-				document.getElementById("bank_name").innerHTML = data.empBankDtl.exVar1;
+				document.getElementById("ac_no").innerHTML = data.empDtl.accNo;
+				document.getElementById("bank_name").innerHTML = data.empDtl.bankName;
 				
 				/* Salary And Allowance Details */
-				document.getElementById("basic_sal").innerHTML = data.empSalDtl.basic;
-				document.getElementById("gross_sal").innerHTML = data.empSalDtl.grossSalary;
-				document.getElementById("society_Contri").innerHTML = data.empSalDtl.societyContribution;
+				document.getElementById("basic_sal").innerHTML = data.empDtl.basic;
+				document.getElementById("gross_sal").innerHTML = data.empDtl.grossSalary;
+				document.getElementById("society_Contri").innerHTML = data.empDtl.societyContribution;
 				
 				var allowanceTtl = 0;;
 				for (var i = 0; i < data.empAllowncDtl.length; i++) {
@@ -712,90 +740,95 @@
 					}else if(data.empAllowncDtl[i].allowanceId==173){
 						document.getElementById("allwnce_MA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
+					}else if(data.empAllowncDtl[i].allowanceId==16){
+						document.getElementById("allwnce_TA").innerHTML = data.empAllowncDtl[i].allowanceValue;
+						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
 					} 
 					
 				}
 				
 				document.getElementById("alwncTtl").innerHTML =allowanceTtl;
 				
-				if(data.empSalDtl.pfApplicable=="yes"){
+				if(data.empDtl.pfApplicable=="yes"){
 					document.getElementById("pf_applicable").innerHTML = 'YES';
 				}else{
 					document.getElementById("pf_applicable").innerHTML = 'NO';
 				}
-				document.getElementById("pf_type").innerHTML = data.empSalDtl.pfType;
-				document.getElementById("pf_emp_per").innerHTML = data.empSalDtl.pfEmpPer;
-				if(data.empSalDtl.esicApplicable=='yes'){
+				document.getElementById("pf_type").innerHTML = data.empDtl.pfType;
+				document.getElementById("pf_emp_per").innerHTML = data.empDtl.pfEmpPer;
+				if(data.empDtl.esicApplicable=='yes'){
 					document.getElementById("esic_applicable").innerHTML = 'YES';
 				}else{
 					document.getElementById("esic_applicable").innerHTML = 'NO';
 				}
 				
-				if(data.empSalDtl.mlwfApplicable=='yes'){
+				if(data.empDtl.mlwfApplicable=='yes'){
 					document.getElementById("mlwf_applicable").innerHTML = 'YES';
 				}else{
 					document.getElementById("mlwf_applicable").innerHTML = 'NO';	
 				}
 				
-				if(data.empSalDtl.salBasis=='monthly'){
+				if(data.empDtl.salBasis=='monthly'){
 					document.getElementById("salary_basis").innerHTML = 'Monthly';
 				}else{
 					document.getElementById("salary_basis").innerHTML = 'Daily';
 				}
 				
-				if(data.empSalDtl.ptApplicable=='yes'){
+				if(data.empDtl.ptApplicable=='yes'){
 					document.getElementById("pt_applicable").innerHTML = 'YES';
 				}else{
 					document.getElementById("pt_applicable").innerHTML = 'NO';
 				}
 				
-				document.getElementById("epf_join_date").innerHTML = data.empSalDtl.epfJoiningDate;				
-				document.getElementById("cmp_join_date").innerHTML = data.empSalDtl.cmpJoiningDate;
-				document.getElementById("cmp_leave_date").innerHTML = data.empSalDtl.cmpLeavingDate;
-				document.getElementById("leave_reason").innerHTML = data.empSalDtl.leavingReason;
+				document.getElementById("epf_join_date").innerHTML = data.empDtl.epfJoiningDate;				
+				document.getElementById("cmp_join_date").innerHTML = data.empDtl.cmpJoiningDate;
+				document.getElementById("cmp_leave_date").innerHTML = data.empDtl.cmpLeavingDate;
+				document.getElementById("leave_reason").innerHTML = data.empDtl.leavingReason;
 				
-				if(data.empSalDtl.leavingReasonEsic==0){
+				if(data.empDtl.leavingReasonEsic==0){
 					document.getElementById("esic_leave_reason").innerHTML = 'Without Reason';
-				}else if(data.empSalDtl.leavingReasonEsic==1){
+				}else if(data.empDtl.leavingReasonEsic==1){
 					document.getElementById("esic_leave_reason").innerHTML = 'On Leave';
-				}else if(data.empSalDtl.leavingReasonEsic==2){
+				}else if(data.empDtl.leavingReasonEsic==2){
 					document.getElementById("esic_leave_reason").innerHTML = 'Self Service';
-				}else if(data.empSalDtl.leavingReasonEsic==3){
+				}else if(data.empDtl.leavingReasonEsic==3){
 					document.getElementById("esic_leave_reason").innerHTML = 'Retired';
-				}else if(data.empSalDtl.leavingReasonEsic==4){
+				}else if(data.empDtl.leavingReasonEsic==4){
 					document.getElementById("esic_leave_reason").innerHTML = 'Out of Coverage';
-				}else if(data.empSalDtl.leavingReasonEsic==5){
+				}else if(data.empDtl.leavingReasonEsic==5){
 					document.getElementById("esic_leave_reason").innerHTML = 'Expired';
-				}else if(data.empSalDtl.leavingReasonEsic==6){
+				}else if(data.empDtl.leavingReasonEsic==6){
 					document.getElementById("esic_leave_reason").innerHTML = 'Non Implemented Area';
-				}else if(data.empSalDtl.leavingReasonEsic==7){
+				}else if(data.empDtl.leavingReasonEsic==7){
 					document.getElementById("esic_leave_reason").innerHTML = 'Compliance by immediate Employer';
-				}else if(data.empSalDtl.leavingReasonEsic==8){
+				}else if(data.empDtl.leavingReasonEsic==8){
 					document.getElementById("esic_leave_reason").innerHTML = 'Suspension Reason';
-				}else if(data.empSalDtl.leavingReasonEsic==9){
+				}else if(data.empDtl.leavingReasonEsic==9){
 					document.getElementById("esic_leave_reason").innerHTML = 'Strike/Lockout';
-				}else if(data.empSalDtl.leavingReasonEsic==10){
+				}else if(data.empDtl.leavingReasonEsic==10){
 					document.getElementById("esic_leave_reason").innerHTML = 'Retrenchment';
-				}else if(data.empSalDtl.leavingReasonEsic==11){
+				}else if(data.empDtl.leavingReasonEsic==11){
 					document.getElementById("esic_leave_reason").innerHTML = 'No Work';
-				}else if(data.empSalDtl.leavingReasonEsic==12){
+				}else if(data.empDtl.leavingReasonEsic==12){
 					document.getElementById("esic_leave_reason").innerHTML = 'Does not belong to this Employer';
 				}
 				
 				
-				if(data.empSalDtl.leavingReasonPf==1){
+				if(data.empDtl.leavingReasonPf==1){
 					document.getElementById("lr_pf").innerHTML = 'Cessation';
-				}else if(data.empSalDtl.leavingReasonPf==2){
+				}else if(data.empDtl.leavingReasonPf==2){
 					document.getElementById("lr_pf").innerHTML = 'Superannuation';
-				}else if(data.empSalDtl.leavingReasonPf==3){
+				}else if(data.empDtl.leavingReasonPf==3){
 					document.getElementById("lr_pf").innerHTML = 'Retirement';
-				}else if(data.empSalDtl.leavingReasonPf==4){
+				}else if(data.empDtl.leavingReasonPf==4){
 					document.getElementById("lr_pf").innerHTML = 'Death in Service';
-				}else if(data.empSalDtl.leavingReasonPf==5){
+				}else if(data.empDtl.leavingReasonPf==5){
 					document.getElementById("lr_pf").innerHTML = 'Permanent Disablement';
 				}
 			});
 	}
+	
 	</script>
+	
 </body>
 </html>
