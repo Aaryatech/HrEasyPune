@@ -108,7 +108,7 @@
 											class="text-danger">*</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" maxlength="50"
 												placeholder="Enter Shift Group Name" id="grpName"
 												name="grpName" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_grpName"

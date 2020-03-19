@@ -247,7 +247,7 @@ public class EmployeeController {
 				empDocList = new ArrayList<EmpDoctype>(Arrays.asList(empDocArr));
 
 				MstCompanySub[] company = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllSubCompanies", MstCompanySub[].class);
+						.getForObject(Constants.url + "/getAllActiveSubCompanies", MstCompanySub[].class);// /getAllSubCompanies
 
 				List<MstCompanySub> companyList = new ArrayList<MstCompanySub>(Arrays.asList(company));
 

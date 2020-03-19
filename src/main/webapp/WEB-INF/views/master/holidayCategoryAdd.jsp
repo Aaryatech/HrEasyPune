@@ -112,7 +112,7 @@
 											Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" value="${holi.hoCatName}"
-												placeholder="Enter Holiday Category" id="hoCatName"
+												placeholder="Enter Holiday Category" id="hoCatName" maxlength="20"
 												name="hoCatName" autocomplete="off"  onchange="checkUnique(this.value,3)">
 											<span class="validation-invalid-label" id="error_hoCatName"
 												style="display: none;">This field is required.</span>

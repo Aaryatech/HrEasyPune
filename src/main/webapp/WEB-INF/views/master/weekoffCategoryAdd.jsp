@@ -108,17 +108,17 @@
 									id="submitInsertWeekoffCategory" method="post">
 									<input type="hidden" value="${holi.woCatId}" id="woCatId" name="woCatId">
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="woCatName">Weekoff Category 
+										<label class="col-form-label text-info font-weight-bold col-lg-2" for="woCatName">Week Off Category 
 											Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" value="${holi.woCatName}"
-												placeholder="Enter Weeklyoff Category" id="woCatName"
+												placeholder="Enter Week Off Category" id="woCatName" maxlength="10"
 												name="woCatName" autocomplete="off"  onchange="checkUnique(this.value,4)">
 											<span class="validation-invalid-label" id="error_woCatName"
 												style="display: none;">This field is required.</span>
 												
 												<span class="validation-invalid-label" id="error_unique"
-												style="display: none;">Weekoff Category  Name Already Exists.</span>
+												style="display: none;">Week Off Category  Name Already Exists.</span>
 										</div>
 									</div>
 
@@ -134,7 +134,7 @@
 												style="display: none;">This field is required.</span>
 												<span
 												class="validation-invalid-label" id="error_sameName"
-												style="display: none;">Weekoff Category Short Name Can Not be same as Weekoff Category  Name.</span>
+												style="display: none;">Week Off Category Short Name Can Not be same as Week Off Category  Name.</span>
 												
 										</div>
 									</div>

@@ -139,7 +139,7 @@
 											<input type="text" class="form-control"
 												placeholder="Enter Leave Type" id="leaveTypeTitle"
 												name="leaveTypeTitle" autocomplete="off"
-												onchange="trim(this)"> <span
+												onchange="trim(this)" maxlength="50"> <span
 												class="validation-invalid-label" id="error_leaveType"
 												style="display: none;">This field is required.</span>
 										</div>
@@ -152,8 +152,8 @@
 											class="text-danger">*</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Leave Type Short Name "
+											<input type="text" class="form-control" maxlength="10"
+												placeholder="Enter Leave Type Short Name"
 												id="leaveShortTypeTitle" name="leaveShortTypeTitle"
 												autocomplete="off" onchange="trim(this)"
 												oninput="checkUniqueShortName(this.value)"> <span

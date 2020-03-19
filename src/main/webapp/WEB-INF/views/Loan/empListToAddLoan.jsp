@@ -123,7 +123,14 @@
 											<td><c:if test="${editAccess == 0}"><a
 													href="${pageContext.request.contextPath}/showAddLoan?empId=${empdetList.exVar1}"
 													class="list-icons-item text-primary-600" data-popup="tooltip" title="Add Loan" data-original-title="Edit"><i class="icon-enlarge5 "
-													 ></i></a></c:if></td>
+													 ></i></a>
+													 
+												<a
+													href="${pageContext.request.contextPath}/showCalLoan?empId=${empdetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip" title="Calculate Loan" data-original-title="Calculate Loan"><i class="icon-enlarge5 "
+													 ></i></a>
+													 
+													 </c:if></td>
 
 										</tr>
 									</c:forEach>
