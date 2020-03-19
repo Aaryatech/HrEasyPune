@@ -107,7 +107,7 @@
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="locName">Location
 											Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" maxlength="20"
 												placeholder="Enter Location Name" id="locName"
 												name="locName" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_locName"
@@ -119,7 +119,7 @@
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="locShortName">Location
 											Short Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" 
 												placeholder="Enter Location Short Name" id="locShortName"
 												name="locShortName" autocomplete="off" onchange="trim(this)"
 												maxlength="5"> <span
@@ -150,7 +150,7 @@
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="prsnName">Contact Person
 											Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" maxlength="20"
 												placeholder="Contact Person Name" id="prsnName"
 												name="prsnName" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_prsnName"

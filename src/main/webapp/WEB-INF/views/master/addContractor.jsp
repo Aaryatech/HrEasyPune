@@ -123,7 +123,7 @@
 											class="text-danger">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" maxlength="20"
 												placeholder="Enter Organisation Name" id="organisation"
 												value="${contract.orgName}" name="organisation"
 												autocomplete="off" onchange="trim(this)">

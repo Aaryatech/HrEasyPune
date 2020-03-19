@@ -109,7 +109,7 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control" value="${bank.name}"
 												placeholder="Enter Bank" id="bankName" name="bankName"
-												autocomplete="off" onchange="trim(this)"> <span
+												autocomplete="off" onchange="trim(this)" maxlength="30"> <span
 												class="validation-invalid-label" id="error_bank"
 												style="display: none;">This field is required.</span>
 										</div>
@@ -120,7 +120,7 @@
 											<span class="text-danger">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" 
 												placeholder="Enter Address" id="address"
 												value="${bank.address}" name="address" autocomplete="off"
 												onchange="trim(this)"> <span
@@ -135,7 +135,7 @@
 											Name <span class="text-danger">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" maxlength="20"
 												placeholder="Enter Branch Name" id="branchName"
 												value="${bank.branchName}" name="branchName"
 												autocomplete="off" onchange="trim(this)"> <span

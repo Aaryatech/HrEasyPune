@@ -70,7 +70,7 @@ public class ProfileController {
 			
 			System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
-			System.out.println("Accessable Location--------" + accessblLoc);
+			//System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
 			
 			model.addAttribute("empInfo", empInfo);
@@ -84,7 +84,7 @@ public class ProfileController {
 			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
 			model.addAttribute("empAllowncList", empAllowncList);
 
-			System.err.println("Employee Detail Data-----------" + empAllDtls);
+			//System.err.println("Employee Detail Data-----------" + empAllDtls);
 		
 		} catch (Exception e) {
 			e.getMessage();
@@ -116,7 +116,7 @@ public class ProfileController {
 			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
 					ViewEmployee.class);
 			
-			System.out.println("empInfo--------" + empInfo);
+			//System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
 			System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
@@ -129,10 +129,10 @@ public class ProfileController {
 					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
 
 			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
-			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			//System.out.println("EmpSalAllowance Info-------" + empAllowncList);
 			model.addAttribute("empAllowncList", empAllowncList);
 
-			System.err.println("Employee Detail Data-----------" + empAllDtls);
+			//System.err.println("Employee Detail Data-----------" + empAllDtls);
 		
 		} catch (Exception e) {
 			e.getMessage();
@@ -157,7 +157,7 @@ public class ProfileController {
 				Location[].class);
 
 		List<Location> locList = new ArrayList<Location>(Arrays.asList(location));
-		System.out.println("Accessable Location Found--------"+locList);
+		//System.out.println("Accessable Location Found--------"+locList);
 
 		StringBuffer sb = new StringBuffer();
 
@@ -166,7 +166,7 @@ public class ProfileController {
 			sb.append(" / ");
 		}
 		String str = sb.toString();
-		System.out.println("Built String-------------"+str);
+		//System.out.println("Built String-------------"+str);
 		return str;
 	}
 
@@ -246,7 +246,7 @@ public class ProfileController {
 			String base64encodedString = request.getParameter("empId");
 			String empId = FormValidation.DecodeKey(base64encodedString);
 
-			System.out.println("Decrypt-----" + empId);
+			//System.out.println("Decrypt-----" + empId);
 
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", Integer.parseInt(empId));
@@ -254,9 +254,9 @@ public class ProfileController {
 			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
 					ViewEmployee.class);
 			
-			System.out.println("empInfo--------" + empInfo);
+			//System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
-			System.out.println("Accessable Location--------" + accessblLoc);
+			//System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
 			empAllDtls.setEmpDtl(empInfo);
 
@@ -269,7 +269,7 @@ public class ProfileController {
 			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
 			empAllDtls.setEmpAllowncDtl(empAllowncList);
 
-			System.err.println("Employee Detail Data-----------" + empAllDtls);
+			//System.err.println("Employee Detail Data-----------" + empAllDtls);
 		
 		} catch (Exception e) {
 			e.getMessage();

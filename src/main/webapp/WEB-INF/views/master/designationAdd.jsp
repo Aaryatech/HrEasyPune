@@ -112,7 +112,7 @@
 											Name <span class="text-danger">* </span>:</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" value="${desig.name}"
-												placeholder="Enter Designation" id="desigName"
+												placeholder="Enter Designation" id="desigName" maxlength="50"
 												name="desigName" autocomplete="off"  onchange="checkUnique(this.value,2)">
 											<span class="validation-invalid-label" id="error_designation"
 												style="display: none;">This field is required.</span>
@@ -202,6 +202,10 @@
 	
 	
 	<script>
+	$('#sortNo').on('input', function() {
+		 this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+		}); 
+	
 		function checkUnique(inputValue, valueType) {
  
 			var primaryKey = ${desig.desigId};

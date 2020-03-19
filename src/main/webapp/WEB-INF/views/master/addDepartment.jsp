@@ -111,7 +111,7 @@
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" value="${dept.name}"
-												placeholder="Enter Department" id="desigName"
+												placeholder="Enter Department" id="desigName" maxlength="30"
 												name="deptName" autocomplete="off" onchange="checkUnique(this.value,1)">
 											<span class="validation-invalid-label" id="error_designation"
 												style="display: none;">This field is required.</span>
