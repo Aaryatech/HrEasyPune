@@ -13,6 +13,7 @@
 <%@ page import="com.ats.hreasy.model.Setting"%><%@ page
 	import="com.ats.hreasy.model.LoginResponse"%>
 <%@ page import="com.ats.hreasy.model.Allowances"%>
+<%@ page import="com.ats.hreasy.model.GetEmpDetail"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +89,9 @@
 											<th width="5%" class="text-center">Sr.no</th>
 											<th class="text-center">EMP Code</th>
 											<th width="20%" class="text-center">EMP Name</th>
+											<th width="20%" class="text-center">Department</th>
+											<th width="20%" class="text-center">Designation</th>
+											<th class="text-center">Payable Days</th>
 											<th class="text-center">Basic</th>
 											<!-- <th class="text-center">Allowance</th> -->
 											<c:forEach items="${allowanceslist}" var="allowanceslist">
@@ -145,6 +149,14 @@
 												session.setAttribute("monthAndYear",
 														request.getAttribute("month") + "-" + request.getAttribute("year"));
 												Allowances[] allowanceslist = (Allowances[]) request.getAttribute("allowanceslist");
+
+												map = new LinkedMultiValueMap<String, Object>();
+												map.add("empIds", request.getAttribute("empIds"));
+												GetEmpDetail[] getEmpDetail = Constants.getRestTemplate()
+														.postForObject(Constants.url + "/getEmpDetailForPayRoll", map, GetEmpDetail[].class);
+												List<GetEmpDetail> getEmpDetaillist = new ArrayList<>(Arrays.asList(getEmpDetail));
+												session.setAttribute("getEmpDetaillist", getEmpDetail);
+												
 												for (int i = 0; i < list.size(); i++) {
 										%><tr>
 											<td>
@@ -160,6 +172,35 @@
 											<td>
 												<%
 													out.println(list.get(i).getEmpName());
+												%>
+											</td>
+
+
+											<%
+												for (int k = 0; k < getEmpDetaillist.size(); k++) {
+
+															if (list.get(i).getEmpId() == getEmpDetaillist.get(k).getEmpId()) {
+											%><td>
+												<%
+													out.println(getEmpDetaillist.get(k).getDeptName());
+												%>
+											</td>
+											<td>
+												<%
+													out.println(getEmpDetaillist.get(k).getEmpDesgn());
+												%>
+											</td>
+											<%
+												break;
+															}
+														}
+											%>
+
+
+
+											<td class="text-right">
+												<%
+													out.println(list.get(i).getPayableDays());
 												%>
 											</td>
 											<td class="text-right">

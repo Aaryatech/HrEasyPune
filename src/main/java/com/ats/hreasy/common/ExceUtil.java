@@ -70,7 +70,7 @@ public class ExceUtil {
 	        Cell titleCell2 = titleRow2.createCell(0);
 	        titleCell2.setCellStyle(style2);
 	        
-	        titleCell2.setCellValue(reportName);
+	        titleCell2.setCellValue("Lutf Foods Pvt. Ltd.");
 	        
 	        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$2:$"+endChar+"$2"));
 	       
@@ -83,8 +83,8 @@ public class ExceUtil {
 	        titleRow3.setRowStyle(style3);
 	        
 	        Cell titleCell3 = titleRow3.createCell(0);
-	        titleCell3.setCellStyle(style3);
-	        titleCell3.setCellValue(""+filterValue);//Need Dynamic
+	        titleCell3.setCellStyle(style2);
+	        titleCell3.setCellValue(reportName);//Need Dynamic
 	        
 	        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$3:$"+endChar+"$3"));
 	       

@@ -44,6 +44,7 @@ import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Allowances;
 import com.ats.hreasy.model.EmpSalInfoDaiyInfoTempInfo;
 import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
+import com.ats.hreasy.model.GetEmpDetail;
 import com.ats.hreasy.model.GetPayrollGeneratedList;
 import com.ats.hreasy.model.GetSalDynamicTempRecord;
 import com.ats.hreasy.model.Info;
@@ -310,6 +311,7 @@ public class PayRollController {
 			EmpSalInfoDaiyInfoTempInfo[] getSalDynamicTempRecord = (EmpSalInfoDaiyInfoTempInfo[]) session
 					.getAttribute("payrollexelList");
 			Allowances[] allowanceslist = (Allowances[]) session.getAttribute("allowanceslist");
+			GetEmpDetail[] getEmpDetaillist = (GetEmpDetail[]) session.getAttribute("getEmpDetaillist");
 
 			int amount_round = (int) session.getAttribute("amount_round");
 			String monthAndYear = (String) session.getAttribute("monthAndYear");
@@ -324,29 +326,32 @@ public class PayRollController {
 			rowData.add("Sr. No");
 			rowData.add("EMP Code");
 			rowData.add("EMP Name");
+			rowData.add("Department");
+			rowData.add("Designation");
+			rowData.add("Payable Days");
 			rowData.add("Basic");
 			// rowData.add("Allowance");
 			for (int i = 0; i < allowanceslist.length; i++) {
 				rowData.add(allowanceslist[i].getName());
 			}
-
-			rowData.add("Gross Earning");
-			rowData.add("Claim Add");
-			/* rowData.add("Performance Bonus"); */
 			rowData.add("Production Incentive");
 			rowData.add("Performance Incentive");
-			rowData.add("Reward");
 			rowData.add("Night Allowance");
+			rowData.add("Gross Earning");
+			/* rowData.add("Claim Add"); */
+			/* rowData.add("Performance Bonus"); */
+			/* rowData.add("Reward"); */
+
 			rowData.add("Adv");
 			rowData.add("Loan");
-			rowData.add("IT Ded");
-			rowData.add("Pay Ded");
+			rowData.add("TDS");
+			/* rowData.add("Pay Ded"); */
 			rowData.add("PT");
 			rowData.add("PF");
 			rowData.add("ESIC");
 			rowData.add("MLWF");
-			rowData.add("Society Contribution");
-			rowData.add("Gross Ded");
+			/* rowData.add("Society Contribution"); */
+			rowData.add("Deduction AMT");
 			rowData.add("Net Salary");
 
 			expoExcel.setRowData(rowData);
@@ -362,7 +367,15 @@ public class PayRollController {
 				rowData.add("" + cnt);
 				rowData.add("" + list.get(i).getEmpCode());
 				rowData.add("" + list.get(i).getEmpName());
+				for (int k = 0; k < getEmpDetaillist.length; k++) {
+					if (getEmpDetaillist[k].getEmpId() == list.get(i).getEmpId()) {
+						rowData.add(getEmpDetaillist[i].getDeptName());
+						rowData.add(getEmpDetaillist[i].getEmpDesgn());
+						break;
+					}
 
+				}
+				rowData.add("" + list.get(i).getPayableDays());
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
 				double totalAllow = 0;
@@ -385,39 +398,49 @@ public class PayRollController {
 						rowData.add("" + String.format("%.2f", ReportCostants.castNumber(0, amount_round)));
 					}
 				}
-
-				rowData.add("" + String.format("%.2f",
-						ReportCostants.castNumber(list.get(i).getGrossSalaryDytemp(), amount_round)));
-				rowData.add(""
-						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-				/*
-				 * rowData.add("" + String.format("%.2f",
-				 * ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
-				 */
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 				rowData.add("" + String.format("%.2f",
 						ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
-				rowData.add(
-						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
 				rowData.add(""
 						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getGrossSalaryDytemp(), amount_round)));
+				/*
+				 * rowData.add("" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+				 */
+				/*
+				 * rowData.add("" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+				 */
+
+				/*
+				 * rowData.add( "" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+				 */
+
 				rowData.add(""
 						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
-				rowData.add(
-						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+				/*
+				 * rowData.add( "" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+				 */
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
 				rowData.add(""
 						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
-				rowData.add("" + String.format("%.2f",
-						ReportCostants.castNumber(list.get(i).getSocietyContribution(), amount_round)));
+				/*
+				 * rowData.add("" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getSocietyContribution(),
+				 * amount_round)));
+				 */
 
 				double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
 						+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()
@@ -530,7 +553,13 @@ public class PayRollController {
 			int amount_round = (int) session.getAttribute("amount_round");
 			String monthAndYear = (String) session.getAttribute("monthAndYear");
 			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
-			String reportName = "Generated Payroll List for " + monthAndYear;
+
+			String[] monthAndYearsplt = monthAndYear.split("-");
+			String[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August",
+					"September", "October", "November", "December" };
+			String monthName = monthNames[Integer.parseInt(monthAndYearsplt[0])-1];
+
+			String reportName = "Salary Sheet for the month of " + monthName + " " + monthAndYearsplt[1];
 
 			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
 
@@ -543,35 +572,35 @@ public class PayRollController {
 			rowData.add("EMP Type");
 			rowData.add("Department");
 			rowData.add("Designation");
-			rowData.add("Salary Basis");
-			rowData.add("PT");
-			rowData.add("PF");
-			rowData.add("ESIC");
-			rowData.add("MLWF");
+			/*
+			 * rowData.add("Salary Basis"); rowData.add("PT"); rowData.add("PF");
+			 * rowData.add("ESIC"); rowData.add("MLWF");
+			 */
+			rowData.add("Payable Days");
+			rowData.add("Gross Salary");
 			rowData.add("Basic");
 			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
 				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getName());
 
 			}
 			/* rowData.add("Absent Deduction"); */
-			rowData.add("Gross Earning");
-			rowData.add("Claim ADD");
-			/* rowData.add("Performance Bonus"); */
 			rowData.add("Production Incentive");
 			rowData.add("Performance Incentive");
-			rowData.add("Reward");
 			rowData.add("Night Allowance");
+			rowData.add("Gross Earning");
+			/* rowData.add("Claim ADD"); */
+			/* rowData.add("Performance Bonus"); */
+			/* rowData.add("Reward"); */
 			rowData.add("Adv");
 			rowData.add("Loan");
-			rowData.add("IT Ded");
-			rowData.add("Pay Ded");
+			rowData.add("TDS");
+			/* rowData.add("Pay Ded"); */
 			rowData.add("PT");
 			rowData.add("PF");
 			rowData.add("ESIC");
 			rowData.add("MLWF");
-			rowData.add("Society Contribution");
-			rowData.add("Gross Ded");
-
+			/* rowData.add("Society Contribution"); */
+			rowData.add("Deduction AMT");
 			rowData.add("Net Salary");
 
 			expoExcel.setRowData(rowData);
@@ -593,22 +622,19 @@ public class PayRollController {
 						rowData.add("" + list.get(i).getEmpTypeName());
 						rowData.add("" + list.get(i).getDepartName());
 						rowData.add("" + list.get(i).getDesignName());
-						rowData.add("" + list.get(i).getEmpCategory());
-						rowData.add("" + list.get(i).getPtApplicable());
-						if (list.get(i).getPfStatus() == 1) {
-							rowData.add("Yes");
-						} else {
-							rowData.add("No");
-						}
-
-						if (list.get(i).getEsicStatus() == 1) {
-							rowData.add("Yes");
-						} else {
-							rowData.add("No");
-						}
-
-						rowData.add(list.get(i).getMlwfApplicable());
-
+						// rowData.add("" + list.get(i).getEmpCategory());
+						/*
+						 * rowData.add("" + list.get(i).getPtApplicable()); if
+						 * (list.get(i).getPfStatus() == 1) { rowData.add("Yes"); } else {
+						 * rowData.add("No"); }
+						 * 
+						 * if (list.get(i).getEsicStatus() == 1) { rowData.add("Yes"); } else {
+						 * rowData.add("No"); }
+						 * 
+						 * rowData.add(list.get(i).getMlwfApplicable());
+						 */
+						rowData.add("" + list.get(i).getPayableDays());
+						rowData.add("" + list.get(i).getGrossSalDefault());
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
 
@@ -637,21 +663,26 @@ public class PayRollController {
 						 * ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
 						 */
 						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
-						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-						/*
-						 * rowData.add("" + String.format("%.2f",
-						 * ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
-						 */
-						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
 						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
-						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+						rowData.add("" + String.format("%.2f",
+								ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
+						/*
+						 * rowData.add("" + String.format("%.2f",
+						 * ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+						 */
+						/*
+						 * rowData.add("" + String.format("%.2f",
+						 * ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+						 */
+
+						/*
+						 * rowData.add("" + String.format("%.2f",
+						 * ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+						 */
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
@@ -660,8 +691,10 @@ public class PayRollController {
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
-						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+						/*
+						 * rowData.add("" + String.format("%.2f",
+						 * ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+						 */
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
 						rowData.add("" + String.format("%.2f",
@@ -671,8 +704,11 @@ public class PayRollController {
 								ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
-						rowData.add("" + String.format("%.2f",
-								ReportCostants.castNumber(list.get(i).getSocietyContribution(), amount_round)));
+						/*
+						 * rowData.add("" + String.format("%.2f",
+						 * ReportCostants.castNumber(list.get(i).getSocietyContribution(),
+						 * amount_round)));
+						 */
 						double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed()
 								+ list.get(i).getItded() + list.get(i).getPayDed() + list.get(i).getPtDed()
 								+ list.get(i).getEmployeePf() + list.get(i).getEsic() + list.get(i).getMlwf()

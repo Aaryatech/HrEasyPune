@@ -180,11 +180,13 @@
 											<th class="text-center">EMP Type</th>
 											<th class="text-center">Department</th>
 											<th class="text-center">Designation</th>
-											<th class="text-center">Salary Basis</th>
+											<th class="text-center">Payable Days</th>
+											<!-- <th class="text-center">Salary Basis</th>
 											<th class="text-center">PT</th>
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
-											<th class="text-center">MLWF</th>
+											<th class="text-center">MLWF</th> -->
+											<th class="text-center">Gross Salary</th>
 											<th class="text-center">Basic</th>
 											<%
 												session = request.getSession();
@@ -228,30 +230,30 @@
 											%><th class="text-center"
 												title="<%out.println(allowancelist.get(i).getName());%>">
 												<%
-													out.println(allowancelist.get(i).getShortName());
+													out.println(allowancelist.get(i).getName());
 												%>
 											</th>
 											<%
 												}
 											%>
 											<!-- <th class="text-center">Absent Deduction</th> -->
-											<th class="text-center">Gross Salary</th>
-											<th class="text-center">Claim ADD</th>
-											<!-- <th class="text-center">Performance Bonus</th> -->
 											<th class="text-center">Production Incentive</th>
 											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
-											<th class="text-center">Reward</th>
 											<th class="text-center">Night Allowance</th>
+											<th class="text-center">Gross Earning</th>
+											<!-- <th class="text-center">Claim ADD</th> -->
+											<!-- <th class="text-center">Performance Bonus</th> -->
+											<!-- <th class="text-center">Reward</th> -->
 											<th class="text-center">Adv</th>
 											<th class="text-center">Loan</th>
-											<th class="text-center">IT Ded</th>
-											<th class="text-center">Pay Ded</th>
+											<th class="text-center">TDS</th>
+											<!-- <th class="text-center">Pay Ded</th> -->
 											<th class="text-center">PT</th>
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
 											<th class="text-center">MLWF</th>
-											<th class="text-center">Society Contribution</th>
-											<th class="text-center">Gross Ded</th>
+											<!-- <th class="text-center">Society Contribution</th> -->
+											<th class="text-center">Deduction AMT</th>
 											<th class="text-center">Net Salary</th>
 
 										</tr>
@@ -299,7 +301,7 @@
 													out.println(list.get(i).getDesignName());
 												%>
 											</td>
-											<td>
+											<%-- <td>
 												<%
 													out.println(list.get(i).getEmpCategory());
 												%>
@@ -330,6 +332,16 @@
 											<td>
 												<%
 													out.println(list.get(i).getMlwfApplicable());
+												%>
+											</td>--%>
+											<td class="text-right">
+												<%
+													out.println(list.get(i).getPayableDays());
+												%>
+											</td>
+											<td class="text-right">
+												<%
+													out.println(list.get(i).getGrossSalDefault());
 												%>
 											</td>
 											<td class="text-right">
@@ -375,24 +387,6 @@
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
-												%>
-											</td>
-											<td class="text-right">
-												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-												%>
-											</td>
-											<%-- <td class="text-right">
-												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
-												%>
-											</td> --%>
-											<td class="text-right">
-												<%
-													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 												%>
 											</td>
@@ -405,15 +399,35 @@
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+																		ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+																		ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
 												%>
 											</td>
+											<%-- <td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+												%>
+											</td> --%>
+											<%-- <td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+												%>
+											</td> --%>
+
+											<%-- <td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+												%>
+											</td> --%>
+
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
@@ -432,12 +446,12 @@
 																		String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													out.println(
@@ -462,12 +476,12 @@
 																		String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%-- <td class="text-right">
 												<%
 													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getSocietyContribution(), amount_round)));
 												%>
-											</td>
+											</td> --%>
 											<td class="text-right">
 												<%
 													double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed()
