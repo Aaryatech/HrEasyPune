@@ -53,6 +53,7 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
+import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.VariousList;
@@ -549,6 +550,13 @@ public class AttendenceController {
 						LvType[].class);
 				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
 				model.addAttribute("lvTypeList", lvTypeList);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empId);
+				MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
+						MstEmpType.class);
+				model.addAttribute("mstEmpType", mstEmpType);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

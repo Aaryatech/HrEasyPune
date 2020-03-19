@@ -287,7 +287,7 @@
 												name="gratuityamt" autocomplete="off">
 										</div>
 									</div>
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
 											for="payrollamt">Payroll for Remaining AMT <span
@@ -298,7 +298,7 @@
 												placeholder="Payroll for Remaining Amount" id="payrollamt"
 												name="payrollamt" autocomplete="off">
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"

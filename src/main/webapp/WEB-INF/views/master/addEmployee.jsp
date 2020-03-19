@@ -1580,16 +1580,16 @@
 														field is required.</span> -->
 												</div>
 
-												<label class="col-form-label col-lg-2" for="societyContri">Society
+												<!-- <label class="col-form-label col-lg-2" for="societyContri">Society
 													Contribution Rs. :</label>
-												<div class="col-lg-4">
-													<input type="text" class="form-control numbersOnly"
-														value="${empAllowanceId.societyContribution}"
-														placeholder="Society Contribution Rs." id="societyContri"
-														name="societyContri" autocomplete="off"
-														onchange="trim(this)">
+												<div class="col-lg-4"> -->
+												<input type="hidden" class="form-control numbersOnly"
+													value="${empAllowanceId.societyContribution}"
+													placeholder="Society Contribution Rs." id="societyContri"
+													name="societyContri" autocomplete="off"
+													onchange="trim(this)">
 
-												</div>
+												<!-- </div> -->
 
 											</div>
 
@@ -1615,11 +1615,11 @@
 													</c:forEach>
 													<div class=" col-lg-6">
 														<div class="form-group row">
-															<label class="col-form-label col-lg-2"
+															<label class="col-form-label col-lg-4"
 																for="allowncesVal${allowanceList.allowanceId}"
-																title="${allowanceList.name}">${allowanceList.shortName}
-																(${allowanceList.grossSalPer} %): </label>
-															<div class="col-lg-10">
+																title="${allowanceList.name}">${allowanceList.name}
+																: </label>
+															<div class="col-lg-8">
 																<input type="text"
 																	class="form-control numbersOnly sumallow"
 																	value="${allowanceValue}"

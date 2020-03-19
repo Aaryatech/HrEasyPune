@@ -167,11 +167,11 @@
 												<th class="text-center">Paid Holiday</th>
 												<th class="text-center">Paid Leave</th>
 												<th class="text-center">Unpaid Holiday</th>
-												<th class="text-center">Unpaid Leave</th>
+												<!-- <th class="text-center">Unpaid Leave</th> -->
 												<th class="text-center">Late Min</th>
 												<th class="text-center">Late Days</th>
 												<th class="text-center">Payable Days</th>
-												<th class="text-center">NCP Days</th>
+												<!-- <th class="text-center">NCP Days</th> -->
 												<th class="text-center">Total Hrs</th>
 												<th class="text-center">Production Incentive <br>Hrs
 												</th>
@@ -188,16 +188,16 @@
 													<td>${summrylist.empName}</td>
 													<td class="text-right">${summrylist.workingDays}</td>
 													<td class="text-right">${summrylist.presentDays}</td>
-													<td class="text-right">${summrylist.absentDays}</td>
+													<td class="text-right">${summrylist.absentDays+summrylist.unpaidLeave}</td>
 													<td class="text-right">${summrylist.weeklyOff}</td>
 													<td class="text-right">${summrylist.paidHoliday}</td>
 													<td class="text-right">${summrylist.paidLeave}</td>
 													<td class="text-right">${summrylist.unpaidHoliday}</td>
-													<td class="text-right">${summrylist.unpaidLeave}</td>
+													<%-- <td class="text-right">${summrylist.unpaidLeave}</td> --%>
 													<td class="text-right">${summrylist.totlateMins}</td>
 													<td class="text-right">${summrylist.totLate}</td>
 													<td class="text-right">${summrylist.payableDays}</td>
-													<td class="text-right">${summrylist.ncpDays}</td>
+													<%-- <td class="text-right">${summrylist.ncpDays}</td> --%>
 													<td class="text-right">${summrylist.totworkingHrs}</td>
 													<td class="text-right">${summrylist.totOthr}</td>
 													<td class="text-center">${summrylist.salBasis}</td>

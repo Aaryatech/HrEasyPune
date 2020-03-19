@@ -117,14 +117,18 @@
 								<div class="form-group row">
 									<label class="col-form-label col-lg-1"> Paid Leave : </label> <label
 										class="col-form-label col-lg-1">${summaryAttendance.paidLeave}</label>
-									<label class="col-form-label col-lg-1"> Unpaid Leave :
-									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label>
+									<%-- <label class="col-form-label col-lg-1"> Unpaid Leave :
+									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label> --%>
 									<label class="col-form-label col-lg-1"> Absent Days : </label>
-									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays}</label>
+									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays+summaryAttendance.unpaidLeave}</label>
 									<label class="col-form-label col-lg-1"> Payable Days :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.payableDays}</label>
-									<label class="col-form-label col-lg-1"> Production
-										Incentive Hrs: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
+									<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
+										<label class="col-form-label col-lg-1"> Production
+											Incentive Hrs: </label>
+										<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
+									</c:if>
+
 									<%-- <label class="col-form-label col-lg-1"> NCP Days : </label> <label
 										class="col-form-label col-lg-1">${summaryAttendance.ncpDays}</label> --%>
 								</div>
@@ -279,8 +283,10 @@
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late MIN</th>
 												<th class="text-center">WR. Hrs</th>
-												<th class="text-center">Production Incentive <br>Hrs
-												</th>
+												<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
+													<th class="text-center">Production Incentive <br>Hrs
+													</th>
+												</c:if>
 												<th class="text-center">OShift/Loc</th>
 												<th class="text-center">Action</th>
 
@@ -321,7 +327,9 @@
 													</c:choose>
 													<td class="text-right">${dailyrecordList.lateMin}</td>
 													<td class="text-right">${dailyrecordList.workingHrs}</td>
-													<td class="text-right">${dailyrecordList.otHr}</td>
+													<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
+														<td class="text-right">${dailyrecordList.otHr}</td>
+													</c:if>
 													<td>${dailyrecordList.currentShiftname}</td>
 													<td class="text-center"><c:if
 															test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">

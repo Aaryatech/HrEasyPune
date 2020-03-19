@@ -158,7 +158,7 @@
 											<th class="text-center">Gross Salary</th> -->
 
 											<c:forEach items="${allownceList}" var="allownceList">
-												<th class="text-center" title="${allownceList.name}">${allownceList.shortName}</th>
+												<th class="text-center" title="${allownceList.name}">${allownceList.name}</th>
 											</c:forEach>
 
 										</tr>
