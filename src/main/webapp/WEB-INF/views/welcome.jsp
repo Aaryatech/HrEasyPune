@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="showchart()">
 	
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
@@ -70,17 +70,17 @@
 								</div>
 								
 								
-								<!-- tab start here -->
+								<!-- Late Employee tab start here -->
 								<div class="row">
 									<div class="late_employee">
-										<h3 class="bg-pink-400 employee_title">Late Employee</h3>
+										<!-- <h3 class="bg-pink-400 employee_title">Late Employee</h3> -->
 										
-										<div class="a">
+										<div class="late_one fix_scroll">
 											
 											<div class="datatable-scroll-wrap">
 											<table class="table table-bordered table-hover datatable-highlight1" >
 							<thead>
-								<tr class="bg-blue" role="row">
+								<tr class="bg-pink-400" role="row">
 								<th class="sorting_desc" >Employee Name</th>
 								<th class="sorting">Department</th>
 								<th class="sorting">Late Minutes</th>
@@ -89,7 +89,31 @@
 							</thead>
 							<tbody>
 								
-
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>20 Minutes</td>
+								<td>234 Minutes</td>										
+							</tr>
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>20 Minutes</td>
+								<td>234 Minutes</td>										
+							</tr>
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>20 Minutes</td>
+								<td>234 Minutes</td>										
+							</tr>
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>20 Minutes</td>
+								<td>234 Minutes</td>										
+							</tr>
 							<tr role="row" class="odd">
 								<td>AKSHAY MADHUKAR RAOANDORE</td>
 								<td>Development</td>
@@ -101,7 +125,191 @@
 											
 										</div>
 										
+									</div>
+								</div>
+								
+								<!-- Leave Employee tab start here -->
+								<div class="row">
+									<div class="late_employee">
 										
+										<div class="late_one fix_scroll">
+											
+											<div class="datatable-scroll-wrap">
+											<table class="table table-bordered table-hover datatable-highlight1" >
+							<thead>
+								<tr class="bg-warning" role="row">
+								<th class="sorting_desc">Employee Name</th>
+								<th class="sorting">Department</th>
+								<th class="sorting">Todate</th>
+								<th class="sorting">Balance Leaves</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>12 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>15 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>08 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>02 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>01 Leave</td>										
+							</tr>
+						
+							</tbody>
+						</table></div>
+											
+										</div>
+										
+									</div>
+								</div>
+								
+								<!-- Absent Employee tab start here -->
+								<div class="row">
+									<div class="late_employee">
+										
+										<div class="late_one fix_scroll">
+											
+											<div class="datatable-scroll-wrap">
+											<table class="table table-bordered table-hover datatable-highlight1" >
+							<thead>
+								<tr class="bg-primary" role="row">
+								<th class="sorting_desc">Employee Name</th>
+								<th class="sorting">Department</th>
+								<th class="sorting">Todate</th>
+								<th class="sorting">Balance Leaves</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19- 03 - 2020</td>
+								<td>12 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>15 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>08 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>02 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>01 Leave</td>										
+							</tr>
+						
+							</tbody>
+						</table></div>
+											
+										</div>
+										
+									</div>
+								</div>
+								
+								<!-- Present Employee tab start here -->
+								<div class="row">
+									<div class="late_employee">
+										
+										<div class="late_one fix_scroll">
+											
+											<div class="datatable-scroll-wrap">
+											<table class="table table-bordered table-hover datatable-highlight1" >
+							<thead>
+								<tr class="bg-purple-300" role="row">
+								<th class="sorting_desc">Employee Name</th>
+								<th class="sorting">Department</th>
+								<th class="sorting">Todate</th>
+								<th class="sorting">Balance Leaves</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19- 03 - 2020</td>
+								<td>12 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>15 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>08 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>02 Leave</td>										
+							</tr>
+							
+							<tr role="row" class="odd">
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
+								<td>Development</td>
+								<td>19 - 03 - 2020</td>
+								<td>01 Leave</td>										
+							</tr>
+						
+							</tbody>
+						</table></div>
+											
+										</div>
 										
 									</div>
 								</div>
@@ -110,7 +318,94 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4"></div>
+					
+					<div class="col-lg-4">
+						<div class="card tab_round">
+							<h6 class="card-title dash_title">Employee Gendor Spilit</h6>
+							
+<div class="chart-container has-scroll text-center">
+	<div class="chart-container has-scroll text-center">
+		<div class="d-inline-block" id="google-donut">
+			<div style="position: relative;">
+				<div style="position: relative; width: 500px; height: 300px;" dir="ltr">
+					<div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;" aria-label="A chart.">
+					<svg width="500" height="300" style="overflow: hidden;" aria-label="A chart.">
+					<defs id="_ABSTRACT_RENDERER_ID_108">
+						<filter id="_ABSTRACT_RENDERER_ID_137">
+							<feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur>
+							<feOffset dx="1" dy="1"></feOffset>
+							<feComponentTransfer><feFuncA type="linear" slope="0.1"></feFuncA></feComponentTransfer>
+							<feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+						</filter>
+					</defs>
+					<g><rect x="347" y="15" width="153" height="88" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g column-id="Work"><rect x="347" y="15" width="153" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g><text text-anchor="start" x="364" y="25.2" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#222222">Male</text></g>
+					<circle cx="353" cy="21" r="6" stroke="none" stroke-width="0" fill="#2ec7c9"></circle></g>
+					<g column-id="Eat"><rect x="347" y="34" width="153" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g><text text-anchor="start" x="364" y="44.2" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#222222">Female</text></g>
+					<circle cx="353" cy="40" r="6" stroke="none" stroke-width="0" fill="#b6a2de"></circle></g>
+					<g column-id="Commute"><rect x="347" y="53" width="153" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g><text text-anchor="start" x="364" y="63.2" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#222222">Others</text></g>
+					<circle cx="353" cy="59" r="6" stroke="none" stroke-width="0" fill="#5ab1ef"></circle></g>
+					<g column-id="Watch TV"><rect x="347" y="72" width="153" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g><text text-anchor="start" x="364" y="82.2" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#222222">Watch TV</text></g>
+					<circle cx="353" cy="78" r="6" stroke="none" stroke-width="0" fill="#ffb980"></circle></g>
+					<g column-id="Sleep"><rect x="347" y="91" width="153" height="12" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect>
+					<g><text text-anchor="start" x="364" y="101.2" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#222222">Sleep</text></g>
+					<circle cx="353" cy="97" r="6" stroke="none" stroke-width="0" fill="#d87a80"></circle></g></g>
+					<g><path d="M189,75.75L189,15A135,135,0,0,1,223.9405710888403,280.3999865490242L208.21731409886218,221.71999260196333A74.25,74.25,0,0,0,189,75.75" stroke="#ffffff" stroke-width="1" fill="#2ec7c9"></path>
+					<text text-anchor="start" x="278.38378230950497" y="140.32596185374723" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#ffffff">45.8%</text></g>
+					<g><path d="M117.28000739803669,169.21731409886218L58.60001345097578,184.94057108884033A135,135,0,0,1,189,15L189,75.75A74.25,74.25,0,0,0,117.28000739803669,169.21731409886218" stroke="#ffffff" stroke-width="1" fill="#d87a80"></path>
+					<text text-anchor="start" x="88.46588543482142" y="89.33469248923318" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#ffffff">29.2%</text></g>
+					<g><path d="M136.49732149689885,202.50267850310115L93.5405845398161,245.45941546018392A135,135,0,0,1,58.60001345097578,184.94057108884033L117.28000739803669,169.21731409886218A74.25,74.25,0,0,0,136.49732149689885,202.50267850310115" stroke="#ffffff" stroke-width="1" fill="#ffb980"></path>
+					<text text-anchor="start" x="81.95586138688061" y="208.78508387858582" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#ffffff">8.3%</text></g>
+					<g><path d="M169.78268590113782,221.71999260196333L154.05942891115967,280.3999865490242A135,135,0,0,1,93.5405845398161,245.45941546018392L136.49732149689885,202.50267850310115A74.25,74.25,0,0,0,169.78268590113782,221.71999260196333" stroke="#ffffff" stroke-width="1" fill="#5ab1ef"></path>
+					<text text-anchor="start" x="120.84766500034016" y="250.5926717792545" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#ffffff">8.3%</text></g>
+					<g><path d="M208.21731409886218,221.71999260196333L223.9405710888403,280.3999865490242A135,135,0,0,1,154.05942891115967,280.3999865490242L169.78268590113782,221.71999260196333A74.25,74.25,0,0,0,208.21731409886218,221.71999260196333" stroke="#ffffff" stroke-width="1" fill="#b6a2de"></path>
+					<text text-anchor="start" x="176.50000000000003" y="270.5631889090833" font-family="Roboto" font-size="12" stroke="none" stroke-width="0" fill="#ffffff">8.3%</text></g>
+					<g></g>
+					</svg>
+					<div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+						<table>
+							<thead>
+								<tr>
+									<th>Task</th>
+									<th>Hours per Day</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Work</td>
+									<td>11</td>
+								</tr>
+								<tr>
+									<td>Eat</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td>Commute</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td>Watch TV</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td>Sleep</td>
+									<td>7</td>
+								</tr>
+								</tbody>
+						</table>
+						</div></div></div>
+						<div style="display: none; position: absolute; top: 310px; left: 510px; white-space: nowrap; font-family: Roboto; font-size: 12px; font-weight: bold;" aria-hidden="true">11 (45.8%)</div>
+						<div></div></div></div>
+	</div>
+</div>
+							
+						</div>
+					</div>
+					
 				</div>
 			
 			
@@ -1271,6 +1566,10 @@
 			</div>
 
 			<!-- /content area -->
+			
+			
+			
+			
 
 			<script type="text/javascript">
 				$(document).ready(

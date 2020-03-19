@@ -61,7 +61,9 @@ line-height: 30px;}
 .orange{color: #FF7043}
 .green{color: #4CAF50;}
 
-.late_employee{margin: 30px 15px 10px 15px; display: inline-block; width: 100%; }
+.late_one{display: block;}
+.fix_scroll{height: 200px; overflow: auto;}
+.late_employee{margin: 30px 10px 10px 15px; display: inline-block; width: 100%; }
 .employee_title{color: #FFF; font-size: 24px; text-align: left; padding:6px 30px;}
 
 
