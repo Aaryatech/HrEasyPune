@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -42,6 +43,7 @@ import com.ats.hreasy.model.Loan.LoanMain;
 @Scope("session")
 class LoanAdminController {
 
+	 
 	@RequestMapping(value = "/showEmpListToAddLoan", method = RequestMethod.GET)
 	public ModelAndView showEmpListToAddLoan(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -63,6 +65,11 @@ class LoanAdminController {
 				model.addObject("editAccess", 0);
 			}
 			try {
+				String linkType = new String();
+				Setting getSettingByKey = Constants.getRestTemplate().getForObject(Constants.url + "/getAddLoanType", Setting.class);
+				linkType = getSettingByKey.getValue();
+				model.addObject("linkType", linkType);
+				
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
 

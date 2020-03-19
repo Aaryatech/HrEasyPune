@@ -42,7 +42,7 @@ public class LoanMasterController {
 			model = new ModelAndView("accessDenied");
 
 		} else {
-			model = new ModelAndView("Loan/addLoan");
+			model = new ModelAndView("Loan/calLoan");
 			Date date = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
 			try {

@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
+
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Arrays"%>
+<%@ page import="org.springframework.util.LinkedMultiValueMap"%>
+<%@ page import="org.springframework.util.MultiValueMap"%>
+<%@ page import="com.ats.hreasy.common.Constants"%>
+<%@ page import="com.ats.hreasy.model.Setting"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,14 +95,14 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-					 
+						
 							<table
 								class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 								id="printtable1">
 								<thead>
 									<tr class="bg-blue">
 
-										<th width="10%">Sr.no</th>
+										<th width="10%">Sr.No</th>
  										<th>Employee Code</th>
 										<th>Employee Name</th>
 										<th>Emp Type</th>
@@ -120,17 +129,23 @@
 											<td>${empdetList.empDesgn}</td>
 
 											<td>${empdetList.locName}</td>
-											<td><c:if test="${editAccess == 0}"><a
-													href="${pageContext.request.contextPath}/showAddLoan?empId=${empdetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="Add Loan" data-original-title="Edit"><i class="icon-enlarge5 "
-													 ></i></a>
-													 
-												<a
+											<td><c:if test="${editAccess == 0}">
+											<c:choose>
+												<c:when test="${linkType=='ByEMI'}">
+													<a
 													href="${pageContext.request.contextPath}/showCalLoan?empId=${empdetList.exVar1}"
 													class="list-icons-item text-primary-600" data-popup="tooltip" title="Calculate Loan" data-original-title="Calculate Loan"><i class="icon-enlarge5 "
 													 ></i></a>
-													 
-													 </c:if></td>
+											</c:when>
+											<c:otherwise>
+											
+											<a
+													href="${pageContext.request.contextPath}/showAddLoan?empId=${empdetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip" title="Add Loan" data-original-title="Edit"><i class="icon-enlarge5 "
+													 ></i></a>
+											</c:otherwise>
+											</c:choose>
+											 </c:if></td>
 
 										</tr>
 									</c:forEach>
