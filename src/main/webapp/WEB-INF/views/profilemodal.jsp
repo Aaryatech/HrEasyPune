@@ -47,10 +47,12 @@
 								<!-- basic information -->
 								<div class="basic_info"id="section_one">
 									<h3 class="info_title">Basic Information 
-									<span>
-										<a href="#"><i class="icon-pencil7"></i></a>
-										<a href="#"><i class="icon-history"></i></a>
-									</span></h3>
+									<%-- <span>
+										<a href="${pageContext.request.contextPath}/employeeEdit?empId=${empInfo.empId }" 
+										data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>
+										<a href="${pageContext.request.contextPath}/showEmpGraphs?empId=${empInfo.empId}"
+										data-original-title="Graphs & Reports"><i class="icon-history"></i></a>
+									</span> --%></h3>
 								
 									<div class="row">
 									
@@ -234,18 +236,43 @@
 				<div class="row">
 					<div class="col-md-3"><div class="profile_one">Gross Salary Rs : <span>${empInfo.grossSalary}</span></div></div>
 					<div class="col-md-3"><div class="profile_one">Basic Rs :  <span>${empInfo.basic}</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Society Contribution Rs. :   <span>2000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">DA (0.0 %) :  <span>1000.0</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Society Contribution Rs. :   <span>${empInfo.societyContribution}</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">FA (0.0 %) : <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">HRA (20.0 %) :  <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">CA (0.0 %) :  <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">EA (0.0 %) :  <span>1000.0</span></div></div>
+					<c:set var="allwncTtl" value="0"></c:set>
 					
-					<div class="col-md-3"><div class="profile_one">TA (0.0 %) : <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">OTH (20.0 %) :  <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">MA (20.0 %) :  <span>1000.0</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Total :  <span>15000.0</span></div></div>
+					<c:forEach items="${empAllowncList}" var="allownce" varStatus="count">	
+					
+					<c:if test="${allownce.allowanceId==1}">
+					<div class="col-md-3"><div class="profile_one">DA (0.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+						<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> <c:if test="${allownce.allowanceId==5}">
+					<div class="col-md-3"><div class="profile_one">FA (0.0 %) : <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if>	<c:if test="${allownce.allowanceId==9}">
+					<div class="col-md-3"><div class="profile_one">HRA (20.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> <c:if test="${allownce.allowanceId==11}">
+					<div class="col-md-3"><div class="profile_one">CA (0.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> <c:if test="${allownce.allowanceId==14}">
+					<div class="col-md-3"><div class="profile_one">EA (0.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> <c:if test="${allownce.allowanceId==16}">
+					<div class="col-md-3"><div class="profile_one">TA (0.0 %) : <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> <c:if test="${allownce.allowanceId==19}">
+					<div class="col-md-3"><div class="profile_one">OTH (20.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if><c:if test="${allownce.allowanceId==173}">
+					<div class="col-md-3"><div class="profile_one">MA (20.0 %) :  <span>${allownce.allowanceValue}</span></div></div>
+					<c:set var="allwncTtl" value="${allwncTtl + allownce.allowanceValue}"></c:set>
+					</c:if> 
+					
+					</c:forEach>
+					
+					
+					
+					<div class="col-md-3"><div class="profile_one">Total :  <span>${allwncTtl}</span></div></div>
 					
 					<div class="col-md-3"><div class="profile_one">PF Applicable :  <span>${empInfo.pfApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
 					<div class="col-md-3"><div class="profile_one">PF Type :  <span>${empInfo.pfType}</span></div></div>
@@ -254,15 +281,25 @@
 					
 					<div class="col-md-3"><div class="profile_one">MLWF Applicable : <span>${empInfo.mlwfApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
 					<div class="col-md-3"><div class="profile_one">PT Applicable :  <span>${empInfo.ptApplicable=='yes' ? 'YES' : 'NO' }</span></div></div>
-					<div class="col-md-3"><div class="profile_one">Salary Basis :   <span>${empInfo.salBasis}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">Salary Basis :   <span>${empInfo.salBasis =='monthly' ? 'Monthly' : 'Daily'}</span></div></div>
 					<div class="col-md-3"><div class="profile_one">EPF Joining Date :  <span>${empInfo.epfJoiningDate}</span></div></div>
 					
 					<div class="col-md-3"><div class="profile_one">Joining Date : <span>${empInfo.cmpJoiningDate}</span></div></div>
 					<div class="col-md-3"><div class="profile_one">Leaving Date :  <span>${empInfo.leavingReason}</span></div></div>
 					<div class="col-md-3"><div class="profile_one">Leaving Reason :  <span>${empInfo.cmpLeavingDate}</span></div></div>
-					<div class="col-md-3"><div class="profile_one">LR For ESIC :  <span>${empInfo.leavingReasonEsic}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">LR For ESIC :  <span>
+					${empInfo.leavingReasonEsic==0 ? 'Without Reason' : empInfo.leavingReasonEsic==1 ? 'On Leave' : empInfo.leavingReasonEsic==2 ? 'Self Service' : 
+					 empInfo.leavingReasonEsic==3 ? 'Retired' :  empInfo.leavingReasonEsic==4 ? 'Out of Coverage' :  empInfo.leavingReasonEsic==5 ? 'Expired' :
+					  empInfo.leavingReasonEsic==6 ? 'Non Implemented Area' :  empInfo.leavingReasonEsic==7 ? 'Compliance by immediate Employer' : 
+					  empInfo.leavingReasonEsic==8 ? 'Suspension Reason' : empInfo.leavingReasonEsic==9 ? 'Strike/Lockout' :
+					  empInfo.leavingReasonEsic==10 ? 'Retrenchment' : empInfo.leavingReasonEsic==11 ? 'No Work' :
+					  empInfo.leavingReasonEsic==12 ? 'Does not belong to this Employer' : ''}
+					</span></div></div>
 					
-					<div class="col-md-3"><div class="profile_one">LR For PF : <span>${empInfo.leavingReasonPf}</span></div></div>
+					<div class="col-md-3"><div class="profile_one">LR For PF : <span>
+					${empInfo.leavingReasonPf == 1 ? 'Cessation' : empInfo.leavingReasonPf == 2 ? 'Superannuation' : empInfo.leavingReasonPf == 3 ? 'Retirement' : 
+					empInfo.leavingReasonPf == 4 ? 'Death in Service' :  empInfo.leavingReasonPf == 5 ? 'Permanent Disablement' : ''}
+					</span></div></div>
 							
 				</div>
 				</div>

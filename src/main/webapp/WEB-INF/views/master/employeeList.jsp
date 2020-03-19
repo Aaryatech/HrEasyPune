@@ -195,19 +195,14 @@
 				</div>
 
 				<div class="modal-body" id="modalbody">
-					
-				
-
-					 
-
-					 
-			
-					
+					<!--  Profile Model -->
+					<!--  Profile Model -->
+					<!--  Profile Model -->
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-					<button type="button" class="btn bg-primary">Save changes</button>
+					<!-- <button type="button" class="btn bg-primary">Save changes</button> -->
 				</div>
 			</div>
 		</div>
@@ -513,29 +508,35 @@
 				var allowanceTtl = 0;;
 				for (var i = 0; i < data.empAllowncDtl.length; i++) {
 					
-					if(data.empAllowncDtl[i].allowanceId==1){
-						
+					if(data.empAllowncDtl[i].allowanceId==1){						
 						document.getElementById("allwnce_DA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					} else if(data.empAllowncDtl[i].allowanceId==5){
+					} 
+					else if(data.empAllowncDtl[i].allowanceId==5){
 						document.getElementById("allwnce_FA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==9){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==9){
 						document.getElementById("allwnce_HRA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==11){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==11){
 						document.getElementById("allwnce_CA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==14){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==14){
 						document.getElementById("allwnce_EA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==19){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==19){
 						document.getElementById("allwnce_OTH").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==173){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==173){
 						document.getElementById("allwnce_MA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
-					}else if(data.empAllowncDtl[i].allowanceId==16){
+					}
+					else if(data.empAllowncDtl[i].allowanceId==16){
 						document.getElementById("allwnce_TA").innerHTML = data.empAllowncDtl[i].allowanceValue;
 						allowanceTtl = allowanceTtl+data.empAllowncDtl[i].allowanceValue;
 					} 
