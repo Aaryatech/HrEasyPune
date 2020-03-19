@@ -277,4 +277,11 @@ public class ProfileController {
 		return empAllDtls;
 
 	}
+	
+	@RequestMapping(value = "/getPieChart", method = RequestMethod.GET)
+	public String getPieChart(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "showPieChart";
+		return mav;
+	}
 }
