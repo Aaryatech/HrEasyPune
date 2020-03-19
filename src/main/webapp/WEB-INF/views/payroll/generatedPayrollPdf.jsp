@@ -158,8 +158,9 @@ hr {
 					style="border-left: 1px solid #313131; border-bottom: 1px solid #313131; padding: 8px; color: #000; font-size: 12px;"
 					align="center"><table width="100%">
 						<tr>
-							<td width="22.33%" style="color: #000; font-size: 12px;">Emp
-								Code: ${list.empCode}</td>
+							<td width="22.33%" valign="top"
+								style="color: #000; font-size: 12px;">Emp Code:
+								${list.empCode}</td>
 
 							<td width="53.33%" valign="top"
 								style="color: #000; font-size: 12px;" align="center">Name:
@@ -197,8 +198,8 @@ hr {
 								${list.paidHoliday}</td>
 
 							<td width="16.66%" valign="top"
-								style="color: #000; font-size: 12px;" align="center">Unpaid/Absent:
-								${list.unpaidLeave}/${list.absentDays}</td>
+								style="color: #000; font-size: 12px;" align="center">
+								Absent: ${list.absentDays+list.unpaidLeave}</td>
 						</tr>
 					</table></td>
 			</tr>
