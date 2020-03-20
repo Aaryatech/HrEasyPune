@@ -137,7 +137,8 @@
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
-													value="0" placeholder="Advance Amount" id="advanceamt"
+													value="${advanceAndLoanInfo.advanceAmt}"
+													placeholder="Advance Amount" id="advanceamt"
 													name="advanceamt" autocomplete="off">
 											</div>
 										</div>
@@ -150,12 +151,13 @@
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
-													value="0" placeholder="Loan Amount" id="loanamt"
-													name="loanamt" autocomplete="off">
+													value="${advanceAndLoanInfo.loanAmt}"
+													placeholder="Loan Amount" id="loanamt" name="loanamt"
+													autocomplete="off">
 											</div>
 										</div>
 
-										<div class="form-group row">
+										<!-- <div class="form-group row">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-2"
 												for="paydeductamt">Loan AMT <span
@@ -166,7 +168,7 @@
 													value="0" placeholder="Loan Amount" id="paydeductamt"
 													name="paydeductamt" autocomplete="off">
 											</div>
-										</div>
+										</div> -->
 
 									</form>
 
@@ -263,7 +265,7 @@
 												autocomplete="off">
 										</div>
 									</div> -->
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
 											for="claimamt">Claim <span class="text-danger">*
@@ -274,7 +276,7 @@
 												placeholder="Claim Amount" id="claimamt" name="claimamt"
 												autocomplete="off">
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"

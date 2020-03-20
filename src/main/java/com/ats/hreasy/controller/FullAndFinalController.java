@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.model.AdvanceAndLoanInfo;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.EmpBasicAllownceForLeaveInCash;
 import com.ats.hreasy.model.EmpSalaryInfo;
@@ -49,9 +50,9 @@ public class FullAndFinalController {
 			 */
 
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
-
+					.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class); 
 			List<GetEmployeeDetails> empList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+			
 			for (int i = 0; i < empList.size(); i++) {
 
 				empList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(empList.get(i).getEmpId())));
@@ -138,6 +139,12 @@ public class FullAndFinalController {
 			Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
 					Setting.class);
 			model.addAttribute("day", dayInMonth.getValue());
+			
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empInfoshow.getEmpId());
+			AdvanceAndLoanInfo advanceAndLoanInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAmountDeductionSectionListForFullnFinal", map,
+					AdvanceAndLoanInfo.class);
+			model.addAttribute("advanceAndLoanInfo", advanceAndLoanInfo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
