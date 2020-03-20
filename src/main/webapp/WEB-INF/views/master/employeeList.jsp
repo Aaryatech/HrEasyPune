@@ -107,13 +107,13 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Emp Code</th>
-									<th>Name</th>
-									<th>Emp Type</th>
-									<th>Dept.</th>
-									<th>Desig</th>
-									<th>Location</th>
+									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center">Emp Code</th>
+									<th class="text-center">Name</th>
+									<th class="text-center">Emp Type</th>
+									<th class="text-center">Dept.</th>
+									<th class="text-center">Desig</th>
+									<th class="text-center">Location</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>

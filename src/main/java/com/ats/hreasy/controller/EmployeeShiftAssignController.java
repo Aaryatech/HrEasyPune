@@ -113,7 +113,7 @@ public class EmployeeShiftAssignController {
 
 	@RequestMapping(value = "/submitAssignShiftToEmp", method = RequestMethod.POST)
 	public String addCustLoginDetail(HttpServletRequest request, HttpServletResponse response) {
-
+		String redirect = new String();
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 		try {
 
@@ -154,13 +154,19 @@ public class EmployeeShiftAssignController {
 			map.add("flag", 7);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/empParamAssignmentUpdate", map,
 					Info.class);
+		
+			if(info.isError()) {
+				redirect = "redirect:/showEmpListToAssignShift";
+			}else {
+				redirect = "redirect:/showEmpShiftDetails";
+			}
 
 		} catch (Exception e) {
 			System.err.println("Exce in Saving Cust Login Detail " + e.getMessage());
 			e.printStackTrace();
 		}
 
-		return "redirect:/showEmpListToAssignShift";
+		return redirect;
 	}
 
 	@RequestMapping(value = "/showEmpListToAssignSalStruct", method = RequestMethod.GET)
