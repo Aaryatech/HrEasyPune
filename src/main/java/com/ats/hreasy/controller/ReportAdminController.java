@@ -1823,7 +1823,7 @@ public class ReportAdminController {
 	@RequestMapping(value = "/showEmpAttendanceRep", method = RequestMethod.GET)
 	public void showEmpAttendanceRep(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "DAILY ATTENDANCE REPORT";
+		String reportName = "DAILY ATTENDANCE SUMMARY";
 
 		HttpSession session = request.getSession();
 
@@ -1833,7 +1833,7 @@ System.out.println("Dates--------"+leaveDateRange);
 		Boolean ret = false;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		//	map.add("companyId", 1);
+		 	map.add("companyId", 1);
 			map.add("fromDate", DateConvertor.convertToYMD(leaveDateRange));
 			map.add("toDate", DateConvertor.convertToYMD(leaveDateRange));
 			EmpAttendeanceRep[] resArray = Constants.getRestTemplate()
