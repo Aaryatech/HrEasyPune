@@ -864,7 +864,7 @@ public class ReportAdminController {
 			GetDailyDailyRecord[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getAttendenceRegReport", map, GetDailyDailyRecord[].class);
 			List<GetDailyDailyRecord> progList = new ArrayList<>(Arrays.asList(resArray));
-			// System.err.println("daily rec" + progList.toString());
+			//System.err.println("daily rec" + progList.toString());
 			map = new LinkedMultiValueMap<>();
 			map.add("empRes", -1);
 			map.add("companyId", 1);
@@ -992,7 +992,6 @@ public class ReportAdminController {
 						int dayCurr = progList.get(p).getEmpType();
 
 						if (dayCurr == j && empId == progList.get(p).getEmpId()) {
-
 							flag = 1;
 							stat = progList.get(p).getAttStatus();
 							break;
@@ -1077,7 +1076,7 @@ public class ReportAdminController {
 				for (int j = 1; j <= daysToday; j++) {
 					rowData.add(String.valueOf(j));
 				}
-				char colCoun = 'A';
+				char colCoun = 'E';
 
 				/*
 				 * if(daysToday==28) { colCoun='AB'; }else if(daysToday==30) {
@@ -1089,22 +1088,24 @@ public class ReportAdminController {
 				int cnt = 1;
 
 				for (int i = 0; i < empList.size(); i++) {
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					
+					cnt = cnt + i;
 					int emp = empList.get(i).getEmpId();
+					
 					rowData.add("" + (i + 1));
 					rowData.add("" + empList.get(i).getEmpCode());
 					rowData.add("" + empList.get(i).getFirstName().concat(" ").concat(empList.get(i).getSurname()));
-
+					
 					for (int j = 1; j <= daysToday; j++) {
-
 						int flag = 0;
 						String stat = null;
 						for (int l = 0; l < progList.size(); l++) {
-							int dayCurr = progList.get(p).getEmpType();
-
+							int dayCurr = progList.get(l).getEmpType();
 							if (dayCurr == j && emp == progList.get(l).getEmpId()) {
-
 								flag = 1;
-								stat = progList.get(l).getAttStatus();
+								stat = progList.get(l).getAttStatus();	
 								break;
 							}
 						}
@@ -1116,11 +1117,6 @@ public class ReportAdminController {
 						}
 
 					}
-
-					expoExcel = new ExportToExcel();
-					rowData = new ArrayList<String>();
-					cnt = cnt + i;
-
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
