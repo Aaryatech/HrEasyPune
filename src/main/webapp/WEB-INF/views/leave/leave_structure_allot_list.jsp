@@ -201,11 +201,11 @@
 												<th class="check" style="text-align: center; width: 5%;"><input
 													type="checkbox" name="selAll" id="selAll" /></th>
 
-												<th width="5%">Sr. No.</th>
-												<th width="10%">Employee Code</th>
-												<th>Employee Name</th>
-												<th>Department</th>
-												<th>Designation</th>
+												<th class="text-center" width="5%" >Sr. No.</th>
+												<th class="text-center" width="10%">Employee Code</th>
+												<th class="text-center">Employee Name</th>
+												<th class="text-center">Department</th>
+												<th class="text-center">Designation</th>
 
 											</tr>
 										</thead>
@@ -276,12 +276,12 @@
 										<thead>
 											<tr class="bg-blue">
 
-												<th width="5%">Sr. No.</th>
-												<th width="10%">Employee Code</th>
-												<th>Employee Name</th>
-												<th>Department</th>
-												<th>Designation</th>
-												<th width="20%">Structure</th>
+												<th class="text-center" width="5%">Sr. No.</th>
+												<th class="text-center" width="10%">Employee Code</th>
+												<th class="text-center">Employee Name</th>
+												<th class="text-center">Department</th>
+												<th class="text-center">Designation</th>
+												<th class="text-center" width="20%">Structure</th>
 
 
 
