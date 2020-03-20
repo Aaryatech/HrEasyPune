@@ -136,6 +136,9 @@ public class PayRollController {
 				map.add("empIds", empIds);
 				map.add("userId", userObj.getUserId());
 				// System.out.println(map);
+				Info updateallowvalue = Constants.getRestTemplate().postForObject(Constants.url + "/updateAllowAmtInSalTemp",
+						map, Info.class);
+				
 				Info insertTemp = Constants.getRestTemplate().postForObject(Constants.url + "/insertPayrollIntempTable",
 						map, Info.class);
 				if (insertTemp.isError() == false) {
