@@ -120,7 +120,7 @@
 											style="display: none;">Insufficient Leaves.</span>
 
 									</div>
-<label class="col-form-label col-lg-2" for="date">Select
+									<label class="col-form-label col-lg-2" for="date">Select
 										Company(F3): 
 									</label>
 									<div class="col-md-2">
@@ -132,6 +132,19 @@
 
 												</c:forEach>
 											</select>
+									</div>
+									
+									<label class="col-form-label col-lg-2" for="date">Select
+										Company(F4): 
+									</label>
+									<div class="col-md-2">
+										<input type="text" class="form-control datepickerclass"
+											name="singleDateRange" data-placeholder="Select Date"
+											id="singleDateRange"> <span
+											class="validation-invalid-label" id="error_Range"
+											style="display: none;">This field is required.</span> <span
+											class="validation-invalid-label" id="error_insuf"
+											style="display: none;">Insufficient Leaves.</span>
 									</div>
 								</div>
 
@@ -189,7 +202,7 @@
 													onclick="getProgReport(1,'showEmpAttendRegisterRep')"
 													title="PDF"><i class="icon-file-pdf icon-1x text-danger  text-danger   "
 													style="color: black;"></i></a> <br /> Daily Attendance
-												Report(F2) <a href="#"
+												Report(F4) <a href="#"
 													onclick="getProgReport(0,'showEmpAttendanceRep')"
 													title="excel"><i class="icon-file-spreadsheet text-success  "
 													style="color: black;"></i></a> <a href="#"
@@ -562,7 +575,17 @@
 			}
 		});
 	</script>
-
+<script>
+//Single picker
+$('.datepickerclass').daterangepicker({
+	singleDatePicker : true,
+	selectMonths : true,
+	selectYears : true,
+	locale : {
+		format : 'DD-MM-YYYY'
+	}
+});
+</script>
 
 
 

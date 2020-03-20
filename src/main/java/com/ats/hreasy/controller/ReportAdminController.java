@@ -1827,15 +1827,15 @@ public class ReportAdminController {
 
 		HttpSession session = request.getSession();
 
-		String leaveDateRange = request.getParameter("leaveDateRange");
-		String[] arrOfStr = leaveDateRange.split("to", 2);
-
+		String leaveDateRange = request.getParameter("singleDateRange");
+		//String[] arrOfStr = leaveDateRange.split("to", 2);
+System.out.println("Dates--------"+leaveDateRange);
 		Boolean ret = false;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
-			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
-			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
+		//	map.add("companyId", 1);
+			map.add("fromDate", DateConvertor.convertToYMD(leaveDateRange));
+			map.add("toDate", DateConvertor.convertToYMD(leaveDateRange));
 			EmpAttendeanceRep[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getDailyAttendenceReport", map, EmpAttendeanceRep[].class);
 			List<EmpAttendeanceRep> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -1948,7 +1948,7 @@ public class ReportAdminController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Date: " + arrOfStr[0] + "To" + arrOfStr[1]));
+			document.add(new Paragraph("Date: " + leaveDateRange + "To" + leaveDateRange));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
@@ -2024,7 +2024,7 @@ public class ReportAdminController {
 				try {
 
 					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
-							"Date:" + arrOfStr[0] + "To" + arrOfStr[1], "", 'D');
+							"Date:" + leaveDateRange + "To" + leaveDateRange, "", 'D');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
