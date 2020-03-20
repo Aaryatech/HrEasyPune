@@ -44,13 +44,11 @@
 							<tr width="100%">
 								<td width="60%"><h5 class="card-title">Pending Advance
 										List</h5></td>
-								<td width="40%" align="right"><<%-- c:if test="${addAccess==0}">
-										<a href="${pageContext.request.contextPath}/bankAdd"
-											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
-												Bank</button>
-										</a>
-									</c:if> --%></td>
+								<td width="40%" align="right"><<%-- c:if
+									test="${addAccess==0}"> <a
+									href="${pageContext.request.contextPath}/bankAdd"
+									class="breadcrumb-elements-item"> <button type="button"
+									class="btn btn-primary">Add Bank</button> </a> </c:if> --%></td>
 							</tr>
 						</table>
 					</div>
@@ -132,25 +130,29 @@
 										<td>${empdetList.isDed==1 ? 'Yes':empdetList.isDed==0 ? 'No' : ''}</td>
 
 
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/showSkipAdvance?advId=${empdetList.exVar1}&empId=${empdetList.exVar2}"
-													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title=""
-													data-original-title="Skip Advance"><i
-													class="icon-last"></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												<%-- 
+										<td class="text-center"><c:if
+												test="${empdetList.exInt1 == 0}">
+												<c:if test="${editAccess == 0}">
+													<a
+														href="${pageContext.request.contextPath}/showSkipAdvance?advId=${empdetList.exVar1}&empId=${empdetList.exVar2}"
+														class="list-icons-item text-primary-600"
+														data-popup="tooltip" title=""
+														data-original-title="Skip Advance"><i
+														class="icon-last"></i></a>
+												</c:if>
+												<c:if test="${deleteAccess == 0}">
+													<%-- 
 											<a href="${pageContext.request.contextPath}/deleteAdvance?advId=${empdetList.exVar1}"
 											class="list-icons-item text-danger-600 bootbox_custom"
 											data-uuid="${empdetList.exVar1}" data-popup="tooltip" title=""
 											data-original-title="Delete"><i class="icon-trash"></i></a>  --%>
 
-												<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${empdetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
+													<a href="javascript:void(0)"
+														class="list-icons-item text-danger-600 bootbox_custom"
+														data-uuid="${empdetList.exVar1}" data-popup="tooltip"
+														title="" data-original-title="Delete"><i
+														class="icon-trash"></i></a>
+												</c:if>
 											</c:if></td>
 									</tr>
 								</c:forEach>
