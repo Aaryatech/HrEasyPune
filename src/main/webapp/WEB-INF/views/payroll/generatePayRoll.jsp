@@ -362,6 +362,8 @@
 																	+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()
 																	+ list.get(i).getEsic() + list.get(i).getMlwf() + list.get(i).getSocietyContribution();
 															out.println(String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
+															
+															 
 												%>
 											</td>
 											<td class="text-right">
