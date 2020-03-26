@@ -10,6 +10,7 @@ public class EmpDailyAttendanceGraph {
 	private double unpaidLeave;
 	private double monthDays;
 	private double payableDaysDays;
+	private double weekOff;
 	
 
 	private int month;
@@ -117,14 +118,21 @@ public class EmpDailyAttendanceGraph {
 		this.year = year;
 	}
 
+	public double getWeekOff() {
+		return weekOff;
+	}
+
+	public void setWeekOff(double weekOff) {
+		this.weekOff = weekOff;
+	}
+
 	@Override
 	public String toString() {
 		return "EmpDailyAttendanceGraph [workingDays=" + workingDays + ", presentdays=" + presentdays + ", paidHoliday="
 				+ paidHoliday + ", unpaidHoliday=" + unpaidHoliday + ", paidLeave=" + paidLeave + ", unpaidLeave="
-				+ unpaidLeave + ", monthDays=" + monthDays + ", payableDaysDays=" + payableDaysDays + ", month=" + month
-				+ ", year=" + year + ", date=" + date + ", lateMarks=" + lateMarks + "]";
+				+ unpaidLeave + ", monthDays=" + monthDays + ", payableDaysDays=" + payableDaysDays + ", weekOff="
+				+ weekOff + ", month=" + month + ", year=" + year + ", date=" + date + ", lateMarks=" + lateMarks + "]";
 	}
 
-	 
 	 
 }

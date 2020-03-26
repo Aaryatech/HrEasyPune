@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -106,12 +108,12 @@ public class EmployeeReportController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(10);
+			PdfPTable table = new PdfPTable(9);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 5.5f, 3.0f, 3.0f, 3.0f, 3.0f,3.0f, 3.0f, 3.0f, 3.0f });
+			table.setWidths(new float[] { 2.0f, 5.5f, 3.0f, 3.0f, 3.0f, 3.0f,3.0f, 3.0f, 3.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -127,17 +129,25 @@ public class EmployeeReportController {
 
 			table.addCell(hcell);
 
+			hcell = new PdfPCell(new Phrase("Month Days", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
 			hcell = new PdfPCell(new Phrase("Month-Year", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Working Days", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
+			
+			 hcell = new PdfPCell(new Phrase("Week Off", tableHeaderFont));
+			 hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			 
+			 table.addCell(hcell);
+			
 
 			hcell = new PdfPCell(new Phrase("Present Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -151,13 +161,6 @@ public class EmployeeReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-
-			
-			hcell = new PdfPCell(new Phrase("Unpaid Holiday", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
 			
 			hcell = new PdfPCell(new Phrase("Paid Leave", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -166,30 +169,23 @@ public class EmployeeReportController {
 			table.addCell(hcell);
 
 			
-			hcell = new PdfPCell(new Phrase("Unpaid Leave", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Abscent", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Late Mark", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Late Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 			
-			
-			hcell = new PdfPCell(new Phrase("Month Days", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-
 			int index = 0;
 			for (int i = 0; i < employeeInfoList.size(); i++) {
 				// System.err.println("I " + i);
 				EmpDailyAttendanceGraph prog = employeeInfoList.get(i);
-
+				
 				index++;
 				PdfPCell cell;
 				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
@@ -203,9 +199,14 @@ public class EmployeeReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + prog.getMonthDays(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-				cell = new PdfPCell(
-						new Phrase("" + prog.getWorkingDays(), headFontData));
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + prog.getWeekOff(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
@@ -223,12 +224,6 @@ public class EmployeeReportController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getUnpaidHoliday(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-				table.addCell(cell);
-				
 				cell = new PdfPCell(new Phrase("" + prog.getPaidLeave(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -242,12 +237,6 @@ public class EmployeeReportController {
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Phrase("" + prog.getLateMarks(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-				table.addCell(cell);
-
-				cell = new PdfPCell(new Phrase("" + prog.getMonthDays(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
@@ -313,14 +302,13 @@ public class EmployeeReportController {
 
 				rowData.add("Sr. No");
 				rowData.add("Month Year");
-				rowData.add("Working Days");
+				rowData.add("Week Off");
+				rowData.add("Month Days");
  				rowData.add("Present Days");
 				rowData.add("Paid Holiday");
-				rowData.add("Unpaid Holiday");
 				rowData.add("Paid Leave");
-				rowData.add("Unpaid Leave");
-				rowData.add("Late Marks");
-				rowData.add("Month Days");
+				rowData.add("Abscent");
+				rowData.add("Late Days");
 
 				 
 				expoExcel.setRowData(rowData);
@@ -333,14 +321,13 @@ public class EmployeeReportController {
 
 					rowData.add("" + (i + 1));
 					rowData.add("" + employeeInfoList.get(i).getDate());
-					rowData.add("" + employeeInfoList.get(i).getWorkingDays());
+					rowData.add("" + employeeInfoList.get(i).getWeekOff());
+					rowData.add("" + employeeInfoList.get(i).getMonthDays());
 					rowData.add("" + employeeInfoList.get(i).getPresentdays());
 					rowData.add("" + employeeInfoList.get(i).getPaidHoliday());
-					rowData.add("" + employeeInfoList.get(i).getUnpaidHoliday());
 					rowData.add("" + employeeInfoList.get(i).getPaidLeave());
 					rowData.add("" + employeeInfoList.get(i).getUnpaidLeave());
 					rowData.add("" + employeeInfoList.get(i).getLateMarks());
-					rowData.add("" + employeeInfoList.get(i).getMonthDays());
  
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
