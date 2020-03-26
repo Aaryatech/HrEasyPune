@@ -8,6 +8,7 @@ public class EmpOtReg {
 	private String designation;
 	private float otHr;
 	private String month;
+	private String date;
 	public int getEmpId() {
 		return empId;
 	}
@@ -50,11 +51,18 @@ public class EmpOtReg {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	@Override
 	public String toString() {
 		return "EmpOtReg [id=" + id + ", empId=" + empId + ", empCode=" + empCode + ", empName=" + empName
-				+ ", designation=" + designation + ", otHr=" + otHr + ", month=" + month + "]";
+				+ ", designation=" + designation + ", otHr=" + otHr + ", month=" + month + ", date=" + date + "]";
 	}
+	
 	
 	
 }

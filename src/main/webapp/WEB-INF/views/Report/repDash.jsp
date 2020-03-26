@@ -207,17 +207,31 @@
 													style="color: black;"></i></a> <a href="#"
 													onclick="getProgReport('f4',1,'showEmpAttendanceRep')"
 													title="PDF"><i class="icon-file-pdf icon-1x text-danger  text-danger    "
-													style="color: black;"></i></a><br /> Employee Overtime
-												Register(F2) <a href="#"
+													style="color: black;"></i></a><br /> Employee Production
+													 Incentive(F2) <a href="#"
 													onclick="getProgReport('f2',0,'showEmpOtReg')" title="excel"><i
 													class="icon-file-spreadsheet text-success  " style="color: black;"></i></a>
 												<a href="#" onclick="getProgReport('f2',1,'showEmpOtReg')"
 													title="PDF"><i class="icon-file-pdf icon-1x text-danger    "
-													style="color: black;"></i></a><br /> Employee Late Mark(F2) <a
-													href="#" onclick="getProgReport(0,'showEmpLateMark')"
+													style="color: black;"></i></a>
+													<br /> Employee Production
+													 Incentive Details(F2) <a href="#"
+													onclick="getProgReport('f2',0,'showEmpOtRegDetail')" title="excel"><i
+													class="icon-file-spreadsheet text-success  " style="color: black;"></i></a>
+												<a href="#" onclick="getProgReport('f2',1,'showEmpOtRegDetail')"
+													title="PDF"><i class="icon-file-pdf icon-1x text-danger    "
+													style="color: black;"></i></a>
+													<br /> Employee Late Mark Summary(F2) <a
+													href="#" onclick="getProgReport('f2',0,'showEmpLateMark')"
 													title="excel"><i class="icon-file-spreadsheet text-success  "
 													style="color: black;"></i></a> <a href="#"
-													onclick="getProgReport(1,'showEmpLateMark')" title="PDF"><i
+													onclick="getProgReport('f2',1,'showEmpLateMark')" title="PDF"><i
+													class="icon-file-pdf icon-1x text-danger    " style="color: black;"></i></a> <br />
+												Employee Late Mark Detail(F2) <a
+													href="#" onclick="getProgReport('f2',0,'showEmpLateMarkDetail')"
+													title="excel"><i class="icon-file-spreadsheet text-success  "
+													style="color: black;"></i></a> <a href="#"
+													onclick="getProgReport('f2',1,'showEmpLateMarkDetail')" title="PDF"><i
 													class="icon-file-pdf icon-1x text-danger    " style="color: black;"></i></a>
 												<br />
 
@@ -268,7 +282,7 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="card-title">PF Satement</h6>
+												<h6 class="card-title">PF Statement</h6>
 												<div class="header-elements"></div>
 											</div>
 
@@ -370,7 +384,7 @@
 												Employee Payment Deduction(F2) <a href="#"
 													onclick="getProgReport('f2',0,'showEmpDedRepAll')" title="excel"><i
 													class="icon-file-spreadsheet text-success  " style="color: black;"></i></a>
-												<a href="#" onclick="getProgReport('f2'1,'showEmpDedRepAll')"
+												<a href="#" onclick="getProgReport('f2',1,'showEmpDedRepAll')"
 													title="PDF"><i class="icon-file-pdf icon-1x text-danger    "
 													style="color: black;"></i></a><br />
 
