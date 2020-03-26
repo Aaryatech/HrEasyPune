@@ -346,8 +346,7 @@
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmployeeAttnRep')"
 															title="excel"><i class="icon-file-spreadsheet  text-success"
-																style="color: black;"></i></a> 
-															<a href="#"
+																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmployeeAttnRep')"
 															title="PDF"><i class="icon-file-spreadsheet  text-danger"
 																style="color: black;" ></i></a></td>
