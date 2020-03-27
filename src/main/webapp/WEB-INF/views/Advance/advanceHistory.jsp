@@ -7,6 +7,14 @@
 <c:url var="getAdvanceHistory" value="/getAdvanceHistory" />
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
+	
 </head>
 
 <body>
@@ -94,7 +102,7 @@
 								Year<span style="color: red">* </span>:
 								</label>
 								<div class="col-lg-4">
-									<select name="calYrId" data-placeholder="Select  "
+									<!-- <select name="calYrId" data-placeholder="Select  "
 										id="calYrId" onchange="show()"
 										class="form-control form-control-select2 select2-hidden-accessible"
 										data-fouc="" aria-hidden="true">
@@ -104,7 +112,15 @@
  											<option value="2019">2019</option>
  											<option value="2020">2020</option>
  											<option value="2021">2021</option>
- 									</select>  
+ 									</select>   -->
+ 									
+ 									<input type="text" onchange="show()" class="form-control datepickerclass"
+														value="2020" placeholder="Select Year "
+														id="calYrId" name ="calYrId"
+														autocomplete="off">
+									<span
+											class="validation-invalid-label" id="error_datepicker"
+											style="display: none;">Please Select Date. </span>
 								</div>
 								
 								<label class="col-form-label text-info font-weight-bold col-lg-2" for="empId">
@@ -122,6 +138,10 @@
 											<option value="${empdetList.empId}">${empdetList.empCode}&nbsp;${empdetList.surname}&nbsp;${empdetList.firstName}</option>
 										</c:forEach>
 									</select>  
+									<span
+											class="validation-invalid-label" id="error_emp"
+											style="display: none;">Please select employee. </span>
+									
 								</div>
 								
 							</div>
@@ -184,32 +204,72 @@
 
 	</div>
 	<!-- /page content -->
+	
+	<script>
+	$(document).ready(function() {
+        // month selector
+        $('.datepickerclass').datepicker({
+            autoclose: true,
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+
+        });
+
+
+    });
+ 	</script> 
 	 <script type="text/javascript">
 		function show() {
 
-			//alert("Hi View Orders  ");
+			var error = false;
 
-			var empId = document.getElementById("empId").value;
 			var calYrId = document.getElementById("calYrId").value;
+			if (calYrId.length == 0 || calYrId == null || calYrId == "") {
+				error = true;
+				$("#error_datepicker").show();
+
+			} else {
+				//	alert(0);
+				$("#error_datepicker").hide();
+			}
+			var empId = document.getElementById("empId").value;
+			if (empId.length == 0 || empId == null || empId == "") {
+				error = true;
+				$("#error_emp").show();
+
+			} else {
+				//	alert(empId);
+				$("#error_emp").hide();
+			}
+			
+			if (error) {
+				return false
+			}
+			
+		//	var empId = document.getElementById("empId").value;
+			//var calYrId = document.getElementById("calYrId").value;
  
-			//alert("empId  "+empId);
-			//alert("calYrId "+calYrId);
+			 
 			var valid = true;
 
-			if (empId == null || empId == "") {
+			/* if (empId == null || empId == "") {
 				valid = false;
-				alert("Please Select Employee");
+				//alert("Please Select Employee");
+				//return false;
 			}
 
 			var valid = true;
 			if (calYrId == null || calYrId == "") {
 				valid = false;
-				alert("Please Select Year");
-
-				var dataTable = $('#printtable1').DataTable();
-				dataTable.clear().draw();
+				//alert("Please Select Year");
+				//return false;
+			//	var dataTable = $('#printtable1').DataTable();
+			//	dataTable.clear().draw();
 
 			}
+			
+			 */
 			$("#loader").show();
 
 			if (valid == true) {
@@ -257,6 +317,7 @@
 			}//end of if valid ==true
 
 		}
-	</script> 
+	</script>
+	
 </body>
 </html>

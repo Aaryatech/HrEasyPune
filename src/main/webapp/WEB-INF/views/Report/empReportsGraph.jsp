@@ -345,11 +345,11 @@
 														<td>Employee Attendance Report</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmployeeAttnRep')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmployeeAttnRep')"
-															title="PDF"><i class="icon-file-spreadsheet  "
-																style="color: black;"></i></a></td>
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;" ></i></a></td>
 													</tr>
 
 													<tr>
@@ -357,10 +357,10 @@
 														<td>Employee PF Statement</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpPfRepEmpWise')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpPfRepEmpWise')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 
@@ -369,10 +369,10 @@
 														<td>Employee Late Mark</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpLateMarkByEmpId')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLateMarkByEmpId')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 
@@ -382,10 +382,10 @@
 														<td>Loan Statement Details</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpLoanStatDetailByEmp')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet text-success "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLoanStatDetailByEmp')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 													
@@ -394,10 +394,10 @@
 														<td>Payment Deduction Details</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpDedRep')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpDedRep')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 													 
@@ -442,10 +442,10 @@
 														<td>Employee Leave Report</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpLeaveHistoryRepNew')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet text-success "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLeaveHistoryRepNew')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 																
 																
@@ -456,10 +456,10 @@
 														<td>Employee Leave Application Tracking</td>
 														<td class="text-center"><a href="#"
 															onclick="getProgReport(0,'showEmpLeaveApplicationRep')"
-															title="excel"><i class="icon-file-spreadsheet  "
+															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLeaveApplicationRep')"
-															title="PDF"><i class="icon-file-spreadsheet  "
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 																
 																
