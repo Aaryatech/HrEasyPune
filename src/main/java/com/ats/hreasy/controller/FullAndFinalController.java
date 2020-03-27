@@ -78,6 +78,37 @@ public class FullAndFinalController {
 
 			mav = "FullAndFinal/fullnfinal";
 
+			/*String base64encodedString = request.getParameter("empId");
+			int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			empInfoshow = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeById", map,
+					EmployeeMaster.class);
+			empSalInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeSalInfo", map,
+					EmpSalaryInfo.class);
+			model.addAttribute("empinfo", empInfoshow);
+			model.addAttribute("empSalInfo", empSalInfo);*/
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/fullnfinalprocess", method = RequestMethod.GET)
+	public String fullnfinalprocess(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = new String();
+
+		try {
+
+			mav = "FullAndFinal/fullnfinalprocess";
+
+			/*String leavingDate = request.getParameter("leaveDate");
+			String leaveReason = request.getParameter("leaveReason");
+			int lrEsic = Integer.parseInt(request.getParameter("lrEsic"));
+			int lrForPF = Integer.parseInt(request.getParameter("lrForPF"));*/
+
 			String base64encodedString = request.getParameter("empId");
 			int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -88,34 +119,13 @@ public class FullAndFinalController {
 					EmpSalaryInfo.class);
 			model.addAttribute("empinfo", empInfoshow);
 			model.addAttribute("empSalInfo", empSalInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/fullnfinalprocess", method = RequestMethod.POST)
-	public String fullnfinalprocess(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		String mav = new String();
-
-		try {
-
-			mav = "FullAndFinal/fullnfinalprocess";
-
-			String leavingDate = request.getParameter("leaveDate");
-			String leaveReason = request.getParameter("leaveReason");
-			int lrEsic = Integer.parseInt(request.getParameter("lrEsic"));
-			int lrForPF = Integer.parseInt(request.getParameter("lrForPF"));
-
 			model.addAttribute("empinfo", empInfoshow);
 			model.addAttribute("empSalInfo", empSalInfo);
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
 
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", empInfoshow.getEmpId());

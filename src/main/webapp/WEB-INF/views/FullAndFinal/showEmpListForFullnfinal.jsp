@@ -114,7 +114,7 @@
 										<td>${empList.locName}</td>
 
 										<td class="text-center"><a
-											href="${pageContext.request.contextPath}/showfullnfinal?empId=${empList.exVar1}"
+											href="${pageContext.request.contextPath}/fullnfinalprocess?empId=${empList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="Full And Final Process"
 											data-original-title="Full And Final Process"><i
