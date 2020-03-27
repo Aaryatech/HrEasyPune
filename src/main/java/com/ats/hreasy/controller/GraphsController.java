@@ -2,6 +2,7 @@ package com.ats.hreasy.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -51,8 +52,7 @@ import com.ats.hreasy.model.graph.EmpLoanGraph;
 
 @Controller
 @Scope("session")
-public class GraphsController {
- 
+public class GraphsController { 
 	
 	@RequestMapping(value = "/showEmpGraphs", method = RequestMethod.GET)
 	public String  showEmpGraphs(HttpServletRequest request, HttpServletResponse response,Model model) {
@@ -118,12 +118,21 @@ public class GraphsController {
 			
 			//System.err.println("fromDate"+fromDate);
 		//	System.err.println("toDate"+toDate);
+			
+			String[] parts = toDate.split("-");
+			int lmonth = Integer.parseInt(parts[0]); 
+			int  lyear  = Integer.parseInt(parts[1]); 
+			
+			// Get the number of days in that month
+			YearMonth yearMonthObject = YearMonth.of(lyear, lmonth);
+			int daysInMonth = yearMonthObject.lengthOfMonth(); //28  
+			//System.out.println("Ttl Days----------"+daysInMonth);
 		   
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
  			map.add("companyId", 1);
  			map.add("fromDate", "01-".concat(fromDate));
- 		    map.add("toDate", "30-".concat(toDate));
+ 		    map.add("toDate", daysInMonth+"-".concat(toDate));
 
 			EmpDailyAttendanceGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAttendanceGraphNew", map, EmpDailyAttendanceGraph[].class);
@@ -155,12 +164,20 @@ public class GraphsController {
 			fromDate =request.getParameter("fromDate");
 			toDate =request.getParameter("toDate");
 		 
-		   
+			String[] parts = toDate.split("-");
+			int lmonth = Integer.parseInt(parts[0]); 
+			int  lyear  = Integer.parseInt(parts[1]); 
+			
+			// Get the number of days in that month
+			YearMonth yearMonthObject = YearMonth.of(lyear, lmonth);
+			int daysInMonth = yearMonthObject.lengthOfMonth(); //28  
+			//System.out.println("Ttl Days----------"+daysInMonth);
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
  			map.add("companyId", 1);
  			map.add("fromDate", "01-".concat(fromDate));
- 		    map.add("toDate", "30-".concat(toDate));
+ 			map.add("toDate", daysInMonth+"-".concat(toDate));
 
  		   EmpAdvanceGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAdvanceGraphNew", map, EmpAdvanceGraph[].class);
@@ -189,12 +206,21 @@ public class GraphsController {
 			 
 			fromDate =request.getParameter("fromDate");
 			toDate =request.getParameter("toDate");
+			
+			String[] parts = toDate.split("-");
+			int lmonth = Integer.parseInt(parts[0]); 
+			int  lyear  = Integer.parseInt(parts[1]); 
+			
+			// Get the number of days in that month
+			YearMonth yearMonthObject = YearMonth.of(lyear, lmonth);
+			int daysInMonth = yearMonthObject.lengthOfMonth(); //28  
+			//System.out.println("Ttl Days----------"+daysInMonth);
 		 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
  			map.add("companyId", 1);
  			map.add("fromDate", "01-".concat(fromDate));
- 		    map.add("toDate", "30-".concat(toDate));
+ 			 map.add("toDate", daysInMonth+"-".concat(toDate));
 
  		   EmpLoanGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpLoanGraph", map, EmpLoanGraph[].class);

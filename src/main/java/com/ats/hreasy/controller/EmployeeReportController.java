@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -52,6 +53,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Controller
 @Scope("session")
 public class EmployeeReportController {
+	
 
 	@RequestMapping(value = "/showEmployeeAttnRep", method = RequestMethod.GET)
 	public void showEmployeeLeaveRep(HttpServletRequest request, HttpServletResponse response) {
@@ -72,10 +74,21 @@ public class EmployeeReportController {
 		Boolean ret = false;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			
+			
+			String[] parts = toDate.split("-");
+			int lmonth = Integer.parseInt(parts[0]); 
+			int  lyear  = Integer.parseInt(parts[1]); 
+			
+			// Get the number of days in that month
+			YearMonth yearMonthObject = YearMonth.of(lyear, lmonth);
+			int daysInMonth = yearMonthObject.lengthOfMonth(); //28  
+			System.out.println("Ttl Days----------"+daysInMonth);
+			
 			map.add("empId", empId);
  			map.add("companyId", 1);
  			map.add("fromDate", "01-".concat(fromDate));
- 		    map.add("toDate", "30-".concat(toDate));
+ 		    map.add("toDate", daysInMonth+"-".concat(toDate));
  			EmpDailyAttendanceGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAttendanceGraphNew", map, EmpDailyAttendanceGraph[].class);
 
@@ -129,13 +142,13 @@ public class EmployeeReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Month Days", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Month-Year", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Month-Year", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Month Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -169,7 +182,7 @@ public class EmployeeReportController {
 			table.addCell(hcell);
 
 			
-			hcell = new PdfPCell(new Phrase("Abscent", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Absent", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -302,12 +315,12 @@ public class EmployeeReportController {
 
 				rowData.add("Sr. No");
 				rowData.add("Month Year");
-				rowData.add("Week Off");
 				rowData.add("Month Days");
+				rowData.add("Week Off");				
  				rowData.add("Present Days");
 				rowData.add("Paid Holiday");
 				rowData.add("Paid Leave");
-				rowData.add("Abscent");
+				rowData.add("Absent");
 				rowData.add("Late Days");
 
 				 
@@ -321,8 +334,8 @@ public class EmployeeReportController {
 
 					rowData.add("" + (i + 1));
 					rowData.add("" + employeeInfoList.get(i).getDate());
-					rowData.add("" + employeeInfoList.get(i).getWeekOff());
 					rowData.add("" + employeeInfoList.get(i).getMonthDays());
+					rowData.add("" + employeeInfoList.get(i).getWeekOff());					
 					rowData.add("" + employeeInfoList.get(i).getPresentdays());
 					rowData.add("" + employeeInfoList.get(i).getPaidHoliday());
 					rowData.add("" + employeeInfoList.get(i).getPaidLeave());

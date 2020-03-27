@@ -311,7 +311,7 @@
 													<input type="text" class="form-control datepickerclass "
 														value="${fromDate}" placeholder="Select Date "
 														id="datepickerFromRep" name="datepickerFromRep"
-														autocomplete="off">														
+														autocomplete="off">
 												</div>
 
 
@@ -348,7 +348,7 @@
 															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmployeeAttnRep')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;" ></i></a></td>
 													</tr>
 
@@ -360,7 +360,7 @@
 															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpPfRepEmpWise')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 
@@ -372,7 +372,7 @@
 															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLateMarkByEmpId')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 
@@ -385,7 +385,7 @@
 															title="excel"><i class="icon-file-spreadsheet text-success "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLoanStatDetailByEmp')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 													
@@ -397,7 +397,7 @@
 															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpDedRep')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 													</tr>
 													 
@@ -445,7 +445,7 @@
 															title="excel"><i class="icon-file-spreadsheet text-success "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLeaveHistoryRepNew')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 																
 																
@@ -459,7 +459,7 @@
 															title="excel"><i class="icon-file-spreadsheet  text-success"
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport(1,'showEmpLeaveApplicationRep')"
-															title="PDF"><i class="icon-file-spreadsheet  text-danger"
+															title="PDF"><i class="icon-file-pdf icon-1x text-danger"
 																style="color: black;"></i></a></td>
 																
 																
