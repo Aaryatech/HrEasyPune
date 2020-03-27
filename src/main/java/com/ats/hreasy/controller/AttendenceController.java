@@ -62,12 +62,12 @@ import com.ats.hreasy.model.VariousList;
 @Scope("session")
 public class AttendenceController {
 
-	
 	@RequestMapping(value = "/attendenceImportExel", method = RequestMethod.GET)
 	public String attendenceImportExel(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "attendence/attendenceImportExel";
 
+		
 		try {
 
 			/*
