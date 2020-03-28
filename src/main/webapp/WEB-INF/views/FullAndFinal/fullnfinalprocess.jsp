@@ -160,11 +160,8 @@
 										</div>
 
 										<div class="form-group row">
-											<label
-												class="col-form-label text-info font-weight-bold  col-lg-2"
-												for="lrEsic">LR For ESIC <span class="text-danger">*
-											</span> :
-											</label>
+											<label class="col-form-label col-lg-2" for="lrEsic">LR
+												For ESIC : </label>
 											<div class="col-lg-4">
 												<select name="lrEsic" data-placeholder="Select Uniform Size"
 													id="lrEsic"
@@ -216,11 +213,8 @@
 											</div>
 
 
-											<label
-												class="col-form-label text-info font-weight-bold  col-lg-2"
-												for="lrForPF">LR For PF <span class="text-danger">*
-											</span>:
-											</label>
+											<label class="col-form-label col-lg-2" for="lrForPF">LR
+												For PF : </label>
 
 											<div class="col-lg-4">
 												<select name="lrForPF"
@@ -248,7 +242,7 @@
 											</div>
 
 										</div>
-										 
+
 									</form>
 
 								</div>
@@ -261,7 +255,7 @@
 									<form
 										action="${pageContext.request.contextPath}/fullnfinalprocess"
 										id="fullnfinalprocess" method="post">
- 
+
 										<div class="form-group row">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-2"
@@ -316,14 +310,18 @@
 								<div class="card-body">
 									<div id="incashmentDiv" style="display: none;">
 										<div class="form-group row">
-											<label class="col-form-label col-lg-2"> Per Day: </label> <label
+											<label class="col-form-label col-lg-2">Rate Per Day:
+											</label> <label
 												class="col-form-label col-lg-2 text-info font-weight-bold"
 												for="locId"> <fmt:formatNumber type="number"
 													maxFractionDigits="2" minFractionDigits="2"
 													groupingUsed="false"
-													value=" ${((empBasicAllownceForLeaveInCash.basic+
+													value="${((empBasicAllownceForLeaveInCash.basic+
 																	empBasicAllownceForLeaveInCash.allowanceValue)/day)}" />
-											</label>
+											</label> <input type="hidden" class=" numbersOnly"
+												value="${((empBasicAllownceForLeaveInCash.basic+
+																	empBasicAllownceForLeaveInCash.allowanceValue)/day)}"
+												id="ratePerDay" name="ratePerDay" autocomplete="off">
 										</div>
 										<div class="form-group row">
 											<div class="table-responsive">
@@ -368,13 +366,26 @@
 										<div class="form-group row">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="leaveincash">Leave In Cash <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-4">
+												<input type="text" class="form-control numbersOnly"
+													value="0" placeholder="Leave In Cash" id="leaveincash"
+													name="leaveincash" autocomplete="off"
+													onchange="calCashAmt()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
 												for="leavecashamt">Leave Cash AMT<span
 												class="text-danger">* </span>:
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
 													value="0" placeholder="Leave Cash Amount" id="leavecashamt"
-													name="leavecashamt" autocomplete="off">
+													name="leavecashamt" autocomplete="off" disabled>
 											</div>
 										</div>
 									</div>
@@ -410,6 +421,14 @@
 												autocomplete="off">
 										</div>
 									</div> -->
+									<c:set value="0" var="graduatyCalAmt"></c:set>
+									<c:choose>
+										<c:when test="${getDetailForGraduaty.service>5}">
+											<c:set
+												value="${((getDetailForGraduaty.basic+getDetailForGraduaty.allowanceValue)/26)*15*getDetailForGraduaty.service}"
+												var="graduatyCalAmt"></c:set>
+										</c:when>
+									</c:choose>
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
@@ -417,23 +436,16 @@
 										</span>:
 										</label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly" value="0"
+											<input type="text" class="form-control numbersOnly"
+												value="<fmt:formatNumber type="number"
+													maxFractionDigits="2" minFractionDigits="2"
+													groupingUsed="false"
+													value="${graduatyCalAmt}" />"
 												placeholder="Gratuity Amount" id="gratuityamt"
 												name="gratuityamt" autocomplete="off">
 										</div>
 									</div>
-									<!-- <div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="payrollamt">Payroll for Remaining AMT <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly" value="0"
-												placeholder="Payroll for Remaining Amount" id="payrollamt"
-												name="payrollamt" autocomplete="off">
-										</div>
-									</div> -->
+
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
@@ -630,6 +642,13 @@
 				$("#incashmentDiv").hide();
 				document.getElementById("isleavecash").value = 0;
 			}
+		}
+		function calCashAmt() {
+			var ratePerDay = parseFloat(document.getElementById("ratePerDay").value);
+			var leaveincash = parseFloat(document.getElementById("leaveincash").value);
+			document.getElementById("leavecashamt").value = (ratePerDay
+					* leaveincash).toFixed(2);
+
 		}
 	</script>
 </body>

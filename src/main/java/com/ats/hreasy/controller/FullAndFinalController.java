@@ -22,6 +22,7 @@ import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.EmpBasicAllownceForLeaveInCash;
 import com.ats.hreasy.model.EmpSalaryInfo;
 import com.ats.hreasy.model.EmployeeMaster;
+import com.ats.hreasy.model.GetDetailForGraduaty;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LeaveStructureHeader;
@@ -31,6 +32,8 @@ import com.ats.hreasy.model.Setting;
 @Scope("session")
 public class FullAndFinalController {
 
+	
+	
 	@RequestMapping(value = "/showEmpListForFullnfinal", method = RequestMethod.GET)
 	public String showEmpListForFullnfinal(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -155,6 +158,10 @@ public class FullAndFinalController {
 			AdvanceAndLoanInfo advanceAndLoanInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAmountDeductionSectionListForFullnFinal", map,
 					AdvanceAndLoanInfo.class);
 			model.addAttribute("advanceAndLoanInfo", advanceAndLoanInfo);
+			
+			GetDetailForGraduaty getDetailForGraduaty = Constants.getRestTemplate().postForObject(Constants.url + "/getdetailforgraduaty", map,
+					GetDetailForGraduaty.class);
+			model.addAttribute("getDetailForGraduaty", getDetailForGraduaty);
 
 		} catch (Exception e) {
 			e.printStackTrace();
