@@ -991,7 +991,7 @@ public class ReportController {
 	@RequestMapping(value = "/showEmpOtRegDetail", method = RequestMethod.GET)
 	public void showEmpOtRegDetail(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Employees Production Incentive";
+		String reportName = "Employees Production Incentive Details";
 
 		HttpSession session = request.getSession();
 
@@ -1368,7 +1368,7 @@ public class ReportController {
 
 			table.addCell(hcell);
 			
-			
+			float ttlLateHr = 0.0f;
 
 			int index = 0;
 			for (int i = 0; i < empOtList.size(); i++) {
@@ -1413,10 +1413,36 @@ public class ReportController {
 
 				table.addCell(cell);
 				
-			
+				ttlLateHr = ttlLateHr+prog.getLateHr();
 
 			}
 			
+			
+			PdfPCell cell;
+			cell = new PdfPCell(new Phrase("Total", headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" , headFontData));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + ttlLateHr, headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			table.addCell(cell);
+			
+		
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -1646,7 +1672,7 @@ public class ReportController {
 
 			table.addCell(hcell);
 			
-			
+			float ttlLateHr = 0.0f;
 
 			int index = 0;
 			for (int i = 0; i < empOtList.size(); i++) {
@@ -1691,9 +1717,33 @@ public class ReportController {
 
 				table.addCell(cell);
 				
-			
+				ttlLateHr = ttlLateHr + prog.getLateHr();
 
 			}
+			
+			PdfPCell cell;
+			cell = new PdfPCell(new Phrase("Total", headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("", headFontData));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" , headFontData));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(new Phrase("" + ttlLateHr, headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			table.addCell(cell);
 			
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
