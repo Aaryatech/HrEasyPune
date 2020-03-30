@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Designation;
@@ -1501,6 +1502,39 @@ public class MasterController {
 			e.printStackTrace();
 		}
 		return mav;
+	}
+	/********************************************************************************************/
+	@RequestMapping(value = "/checkUniqueDates", method = RequestMethod.GET)
+	public @ResponseBody Info checkUniqueDates(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		HttpSession session = request.getSession();
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			String valueType = request.getParameter("valueType");
+			String inputValue = request.getParameter("inputValue");
+			int primaryKey = Integer.parseInt(request.getParameter("primaryKey"));
+			int isEdit = Integer.parseInt(request.getParameter("isEdit"));
+			/*
+			 * System.err.println("compId:  " + userObj.getCompanyId());
+			 * System.err.println("valueType:  " + valueType);
+			 */
+			map.add("inputValue", DateConvertor.convertToYMD(inputValue));
+			map.add("valueType", valueType);
+			map.add("isEdit", isEdit);
+			map.add("primaryKey", primaryKey);
+
+			info = Constants.getRestTemplate().postForObject(Constants.url + "checkUniqueCalDates", map, Info.class);
+
+		} catch (Exception e) {
+			info.setError(true);
+			info.setMsg("1");
+			e.printStackTrace();
+		}
+
+		return info;
+
 	}
 
 }
