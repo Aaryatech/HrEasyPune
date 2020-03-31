@@ -462,7 +462,8 @@
 											</label>
 											<div class="col-md-2">
 												<input type="text" name="fromMonth" id="fromMonth"
-													class="form-control datepicker" required />
+													class="form-control datepicker"
+													onchange="bonuscalculation()" />
 											</div>
 										</div>
 
@@ -474,7 +475,8 @@
 											</label>
 											<div class="col-md-2">
 												<input type="text" name="toMonth" id="toMonth"
-													class="form-control datepicker" required />
+													class="form-control datepicker"
+													onchange="bonuscalculation()" />
 											</div>
 										</div>
 										<div class="form-group row">
@@ -704,6 +706,37 @@
 				$("#bonusDiv").hide();
 				document.getElementById("isbonusApp").value = 0;
 			}
+		}
+
+		function bonuscalculation() {
+			var fromMonth = $("#fromMonth").val();
+			var toMonth = $("#toMonth").val();
+
+			alert(fromMonth);
+			alert(toMonth);
+			/* var fd = new FormData();
+			fd.append('fromMonth', fromMonth);
+			fd.append('toMonth', toMonth);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/finalizeAttendaceProcess',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							if (response.error == false) {
+								location.reload(true);
+							} else {
+
+							}
+
+							location.reload(true);
+						},
+					}); */
 		}
 	</script>
 </body>
