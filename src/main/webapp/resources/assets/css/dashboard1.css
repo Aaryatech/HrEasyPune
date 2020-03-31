@@ -8,8 +8,7 @@ height: 200px; overflow: auto;}
 .dashboard_single{display: block; padding: 7px; border-bottom:1px solid rgba(0,0,0,.125);}
 .dashboard_l{float: left; width: 80%;}
 .dashboard_r{float: right; width: 20%;}
-.card-title.dash_title{font-size: 20px; font-weight: 700;}
-.card-title.dash_title i{font-size: 20px;}
+.card-title.dash_title{font-size: 18px; font-weight: bold;}
 .table-responsive.marg_btm{margin: 0 0 20px 0;}
 
 /*profile page css start here*/
@@ -67,60 +66,5 @@ line-height: 30px;}
 .late_employee{margin: 30px 10px 10px 15px; display: inline-block; width: 100%; }
 .employee_title{color: #FFF; font-size: 24px; text-align: left; padding:6px 30px;}
 
-.late_popup{position: relative; padding: 25px;}
-.close.cross{position: absolute; right: 20px; top: 10px; font-size: 36px; z-index:1;}
-.modal-half{width: 50%; max-width: 50%;}
-.late_pic{width: 100%; border-radius: 50%;}
-.pop_one_row{margin: 12px 0; font-size: 18px; text-align: left;}
-.emp_nm{text-align: right;}
-.late_title{font-size: 26px; text-align: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f5f5f5;}
 
-.total_row{margin: 0 0 20px 0;}
-.total_leavs{background: #f5f5f5; padding: 35px; border-radius:3px; text-align: center; font-size: 26px; line-height: 36px;}
-.total_leavs span{display: block; font-size: 32px; font-weight: 700;} 
-.pop_table{font-size: 18px;}
-.birthday_list{display: block;}
-.birthday_list ul{margin: 0px; padding: 0px;}
-.birthday_list ul li{list-style-type: none; display: inline-block; width: 100%; text-align: left; padding-bottom: 8px; 
-margin-bottom: 8px; border-bottom: 1px solid #f5f5f5; font-size: 18px; line-height: 50px;}
-.gift-icon{width: 50px; height: 50px; float: left; margin: 0 10px 0 0; font-size: 32px; text-align: center; line-height: 50px;
-color: #ff7043;}
-.birthday_list ul li img{width: 50px; height: 50px; float: left; margin: 0 15px 0 0;}
-.birthday_list ul li span{float: right;}
-.scroll_bx{max-width: 100%; max-height: 200px; height: 200px; overflow: auto; padding: 15px;}
-
-.gendor_bx{display: inline-block; width:100%; padding: 53px 15px;}
-.gendor_bx ul{margin: 0px; padding: 0px;}
-.gendor_bx ul li{list-style-type: none; float: left; width: 33.333%; text-align: center}
-.gender_head{display: block; margin: 0 0 15px 0; font-size: 24px; color: #000; text-align: center; line-height: 36px;}
-.gender_head span{display: block; font-size: 36px; font-weight: 700;}
-.gendor_bx ul li i{font-size: 100px;}
-i.male{color: #2196f3;}
-i.female{color: #ec407a;}
-i.other{color: #ff7043; }
-
-.order_bx{padding: 13px 15px; position: relative; height: 120px;}
-.order_bx i{font-size: 70px; top: 21%; right: 10px; position: absolute;}
-.order_title{line-height: 34px; letter-spacing: 1px; color: #FFF; font-size: 30px; font-weight: 700; margin: 0; padding: 0;}
-.order_title span{display: block; font-size: 14px; font-weight: 400;}
-.order_title span.order_one{display: block; text-transform: uppercase; font-size: 20px; font-weight: 400;}
-
-.new_pic{width: 50px; height: 5w0px; border-radius:50%; margin: 0 5px 0 0;}
-.new_nm{font-size: 18px;}
-.font-size-sm {font-size: 14px;}
-
-.important_link{display: inline-block; width: 100%;}
-.important_link ul{margin: 0px; padding: 0px;}
-.important_link ul li{list-style-type: none; padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 18px;}
-.important_link ul li i{margin: 0 8px 0 0; font-size: 14px;}
-.important_link ul li a{color: #333; text-decoration: none;}
-.important_link ul li a:hover{color: #ec407a;} 
-
-.btn-light:not([disabled]):not(.disabled).active{margin: 4px;}
-
-
-.nav-tabs{background: #4caf50; padding: 0 20px;}
-.nav-tabs-highlight .nav-link {text-transform: uppercase; font-size: 16px; letter-spacing: 0.5px; color: #FFF;}
-.card-header .card-title{font-size: 24px;}
-.nav-tabs-highlight .nav-link.active::before {background-color: #ff7043;}
 

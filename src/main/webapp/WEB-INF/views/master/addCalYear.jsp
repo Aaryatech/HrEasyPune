@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
 	type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 
-<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
 
 <body>
@@ -117,7 +118,7 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control datepickerclass" value="${calYear.calYrFromDate}"
 												data-placeholder="Select Date" name="from_date" autocomplete="off" 
-												onchange="checkUnique(this.value,1)" id="from_date">
+												onblur="checkUnique(this.value,1)" id="from_date">
 												<span class="validation-invalid-label"
 												id="error_getFrom_date" style="display: none;">This
 												field is required.</span>
@@ -138,7 +139,7 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control datepickerclass" value="${calYear.calYrToDate}"
 												data-placeholder="Select Date" name="to_date" autocomplete="off" 
-												 id="to_date" onchange="checkUnique(this.value,2)">
+												 id="to_date" onClick="checkUnique(this.value,2)">
 												<span class="validation-invalid-label"
 												id="error_getTo_date" style="display: none;">This
 												field is required.</span>
@@ -274,21 +275,7 @@
 
 
 	<script>
-		function checkSame() {
-			x = document.getElementById("locName").value;
-			y = document.getElementById("locShortName").value;
-			//alert(x);
-
-			if (x !== '' && y !== '') {
-				if (x == y) {
-					$("#error_sameName").show()
-					document.getElementById("locShortName").value = "";
-				} else {
-					$("#error_sameName").hide()
-				}
-			}
-
-		}
+		 
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -297,31 +284,7 @@
 			return;
 		}
 
-		function validateEmail(email) {
-
-			var eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-			if (eml.test($.trim(email)) == false) {
-
-				return false;
-
-			}
-
-			return true;
-
-		}
-		function validateMobile(mobile) {
-			var mob = /^[1-9]{1}[0-9]{9}$/;
-
-			if (mob.test($.trim(mobile)) == false) {
-
-				//alert("Please enter a valid email address .");
-				return false;
-
-			}
-			return true;
-
-		}
+		 
 		$(document).ready(function($) {
 
 			$("#submitInsertLocaion").submit(function(e) {
@@ -391,7 +354,7 @@
 				
 				var days= Math.abs(((dateTemp2.getTime()-dateTemp1.getTime())/(1000*60*60*24)));
 				//alert("Days-----------"+days);
-				if(days>=364 && days<=366){
+				if(days>=365 && days<=366){
 					$("#error_year_fromDate").hide()
 					$("#error_year_toDate").hide()
 				}else{

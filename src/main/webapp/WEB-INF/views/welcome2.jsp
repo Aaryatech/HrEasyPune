@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="showchart()">
 	
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
@@ -91,7 +91,7 @@
 								
 							
 							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">AKSHAY MADHUKAR RAOANDORE</a></td>
+								<td>AKSHAY MADHUKAR RAOANDORE</td>
 								<td>Development</td>
 								<td>20 Minutes</td>
 								<td>234 Minutes</td>										
@@ -129,7 +129,7 @@
 								</div>
 								
 								<!-- Leave Employee tab start here -->
-								<div class="row" style="display: none;">
+								<div class="row">
 									<div class="late_employee">
 										
 										<div class="late_one fix_scroll">
@@ -191,7 +191,7 @@
 								</div>
 								
 								<!-- Absent Employee tab start here -->
-								<div class="row" style="display: none;">
+								<div class="row">
 									<div class="late_employee">
 										
 										<div class="late_one fix_scroll">
@@ -253,7 +253,7 @@
 								</div>
 								
 								<!-- Present Employee tab start here -->
-								<div class="row" style="display: none;">
+								<div class="row">
 									<div class="late_employee">
 										
 										<div class="late_one fix_scroll">
@@ -320,180 +320,6 @@
 					</div>
 					
 					<div class="col-lg-4">
-						<div class="card">
-						<div class="card-header header-elements-inline bg-purple-300">
-							<h6 class="card-title dash_title"><i class="fas fa-suitcase"></i> Employee Structure</h6>
-						</div>
-						
-						<div>						
-							<div class="gendor_bx">
-								<ul>
-									<li>
-										<h3 class="gender_head">Male <span>58%</span></h3>
-										<i class="fas fa-male male"></i> 
-									</li>
-									<li>
-										<h3 class="gender_head">Other <span>2%</span> </h3>
-										<i class="fas fa-transgender other"></i>
-									</li>
-									<li>
-										<h3 class="gender_head">Female <span>40%</span></h3>
-										<i class="fas fa-female female"></i> 
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>
-					
-				</div>
-			
-				<!-- 1st birthday row start here -->
-				<div class="row">
-					<!-- todays birthdays -->
-					<div class="col-lg-4">
-						<div class="card">	
-						<div class="card-header header-elements-inline bg-primary">
-							<h6 class="card-title dash_title"><i class="fas fa-birthday-cake "></i> Today's Birthday</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="birthday_list">
-								<ul>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>
-					
-				    <!-- upcoming birthdays -->
-					<div class="col-lg-4">
-						<div class="card">	
-						<div class="card-header header-elements-inline bg-purple-300">
-							<h6 class="card-title dash_title"><i class="fas fa-birthday-cake "></i> Upcomming Birthday (next 7 days)</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="birthday_list">
-								<ul>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>	
-
-					<!-- Upcoming Holidays -->
-					<div class="col-lg-4">
-						<div class="card">
-						<div class="card-header header-elements-inline bg-warning">
-							<h6 class="card-title dash_title"><i class="fas fa-calendar-alt "></i> Upcomming Holidays</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="birthday_list">
-								<ul>
-									<li>
-										<i class="fas fa-gift gift-icon"></i>
-										Holi
-										<span>19-03-2020</span>
-									</li>									
-									<li>
-										<i class="fas fa-gift gift-icon"></i>
-										Rang Panchami
-										<span>19-03-2020</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>
-				</div>
-				
-				<!--  -->
-				<div class="row">
-					<div class="col-lg-3">
-						<div class="card bg-teal-400">
-							<div class="order_bx">
-								<h2 class="order_title"><span class="order_one">Order</span> 1,587 <span>15 New Order</span></h2>
-								<i class="far fa-file-alt "></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="card bg-pink-400">
-							<div class="order_bx">
-								<h2 class="order_title"><span class="order_one">Visitors</span> 250 <span>Bonus rate 25%</span></h2>
-								<i class="far fa-chart-bar"></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="card bg-blue-400">
-							<div class="order_bx">
-								<h2 class="order_title"><span class="order_one">User</span> 120 <span>25 New User</span></h2>
-								<i class="far fa-user "></i>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="card bg-warning">
-							<div class="order_bx">
-								<h2 class="order_title"><span class="order_one">Alerts</span> 58 <span>5 New Alerts</span></h2>
-								<i class="far fa-bell"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				
-				<!-- 1st birthday row start here -->
-				<!-- pie chart box -->
-				  
-				<div class="row">
-					
-					
-					
-					<div class="col-lg-4">
 						<div class="card tab_round">
 							<h6 class="card-title dash_title">Employee Gendor Spilit</h6>
 							
@@ -508,7 +334,7 @@
 						<filter id="_ABSTRACT_RENDERER_ID_137">
 							<feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur>
 							<feOffset dx="1" dy="1"></feOffset>
-							<feComponentTransfer><feFuncA type="linear" slope="0.1"></feFuncA></feComponentTransfer>dashboard
+							<feComponentTransfer><feFuncA type="linear" slope="0.1"></feFuncA></feComponentTransfer>
 							<feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
 						</filter>
 					</defs>
@@ -579,199 +405,16 @@
 							
 						</div>
 					</div>
-					<div class="col-lg-8">
-						<div class="card tab_round">
-							<h6 class="card-title dash_title">Employee Gendor Spilit</h6>
-							<div class="chart-container">
-							<div class="chart has-fixed-height" id="columns_clustered" style="user-select: none; position: relative;" _echarts_instance_="ec_1584698065971"><div style="position: relative; overflow: hidden; width: 100%; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-							<canvas style="position: absolute; left: 0px; top: 0px; width: 100%; height: 300px; user-select: none; padding: 0px; margin: 0px; border-width: 0px;" data-zr-dom-id="zr_0" width="100%" height="300"></canvas>
-							</div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.75); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 13px / 20px Roboto, sans-serif; padding: 10px 15px; left: 87px; top: 103px;">Line<br>
-							<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#E57373;"></span>
-							Version 1.7 - 2k data: 680<br>
-							<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#81C784;">
-							</span>Version 1.7 - 2w data: 1,212<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#64B5F6;"></span>
-							Version 1.7 - 20w data: 2,200<br><br>Line<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#F44336;"></span>
-							Version 2.0 - 2k data: 247<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#4CAF50;"></span>
-							Version 2.0 - 2w data: 488<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#2196F3;"></span>
-							Version 2.0 - 20w data: 906</div></div>
-						</div>
-						</div>
-					</div>
 					
 				</div>
-				
-				
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="card">	
-						<div class="card-header header-elements-inline bg-primary">
-							<h6 class="card-title dash_title"><i class="fas fa-user "></i> New Hire</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="table-responsive">
-								<table class="table text-nowrap">
-									<thead>
-										<tr>
-											<th>Photo</th>
-											<th class="w-100">Employee Name</th>
-											<th>Date</th>
-											
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											
-											<td>
-												<span class="text-muted font-size-sm">
-			<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png" class="new_pic">	
-												</span>
-											</td>
-											<td>
-												<div class="d-flex align-items-center">
-													<div class="new_nm">
-														<a href="#" class="text-default font-weight-semibold letter-icon-title">Aksahy Kasar </a>
-														<div class="text-muted font-size-sm"><i class="icon-checkmark3 font-size-sm mr-1"></i> New Joining</div>
-													</div>
-												</div>
-											</td>
-											<td>
-												<h6 class="font-weight-semibold mb-0">19-03-2020</h6>
-											</td>
-										</tr>
-										
-										<tr>
-											
-											<td>
-												<span class="text-muted font-size-sm">
-			<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png" class="new_pic">	
-												</span>
-											</td>
-											<td>
-												<div class="d-flex align-items-center">
-													<div class="new_nm">
-														<a href="#" class="text-default font-weight-semibold letter-icon-title">Aksahy Kasar </a>
-														<div class="text-muted font-size-sm"><i class="icon-checkmark3 font-size-sm mr-1"></i> New Joining</div>
-													</div>
-												</div>
-											</td>
-											<td>
-												<h6 class="font-weight-semibold mb-0">19-03-2020</h6>
-											</td>
-										</tr>
-										
-										<tr>
-											
-											<td>
-												<span class="text-muted font-size-sm">
-			<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png" class="new_pic">	
-												</span>
-											</td>
-											<td>
-												<div class="d-flex align-items-center">
-													<div class="new_nm">
-														<a href="#" class="text-default font-weight-semibold letter-icon-title">Aksahy Kasar </a>
-														<div class="text-muted font-size-sm"><i class="icon-checkmark3 font-size-sm mr-1"></i> New Joining</div>
-													</div>
-												</div>
-											</td>
-											<td>
-												<h6 class="font-weight-semibold mb-0">19-03-2020</h6>
-											</td>
-										</tr>
-										
-										<tr>
-											
-											<td>
-												<span class="text-muted font-size-sm">
-			<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png" class="new_pic">	
-												</span>
-											</td>
-											<td>
-												<div class="d-flex align-items-center">
-													<div class="new_nm">
-														<a href="#" class="text-default font-weight-semibold letter-icon-title">Aksahy Kasar </a>
-														<div class="text-muted font-size-sm"><i class="icon-checkmark3 font-size-sm mr-1"></i> New Joining</div>
-													</div>
-												</div>
-											</td>
-											<td>
-												<h6 class="font-weight-semibold mb-0">19-03-2020</h6>
-											</td>
-										</tr>
-
-									</tbody>
-								</table>
-							</div>
-						</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card">	
-						<div class="card-header header-elements-inline bg-pink-400">
-							<h6 class="card-title dash_title"><i class="icon-hyperlink "></i>  Important Links</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="important_link">
-								<ul>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Apply Leave </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Pay Deduction </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Add Reward </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Add Advance </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Add Loan </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Upload Attendence </a></li>
-									<li><a href="#"><i class="fas fa-bullseye"></i> Add OT Hour </a></li>
-									
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card">	
-						<div class="card-header header-elements-inline bg-primary">
-							<h6 class="card-title dash_title"><i class="fas fa-birthday-cake "></i> Today's Birthday</h6>
-						</div>
-						
-						<div class="scroll_bx">						
-							<div class="birthday_list">
-								<ul>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-									<li>
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png">
-										Aksahy Kasar  
-										<span>19-03-2020</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				
-				
+			
+			
+			
 			
 
 
 				<!-- Highlighting rows and columns -->
-				<div class="card" style="margin: 30px 0 0 0;">
+				<div class="card">
 
 					<form action="${pageContext.request.contextPath}/dashboard">
 						<div class="card-body">
@@ -1925,63 +1568,6 @@
 			<!-- /content area -->
 			
 			
-	            <!-- Full width modal -->
-				<div id="modal_full" class="modal fade" tabindex="-1">
-					<div class="modal-dialog modal-half">
-						<div class="modal-content">
-						
-						<div class="late_popup">
-						
-							<div class="late_title">Late Employee Details</div>
-							
-							<button type="button" class="close cross" data-dismiss="modal">&times;</button>
-
-								<div class="row">
-									<div class="col-md-3">
-										<img src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png" class="late_pic">
-									</div>
-									<div class="col-md-9">
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Employee Name :-</div>
-											<div class="col-md-9">Akshay Madhukar Raoandore</div>
-										</div>
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Designation :-</div>
-											<div class="col-md-9">.Net Developer</div>
-										</div>
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Department :-</div>
-											<div class="col-md-9">Development</div>
-										</div>
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Mobile No :-</div>
-											<div class="col-md-9">+91 9876543210</div>
-										</div>
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Alternate Mobile :-</div>
-											<div class="col-md-9">+91 9876543210</div>
-										</div>
-										<div class="row pop_one_row">
-											<div class="col-md-3 emp_nm">Leave Authorities :-</div>
-											<div class="col-md-9">Human Resource Person (HR)</div>
-										</div>
-									
-									</div>
-									
-								</div>
-							
-								
-						
-						</div>	
-
-							
-						</div>
-					</div>
-				</div>
-				<!-- /full width modal -->
-				
-				
-				
 			
 			
 
