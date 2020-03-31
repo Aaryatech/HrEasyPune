@@ -7,6 +7,11 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 </head>
 
 <body>
@@ -112,10 +117,16 @@
 														Contact No. : <span id="emp_mob1">${empinfo.mobileNo1}</span>
 													</div>
 												</div>
+												<div class="col-md-4">
+													<div class="profile_one">
+														Gross Salary : <span id="grossSalary">${empSalInfo.grossSalary}</span>
+													</div>
+												</div>
 
 
 											</div>
 										</div>
+
 									</div>
 								</div>
 								<div class="card-header header-elements-inline">
@@ -284,18 +295,7 @@
 											</div>
 										</div>
 
-										<!-- <div class="form-group row">
-											<label
-												class="col-form-label text-info font-weight-bold col-lg-2"
-												for="paydeductamt">Loan AMT <span
-												class="text-danger">* </span>:
-											</label>
-											<div class="col-lg-4">
-												<input type="text" class="form-control numbersOnly"
-													value="0" placeholder="Loan Amount" id="paydeductamt"
-													name="paydeductamt" autocomplete="off">
-											</div>
-										</div> -->
+
 
 									</form>
 
@@ -445,19 +445,53 @@
 												name="gratuityamt" autocomplete="off">
 										</div>
 									</div>
-
+									<div class="form-group row"></div>
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="bonusamt">Bonus & Exgratia <span
-											class="text-danger">* </span>:
+										<label class="col-form-label  col-lg-2" for="bonusamt">Bonus
+											& Exgratia <input type="checkbox" id="isbonusApp"
+											name="isbonusApp" value="0" onchange="isbonusAppChange()">
 										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly" value="0"
-												placeholder="Bonus & Exgratia Amount" id="bonusamt"
-												name="bonusamt" autocomplete="off">
+
+									</div>
+									<div id="bonusDiv">
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="fromMonth"> From Month <span style="color: red">*
+											</span> :
+											</label>
+											<div class="col-md-2">
+												<input type="text" name="fromMonth" id="fromMonth"
+													class="form-control datepicker" required />
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="toMonth"> To Month <span style="color: red">*
+											</span> :
+											</label>
+											<div class="col-md-2">
+												<input type="text" name="toMonth" id="toMonth"
+													class="form-control datepicker" required />
+											</div>
+										</div>
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="gratuityamt">Bonus AMT <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-4">
+												<input type="text" class="form-control numbersOnly"
+													value="0" placeholder="Gratuity Amount" id="gratuityamt"
+													name="gratuityamt" autocomplete="off" disabled>
+											</div>
 										</div>
 									</div>
+
+
 								</div>
 
 								<div class="card-header header-elements-inline">
@@ -646,9 +680,30 @@
 		function calCashAmt() {
 			var ratePerDay = parseFloat(document.getElementById("ratePerDay").value);
 			var leaveincash = parseFloat(document.getElementById("leaveincash").value);
-			document.getElementById("leavecashamt").value = (ratePerDay
-					* leaveincash).toFixed(2);
+			document.getElementById("leavecashamt").value = (ratePerDay * leaveincash)
+					.toFixed(2);
 
+		}
+		$(document).ready(function() {
+			// month selector
+			$('.datepicker').datepicker({
+				autoclose : true,
+				format : "mm-yyyy",
+				viewMode : "months",
+				minViewMode : "months"
+
+			});
+
+		});
+		function isbonusAppChange() {
+			//document.getElementById("leavecashamt").value = 0;
+			if (document.getElementById("isbonusApp").checked == true) {
+				$("#bonusDiv").show();
+				document.getElementById("isbonusApp").value = 1;
+			} else {
+				$("#bonusDiv").hide();
+				document.getElementById("isbonusApp").value = 0;
+			}
 		}
 	</script>
 </body>
