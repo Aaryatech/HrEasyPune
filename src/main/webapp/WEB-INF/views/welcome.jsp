@@ -495,7 +495,7 @@
 					
 					<div class="col-lg-4">
 						<div class="card tab_round">
-							<h6 class="card-title dash_title">Employee Gendor Spilit</h6>
+							<h6 class="card-title dash_title">Employee Gender Spilt</h6>
 							
 <div class="chart-container has-scroll text-center">
 	<div class="chart-container has-scroll text-center">
@@ -581,7 +581,7 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="card tab_round">
-							<h6 class="card-title dash_title">Employee Gendor Spilit</h6>
+							<h6 class="card-title dash_title">Employee Gender Split</h6>
 							<div class="chart-container">
 							<div class="chart has-fixed-height" id="columns_clustered" style="user-select: none; position: relative;" _echarts_instance_="ec_1584698065971"><div style="position: relative; overflow: hidden; width: 100%; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
 							<canvas style="position: absolute; left: 0px; top: 0px; width: 100%; height: 300px; user-select: none; padding: 0px; margin: 0px; border-width: 0px;" data-zr-dom-id="zr_0" width="100%" height="300"></canvas>
@@ -882,11 +882,222 @@
 							
 							<!-- new code end here -->
 						
+						<c:set var="peningtask" value="0"/>
+						
+						<div class="row">
+						
+									<div class="col-md-4">
+										<div class="card bg-warning">
+											<div class="card-header header-elements-inline">
+												<h6 class="card-title dash_title">Pending Master one time</h6>
+
+											</div>
+
+											<div class="card-body white_bg">
+												<div class="table-responsive">
+												
+													<div class="dashboard_bx">	
+													<c:if test="${masterDet.companyCount==0}">	
+														<c:set var="peningtask" value="1"/>									
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/companySubAdd"
+																	class="text-white"> Add Company:0</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.emptypeCount==0}">	
+														<c:set var="peningtask" value="1"/>										
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/mstEmpTypeAdd"
+																	class="text-white"> Add Emp Type:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.locCount==0}">	
+														<c:set var="peningtask" value="1"/>											
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/locationAdd"
+																	class="text-white"> Add Location:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.desnCount==0}">			
+														<c:set var="peningtask" value="1"/>								
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/dsesignationAdd"
+																	class="text-white"> Add Designation:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.deptCount==0}">	
+														<c:set var="peningtask" value="1"/>								
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/departmentAdd"
+																	class="text-white"> Add Department:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hoCount==0}">		
+														<c:set var="peningtask" value="1"/>				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/holidayAdd"
+																	class="text-white"> Add Holiday:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hocatCount==0}">	
+														<c:set var="peningtask" value="1"/>						
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/holidayCategoryAdd"
+																	class="text-white"> Add Holiday Cat:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.wocatCount==0}">		
+														<c:set var="peningtask" value="1"/>				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
+																	class="text-white"> Add Weekly off Cat:0 </a>
+													</div>
+													</c:if>
+													<c:if test="${calYearCnt==0}">			
+														<c:set var="peningtask" value="1"/>			
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/calYearAdd"
+																	class="text-white"> Add Calendar Year </a>
+													</div>
+													 </c:if>
+													<c:if test="${masterDet.shiftCount==0}">	
+														<c:set var="peningtask" value="1"/>					
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/addShift"
+																	class="text-white"> Add Shift:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvtypeCount==0}">		
+														<c:set var="peningtask" value="1"/>				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveTypeAdd"
+																	class="text-white"> Add Leave Type:0 </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvstructCount==0}">			
+														<c:set var="peningtask" value="1"/>		
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/addLeaveStructure"
+																	class="text-white"> Add Leave Structure:0 </a>
+													</div>
+													</c:if>
+													
+													<!--Pending  -->
+													
+													<c:if test="${masterDet.compPending!=0}">	
+														<c:set var="peningtask" value="1"/>				
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignSubCompany"
+																	class="text-white"> Assign Company:${masterDet.compPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.typePending!=0}">		
+														<c:set var="peningtask" value="1"/>		
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignEmpType"
+																	class="text-white"> Assign Emp Type:${masterDet.typePending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.locPending!=0}">		
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignLocation"
+																	class="text-white">
+																		Assign Location:${masterDet.locPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.desnPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showAssignDesignation"
+																	class="text-white"> Assign Designation:${masterDet.desnPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.deptPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignDept"
+																	class="text-white">
+																		Assign Department:${masterDet.deptPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.hocatPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}//assignHolidayCategory"
+																	class="text-white">
+																		Assign Holiday:${masterDet.hocatPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.wocatPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/assignWeekoffCategory"
+																	class="text-white">
+																		Assign Weekly off
+																			Cat:${masterDet.wocatPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.shiftPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/showEmpListToAssignShift"
+																	class="text-white">
+																		Assign Shift:${masterDet.shiftPending}
+																</a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvStruvtPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveStructureAllotment"
+																	class="text-white"> Assign Leave Type:${masterDet.lvStruvtPending} </a>
+													</div>
+													</c:if>
+													
+													<c:if test="${masterDet.lvAuthPending!=0}">	
+														<c:set var="peningtask" value="1"/>	
+													<div class="dashboard_single">
+														<a href="${pageContext.request.contextPath}/leaveAuthorityList"
+																	class="text-white"> Assign Leave
+																			Structure:${masterDet.lvAuthPending}
+																</a>
+													</div>
+													</c:if>
+													
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+						
+						</div>
 						
 						
-						
-						
-						
+<c:if test="${peningtask==1}">
+
 
 							<div class="row">
 								<div class="col-md-4">
@@ -1263,190 +1474,11 @@
 
 									</div>
 
-									<div class="col-md-4">
-										<div class="card bg-warning">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title dash_title">Pending Master one time</h6>
-
-											</div>
-
-											<div class="card-body white_bg">
-												<div class="table-responsive">
-												
-													<div class="dashboard_bx">	
-													<c:if test="${masterDet.companyCount==0}">												
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/companySubAdd"
-																	class="text-white"> Add Company:0</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.emptypeCount==0}">											
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/mstEmpTypeAdd"
-																	class="text-white"> Add Emp Type:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.locCount==0}">									
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/locationAdd"
-																	class="text-white"> Add Location:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.desnCount==0}">									
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/dsesignationAdd"
-																	class="text-white"> Add Designation:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.deptCount==0}">							
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/departmentAdd"
-																	class="text-white"> Add Department:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.hoCount==0}">						
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/holidayAdd"
-																	class="text-white"> Add Holiday:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.hocatCount==0}">					
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/holidayCategoryAdd"
-																	class="text-white"> Add Holiday Cat:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.wocatCount==0}">				
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
-																	class="text-white"> Add Weekly off Cat:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.shiftCount==0}">				
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/addShift"
-																	class="text-white"> Add Shift:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.lvtypeCount==0}">				
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/leaveTypeAdd"
-																	class="text-white"> Add Leave Type:0 </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.lvstructCount==0}">			
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/addLeaveStructure"
-																	class="text-white"> Add Leave Structure:0 </a>
-													</div>
-													</c:if>
-													
-													<!--Pending  -->
-													
-													<c:if test="${masterDet.compPending!=0}">			
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/assignSubCompany"
-																	class="text-white"> Assign Company:${masterDet.compPending} </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.typePending!=0}">		
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/showAssignEmpType"
-																	class="text-white"> Assign Emp Type:${masterDet.typePending} </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.locPending!=0}">	
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/showAssignLocation"
-																	class="text-white">
-																		Assign Location:${masterDet.locPending} </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.desnPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/showAssignDesignation"
-																	class="text-white"> Assign Designation:${masterDet.desnPending}
-																</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.deptPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/assignDept"
-																	class="text-white">
-																		Assign Department:${masterDet.deptPending}
-																</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.hocatPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}//assignHolidayCategory"
-																	class="text-white">
-																		Assign Holiday:${masterDet.hocatPending}
-																</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.wocatPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/assignWeekoffCategory"
-																	class="text-white">
-																		Assign Weekly off
-																			Cat:${masterDet.wocatPending}
-																</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.shiftPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/showEmpListToAssignShift"
-																	class="text-white">
-																		Assign Shift:${masterDet.shiftPending}
-																</a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.lvStruvtPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/leaveStructureAllotment"
-																	class="text-white"> Assign Leave Type:${masterDet.lvStruvtPending} </a>
-													</div>
-													</c:if>
-													
-													<c:if test="${masterDet.lvAuthPending!=0}">
-													<div class="dashboard_single">
-														<a href="${pageContext.request.contextPath}/leaveAuthorityList"
-																	class="text-white"> Assign Leave
-																			Structure:${masterDet.lvAuthPending}
-																</a>
-													</div>
-													</c:if>
-													
-													</div>
-												</div>
-											</div>
-										</div>
-
-									</div>
-
 
 								</div>
 							</c:if>
-
+	</c:if> 
+	<!-- end of if condtion -->
 
 							<c:if test="${userType == 2 || isAuth > 0 }">
 

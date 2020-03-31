@@ -57,15 +57,20 @@
 									Attendance process for month <strong> ${monthName}
 										&nbsp;${year}</strong>
 								</h6>
-								<br />
-								<c:if test="${countSal>0}">
-									<label class="text-danger"> Shift Are not Assigned To
-										Employee </label>
-								</c:if>
+								
 								<div class="header-elements"></div>
 							</div>
 
 							<div class="card-body">
+							<br />
+								<c:if test="${countSal>0}">
+									<div  class="row">
+									<div class="col alert alert-danger">
+									 Shift Are not Assigned To
+										Employees(${countSal}) </div>
+										</div>
+								</c:if>
+								
 								<div class="tab-content">
 									<c:if test="${countSal==0}">
 										<div class="" id="solid-rounded-justified-tab1">

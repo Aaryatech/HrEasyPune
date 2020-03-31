@@ -212,13 +212,34 @@
 
 	</div>
 	<!-- /page content -->
-	
+	<script type="text/javascript">
+		// Single picker
+		/* $("#datepicker").datepicker({
+			changeMonth : true,
+			changeYear : true,
+			yearRange : "-50:+50",
+			dateFormat : "mm-yy"
+		}); */
+
+		$(document).ready(function() {
+			// month selector
+			$('.datepickerclass').datepicker({
+				autoclose : true,
+				format : "dd-mm-yyyy",
+				
+
+			});
+
+		});
+	</script>
 	<script>
 		//Single picker
-		$('.datepickerclass').daterangepicker({
+		
+		$('.datepickerclass1').daterangepicker({
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,
+			
 			locale : {
 				format : 'DD-MM-YYYY'
 			}
@@ -354,7 +375,7 @@
 				
 				var days= Math.abs(((dateTemp2.getTime()-dateTemp1.getTime())/(1000*60*60*24)));
 				//alert("Days-----------"+days);
-				if(days>=365 && days<=366){
+				if(days>=364 && days<=365){
 					$("#error_year_fromDate").hide()
 					$("#error_year_toDate").hide()
 				}else{
