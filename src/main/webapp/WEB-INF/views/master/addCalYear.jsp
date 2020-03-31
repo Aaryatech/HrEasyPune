@@ -158,7 +158,7 @@
 										</label>
 										<div class="col-lg-10">
 											<input type="checkbox" id="check_yes" name="check_year" value="1">Yes
-												<input type="checkbox" id="check_no" name="check_year" value="0">No
+												<!-- <input type="checkbox" id="check_no" name="check_year" value="0">No -->
 										</div>
 									</div></c:if>
 
