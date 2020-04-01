@@ -576,7 +576,7 @@
 	<script type="text/javascript">
 		function getGraphs() {
 
-			var empId = document.getElementById("empId").value;
+			var empId = document.getElementById("empId1").value;
 			var fromDate = document.getElementById("datepickerFrom").value;
 			var toDate = document.getElementById("datepickerTo").value;
 

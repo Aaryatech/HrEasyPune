@@ -32,6 +32,7 @@ import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SlabMaster;
 import com.ats.hreasy.model.WeekoffCategory;
 
@@ -1383,4 +1384,159 @@ public class HrEasyController {
 
 	}
 	
+	
+	/***********************Setting Labels List *********************/
+	@RequestMapping(value = "/showSettingLabelsList", method = RequestMethod.GET)
+	public ModelAndView showSettingLabelsList(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+
+		ModelAndView model = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("showSettingLabelsList", "showSettingLabelsList", 1, 0, 0, 0,
+					newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+
+				model = new ModelAndView("master/salSettingLabels");
+
+			
+				Setting[] setting = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getAllSettingLabels", Setting[].class);
+
+				List<Setting> settingList = new ArrayList<Setting>(Arrays.asList(setting));
+
+				for (int i = 0; i < settingList.size(); i++) {
+
+					settingList.get(i)
+							.setExVar1(FormValidation.Encrypt(String.valueOf(settingList.get(i).getSettingId())));
+				}
+
+				model.addObject("settingList", settingList);
+
+				Info add = AcessController.checkAccess("showSettingLabelsList", "showSettingLabelsList", 0, 1, 0, 0,
+						newModuleList);
+				Info edit = AcessController.checkAccess("showSettingLabelsList", "showSettingLabelsList", 0, 0, 1, 0,
+						newModuleList);
+				Info delete = AcessController.checkAccess("showSettingLabelsList", "showSettingLabelsList", 0, 0, 0, 1,
+						newModuleList);
+
+				if (add.isError() == false) {
+					System.out.println(" add   Accessable ");
+					model.addObject("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");
+					model.addObject("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");
+					model.addObject("deleteAccess", 0);
+
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/editSettingLable", method = RequestMethod.GET)
+	public ModelAndView editSettingLable(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		Setting setting = new Setting();
+		ModelAndView model = null;
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("editSettingLable", "showSettingLabelsList", 0, 1, 0, 0, newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+
+			try {
+				model = new ModelAndView("master/editSettingLable");
+
+				String base64encodedString = request.getParameter("settingId");
+				String settingId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("settingId", Integer.parseInt(settingId));
+
+				setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingById", map, Setting.class);
+				setting.setExVar1(FormValidation.Encrypt(String.valueOf(setting.getSettingId())));
+				
+				model.addObject("setting", setting);
+				model.addObject("title", "Edit Setting Value");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/updateSettingValue", method = RequestMethod.POST)
+	public String updateSettingValue(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		String a = null;
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+		Info view = AcessController.checkAccess("updateSettingValue", "showSettingLabelsList", 0, 0, 0, 1, newModuleList);
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		}
+
+		else {
+
+			a = "redirect:/showSettingLabelsList";
+
+			try {
+				MultiValueMap<String, Object> map = null;
+				Info res = new Info();
+				
+				String base64encodedString = request.getParameter("settingId");
+				String settingId = FormValidation.DecodeKey(base64encodedString);
+				
+				String value = request.getParameter("set_value");
+				System.out.println("Value----------"+value);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("settingId", Integer.parseInt(settingId));
+				map.add("val", value);
+
+				res = Constants.getRestTemplate().postForObject(Constants.url + "/updateSetting", map, Info.class);
+				
+				System.err.println("errorMsg"+res.getMsg());
+				if (res.isError() == false) {
+					session.setAttribute("successMsg", res.getMsg());
+				} else {
+					session.setAttribute("errorMsg", res.getMsg());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Delete");
+			}
+		}
+
+		return a;
+	}
+
 }
