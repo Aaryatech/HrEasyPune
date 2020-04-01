@@ -397,30 +397,7 @@
 
 								</div>
 								<div class="card-body">
-									<!-- <div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="rewardamt">Reward <span class="text-danger">*
-										</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly" value="0"
-												placeholder="Reward Amount" id="rewardamt" name="rewardamt"
-												autocomplete="off">
-										</div>
-									</div> -->
-									<!-- <div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="claimamt">Claim <span class="text-danger">*
-										</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly" value="0"
-												placeholder="Claim Amount" id="claimamt" name="claimamt"
-												autocomplete="off">
-										</div>
-									</div> -->
+
 									<c:set value="0" var="graduatyCalAmt"></c:set>
 									<c:choose>
 										<c:when test="${getDetailForGraduaty.service>5}">
@@ -448,8 +425,8 @@
 									<div class="form-group row"></div>
 									<div class="form-group row">
 										<label class="col-form-label  col-lg-2" for="bonusamt">Bonus
-											& Exgratia <input type="checkbox" id="isbonusApp"
-											name="isbonusApp" value="0" onchange="isbonusAppChange()">
+											<input type="checkbox" id="isbonusApp" name="isbonusApp"
+											value="0" onchange="isbonusAppChange()">
 										</label>
 
 									</div>
@@ -462,8 +439,7 @@
 											</label>
 											<div class="col-md-2">
 												<input type="text" name="fromMonth" id="fromMonth"
-													class="form-control datepicker"
-													onchange="bonuscalculation()" />
+													class="form-control datepicker" />
 											</div>
 										</div>
 
@@ -475,8 +451,19 @@
 											</label>
 											<div class="col-md-2">
 												<input type="text" name="toMonth" id="toMonth"
-													class="form-control datepicker"
-													onchange="bonuscalculation()" />
+													class="form-control datepicker" />
+											</div>
+
+											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												id="calculatebtn" onclick="bonuscalculation()">Calculate</button>
+										</div>
+										<div class="form-group row">
+											<label class="col-form-label   col-lg-2" for="gratuityamt">Working
+												Day : </label>
+											<div class="col-lg-4">
+												<input type="text" class="form-control numbersOnly"
+													value="0" placeholder="Working Day" id="workingday"
+													name="workingday" autocomplete="off" disabled>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -487,8 +474,8 @@
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
-													value="0" placeholder="Gratuity Amount" id="gratuityamt"
-													name="gratuityamt" autocomplete="off" disabled>
+													value="0" placeholder="Bonus Amount" id="bonusAmt"
+													name="bonusAmt" autocomplete="off">
 											</div>
 										</div>
 									</div>
@@ -707,36 +694,46 @@
 				document.getElementById("isbonusApp").value = 0;
 			}
 		}
-
+		/* function bonuscalculation() {
+			
+		} */
 		function bonuscalculation() {
 			var fromMonth = $("#fromMonth").val();
 			var toMonth = $("#toMonth").val();
 
-			alert(fromMonth);
-			alert(toMonth);
-			/* var fd = new FormData();
-			fd.append('fromMonth', fromMonth);
-			fd.append('toMonth', toMonth);
+			if (fromMonth != "" && toMonth != "") {
 
-			$
-					.ajax({
-						url : '${pageContext.request.contextPath}/finalizeAttendaceProcess',
-						type : 'post',
-						dataType : 'json',
-						data : fd,
-						contentType : false,
-						processData : false,
-						success : function(response) {
+				var fd = new FormData();
+				fd.append('fromMonth', fromMonth);
+				fd.append('toMonth', toMonth);
 
-							if (response.error == false) {
-								location.reload(true);
-							} else {
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/calculateBonusAmt',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								//alert(response);
+								var presentDays = response.presentdays
+										+ response.weeklyoff + response.holiday;
+								document.getElementById("workingday").value = presentDays;
+								var amt = (((response.basic + response.allowanceValue) * 12) / 365)
+										* presentDays * response.bonusPer;
+								document.getElementById("bonusAmt").value = amt.toFixed(2);
+							},
+						});
+			} else {
+				if (fromMonth == "") {
+					alert("Select From Month ");
+				} else if (toMonth == "") {
+					alert("Select To Month ");
+				}
 
-							}
+			}
 
-							location.reload(true);
-						},
-					}); */
 		}
 	</script>
 </body>
