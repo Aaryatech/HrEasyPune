@@ -38,6 +38,8 @@ import com.ats.hreasy.model.LeaveStructureHeader;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.ViewEmployee;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 @Controller
 @Scope("session")
@@ -62,7 +64,7 @@ public class FullAndFinalController {
 			 */
 
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+					.getForObject(Constants.url + "/getAllEmployeeDetailForFullnFinal", GetEmployeeDetails[].class);
 			List<GetEmployeeDetails> empList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
 			for (int i = 0; i < empList.size(); i++) {
@@ -244,6 +246,7 @@ public class FullAndFinalController {
 			float minusamt = Float.parseFloat(request.getParameter("minusamt"));
 			String remark = request.getParameter("remark");
 
+			String[] leaveDatesplt = leaveDate.split("-");
 			/*
 			 * System.out.println(leaveDate); System.out.println(leaveReason);
 			 * System.out.println(lrEsic); System.out.println(lrForPF);
@@ -256,8 +259,12 @@ public class FullAndFinalController {
 			Date date = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+			String json = ow.writeValueAsString(empInfo);
+
 			FullAndFinal save = new FullAndFinal();
 			save.setLeavingDate(DateConvertor.convertToYMD(leaveDate));
+			save.setEmpId(empInfoshow.getEmpId());
 			save.setAdvanceBalAmt(advanceamt);
 			save.setLoanBalAmt(loanamt);
 			save.setLeaveCountCash(leaveincash);
@@ -272,20 +279,36 @@ public class FullAndFinalController {
 			save.setComment(remark);
 			save.setLoginId(userObj.getUserId());
 			save.setLoginDate(sf.format(date));
+			save.setEmpDataJson(json);
+			save.setEmpCode(empInfo.getEmpCode());
 
 			FullAndFinal res = Constants.getRestTemplate().postForObject(Constants.url + "/insertfullandfinalrecord",
 					save, FullAndFinal.class);
 
-			map = new LinkedMultiValueMap<>();
-			map.add("empId", empInfoshow.getEmpId());
-			Info advupdateres = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/updateIsPaidInPaydeClaimAdvLoanInFullFinal", save, Info.class);
+			if (res != null) {
 
+				map = new LinkedMultiValueMap<>();
+				map.add("empIds", empInfoshow.getEmpId());
+				map.add("userId", userObj.getUserId());
+				map.add("month", leaveDatesplt[1]);
+				map.add("year", leaveDatesplt[2]);
+				Info advupdateres = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/updateIsPaidInPaydeClaimAdvLoanInFullFinal", map, Info.class);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empInfoshow.getEmpId());
+				map.add("leaveDate", DateConvertor.convertToYMD(leaveDate));
+				map.add("leaveReason", leaveReason);
+				map.add("lrEsic", lrEsic);
+				map.add("lrForPF", lrForPF);
+				Info leavingDatainfo = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/updateLeaveDatainemployee", map, Info.class);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return "redirect:/fullnfinalprocess?empId=MQ==";
+		return "redirect:/showEmpListForFullnfinal";
 	}
 
 }
