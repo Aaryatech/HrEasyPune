@@ -118,7 +118,7 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control datepickerclass" value="${calYear.calYrFromDate}"
 												data-placeholder="Select Date" name="from_date" autocomplete="off" 
-												onblur="checkUnique(this.value,1)" id="from_date">
+												onchange="checkUnique(this.value,1)" id="from_date">
 												<span class="validation-invalid-label"
 												id="error_getFrom_date" style="display: none;">This
 												field is required.</span>
@@ -139,7 +139,7 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control datepickerclass" value="${calYear.calYrToDate}"
 												data-placeholder="Select Date" name="to_date" autocomplete="off" 
-												 id="to_date" onClick="checkUnique(this.value,2)">
+												 id="to_date" onchange="checkUnique(this.value,2)">
 												<span class="validation-invalid-label"
 												id="error_getTo_date" style="display: none;">This
 												field is required.</span>
