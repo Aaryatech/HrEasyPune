@@ -210,5 +210,49 @@ public class FullAndFinalController {
 		return getDetailForBonus;
 
 	}
+	
+	@RequestMapping(value = "/submitFullandFinal", method = RequestMethod.POST)
+	public String submitFullandFinal(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = new String();
+
+		try {
+
+			String leaveDate = request.getParameter("leaveDate");
+			String leaveReason = request.getParameter("leaveReason");
+			String lrEsic = request.getParameter("lrEsic");
+			String lrForPF = request.getParameter("lrForPF");
+			float advanceamt = Float.parseFloat(request.getParameter("advanceamt"));
+			float loanamt = Float.parseFloat(request.getParameter("loanamt"));
+			String leaveincash = request.getParameter("leaveincash");
+			float leavecashamt = Float.parseFloat(request.getParameter("leavecashamt"));
+			float gratuityamt = Float.parseFloat(request.getParameter("gratuityamt"));
+			float bonusAmt = Float.parseFloat(request.getParameter("bonusAmt"));
+			String fromMonth = request.getParameter("fromMonth");
+			String toMonth = request.getParameter("toMonth");
+			float plusamt = Float.parseFloat(request.getParameter("plusamt"));
+			float minusamt = Float.parseFloat(request.getParameter("minusamt"));
+			
+			System.out.println(leaveDate);
+			System.out.println(leaveReason);
+			System.out.println(lrEsic);
+			System.out.println(lrForPF);
+			System.out.println(advanceamt);
+			System.out.println(loanamt);
+			System.out.println(leaveincash);
+			System.out.println(leavecashamt);
+			System.out.println(gratuityamt);
+			System.out.println(bonusAmt);
+			System.out.println(fromMonth);
+			System.out.println(toMonth);
+			System.out.println(plusamt);
+			System.out.println(minusamt);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return mav;
+	}
 
 }
