@@ -435,7 +435,7 @@
 														class="form-control datepicker" />
 												</div>
 
-												<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												<button type="button" class="btn bg-blue ml-3 legitRipple"
 													id="calculatebtn" onclick="bonuscalculation()">Calculate</button>
 											</div>
 											<div class="form-group row">
@@ -584,7 +584,6 @@
 			return true;
 
 		}
-		  
 	</script>
 
 	<script type="text/javascript">
@@ -719,29 +718,89 @@
 	</script>
 	<script>
 		// Custom bootbox dialog
-		$('.bootbox_custom').on('click', function() {
-			//var uuid = $(this).data("uuid") // will return the number 123
-			bootbox.confirm({
-				title : 'Confirm ',
-				message : 'Are you sure want to Submit ? ',
-				buttons : {
-					confirm : {
-						label : 'Yes',
-						className : 'btn-success'
-					},
-					cancel : {
-						label : 'Cancel',
-						className : 'btn-link'
-					}
-				},
-				callback : function(result) {
-					if (result) {
-						document.getElementById('submitFullandfinal').submit();
+		$('.bootbox_custom').on(
+				'click',
+				function() {
+					//var uuid = $(this).data("uuid") // will return the number 123
 
+					var leaveDate = $("#leaveDate").val();
+					var leaveReason = $("#leaveReason").val();
+					var advanceamt = $("#advanceamt").val();
+					var loanamt = $("#loanamt").val();
+					var leaveincash = $("#leaveincash").val();
+					var gratuityamt = $("#gratuityamt").val();
+					var bonusAmt = $("#bonusAmt").val();
+					var plusamt = $("#plusamt").val();
+					var minusamt = $("#minusamt").val();
+					var fromMonth = $("#fromMonth").val();
+					var toMonth = $("#toMonth").val();
+
+					var flag = 0;
+
+					if (leaveDate == "") {
+						alert("Select Leaving Date");
+						flag = 1;
+					} else if (leaveReason == "") {
+						alert("Enter Leaving Reason");
+						flag = 1;
+					} else if (advanceamt == "") {
+						alert("Enter Valid Advance Amt");
+						flag = 1;
+					} else if (loanamt == "") {
+						alert("Enter Valid Loan Amt");
+						flag = 1;
+					} else if (leaveincash == "") {
+						alert("Enter Valid Leave");
+						flag = 1;
+					} else if (gratuityamt == "") {
+						alert("Enter Valid Graduaty Amt");
+						flag = 1;
+					} else if (bonusAmt == "") {
+						alert("Enter Valid Bonus Amt");
+						flag = 1;
+					} else if (plusamt == "") {
+						alert("Enter Valid Plus Amt");
+						flag = 1;
+					} else if (minusamt == "") {
+						alert("Enter Valid Minus Amt");
+						flag = 1;
 					}
-				}
-			});
-		});
+
+					if (document.getElementById("isbonusApp").checked == true) {
+						if (fromMonth == "") {
+							alert("Select From Month ");
+							flag = 1;
+						} else if (toMonth == "") {
+							alert("Select To Month ");
+							flag = 1;
+						}
+					}
+
+					if (flag == 0) {
+
+						bootbox.confirm({
+							title : 'Confirm ',
+							message : 'Are you sure want to Submit ? ',
+							buttons : {
+								confirm : {
+									label : 'Yes',
+									className : 'btn-success'
+								},
+								cancel : {
+									label : 'Cancel',
+									className : 'btn-link'
+								}
+							},
+							callback : function(result) {
+								if (result) {
+									document.getElementById(
+											'submitFullandfinal').submit();
+
+								}
+							}
+						});
+					}
+				});
 	</Script>
 </body>
 </html>

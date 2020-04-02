@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AdvanceAndLoanInfo;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.EmpBasicAllownceForLeaveInCash;
 import com.ats.hreasy.model.EmpSalaryInfo;
 import com.ats.hreasy.model.EmployeeMaster;
+import com.ats.hreasy.model.FullAndFinal;
 import com.ats.hreasy.model.GetDetailForBonus;
 import com.ats.hreasy.model.GetDetailForGraduaty;
 import com.ats.hreasy.model.GetEmployeeDetails;
@@ -35,6 +37,7 @@ import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LeaveStructureHeader;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
+import com.ats.hreasy.model.ViewEmployee;
 
 @Controller
 @Scope("session")
@@ -200,23 +203,30 @@ public class FullAndFinalController {
 			map.add("toMonth", tomonthyear[0]);
 			map.add("fromYear", fmonthyear[1]);
 			map.add("toYear", tomonthyear[1]);
-			  getDetailForBonus = Constants.getRestTemplate().postForObject(Constants.url + "/getbonuscalDetails", map,
+			getDetailForBonus = Constants.getRestTemplate().postForObject(Constants.url + "/getbonuscalDetails", map,
 					GetDetailForBonus.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			 
+
 		}
 		return getDetailForBonus;
 
 	}
-	
+
 	@RequestMapping(value = "/submitFullandFinal", method = RequestMethod.POST)
 	public String submitFullandFinal(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		String mav = new String();
-
 		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empInfoshow.getEmpId());
+
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);
 
 			String leaveDate = request.getParameter("leaveDate");
 			String leaveReason = request.getParameter("leaveReason");
@@ -224,7 +234,7 @@ public class FullAndFinalController {
 			String lrForPF = request.getParameter("lrForPF");
 			float advanceamt = Float.parseFloat(request.getParameter("advanceamt"));
 			float loanamt = Float.parseFloat(request.getParameter("loanamt"));
-			String leaveincash = request.getParameter("leaveincash");
+			int leaveincash = Integer.parseInt(request.getParameter("leaveincash"));
 			float leavecashamt = Float.parseFloat(request.getParameter("leavecashamt"));
 			float gratuityamt = Float.parseFloat(request.getParameter("gratuityamt"));
 			float bonusAmt = Float.parseFloat(request.getParameter("bonusAmt"));
@@ -232,27 +242,50 @@ public class FullAndFinalController {
 			String toMonth = request.getParameter("toMonth");
 			float plusamt = Float.parseFloat(request.getParameter("plusamt"));
 			float minusamt = Float.parseFloat(request.getParameter("minusamt"));
-			
-			System.out.println(leaveDate);
-			System.out.println(leaveReason);
-			System.out.println(lrEsic);
-			System.out.println(lrForPF);
-			System.out.println(advanceamt);
-			System.out.println(loanamt);
-			System.out.println(leaveincash);
-			System.out.println(leavecashamt);
-			System.out.println(gratuityamt);
-			System.out.println(bonusAmt);
-			System.out.println(fromMonth);
-			System.out.println(toMonth);
-			System.out.println(plusamt);
-			System.out.println(minusamt);
-			
+			String remark = request.getParameter("remark");
+
+			/*
+			 * System.out.println(leaveDate); System.out.println(leaveReason);
+			 * System.out.println(lrEsic); System.out.println(lrForPF);
+			 * System.out.println(advanceamt); System.out.println(loanamt);
+			 * System.out.println(leaveincash); System.out.println(leavecashamt);
+			 * System.out.println(gratuityamt); System.out.println(bonusAmt);
+			 * System.out.println(fromMonth); System.out.println(toMonth);
+			 * System.out.println(plusamt); System.out.println(minusamt);
+			 */
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			FullAndFinal save = new FullAndFinal();
+			save.setLeavingDate(DateConvertor.convertToYMD(leaveDate));
+			save.setAdvanceBalAmt(advanceamt);
+			save.setLoanBalAmt(loanamt);
+			save.setLeaveCountCash(leaveincash);
+			save.setLeaveInCashAmt(leavecashamt);
+			save.setGratuityAmt(gratuityamt);
+			save.setBonusExgratiaAmt(bonusAmt);
+			save.setBonusFromMonth(fromMonth);
+			save.setBonusToMonth(toMonth);
+			save.setAdjstPlus(plusamt);
+			save.setAdjstMinus(minusamt);
+			save.setNetAmt(advanceamt + loanamt + leavecashamt + gratuityamt + bonusAmt + plusamt - minusamt);
+			save.setComment(remark);
+			save.setLoginId(userObj.getUserId());
+			save.setLoginDate(sf.format(date));
+
+			FullAndFinal res = Constants.getRestTemplate().postForObject(Constants.url + "/insertfullandfinalrecord",
+					save, FullAndFinal.class);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empInfoshow.getEmpId());
+			Info advupdateres = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/updateIsPaidInPaydeClaimAdvLoanInFullFinal", save, Info.class);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return mav;
+		return "redirect:/fullnfinalprocess?empId=MQ==";
 	}
 
 }
