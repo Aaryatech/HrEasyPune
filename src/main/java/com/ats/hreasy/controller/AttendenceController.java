@@ -41,6 +41,7 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AttendanceSheetData;
+import com.ats.hreasy.model.CountOfAssignPending;
 import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.Designation;
@@ -67,7 +68,6 @@ public class AttendenceController {
 
 		String mav = "attendence/attendenceImportExel";
 
-		
 		try {
 
 			/*
@@ -200,10 +200,19 @@ public class AttendenceController {
 			mav = "attendence/attendanceSelectMonth";
 
 			try {
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				Integer countSal = Constants.getRestTemplate().postForObject(Constants.url + "/getSalStructCountEmp",
-						map, Integer.class);
+
+				/*
+				 * Integer countSal = Constants.getRestTemplate().postForObject(Constants.url +
+				 * "/getSalStructCountEmp", map, Integer.class);
+				 * 
+				 * model.addAttribute("countSal", countSal);
+				 */
+				CountOfAssignPending countSal = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getCountOfAssignForAttendance", CountOfAssignPending.class);
 				model.addAttribute("countSal", countSal);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
 				Date dt = new Date();
 				Calendar temp = Calendar.getInstance();
 				temp.setTime(dt);
@@ -551,13 +560,13 @@ public class AttendenceController {
 						LvType[].class);
 				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
 				model.addAttribute("lvTypeList", lvTypeList);
-				
+
 				map = new LinkedMultiValueMap<>();
 				map.add("empId", empId);
-				MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
-						MstEmpType.class);
+				MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId",
+						map, MstEmpType.class);
 				model.addAttribute("mstEmpType", mstEmpType);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -825,7 +834,7 @@ public class AttendenceController {
 
 			String[] empIds = request.getParameterValues("selectEmp");
 			String comnt = request.getParameter("cmnt");
-			
+
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");

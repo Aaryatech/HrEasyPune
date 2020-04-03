@@ -57,31 +57,74 @@
 									Attendance process for month <strong> ${monthName}
 										&nbsp;${year}</strong>
 								</h6>
-								
+
 								<div class="header-elements"></div>
 							</div>
 
 							<div class="card-body">
-							<br />
-								<c:if test="${countSal>0}">
-									<div  class="row">
-									<div class="col alert alert-danger">
-									 Shift Are not Assigned To
-										Employees(${countSal}) </div>
+								<c:set value="0" var="flag"></c:set>
+								<c:if test="${countSal.empTypeCount>0}">
+									<c:set value="1" var="flag"></c:set>
+									<div class="form-group row">
+
+										<div class="col-lg-10">
+											<span class="validation-invalid-label" id="error_locId">Allocate
+												Employee Type to ${countSal.empTypeCount} Employee.</span>
 										</div>
+									</div>
 								</c:if>
-								
+								<c:if test="${countSal.shiftCount>0}">
+									<c:set value="1" var="flag"></c:set>
+									<div class="form-group row">
+
+										<div class="col-lg-10">
+											<span class="validation-invalid-label" id="error_locId">Allocate
+												Shift to ${countSal.shiftCount} Employee.</span>
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${countSal.locationCount>0}">
+									<c:set value="1" var="flag"></c:set>
+									<div class="form-group row">
+
+										<div class="col-lg-10">
+											<span class="validation-invalid-label" id="error_locId">Allocate
+												Location to ${countSal.locationCount} Employee.</span>
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${countSal.holidayCount>0}">
+									<c:set value="1" var="flag"></c:set>
+									<div class="form-group row">
+
+										<div class="col-lg-10">
+											<span class="validation-invalid-label" id="error_locId">Allocate
+												Holiday Category to ${countSal.holidayCount} Employee.</span>
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${countSal.weekendCount>0}">
+									<c:set value="1" var="flag"></c:set>
+									<div class="form-group row">
+
+										<div class="col-lg-10">
+											<span class="validation-invalid-label" id="error_locId">Allocate
+												Weekly off Category to ${countSal.weekendCount} Employee.</span>
+										</div>
+									</div>
+								</c:if>
+
 								<div class="tab-content">
-									<c:if test="${countSal==0}">
+									<c:if test="${flag==0}">
 										<div class="" id="solid-rounded-justified-tab1">
 
 											<div
 												class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md card">
-												<div
+												<!-- <div
 													class="card-header bg-transparent header-elements-inline">
 													<span class="card-title font-weight-bold">Stats</span>
 
-												</div>
+												</div> -->
 
 												<div class="card-body p-0">
 													<ul class="nav nav-sidebar my-2">
