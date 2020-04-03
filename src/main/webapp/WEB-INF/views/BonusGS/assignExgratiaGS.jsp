@@ -45,7 +45,7 @@
 								<td width="60%"><h5 class="card-title">Employee
 										Exgratia Assignment</h5></td>
 								<td width="40%" align="right"><a
-									href="${pageContext.request.contextPath}/showBonusList"
+									href="${pageContext.request.contextPath}/showBonusListGS"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">Bonus
 											List</button>
@@ -162,7 +162,7 @@
 							<div class="tab-pane fade show active"
 								id="highlighted-justified-tab1">
 								<form
-									action="${pageContext.request.contextPath}/submitAssignExgratiaToEmp"
+									action="${pageContext.request.contextPath}/submitAssignExgratiaToEmpGS"
 									id="submitInsertEmp" method="post">
 									<table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
@@ -260,7 +260,7 @@
 												<td class="text-center"><c:if
 														test="${bonusList.isExgretiaFinalized ne 'Yes'}">
 														<a
-															href="${pageContext.request.contextPath}/showEditExgratia?bonusCalcId=${bonusList.exVar1}"
+															href="${pageContext.request.contextPath}/showEditExgratiaGS?bonusCalcId=${bonusList.exVar1}"
 															class="list-icons-item text-primary-600"
 															data-popup="tooltip" title="" data-original-title="Edit"><i
 															class="icon-pencil7"></i></a>
@@ -282,7 +282,7 @@
 
 								<c:if test="${isfinalized ne '1'}">
 									<form
-										action="${pageContext.request.contextPath}/submitExgratisApplicable"
+										action="${pageContext.request.contextPath}/submitExgratisApplicableGS"
 										id="submitBonusApplicable" method="post">
 										<input type="hidden" id="isFinal" name="isFinal"
 											value="${isfinalized}"> <input type="hidden"
@@ -558,7 +558,7 @@
 										},
 										callback : function(result) {
 											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteBonusCalcExgratia?bonusCalcId="
+												location.href = "${pageContext.request.contextPath}/deleteBonusCalcExgratiaGS?bonusCalcId="
 														+ uuid
 														+ "&bonusId="
 														+ abc;

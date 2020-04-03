@@ -42,10 +42,10 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee
-										Exgratia Assignment</h5></td>
+								<td width="60%"><h5 class="card-title">Employee Bonus
+										Assignment</h5></td>
 								<td width="40%" align="right"><a
-									href="${pageContext.request.contextPath}/showBonusList"
+									href="${pageContext.request.contextPath}/showBonusListGS"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">Bonus
 											List</button>
@@ -91,50 +91,27 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<%-- 	<form
-							action="${pageContext.request.contextPath}/showEmpListToAssignExgratia"
-							id="showEmpListToAssignExgratia" method="get">
 
-							<div class="form-group row">
-								<label class="col-form-label col-lg-2" for="bonusId">
+
+						<%-- 	<div class="form-group row">
+								<label class="col-form-label col-lg-2" for="locId">
 									Select Bonus to Assign <span style="color: red">* </span>:
 								</label>
-								<div class="col-lg-8">
-									<select name="bonusId" data-placeholder="Select  " id="bonusId"
+								<div class="col-lg-10">
+									<select name="bonusId" data-placeholder="Select  "
+										id="bonusId"
 										class="form-control form-control-select2 select2-hidden-accessible"
 										data-fouc="" aria-hidden="true">
 
-										<option value="">Select</option>
+										<option value="">Select </option>
 
 										<c:forEach items="${bonusList}" var="bonusList">
-											<c:choose>
-												<c:when test="${bonusList.bonusId==bonusId}">
-
-													<option  selected value="${bonusList.bonusId}">${bonusList.fyTitle}</option>
-
-												</c:when>
-												<c:otherwise>
-
-													<option value="${bonusList.bonusId}">${bonusList.fyTitle}</option>
-												</c:otherwise>
-
-											</c:choose>
-
+											<option value="${bonusList.bonusId}">${bonusList.fyTitle}</option>
 										</c:forEach>
 									</select> <span class="validation-invalid-label" id="error_bonusId"
 										style="display: none;">This field is required.</span>
 								</div>
-
-								<div class="col-lg-2">
-									<input type="submit" class="btn btn-primary" value="Search"
-										id="searchId"
-										style="align-content: center; width: 113px; margin-left: 40px;">
-								</div>
-
-							</div>
-
-
-						</form> --%>
+							</div> --%>
 
 
 						<div class="form-group row">
@@ -162,8 +139,13 @@
 							<div class="tab-pane fade show active"
 								id="highlighted-justified-tab1">
 								<form
-									action="${pageContext.request.contextPath}/submitAssignExgratiaToEmp"
+									action="${pageContext.request.contextPath}/submitAssignBonusToEmpGS"
 									id="submitInsertEmp" method="post">
+
+									<input type="hidden" id="bonusId" name="bonusId"
+										value="${bonusId}">
+
+
 									<table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 										id="printtable1">
@@ -206,9 +188,8 @@
 
 										</tbody>
 									</table>
-									<input type="hidden" name="bonusId" id="bonusId"
-										value="${bonusId}"> <span
-										class="validation-invalid-label" id="error_chk"
+
+									<span class="validation-invalid-label" id="error_chk"
 										style="display: none;">Please Select the Employee.</span>
 
 
@@ -218,8 +199,11 @@
 											style="align-content: center; width: 113px; margin-left: 40px;">
 									</div>
 								</form>
+
+
 							</div>
 							<div class="tab-pane fade" id="highlighted-justified-tab2">
+
 
 								<table
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
@@ -232,10 +216,13 @@
 											<th>Emp Name</th>
 											<th>Designation</th>
 											<!-- 	<th>Total Days</th> -->
-											<th>Total Exgratia Wages</th>
-											<th>Gross Exgratia Amt</th>
-										<!-- 	<th>Net Exgratia Amt</th>
-											<th>Paid Exgratia Amt</th> -->
+											<th>Total Wages</th>
+											<th>Gross Bonus Amt</th>
+										<!-- 	<th>Ded Bonus Puja Amt</th>
+											<th>Ded Bonus Adv Amt</th>
+											<th>Ded Bonus Loss_amt</th> -->
+										<!-- 	<th>Net Bonus Amt</th>
+											<th>Paid Bonus Amt</th> -->
 											<th width="10%" class="text-center">Actions</th>
 										</tr>
 									</thead>
@@ -251,28 +238,23 @@
 												<td>${bonusList.currDesignation}</td>
 												<%-- 										<td>${bonusList.totalBonusDays}</td>
  --%>
-												<td>${bonusList.totalExgretiaWages}</td>
-												<td>${bonusList.grossExgretiaAmt}</td>
-											<%-- 	<td>${bonusList.netExgretiaAmt}</td>
-												<td>${bonusList.paidExgretiaAmt}</td>
+												<td>${bonusList.totalBonusWages}</td>
+												<td>${bonusList.grossBonusAmt}</td>
+												<%-- <td>${bonusList.dedBonusPujaAmt}</td>
+												<td>${bonusList.dedBonusAdvAmt}</td>
+												<td>${bonusList.dedBonusLossAmt}</td> --%>
+									<%-- 			<td>${bonusList.netBonusAmt}</td>
+												<td>${bonusList.paidBonusAmt}</td> --%>
+
+												<%-- 												<c:if test="${payRollFinal==1}">
  --%>
-
-												<td class="text-center"><c:if
-														test="${bonusList.isExgretiaFinalized ne 'Yes'}">
-														<a
-															href="${pageContext.request.contextPath}/showEditExgratia?bonusCalcId=${bonusList.exVar1}"
-															class="list-icons-item text-primary-600"
-															data-popup="tooltip" title="" data-original-title="Edit"><i
-															class="icon-pencil7"></i></a>
-														<a href="javascript:void(0)"
-															class="list-icons-item text-danger-600 bootbox_custom"
-															data-uuid="${bonusList.exVar1}"
-															data-abc="${bonusList.exVar2}" data-popup="tooltip"
-															title="" data-original-title="Delete"><i
-															class="icon-trash"></i></a>
-													</c:if></td>
-
-
+												<td class="text-center"><a href="javascript:void(0)"
+													class="list-icons-item text-danger-600 bootbox_custom"
+													data-uuid="${bonusList.exVar1}"
+													data-abc="${bonusList.exVar2}" data-popup="tooltip"
+													title="" data-original-title="Delete"><i
+														class="icon-trash"></i></a></td>
+												<%-- </c:if> --%>
 											</tr>
 										</c:forEach>
 
@@ -282,7 +264,7 @@
 
 								<c:if test="${isfinalized ne '1'}">
 									<form
-										action="${pageContext.request.contextPath}/submitExgratisApplicable"
+										action="${pageContext.request.contextPath}/submitBonusApplicableGS"
 										id="submitBonusApplicable" method="post">
 										<input type="hidden" id="isFinal" name="isFinal"
 											value="${isfinalized}"> <input type="hidden"
@@ -325,19 +307,12 @@
 													id="submtbtn">
 													Submit <i class="icon-paperplane ml-2"></i>
 												</button>
-												<%-- <a href="${pageContext.request.contextPath}/showBonusList"><button
-														type="button" class="btn btn-light">Back</button></a> --%>
+
 											</div>
 										</div>
 									</form>
 								</c:if>
-
 							</div>
-
-
-
-
-
 						</div>
 
 					</div>
@@ -360,8 +335,6 @@
 	<!-- /page content -->
 
 
-
-
 <script>
 		function submitForm() {
 			$('#modal_scrollable').modal('hide');
@@ -380,7 +353,7 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want  To Assign This Exgratia </h5>
+					<h5 class="modal-title">Are You Sure You Want  To Assign This Bonus </h5>
 					<br>
 				 
 				</div>
@@ -412,7 +385,7 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want  To Finalize Exgratia </h5>
+					<h5 class="modal-title">Are You Sure You Want  To  Finalize Bonus </h5>
 					<br>
 				 
 				</div>
@@ -424,6 +397,8 @@
 			</div>
 		</div>
 	</div>
+
+
 	<script type="text/javascript">
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
@@ -441,12 +416,12 @@
 					isError = false;
 				}
 				//alert("checked" +checked);
-				if (bonusId == null || bonusId == "") {
+				/* if (bonusId == null || bonusId == "") {
 					isError = true;
 					$("#error_bonusId").show()
 				} else {
 					$("#error_bonusId").hide()
-				}
+				} */
 
 				if (!isError) {
 					 
@@ -558,7 +533,7 @@
 										},
 										callback : function(result) {
 											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteBonusCalcExgratia?bonusCalcId="
+												location.href = "${pageContext.request.contextPath}/deleteBonusCalcGS?bonusCalcId="
 														+ uuid
 														+ "&bonusId="
 														+ abc;
@@ -592,6 +567,5 @@
 			}
 		});
 	</script>
-
 </body>
 </html>
