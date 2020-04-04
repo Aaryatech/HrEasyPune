@@ -29,6 +29,7 @@ import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
+import com.ats.hreasy.model.dashboard.CommonDash;
 import com.ats.hreasy.model.dashboard.DeptWiseWeekoffDash;
 import com.ats.hreasy.model.dashboard.GetAllPendingMasterDet;
 import com.ats.hreasy.model.dashboard.GetLeaveHistForDash;
@@ -44,8 +45,8 @@ import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 @Scope("session")
 public class DashboardAdminController {
 
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+	/*@RequestMapping(value = "/dashboard1", method = RequestMethod.GET)
+	public String dashboard1(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome";
 		Date date = new Date();
@@ -82,6 +83,7 @@ public class DashboardAdminController {
 			Integer n = Constants.getRestTemplate().postForObject(Constants.url + "/chkIsAuth", map, Integer.class);
 			model.addAttribute("isAuth", n);
 
+			// start
 			map = new LinkedMultiValueMap<>();
 			map.add("fiterdate", fiterdate);
 
@@ -104,10 +106,6 @@ public class DashboardAdminController {
 			GetAllPendingMasterDet masterDet = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getAllPendingMasterDet", GetAllPendingMasterDet.class);
 			model.addAttribute("masterDet", masterDet);
-			
-			Integer calYearCnt = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getCountCalYear", Integer.class);
-			model.addAttribute("calYearCnt", calYearCnt);
 
 			DeptWiseWeekoffDash[] company = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getDashDeptWiseWeekoff", map, DeptWiseWeekoffDash[].class);
@@ -183,6 +181,9 @@ public class DashboardAdminController {
 					LoanAdvDashDet.class);
 			model.addAttribute("loanDet", loanDet);
 
+			// end
+
+			// leave start
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 			map = new LinkedMultiValueMap<>();
@@ -194,8 +195,6 @@ public class DashboardAdminController {
 			List<GetLeaveApplyAuthwise> leaveList = new ArrayList<GetLeaveApplyAuthwise>(Arrays.asList(employeeDoc));
 
 			model.addAttribute("list1Count", leaveList.size());
-
-			// leave Mngt
 
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", userObj.getEmpId());
@@ -212,6 +211,7 @@ public class DashboardAdminController {
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 					MstEmpType.class);
 			model.addAttribute("mstEmpType", mstEmpType);
+			// leave end
 
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", userObj.getEmpId());
@@ -277,12 +277,130 @@ public class DashboardAdminController {
 		}
 
 		return mav;
+
+	}
+*/
+	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "welcome1";
+
+		return mav;
 	}
 
-	@RequestMapping(value = "/dashboard1", method = RequestMethod.GET)
-	public String dashboard1(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@RequestMapping(value = "/dashboardModified", method = RequestMethod.GET)
+	public String dashboardNew(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome";
+		Date date = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+		String fiterdate = sf1.format(date);
+
+		try {
+			fiterdate = DateConvertor.convertToYMD(request.getParameter("fiterdate"));
+
+			model.addAttribute("fiterdate", request.getParameter("fiterdate"));
+
+		} catch (Exception e) {
+			fiterdate = sf1.format(date);
+			model.addAttribute("fiterdate", sf.format(date));
+
+		}
+		if (fiterdate == null) {
+			fiterdate = sf1.format(date);
+			model.addAttribute("fiterdate", sf.format(date));
+
+		}
+
+		model.addAttribute("userType", userObj.getDesignType());
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+		map.add("empId", userObj.getEmpId());
+
+		Integer n = Constants.getRestTemplate().postForObject(Constants.url + "/chkIsAuth", map, Integer.class);
+		model.addAttribute("isAuth", n);
+
+		// Commondash
+
+		map = new LinkedMultiValueMap<>();
+		map.add("fiterdate", fiterdate);
+		map.add("empId", userObj.getEmpId());
+ 		map.add("userType", userObj.getDesignType());
+ 		map.add("isAuth", n);
+		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
+				CommonDash.class);
+
+		System.err.println("-------------" + dash.toString());
+
+		model.addAttribute("birth", dash.getBirth()); // alll
+		model.addAttribute("newHire", dash.getNewHire()); // hr
+		model.addAttribute("lvDet", dash.getLvDet()); // hr
+		model.addAttribute("attnDet", dash.getAttnDet());// hr empType= 2
+		model.addAttribute("masterDet", dash.getMasterDet());// userType == 2
+		model.addAttribute("deptwiseWkoff", dash.getDeptwiseWkoff()); // hr empType= 2 isAuth >0
+		model.addAttribute("perfListDept", dash.getPerfListDept()); // userType ==2
+		model.addAttribute("deptWiseEmpCntList", dash.getDeptWiseEmpCntList());
+		model.addAttribute("ageDiv", dash.getAgeDiv()); // userType ==2
+		model.addAttribute("ageDiversity", dash.getAgeDiversity()); // userType ==2
+		model.addAttribute("expDiversity", dash.getExpDiversity()); // userType ==2
+		model.addAttribute("salDiversity", dash.getSalDiversity()); // userType ==2
+		model.addAttribute("rewardDet", dash.getRewardDet()); // userType ==2
+		model.addAttribute("advDet", dash.getAdvDet()); // userType == 2
+		model.addAttribute("loanDet", dash.getLoanDet()); // userType == 2
+		model.addAttribute("lvApplList", dash.getLvApplList());
+		model.addAttribute("attnLastMon", dash.getAttnLastMon()); // hr empType= 2 isAuth >0
+		model.addAttribute("dedWiseDedList", dash.getDedWiseDedList());
+		model.addAttribute("rewardWiseDedList", dash.getRewardWiseDedList());
+		model.addAttribute("perfList", dash.getPerfList());
+		model.addAttribute("prodList", dash.getProdList());
+		model.addAttribute("icent", dash.getIcent());
+		model.addAttribute("deptWiseLvAbLList", dash.getDeptWiseLvAbLList());// hr empType= 2 isAuth >0
+		model.addAttribute("dedDet", dash.getDedDet()); // hr empType= 2 isAuth >0
+
+		// ends commondash
+
+		CalenderYear calculateYear = Constants.getRestTemplate()
+				.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+
+		// userType == 2
+
+		if (userObj.getDesignType() == 2) {
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+			map.add("currYrId", calculateYear.getCalYrId());
+
+			GetLeaveApplyAuthwise[] employeeDoc = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLeaveApplyListForPending", map, GetLeaveApplyAuthwise[].class);
+			List<GetLeaveApplyAuthwise> leaveList = new ArrayList<GetLeaveApplyAuthwise>(Arrays.asList(employeeDoc));
+
+			model.addAttribute("list1Count", leaveList.size());
+
+		} else {
+			model.addAttribute("list1Count", 0);
+
+		}
+
+		map = new LinkedMultiValueMap<>();
+		map.add("empId", userObj.getEmpId());
+		map.add("currYrId", calculateYear.getCalYrId());
+
+		LeaveHistory[] leaveHistory = Constants.getRestTemplate().postForObject(Constants.url + "/getLeaveHistoryList",
+				map, LeaveHistory[].class);
+
+		List<LeaveHistory> leaveHistoryList = new ArrayList<LeaveHistory>(Arrays.asList(leaveHistory));
+		model.addAttribute("leaveHistoryList", leaveHistoryList);
+
+		map = new LinkedMultiValueMap<>();
+		map.add("empId", userObj.getEmpId());
+		MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
+				MstEmpType.class);
+		model.addAttribute("mstEmpType", mstEmpType);
 
 		return mav;
 	}
