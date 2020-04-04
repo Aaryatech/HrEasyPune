@@ -831,8 +831,8 @@ System.err.println("showBonusListGS");
 				claimProofList1.get(i)
 						.setExVar2(FormValidation.Encrypt(String.valueOf(claimProofList1.get(i).getBonusId())));
 
-				claimProofList1.get(i).setTotalExgretiaWages(String.valueOf(
-						(ReportCostants.castNumber(claimProofList1.get(i).getTotalBonusWages(), amount_round))));
+				claimProofList1.get(i).setTotalExgretiaWages(
+						(ReportCostants.castNumber(claimProofList1.get(i).getTotalBonusWages(), amount_round)));
 				claimProofList1.get(i).setGrossExgretiaAmt(
 						(ReportCostants.castNumber(claimProofList1.get(i).getGrossExgretiaAmt(), amount_round)));
 				claimProofList1.get(i).setNetExgretiaAmt(
