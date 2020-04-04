@@ -655,7 +655,7 @@ System.err.println("showBonusListGS");
 			// System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Bonus Assigned Successfully");
 
 			}
 			a = "redirect:/showEmpListToAssignBonusGS?bonusId=" + FormValidation.Encrypt(bonusId);
@@ -747,7 +747,7 @@ System.err.println("showBonusListGS");
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Bonus Paid on this Date :"+" "+startDate);
 
 			} else {
 				session.setAttribute("successMsg", "Failed to Insert Data");
@@ -933,10 +933,10 @@ System.err.println("showBonusListGS");
 			// System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Exgratia Assigned Successfully");
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Assigned Exgratia");
 			}
 			a = "redirect:/showEmpListToAssignExgratiaGS?bonusId=" + FormValidation.Encrypt(bonusId);
 		} catch (Exception e) {
@@ -1045,17 +1045,17 @@ System.err.println("showBonusListGS");
 			//System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Exgratia Updated Successfully");
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
-				a = "redirect:/showEmpListToAssignExgratia";
+				session.setAttribute("successMsg", "Failed to Updated Exgratia");
+				a = "redirect:/showEmpListToAssignExgratiaGS";
 			}
 		} catch (Exception e) {
 			System.err.println("Exce in Saving Cust Login Detail " + e.getMessage());
 			e.printStackTrace();
 		}
-		a = "redirect:/showEmpListToAssignExgratia?bonusId=" + FormValidation.Encrypt(temp);
+		a = "redirect:/showEmpListToAssignExgratiaGS?bonusId=" + FormValidation.Encrypt(temp);
 		return a;
 	}
 
@@ -1139,7 +1139,7 @@ System.err.println("showBonusListGS");
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Exgratia Paid on this Date :"+" "+startDate);
 
 			} else {
 				session.setAttribute("successMsg", "Failed to Insert Data");
