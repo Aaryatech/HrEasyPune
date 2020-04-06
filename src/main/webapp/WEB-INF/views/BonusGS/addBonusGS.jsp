@@ -120,9 +120,7 @@
 												name="leaveDateRange" data-placeholder="Select Date"
 												id="leaveDateRange" >
 											<span class="validation-invalid-label" id="error_Range"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_insuf"
-												style="display: none;">Insufficient Leaves.</span>
+												style="display: none;">This field is required.</span> 
 
 										</div>
 									</div>
@@ -134,24 +132,26 @@
 										<div class="col-lg-10">
 											<input type="text" class="form-control"
 												placeholder="E.g. Bonus %" id="bonusPrcnt" name="bonusPrcnt"
-												autocomplete="off" onchange="trim(this)"> <span
+												autocomplete="off" onchange="trim(this)">
+												<input type="hidden" class="form-control"
+												placeholder="E.g. Exgratia %" id="exgratiaPrcnt" name="exgratiaPrcnt"
+												autocomplete="off" value="0" > 
+												 <span
 												class="validation-invalid-label" id="error_bonusPrcnt"
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
 									
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia 
 											% <span style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="E.g. Exgratia %" id="exgratiaPrcnt" name="exgratiaPrcnt"
-												autocomplete="off" onchange="trim(this)"> <span
+											<span
 												class="validation-invalid-label" id="error_exgratiaPrcnt"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
+									</div> -->
 									
 										<div class="form-group row">
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Present Min Days
@@ -266,14 +266,14 @@
 					$("#error_bonusPrcnt").hide()
 				}
 				
-				if (!$("#exgratiaPrcnt").val()) {
+				/* if (!$("#exgratiaPrcnt").val()) {
 
 					isError = true;
 
 					$("#error_exgratiaPrcnt").show()
 				} else {
 					$("#error_exgratiaPrcnt").hide()
-				}
+				} */
 				
 				if (!$("#minDays").val()) {
 

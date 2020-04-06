@@ -1,5 +1,7 @@
 package com.ats.hreasy.model.Bonus;
- 
+
+import java.sql.Date;
+
 public class BonusApplicable {
 
 	 
@@ -51,7 +53,12 @@ public class BonusApplicable {
 	private String bonusRemark;
 
 	private String exgretiaRemark;
-
+	
+	private String bonusPaidDate;
+	private String exgratiaPaidDate;
+	private int exInt1;
+	private String exVar1;
+	
 	public int getBappNo() {
 		return bappNo;
 	}
@@ -247,6 +254,38 @@ public class BonusApplicable {
 		this.dedExgretiaAmtPercentage = dedExgretiaAmtPercentage;
 	}
 
+	public String getBonusPaidDate() {
+		return bonusPaidDate;
+	}
+
+	public void setBonusPaidDate(String bonusPaidDate) {
+		this.bonusPaidDate = bonusPaidDate;
+	}
+
+	public String getExgratiaPaidDate() {
+		return exgratiaPaidDate;
+	}
+
+	public void setExgratiaPaidDate(String exgratiaPaidDate) {
+		this.exgratiaPaidDate = exgratiaPaidDate;
+	}
+
+	public int getExInt1() {
+		return exInt1;
+	}
+
+	public void setExInt1(int exInt1) {
+		this.exInt1 = exInt1;
+	}
+
+	public String getExVar1() {
+		return exVar1;
+	}
+
+	public void setExVar1(String exVar1) {
+		this.exVar1 = exVar1;
+	}
+
 	@Override
 	public String toString() {
 		return "BonusApplicable [bappNo=" + bappNo + ", companyId=" + companyId + ", bonusId=" + bonusId
@@ -259,11 +298,8 @@ public class BonusApplicable {
 				+ ", isExgretiaFinalized=" + isExgretiaFinalized + ", bonusItSub=" + bonusItSub + ", exgretiaItSub="
 				+ exgretiaItSub + ", loginIdBonus=" + loginIdBonus + ", loginIdExgretia=" + loginIdExgretia
 				+ ", loginTimeBonus=" + loginTimeBonus + ", loginTimeExgretia=" + loginTimeExgretia + ", bonusRemark="
-				+ bonusRemark + ", exgretiaRemark=" + exgretiaRemark + "]";
+				+ bonusRemark + ", exgretiaRemark=" + exgretiaRemark + ", bonusPaidDate=" + bonusPaidDate
+				+ ", exgratiaPaidDate=" + exgratiaPaidDate + ", exInt1=" + exInt1 + ", exVar1=" + exVar1 + "]";
 	}
-
-	 
-	
-	
 
 }

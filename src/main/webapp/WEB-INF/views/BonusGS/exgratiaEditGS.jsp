@@ -98,19 +98,19 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="shiftName">Employee
+										<label class="col-form-label col-lg-2" for="empCode">Employee
 											Name </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="exgratiaAmt"
-												name="exgratiaAmt" readonly="readonly"
+											<input type="text" class="form-control" id="empName"
+												name="empName" readonly="readonly"
 												value="${editEmp.empCode}" autocomplete="off"
 												onchange="trim(this)">
 										</div>
-										<label class="col-form-label col-lg-2" for="shiftName">Employee
+										<label class="col-form-label col-lg-2" for="empName">Employee
 											Code : </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="exgratiaAmt"
-												name="exgratiaAmt" readonly="readonly"
+											<input type="text" class="form-control" id="empName"
+												name="empName" readonly="readonly"
 												value="${editEmp.surname} ${editEmp.firstName} ${editEmp.middleName}"
 												autocomplete="off" onchange="trim(this)">
 										</div>
@@ -119,19 +119,19 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="shiftName">Exgratia
+										<label class="col-form-label col-lg-2" for="totalExgretiaWages">Exgratia
 											Amt : </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="exgratiaAmt"
-												name="exgratiaAmt" readonly="readonly"
+											<input type="text" class="form-control" id="totalExgretiaWages"
+												name="totalExgretiaWages" readonly="readonly"
 												value="${editBonusCalc.totalExgretiaWages}"
 												autocomplete="off" onchange="trim(this)">
 										</div>
-										<label class="col-form-label col-lg-2" for="shiftName">Gross
+										<label class="col-form-label col-lg-2" for="grossExgretiaAmt">Gross
 											Exgratia Amt: </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="exgratiaAmt"
-												name="exgratiaAmt" readonly="readonly"
+											<input type="text" class="form-control" id="grossExgretiaAmt"
+												name="grossExgretiaAmt" readonly="readonly"
 												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
 												onchange="trim(this)">
 										</div>
@@ -139,26 +139,27 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="shiftName">Paid
+										<label class="col-form-label col-lg-2" for="paidExgratiaAmt">Paid
 											Exgratia Amt : </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="exgratiaAmt"
-												name="exgratiaAmt" readonly="readonly"
-												value="${editBonusCalc.paidExgretiaAmt}" autocomplete="off"
+											<input type="text" class="form-control numbersOnly" id="paidExgratiaAmt"
+												name="paidExgratiaAmt"
+												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
 												onchange="trim(this)">
-										</div>
-
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia
-											% <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control"
+												<input type="text" class="form-control"
 												placeholder="E.g. Exgratia %" id="exgratiaPrcnt"
 												name="exgratiaPrcnt" value="${editBonusCalc.exgratiaPrcnt}"
-												autocomplete="off" onchange="trim(this)"> <span
+												autocomplete="off">
+										</div>
+
+										<!--  <label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia
+											% <span style="color: red">* </span>:
+										</label> 
+										<div class="col-lg-4">
+											 <span
 												class="validation-invalid-label" id="error_exgratiaPrcnt"
 												style="display: none;">This field is required.</span>
-										</div>
+										</div> -->
 									</div>
 
 

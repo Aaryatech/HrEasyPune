@@ -1028,15 +1028,15 @@ System.err.println("showBonusListGS");
 			int bonusCalcId = Integer.parseInt(request.getParameter("bonusCalcId"));
 
 			//System.err.println("bonusCalcId ****" + bonusCalcId);
-			double exPrcnt = Double.parseDouble(request.getParameter("exgratiaPrcnt"));
-			// double exgratiaAmt = Double.parseDouble(request.getParameter("exgratiaAmt"));
+			//double exPrcnt = Double.parseDouble(request.getParameter("exgratiaPrcnt"));
+			double paidExgratiaAmt = Double.parseDouble(request.getParameter("paidExgratiaAmt"));
 
 			map.add("bonusId", bonusId);
 			map.add("bonusCalcId", bonusCalcId);
-			map.add("exPrcnt", exPrcnt);
-			/*
-			 * map.add("exgratiaAmt1", exgratiaAmt);
-			 */ map.add("companyId", 1);
+			//map.add("exPrcnt", exPrcnt);
+			 
+			map.add("paidExgratiaAmt", paidExgratiaAmt);
+			map.add("companyId", 1);
 			map.add("dateTime", sf.format(date));
 			map.add("userId", userObj.getUserId());
 
@@ -1052,7 +1052,7 @@ System.err.println("showBonusListGS");
 				a = "redirect:/showEmpListToAssignExgratiaGS";
 			}
 		} catch (Exception e) {
-			System.err.println("Exce in Saving Cust Login Detail " + e.getMessage());
+			System.err.println("Exce in submitEditExgratiaGS " + e.getMessage());
 			e.printStackTrace();
 		}
 		a = "redirect:/showEmpListToAssignExgratiaGS?bonusId=" + FormValidation.Encrypt(temp);

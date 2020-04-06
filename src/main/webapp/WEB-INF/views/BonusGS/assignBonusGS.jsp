@@ -275,7 +275,7 @@
 
 
 											<label class="col-form-label text-info font-weight-bold col-lg-2" for="startDate">
-												Pay Bonus In This Salary Month <span style="color: red">*
+												 Bonus Paid on <span style="color: red">*
 											</span>:
 											</label>
 											<div class="col-lg-4">
