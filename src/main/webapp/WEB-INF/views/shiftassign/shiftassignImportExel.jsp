@@ -480,6 +480,28 @@
 												return false;
 											});
 						});
+
+		$(document).ready(function($) {
+			$("#searchEmpShiftList").submit(function(e) {
+
+				var isError = false;
+
+				var assignDate = $("#assignDate").val();
+
+				if (assignDate == null || assignDate == "") {
+					isError = true;
+					$("#error_assignDate").show()
+				}
+
+				if (!isError) {
+
+					return true;
+
+					//end ajax send this to php page
+				}
+				return false;
+			});
+		});
 	</script>
 	<script>
 		/* $('#block-page').on('click', function() {
