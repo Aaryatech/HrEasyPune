@@ -1,6 +1,7 @@
 package com.ats.hreasy.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -21,11 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.CountOfAssignPending;
+import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.ShiftMaster;
 
 @Controller
 @Scope("session")
@@ -52,6 +56,8 @@ public class ShiftAssignController {
 		return mav;
 
 	}
+
+	String assignDate = new String();
 
 	@RequestMapping(value = "/shiftbulkuploadImportExel", method = RequestMethod.GET)
 	public String shiftbulkuploadImportExel(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -91,7 +97,42 @@ public class ShiftAssignController {
 			model.addAttribute("month", month1 + 1);
 			model.addAttribute("infoForUploadAttendance", infoForUploadAttendance);
 
-			// System.out.println(month);
+			ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
+					map, ShiftMaster[].class);
+			model.addAttribute("shiftMaster", shiftMaster);
+
+			Date fmdt = sf.parse(sf.format(firstDay));
+			Date todt = sf.parse(sf.format(lastDay));
+
+			SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
+			List<String> dates = new ArrayList<>();
+
+			for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+
+				temp = Calendar.getInstance();
+				temp.setTime(j);
+				String attdate = dd.format(j);
+				dates.add(attdate);
+				j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+
+			}
+			model.addAttribute("dates", dates);
+
+			assignDate = new String();
+			assignDate = request.getParameter("assignDate");
+
+			try {
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("date", DateConvertor.convertToYMD(assignDate));
+				GetEmployeeDetails[] empList = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getEmpDetailListforassignshiftbulk", map, GetEmployeeDetails[].class);
+				model.addAttribute("empdetList", empList);
+				model.addAttribute("assignDate", assignDate);
+			} catch (Exception e) {
+
+			}
+			// System.out.println(dates);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +140,7 @@ public class ShiftAssignController {
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/addDefaultRecordinShiftAssign", method = RequestMethod.POST)
 	@ResponseBody
 	public Info addDefaultRecordinShiftAssign(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -121,8 +162,8 @@ public class ShiftAssignController {
 			map.add("fromDate", sf.format(firstDay));
 			map.add("toDate", sf.format(lastDay));
 			map.add("userId", userObj.getUserId());
-			info = Constants.getRestTemplate().postForObject(Constants.url + "/initiallyInsertDailyShiftAssignRecord", map,
-					Info.class);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/initiallyInsertDailyShiftAssignRecord",
+					map, Info.class);
 			if (info.isError() == false) {
 				session.setAttribute("successMsg", "Step 1 Completed Successfully");
 			} else {
@@ -136,6 +177,48 @@ public class ShiftAssignController {
 		}
 		return info;
 
+	}
+
+	@RequestMapping(value = "/submitEmpShiftList", method = RequestMethod.POST)
+	public String addCustLoginDetail(HttpServletRequest request, HttpServletResponse response) {
+		String redirect = new String();
+
+		try {
+
+			int sm = Integer.parseInt(request.getParameter("sm"));
+			int sy = Integer.parseInt(request.getParameter("sy"));
+			int shiftId = Integer.parseInt(request.getParameter("shiftId"));
+
+			String[] empId = request.getParameterValues("empId");
+
+			StringBuilder sb = new StringBuilder();
+
+			List<Integer> empIdList = new ArrayList<>();
+
+			for (int i = 0; i < empId.length; i++) {
+				sb = sb.append(empId[i] + ",");
+				empIdList.add(Integer.parseInt(empId[i]));
+
+			}
+
+			String items = sb.toString();
+			items = items.substring(0, items.length() - 1);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("empIdList", items);
+			map.add("shiftId", shiftId);
+			map.add("assignDate", DateConvertor.convertToYMD(assignDate));
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
+					Info.class);
+
+			redirect = "redirect:/shiftbulkuploadImportExel?selectMonth=" + sm + "-" + sy;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return redirect;
 	}
 
 }

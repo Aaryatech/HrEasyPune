@@ -76,7 +76,6 @@
 											action="${pageContext.request.contextPath}/shiftbulkuploadImportExel"
 											method="GET" class="form-inline justify-content-center">
 
-											<input type="hidden" name="mode" id="mode" value="submitform">
 											<div class="form-group ">
 												<label for="staticEmail" class="col-md-12 col-form-label">Month
 													: </label>

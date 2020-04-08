@@ -49,7 +49,7 @@
 
 							<div class="card-header header-elements-inline">
 								<h5 class="card-title">
-									Upload Shift Record for month <strong>${monthName}
+									Assign Shift Record for month <strong>${monthName}
 										&nbsp;${year}</strong>
 								</h5>
 							</div>
@@ -114,7 +114,7 @@
 										<li class="nav-item mr-1"><a
 											href="#solid-rounded-justified-tab2"
 											class="nav-link active show" data-toggle="tab">Step 2
-												Upload Shift Record File (csv)</a></li>
+												Assign Shift </a></li>
 
 
 									</c:if>
@@ -166,54 +166,131 @@
 										id="solid-rounded-justified-tab2">
 										<div class="hidedefault alert bg-danger text-white"
 											id="error_step2" style="display: none;"></div>
-										<div class="rows">
-											<div class="col-md-12">
-												<div class="row">
-													<div class="col-md-12">
-														<form action="#" method="POST"
-															enctype="multipart/form-data" method="post"
-															accept-charset="utf-8"
-															class="form-inline1 justify-content-center">
-
-															<div class="form-group row ">
-																<label class="col-md-2 col-form-label" for="doc">Attach
-																	File:</label>
-																<div class="col-md-6">
-																	<input type="file" class="form-control"
-																		placeholder="Enter Location Name" id="doc" name="doc"
-																		autocomplete="off"> <span
-																		class="form-text text-muted">Accepted formats:
-																		CSV </span>
-																</div>
-																<div class="col-md-4">
-																	<button type="button" id="btnUploadCSVSubmit"
-																		name="btnUploadCSVSubmit" class="btn btn-primary">
-																		Uplaod File <i class="icon-paperplane ml-2"></i>
-																	</button>
-																</div>
-
-															</div>
 
 
-														</form>
-													</div>
-													<div class="col-md-12 text-center mt-4">
-														<button type="button"
-															class=" btn btn-info prev text-center  btn_go_prev_tab "
-															id="btn_go_prev_tab2">
-															<i class="icon-arrow-left8  mr-2 "></i> Previous Step
-														</button>
-														<!-- <button type="button"
-															class=" btn btn-info next text-center  btn_go_next_tab "
-															id="btn_go_next_tab">
-															Next Step <i class="icon-arrow-right8  ml-2 "></i>
-														</button> -->
-													</div>
+										<form
+											action="${pageContext.request.contextPath}/shiftbulkuploadImportExel"
+											id="searchEmpShiftList" method="get">
 
+											<input type="hidden" name="selectMonth" id="selectMonth"
+												value="${month}-${year}">
+											<div class="form-group row">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="assignDate"> Select Date <span
+													class="text-danger">* </span>:
+												</label>
+												<div class="col-lg-3">
+													<select name="assignDate" data-placeholder="Select Date"
+														id="assignDate"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														data-fouc="" aria-hidden="true">
+
+														<option value="">Select Date</option>
+														<c:forEach items="${dates}" var="dates">
+															<c:choose>
+																<c:when test="${dates eq assignDate}">
+																	<option value="${dates}" selected>${dates}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${dates}">${dates}</option>
+																</c:otherwise>
+															</c:choose>
+
+														</c:forEach>
+
+													</select><span class="validation-invalid-label"
+														id="error_assignDate" style="display: none;">This
+														field is required.</span>
+												</div>
+												<div class="col-lg-2">
+													<input type="submit" class="btn btn-primary" value="Search"
+														id="deleteId">
+												</div>
+											</div>
+										</form>
+
+										<form
+											action="${pageContext.request.contextPath}/submitEmpShiftList"
+											id="submitEmpShiftList" method="post">
+											<input type="hidden" name="sm" id="sm" value="${month}">
+											<input type="hidden" name="sy" id="sy" value="${year}">
+											<div class="form-group row">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="locId"> Select Shift To Assign <span
+													class="text-danger">* </span>:
+												</label>
+												<div class="col-lg-3">
+													<select name="shiftId" data-placeholder="Select Shift"
+														id="shiftId"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														data-fouc="" aria-hidden="true">
+
+														<option value="">Select Shift</option>
+
+														<c:forEach items="${shiftMaster}" var="shiftList">
+															<option value="${shiftList.id}">${shiftList.shiftname}</option>
+														</c:forEach>
+													</select> <span class="validation-invalid-label" id="error_shiftId"
+														style="display: none;">This field is required.</span>
 												</div>
 
 											</div>
-										</div>
+											<div class="table-responsive">
+												<table class="table datatable-scroll-y" width="100%"
+													id="printtable1">
+													<thead>
+														<tr class="bg-blue">
+
+															<th width="10%">Sr.no</th>
+
+															<th><input type="checkbox" name="selAll" id="selAll" /></th>
+															<th>Employee Code</th>
+															<th>Employee Name</th>
+															<th>Emp Type</th>
+															<th>Department</th>
+															<th>Designation</th>
+															<th>Location</th>
+															<th>Shift Name</th>
+
+
+														</tr>
+													</thead>
+													<tbody>
+
+
+														<c:forEach items="${empdetList}" var="empdetList"
+															varStatus="count">
+															<tr>
+																<td>${count.index+1}</td>
+																<td><input type="checkbox"
+																	id="empId${empdetList.empId}"
+																	value="${empdetList.empId}" name="empId"
+																	class="select_all"></td>
+																<td>${empdetList.empCode}</td>
+																<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+																<td>${empdetList.empTypeName}</td>
+																<td>${empdetList.deptName}</td>
+																<td>${empdetList.empDesgn}</td>
+																<td>${empdetList.locName}</td>
+																<td>${empdetList.shiftname}</td>
+															</tr>
+														</c:forEach>
+
+													</tbody>
+												</table>
+											</div>
+											<span class="validation-invalid-label" id="error_chk"
+												style="display: none;">Please Select the Employee.</span>
+											<div style="text-align: center;">
+
+												<button type="submit" class="mr-3 btn btn-primary     "
+													id="btnActStep2">
+													Assign Shift <i class="icon-paperplane ml-2"></i>
+												</button>
+											</div>
+										</form>
 									</div>
 								</c:if>
 							</div>
@@ -347,7 +424,63 @@
 	</div>
 	<!-- /info modal -->
 	<!-- /page content -->
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function($) {
+							$("#submitEmpShiftList")
+									.submit(
+											function(e) {
 
+												var isError = false;
+												var errMsg = "";
+												var shiftId = $("#shiftId")
+														.val();
+												var assignDate = $(
+														"#assignDate").val();
+
+												var checked = $("#submitEmpShiftList input:checked").length > 0;
+												$("#error_chk").hide()
+												$("#error_shiftId").hide()
+												$("#error_assignDate").hide()
+
+												if (!checked) {
+													$("#error_chk").show()
+													isError = true;
+												}
+												//alert("checked" +checked);
+												if (shiftId == null
+														|| shiftId == "") {
+													isError = true;
+													$("#error_shiftId").show()
+												}
+
+												if (assignDate == null
+														|| assignDate == "") {
+													isError = true;
+													$("#error_assignDate")
+															.show()
+												}
+
+												if (!isError) {
+
+													var x = true;
+													if (x == true) {
+														var table = $(
+																'#printtable1')
+																.DataTable();
+														table.search("").draw();
+														document
+																.getElementById("btnActStep2").disabled = true;
+
+														return true;
+													}
+													//end ajax send this to php page
+												}
+												return false;
+											});
+						});
+	</script>
 	<script>
 		/* $('#block-page').on('click', function() {
 			$.blockUI({
@@ -438,67 +571,10 @@
 							return false;
 						});
 
-		$("#btnUploadCSVSubmit").click(function(e) {
-			//
-			/* if (timeoutId != -99) {
-				clearTimeout(timeoutId);
-			} */
-			$("#error_step2").html("");
-			$("#error_step2").hide();
-			$("#msg_progess").hide();
-			//var progress_bar_id = "#progress-wrp";
-			// update progressbars classes so it fits your code
-			//$(progress_bar_id + " .progressbar_importcsv").css("width", "0%");
-			//$(progress_bar_id + " .status").text("0%");
+		/* $("#btnActStep2").click(function(e) {
 
-			//alert($("#userfile").val());
-			if ($("#doc").val() != "") {
-				//timeoutId = setInterval(getProgressForCSV, 5000);
-				//console.log("timeoutId: " + timeoutId);
-				$('#modal_step2_fileupload').modal('show');
-				var month = $("#month").val();
-				var year = $("#year").val();
-				//alert()
-				var fd = new FormData();
-				var files = $('#doc')[0].files[0];
-				fd.append('file', files);
-				fd.append('month', month);
-				fd.append('year', year);
-
-				$.ajax({
-					url : '${pageContext.request.contextPath}/attUploadCSV',
-					type : 'post',
-					dataType : 'json',
-					data : fd,
-					contentType : false,
-					processData : false,
-					success : function(response) {
-
-						//alert(response)
-						//$('#modal_step2_fileupload').modal('hide');
-
-						if (response.error == false) {
-							location.reload(true);
-						} else {
-
-						}
-
-						location.reload(true);
-					},
-				});
-				//  alert(file);
-				// maby check size or type here with upload.getSize() and upload.getType()
-				// execute upload
-				console.log('file upload start');
-
-				//setProgressForCSV();
-
-			} else {
-				$("#error_step2").html("Please upload csv file");
-				$("#error_step2").show();
-			}
-
-		});
+			alert("sf")
+		}); */
 
 		$("#btnActStepFinal")
 				.click(
@@ -547,7 +623,18 @@
 						});
 	</script>
 
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
 
+					$("#selAll").click(
+							function() {
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
+	</script>
 
 </body>
 </html>
