@@ -698,8 +698,8 @@
 								var presentDays = response.presentdays
 										+ response.weeklyoff + response.holiday;
 								document.getElementById("workingday").value = presentDays;
-								var amt = (((response.basic + response.allowanceValue) * 12) / 365)
-										* presentDays * response.bonusPer;
+								var amt = ((((response.basic + response.allowanceValue) * 12) / 365)
+										* presentDays * response.bonusPer) / 100;
 								document.getElementById("bonusAmt").value = amt
 										.toFixed(2);
 								finalcalculation();
