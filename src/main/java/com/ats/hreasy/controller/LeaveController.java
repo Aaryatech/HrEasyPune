@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -1571,6 +1572,92 @@ public class LeaveController {
 			e.printStackTrace();
 
 		}
+
+	}
+
+	@RequestMapping(value = "/addleaveFromAttendance", method = RequestMethod.GET)
+	public String getProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "attendence/addLeaveFromAttendace";
+
+		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			String empId = request.getParameter("empId");
+			String attDate = request.getParameter("attDate");
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			model.addAttribute("empId", empId);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+
+			EmployeeMaster editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId",
+					map, EmployeeMaster.class);
+
+			model.addAttribute("editEmp", editEmp);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			map.add("currYrId", calculateYear.getCalYrId());
+
+			LeaveHistory[] leaveHistory = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLeaveHistoryList", map, LeaveHistory[].class);
+
+			leaveHistoryList = new ArrayList<LeaveHistory>(Arrays.asList(leaveHistory));
+
+			if (leaveHistoryList.isEmpty()) {
+				model.addAttribute("lvsId", 0);
+			} else {
+				model.addAttribute("lvsId", leaveHistoryList.get(0).getLvsId());
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("empId", empId);
+
+			AuthorityInformation authorityInformation = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getAuthorityInfoByEmpId", map, AuthorityInformation.class);
+			model.addAttribute("authorityInformation", authorityInformation);
+
+			if (authorityInformation.equals(null)) {
+				model.addAttribute("authId", 0);
+			} else {
+				model.addAttribute("authId", 1);
+			}
+
+			//
+
+			map = new LinkedMultiValueMap<>();
+			map.add("limitKey", "LEAVELIMIT");
+			Setting setlimit = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			model.addAttribute("setlimit", setlimit);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("limitKey", "CONTILEAVE");
+			Setting isContinueLeave = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			model.addAttribute("CONTILEAVE", isContinueLeave);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
+					MstEmpType.class);
+			model.addAttribute("mstEmpType", mstEmpType);
+
+			model.addAttribute("leaveHistoryList", leaveHistoryList);
+			model.addAttribute("currYr", calculateYear);
+			model.addAttribute("attDate", attDate);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return mav;
 
 	}
 

@@ -38,26 +38,35 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AttendanceSheetData;
+import com.ats.hreasy.model.AuthorityInformation;
+import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.CountOfAssignPending;
 import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.EmpInfo;
+import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
+import com.ats.hreasy.model.EmployeeAllDetails;
+import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.FileUploadedData;
 import com.ats.hreasy.model.FreezeLogs;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
+import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.VariousList;
+import com.ats.hreasy.model.ViewEmployee;
 
 @Controller
 @Scope("session")
@@ -566,7 +575,7 @@ public class AttendenceController {
 				MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId",
 						map, MstEmpType.class);
 				model.addAttribute("mstEmpType", mstEmpType);
-
+				model.addAttribute("empId", empId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1039,5 +1048,6 @@ public class AttendenceController {
 		return info;
 
 	}
+ 
 
 }

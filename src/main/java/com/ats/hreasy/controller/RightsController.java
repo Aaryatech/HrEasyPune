@@ -279,7 +279,7 @@ public class RightsController {
 
 		try {
 
-			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 			Info view = AcessController.checkAccess("showAccessRoleList", "showAccessRoleList", 1, 0, 0, 0,
 					newModuleList);
 
@@ -287,7 +287,7 @@ public class RightsController {
 
 				mav = "accessDenied";
 
-			} else {
+			} else {*/
 
 				mav = "master/accessrollist";
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -305,29 +305,29 @@ public class RightsController {
 
 				model.addAttribute("empTypelist", empTypelist);
 
-				Info add = AcessController.checkAccess("showAccessRoleList", "showAccessRoleList", 0, 1, 0, 0,
+				/*Info add = AcessController.checkAccess("showAccessRoleList", "showAccessRoleList", 0, 1, 0, 0,
 						newModuleList);
 				Info edit = AcessController.checkAccess("showAccessRoleList", "showAccessRoleList", 0, 0, 1, 0,
 						newModuleList);
 				Info delete = AcessController.checkAccess("showAccessRoleList", "showAccessRoleList", 0, 0, 0, 1,
 						newModuleList);
 
-				if (add.isError() == false) {
-					System.out.println(" add   Accessable ");
+				/*if (add.isError() == false) {
+					System.out.println(" add   Accessable ");*/
 					model.addAttribute("addAccess", 0);
 
-				}
-				if (edit.isError() == false) {
-					System.out.println(" edit   Accessable ");
+				//}
+				/*if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");*/
 					model.addAttribute("editAccess", 0);
-				}
-				if (delete.isError() == false) {
-					System.out.println(" delete   Accessable ");
+				//}
+				/*if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");*/
 					model.addAttribute("deleteAccess", 0);
 
-				}
+				//}
 
-			}
+				/*}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -381,14 +381,14 @@ public class RightsController {
 		String mav = new String();
 		try {
 
-			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 			Info view = AcessController.checkAccess("editAccessRole", "showAccessRoleList", 0, 0, 1, 0, newModuleList);
 
 			if (view.isError() == true) {
 
 				mav = "accessDenied";
 
-			} else {
+			} else {*/
 
 				mav = "master/accessRoleEdit";
 
@@ -461,7 +461,7 @@ public class RightsController {
 				}
 				model.addAttribute("allModuleList", moduleList);
 				model.addAttribute("moduleJsonList", moduleJsonList);
-			}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -472,14 +472,16 @@ public class RightsController {
 	public String submitEditAccessRole(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
-		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view1 = AcessController.checkAccess("editAccessRole", "showAccessRoleList", 0, 0, 1, 0, newModuleList);
 		String a = null;
+		
+		/*List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view1 = AcessController.checkAccess("editAccessRole", "showAccessRoleList", 0, 0, 1, 0, newModuleList);
+		
 		if (view1.isError() == true) {
 
 			a = "redirect:/accessDenied";
 
-		} else {
+		} else {*/
 
 			a = "redirect:/showAccessRoleList";
 			try {
@@ -633,7 +635,7 @@ public class RightsController {
 				e.printStackTrace();
 				session.setAttribute("errorMsg", "Failed to Updated Record");
 			}
-		}
+		//}
 		return a;
 	}
 

@@ -254,7 +254,10 @@
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
-													value="${advanceAndLoanInfo.advanceAmt}"
+													value="<fmt:formatNumber type="number"
+														maxFractionDigits="2" minFractionDigits="2"
+														groupingUsed="false"
+														value="${advanceAndLoanInfo.advanceAmt}" />"
 													placeholder="Advance Amount" id="advanceamt"
 													name="advanceamt" autocomplete="off"
 													onchange="finalcalculation()">
@@ -269,7 +272,10 @@
 											</label>
 											<div class="col-lg-4">
 												<input type="text" class="form-control numbersOnly"
-													value="${advanceAndLoanInfo.loanAmt}"
+													value="<fmt:formatNumber type="number"
+														maxFractionDigits="2" minFractionDigits="2"
+														groupingUsed="false"
+														value="${advanceAndLoanInfo.loanAmt}" />"
 													placeholder="Loan Amount" id="loanamt" name="loanamt"
 													autocomplete="off" onchange="finalcalculation()">
 											</div>

@@ -217,48 +217,409 @@
 
 			</div>
 			<!-- /content area -->
+			<!-- Content area -->
+			<!-- <div class="content">
+				Highlighting rows and columns
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h5 class="card-title">Attendance Update</h5>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2" for="selectUpdateBy">
+								Update By : </label>
+							<div class="col-lg-2">
+								<input type="radio" name="selectUpdateBy" id="byStatus"
+									value="1" checked onclick1="openHideDiv(1)">By Status <input
+									type="radio" name="selectUpdateBy" id="byIntime" value="2"
+									onclick1="openHideDiv(2)">Add Leave
+
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2" for="selectUpdateBy">
+								Addddddddd Leave : </label>
+							<div class="col-lg-10">
+								<div class="">
 
 
+
+
+									<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="lvsName">
+											Employee Code : </label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control"
+												placeholder="Enter Leave Structure Name" id="empCode"
+												value="AD001" name="lvsName" autocomplete="off"
+												onchange="trim(this)" readonly="">
+
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="lvsName">
+											Employee Name : </label>
+										<div class="col-lg-10">
+											<input type="text" class="form-control"
+												placeholder="Enter Leave Structure Name" id="empName"
+												value="AKSHAY MADHUKAR RAOANDORE   " name="lvsName"
+												autocomplete="off" onchange="trim(this)" readonly="">
+
+										</div>
+									</div>
+									<hr>
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+											id="printtable1">
+
+
+											<thead>
+												<tr class="bg-blue" style="text-align: center;">
+
+													<th>Leave Type</th>
+													<th>Opening Leave</th>
+													<th>Earned</th>
+													<th>Approved</th>
+													<th>Applied</th>
+													<th>Balanced</th>
+
+
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+
+
+
+												<tr>
+													<td>Comp Off</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+
+												</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+												<tr>
+													<td>Leave Without Pay</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+
+												</tr>
+
+
+
+
+
+
+
+
+
+
+												<tr>
+													<td>Privilege Leave (Annual Leave)</td>
+													<td style="text-align: right;">15.0</td>
+													<td style="text-align: right;">17.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">32.0</td>
+
+												</tr>
+
+
+
+
+
+
+
+
+
+
+												<tr>
+													<td>Sick Leave</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">5.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">5.0</td>
+
+												</tr>
+
+
+
+
+
+
+
+
+
+
+												<tr>
+													<td>Casual Leave</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">6.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">0.0</td>
+													<td style="text-align: right;">6.0</td>
+
+												</tr>
+
+
+
+
+
+
+
+
+
+											</tbody>
+										</table>
+									</div>
+									<br>
+									<form action="/hreasy/insertLeave" id="submitInsertLeave"
+										method="post" enctype="multipart/form-data">
+
+
+
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="leaveTypeId">Select Leave Type <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-4">
+												<input type="hidden" name="dayTypeName" value="1"> <select
+													name="leaveTypeId" data-placeholder="Select Leave Type"
+													id="leaveTypeId"
+													class="form-control form-con1trol-select2 select2-1hidden-accessible"
+													data-fouc="" aria-hidden="true"
+													onchange="checkUnique();checkDatesRange()" tabindex="-1">
+													<option></option>
+
+
+
+
+
+													<option value="1" data-leavestrname="Comp Off">Comp
+														Off</option>
+
+
+
+
+
+
+												</select><span
+													class="select2 select2-container select2-container--default"
+													dir="ltr" style="width: 100%;"><span
+													class="selection"><span
+														class="select2-selection select2-selection--single"
+														role="combobox" aria-haspopup="true" aria-expanded="false"
+														tabindex="0"
+														aria-labelledby="select2-leaveTypeId-container"><span
+															class="select2-selection__rendered"
+															id="select2-leaveTypeId-container"><span
+																class="select2-selection__placeholder">Select
+																	Leave Type</span></span><span class="select2-selection__arrow"
+															role="presentation"><b role="presentation"></b></span></span></span><span
+													class="dropdown-wrapper" aria-hidden="true"></span></span> <span
+													class="validation-invalid-label" id="error_leaveTypeId"
+													style="display: none;">This field is required.</span>
+											</div>
+
+
+
+											<div class="col-lg-2">
+												<span
+													class="select2 select2-container select2-container--default"
+													dir="ltr" style="width: 100%;"><span
+													class="selection"><span
+														class="select2-selection select2-selection--single"
+														role="combobox" aria-haspopup="true" aria-expanded="false"
+														tabindex="0"
+														aria-labelledby="select2-dayTypeName-container"><span
+															class="select2-selection__rendered"
+															id="select2-dayTypeName-container" title="Full Day">Full
+																Day</span><span class="select2-selection__arrow"
+															role="presentation"><b role="presentation"></b></span></span></span><span
+													class="dropdown-wrapper" aria-hidden="true"></span></span><span
+													class="validation-invalid-label" id="error_dayType"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+
+
+
+
+
+
+										<div class="form-group row">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="lvngReson">Remark<span style="color: red">*
+											</span> :
+											</label>
+											<div class="col-lg-10">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Remark" onchange="trim(this)" id="leaveRemark"
+													name="leaveRemark"> </textarea>
+												<span class="validation-invalid-label"
+													id="error_leaveRemark" style="display: none;">This
+													field is required.</span><span class="validation-invalid-label"
+													id="error_leaveRepeatValidation" style="display: none;"></span>
+											</div>
+										</div>
+										<input type="hidden" class="form-control numbersOnly"
+											id="empId" value="1" name="empId"> <input
+											type="hidden" class="form-control numbersOnly"
+											id="tempNoDays" name="tempNoDays" value="0"> <input
+											type="hidden" class="form-control numbersOnly" id="lvsId"
+											value="1" name="lvsId"> <input type="hidden"
+											class="form-control numbersOnly" id="auth" value="1"
+											name="auth"> <input type="hidden" id="leaveLimit"
+											value="1"> <input type="hidden" id="yearFinalDate"
+											value="31-03-2021"> <input type="hidden"
+											class="form-control" id="leaveCanApply" value="0"
+											name="leaveCanApply"> <input type="hidden"
+											class="form-control numbersOnly" id="fileRequired"
+											name="fileRequired" value="0"> <input type="hidden"
+											class="form-control" id="compoffleavecount" value="0"
+											name="compoffleavecount">
+										<div class="col-md-12" style="text-align: center;">
+
+
+
+
+											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												id="submtbtn">
+												Submit <i class="icon-paperplane ml-2"></i>
+											</button>
+
+
+
+
+
+										</div>
+									</form>
+								</div>
+
+							</div>
+
+						</div>
+						<div id="byStatusDive">
+							<div class="form-group row">
+								<label class="col-form-label col-lg-2" for="selectStatus">
+									Select Status : </label>
+								<div class="col-lg-2">
+									<select name="selectStatus"
+										data-placeholder="Select Leave Type" id="selectStatus"
+										class="form-control form-control-select21 select2-hidden-accessible1">
+										<option value="0">Select Status</option>
+
+
+										<option value="22">AB</option>
+
+
+
+										<option value="5">P</option>
+
+
+
+										<option value="12">WO</option>
+
+
+
+										<option value="9">LO</option>
+
+
+
+										<option value="7">Compoff</option>
+
+
+
+										<option value="8">LS</option>
+
+
+									</select>
+								</div>
+								<div class="col-lg-1"></div>
+								<label class="col-form-label col-lg-2" for="lateMark">
+									Late Mark : </label>
+								<div class="col-lg-2">
+									<input type="checkbox" class="chk" name="lateMark"
+										id="lateMark">
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div> -->
 			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 			<!-- /footer -->
 
+
+			<!-- /main content -->
+
 		</div>
-		<!-- /main content -->
+		<!-- /page content -->
+		<script type="text/javascript">
+			// Single picker
+			/* $("#datepicker").datepicker({
+				changeMonth : true,
+				changeYear : true,
+				yearRange : "-50:+50",
+				dateFormat : "mm-yy"
+			}); */
 
-	</div>
-	<!-- /page content -->
-	<script type="text/javascript">
-		// Single picker
-		/* $("#datepicker").datepicker({
-			changeMonth : true,
-			changeYear : true,
-			yearRange : "-50:+50",
-			dateFormat : "mm-yy"
-		}); */
+			//daterange-basic_new
+			// Basic initialization
+			$('.daterange-basic_new').daterangepicker({
+				applyClass : 'bg-slate-600',
 
-		//daterange-basic_new
-		// Basic initialization
-		$('.daterange-basic_new').daterangepicker({
-			applyClass : 'bg-slate-600',
+				cancelClass : 'btn-light',
+				locale : {
+					format : 'DD-MM-YYYY',
+					separator : ' to '
+				}
+			});
+			$(document).ready(function() {
+				// month selector
+				$('#datepicker').datepicker({
+					autoclose : true,
+					format : "mm-yyyy",
+					viewMode : "months",
+					minViewMode : "months"
 
-			cancelClass : 'btn-light',
-			locale : {
-				format : 'DD-MM-YYYY',
-				separator : ' to '
-			}
-		});
-		$(document).ready(function() {
-			// month selector
-			$('#datepicker').datepicker({
-				autoclose : true,
-				format : "mm-yyyy",
-				viewMode : "months",
-				minViewMode : "months"
+				});
 
 			});
-
-		});
-	</script>
+		</script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
 
-<body onload="chkAssign()">
+<body>
 
 
 	<!-- Main navbar -->
@@ -181,9 +181,11 @@
 											<input type="radio" name="selectUpdateBy" id="byIntime"
 												value="2" onclick="openHideDiv(2)">In Time and Out
 											Time
-
 										</div>
-
+										<div class="col-lg-2">
+											<button type="button" class="btn bg-blue ml-3 legitRipple"
+												id="addleave" onclick="addLeave()">Add Leave</button>
+										</div>
 									</div>
 									<div id="byStatusDive">
 										<div class="form-group row">
@@ -260,6 +262,8 @@
 											name="dailyId" autocomplete="off"> <input
 											type="hidden" id="year" name="year" value="${year}">
 										<input type="hidden" id="month" name="month" value="${month}">
+										<input type="hidden" id="empId" name="empId" value="${empId}">
+
 									</div>
 
 
@@ -418,7 +422,30 @@
 
 	</div>
 	<!-- /page content -->
+	<!-- Large modal -->
+	<div id="modal_large1" class="modal fade" tabindex="-1">
 
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body" id="modalbody">
+					<!--  Profile Model -->
+					<!--  Profile Model -->
+					<!--  Profile Model -->
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<!-- <button type="button" class="btn bg-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /large modal -->
 	<script type="text/javascript">
 		function openHideDiv(value) {
 
@@ -611,9 +638,24 @@
 						});
 	</Script>
 
-
-	<!-- Scrollable modal -->
-
-	<!-- /scrollable modal -->
+	<script type="text/javascript">
+	function addLeave() {
+		
+		var empId = document.getElementById("empId").value;  
+		var attDate = document.getElementById("attDate").value;  
+		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate;
+		   $("#modalbody").load(strhref);
+		   $("#modal_large1").modal("show");
+		   $('#modal_large1').on('hidden.bs.modal', function () {
+			 $("#modalbody").html("");
+		   }); 
+		   
+		$(document).ready(function(){
+ 
+		 
+			});
+	}
+	
+	</script>
 </body>
 </html>

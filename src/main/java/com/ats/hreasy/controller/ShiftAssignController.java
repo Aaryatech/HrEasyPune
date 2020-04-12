@@ -42,7 +42,7 @@ public class ShiftAssignController {
 		HttpSession session = request.getSession();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceSelectMonth", "attendanceSelectMonth", 1, 0, 0, 0,
+		Info view = AcessController.checkAccess("shiftUploadSelectMonth", "shiftUploadSelectMonth", 1, 0, 0, 0,
 				newModuleList);
 
 		if (view.isError() == true) {
