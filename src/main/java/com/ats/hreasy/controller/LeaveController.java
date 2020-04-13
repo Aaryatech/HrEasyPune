@@ -1587,6 +1587,8 @@ public class LeaveController {
 
 			String empId = request.getParameter("empId");
 			String attDate = request.getParameter("attDate");
+			int month = Integer.parseInt(request.getParameter("month"));
+			int year = Integer.parseInt(request.getParameter("year"));
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
@@ -1653,11 +1655,217 @@ public class LeaveController {
 			model.addAttribute("leaveHistoryList", leaveHistoryList);
 			model.addAttribute("currYr", calculateYear);
 			model.addAttribute("attDate", attDate);
+			model.addAttribute("month", month);
+			model.addAttribute("year", year);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 
 		return mav;
+
+	}
+
+	@RequestMapping(value = "/insertLeaveFromEditAttendance", method = RequestMethod.POST)
+	public String insertLeaveFromEditAttendance(@RequestParam("documentFile") List<MultipartFile> documentFile,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		int empId = Integer.parseInt(request.getParameter("empId"));
+		int month = Integer.parseInt(request.getParameter("month"));
+		int year = Integer.parseInt(request.getParameter("year"));
+
+		try {
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+
+			Info infoImage = new Info();
+
+			HttpSession session = request.getSession();
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+			int fileRequired = Integer.parseInt(request.getParameter("fileRequired"));
+
+			Boolean ret = false;
+
+			if (fileRequired == 1) {
+
+				if (documentFile.get(0).getOriginalFilename() != "") {
+
+					VpsImageUpload upload = new VpsImageUpload();
+					String imageName = dateTimeInGMT.format(date) + "_" + documentFile.get(0).getOriginalFilename();
+					infoImage = upload.saveUploadedImge(documentFile.get(0), Constants.leaveDocSaveUrl, imageName,
+							Constants.values, 0, 0, 0, 0, 0);
+					infoImage.setMsg(imageName);
+				} else {
+					infoImage.setError(true);
+				}
+
+			} else {
+				infoImage.setMsg("-");
+				infoImage.setError(false);
+			}
+
+			// String compName = request.getParameter("1");
+			String leaveDateRange = request.getParameter("leaveDateRange");
+			String dayTypeName = request.getParameter("dayTypeName");
+			float noOfDays = Float.parseFloat(request.getParameter("noOfDays"));
+			int leaveTypeId = Integer.parseInt(request.getParameter("leaveTypeId"));
+
+			int noOfDaysExclude = Integer.parseInt(request.getParameter("noOfDaysExclude"));
+
+			// get Authority ids
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+
+			GetAuthorityIds editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getAuthIdByEmpId",
+					map, GetAuthorityIds.class);
+			int stat = 3;
+
+			/*
+			 * if (editEmp.getFinAuthEmpId() == userObj.getEmpId()) { stat = 3; } else if
+			 * (editEmp.getIniAuthEmpId() == userObj.getEmpId()) { stat = 2; } else { stat =
+			 * 1; }
+			 */
+
+			String remark = null;
+
+			String[] arrOfStr = leaveDateRange.split("to", 2);
+
+			System.out.println("dayType" + dayTypeName);
+
+			try {
+				remark = request.getParameter("leaveRemark");
+			} catch (Exception e) {
+				remark = "NA";
+			}
+
+			if (FormValidation.Validaton(leaveDateRange, "") == true) {
+
+				ret = true;
+
+			}
+			if (FormValidation.Validaton(request.getParameter("noOfDays"), "") == true) {
+
+				ret = true;
+
+			}
+
+			if (FormValidation.Validaton(request.getParameter("noOfDaysExclude"), "") == true) {
+
+				ret = true;
+
+			}
+
+			if (FormValidation.Validaton(request.getParameter("leaveTypeId"), "") == true) {
+
+				ret = true;
+
+			}
+
+			if (ret == false && infoImage.isError() == false) {
+
+				LeaveApply leaveSummary = new LeaveApply();
+
+				leaveSummary.setCalYrId(calculateYear.getCalYrId());
+				leaveSummary.setEmpId(empId);
+				leaveSummary.setFinalStatus(1);
+				leaveSummary.setLeaveNumDays(noOfDays);
+				leaveSummary.setCirculatedTo("1");
+				leaveSummary.setLeaveDuration(dayTypeName);
+				leaveSummary.setLeaveEmpReason(remark);
+				leaveSummary.setLvTypeId(leaveTypeId);
+				leaveSummary.setLeaveFromdt(DateConvertor.convertToYMD(arrOfStr[0].toString().trim()));
+				leaveSummary.setLeaveTodt(DateConvertor.convertToYMD(arrOfStr[1].toString().trim()));
+
+				leaveSummary.setExInt1(stat);
+				leaveSummary.setExInt2(1);
+				leaveSummary.setExInt3(1);
+				leaveSummary.setExVar1("NA");
+
+				if (leaveTypeId == 1) {
+					String dailyIds = "0";
+					for (int i = 0; i < noOfDays; i++) {
+						dailyIds = dailyIds + "," + dailyrecordlistforcompoff.get(i).getId();
+					}
+					leaveSummary.setExVar2(dailyIds.substring(2, dailyIds.length()));
+				} else {
+					leaveSummary.setExVar2("0");
+				}
+				leaveSummary.setExVar3(infoImage.getMsg());
+				leaveSummary.setIsActive(1);
+				leaveSummary.setDelStatus(1);
+				leaveSummary.setMakerUserId(userObj.getUserId());
+				leaveSummary.setMakerEnterDatetime(sf.format(date));
+
+				LeaveApply res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLeaveApply",
+						leaveSummary, LeaveApply.class);
+
+				if (res != null) {
+					LeaveTrail lt = new LeaveTrail();
+
+					lt.setEmpRemarks(remark);
+					System.err.println("res.getLeaveId()" + res.getLeaveId());
+					lt.setLeaveId(res.getLeaveId());
+
+					lt.setLeaveStatus(stat);
+					lt.setEmpId(empId);
+					lt.setExInt1(1);
+					lt.setExInt2(1);
+					lt.setExInt3(1);
+					lt.setExVar1("NA");
+					lt.setExVar2("NA");
+					lt.setExVar3("NA");
+
+					lt.setMakerUserId(userObj.getUserId());
+					lt.setMakerEnterDatetime(sf.format(date));
+					LeaveTrail res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveLeaveTrail", lt,
+							LeaveTrail.class);
+					if (res1 != null) {
+
+						map = new LinkedMultiValueMap<>();
+						map.add("leaveId", res.getLeaveId());
+						map.add("trailId", res1.getTrailPkey());
+						Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateTrailId", map,
+								Info.class);
+						if (info.isError() == false) {
+							session.setAttribute("successMsg", "Leave Apply Successfully");
+						} else {
+							session.setAttribute("errorMsg", "Failed to Apply Leave");
+						}
+
+						if (leaveTypeId == 1) {
+							map = new LinkedMultiValueMap<>();
+							map.add("dailydaillyIds", leaveSummary.getExVar2());
+							map.add("status", 1);
+							Info updatestatus = Constants.getRestTemplate()
+									.postForObject(Constants.url + "/updateweeklyoffotStatutoused", map, Info.class);
+						}
+
+						if (stat == 3) {
+
+							UpateAttendaceCommon upateAttendaceCommon = new UpateAttendaceCommon();
+
+							Info updateAttendaceInfo = upateAttendaceCommon.changeInDailyDailyAfterLeaveTransaction(
+									arrOfStr[0], arrOfStr[1], empId, userObj.getUserId());
+						}
+
+					}
+				}
+
+			} else {
+				session.setAttribute("errorMsg", "Failed to Apply Leave");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// return "redirect:/showApplyForLeave";
+		return "redirect:/attendanceEditEmpMonth?month=" + month + "&year=" + year + "&empId=" + empId;
 
 	}
 

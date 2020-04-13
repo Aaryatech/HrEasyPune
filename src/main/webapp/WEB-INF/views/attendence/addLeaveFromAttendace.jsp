@@ -173,7 +173,8 @@
 						</table>
 					</div>
 					<br>
-					<form action="${pageContext.request.contextPath}/insertLeave"
+					<form
+						action="${pageContext.request.contextPath}/insertLeaveFromEditAttendance"
 						id="submitInsertLeave" method="post" enctype="multipart/form-data">
 
 
@@ -257,10 +258,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label text-info font-weight-bold col-lg-2"
-								for="lvngReson">Remark<span style="color: red">*
-							</span> :
-							</label>
+							<label class="col-form-label  col-lg-2" for="lvngReson">Remark
+								: </label>
 							<div class="col-lg-10">
 								<textarea rows="3" cols="3" class="form-control"
 									placeholder="Remark" onchange="trim(this)" id="leaveRemark"
@@ -287,7 +286,11 @@
 							class="form-control numbersOnly" id="fileRequired"
 							name="fileRequired" value="0"> <input type="hidden"
 							class="form-control" id="compoffleavecount" value="0"
-							name="compoffleavecount">
+							name="compoffleavecount"> <input type="hidden"
+							class="form-control numbersOnly" id="month" value="${month}"
+							name="month"><input type="hidden"
+							class="form-control numbersOnly" id="year" value="${year}"
+							name="year">
 						<div class="col-md-12" style="text-align: center;">
 
 							<c:choose>
@@ -622,16 +625,6 @@
 												$("#error_leaveTypeId").hide()
 											}
 
-											if (!$("#dayTypeName").val()) {
-
-												isError = true;
-
-												$("#error_dayType").show()
-
-											} else {
-												$("#error_dayType").hide()
-											}
-
 											if (!$("#leaveDateRange").val()) {
 
 												isError = true;
@@ -654,18 +647,6 @@
 												$("#error_noOfDays").hide()
 											}
 
-											if (!$("#noOfDaysExclude").val()) {
-
-												isError = true;
-
-												$("#error_noOfDaysExclude")
-														.show()
-
-											} else {
-												$("#error_noOfDaysExclude")
-														.hide()
-											}
-
 											if ($("#leaveLimit").val() == 1
 													&& $("#leaveTypeId").val() != 2) {
 												//alert("Hii..");
@@ -685,7 +666,7 @@
 
 											}
 
-											if (!$("#leaveRemark").val()) {
+											if ($("#leaveRemark").val() == "") {
 
 												isError = true;
 
