@@ -127,14 +127,11 @@
 												value="${editBonusCalc.totalExgretiaWages}"
 												autocomplete="off" onchange="trim(this)">
 										</div>
-										<label class="col-form-label col-lg-2" for="grossExgretiaAmt">Gross
+										<!-- <label class="col-form-label col-lg-2" for="grossExgretiaAmt">Gross
 											Exgratia Amt: </label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control" id="grossExgretiaAmt"
-												name="grossExgretiaAmt" readonly="readonly"
-												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
-												onchange="trim(this)">
-										</div>
+											
+										</div> -->
 									</div>
 
 
@@ -142,11 +139,15 @@
 										<label class="col-form-label col-lg-2" for="paidExgratiaAmt">Paid
 											Exgratia Amt : </label>
 										<div class="col-lg-4">
+										<input type="hidden" class="form-control" id="grossExgretiaAmt"
+												name="grossExgretiaAmt" readonly="readonly"
+												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
+												onchange="trim(this)">
 											<input type="text" class="form-control numbersOnly" id="paidExgratiaAmt"
 												name="paidExgratiaAmt"
 												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
 												onchange="trim(this)">
-												<input type="text" class="form-control"
+												<input type="hidden" class="form-control"
 												placeholder="E.g. Exgratia %" id="exgratiaPrcnt"
 												name="exgratiaPrcnt" value="${editBonusCalc.exgratiaPrcnt}"
 												autocomplete="off">
