@@ -10,6 +10,7 @@ import com.ats.hreasy.model.Info;
 public class AcessController {
 	
 
+	
 	public static Info checkAccess(String currentMapping, String viewMapping, int view, int add, int edit,
 			int delete, List<AccessRightModule> newModuleList) {
 
