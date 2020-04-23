@@ -592,8 +592,11 @@
 											<div id="hodDeptDiv" style="display: none;">
 												<div class="form-group row">
 
-													<label class="col-form-label col-lg-2" for="hoddeptId">
-														Department : </label>
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="hoddeptId"> Department <span
+														class="text-danger">*</span>:
+													</label>
 													<div class="col-lg-4">
 														<select name="hoddeptId"
 															data-placeholder="Select Department" id="hoddeptId"
@@ -760,11 +763,10 @@
 														onchange="trim(this)"> <span
 														class="hidedefault  validation-invalid-label"
 														id="error_empDob" style="display: none;">This field
-														is required.</span>
-														<span
+														is required.</span> <span
 														class="hidedefault  validation-invalid-label"
-														id="error_nomDob" style="display: none;">Invalid Date
-														of Birth.</span>
+														id="error_nomDob" style="display: none;">Invalid
+														Date of Birth.</span>
 												</div>
 
 												<label class="col-form-label col-lg-2" for="gender">Gender
@@ -843,7 +845,7 @@
 												</div>
 
 
-												<label class="col-form-label col-lg-2" for="paddress">Parmanent
+												<label class="col-form-label col-lg-2" for="paddress">Permanent
 													Address : </label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control"
@@ -1104,11 +1106,10 @@
 													<input type="text" class="form-control datepickerclass"
 														placeholder="Date of Birth" id="dob1" name="dob"
 														value="${empNom.dob}" autocomplete="off"
-														onchange="trim(this)">
-														<span
+														onchange="trim(this)"> <span
 														class="hidedefault  validation-invalid-label"
-														id="error_nomDob1" style="display: none;">Invalid Date
-														of Birth.</span>
+														id="error_nomDob1" style="display: none;">Invalid
+														Date of Birth.</span>
 
 												</div>
 												<div class="col-md-3">
@@ -1156,11 +1157,10 @@
 														<input type="text" class="form-control datepickerclass"
 															placeholder="Date of Birth" id="dob2" name="dob2"
 															value="${empNom.dob2}" autocomplete="off"
-															onchange="trim(this)">
-														<span
-														class="hidedefault  validation-invalid-label"
-														id="error_nomDob2" style="display: none;">Invalid Date
-														of Birth.</span>
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															id="error_nomDob2" style="display: none;">Invalid
+															Date of Birth.</span>
 													</div>
 												</div>
 												<div class="col-md-3">
@@ -1208,11 +1208,10 @@
 														<input type="text" class="form-control datepickerclass"
 															placeholder="Date of Birth" id="dob3" name="dob3"
 															value="${empNom.dob3}" autocomplete="off"
-															onchange="trim(this)">
-														<span
-														class="hidedefault  validation-invalid-label"
-														id="error_nomDob3" style="display: none;">Invalid Date
-														of Birth.</span>
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															id="error_nomDob3" style="display: none;">Invalid
+															Date of Birth.</span>
 													</div>
 												</div>
 												<div class="col-md-3">
@@ -1260,11 +1259,10 @@
 														<input type="text" class="form-control datepickerclass"
 															placeholder="Date of Birth" id="dob4" name="dob4"
 															value="${empNom.dob4}" autocomplete="off"
-															onchange="trim(this)">
-														<span
-														class="hidedefault  validation-invalid-label"
-														id="error_nomDob4" style="display: none;">Invalid Date
-														of Birth.</span>
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															id="error_nomDob4" style="display: none;">Invalid
+															Date of Birth.</span>
 													</div>
 												</div>
 												<div class="col-md-3">
@@ -1312,11 +1310,10 @@
 														<input type="text" class="form-control datepickerclass"
 															placeholder="Date of Birth" id="dob5" name="dob5"
 															value="${empNom.dob5}" autocomplete="off"
-															onchange="trim(this)">
-														<span
-														class="hidedefault  validation-invalid-label"
-														id="error_nomDob5" style="display: none;">Invalid Date
-														of Birth.</span>
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															id="error_nomDob5" style="display: none;">Invalid
+															Date of Birth.</span>
 													</div>
 												</div>
 												<div class="col-md-3">
@@ -1364,11 +1361,10 @@
 														<input type="text" class="form-control datepickerclass"
 															placeholder="Date of Birth" id="dob6" name="dob6"
 															value="${empNom.dob6}" autocomplete="off"
-															onchange="trim(this)">
-														<span
-														class="hidedefault  validation-invalid-label"
-														id="error_nomDob6" style="display: none;">Invalid Date
-														of Birth.</span>
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															id="error_nomDob6" style="display: none;">Invalid
+															Date of Birth.</span>
 													</div>
 												</div>
 												<div class="col-md-3">
@@ -2321,46 +2317,41 @@
 
 
 	<script type="text/javascript">
-	
-	function getToDayDate(dob){
-		
-		//alert(dob);
-		var today = new Date();
-		var dd = today.getDate();
+		function getToDayDate(dob) {
 
-		var mm = today.getMonth()+1; 
-		var yyyy = today.getFullYear();
-		if(dd<10) 
-		{
-		    dd='0'+dd;
-		} 
+			//alert(dob);
+			var today = new Date();
+			var dd = today.getDate();
 
-		if(mm<10) 
-		{
-		    mm='0'+mm;
-		} 
-		today = dd+'-'+mm+'-'+yyyy;
-		
+			var mm = today.getMonth() + 1;
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			today = dd + '-' + mm + '-' + yyyy;
+
 			var from_date = dob;
 			var to_date = today;
-			
+
 			var fromdate = from_date.split('-');
-	        from_date = new Date();
-	        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
-	        var todate = to_date.split('-');
-	        to_date = new Date();
-	        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
-	        if (from_date >= to_date ) 
-	        {
-	           //alert("Invalid Date Range!\nStart Date cannot be after End Date!")
-	            return false;
-	           
-	        }else {
-	        	return true;
+			from_date = new Date();
+			from_date.setFullYear(fromdate[2], fromdate[1] - 1, fromdate[0]);
+			var todate = to_date.split('-');
+			to_date = new Date();
+			to_date.setFullYear(todate[2], todate[1] - 1, todate[0]);
+			if (from_date >= to_date) {
+				//alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+				return false;
+
+			} else {
+				return true;
 			}
-	}
-	
-	
+		}
+
 		function setDate() {
 
 			var value = document.getElementById("pfApplicable").value;
@@ -3161,15 +3152,13 @@
 				} else {
 					$("#error_empDob").hide()
 				}
-				
-				if (!getToDayDate($(
-				"#dob")
-				.val())) {
+
+				if (!getToDayDate($("#dob").val())) {
 
 					isError = true;
 
 					$("#error_invalidEmpDob").show()
-					
+
 				} else {
 					$("#error_invalidEmpDob").hide()
 				}
@@ -3224,96 +3213,83 @@
 		//***********Nominee Info******************//
 		$(document).ready(function($) {
 
-		$("#submitEmpRelationInfo").submit(function(e) {
-			var isError = false;
-			var errMsg = "";
+			$("#submitEmpRelationInfo").submit(function(e) {
+				var isError = false;
+				var errMsg = "";
 
-			if (!getToDayDate($(
-			"#dob1")
-			.val())) {
+				if (!getToDayDate($("#dob1").val())) {
 
-				isError = true;
+					isError = true;
 
-				$("#error_nomDob1").show()
-				
-			} else {
-				$("#error_nomDob1").hide()
-			}
+					$("#error_nomDob1").show()
 
-			if (!getToDayDate($(
-			"#dob2")
-			.val())) {
-
-				isError = true;
-
-				$("#error_nomDob2").show()
-				
-			} else {
-				$("#error_nomDob2").hide()
-			}
-
-			if (!getToDayDate($(
-			"#dob3")
-			.val())) {
-
-				isError = true;
-
-				$("#error_nomDob3").show()
-				
-			} else {
-				$("#error_nomDob3").hide()
-			}
-			
-			if (!getToDayDate($(
-			"#dob4")
-			.val())) {
-
-				isError = true;
-
-				$("#error_nomDob4").show()
-				
-			} else {
-				$("#error_nomDob4").hide()
-			}
-			
-			if (!getToDayDate($(
-			"#dob5")
-			.val())) {
-
-				isError = true;
-
-				$("#error_nomDob5").show()
-				
-			} else {
-				$("#error_nomDob5").hide()
-			}
-	
-			if (!getToDayDate($(
-			"#dob6")
-			.val())) {
-
-				isError = true;
-
-				$("#error_nomDob6").show()
-				
-			} else {
-				$("#error_nomDob6").hide()
-			}
-			if (!isError) {
-
-				var x = true;
-				if (x == true) {
-
-					//document.getElementById("submtbtn").disabled = true;
-					return true;
+				} else {
+					$("#error_nomDob1").hide()
 				}
-				//
-			}
-			return false;
+
+				if (!getToDayDate($("#dob2").val())) {
+
+					isError = true;
+
+					$("#error_nomDob2").show()
+
+				} else {
+					$("#error_nomDob2").hide()
+				}
+
+				if (!getToDayDate($("#dob3").val())) {
+
+					isError = true;
+
+					$("#error_nomDob3").show()
+
+				} else {
+					$("#error_nomDob3").hide()
+				}
+
+				if (!getToDayDate($("#dob4").val())) {
+
+					isError = true;
+
+					$("#error_nomDob4").show()
+
+				} else {
+					$("#error_nomDob4").hide()
+				}
+
+				if (!getToDayDate($("#dob5").val())) {
+
+					isError = true;
+
+					$("#error_nomDob5").show()
+
+				} else {
+					$("#error_nomDob5").hide()
+				}
+
+				if (!getToDayDate($("#dob6").val())) {
+
+					isError = true;
+
+					$("#error_nomDob6").show()
+
+				} else {
+					$("#error_nomDob6").hide()
+				}
+				if (!isError) {
+
+					var x = true;
+					if (x == true) {
+
+						//document.getElementById("submtbtn").disabled = true;
+						return true;
+					}
+					//
+				}
+				return false;
+			});
 		});
-	});
 		//************Personal Info****************//
-		
 
 		$(document)
 				.ready(

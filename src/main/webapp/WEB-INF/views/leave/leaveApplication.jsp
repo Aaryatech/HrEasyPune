@@ -256,8 +256,9 @@
 										</div>
 
 
-
-										<div class="col-lg-2">
+										<input type="hidden" class="form-control numbersOnly"
+											id="dayTypeName" value="1" name="dayTypeName">
+										<!-- <div class="col-lg-2">
 											<select data-placeholder="Select a Day Type" id="dayTypeName"
 												name="dayTypeName"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -265,13 +266,13 @@
 												onchange="calholidayWebservice()">
 												<option></option>
 												<option selected value="1">Full Day</option>
-												<!-- <option value="2">1st Half</option>
-												<option value="3">2nd Half</option> -->
+												<option value="2">1st Half</option>
+												<option value="3">2nd Half</option>
 
 
 											</select><span class="validation-invalid-label" id="error_dayType"
 												style="display: none;">This field is required.</span>
-										</div>
+										</div> -->
 									</div>
 									<div class="form-group row">
 										<label
@@ -310,7 +311,9 @@
 												style="display: none;">Leave Minimum 1 Day</span>
 										</div>
 									</div>
-									<div class="form-group row">
+									<input type="hidden" class="form-control numbersOnly"
+										id="noOfDaysExclude" name="noOfDaysExclude" autocomplete="off">
+									<!-- <div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
 											for="noOfDaysExclude"> Excluding Weekly Off <span
@@ -324,7 +327,7 @@
 												class="validation-invalid-label" id="error_noOfDaysExclude"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
+									</div> -->
 
 									<div id="fileDive" style="display: none;">
 										<div class="form-group row">

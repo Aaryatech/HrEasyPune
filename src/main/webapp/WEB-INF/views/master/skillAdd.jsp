@@ -123,7 +123,7 @@
 										</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter Skill Rate" id="skillRate" value="${editSkill.rate}"
 												name="skillRate" autocomplete="off"> <span
 												class="validation-invalid-label" id="error_skillRate"

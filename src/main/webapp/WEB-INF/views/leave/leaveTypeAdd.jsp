@@ -152,7 +152,7 @@
 											class="text-danger">*</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control" maxlength="10"
+											<input type="text" class="form-control" maxlength="2"
 												placeholder="Enter Leave Type Short Name"
 												id="leaveShortTypeTitle" name="leaveShortTypeTitle"
 												autocomplete="off" onchange="trim(this)"

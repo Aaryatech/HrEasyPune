@@ -215,31 +215,36 @@
 									<hr>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="advanceAmt">PartialPay
-											Amount (Rs) <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="advanceAmt">PartialPay Amount (Rs) <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter  Amount" id="partialAmt"
 												name="partialAmt" onchange="show()" value="0"
-												autocomplete="off">
+												autocomplete="off"> <span
+												class="validation-invalid-label" id="error_partialAmt"
+												style="display: none;">This field is required.</span> <span
+												class="validation-invalid-label" id="error_partialAmtGreat"
+												style="display: none;">Partial Pay Amount Should Be
+												Less Than Current Outstanding </span>
 										</div>
-										<span class="validation-invalid-label" id="error_partialAmt"
-											style="display: none;">This field is required.</span> <span
-											class="validation-invalid-label" id="error_partialAmtGreat"
-											style="display: none;">Partial Pay Amount Should Be
-											Less Than Current Outstanding </span>
+
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="joiningDate">
-											Date <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="joiningDate"> Date <span style="color: red">*
+										</span>:
 										</label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control datepickerclass "  
-												 name="joiningDate" id="joiningDate"
-												placeholder=" Date"><span class="validation-invalid-label" id="error_joiningDate"
-											style="display: none;">This field is required.</span>
+											<input type="text" class="form-control datepickerclass "
+												name="joiningDate" id="joiningDate" placeholder=" Date"><span
+												class="validation-invalid-label" id="error_joiningDate"
+												style="display: none;">This field is required.</span>
 										</div>
 									</div>
 
@@ -252,8 +257,9 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="remark">
-											Remark <span style="color: red">*</span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="remark"> Remark <span style="color: red">*</span>:
 										</label>
 										<div class="col-lg-4">
 											<textarea class="form-control"
@@ -311,7 +317,7 @@
 
 		}
 	</script>
-		<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -321,9 +327,10 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want  To Submit This Record </h5>
+					<h5 class="modal-title">Are You Sure You Want To Submit This
+						Record</h5>
 					<br>
-				 
+
 				</div>
 
 				<div class="modal-footer pt-3">
@@ -384,49 +391,72 @@
 			return;
 		}
 
-		$(document).ready(function($) {
+		$(document)
+				.ready(
+						function($) {
 
-			$("#submitInsertLocaion").submit(function(e) {
-				//alert(11);
-				var isError = false;
-				var errMsg = "";
-				//	alert($("#reason").val());
-				if (!$("#reason").val()) {
-					isError = true;
+							$("#submitInsertLocaion")
+									.submit(
+											function(e) {
 
-					$("#error_reason").show()
+												var currentOutstanding = document
+														.getElementById("currentOutstanding").value;
 
-				} else {
-					$("#error_reason").hide()
-				}
-				if (!$("#partialAmt").val()) {
-					isError = true;
+												var partialAmt = document
+														.getElementById("partialAmt").value;
 
-					$("#error_partialAmt").show()
+												//alert(11);
+												var isError = false;
+												var errMsg = "";
+												//	alert($("#reason").val());
+												if (!$("#reason").val()) {
+													isError = true;
 
-				} else {
-					$("#error_partialAmt").hide()
-				}
-				
-				if (!$("#joiningDate").val()) {
-					isError = true;
+													$("#error_reason").show()
 
-					$("#error_joiningDate").show()
+												} else {
+													$("#error_reason").hide()
+												}
 
-				} else {
-					$("#error_joiningDate").hide()
-				}
+												if (parseFloat(partialAmt) > parseFloat(currentOutstanding)
+														|| parseFloat(partialAmt) <= 0) {
 
-				if (!isError) {
- 
-					$('#modal_scrollable')
-					.modal('show');
+													isError = true;
 
-						return false;
- 				}
-				return false;
-			});
-		});
+												}
+
+												if (!$("#partialAmt").val()) {
+													isError = true;
+
+													$("#error_partialAmt")
+															.show()
+
+												} else {
+													$("#error_partialAmt")
+															.hide()
+												}
+
+												if (!$("#joiningDate").val()) {
+													isError = true;
+
+													$("#error_joiningDate")
+															.show()
+
+												} else {
+													$("#error_joiningDate")
+															.hide()
+												}
+
+												if (!isError) {
+
+													$('#modal_scrollable')
+															.modal('show');
+
+													return false;
+												}
+												return false;
+											});
+						});
 		//
 	</script>
 

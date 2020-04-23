@@ -73,8 +73,6 @@ public class CompanySubController {
 				}
 				model.addObject("companyList", companyList);
 
-				 
-
 				Info add = AcessController.checkAccess("showSubCompanyList", "showSubCompanyList", 0, 1, 0, 0,
 						newModuleList);
 				Info edit = AcessController.checkAccess("showSubCompanyList", "showSubCompanyList", 0, 0, 1, 0,
@@ -108,7 +106,6 @@ public class CompanySubController {
 	public String deleteSubCompany(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String a = new String();
 
-		 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 
 		Info view = AcessController.checkAccess("deleteSubCompany", "showSubCompanyList", 0, 0, 0, 1, newModuleList);
@@ -120,29 +117,29 @@ public class CompanySubController {
 
 		else {
 
- 
-		a = "redirect:/showSubCompanyList";
-		try {
-			String base64encodedString = request.getParameter("companyId");
-			String companyId = FormValidation.DecodeKey(base64encodedString);
+			a = "redirect:/showSubCompanyList";
+			try {
+				String base64encodedString = request.getParameter("companyId");
+				String companyId = FormValidation.DecodeKey(base64encodedString);
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("compId", companyId);
-			map.add("companyId", 1);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("compId", companyId);
+				map.add("companyId", 1);
 
-			Info res = Constants.getRestTemplate().postForObject(Constants.url + "/deleteSubCompany", map, Info.class);
+				Info res = Constants.getRestTemplate().postForObject(Constants.url + "/deleteSubCompany", map,
+						Info.class);
 
-			if (res.isError()) {
-				session.setAttribute("errorMsg", res.getMsg());
-			} else {
-				session.setAttribute("successMsg", res.getMsg());
+				if (res.isError()) {
+					session.setAttribute("errorMsg", res.getMsg());
+				} else {
+					session.setAttribute("successMsg", res.getMsg());
 
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Delete");
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.setAttribute("errorMsg", "Failed to Delete");
-		}
 		}
 		return a;
 	}
@@ -188,8 +185,7 @@ public class CompanySubController {
 			MstCompanySub company = new MstCompanySub();
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("companySubAdd", "showSubCompanyList", 0, 1, 0, 0,
-					newModuleList);
+			Info view = AcessController.checkAccess("companySubAdd", "showSubCompanyList", 0, 1, 0, 0, newModuleList);
 
 			if (view.isError() == true) {
 
@@ -304,10 +300,18 @@ public class CompanySubController {
 			MstCompanySub saveComp = Constants.getRestTemplate().postForObject(Constants.url + "/saveSubNewCompany",
 					company, MstCompanySub.class);
 
-			if (saveComp != null) {
-				session.setAttribute("successMsg", "Record Updated Successfully");
+			if (compId != 0) {
+				if (saveComp != null) {
+					session.setAttribute("successMsg", "Record Updated Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Update Record");
+				}
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				if (saveComp != null) {
+					session.setAttribute("successMsg", "Record Insert Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Insert Record");
+				}
 			}
 
 		} catch (Exception e) {
@@ -324,7 +328,7 @@ public class CompanySubController {
 		ModelAndView model = null;
 		HttpSession session = request.getSession();
 		try {
-			
+
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 			Info view = AcessController.checkAccess("editSubCompanyInfo", "showSubCompanyList", 0, 0, 1, 0,
 					newModuleList);
@@ -335,27 +339,27 @@ public class CompanySubController {
 
 			} else {
 
-			String redirectFlag = request.getParameter("redirectFlag");
-			if (Integer.parseInt(redirectFlag) == 2) {
-				session.setAttribute("tabFlag", 0);
-			}
+				String redirectFlag = request.getParameter("redirectFlag");
+				if (Integer.parseInt(redirectFlag) == 2) {
+					session.setAttribute("tabFlag", 0);
+				}
 
-			String base64encodedString = request.getParameter("compId");
-			String companyId = FormValidation.DecodeKey(base64encodedString);
-			System.out.println("Get CompId : " + companyId);
+				String base64encodedString = request.getParameter("compId");
+				String companyId = FormValidation.DecodeKey(base64encodedString);
+				System.out.println("Get CompId : " + companyId);
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("companyId", companyId);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("companyId", companyId);
 
-			MstCompanySub company = Constants.getRestTemplate().postForObject(Constants.url + "/getSubCompanyById", map,
-					MstCompanySub.class);
+				MstCompanySub company = Constants.getRestTemplate().postForObject(Constants.url + "/getSubCompanyById",
+						map, MstCompanySub.class);
 
-			model = new ModelAndView("master/companySubAdd");
-			model.addObject("company", company);
+				model = new ModelAndView("master/companySubAdd");
+				model.addObject("company", company);
 
-			model.addObject("viewUrl", Constants.companyLogoShowUrl);
+				model.addObject("viewUrl", Constants.companyLogoShowUrl);
 
-			System.out.println(" company : " + company.toString());
+				System.out.println(" company : " + company.toString());
 			}
 		} catch (Exception e) {
 			System.out.println("Exception in addCompanyInfo : " + e.getMessage());
@@ -695,8 +699,8 @@ public class CompanySubController {
 
 				if (img.trim() != "") {
 
-					Info info = upload.saveUploadedImge(logo.get(0), Constants.companyLogoSaveUrl, img, Constants.values, 0,
-							0, 0, 0, 0);
+					Info info = upload.saveUploadedImge(logo.get(0), Constants.companyLogoSaveUrl, img,
+							Constants.values, 0, 0, 0, 0, 0);
 
 					if (info.isError() == false) {
 						comp.setLogo(img);

@@ -99,7 +99,7 @@
 							<thead>
 								<tr class="bg-blue">
 									<th width="10%">Sr. No.</th>
-									<th>Type Name</th>
+									<th>Role Name</th>
 									<th>Short Name</th>
 									<th>Remark</th>
 

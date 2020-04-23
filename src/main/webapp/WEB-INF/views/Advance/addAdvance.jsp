@@ -146,7 +146,7 @@
 											<input type="text" class="form-control"
 												placeholder="Enter Voucher Number" id="voucherNo"
 												name="voucherNo" autocomplete="off"
-												onchange="uniqueVoucherNum()"> <span
+												onchange="uniqueVoucherNum()" maxlength="5"> <span
 												class="validation-invalid-label" id="error_voucherNo"
 												style="display: none;">This field is required.</span> <span
 												class="validation-invalid-label" id="error_voucherNo1"
@@ -162,7 +162,7 @@
 											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter Advance Amount" id="advanceAmt"
 												name="advanceAmt" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_advanceAmt"
@@ -416,7 +416,7 @@
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
-			"autoUpdateInput" : false,
+			
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,

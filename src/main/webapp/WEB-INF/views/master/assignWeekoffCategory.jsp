@@ -43,8 +43,8 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee
-										Weekoff Category Assignment</h5></td>
+								<td width="60%"><h5 class="card-title">Employee Weekly
+										Off Category Assignment</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -94,15 +94,15 @@
 							<div class="form-group row">
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="locId"> Select Weekoff Category <span
+									for="locId"> Select Weekly Off Category <span
 									class="text-danger">* </span>:
 								</label>
 								<div class="col-lg-10">
 									<select name="holiCatId"
-										data-placeholder="Select Weekoff Category" id="holiCatId"
+										data-placeholder="Select Weekly Off Category" id="holiCatId"
 										class="form-control form-control-select2 select2-hidden-accessible"
 										data-fouc="" aria-hidden="true">
-										<option value="">Select Weekoff Category</option>
+										<option value="">Select Weekly Off Category</option>
 										<c:forEach items="${holiList}" var="holiList">
 											<option value="${holiList.woCatId}">${holiList.woCatName}
 												[${holiList.woCatShortName}]</option>
@@ -127,7 +127,7 @@
 											<th>Department</th>
 											<th>Designation</th>
 											<th>Location</th>
-											<th>Weekoff Category</th>
+											<th>Weekly Off Category</th>
 
 
 										</tr>

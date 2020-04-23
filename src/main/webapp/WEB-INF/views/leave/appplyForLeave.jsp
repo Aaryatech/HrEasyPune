@@ -143,7 +143,7 @@
 											<c:set var="index" value="${index+1}"></c:set>
 											<td>${empList.surname}&nbsp;${empList.firstName}</td>
 
-											<td>${empList.emailId}</td>
+											<td>${empList.shiftname}</td>
 											<td>${empList.mobileNo1}</td>
 											<td>${empList.deptName}</td>
 											<td>${empList.empDesgn}</td>
@@ -169,7 +169,7 @@
 											<c:set var="index" value="${index+1}"></c:set>
 											<td>${empList.surname}&nbsp;${empList.firstName}</td>
 
-											<td>${empList.emailId}</td>
+											<td>${empList.shiftname}</td>
 											<td>${empList.mobileNo1}</td>
 											<td>${empList.deptName}</td>
 											<td>${empList.empDesgn}</td>
