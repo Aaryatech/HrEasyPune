@@ -105,14 +105,14 @@
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="bonusType"> Reward Type <span class="text-danger">*
-										</span>:
+											for="bonusType"> Reward Type <span
+											class="text-danger">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control"
 												placeholder="Enter Reward Type" value="${pay.typeName}"
 												id="bonusType" name="bonusType" autocomplete="off"
-												onchange="trim(this)"> <span
+												onchange="trim(this)" maxlength="30"> <span
 												class="validation-invalid-label" id="error_bonusType"
 												style="display: none;">This field is required.</span>
 										</div>
@@ -125,7 +125,7 @@
 												*</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												value="${pay.payRate}" placeholder="Enter Bonus Rate"
 												id="bonusRate" name="bonusRate" autocomplete="off"
 												onchange="trim(this)"> <span
@@ -199,7 +199,7 @@
 					$("#error_bonusType").hide()
 				}
 
-				if (!$("#bonusRate").val()) {
+				if (!$("#bonusRate").val() || $("#bonusRate").val()<=0) {
 
 					isError = true;
 

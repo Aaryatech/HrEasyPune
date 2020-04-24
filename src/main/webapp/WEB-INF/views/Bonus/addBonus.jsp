@@ -97,14 +97,16 @@
 									id="submitBonus" method="post">
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Bonus
-											Period Title <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="shiftName">Bonus Period Title <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" placeholder="  Title"
 												onchange="uniqueVoucherNum()" id="bonusTitle"
-												name="bonusTitle" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_bonusTitle"
+												name="bonusTitle" autocomplete="off" maxlength="30">
+											<span class="validation-invalid-label" id="error_bonusTitle"
 												style="display: none;">This field is required.</span> <span
 												class="validation-invalid-label" id="error_voucherNo1"
 												style="display: none;">Bonus Title Already Exists</span>
@@ -112,14 +114,15 @@
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2">Date Range<span
-											style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2">Date
+											Range<span style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control daterange-basic_new "
 												name="leaveDateRange" data-placeholder="Select Date"
-												id="leaveDateRange" >
-											<span class="validation-invalid-label" id="error_Range"
+												id="leaveDateRange"> <span
+												class="validation-invalid-label" id="error_Range"
 												style="display: none;">This field is required.</span> <span
 												class="validation-invalid-label" id="error_insuf"
 												style="display: none;">Insufficient Leaves.</span>
@@ -128,37 +131,44 @@
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Bonus
-											% <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="shiftName">Bonus % <span style="color: red">*
+										</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="E.g. Bonus %" id="bonusPrcnt" name="bonusPrcnt"
 												autocomplete="off" onchange="trim(this)"> <span
 												class="validation-invalid-label" id="error_bonusPrcnt"
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia 
-											% <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="shiftName">Exgratia % <span style="color: red">*
+										</span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="E.g. Exgratia %" id="exgratiaPrcnt" name="exgratiaPrcnt"
-												autocomplete="off" onchange="trim(this)"> <span
+											<input type="text" class="form-control numbersOnly"
+												placeholder="E.g. Exgratia %" id="exgratiaPrcnt"
+												name="exgratiaPrcnt" autocomplete="off"
+												onchange="trim(this)"> <span
 												class="validation-invalid-label" id="error_exgratiaPrcnt"
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-									
-										<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Present Min Days
-										  <span style="color: red">* </span>:
+
+									<div class="form-group row">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="shiftName">Present Min Days <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="Minimum Bonus Days" id="minDays" name="minDays"
 												autocomplete="off" onchange="trim(this)"> <span
 												class="validation-invalid-label" id="error_minDays"
@@ -210,7 +220,7 @@
 	<!-- /page content -->
 	<script type="text/javascript">
 		function uniqueVoucherNum() {
-			 
+
 			var bonusTitle = $("#bonusTitle").val();
 			var valid = false;
 			$.getJSON('${checkBonusTitle}', {
@@ -265,7 +275,7 @@
 				} else {
 					$("#error_bonusPrcnt").hide()
 				}
-				
+
 				if (!$("#exgratiaPrcnt").val()) {
 
 					isError = true;
@@ -274,7 +284,7 @@
 				} else {
 					$("#error_exgratiaPrcnt").hide()
 				}
-				
+
 				if (!$("#minDays").val()) {
 
 					isError = true;
@@ -283,7 +293,7 @@
 				} else {
 					$("#error_minDays").hide()
 				}
-				
+
 				if (!isError) {
 
 					document.getElementById("submtbtn").disabled = true;

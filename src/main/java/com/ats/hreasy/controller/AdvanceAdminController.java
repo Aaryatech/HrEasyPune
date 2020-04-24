@@ -663,10 +663,12 @@ public class AdvanceAdminController {
 		return mav;
 	}
 
+	User user1 = new User();
+	
 	@RequestMapping(value = "/checkPass", method = RequestMethod.POST)
 	public @ResponseBody User updateLeaveLimit(HttpServletRequest request, HttpServletResponse response) {
 
-		User user1 = new User();
+		 
 		try {
 			System.err.println("in  checkPass is ");
 			String empId = (request.getParameter("empId"));
@@ -682,7 +684,7 @@ public class AdvanceAdminController {
 			map.add("empId", empId);
 			map.add("password", hashtext);
 
-			user1 = Constants.getRestTemplate().postForObject(Constants.url + "/getUserInfoByEmpIdPass", map,
+			 user1 = Constants.getRestTemplate().postForObject(Constants.url + "/getUserInfoByEmpIdPass", map,
 					User.class);
 			System.err.println("info is " + user1);
 
@@ -712,18 +714,23 @@ public class AdvanceAdminController {
 			Pattern p = Pattern.compile("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$");
 			Matcher m = p.matcher(password);
 
-			if (currPass.equals(userObj.getUserPwd()) && m.matches()) {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(currPass.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext1 = number.toString(16);
+			
+			if (hashtext1.equals(user1.getUserPwd()) && m.matches()) {
 
-				MessageDigest md = MessageDigest.getInstance("MD5");
-				byte[] messageDigest = md.digest(password.getBytes());
-				BigInteger number = new BigInteger(1, messageDigest);
+				 md = MessageDigest.getInstance("MD5");
+				 messageDigest = md.digest(password.getBytes());
+				 number = new BigInteger(1, messageDigest);
 				String hashtext = number.toString(16);
 
 				System.out.println(hashtext);
 
 				System.out.println("in if password " + password + " currPass " + currPass + " m.find() " + m.matches());
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("empId", userObj.getUserId());
+				map.add("empId", userObj.getEmpId());
 				map.add("password", hashtext);
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateUserPass", map,
 						Info.class);
@@ -736,7 +743,7 @@ public class AdvanceAdminController {
 			} else {
 
 				System.out
-						.println("in else password " + password + " currPass " + currPass + " m.find() " + m.matches());
+						.println("in else password " + password + " currPass " + user1.getUserPwd() + " m.find() " + m.matches());
 				session.setAttribute("errorMsg", "something wrong while changing password.");
 			}
 

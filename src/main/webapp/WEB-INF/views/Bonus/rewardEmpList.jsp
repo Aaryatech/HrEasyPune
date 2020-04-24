@@ -42,8 +42,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Reward
-								 </h5></td>
+								<td width="60%"><h5 class="card-title">Assign Reward</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<%-- <a href="${pageContext.request.contextPath}/employeeAdd"
 											class="breadcrumb-elements-item">
@@ -99,30 +98,31 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Emp Code </th>
+									<th>Emp Code</th>
 									<th>Employee Name</th>
-								 
+
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 
 
-								<c:forEach items="${empList}" var="empList"
-									varStatus="count">
+								<c:forEach items="${empList}" var="empList" varStatus="count">
 									<tr>
-										 <td>${count.index+1}</td>
+										<td>${count.index+1}</td>
 										<td>${empList.empCode}</td>
-										<td>${empList.firstName} ${empList.middleName} ${empList.surname}</td>
+										<td>${empList.firstName}${empList.middleName}
+											${empList.surname}</td>
 										<%-- <td>${empList.micrCode}</td>
 										<td>${empList.ifscCode}</td>  --%>
-										
+
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/empAddReward?empId=${empList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Reward"><i class="icon-enlarge5 "
-													 ></i></a>
-											</c:if> </td>
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" data-original-title="Reward"><i
+													class="icon-enlarge5 "></i></a>
+											</c:if></td>
 									</tr>
 								</c:forEach>
 
@@ -147,14 +147,15 @@
 
 	</div>
 	<!-- /page content -->
-<script>
+	<script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(
 						'click',
 						function() {
 							var uuid = $(this).data("uuid") // will return the number 123
-										bootbox.confirm({
+							bootbox
+									.confirm({
 										title : 'Confirm ',
 										message : 'Are you sure you want to delete selected records ?',
 										buttons : {

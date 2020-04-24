@@ -1192,7 +1192,7 @@ public class BonusAdminController {
 			System.out.println("Exception in /payDeductionAdd : " + e.getMessage());
 			e.printStackTrace();
 		}
-		return "redirect:/payRewardDetails";
+		return "redirect:/viewEmpRewarAddList";
 
 	}
 

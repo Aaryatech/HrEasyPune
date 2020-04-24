@@ -169,7 +169,7 @@
 											for="dedRate"> Amount <span class="text-danger">*</span>:
 										</label>
 										<div class="col-lg-4">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter  Amount" id="rewardRate"
 												name="rewardRate" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_rewardRate"
@@ -214,7 +214,7 @@
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/payRewardDetails"><button
+											<a href="${pageContext.request.contextPath}/viewEmpRewarAddList"><button
 													type="button" class="btn btn-light">
 													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 													Back
@@ -286,7 +286,6 @@
 			$("#insertPayDeductDetail").submit(function(e) {
 				var isError = false;
 				var errMsg = "";
-
 
 				if (!$("#payTypeId").val()) {
 

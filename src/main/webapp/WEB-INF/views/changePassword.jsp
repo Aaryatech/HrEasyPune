@@ -28,31 +28,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
 
-
-				<div
-					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-					<div class="d-flex">
-						<div class="breadcrumb">
-							<a href="index.html" class="breadcrumb-item"><i
-								class="icon-home2 mr-2"></i> Home</a> <span
-								class="breadcrumb-item active">Dashboard</span>
-						</div>
-
-						<a href="#" class="header-elements-toggle text-default d-md-none"><i
-							class="icon-more"></i></a>
-					</div>
-
-					<div class="breadcrumb justify-content-center">
-						<%-- <a href="${pageContext.request.contextPath}/showLocationList"
-							class="breadcrumb-elements-item"> Location List</a> --%>
-
-					</div>
-
-
-				</div>
-			</div>
 			<!-- /page header -->
 
 
@@ -121,8 +97,10 @@
 									action="${pageContext.request.contextPath}/submitUpdatePass"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="locName">Current
-											Password <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="locName">Current Password <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="password" class="form-control"
@@ -134,10 +112,12 @@
 									</div>
 									<div id="abc" style="display: none;">
 										<div class="form-group row">
-											<label class="col-form-label text-info font-weight-bold col-lg-2" for="password">New
-												Password <span style="color: red">* </span>:
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="password">New Password <span style="color: red">*
+											</span>:
 											</label>
-											
+
 											<div class="col-lg-4">
 												<input type="password" class="form-control"
 													placeholder="Enter New Password" id="password"
@@ -148,24 +128,27 @@
 													style="display: none;">This field is required.</span>
 											</div>
 											<div class="col-lg-6">
-											<span class="form-text text-muted">contain minimum 8 letter,one capital letter,one small letter, one digit, one special character</span>
+												<span class="form-text text-muted">contain minimum 8
+													letter,one capital letter,one small letter, one digit, one
+													special character</span>
 											</div>
 										</div>
-										
+
 										<div class="form-group row">
-											<label class="col-form-label text-info font-weight-bold col-lg-2" for="password">New
-												Password <span style="color: red">* </span>:
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-2"
+												for="password">New Password <span style="color: red">*
+											</span>:
 											</label>
-											
+
 											<div class="col-lg-4">
 												<input type="password" class="form-control"
 													placeholder="Enter New Password" id="password1"
-													name="password1" autocomplete="off">  
-													<span
+													name="password1" autocomplete="off"> <span
 													class="validation-invalid-label" id="error_password1"
 													style="display: none;">This field is required.</span>
 											</div>
-											 
+
 										</div>
 									</div>
 
@@ -238,29 +221,29 @@
 
 					$("#error_password").show();
 					//return false;
-				}  
-				  
+				}
+
 				if (!$("#password").val()) {
 
 					isError = true;
 
 					$("#error_password").show();
 					//return false;
-				} 
-				if (allowPass==0) {
+				}
+				if (allowPass == 0) {
 
 					isError = true;
 					$("#error_password").html("password should be strong.");
 					$("#error_password").show();
 					//return false;
 				}
-				if (!$("#password1").val()) { 
+				if (!$("#password1").val()) {
 					isError = true;
 					$("#error_password1").html("This field is required.");
 					$("#error_password1").show();
 					return false;
 				}
-				if ($("#password").val()!=$("#password1").val()) {
+				if ($("#password").val() != $("#password1").val()) {
 
 					isError = true;
 					$("#error_password1").html("password not matched.");
@@ -350,32 +333,31 @@
 				document.getElementById("strength").innerHTML = "<span style='color:red'>Weak!</span>";
 				document.getElementById("allowPass").value=0;
 			} */
-			
+
 			var strength = document.getElementById("strength");
 			$("#error_password").hide();
-			 
-			
+
 			var strongRegex = /^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$/;
 			var mediumRegex = /^(?=.{6,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$/;
 			var enoughRegex = /(?=.{6,}).*/;
-			
+
 			var pwd = document.getElementById("password").value;
 
 			if (pwd.length == 0) {
 				document.getElementById("strength").innerHTML = "Type Password";
-				document.getElementById("allowPass").value=0;
+				document.getElementById("allowPass").value = 0;
 			} else if (false == enoughRegex.test(pwd)) {
 				document.getElementById("strength").innerHTML = "More Characters";
-				document.getElementById("allowPass").value=0;
+				document.getElementById("allowPass").value = 0;
 			} else if (strongRegex.test(pwd)) {
 				document.getElementById("strength").innerHTML = "<span style='color:green'>Strong!</span>";
-				document.getElementById("allowPass").value=1;
+				document.getElementById("allowPass").value = 1;
 			} else if (mediumRegex.test(pwd)) {
 				document.getElementById("strength").innerHTML = "<span style='color:orange'>Medium!</span>";
-				document.getElementById("allowPass").value=0;
+				document.getElementById("allowPass").value = 0;
 			} else {
 				document.getElementById("strength").innerHTML = "<span style='color:red'>Weak!</span>";
-				document.getElementById("allowPass").value=0;
+				document.getElementById("allowPass").value = 0;
 			}
 		}
 	</script>
