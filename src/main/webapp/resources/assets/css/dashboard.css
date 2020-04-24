@@ -64,7 +64,7 @@ border-left: 1px dashed rgba(156,161,169,0.5);}
 
 
 .tab_round{padding: 15px; text-align: center;}
-.shift_round{border-radius: 50%; padding: 20px 15px; width: 150px; height: 90px; display: inline-block; font-weight: 700;
+.shift_round{border-radius: 5px; padding: 15px; width: 150px; height: 80px; display: inline-block; font-weight: 700;
 line-height: 30px;}
 .round_size{font-size: 16px; line-height: 26px; font-family:'MyriadPro-Regular'!important;}
 .round_size span{display: block; font-size: 26px; font-weight: 700;}
@@ -132,10 +132,10 @@ padding: 0; margin: 7px 0 0 0;}
 .btn-light:not([disabled]):not(.disabled).active{margin: 4px;}
 
 
-.nav-tabs{background: #4caf50; padding: 0 20px;}
-.nav-tabs-highlight .nav-link {text-transform: uppercase; font-size: 16px; letter-spacing: 0.5px; color: #FFF;}
+.nav-tabs{background:#2196f3 /* #4caf50 */; padding: 0 20px;}
+.nav-tabs-highlight .nav-link {/* text-transform: uppercase; */ font-size: 16px; letter-spacing: 0.5px; color: #FFF;}
 .card-header .card-title{font-size: 16px;}
-.nav-tabs-highlight .nav-link.active::before {background-color: #ff7043;}
+.nav-tabs-highlight .nav-link.active::before {background-color:#0f3f6f /* #ff7043 */;}
 
 .gender_title{font-size: 18px; font-weight: 700;}
 .pageTitle {width: 100%; float: left; text-align: left; font-size: 24px; color: #2196f3; margin:5px 0 0 0;}
@@ -157,6 +157,16 @@ padding: 0; margin: 7px 0 0 0;}
 .round_one{font-size: 12px; position: absolute; right: 15px; top: 15px; background: rgba(255,255,255,0.5);
  width: 35px; color: #333; height: 35px; border-radius: 50%; text-align: center; font-weight: bold;
  line-height: 35px;}
-
-
-
+ 
+ .box_title{font-size: 18px;}
+ .advance_bx{display: block; padding: 10px;}
+ .advance_bx ul{margin:0px; padding: 0px;}
+ .advance_bx ul li{list-style-type: none; display: block; padding: 10px 0; border-bottom:1px solid #ccc; font-size: 17px;}
+ .advance_bx ul li span{float: right;}
+ .advance_bx ul li:last-child {border-bottom:none; }
+ .divid_2{display: block;}
+ .divid_2_l{float: left; width:40%;}
+ .divid_2_r{float: right; width: 60%}
+ .divid_2_r span{width:100%;}
+ 
+ 

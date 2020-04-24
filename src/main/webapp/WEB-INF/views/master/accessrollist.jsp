@@ -40,20 +40,22 @@
 
 
 					<div class="card-header header-elements-inline">
+											
+						
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Access Role
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Access Role List</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/addRightsRole"
-											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
-												Access Role</button>
+											class="breadcrumb-elements-item" style="margin: 0; padding:0;">
+											<button type="button" class="btn blue_btn">Add
+												Access Role</button><!-- btn-primary -->
 										</a>
 									</c:if></td>
 							</tr>
 						</table>
+						
 					</div>
 
 					<div class="card-body">

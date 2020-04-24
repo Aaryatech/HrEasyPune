@@ -70,7 +70,9 @@ body1 {
 		url("${pageContext.request.contextPath}/resources/global_assets/images/bg2.jpg");
 }
 </style>
-<body>
+<body >
+<div class="login_bg">
+
 <div class="page_loader"></div>
 
 <div class="power_logo"><a href="https://aaryatechindia.in/" target="_blank">
@@ -259,6 +261,6 @@ body1 {
 <!-- Login 17 end -->
 
 	 
-
+</div>
 </body>
 </html>

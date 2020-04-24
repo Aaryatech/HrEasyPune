@@ -47,8 +47,8 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Company
-												Details</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> 
+										Company Details</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -144,7 +144,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="companyName">Company Name <span
 													class="text-danger">*</span>:
 												</label>
@@ -159,7 +159,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="companyShortName">Company Short Name<span
 													class="text-danger">*</span>:
 												</label>
@@ -177,7 +177,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="companyAddress1">Address1 <span
 													class="text-danger">*</span>:
 												</label>
@@ -231,7 +231,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="landline1">Landline No. 1 <span
 													class="text-danger">* </span>:
 												</label>
@@ -275,7 +275,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="pan">PAN No. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -290,7 +290,7 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div class="col-lg-10 ml-lg-auto">
+												<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn bg-blue ml-3 legitRipple"
 														id="submtbtn1">
@@ -299,7 +299,7 @@ System.out.println("val**"+flagNew);%> --%>
 													<a
 														href="${pageContext.request.contextPath}/showSubCompanyList"><button
 															type="button" class="btn btn-light">
-															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 															Back
 														</button></a> <input type="hidden" id="mobile1Exist"
 														name="mobile1Exist"><input type="hidden"
@@ -336,18 +336,25 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 												<!-- onchange="readURL(this); return Upload(logo)" -->
 											</div>
-											<c:if test="${not empty company.logo}">
+											
+											<div class="form-group row">
+												<div class="col-md-2">&nbsp;</div>
+												<div class="col-md-10">
+													<c:if test="${not empty company.logo}">
 												<div class="form-group col-lg-4">
 													<img src="${viewUrl}${company.logo}" height="150px"
 														width="200px">
 
 												</div>
 											</c:if>
+												</div>
+											</div>
+											
 
 
 
 											<div class="form-group row mb-0">
-												<div class="col-lg-10 ml-lg-auto">
+												<div style="margin:0 auto;"><!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn bg-blue ml-3 legitRipple"
 														id="submtbtn">
@@ -356,7 +363,7 @@ System.out.println("val**"+flagNew);%> --%>
 													<a
 														href="${pageContext.request.contextPath}/showSubCompanyList"><button
 															type="button" class="btn btn-light">
-															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 															Back
 														</button></a> <input type="hidden" id="mobile1Exist"
 														name="mobile1Exist"><input type="hidden"
@@ -381,7 +388,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="taxNo">TAN No. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -469,7 +476,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="pf">PF <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -493,7 +500,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div id="abc" style="display: none;">
 												<div class="form-group row">
 													<label
-														class="col-form-label text-info font-weight-bold col-lg-2"
+														class="col-form-label font-weight-bold col-lg-2"
 														for="pfNo">PF No. <span class="text-danger">*</span>:
 													</label>
 													<div class="col-lg-4">
@@ -509,7 +516,7 @@ System.out.println("val**"+flagNew);%> --%>
 												<div class="form-group row">
 
 													<label
-														class="col-form-label text-info font-weight-bold col-lg-2"
+														class="col-form-label font-weight-bold col-lg-2"
 														for="pfCoveregDate">PF Coverage Date<span
 														class="text-danger">*</span>:
 													</label>
@@ -571,7 +578,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="isEsicApplicable">ESIC Applicable <span
 													class="text-danger">*</span>:
 												</label>
@@ -602,7 +609,7 @@ System.out.println("val**"+flagNew);%> --%>
 												<div class="form-group row">
 
 													<label
-														class="col-form-label text-info font-weight-bold col-lg-2"
+														class="col-form-label font-weight-bold col-lg-2"
 														for="esicNo">ESIC No. <span class="text-danger">*</span>:
 													</label>
 													<div class="col-lg-4">
@@ -618,7 +625,7 @@ System.out.println("val**"+flagNew);%> --%>
 												<div class="form-group row">
 
 													<label
-														class="col-form-label text-info font-weight-bold col-lg-2"
+														class="col-form-label font-weight-bold col-lg-2"
 														for="esicCoverageDate">ESIC Coverage Date <span
 														class="text-danger">*</span>:
 													</label>
@@ -679,7 +686,7 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div class="col-lg-10 ml-lg-auto">
+												<div style="margin:0 auto"><!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn bg-blue ml-3 legitRipple"
 														id="submtbtn">
@@ -688,7 +695,7 @@ System.out.println("val**"+flagNew);%> --%>
 													<a
 														href="${pageContext.request.contextPath}/showSubCompanyList"><button
 															type="button" class="btn btn-light">
-															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 															Back
 														</button></a> <input type="hidden" id="mobile1Exist"
 														name="mobile1Exist"><input type="hidden"
@@ -716,7 +723,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="person">Person Name <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -746,7 +753,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="mobile">Mobile No. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -760,7 +767,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="designation">Bank Account No <span
 													class="text-danger">*</span>:
 												</label>
@@ -778,7 +785,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="email1">Email 1 <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -805,7 +812,7 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div class="col-lg-10 ml-lg-auto">
+												<div style="margin:0 auto"><!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn bg-blue ml-3 legitRipple"
 														id="submtbtn">
@@ -814,7 +821,7 @@ System.out.println("val**"+flagNew);%> --%>
 													<a
 														href="${pageContext.request.contextPath}/showSubCompanyList"><button
 															type="button" class="btn btn-light">
-															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 															Back
 														</button></a> <input type="hidden" id="mobile1Exist"
 														name="mobile1Exist"><input type="hidden"
@@ -840,7 +847,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
+													class="col-form-label font-weight-bold col-lg-2"
 													for="manager">Manager Under Shop Act <span
 													class="text-danger">*</span>:
 												</label>
@@ -869,7 +876,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 											</div>
 											<div class="form-group row mb-0">
-												<div class="col-lg-10 ml-lg-auto">
+												<div style="margin: 0 auto;">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn bg-blue ml-3 legitRipple"
 														id="submtbtn">
@@ -878,7 +885,7 @@ System.out.println("val**"+flagNew);%> --%>
 													<a
 														href="${pageContext.request.contextPath}/showSubCompanyList"><button
 															type="button" class="btn btn-light">
-															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 															Back
 														</button></a> <input type="hidden" id="mobile1Exist"
 														name="mobile1Exist"><input type="hidden"

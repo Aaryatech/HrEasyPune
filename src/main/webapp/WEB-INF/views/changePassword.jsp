@@ -48,7 +48,7 @@
 
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h6 class="card-title">Change Password</h6>
+								<h6 class="pageTitle"><i class="icon-list-unordered"></i> Change Password</h6>
 								<!-- <div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
@@ -97,57 +97,70 @@
 									action="${pageContext.request.contextPath}/submitUpdatePass"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+									
+										<div class="col-md-6">
+											<label
+											class="col-form-label col-lg-5 float"
 											for="locName">Current Password <span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="password" class="form-control"
 												placeholder="Enter Your Current Password" id="currPass"
 												name="currPass" autocomplete="off" onchange="trimmm(this)">
 											<span class="validation-invalid-label" id="error_currPass"
 												style="display: none;">Invalid Password</span>
 										</div>
+										</div>
+										
+									
+										
 									</div>
-									<div id="abc" style="display: none;">
+									<div id="abc" style="display: none;"  ><!---->
 										<div class="form-group row">
-											<label
-												class="col-form-label text-info font-weight-bold col-lg-2"
+										
+											<div class="col-md-6">
+												<label
+												class="col-form-label col-lg-5 float"
 												for="password">New Password <span style="color: red">*
 											</span>:
 											</label>
 
-											<div class="col-lg-4">
+											<div class="col-lg-7 float">
 												<input type="password" class="form-control"
 													placeholder="Enter New Password" id="password"
 													name="password" autocomplete="off"
 													onkeyup="return passwordChanged();"> <span
-													id="strength">Type Password</span> <span
+													id="strength"></span> <span
 													class="validation-invalid-label" id="error_password"
 													style="display: none;">This field is required.</span>
 											</div>
-											<div class="col-lg-6">
-												<span class="form-text text-muted">contain minimum 8
-													letter,one capital letter,one small letter, one digit, one
-													special character</span>
 											</div>
+											<div class="col-md-6"><span class="form-text text-muted">contain minimum 8
+													letter,one capital letter,one small letter, one digit, one
+													special character</span></div>
+											
 										</div>
 
 										<div class="form-group row">
-											<label
-												class="col-form-label text-info font-weight-bold col-lg-2"
+											<div class="col-md-6">
+												<label
+												class="col-form-label col-lg-5 float"
 												for="password">New Password <span style="color: red">*
 											</span>:
 											</label>
 
-											<div class="col-lg-4">
+											<div class="col-lg-7 float">
 												<input type="password" class="form-control"
 													placeholder="Enter New Password" id="password1"
 													name="password1" autocomplete="off"> <span
 													class="validation-invalid-label" id="error_password1"
 													style="display: none;">This field is required.</span>
 											</div>
+											</div>
+											<div class="col-md-6">&nbsp;</div>
+										
+											
 
 										</div>
 									</div>
@@ -164,7 +177,7 @@
 											</button>
 											<a href="${pageContext.request.contextPath}/changePass"><button
 													type="button" class="btn btn-primary">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 													Cancel
 												</button></a>
 										</div>
