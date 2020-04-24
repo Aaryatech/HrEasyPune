@@ -74,7 +74,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Holiday</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Default Holiday</h5></td>
 										<td width="40%" align="right">
 											<%-- 
 								 <a
@@ -128,12 +128,13 @@
 									id="submitInsertHoli" method="post">
 
 									<div class="form-group row">
+									<div class="col-md-6">			
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="holidayTitle">Holiday Title <span
 											class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Holiday Title" id="holidayTitle"
 												name="holidayTitle" autocomplete="off" onchange="trim(this)"
@@ -141,20 +142,21 @@
 												class="validation-invalid-label" id="error_holidayTitle"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2">Date
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float">Date
 											Range <span class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control datepickerclass"
 												name="dateRange" data-placeholder="Select Date"
 												id="dateRange"> <span
 												class="validation-invalid-label" id="error_Range"
 												style="display: none;">This field is required.</span>
 
+										</div>	
 										</div>
 									</div>
 

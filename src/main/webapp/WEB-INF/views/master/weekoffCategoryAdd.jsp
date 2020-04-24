@@ -55,7 +55,7 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">${title}</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -107,10 +107,12 @@
 									action="${pageContext.request.contextPath}/submitInsertWeekoffCategory"
 									id="submitInsertWeekoffCategory" method="post">
 									<input type="hidden" value="${holi.woCatId}" id="woCatId" name="woCatId">
+									
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="woCatName">Week Off Category 
+										<div class="col-md-6">	
+										<label class="col-form-label text-info font-weight-bold col-lg- float" for="woCatName">Week Off Category 
 											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" value="${holi.woCatName}"
 												placeholder="Enter Week Off Category" id="woCatName" maxlength="10"
 												name="woCatName" autocomplete="off"  onchange="checkUnique(this.value,4)">
@@ -120,12 +122,12 @@
 												<span class="validation-invalid-label" id="error_unique"
 												style="display: none;">Week Off Category  Name Already Exists.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="woShortName">Short Name
+										</div>
+										
+											<div class="col-md-6">	
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="woShortName">Short Name
 											 <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Short Name" id="woShortName" value="${holi.woCatShortName}"
 												name="woShortName" autocomplete="off" onchange="trim(this)"
@@ -137,16 +139,23 @@
 												style="display: none;">Week Off Category Short Name Can Not be same as Week Off Category  Name.</span>
 												
 										</div>
+											</div>
+									</div>
+
+									<div class="form-group row">
+										
 									</div>
 									
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark">${holi.remark}</textarea>
 
+										</div>
 										</div>
 									</div>
 

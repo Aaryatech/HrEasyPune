@@ -71,7 +71,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Edit Holiday</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Default Holiday</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 											href="${pageContext.request.contextPath}/showHolidayList"
@@ -127,12 +127,13 @@
 
 
 									<div class="form-group row">
+									<div class="col-md-6">			
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="locShortName">Holiday Title <span
 											class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Holiday Title" id="holidayTitle"
 												value="${editHoliday.holidayName}" name="holidayTitle"
@@ -141,23 +142,23 @@
 												id="error_holidayTitle" style="display: none;">This
 												field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2">Date
-											Range: <span class="text-danger">*</span>
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control datepickerclass"
-												name="dateRange" value="${editHoliday.holidayDate}"
-												data-placeholder="Select Date" id="dateRange"> <span
-												class="validation-invalid-label" id="error_dateRange"
-												style="display: none;">This field is required.</span>
-
+										</div>
+										
+										<div class="col-md-6">	
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float">Date
+												Range: <span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass"
+													name="dateRange" value="${editHoliday.holidayDate}"
+													data-placeholder="Select Date" id="dateRange"> <span
+													class="validation-invalid-label" id="error_dateRange"
+													style="display: none;">This field is required.</span>
+	
+											</div>		
 										</div>
 									</div>
-
 
 
 									<div class="form-group row mb-0">

@@ -74,7 +74,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Holiday</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Holiday</h5></td>
 										<td width="40%" align="right">
 											<%-- 
 								 <a
@@ -144,35 +144,35 @@
 									</div> -->
 
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="hoCatId">Select Holiday Category <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<select name="hoCatId" data-placeholder="Select "
-												id="hoCatId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												data-fouc="" aria-hidden="true">
-
-												<option value="0">Select</option>
-
-												<c:forEach items="${holidayCatList}" var="holidayCatList">
-													<option value="${holidayCatList.hoCatId}">${holidayCatList.hoCatName}</option>
-												</c:forEach>
-											</select> <span class="validation-invalid-label" id="error_hoCatId"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">				
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="hoCatId">Holiday Category <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="hoCatId" data-placeholder="Select "
+													id="hoCatId"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													data-fouc="" aria-hidden="true">
+	
+													<option value="0">Select</option>
+	
+													<c:forEach items="${holidayCatList}" var="holidayCatList">
+														<option value="${holidayCatList.hoCatId}">${holidayCatList.hoCatName}</option>
+													</c:forEach>
+												</select> <span class="validation-invalid-label" id="error_hoCatId"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 										
-									</div>
-
-									<div class="form-group row">
+										<div class="col-md-6">	
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="locId">Select Holidays <span class="text-danger">*
 										</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="locId" data-placeholder="Select Holidays"
 												id="locId" multiple="multiple"
 												class="form-control form-control-sm select"
@@ -184,19 +184,27 @@
 											</select> <span class="validation-invalid-label" id="error_locationId"
 												style="display: none;">This field is required.</span>
 												<div class=" pt-2 text-info font-weight-bold " id="selected_count">Number of Holiday: 
-										</div>
+										</div>	
 										</div>
 										
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">
+										
+										</div>
+										
+									</div>
+
+									<div class="form-group row">
+									<div class="col-md-6">	
+										<label class="col-form-label col-lg-5 float" for="remark">
 											Remark : </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark for Holiday" onchange="trim(this)"
 												id="holidayRemark" name="holidayRemark">-</textarea>
 
+										</div>
 										</div>
 									</div>
 

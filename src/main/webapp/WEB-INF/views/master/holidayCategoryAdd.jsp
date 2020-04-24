@@ -55,7 +55,7 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">${title}</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -107,10 +107,12 @@
 									action="${pageContext.request.contextPath}/submitInsertHolidayCategory"
 									id="submitInsertHoliCat" method="post">
 									<input type="hidden" value="${holi.hoCatId}" id="hoCatId" name="hoCatId">
+									
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="desination">Holiday Category 
+									<div class="col-md-6">		
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="desination">Holiday Category 
 											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" value="${holi.hoCatName}"
 												placeholder="Enter Holiday Category" id="hoCatName" maxlength="20"
 												name="hoCatName" autocomplete="off"  onchange="checkUnique(this.value,3)">
@@ -121,11 +123,11 @@
 												style="display: none;">Holiday Category  Name Already Exists.</span>
 										</div>
 									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="desigShortName">Short Name
+									
+										<div class="col-md-6">	
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="desigShortName">Short Name
 											 <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Short Name" id="hoShortName" value="${holi.hoCatShortName}"
 												name="hoShortName" autocomplete="off" onchange="trim(this)"
@@ -137,17 +139,21 @@
 												style="display: none;">Holiday Category Short Name Can Not be same as Holiday Category  Name.</span>
 												
 										</div>
+										</div>
 									</div>
+
 									
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
+									<div class="col-md-6">	
+										<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark">${holi.remark}</textarea>
 
 										</div>
+									</div>
 									</div>
 
 									 <div class="form-group row mb-0">

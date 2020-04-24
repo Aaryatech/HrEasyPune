@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Weekly Off Category List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Week Off Category List</h5></td>
 								<td width="40%" align="right"> 
 										<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
 											class="breadcrumb-elements-item">
 											<button type="button" class="btn btn-primary">Add
-												Weekly Off Category</button>
+												Week Off Category</button>
 										</a>
 								 </td>
 							</tr>
@@ -98,8 +98,8 @@
 								<tr class="bg-blue">
 
 									<th width="10%" class="text-center">Sr. No.</th>
-									<th class="text-center">Weekly Off Category Name</th>
-									<th class="text-center">Weekly Off Category Short Name</th>
+									<th class="text-center">Week Off Category Name</th>
+									<th class="text-center">Week Off Category Short Name</th>
 								 
 									<th width="10%" class="text-center">Actions</th>
 								</tr>

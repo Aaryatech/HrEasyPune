@@ -52,7 +52,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Add Driver Details</h5>
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Driver Details</h5>
 							</div>
 
 							<div class="card-body">

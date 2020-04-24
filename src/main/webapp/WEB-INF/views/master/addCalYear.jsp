@@ -58,7 +58,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -111,34 +111,36 @@
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${calYear.calYrId}" id="calYearId"
 										name="calYearId">
+										
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="fromDate">From
-											Date <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control datepickerclass" value="${calYear.calYrFromDate}"
-												data-placeholder="Select Date" name="from_date" autocomplete="off" 
-												onchange="checkUnique(this.value,1)" id="from_date">
-												<span class="validation-invalid-label"
-												id="error_getFrom_date" style="display: none;">This
-												field is required.</span>
-												<span class="validation-invalid-label" id="error_from_date"
-												style="display: none;">From Date must be smaller than To Date .</span>												
-												<span class="validation-invalid-label" id="error_year_fromDate"
-												style="display: none;">Invalid date for a financial year.</span>
-												<span class="validation-invalid-label" id="error_fromunique"
-												style="display: none;">From Date Already Exist.</span>
-												
+										<div class="col-md-6">		
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="fromDate">From
+												Date <span class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass" value="${calYear.calYrFromDate}"
+													placeholder="Select From Date" name="from_date" autocomplete="off" 
+													onchange="checkUnique(this.value,1)" id="from_date">
+													<span class="validation-invalid-label"
+													id="error_getFrom_date" style="display: none;">This
+													field is required.</span>
+													<span class="validation-invalid-label" id="error_from_date"
+													style="display: none;">From Date must be smaller than To Date .</span>												
+													<span class="validation-invalid-label" id="error_year_fromDate"
+													style="display: none;">Invalid date for a financial year.</span>
+													<span class="validation-invalid-label" id="error_fromunique"
+													style="display: none;">From Date Already Exist.</span>
+													
+											</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="toDate">To 
+										
+											<div class="col-md-6">	
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="toDate">To 
 											Date <span class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control datepickerclass" value="${calYear.calYrToDate}"
-												data-placeholder="Select Date" name="to_date" autocomplete="off" 
+												placeholder="Select To Date" name="to_date" autocomplete="off" 
 												 id="to_date" onchange="checkUnique(this.value,2)">
 												<span class="validation-invalid-label"
 												id="error_getTo_date" style="display: none;">This
@@ -151,28 +153,33 @@
 												style="display: none;">To Date Already Exist.</span>
 
 										</div>
+											</div>
 									</div>
-									<c:if test="${calYear.calYrId>0}">
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="isCurrent">Is Current 
-											Year:
-										</label>
-										<div class="col-lg-10">
-											<input type="checkbox" id="check_yes" name="check_year" value="1">Yes
-												<!-- <input type="checkbox" id="check_no" name="check_year" value="0">No -->
-										</div>
-									</div></c:if>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
+									<div class="col-md-6">	
+									<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark">${calYear.exVar1}</textarea>
 
 										</div>
 									</div>
+									<div class="col-md-6">	
+										<c:if test="${calYear.calYrId>0}">
+										
+											<label class="col-form-label col-lg-5 float" for="isCurrent">Is Current 
+												Year:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="checkbox" id="check_yes" name="check_year" value="1">Yes
+													<!-- <input type="checkbox" id="check_no" name="check_year" value="0">No -->
+											</div>
+										</c:if>
+									</div>									
+								</div>
 
 									<div class="form-group row mb-0">
 										<div class="col-lg-10 ml-lg-auto">

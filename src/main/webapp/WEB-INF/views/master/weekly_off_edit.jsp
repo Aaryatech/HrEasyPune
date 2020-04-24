@@ -83,7 +83,7 @@
 								<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Edit Weekly Off</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Weekly Off</h5></td>
 								<td width="40%" align="right">
 							 <%--  	<c:if test="${addAccess == 0}">
 								 <a
@@ -136,11 +136,13 @@
 								<form
 									action="${pageContext.request.contextPath}/submitEditInsertWeeklyOff"
 									id="submitInsertWeeklyOff" method="post">
+									
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="select2">Select
+										<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="select2">Select
 											Location <span class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="locId" data-placeholder="Select Location"
 												id="locId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -163,17 +165,14 @@
 											</select> <span class="validation-invalid-label" id="error_locId"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										</div>
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="hoCatId">Select Weekoff Category <span
 											class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="woCatId" data-placeholder="Select "
 												id="woCatId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -193,13 +192,15 @@
 											</select> <span class="validation-invalid-label" id="error_woCatId"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="select2">Select
+										<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="select2">Select
 											Weekly Off Type <span class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="woType" data-placeholder="Please Select"
 												id="woType"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -232,43 +233,13 @@
 											</select> <span class="validation-invalid-label" id="error_woType"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-
-
-									<%-- <div class="form-group row">
-										<label class="col-form-label col-lg-2" for="select2">Select
-											Weekly Off Presently <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<select name="woPresently" data-placeholder="Please Select"
-												id="woPresently"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<!-- <option value="FULL DAY">FULL DAY</option>
-												<option value="HALF DAY">HALF DAY</option> -->
-
-
-												<option
-													${editWeeklyOff.woPresently == 'FULL DAY'  ? 'Selected': '' }>FULL
-													DAY</option>
-												<option
-													${editWeeklyOff.woPresently == 'HALF DAY' ? 'Selected': '' }>HALF
-													DAY</option>
-
-
-											</select> <span class="validation-invalid-label"
-												id="error_woPresently" style="display: none;">This
-												field is required.</span>
 										</div>
-									</div> --%>
-										<input type="hidden" value="1" name="woPresently">
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="select2">Select
+										
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="select2">Select
 											Weekly Off Day <span class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="woDay" data-placeholder="Please Select"
 												id="woDay"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -299,16 +270,25 @@
 											</select> <span class="validation-invalid-label" id="error_woDay"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
+									</div>
+
+										<input type="hidden" value="1" name="woPresently">
+									
+									<div class="form-group row">
+										
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)"
 												id="woRemarks" name="woRemarks">${editWeeklyOff.woRemarks}</textarea>
 
+										</div>
 										</div>
 									</div>
 

@@ -70,7 +70,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Holiday List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Holiday List</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/holidayAdd"
@@ -126,12 +126,12 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
+									<th width="10%" class="text-center">Sr. No.</th>
 
-									<th>Category</th>
-									<th>Holiday Title</th>
-									<th>Calendar</th>
-									<th>Date</th>
+									<th class="text-center">Category</th>
+									<th class="text-center">Holiday Title</th>
+									<th class="text-center">Calendar</th>
+									<th class="text-center">Date</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
