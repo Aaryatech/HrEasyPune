@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+ <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+<!-- font-family: 'Oxygen', sans-serif; -->   
  
- <div class="navbar navbar-expand-md navbar-dark bg-indigo navbar-static">
+ <div class="navbar navbar-expand-md navbar-dark bg-primary navbar-static"><!-- bg-indigo -->
 		<div class="navbar-brand">
 			<a href="${pageContext.request.contextPath}/dashboard" class="d-inline-block">
 				<%-- <img src="${pageContext.request.contextPath}/resources/global_assets/images/logo_light.png" alt=""> --%>
-				<img src="${pageContext.request.contextPath}/resources/global_assets/images/companylogo.png" alt="" style="height: 50px; width: 150px;" >
+				<img src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png" alt="" style="height: 50px; width: 150px;" >
 			</a>
 		</div>
 

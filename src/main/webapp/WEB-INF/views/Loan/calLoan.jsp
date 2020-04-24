@@ -50,7 +50,8 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Loan</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+										<i class="icon-grid52"></i> Add Loan</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -104,9 +105,11 @@
 									<input type="hidden" value="${empPersInfo.empId}" id="empId"
 										name="empId">
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="empName">Employee
+									
+									<div class="col-md-6 ">
+										<label class="col-form-label col-lg-5 float" for="empName">Employee
 											Name : </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												value="${empPersInfoString}" id="empName"
 												readonly="readonly" name="empName" autocomplete="off"
@@ -114,63 +117,79 @@
 
 										</div>
 									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="grossSal">
+									<div class="col-md-6 ">
+										<label class="col-form-label col-lg-5 float" for="grossSal">
 											Gross Salary : </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="grossSal"
 												value="${empPersInfo.grossSalary}" readonly="readonly"
 												name="grossSal" autocomplete="off" onchange="trim(this)">
 										</div>
 									</div>
+									
+										
+									</div>
+
+									
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="grossSal">
+									
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="grossSal">
 											Previous Loan Unpaid Amount : </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="grossSal"
 												readonly="readonly" name="grossSal"
 												value="${prevLoan.currentOutstanding}" autocomplete="off"
 												onchange="trim(this)">
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="grossSal">
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="grossSal">
 											Loan EMI Per Month : </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="grossSal"
 												readonly="readonly" name="grossSal"
 												value="${prevLoan.loanEmi}" autocomplete="off"
 												onchange="trim(this)">
 										</div>
+										</div>
+									
+										
 									</div>
 
 									<hr>
+								
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="voucherNo">Loan
+										
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="voucherNo">Loan
 											Application No. <span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" readonly="readonly"
 												id="appNo" value="${appNo}" name="appNo" autocomplete="off">
 
 										</div>
-
-										<label class="col-form-label col-lg-2" for="voucherNo">
-											Today : </label> <label class="col-form-label col-lg-4"
+									</div>
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="voucherNo">
+											Today : </label> <label class="col-form-label col-lg-7 float"
 											for="voucherNo"> ${todaysDate} </label>
+									</div>
+									
 									</div>
 
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="advanceAmt">Loan
+									
+									<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="advanceAmt">Loan
 											Amount (Rs) <span style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Loan Amount" id="loanAmt" name="loanAmt"
 												value="0" autocomplete="off" onchange="calAmt()">
@@ -181,50 +200,45 @@
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-									
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="month">Loan
+									<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="month">Loan
 											EMI <span style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-5 float">
 											<input type="text" class="form-control" id="emi" name="emi"
 												autocomplete="off" onchange="calAmt()" value="0">
 											<span class="validation-invalid-label" id="error_emi"
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-
-									<!-- <div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="month">Rate
-											of Interest (%)<span style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" id="roi" name="roi"
-												value="0" autocomplete="off" onchange="calAmt()"> <span
-												class="validation-invalid-label" id="error_roi"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div> -->
+										
+									</div>
+									
+									
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="month">Loan
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="month">Loan
 											Tenure In Month <span style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="tenure" value="1"
 												name="tenure" autocomplete="off" readonly="readonly">
 											<span class="validation-invalid-label" id="error_tenure"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="startDate">
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="startDate">
 											Start Date of Cutting <span style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control datepickerclass " onchange="calAmt()"
 												name="startDate" id="startDate" placeholder="Joining Date">
 										</div>
+										</div>
+									
+									
+										
 									</div>
 
 									<div class="form-group row">

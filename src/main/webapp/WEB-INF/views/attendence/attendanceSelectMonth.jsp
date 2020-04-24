@@ -53,10 +53,46 @@
 						<div class="card">
 
 							<div class="card-header header-elements-inline">
-								<h6 class="card-title">
-									Attendance process for month <strong> ${monthName}
-										&nbsp;${year}</strong>
+								
+								<div class="form-group row">
+									<div class="col-md-6">
+										<h6 class="pageTitle">
+									<i class="icon-grid52"></i> Attendance process for month <span> ${monthName}
+										&nbsp;${year}</span>
 								</h6>
+									</div>
+									<div class="col-md-6">
+										<form name="attendanceStep1" id="attendanceStep1"
+												action="${pageContext.request.contextPath}/attendenceImportExel"
+												method="GET" class="form-inline justify-content-center">
+
+												<input type="hidden" name="mode" id="mode"
+													value="submitform">
+												<div class="form-group ">
+													<label for="staticEmail" class="col-md-12 col-form-label">Month
+														: </label>
+
+
+												</div>
+												<div class="input-group mr-3">
+
+													<input type="text" name="selectMonth" id="datepicker"
+														class="form-control" required />
+													
+												</div>
+
+												<button type="submit" class="btn blue_btn  btnActStep1 "
+													id="btnActStep1" data-toggle1="modal"
+													data-target1="#modal_step1">
+													Submit <i class="icon-paperplane ml-2"></i>
+												</button>
+
+											</form>
+									</div>
+								</div>
+							
+							
+								
 
 								<div class="header-elements"></div>
 							</div>
@@ -119,78 +155,55 @@
 										<div class="" id="solid-rounded-justified-tab1">
 
 											<div
-												class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md card">
-												<!-- <div
-													class="card-header bg-transparent header-elements-inline">
-													<span class="card-title font-weight-bold">Stats</span>
+												class="aaa">
+												
+				<div class="row">
+					<div class="col-md-3">
+						<div class="box_one bg_one">
+							<i class="icon-users"></i> 
+							<h2 class="box_title">Total Employee</h2>							 
+							<span class="round_one"
+							id="total_emp">${infoForUploadAttendance.totalEmp}</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box_one bg_two">
+							<i class="icon-grid4"></i> 
+							<h2 class="box_title">Total attendance expected</h2> 							
+							<span class="round_one"
+							id="total_attendce_expected">${(infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp}</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box_one bg_three">
+							<i class="icon-grid52"></i> 
+							<h2 class="box_title">Total added by step1</h2> 							
+							<span class="round_one"
+							id="total_att_present">${infoForUploadAttendance.updatedByStep1}</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="box_one bg_four">
+							<i class="icon-grid52"></i> 
+							<h2 class="box_title">Total attendance uploaded</h2> 							
+							<span class="round_one"
+							id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span>
+						</div>
+					</div>
+				</div>			
 
+	
+												<!-- <div class="card-body p-0">
+													<ul class="nav nav-sidebar my-2">
+														<li class="nav-item"></li>
+														<li class="nav-item"></li>
+														<li class="nav-item"></li>
+														<li class="nav-item"></li>
+													</ul>
 												</div> -->
 
-												<div class="card-body p-0">
-													<ul class="nav nav-sidebar my-2">
-														<li class="nav-item"><i class="icon-users"></i> Total
-															Employee <span class="badge bg-info badge-pill ml-auto"
-															id="total_emp">${infoForUploadAttendance.totalEmp}</span></li>
-														<li class="nav-item"><i class="icon-grid4"></i> Total
-															attendance expected <span
-															class="badge bg-info badge-pill ml-auto"
-															id="total_attendce_expected">${(infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp}</span></li>
-														<li class="nav-item"><i class="icon-grid52"></i>
-															Total added by step1 <span
-															class="badge bg-success badge-pill ml-auto"
-															id="total_att_present">${infoForUploadAttendance.updatedByStep1}</span></li>
-														<li class="nav-item"><i class="icon-grid52"></i>
-															Total attendance uploaded <span
-															class="badge bg-danger badge-pill ml-auto"
-															id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span></li>
-													</ul>
-												</div>
-
 											</div>
-											<form name="attendanceStep1" id="attendanceStep1"
-												action="${pageContext.request.contextPath}/attendenceImportExel"
-												method="GET" class="form-inline justify-content-center">
-
-												<input type="hidden" name="mode" id="mode"
-													value="submitform">
-												<div class="form-group ">
-													<label for="staticEmail" class="col-md-12 col-form-label">Month
-														: </label>
-
-
-												</div>
-												<div class="input-group mr-3">
-
-													<input type="text" name="selectMonth" id="datepicker"
-														class="form-control" required />
-													<!-- <select name="selectMonth"
-													data-placeholder="Please Select" id="selectMonth"
-													class="form-control form-control-select21 select2-hidden-accessible1"
-													tabindex="-1" aria-hidden="true" required="required">
-													<option value="">Please Select</option>
-													<option value="1">January</option>
-													<option value="2">February</option>
-													<option value="3">March</option>
-													<option value="4">April</option>
-													<option value="5">May</option>
-													<option value="6">June</option>
-													<option value="7">July</option>
-													<option value="8">August</option>
-													<option value="9">September</option>
-													<option value="10">October</option>
-													<option value="11">November</option>
-													<option value="12">December</option>
-
-												</select> -->
-												</div>
-
-												<button type="submit" class="btn btn-primary   btnActStep1 "
-													id="btnActStep1" data-toggle1="modal"
-													data-target1="#modal_step1">
-													Submit <i class="icon-paperplane ml-2"></i>
-												</button>
-
-											</form>
+											
 
 
 										</div>

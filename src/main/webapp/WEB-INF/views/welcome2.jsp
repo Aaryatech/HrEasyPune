@@ -1479,7 +1479,7 @@
 
 								<div class="row">
 									<div class="col-md-12">
-										<div class="card bg-primary">
+										<div ><!-- class="card bg-primary" -->
 											<div class="card-header header-elements-inline">
 												<h6 class="card-title">Employee Diversity Report</h6>
 
@@ -1488,10 +1488,10 @@
 											<div class="card-body">
 
 												<div class="row">
-													<div class="col-md-3">Gender</div>
-													<div class="col-md-3">Age</div>
-													<div class="col-md-3">Experience</div>
-													<div class="col-md-3">Salary</div>
+													<div class="col-md-3 gender_title">Gender</div>
+													<div class="col-md-3 gender_title">Age</div>
+													<div class="col-md-3 gender_title">Experience</div>
+													<div class="col-md-3 gender_title">Salary</div>
 												</div>
 
 
