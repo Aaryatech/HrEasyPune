@@ -55,7 +55,7 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">${title}</h5></td>
+								<td width="60%"><h5 class="card-title"><i class="icon-list-unordered"></i> ${title}</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -107,25 +107,27 @@
 									action="${pageContext.request.contextPath}/submitInsertDesignation"
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${desig.desigId}" id="desigId" name="desigId">
+									
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="desination">Designation
-											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" value="${desig.name}"
-												placeholder="Enter Designation" id="desigName" maxlength="50"
-												name="desigName" autocomplete="off"  onchange="checkUnique(this.value,2)">
-											<span class="validation-invalid-label" id="error_designation"
-												style="display: none;">This field is required.</span>
-												
-												<span class="validation-invalid-label" id="error_unique"
-												style="display: none;">Designation Name Already Exists.</span>
+									<div class="col-md-6">	
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="desination">Designation
+												Name <span class="text-danger">* </span>:</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" value="${desig.name}"
+													placeholder="Enter Designation" id="desigName" maxlength="50"
+													name="desigName" autocomplete="off"  onchange="checkUnique(this.value,2)">
+												<span class="validation-invalid-label" id="error_designation"
+													style="display: none;">This field is required.</span>
+													
+													<span class="validation-invalid-label" id="error_unique"
+													style="display: none;">Designation Name Already Exists.</span>
+											</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="desigShortName">Short Name
+										
+										<div class="col-md-6">	
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="desigShortName">Short Name
 											 <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Short Name" id="desigShortName" value="${desig.nameSd}"
 												name="desigShortName" autocomplete="off" onchange="trim(this)"
@@ -137,33 +139,37 @@
 												style="display: none;">Designation Short Name Can Not be same as Designation Name.</span>
 												
 										</div>
-									</div>
-									
-									
-										<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="sortNo">Sort No.
-											 <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Sort No" id="sortNo" value="${desig.exInt1}"
-												name="sortNo" autocomplete="off" onchange="trim(this)"
-												maxlength="10"> <span
-												class="validation-invalid-label" id="error_sortNo"
-												style="display: none;">This field is required.</span>
-												 
 										</div>
 									</div>
+
 									
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
+										<div class="col-md-6">	
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="sortNo">Sort No.
+												 <span class="text-danger">* </span>:</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Sort No." id="sortNo" value="${desig.exInt1}"
+													name="sortNo" autocomplete="off" onchange="trim(this)"
+													maxlength="10"> <span
+													class="validation-invalid-label" id="error_sortNo"
+													style="display: none;">This field is required.</span>
+													 
+											</div>
+										</div>
+										
+										<div class="col-md-6">	
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark">${desig.remarks}</textarea>
 
 										</div>
-									</div>
+										</div>
+									</div>									
+									
 
 									<div class="form-group row mb-0">
 										<div class="col-lg-10 ml-lg-auto">

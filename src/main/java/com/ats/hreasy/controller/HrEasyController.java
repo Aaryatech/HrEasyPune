@@ -177,7 +177,11 @@ public class HrEasyController {
 				Designation saveDesig = Constants.getRestTemplate().postForObject(Constants.url + "/saveDesignation",
 						desig, Designation.class);
 				if (saveDesig != null) {
-					session.setAttribute("successMsg", "Designation Updated Successfully");
+					if(desig.getDesigId()>0) {
+						session.setAttribute("successMsg", "Designation Updated Successfully");
+					}else {
+						session.setAttribute("successMsg", "Designation Inserted Successfully");
+					}
 				} else {
 					session.setAttribute("errorMsg", "Failed to Update Record");
 				}
@@ -262,9 +266,9 @@ public class HrEasyController {
 							Info.class);
 
 					if (res.isError()) {
-						session.setAttribute("errorMsg", "Failed to Delete");
+						session.setAttribute("errorMsg", "Failed to Delete Designation");
 					} else {
-						session.setAttribute("successMsg", "Deleted Successfully");
+						session.setAttribute("successMsg", "Designation Deleted Successfully");
 
 					}
 				} else {
@@ -651,7 +655,13 @@ public class HrEasyController {
 				Department saveDepart = Constants.getRestTemplate().postForObject(Constants.url + "/saveDepartment",
 						dept, Department.class);
 				if (saveDepart != null) {
-					session.setAttribute("successMsg", "Department Updated Successfully");
+					if(dept.getDepartId()>0) {
+						session.setAttribute("successMsg", "Department Updated Successfully");
+					}
+					else {
+						session.setAttribute("successMsg", "Department Inserted Successfully");
+					}
+					
 				} else {
 					session.setAttribute("errorMsg", "Failed to Update Record");
 				}
@@ -734,9 +744,9 @@ public class HrEasyController {
 							Info.class);
 
 					if (res.isError()) {
-						session.setAttribute("errorMsg", "Failed to Delete");
+						session.setAttribute("errorMsg", "Failed to Delete Department");
 					} else {
-						session.setAttribute("successMsg", "Deleted Successfully");
+						session.setAttribute("successMsg", "Department Deleted Successfully");
 
 					}
 				} else {

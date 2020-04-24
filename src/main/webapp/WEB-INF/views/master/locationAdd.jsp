@@ -52,7 +52,7 @@
 	<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Add Location</h5></td>
+								<td width="60%"><h5 class="card-title"><i class="icon-list-unordered"></i> Add Location</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -103,93 +103,105 @@
 								<form
 									action="${pageContext.request.contextPath}/submitInsertLocation"
 									id="submitInsertLocaion" method="post">
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="locName">Location
-											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" maxlength="20"
-												placeholder="Enter Location Name" id="locName"
-												name="locName" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_locName"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="locShortName">Location
+									
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="locName">Location
+													Name <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control" maxlength="20"
+														placeholder="Enter Location Name" id="locName"
+														name="locName" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_locName"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="locShortName">Location
 											Short Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" 
-												placeholder="Enter Location Short Name" id="locShortName"
-												name="locShortName" autocomplete="off" onchange="trim(this)"
-												maxlength="5"> <span
-												class="validation-invalid-label" id="error_locShortName"
-												style="display: none;">This field is required.</span>
-												<span
-												class="validation-invalid-label" id="error_sameName"
-												style="display: none;">Location Short Name Can Not be same as Location Name.</span>
-												
-												
-												
+												<div class="col-lg-7 float">
+													<input type="text" class="form-control" 
+														placeholder="Enter Location Short Name" id="locShortName"
+														name="locShortName" autocomplete="off" onchange="trim(this)"
+														maxlength="5"> <span
+														class="validation-invalid-label" id="error_locShortName"
+														style="display: none;">This field is required.</span>
+														<span
+														class="validation-invalid-label" id="error_sameName"
+														style="display: none;">Location Short Name Can Not be same as Location Name.</span>												
+												</div>
+											</div>
+											
+									</div>
+
+									
+
+									<div class="form-group row">
+										<div class="col-md-6">		
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="add">Location
+												Short Address <span class="text-danger">* </span>:</label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Location Short Address" onchange="trim(this)"
+													id="add" name="add"></textarea>
+												<span class="validation-invalid-label" id="error_locadd"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+									
+										<div class="col-md-6">	
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="prsnName">Contact Person
+												Name <span class="text-danger">* </span>:</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" maxlength="20"
+													placeholder="Contact Person Name" id="prsnName"
+													name="prsnName" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_prsnName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
+									
+
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="add">Location
-											Short Address <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Location Short Address" onchange="trim(this)"
-												id="add" name="add"></textarea>
-											<span class="validation-invalid-label" id="error_locadd"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="contactNo">Contact
+												No. <span class="text-danger">* </span>:</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Contact No." id="contactNo"
+													name="contactNo" autocomplete="off" onchange="trim(this)"
+													  maxlength="10"> <span
+													class="validation-invalid-label" id="error_contactNo"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="email">Email <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Email" id="email"
+													name="email" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_email"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="prsnName">Contact Person
-											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" maxlength="20"
-												placeholder="Contact Person Name" id="prsnName"
-												name="prsnName" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_prsnName"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="contactNo">Contact
-											No <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Contact No." id="contactNo"
-												name="contactNo" autocomplete="off" onchange="trim(this)"
-												  maxlength="10"> <span
-												class="validation-invalid-label" id="error_contactNo"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="email">Email <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Email" id="email"
-												name="email" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_email"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Remark
-											: </label>
-										<div class="col-lg-10">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark"></textarea>
-
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
+												: </label>
+												<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)" id="remark"
+													name="remark"></textarea>
+	
+											</div>
 										</div>
 									</div>
 

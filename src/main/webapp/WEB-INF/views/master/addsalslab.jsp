@@ -52,7 +52,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">${title}</h5></td>
+										<td width="60%"><h5 class="card-title"><i class="icon-list-unordered"></i>${title}</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -106,23 +106,24 @@
 									<input type="hidden" value="${slab.slabId}" id="slabId"
 										name="slabId">
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="minValue">Min
-											Value <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" value="${slab.minVal}"
-												placeholder="Enter Min Value" id="minValue" maxlength="10"
-												name="minValue" autocomplete="off" >
-											<span class="validation-invalid-label" id="error_minValue"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">	
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="minValue">Min
+												Value <span class="text-danger">* </span>:
+											</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control" value="${slab.minVal}"
+														placeholder="Enter Min Value" id="minValue" maxlength="10"
+														name="minValue" autocomplete="off" >
+													<span class="validation-invalid-label" id="error_minValue"
+														style="display: none;">This field is required.</span>
+												</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="maxValue">Max
+										
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="maxValue">Max
 											Value <span class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Max Value" id="maxValue"
 												value="${slab.maxVal}" name="maxValue"
@@ -132,12 +133,18 @@
 												field is required.</span> 
 
 										</div>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="amount">Amount
+										
+									</div>
+
+									<div class="form-group row">
+									<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amount">Amount
 											 <span class="text-danger">* </span>: </label>
-										<div class="col-lg-10">
+										<div class="col-lg-5 float">
 												<input type="text" class="form-control"
 												placeholder="Enter Amount" id="amount"
 												value="${slab.amount}" name="amount"
@@ -146,6 +153,7 @@
 												id="error_amount" style="display: none;">This
 												field is required.</span> 
 
+										</div>
 										</div>
 									</div>
 

@@ -52,7 +52,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">${title}</h5></td>
+										<td width="60%"><h5 class="card-title"><i class="icon-list-unordered"></i> ${title}</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -108,10 +108,11 @@
 										name="settingId">
 
 									<div class="form-group row">
-										<label class="col-form-label font-weight-bold col-lg-2" for="set_value">
+									<div class="col-md-6">
+										<label class="col-form-label font-weight-bold col-lg-5 float" for="set_value">
 											${setting.labels} &nbsp;&nbsp;:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Value" id="set_value"
 												value="${setting.value}" name="set_value"
@@ -120,6 +121,7 @@
 												id="error_set_value" style="display: none;">This
 												field is required.</span> 
 
+										</div>
 										</div>
 									</div>
 
