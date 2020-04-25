@@ -46,13 +46,13 @@
 							<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Leave Type List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Type List</h5></td>
 								<td width="40%" align="right">
 							  <c:if test="${addAccess == 0}">
 								 <a
 									href="${pageContext.request.contextPath}/leaveTypeAdd"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Add Leave Type</button>
+										<button type="button" class="btn blue_btn">Add Leave Type</button>
 								</a></c:if> </td>
 							</tr>
 						</table>
@@ -101,9 +101,9 @@
 							id="printtable1">
 							<thead>
 								<tr class="bg-blue">
-									<th width="10%">Sr.no</th>
-									<th>Leave Type</th>
-									<th>Leave Short Name</th>
+									<th width="10%" style="text-align: center;">Sr.no</th>
+									<th style="text-align: center;">Leave Type</th>
+									<th style="text-align: center;">Leave Short Name</th>
 									 
 									 
 									<th class="text-center" width="10%">Actions</th>

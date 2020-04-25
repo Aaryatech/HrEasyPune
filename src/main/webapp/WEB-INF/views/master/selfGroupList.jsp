@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Shift Group
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Shift Group
 										List</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/showAddSelfGrp"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Shift Group</button>
 										</a>
 									</c:if></td>
@@ -98,8 +98,8 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Shift Group Name</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Shift Group Name</th>
 
 									<th width="10%" class="text-center">Actions</th>
 								</tr>

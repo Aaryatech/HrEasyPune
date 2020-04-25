@@ -160,7 +160,7 @@
 									</div>
 
 									 <div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -172,7 +172,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

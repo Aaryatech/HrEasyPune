@@ -276,9 +276,9 @@ public class LeaveStructureController {
 							.postForObject(Constants.url + "saveLeaveStruture", head, LeaveStructureHeader.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Leave Structure Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Leave Structure");
 					}
 
 				}
@@ -650,13 +650,13 @@ public class LeaveStructureController {
 							Constants.url + "saveLeaveStruture", editStructure, LeaveStructureHeader.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Updated Successfully");
+						session.setAttribute("successMsg", "Leave Structure Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Update Record");
+						session.setAttribute("errorMsg", "Failed to Update Leave Structure");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Update Record");
+					session.setAttribute("errorMsg", "Failed to Update Leave Structure");
 				}
 			} catch (Exception e) {
 

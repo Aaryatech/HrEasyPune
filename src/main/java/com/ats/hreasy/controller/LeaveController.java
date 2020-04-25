@@ -258,13 +258,13 @@ public class LeaveController {
 							leaveSummary, LeaveType.class);
 
 					if (res.isError() == false) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Leave Type Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Leave Type");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Leave Type");
 				}
 
 			} catch (Exception e) {
@@ -503,12 +503,12 @@ public class LeaveController {
 							editLeaveType, LeaveType.class);
 
 					if (res.isError() == false) {
-						session.setAttribute("successMsg", "Record Updated Successfully");
+						session.setAttribute("successMsg", " Leave Type Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Update Record");
+						session.setAttribute("errorMsg", "Failed to Update Leave Type");
 					}
 				} else {
-					session.setAttribute("errorMsg", "Failed to Update Record");
+					session.setAttribute("errorMsg", "Failed to Update Leave Type");
 				}
 
 			} catch (Exception e) {

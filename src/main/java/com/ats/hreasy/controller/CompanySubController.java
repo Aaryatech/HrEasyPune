@@ -302,15 +302,15 @@ public class CompanySubController {
 
 			if (compId != 0) {
 				if (saveComp != null) {
-					session.setAttribute("successMsg", "Record Updated Successfully");
+					session.setAttribute("successMsg", "Company Details Updated Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Update Record");
+					session.setAttribute("errorMsg", "Failed to Update Company Details");
 				}
 			} else {
 				if (saveComp != null) {
-					session.setAttribute("successMsg", "Record Insert Successfully");
+					session.setAttribute("successMsg", "Company Details Inserted Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Company Details");
 				}
 			}
 
@@ -459,9 +459,9 @@ public class CompanySubController {
 					company, MstCompanySub.class);
 
 			if (saveComp != null) {
-				session.setAttribute("successMsg", "Record Updated Successfully");
+				session.setAttribute("successMsg", "Company Details Updated Successfully");
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				session.setAttribute("errorMsg", "Failed to Update Company Details");
 			}
 
 			encryptCompId = FormValidation.Encrypt(String.valueOf(compId));
@@ -555,9 +555,9 @@ public class CompanySubController {
 			MstCompanySub saveComp = Constants.getRestTemplate().postForObject(Constants.url + "/saveSubNewCompany",
 					company, MstCompanySub.class);
 			if (saveComp != null) {
-				session.setAttribute("successMsg", "Record Updated Successfully");
+				session.setAttribute("successMsg", "Company Details Updated Successfully");
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				session.setAttribute("errorMsg", "Failed to Update Company Details");
 			}
 
 			encryptCompId = FormValidation.Encrypt(String.valueOf(compId));
@@ -654,9 +654,9 @@ public class CompanySubController {
 					company, MstCompanySub.class);
 
 			if (saveComp != null) {
-				session.setAttribute("successMsg", "Record Updated Successfully");
+				session.setAttribute("successMsg", "Company Details Updated Successfully");
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				session.setAttribute("errorMsg", "Failed to Update Company Details");
 			}
 
 			encryptCompId = FormValidation.Encrypt(String.valueOf(compId));
@@ -715,9 +715,9 @@ public class CompanySubController {
 					comp, MstCompanySub.class);
 
 			if (saveComp != null) {
-				session.setAttribute("successMsg", "Record Updated Successfully");
+				session.setAttribute("successMsg", "Company Details Updated Successfully");
 			} else {
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				session.setAttribute("errorMsg", "Failed to Update Company Details");
 			}
 
 			encryptCompId = FormValidation.Encrypt(String.valueOf(compId));

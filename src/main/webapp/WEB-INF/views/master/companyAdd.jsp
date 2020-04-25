@@ -825,7 +825,7 @@
 								</div>
 								<!-- /highlighted tabs -->
 
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

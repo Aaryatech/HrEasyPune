@@ -177,9 +177,9 @@ public class PayDeductionController {
 						Info.class);
 
 				if (res.isError()) {
-					session.setAttribute("errorMsg", "Failed to Delete");
+					session.setAttribute("errorMsg", "Failed to Delete Payment Deduction");
 				} else {
-					session.setAttribute("successMsg", "Deleted Successfully");
+					session.setAttribute("successMsg", "Payment Deduction Deleted Successfully");
 
 				}
 
@@ -262,10 +262,15 @@ public class PayDeductionController {
 						.postForObject(Constants.url + "/saveDeductnPaymentType", pay, PayDeduction.class);
 
 				if (savePay != null) {
-					session.setAttribute("successMsg", "Record Inserted Successfully");
+					if(pay.getDedTypeId()>0) {
+						session.setAttribute("successMsg", "Pay Deduction Type Updated Successfully");
+					}else {
+						session.setAttribute("successMsg", "Pay Deduction Type Inserted Successfully");
+					}
+					
 				} else {
 
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Pay Deduction Type");
 				}
 			} catch (Exception e) {
 				System.out.println("Exception in /payDeductionAdd : " + e.getMessage());

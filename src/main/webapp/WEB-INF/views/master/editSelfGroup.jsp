@@ -49,7 +49,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Edit Shift Group</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Shift Group</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -101,22 +101,22 @@
 									action="${pageContext.request.contextPath}/submitInsertEditSelfGrp"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="locName">Shift Group
-											Name <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"  maxlength="50"
-												placeholder="Enter Shift Group Name" id="grpName" value="${editSelf.name}"
-												name="grpName" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_grpName"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label class="col-form-label text-info col-lg-5 float" for="locName">Shift Group
+												Name <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"  maxlength="50"
+													placeholder="Enter Shift Group Name" id="grpName" value="${editSelf.name}"
+													name="grpName" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_grpName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
-
-
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -130,6 +130,8 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 

@@ -712,9 +712,9 @@ public class EmployeeShiftAssignController {
 							mstEmpType, MstEmpType.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Employee Type Inserted Successfully");
+						session.setAttribute("successMsg", "Employee Type Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Employee Type");
 					}
 
 				} else {
@@ -723,7 +723,7 @@ public class EmployeeShiftAssignController {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Employee Type");
 			}
 		}
 

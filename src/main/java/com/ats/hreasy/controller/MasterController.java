@@ -482,18 +482,18 @@ public class MasterController {
 							SelfGroup.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Shift Group Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Shift Group");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Shift Group");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Shift Group");
 			}
 		}
 
@@ -680,18 +680,18 @@ public class MasterController {
 							SelfGroup.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Shift Group Update Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Updated Shift Group");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Updated Shift Group");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Updated Shift Group");
 			}
 		}
 
@@ -821,18 +821,22 @@ public class MasterController {
 						location, HolidayCategory.class);
 
 				if (res != null) {
-					session.setAttribute("successMsg", "HolidayCategory Inserted Successfully");
+					if(location.getHoCatId()>0) {
+						session.setAttribute("successMsg", "Holiday Category Updated Successfully");
+					}else {
+						session.setAttribute("successMsg", "Holiday Category Inserted Successfully");
+					}
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Holiday Category");
 				}
 
 			} else {
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Holiday Category");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMsg", "Failed to Insert Record");
+			session.setAttribute("errorMsg", "Failed to Insert Holiday Category");
 		}
 
 		return a;
@@ -1010,7 +1014,7 @@ public class MasterController {
 
 			WeekoffCategory holi = new WeekoffCategory();
 			mav = "master/weekoffCategoryAdd";
-			model.addAttribute("title", "Add Weekoff Category");
+			model.addAttribute("title", "Add Week Off Category");
 			model.addAttribute("holi", holi);
 			/* } */
 		} catch (Exception e) {
@@ -1087,23 +1091,23 @@ public class MasterController {
 
 				if (res != null) {
 					if (woCatId == 0) {
-						session.setAttribute("successMsg", "Weekoff Category Inserted Successfully");
+						session.setAttribute("successMsg", "Week Off Category Inserted Successfully");
 					} else {
-						session.setAttribute("successMsg", "Weekoff Category Updated Successfully");
+						session.setAttribute("successMsg", "Week Off Category Updated Successfully");
 
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Week Off Category");
 				}
 
 			} else {
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Week Off Category");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMsg", "Failed to Insert Record");
+			session.setAttribute("errorMsg", "Failed to Insert Week Off Category");
 		}
 		// }
 
@@ -1245,7 +1249,7 @@ public class MasterController {
 			editWeekCat = Constants.getRestTemplate().postForObject(Constants.url + "/getWeekoffCategoryHoCatId", map,
 					WeekoffCategory.class);
 			model.addAttribute("holi", editWeekCat);
-			model.addAttribute("title", "Edit Weekoff Category");
+			model.addAttribute("title", "Edit Week Off Category");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1350,18 +1354,22 @@ public class MasterController {
 							SkillRates.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Skill Rate Inserted Successfully");
+						if(skill.getSkillId()>0) {
+							session.setAttribute("successMsg", "Skill Rate Updated Successfully");
+						}else {
+							session.setAttribute("successMsg", "Skill Rate Inserted Successfully");
+						}
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Skill Rate");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Skill Rate");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Skill Rate");
 			}
 		}
 

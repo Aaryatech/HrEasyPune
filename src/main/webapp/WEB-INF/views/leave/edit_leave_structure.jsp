@@ -55,7 +55,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Edit Leave
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Leave
 												Structure</h5></td>
 										<td width="40%" align="right">
 											<%-- 
@@ -111,26 +111,27 @@
 									action="${pageContext.request.contextPath}/editInsertLeaveStructure"
 									id="insertLeaveStructure" method="post">
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="lvsName">Leave Structure Name <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Leave Structure Name" id="lvsName"
-												value="${editStructure.lvsName}" name="lvsName"
-												autocomplete="off" onchange="trim(this)">
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="lvsName">Leave Structure Name <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Leave Structure Name" id="lvsName"
+													value="${editStructure.lvsName}" name="lvsName"
+													autocomplete="off" onchange="trim(this)">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-3"
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="select2">Calculation Cash AMT of Leave Balance <span
 											style="color: red">* </span> :
 										</label>
-										<div class="col-lg-7">
+										<div class="col-lg-7 float">
 											<select name="allowanceIds"
 												data-placeholder="Select Structure Allotment"
 												id="allowanceIds"
@@ -155,7 +156,9 @@
 												</c:forEach>
 											</select>
 										</div>
+										</div>
 									</div>
+									
 									<hr>
 									<div class="form-group row">
 										<strong> Leaves Types :</strong>
@@ -273,7 +276,7 @@
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue mr-3 legitRipple"
 												id="submtbtn">
@@ -287,10 +290,10 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 

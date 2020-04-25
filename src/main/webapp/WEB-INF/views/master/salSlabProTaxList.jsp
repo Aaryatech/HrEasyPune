@@ -47,7 +47,7 @@
 								<td width="40%" align="right"><%-- <c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/addSalSlab"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add Slab Salary 
+											<button type="button" class="btn blue_btn">Add Slab Salary 
 												for Professional Tax</button>
 										</a>
 									</c:if> --%></td>

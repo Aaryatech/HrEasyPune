@@ -73,7 +73,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Leave
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Leave
 												Type</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -130,12 +130,13 @@
 
 
 									<div class="form-group row">
+										<div class="col-md-6">		
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="leaveTypeTitle"> Leave Type<span
 											class="text-danger"> *</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Leave Type" id="leaveTypeTitle"
 												name="leaveTypeTitle" autocomplete="off"
@@ -143,15 +144,15 @@
 												class="validation-invalid-label" id="error_leaveType"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										</div>
+										
+										<div class="col-md-6">		
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="leaveShortTypeTitle"> Short Name <span
 											class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" maxlength="2"
 												placeholder="Enter Leave Type Short Name"
 												id="leaveShortTypeTitle" name="leaveShortTypeTitle"
@@ -164,10 +165,12 @@
 												class="validation-invalid-label" id="error_sameName"
 												style="display: none;">Leave Type Short Name Can Not
 												be same as Leave Type Name. </span>
-
-
-
 										</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										
 									</div>
 
 									<!-- 
@@ -186,12 +189,7 @@
  -->
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2">Color:</label>
-										<div class="col-lg-10">
-											<input type="text" id="leaveColor" name="leaveColor"
-												class="form-control colorpicker-show-input"
-												data-preferred-format="hex" value="#f75d1c" data-fouc>
-										</div>
+										
 									</div>
 								<!-- 	<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="comoffallowed">Is
@@ -216,7 +214,9 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="isFile">Is File Upload Required <span style="color: red">*</span>:
+										<div class="col-md-6">
+										
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="isFile">Is File Upload Required <span style="color: red">*</span>:
 										</label>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label"> <input type="radio"
@@ -233,14 +233,24 @@
 
 										<span class="validation-invalid-label" id="error_isFile"
 											style="display: none;">This field is required.</span>
+											</div>
+											<div class="col-md-6">	
+										<label class="col-form-label col-lg-5 float">Color:</label>
+										<div class="col-lg-7 float">
+											<input type="text" id="leaveColor" name="leaveColor"
+												class="form-control colorpicker-show-input"
+												data-preferred-format="hex" value="#f75d1c" data-fouc>
+										</div>
+										</div>
 									</div>
 
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="select2">Leave
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="select2">Leave
 											Summary:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="summId" data-placeholder="Select a Summary"
 												id="summId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -255,20 +265,25 @@
 
 											</select>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Any
+										</div>
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Any
 											Remark:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark"></textarea>
 										</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										
 									</div>
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 											<!-- 										
  -->
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
@@ -284,7 +299,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

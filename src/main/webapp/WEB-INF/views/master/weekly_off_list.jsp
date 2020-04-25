@@ -47,7 +47,7 @@
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/addWeeklyOff"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Weekly Off</button>
 										</a>
 									</c:if></td>

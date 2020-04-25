@@ -171,13 +171,13 @@ public class WeeklyOffController {
 							WeeklyOff.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Weekly Off Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Weekly Off");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Weekly Off");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -415,18 +415,18 @@ public class WeeklyOffController {
 							editWeeklyOff, WeeklyOff.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Updated Successfully");
+						session.setAttribute("successMsg", "Weekly Off Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Update Record");
+						session.setAttribute("errorMsg", "Failed to Update Weekly Off");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Update Record");
+					session.setAttribute("errorMsg", "Failed to Update Weekly Off");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Update Record");
+				session.setAttribute("errorMsg", "Failed to Update Weekly Off");
 			}
 		}
 		return a;

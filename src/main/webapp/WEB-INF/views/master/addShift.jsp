@@ -52,7 +52,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Add Shift</h5>
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Shift</h5>
 							</div>
 
 							<div class="card-body">
@@ -96,12 +96,13 @@
 									action="${pageContext.request.contextPath}/submitShiftTiming"
 									id="submitShiftTiming" method="post">
 									<div class="form-group row">
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="locId">Select Location <span style="color: red">
 												*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="locId" data-placeholder="Select Location"
 												id="locId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -119,15 +120,14 @@
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-
-
-									<div class="form-group row">
+									
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold  col-lg-2"
+											class="col-form-label text-info font-weight-bold  col-lg-5 float"
 											for="shiftName">Shift Name <span style="color: red">*
 										</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Shift Name" id="shiftName" name="shiftName"
 												autocomplete="off" onchange="trim(this)"> <span
@@ -135,89 +135,96 @@
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold  col-lg-2"
-											for="intime">In Time<span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="time" class="form-control timehour24 "
-												id="intime" data-mask="23:59" name="intime"
-												autocomplete="off"> <span
-												class="validation-invalid-label" id="error_intime"
-												style="display: none;">This field is required.</span>
-										</div>
 									</div>
 
+
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold  col-lg-2"
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold  col-lg-5 float"
+												for="intime">In Time<span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="time" class="form-control timehour24 "
+													id="intime" data-mask="23:59" name="intime"
+													autocomplete="off"> <span
+													class="validation-invalid-label" id="error_intime"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold  col-lg-5 float"
 											for="outtime">Out Time<span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="time" class="form-control timehour24"
-												id="outtime" data-mask="23:59" name="outtime"
-												autocomplete="off"> <span
-												class="validation-invalid-label" id="error_outtime"
-												style="display: none;">This field is required.</span>
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="time" class="form-control timehour24"
+													id="outtime" data-mask="23:59" name="outtime"
+													autocomplete="off"> <span
+													class="validation-invalid-label" id="error_outtime"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 									<div class="form-group row">
+										<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold  col-lg-2"
+											class="col-form-label text-info font-weight-bold  col-lg-5 float"
 											for="hfdayhour">Shift Half Day Hour<span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="time" class="form-control timehour24"
 												id="hfdayhour" data-mask="23:59" name="hfdayhour"
 												autocomplete="off"> <span
 												class="validation-invalid-label" id="error_hfdayhour"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2 text-info font-weight-bold"
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float text-info font-weight-bold"
 											for="othour">Shift OT Hour<span style="color: red">*
 										</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="time" class="form-control timehour24"
 												id="othour" data-mask="23:59" name="othour"
 												autocomplete="off"> <span
 												class="validation-invalid-label" id="error_othour"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="lateMin">Late Allowed in MIN <span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control numbersOnly"
-												id="lateMin" name="lateMin" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_lateMin"
-												style="display: none;">This field is required.</span>
 										</div>
 									</div>
 
+
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold  col-lg-2"
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="lateMin">Late Allowed in MIN <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													id="lateMin" name="lateMin" autocomplete="off"> <span
+													class="validation-invalid-label" id="error_lateMin"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold  col-lg-5 float"
 											for="groupId">Select Group <span style="color: red">*
 										</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="groupId" data-placeholder="Select Group"
 												id="groupId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -230,26 +237,42 @@
 											</select> <span class="validation-invalid-label" id="error_groupId"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										<label
-											class="col-form-label   text-info font-weight-bold col-lg-2"
-											for="ischange">Is Changeable<span style="color: red">*
-										</span>:
+											<div class="col-md-6">
+											<label
+												class="col-form-label  text-info font-weight-bold col-lg-5 float"
+												for="ischange">Is Changeable<span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="checkbox" id="ischange" name="ischange"
+													onchange="changeIsChange()">
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label   text-info font-weight-bold col-lg-5 float"
+											for="isNightShiftNo">Is Night Shift<span
+											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-2">
-											<input type="checkbox" id="ischange" name="ischange"
-												onchange="changeIsChange()">
+										<div class="col-lg-7 float">
+											<input type="radio" id="isNightShiftNo" name="isNightShift"
+												checked value="0">No <input type="radio"
+												id="isNightShiftYes" name="isNightShift" value="1">Yes
+										</div>
 										</div>
 
 									</div>
 									<div id="changeHideShow" style="display: none;">
 										<div class="form-group row">
-
-											<label class="col-form-label col-lg-2" for="changeWith">Change
+											<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="changeWith">Change
 												With : </label>
-											<div class="col-lg-3">
+											<div class="col-lg-7 float">
 												<select name="changeWith" data-placeholder="Change With"
 													id="changeWith"
 													class="form-control form-control-select2 select2-hidden-accessible"
@@ -258,24 +281,13 @@
 
 												</select>
 											</div>
+											</div>
 										</div>
-									</div>
+									</div> 
 
-									<div class="form-group row">
-										<label
-											class="col-form-label   text-info font-weight-bold col-lg-2"
-											for="isNightShiftNo">Is Night Shift<span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-2">
-											<input type="radio" id="isNightShiftNo" name="isNightShift"
-												checked value="0">No <input type="radio"
-												id="isNightShiftYes" name="isNightShift" value="1">Yes
-										</div>
-
-									</div>
+								
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -286,6 +298,8 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 

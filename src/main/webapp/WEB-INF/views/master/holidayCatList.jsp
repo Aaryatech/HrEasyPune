@@ -48,7 +48,7 @@
 										<a
 											href="${pageContext.request.contextPath}/holidayCategoryAdd"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Holiday Category</button>
 										</a>
 									</c:if></td>

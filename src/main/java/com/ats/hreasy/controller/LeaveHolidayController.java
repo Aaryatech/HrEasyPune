@@ -225,9 +225,9 @@ public class LeaveHolidayController {
 						Info.class);
 
 				if (res.isError() == false) {
-					session.setAttribute("successMsg", "Transaction Successfully");
+					session.setAttribute("successMsg", "Holiday Inserted Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Transaction Failed Failed");
+					session.setAttribute("errorMsg", "Failed to Insert Holiday");
 				}
 
 			} catch (Exception e) {
@@ -484,9 +484,9 @@ public class LeaveHolidayController {
 						Info.class);
 
 				if (info.isError() == false) {
-					session.setAttribute("successMsg", "Deleted Successfully");
+					session.setAttribute("successMsg", "Holiday Deleted Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Delete");
+					session.setAttribute("errorMsg", "Failed to Delete Holiday");
 				}
 			}
 		} catch (Exception e) {
@@ -572,13 +572,13 @@ public class LeaveHolidayController {
 							holiday, HolidayMaster.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Holiday Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Holiday");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Holiday");
 				}
 
 			} catch (Exception e) {
@@ -671,14 +671,14 @@ public class LeaveHolidayController {
 						Info.class);
 
 				if (info.isError() == false) {
-					session.setAttribute("successMsg", "Deleted Successfully");
+					session.setAttribute("successMsg", "Default Holiday Deleted Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Delete");
+					session.setAttribute("errorMsg", "Failed to Delete Default Holiday");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMsg", "Failed to Delete");
+			session.setAttribute("errorMsg", "Failed to Delete Default Holiday");
 		}
 		return a;
 	}
@@ -768,13 +768,13 @@ public class LeaveHolidayController {
 							editHolidayMaster, HolidayMaster.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Updated Successfully");
+						session.setAttribute("successMsg", "Holiday Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Updated Record");
+						session.setAttribute("errorMsg", "Failed to Updated Holiday");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Updated Record");
+					session.setAttribute("errorMsg", "Failed to Updated Holiday");
 				}
 
 			} catch (Exception e) {

@@ -370,6 +370,7 @@ public class HrEasyController {
 			} else {
 
 				model = new ModelAndView("master/addContractor");
+				model.addObject("title", "Add Contractor");
 				model.addObject("contract", contract);
 			}
 		} catch (Exception e) {
@@ -422,7 +423,11 @@ public class HrEasyController {
 						contract, Contractor.class);
 
 				if (saveDesig != null) {
-					session.setAttribute("successMsg", "Contractor Updated Successfully");
+					if(contract.getContractorId()>0) {
+						session.setAttribute("successMsg", "Contractor Updated Successfully");
+					}else {
+						session.setAttribute("successMsg", "Contractor Inserted Successfully");
+					}
 				} else {
 					session.setAttribute("errorMsg", "Failed to Update Record");
 				}
@@ -453,7 +458,7 @@ public class HrEasyController {
 
 			try {
 				model = new ModelAndView("master/addContractor");
-
+				model.addObject("title", "Edit Contractor");
 				String base64encodedString = request.getParameter("contractor");
 				String contractorId = FormValidation.DecodeKey(base64encodedString);
 
@@ -509,9 +514,9 @@ public class HrEasyController {
 							Info.class);
 
 					if (res.isError()) {
-						session.setAttribute("errorMsg", "Failed to Delete");
+						session.setAttribute("errorMsg", "Failed to Delete Contractor");
 					} else {
-						session.setAttribute("successMsg", "Deleted Successfully");
+						session.setAttribute("successMsg", "Contractor Deleted Successfully");
 
 					}
 				} else {
@@ -893,9 +898,13 @@ public class HrEasyController {
 				Bank saveDepart = Constants.getRestTemplate().postForObject(Constants.url + "/saveBank", bank,
 						Bank.class);
 				if (saveDepart != null) {
-					session.setAttribute("successMsg", "Bank Saved Successfully");
+					if(bank.getBankId()>0) {
+						session.setAttribute("successMsg", "Bank Updated Successfully");
+					}else {
+						session.setAttribute("successMsg", "Bank Inserted Successfully");
+					}
 				} else {
-					session.setAttribute("errorMsg", "Failed to Save Record");
+					session.setAttribute("errorMsg", "Failed to Save Bank");
 				}
 
 			} catch (Exception e) {

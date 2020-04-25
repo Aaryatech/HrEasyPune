@@ -46,7 +46,7 @@
 								<td width="40%" align="right"> 
 										<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Week Off Category</button>
 										</a>
 								 </td>

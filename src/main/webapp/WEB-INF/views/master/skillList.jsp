@@ -42,11 +42,11 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Skill Rate List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Skill Rate List</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/skillAdd"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Skill Rate</button>
 										</a>
 									</c:if></td>
@@ -97,9 +97,9 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Skill Name</th>
-									<th>Rate</th>
+									<th width="10%"  class="text-center">Sr. No.</th>
+									<th class="text-center">Skill Name</th>
+									<th class="text-center">Rate</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>

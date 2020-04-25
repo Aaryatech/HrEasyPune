@@ -52,7 +52,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Edit Employee
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Employee
 												Type</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -105,31 +105,31 @@
 								<form
 									action="${pageContext.request.contextPath}/submitEditMstEmpTypeAdd"
 									id="submitInsertWeeklyOff" method="post">
+									
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="typeName"> Type Name<span class="text-danger">
-												* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Type Name" id="typeName" name="typeName"
-												value="${employee.name}" autocomplete="off"
-												onchange="trim(this)" maxlength="100"> <span
-												class="validation-invalid-label" id="error_typeName"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="typeName"> Type Name<span class="text-danger">
+													* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Type Name" id="typeName" name="typeName"
+													value="${employee.name}" autocomplete="off"
+													onchange="trim(this)" maxlength="100"> <span
+													class="validation-invalid-label" id="error_typeName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
-									<input type="hidden" value="${employee.empTypeId}"
-										name="empTypeId" id="empTypeId">
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="minWorkRule"> Minimum Work Hour Rule Applicable
 											<span class="text-danger"> * </span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="minWorkRule" data-placeholder="Please Select"
 												id="minWorkRule"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -144,38 +144,44 @@
 												id="error_minWorkRule" style="display: none;">This
 												field is required.</span>
 										</div>
-
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="halfDayDed"> Half Day Deduction <span
-											class="text-danger"> * </span>:
-										</label>
-										<div class="col-lg-4">
-											<select name="halfDayDed" data-placeholder="Please Select"
-												id="halfDayDed"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="Yes"
-													${employee.halfDay == 'Yes' ? 'selected' : ''}>Yes</option>
-												<option value="No"
-													${employee.halfDay == 'No' ? 'selected' : ''}>No</option>
-
-
-
-											</select> <span class="validation-invalid-label" id="error_halfDayDed"
-												style="display: none;">This field is required.</span>
 										</div>
-
 									</div>
+									<input type="hidden" value="${employee.empTypeId}"
+										name="empTypeId" id="empTypeId">
 
-									<div class="form-group row">
+									<div class="form-group row">										
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="halfDayDed"> Half Day Deduction <span
+												class="text-danger"> * </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="halfDayDed" data-placeholder="Please Select"
+													id="halfDayDed"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="Yes"
+														${employee.halfDay == 'Yes' ? 'selected' : ''}>Yes</option>
+													<option value="No"
+														${employee.halfDay == 'No' ? 'selected' : ''}>No</option>
+	
+	
+	
+												</select> <span class="validation-invalid-label" id="error_halfDayDed"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+													
+									<div class="col-md-6">
+									
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="otApplicable"> Production Incentive <span
 											class="text-danger"> * </span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="otApplicable" data-placeholder="Please Select"
 												id="otApplicable" onchange1="setDate()"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -191,7 +197,110 @@
 												id="error_otApplicable" style="display: none;">This
 												field is required.</span>
 										</div>
+										</div>
 									</div>
+
+
+									<div class="form-group row">
+
+										<%-- <label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="prodApplicable">Production Incentive
+											Applicable(in Hrs)<span class="text-danger"> *</span>:
+										</label>
+										<div class="col-lg-4">
+											<select name="prodApplicable"
+												data-placeholder="Please Select" id="prodApplicable"
+												onchange="setDate()"
+												class="form-control form-control-select2 select2-hidden-accessible"
+												tabindex="-1" aria-hidden="true">
+												<option value="">Please Select</option>
+												<option value="1"
+													${employee.prodIncentiveApp == '1' ? 'selected' : ''}>Yes</option>
+												<option value="0"
+													${employee.prodIncentiveApp == '0' ? 'selected' : ''}>No</option>
+
+
+											</select> <span class="validation-invalid-label"
+												id="error_prodApplicable" style="display: none;">This
+												field is required.</span>
+										</div> --%>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="weekOffWork"> Weekly off/Holiday Work <span
+												class="text-danger"> * </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="weekOffWork" data-placeholder="Please Select"
+													id="weekOffWork"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="Compoff"
+														${employee.whWork == 'Compoff' ? 'selected' : ''}>Compoff</option>
+													<option value="OT"
+														${employee.whWork == 'OT' ? 'selected' : ''}>Performance
+														Incentive</option>
+													<option value="NA"
+														${employee.whWork == 'NA' ? 'selected' : ''}>NA</option>
+	
+												</select> <span class="validation-invalid-label"
+													id="error_weekOffWork" style="display: none;">This
+													field is required.</span>
+											</div>
+										</div>
+										
+											<div class="col-md-6">
+												<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="lateMark"> Late Mark Entry<span
+											class="text-danger"> * </span>:
+										</label>
+										<div class="col-lg-7 float">
+											<select name="lateMark" data-placeholder="Please Select"
+												id="lateMark"
+												class="form-control form-control-select2 select2-hidden-accessible"
+												tabindex="-1" aria-hidden="true">
+												<option value="">Please Select</option>
+												<option value="1"
+													${employee.lmApplicable == '1' ? 'selected' : ''}>Yes</option>
+												<option value="0"
+													${employee.lmApplicable == '0' ? 'selected' : ''}>No</option>
+
+											</select> <span class="validation-invalid-label" id="error_lateMark"
+												style="display: none;">This field is required.</span>
+										</div>
+											</div>
+
+									</div>
+
+									<input type="hidden" id="minHr" name="minHr" value="0">
+									<div class="form-group row">
+
+										<!-- <label class="col-form-label text-info font-weight-bold col-lg-2" for="minHr">
+											Minimum Work Hour(in Min)<span class="text-danger">* </span>:
+										</label> 
+										<div class="col-lg-4">
+											 <span
+												class="validation-invalid-label" id="error_minHr"
+												style="display: none;">This field is required.</span>
+										</div>  -->
+										
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="woRemarks">Remark
+											: </label>
+										<div class="col-lg-7 float">
+											<textarea rows="3" cols="3" class="form-control"
+												placeholder="Any Remark" onchange="trim(this)"
+												id="woRemarks" name="woRemarks">${employee.details}</textarea>
+											<span class="validation-invalid-label" id="error_woRemarks"
+												style="display: none;">This field is required.</span>
+
+										</div>
+										</div>
+									</div>
+									
 									<div id="abc" style="display: none;">
 										<div class="form-group row">
 											<label
@@ -224,105 +333,9 @@
 										</div>
 									</div>
 
-									<div class="form-group row">
-
-										<%-- <label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="prodApplicable">Production Incentive
-											Applicable(in Hrs)<span class="text-danger"> *</span>:
-										</label>
-										<div class="col-lg-4">
-											<select name="prodApplicable"
-												data-placeholder="Please Select" id="prodApplicable"
-												onchange="setDate()"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="1"
-													${employee.prodIncentiveApp == '1' ? 'selected' : ''}>Yes</option>
-												<option value="0"
-													${employee.prodIncentiveApp == '0' ? 'selected' : ''}>No</option>
-
-
-											</select> <span class="validation-invalid-label"
-												id="error_prodApplicable" style="display: none;">This
-												field is required.</span>
-										</div> --%>
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="weekOffWork"> Weekly off/Holiday Work <span
-											class="text-danger"> * </span>:
-										</label>
-										<div class="col-lg-4">
-											<select name="weekOffWork" data-placeholder="Please Select"
-												id="weekOffWork"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="Compoff"
-													${employee.whWork == 'Compoff' ? 'selected' : ''}>Compoff</option>
-												<option value="OT"
-													${employee.whWork == 'OT' ? 'selected' : ''}>Performance
-													Incentive</option>
-												<option value="NA"
-													${employee.whWork == 'NA' ? 'selected' : ''}>NA</option>
-
-											</select> <span class="validation-invalid-label"
-												id="error_weekOffWork" style="display: none;">This
-												field is required.</span>
-										</div>
-
-
-									</div>
-
-									<input type="hidden" id="minHr" name="minHr" value="0">
-									<div class="form-group row">
-
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="lateMark"> Late Mark Entry<span
-											class="text-danger"> * </span>:
-										</label>
-										<div class="col-lg-4">
-											<select name="lateMark" data-placeholder="Please Select"
-												id="lateMark"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="1"
-													${employee.lmApplicable == '1' ? 'selected' : ''}>Yes</option>
-												<option value="0"
-													${employee.lmApplicable == '0' ? 'selected' : ''}>No</option>
-
-											</select> <span class="validation-invalid-label" id="error_lateMark"
-												style="display: none;">This field is required.</span>
-										</div>
-
-
-										<!-- <label class="col-form-label text-info font-weight-bold col-lg-2" for="minHr">
-											Minimum Work Hour(in Min)<span class="text-danger">* </span>:
-										</label> 
-										<div class="col-lg-4">
-											 <span
-												class="validation-invalid-label" id="error_minHr"
-												style="display: none;">This field is required.</span>
-										</div>  -->
-
-										<label class="col-form-label col-lg-2" for="woRemarks">Remark
-											: </label>
-										<div class="col-lg-4">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)"
-												id="woRemarks" name="woRemarks">${employee.details}</textarea>
-											<span class="validation-invalid-label" id="error_woRemarks"
-												style="display: none;">This field is required.</span>
-
-										</div>
-									</div>
-
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -334,7 +347,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

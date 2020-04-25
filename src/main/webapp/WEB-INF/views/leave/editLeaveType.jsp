@@ -52,7 +52,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Edit Leave
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Leave
 												Type</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -109,12 +109,13 @@
 
 
 									<div class="form-group row">
+									<div class="col-md-6">	
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="leaveTypeTitle"> Leave Type <span
 											style="color: red">*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" maxlength="50"
 												placeholder="Enter Leave Type" id="leaveTypeTitle"
 												value="${editCompany.lvTitle}" name="leaveTypeTitle"
@@ -122,15 +123,15 @@
 												class="validation-invalid-label" id="error_leaveType"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="leaveShortTypeTitle"> Short Name <span
 											style="color: red">*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" maxlength="2"
 												placeholder="Enter Leave Type Short Name"
 												id="leaveShortTypeTitle" value="${editCompany.lvTitleShort}"
@@ -147,64 +148,16 @@
 												style="display: none;">Leave Type Short Name Can Not
 												be same as Leave Type Name. </span>
 										</div>
+										</div>
 									</div>
+									
 									<input type="hidden" class="form-control" id="shortname"
 										value="${editCompany.lvTitleShort}" name="shortname">
 
-									<%-- <div class="form-group row">
-										<label class="col-form-label col-lg-2" for="leaveWorlHrs">Working
-											Hours <span class="text-danger">* </span>:</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Leave Working Hours " id="leaveWorlHrs"
-												value="${editCompany.lvWorkingHrs}" name="leaveWorlHrs"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_leaveWHours"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div> --%>
-
-
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2">Color:</label>
-										<div class="col-lg-10">
-											<input type="text" id="leaveColor" name="leaveColor"
-												class="form-control colorpicker-show-input"
-												data-preferred-format="hex" value="${editCompany.lvColor}"
-												data-fouc>
-										</div>
-									</div>
-									<%-- 	<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="comoffallowed">Is
-											Structured <span style="color: red"> </span>:
-										</label>
-										<div class="form-check form-check-inline">
-											<label class="form-check-label"> <input type="radio"
-												${editCompany.isStructured==1 ? 'checked' : ''}
-												class="form-check-input" name="isStructured"
-												id="isStructured" value="1"> Yes
-											</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<label class="form-check-label"> <input type="radio"
-												class="form-check-input" name="isStructured"
-												${editCompany.isStructured==0 ? 'checked' : ''}
-												id="isStructured" value="0"> No
-											</label>
-										</div>
-										
-										
-										
-									</div> --%>
-
-
-									<input type="hidden" id="isStructured" name="isStructured"
-										value="1">
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="isFile">Is File Upload Required <span style="color: red">
 												*</span>:
 										</label>
@@ -225,14 +178,48 @@
 
 										<span class="validation-invalid-label" id="error_isFile"
 											style="display: none;">This field is required.</span>
+										</div>
+										
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float">Color:</label>
+										<div class="col-lg-7 float">
+											<input type="text" id="leaveColor" name="leaveColor"
+												class="form-control colorpicker-show-input"
+												data-preferred-format="hex" value="${editCompany.lvColor}"
+												data-fouc>
+										</div>
+										</div>
 									</div>
+									<%-- 	<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="comoffallowed">Is
+											Structured <span style="color: red"> </span>:
+										</label>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label"> <input type="radio"
+												${editCompany.isStructured==1 ? 'checked' : ''}
+												class="form-check-input" name="isStructured"
+												id="isStructured" value="1"> Yes
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label"> <input type="radio"
+												class="form-check-input" name="isStructured"
+												${editCompany.isStructured==0 ? 'checked' : ''}
+												id="isStructured" value="0"> No
+											</label>
+										</div>										
+									</div> --%>
 
+
+									<input type="hidden" id="isStructured" name="isStructured"
+										value="1">
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="select2">Leave
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="select2">Leave
 											Summary:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<select name="summId" data-placeholder="Select a Summary"
 												id="summId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -254,23 +241,22 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-
 										</div>
-									</div>
-
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Any
+										</div>
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Any
 											Remark:</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark">${editCompany.lvRmarks}</textarea>
 										</div>
-									</div>
+									</div>										
+								</div>
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -285,7 +271,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

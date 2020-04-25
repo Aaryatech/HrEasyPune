@@ -49,7 +49,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -101,39 +101,41 @@
 									action="${pageContext.request.contextPath}/submitInsertSkill"
 									id="submitInsertSkill" method="post">
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="skillName">Skill Name <span class="text-danger">*
-										</span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Skill Name" id="skillName" value="${editSkill.name}"
-												name="skillName" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_skillName"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="skillName">Skill Name <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Skill Name" id="skillName" value="${editSkill.name}"
+													name="skillName" autocomplete="off"> <span
+													class="validation-invalid-label" id="error_skillName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
-
-									<input type="hidden" id="skillId" name="skillId" value="${editSkill.skillId}">
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="skillRate">Skill Rate <span class="text-danger">*
 										</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter Skill Rate" id="skillRate" value="${editSkill.rate}"
 												name="skillRate" autocomplete="off"> <span
 												class="validation-invalid-label" id="error_skillRate"
 												style="display: none;">This field is required.</span>
-
+										</div>
 										</div>
 									</div>
 
+									<input type="hidden" id="skillId" name="skillId" value="${editSkill.skillId}">
+								
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -147,7 +149,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note: * Fields are
 									mandatory.</p>
 							</div>
 						</div>
