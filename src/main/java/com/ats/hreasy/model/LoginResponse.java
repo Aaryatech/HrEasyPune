@@ -18,7 +18,10 @@ public class LoginResponse {
 	private String userPwd;  
 	private int designType;  
 	private String hodDeptIds;
-
+ 
+	private int isVisit;  
+	private String empPhoto; 
+	
 	public String getUserPwd() {
 		return userPwd;
 	}
@@ -127,12 +130,29 @@ public class LoginResponse {
 		this.hodDeptIds = hodDeptIds;
 	}
 
+	public int getIsVisit() {
+		return isVisit;
+	}
+
+	public void setIsVisit(int isVisit) {
+		this.isVisit = isVisit;
+	}
+
+	public String getEmpPhoto() {
+		return empPhoto;
+	}
+
+	public void setEmpPhoto(String empPhoto) {
+		this.empPhoto = empPhoto;
+	}
+
 	@Override
 	public String toString() {
 		return "LoginResponse [empId=" + empId + ", empCode=" + empCode + ", firstName=" + firstName + ", middleName="
 				+ middleName + ", surname=" + surname + ", motherName=" + motherName + ", emailId=" + emailId
 				+ ", userId=" + userId + ", locationIds=" + locationIds + ", isError=" + isError + ", userPwd="
-				+ userPwd + ", designType=" + designType + ", hodDeptIds=" + hodDeptIds + "]";
+				+ userPwd + ", designType=" + designType + ", hodDeptIds=" + hodDeptIds + ", isVisit=" + isVisit
+				+ ", empPhoto=" + empPhoto + "]";
 	}
 
  
