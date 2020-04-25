@@ -64,7 +64,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Leave</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Leave</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showApplyForLeave"
@@ -215,15 +215,20 @@
 									id="submitInsertLeave" method="post"
 									enctype="multipart/form-data">
 
-
+									<input type="hidden" class="form-control numbersOnly"
+											id="dayTypeName" value="1" name="dayTypeName">
+											
+									<input type="hidden" class="form-control numbersOnly"
+										id="noOfDaysExclude" name="noOfDaysExclude" autocomplete="off">
 
 									<div class="form-group row">
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="leaveTypeId">Select Leave Type <span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="leaveTypeId"
 												data-placeholder="Select Leave Type" id="leaveTypeId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -254,10 +259,28 @@
 												id="error_leaveTypeId" style="display: none;">This
 												field is required.</span>
 										</div>
+										</div>
 
+										<div class="col-md-6">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float">Date
+											Range<span style="color: red">* </span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control daterange-basic_new "
+												name="leaveDateRange" data-placeholder="Select Date"
+												id="leaveDateRange" onchange="calholidayWebservice()">
+											<span class="validation-invalid-label" id="error_Range"
+												style="display: none;">This field is required.</span> <span
+												class="validation-invalid-label" id="error_insuf"
+												style="display: none;">Insufficient Leaves.</span> <span
+												id="error_compoffinformation"
+												style="display: none; color: red;">Insufficient
+												Leaves.</span>
 
-										<input type="hidden" class="form-control numbersOnly"
-											id="dayTypeName" value="1" name="dayTypeName">
+										</div>
+									</div>
+
 										<!-- <div class="col-lg-2">
 											<select data-placeholder="Select a Day Type" id="dayTypeName"
 												name="dayTypeName"
@@ -274,45 +297,43 @@
 												style="display: none;">This field is required.</span>
 										</div> -->
 									</div>
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2">Date
-											Range<span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control daterange-basic_new "
-												name="leaveDateRange" data-placeholder="Select Date"
-												id="leaveDateRange" onchange="calholidayWebservice()">
-											<span class="validation-invalid-label" id="error_Range"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_insuf"
-												style="display: none;">Insufficient Leaves.</span> <span
-												id="error_compoffinformation"
-												style="display: none; color: red;">Insufficient
-												Leaves.</span>
+									
 
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="noOfDays"> No. of Days<span style="color: red">*
+											</span> :
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="No. of Days " id="noOfDays" name="noOfDays"
+													autocomplete="off" readonly> <span
+													class="validation-invalid-label" id="error_noOfDays"
+													style="display: none;">Leave Minimum 1 Day</span>
+											</div>
 										</div>
-									</div>
-
-
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="noOfDays"> No. of Days<span style="color: red">*
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="lvngReson">Remark<span style="color: red">*
 										</span> :
 										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="No. of Days " id="noOfDays" name="noOfDays"
-												autocomplete="off" readonly> <span
-												class="validation-invalid-label" id="error_noOfDays"
-												style="display: none;">Leave Minimum 1 Day</span>
+										<div class="col-lg-7 float">
+											<textarea rows="3" cols="3" class="form-control"
+												placeholder="Remark" onchange="trim(this)" id="leaveRemark"
+												name="leaveRemark"> </textarea>
+											<span class="validation-invalid-label" id="error_leaveRemark"
+												style="display: none;">This field is required.</span><span
+												class="validation-invalid-label"
+												id="error_leaveRepeatValidation" style="display: none;">You
+												Have Already Apply Leave on this Date.</span>
+										</div>
 										</div>
 									</div>
-									<input type="hidden" class="form-control numbersOnly"
-										id="noOfDaysExclude" name="noOfDaysExclude" autocomplete="off">
+									
 									<!-- <div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
@@ -347,23 +368,7 @@
 										</div>
 									</div>
 
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="lvngReson">Remark<span style="color: red">*
-										</span> :
-										</label>
-										<div class="col-lg-10">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Remark" onchange="trim(this)" id="leaveRemark"
-												name="leaveRemark"> </textarea>
-											<span class="validation-invalid-label" id="error_leaveRemark"
-												style="display: none;">This field is required.</span><span
-												class="validation-invalid-label"
-												id="error_leaveRepeatValidation" style="display: none;">You
-												Have Already Apply Leave on this Date.</span>
-										</div>
-									</div>
+									
 									<input type="hidden" class="form-control numbersOnly"
 										id="empId" value="${empId}" name="empId"> <input
 										type="hidden" class="form-control numbersOnly" id="tempNoDays"
@@ -400,9 +405,10 @@
 												<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 												Cancel
 											</button></a>
-
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 

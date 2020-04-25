@@ -43,7 +43,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Company Loan
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Pending Loan
 										List</h5></td>
 
 							</tr>
@@ -154,16 +154,16 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Emp Code</th>
-									<th>Name</th>
-									<th>Designation</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Emp Code</th>
+									<th class="text-center">Name</th>
+									<th class="text-center">Designation</th>
 
-									<th>Loan Amount</th>
-									<th>Repay Amount</th>
-									<th>Loan EMI</th>
-									<th>Current Outstanding</th>
-									<th>Action</th>
+									<th class="text-center">Loan Amount</th>
+									<th class="text-center">Repay Amount</th>
+									<th class="text-center">Loan EMI</th>
+									<th class="text-center">Current Outstanding</th>
+									<th class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -180,7 +180,7 @@
 										<td>${empdetList.loanRepayAmt}</td>
 										<td>${empdetList.loanEmi}</td>
 										<td>${empdetList.currentOutstanding}</td>
-										<td><c:if test="${editAccess == 0}">
+										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/showLoanListForAction?empId=${empdetList.exVar1}"
 													class="list-icons-item text-primary-600"

@@ -57,7 +57,7 @@
 								<div class="form-group row">
 									<div class="col-md-6">
 										<h6 class="pageTitle">
-									<i class="icon-grid52"></i> Attendance process for month <span> ${monthName}
+									<i class="icon-list-unordered"></i> Attendance process for month <span> ${monthName}
 										&nbsp;${year}</span>
 								</h6>
 									</div>

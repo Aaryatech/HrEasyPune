@@ -43,14 +43,14 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Company Loan
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Pending Loan
 										List Detail</h5></td>
 
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showCompLoanList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">
-											Company Loan List</button>
+										<button type="button" class="btn blue_btn">
+											Pending Loan List</button>
 								</a></td>
 
 							</tr>
@@ -131,15 +131,15 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Application No.</th>
-									<th>Loan Date</th>
-									<th>Loan Amount</th>
-									<th>Repay Amount</th>
-									<th>Loan EMI</th>
-									<th>Current Outstanding</th>
-									<th>Status</th>
-									<th>Action</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Application No.</th>
+									<th class="text-center">Loan Date</th>
+									<th class="text-center">Loan Amount</th>
+									<th class="text-center">Repay Amount</th>
+									<th class="text-center">Loan EMI</th>
+									<th class="text-center">Current Outstanding</th>
+									<th class="text-center">Status</th>
+									<th class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -156,7 +156,7 @@
 										<td>${empdetList.loanEmi}</td>
 										<td>${empdetList.currentOutstanding}</td>
 										<td>${empdetList.loanStatus}</td>
-										<td><c:if test="${empdetList.skipId==0}">
+										<td class="text-center"><c:if test="${empdetList.skipId==0}">
 												<a
 													href="${pageContext.request.contextPath}/showSkipLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 													class="list-icons-item text-primary-600"

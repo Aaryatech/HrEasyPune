@@ -52,7 +52,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Employee Attendance Details for
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Attendance Details for
 									${year}-${month}</h5>
 							</div>
 

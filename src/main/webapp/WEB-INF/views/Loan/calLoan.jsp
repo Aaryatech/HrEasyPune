@@ -50,7 +50,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Loan</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Loan</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -150,29 +150,34 @@
 									<hr>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="voucherNo">Loan
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="voucherNo">Loan
 											Application No. <span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" readonly="readonly"
 												id="appNo" value="${appNo}" name="appNo" autocomplete="off">
 
 										</div>
-
-										<label class="col-form-label col-lg-2" for="voucherNo">
-											Today : </label> <label class="col-form-label col-lg-4"
+									</div>	
+	
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="voucherNo">
+											Today : </label> <label class="col-form-label col-lg-7 float"
 											for="voucherNo"> ${todaysDate} </label>
+									</div>
 									</div>
 
 
 
 									<div class="form-group row">
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="advanceAmt">Loan Amount (Rs) <span
 											style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter Loan Amount" id="loanAmt" name="loanAmt"
 												value="0" autocomplete="off" onchange="calAmt()"> <input
@@ -181,21 +186,23 @@
 												class="validation-invalid-label" id="error_loanAmt"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="month">Loan EMI <span style="color: red">
-												*</span>:
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="month">Loan Tenure In Month <span
+											style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" id="emi" name="emi"
-												autocomplete="off" onchange="calAmt()" value="0"> <span
-												class="validation-invalid-label" id="error_emi"
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control" id="tenure" value="1"
+												name="tenure" autocomplete="off" readonly="readonly">
+											<span class="validation-invalid-label" id="error_tenure"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
+
 
 									<!-- <div class="form-group row">
 										<label class="col-form-label text-info font-weight-bold col-lg-2" for="month">Rate
@@ -209,81 +216,89 @@
 										</div>
 									</div> -->
 									<div class="form-group row">
+										<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="month">Loan Tenure In Month <span
-											style="color: red"> *</span>:
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="month">Loan EMI <span style="color: red">
+												*</span>:
 										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" id="tenure" value="1"
-												name="tenure" autocomplete="off" readonly="readonly">
-											<span class="validation-invalid-label" id="error_tenure"
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control" id="emi" name="emi"
+												autocomplete="off" onchange="calAmt()" value="0"> <span
+												class="validation-invalid-label" id="error_emi"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="startDate"> Start Date of Cutting <span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control datepickerclass "
-												onchange="calAmt()" name="startDate" id="startDate"
-												placeholder="Joining Date">
 										</div>
-									</div>
-
-									<div class="form-group row">
-
-
+										
+										<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="joiningDate"> End Date of Cutting<span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control datepickerclass1 "
-												name="endDate" id="endDate" placeholder="Joining Date"
-												readonly="readonly">
-										</div>
-									</div>
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="month">Total Repay Amount <span
 											style="color: red"> *</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="repayAmt"
 												readonly="readonly" name="repayAmt" autocomplete="off"
 												onchange="trim(this)" readonly="readonly"> <span
 												class="validation-invalid-label" id="error_repayAmt"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
 
+
 									<div class="form-group row">
+									<div class="col-md-6">
+									
+									
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="startDate"> Start Date of Cutting <span
+											style="color: red"> *</span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control datepickerclass "
+												onchange="calAmt()" name="startDate" id="startDate"
+												placeholder="Joining Date">
+										</div>
+										</div>	
+										
+										<div class="col-md-6">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="joiningDate"> End Date of Cutting<span
+											style="color: red"> *</span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control datepickerclass1 "
+												name="endDate" id="endDate" placeholder="Joining Date"
+												readonly="readonly">
+										</div>
+										</div>
+																			
+									</div>
+
+
+									<div class="form-group row">
+									<div class="col-md-6">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="remark"> Remark <span style="color: red">
 												*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<textarea class="form-control"
 												placeholder="Enter Reason / Remark" id="remark"
 												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
 											<span class="validation-invalid-label" id="error_remark"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -298,7 +313,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

@@ -69,7 +69,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Apply Leave</h5></td>
 								<td width="40%" align="right">
 									<%-- 
 								 <a

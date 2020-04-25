@@ -41,7 +41,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Carry forward
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Carry forward
 										Leave</h5></td>
 								<td width="40%" align="right">
 									<%-- <a
@@ -442,6 +442,8 @@
 								</c:if>
 							</form>
 						</c:if>
+							<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 					</div>
 
 				</div>

@@ -44,7 +44,7 @@
 							<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Leave Application List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Approval By Authority</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -97,7 +97,7 @@
 						<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
 							<li class="nav-item"><a href="#highlighted-justified-tab1"
 								class="nav-link active" data-toggle="tab">Pending
-									Task(${list1Count})</a></li>
+									Leave(${list1Count})</a></li>
 							<li class="nav-item"><a href="#highlighted-justified-tab2"
 								class="nav-link" data-toggle="tab">Information(${list2Count})</a></li>
 

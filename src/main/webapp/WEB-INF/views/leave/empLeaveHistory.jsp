@@ -41,13 +41,13 @@
 						<table width="100%">
 							<tr width="100%">
 								<td width="60%">
-									<h5 class="card-title">${fname}&nbsp;${sname}&nbsp;Leave
-										List</h5>
+									<h5 class="pageTitle"><i class="icon-list-unordered"></i>Leaves Details of ${fname}&nbsp;${sname}&nbsp;
+										</h5>
 								</td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showApplyForLeave"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Employee
+										<button type="button" class="btn blue_btn">Employee
 											List</button>
 								</a></td>
 							</tr>

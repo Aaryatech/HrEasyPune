@@ -91,7 +91,7 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
-								<h6 class="card-title">Leave Details</h6>
+								<h6 class="pageTitle"><i class="icon-list-unordered"></i> Leave Details</h6>
 
 
 								<div class="form-group row">
@@ -276,18 +276,20 @@
 
 
 									<div class="form-group row">
+									<div class="col-md-6">
 										<label
-											class="${stat==7 || stat==8 || stat==9 ? 'col-form-label text-info font-weight-bold col-lg-2' : 'col-form-label col-lg-2'}"
+											class="${stat==7 || stat==8 || stat==9 ? 'col-form-label text-info font-weight-bold col-lg-5 float' : 'col-form-label col-lg-5 float'}"
 											for="remark">Any Remark:<c:choose>
 												<c:when test="${stat==7 || stat==8 || stat==9 }"><span class="text-danger">*</span></c:when>
 											</c:choose>
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Any Remark" onchange="trim(this)" id="remark"
 												name="remark"></textarea>
 											<span class="validation-invalid-label" id="error_remark"
 												style="display: none;">This field is required.</span>
+										</div>
 										</div>
 									</div>
 
@@ -300,7 +302,7 @@
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 											<!-- 											<button type="reset" class="btn btn-light legitRipple">Reset</button>
  -->
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
@@ -310,10 +312,10 @@
 										</div>
 									</div>
 								</form>
+									<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 

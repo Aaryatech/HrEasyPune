@@ -43,7 +43,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Freeze Attendance</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Freeze Attendance</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -167,6 +167,8 @@
 								</div>
 							</c:if>
 						</form>
+							<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 					</div>
 
 				</div>

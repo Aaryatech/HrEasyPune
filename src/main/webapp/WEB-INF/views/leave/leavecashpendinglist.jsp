@@ -38,7 +38,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Leave Cash Pending List</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Cash Pending List</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -47,7 +47,41 @@
 					</div>
 
 					<div class="card-body">
+<%
+							if (session.getAttribute("errorMsg") != null) {
+						%>
+						<div
+							class="alert bg-danger text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Oh snap!</span>
+							<%
+								out.println(session.getAttribute("errorMsg"));
+							%>
+						</div>
 
+						<%
+							session.removeAttribute("errorMsg");
+							}
+						%>
+						<%
+							if (session.getAttribute("successMsg") != null) {
+						%>
+						<div
+							class="alert bg-success text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Well done!</span>
+							<%
+								out.println(session.getAttribute("successMsg"));
+							%>
+						</div>
+						<%
+							session.removeAttribute("successMsg");
+							}
+						%>
 						<form
 							action="${pageContext.request.contextPath}/getPendingListOfleaveCash"
 							id="submitInsertLeave" method="get">
@@ -155,6 +189,8 @@
 								</div>
 							</c:if>
 						</form>
+							<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 
 					</div>
 

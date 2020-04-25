@@ -777,9 +777,9 @@ public class LeaveStructureController {
 							.postForObject(Constants.url + "/saveLeaveAuthority", leaves, LeaveAuthority.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Leave Authority Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Leave Authority");
 					}
 				}
 
@@ -951,9 +951,9 @@ public class LeaveStructureController {
 						leaveAuthority, LeaveAuthority.class);
 
 				if (res != null) {
-					session.setAttribute("successMsg", "Record Updated Successfully");
+					session.setAttribute("successMsg", "Leave Authority Updated Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Upadate Record");
+					session.setAttribute("errorMsg", "Failed to Upadate Leave Authority");
 				}
 
 			} catch (
@@ -1059,13 +1059,13 @@ public class LeaveStructureController {
 							Constants.url + "/saveLeaveAllotment", leavesAllotment, LeavesAllotment.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Record Inserted Successfully");
+						session.setAttribute("successMsg", "Leave Structure Alloted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Allot Leave Structure");
 					}
 				}
 			} else {
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Allot Leave Structure");
 			}
 
 		} catch (Exception e) {

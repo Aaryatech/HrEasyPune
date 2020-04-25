@@ -51,7 +51,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Loan Repay
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Loan Repay
 												Schedule</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -185,8 +185,8 @@
 												<thead>
 													<tr class="bg-blue">
 
-														<th>Month</th>
-														<th>Amount EMI</th>
+														<th class="text-center">Month</th>
+														<th class="text-center">Amount EMI</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -216,9 +216,9 @@
 												id="printtable2">
 												<thead>
 													<tr class="bg-blue">
-														<th>Month</th>
-														<th>Amount</th>
-														<th>Type</th>
+														<th class="text-center">Month</th>
+														<th class="text-center">Amount</th>
+														<th class="text-center">Type</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -236,12 +236,17 @@
 										</div>
 									</div>
 								</div>
-								<br> <a
+								<br>
+									<div class="form-group row mb-0">
+									<div  style="margin: 0 auto;">
+									 <a
 									href="${pageContext.request.contextPath}/showLoanListForAction?empId=${encEmpId}"><button
 										type="button" class="btn btn-light">
 										<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 										Back
 									</button></a>
+									</div>
+									</div>
 
 
 							</div>

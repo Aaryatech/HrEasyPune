@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Leave Trail
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Trail
 										List</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showLeaveHistList?empId=${empId1}"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Employee
+										<button type="button" class="btn blue_btn">Employee
 											Leave History</button>
 								</a></td>
 							</tr>

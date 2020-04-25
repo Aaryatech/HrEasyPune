@@ -71,12 +71,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Authority List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>Assign Leave Authority</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/addLeaveAuthority"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add Leave
 												Authority</button>
 									 </a></c:if></td>
 							</tr>
@@ -130,12 +130,12 @@
 									<!-- <th class="check" style="text-align: center; width: 5%;"><input
 										type="checkbox" name="selAll" id="selAll" />Select All</th> -->
 
-									<th width="10%">Sr. No.</th>
-									<th>Employee Code</th>
-									<th>Employee Name</th>
-									<th>Initial Authority</th>
-									<th>Final Authority</th>
-									<th>Reporting To</th>
+									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center">Employee Code</th>
+									<th class="text-center">Employee Name</th>
+									<th class="text-center">Initial Authority</th>
+									<th class="text-center">Final Authority</th>
+									<th class="text-center">Reporting To</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>

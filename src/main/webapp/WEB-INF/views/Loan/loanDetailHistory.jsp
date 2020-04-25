@@ -43,13 +43,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Loan Detail
-										History</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Loan History</h5></td>
 										
 										<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showLoanHistory"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary"> 
+										<button type="button" class="btn blue_btn"> 
 											Loan History</button>
 								</a></td>
 
@@ -131,14 +130,14 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Application No.</th>
-									<th>Loan Date</th>
-									<th>Loan Amount</th>
-									<th>Repay Amount</th>
-									<th>Loan EMI</th>
-									<th>Current Outstanding</th>
-									<th>Status</th>
+									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center">Application No.</th>
+									<th class="text-center">Loan Date</th>
+									<th class="text-center">Loan Amount</th>
+									<th class="text-center">Repay Amount</th>
+									<th class="text-center">Loan EMI</th>
+									<th class="text-center">Current Outstanding</th>
+									<th class="text-center">Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -154,7 +153,7 @@
 										<td>${empdetList.loanRepayAmt}</td>
 										<td>${empdetList.loanEmi}</td>
 										<td>${empdetList.currentOutstanding}</td>
-										<td>${empdetList.loanStatus}</td>
+										<td class="text-center">${empdetList.loanStatus}</td>
 
 
 									</tr>
