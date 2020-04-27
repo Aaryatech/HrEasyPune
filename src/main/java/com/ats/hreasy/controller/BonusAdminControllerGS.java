@@ -414,18 +414,18 @@ System.err.println("showBonusListGS");
 							BonusMaster.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Bonus Updated Successfully");
+						session.setAttribute("successMsg", "Assigned Bonus Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 			}
 		}
 
@@ -747,10 +747,10 @@ System.err.println("showBonusListGS");
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Bonus Paid on this Date :"+" "+startDate);
+				session.setAttribute("successMsg", "Bonus Paid on :"+" "+startDate);
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Paid Bonus");
 				a = "redirect:/showEmpListToAssignBonusGS";
 			}
 		} catch (Exception e) {
@@ -1045,10 +1045,10 @@ System.err.println("showBonusListGS");
 			//System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Exgratia Updated Successfully");
+				session.setAttribute("successMsg", "Assigned Exgratia Updated Successfully");
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Updated Exgratia");
+				session.setAttribute("successMsg", "Failed to Updated Assigned Exgratia");
 				a = "redirect:/showEmpListToAssignExgratiaGS";
 			}
 		} catch (Exception e) {
@@ -1139,10 +1139,10 @@ System.err.println("showBonusListGS");
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Exgratia Paid on this Date :"+" "+startDate);
+				session.setAttribute("successMsg", "Exgratia Paid on :"+" "+startDate);
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Paid Exgratia");
 				a = "redirect:/showEmpListToAssignExgratiaGS";
 			}
 		} catch (Exception e) {

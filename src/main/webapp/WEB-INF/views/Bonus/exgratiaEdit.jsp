@@ -51,7 +51,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Edit Exgretia</h5>
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Exgretia</h5>
 							</div>
 
 							<div class="card-body">
@@ -170,9 +170,9 @@
 										value="${editBonusCalc.bonusCalcId}">
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
@@ -181,6 +181,8 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 

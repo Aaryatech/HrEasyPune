@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee
 										Exgratia Assignment</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showBonusList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Bonus
+										<button type="button" class="btn blue_btn">Bonus
 											List</button>
 								</a></td>
 							</tr>
@@ -172,13 +172,13 @@
 
 												<th width="10%">Sr.no</th>
 
-												<th><input type="checkbox" name="selAll" id="selAll" /></th>
-												<th>Employee Code</th>
-												<th>Employee Name</th>
-												<th>Emp Type</th>
-												<th>Department</th>
-												<th>Designation</th>
-												<th>Location</th>
+												<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>
+												<th class="text-center">Employee Code</th>
+												<th class="text-center">Employee Name</th>
+												<th class="text-center">Emp Type</th>
+												<th class="text-center">Department</th>
+												<th class="text-center">Designation</th>
+												<th class="text-center">Location</th>
 
 											</tr>
 										</thead>
@@ -213,7 +213,7 @@
 
 
 									<div style="text-align: center;">
-										<input type="submit" class="btn btn-primary" value="Assign"
+										<input type="submit" class="btn blue_btn" value="Assign"
 											id="deleteId"
 											style="align-content: center; width: 113px; margin-left: 40px;">
 									</div>
@@ -227,13 +227,13 @@
 									<thead>
 										<tr class="bg-blue">
 
-											<th width="10%">Sr. No.</th>
-											<th>Emp Code</th>
-											<th>Emp Name</th>
-											<th>Designation</th>
+											<th class="text-center" width="10%">Sr. No.</th>
+											<th class="text-center">Emp Code</th>
+											<th class="text-center">Emp Name</th>
+											<th class="text-center">Designation</th>
 											<!-- 	<th>Total Days</th> -->
-											<th>Total Exgratia Wages</th>
-											<th>Gross Exgratia Amt</th>
+											<th class="text-center">Total Exgratia Wages</th>
+											<th class="text-center">Gross Exgratia Amt</th>
 										<!-- 	<th>Net Exgratia Amt</th>
 											<th>Paid Exgratia Amt</th> -->
 											<th width="10%" class="text-center">Actions</th>
@@ -290,38 +290,40 @@
 											type="hidden" id="bonusAppId" name="bonusAppId"
 											value="${bonusAppId}">
 										<div class="form-group row">
-
-
-											<label class="col-form-label text-info font-weight-bold col-lg-2" for="startDate">
-												Pay Bonus In This Salary Month <span style="color: red">*
-											</span>:
-											</label>
-											<div class="col-lg-4">
-												<input type="text" class="form-control datepickerclass "
-													name="startDate" id="startDate" placeholder="  Date">
-												<span class="validation-invalid-label" id="error_startDate"
-													style="display: none;">This field is required.</span>
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="startDate">
+													Pay Bonus In This Salary Month <span style="color: red">*
+												</span>:
+												</label>
+												<div class="col-lg-7 float">
+													<input type="text" class="form-control datepickerclass "
+														name="startDate" id="startDate" placeholder="  Date">
+													<span class="validation-invalid-label" id="error_startDate"
+														style="display: none;">This field is required.</span>
+												</div>
 											</div>
-
-
-										</div>
-
-										<div class="form-group row">
-											<label class="col-form-label text-info font-weight-bold col-lg-2" for="remark">
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="remark">
 												Remark <span style="color: red">*</span>:
 											</label>
-											<div class="col-lg-4">
+											<div class="col-lg-7 float">
 												<textarea class="form-control"
 													placeholder="Enter Reason / Remark" id="remark"
 													name="remark" autocomplete="off" onchange="trim(this)"></textarea>
 												<span class="validation-invalid-label" id="error_remark"
 													style="display: none;">This field is required.</span>
 											</div>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											
 										</div>
 										<div class="form-group row mb-0">
-											<div class="col-lg-10 ml-lg-auto">
+											<div  style="margin: 0 auto;">
 
-												<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												<button type="submit" class="btn blue_btn"
 													id="submtbtn">
 													Submit <i class="icon-paperplane ml-2"></i>
 												</button>
@@ -330,14 +332,11 @@
 											</div>
 										</div>
 									</form>
+									<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 								</c:if>
 
 							</div>
-
-
-
-
-
 						</div>
 
 					</div>

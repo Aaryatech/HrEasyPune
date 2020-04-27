@@ -42,7 +42,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Bonus List 123</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Bonus List</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/showAddBonusGS"
 											class="breadcrumb-elements-item">
@@ -97,11 +97,11 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Title</th>
-									<th>From Date</th>
-									<th>To Date</th>
-									<th>Bonus Percentage</th>
+									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center">Title</th>
+									<th class="text-center">From Date</th>
+									<th class="text-center">To Date</th>
+									<th class="text-center">Bonus Percentage</th>
 									<!-- <th>Exgratia Percentage</th> -->
 									<!-- <th>Remarks</th> -->
 									<th width="10%" class="text-center">Actions</th>

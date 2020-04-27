@@ -164,18 +164,18 @@ public class BonusAdminController {
 							BonusMaster.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "BOnus Inserted Successfully");
+						session.setAttribute("successMsg", "Bonus Inserted Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Insert Bonus");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Bonus");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Bonus");
 			}
 		}
 
@@ -489,18 +489,18 @@ public class BonusAdminController {
 							BonusMaster.class);
 
 					if (res != null) {
-						session.setAttribute("successMsg", "Bonus Updated Successfully");
+						session.setAttribute("successMsg", "Assigned Bonus Updated Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Updated Assigned Bonus");
 			}
 		}
 
@@ -685,7 +685,7 @@ public class BonusAdminController {
 			// System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Bonus Assign Successfully");
 
 			}
 			a = "redirect:/showEmpListToAssignBonus?bonusId=" + FormValidation.Encrypt(bonusId);
@@ -730,10 +730,10 @@ public class BonusAdminController {
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Bonus Paid on :"+" "+startDate);
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Paid Bonus");
 				a = "redirect:/showEmpListToAssignBonus";
 			}
 		} catch (Exception e) {

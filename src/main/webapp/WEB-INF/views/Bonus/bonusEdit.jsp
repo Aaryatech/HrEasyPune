@@ -51,7 +51,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Edit Bonus</h5>
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Bonus</h5>
 							</div>
 
 							<div class="card-body">
@@ -95,23 +95,24 @@
 									id="submitBonus" method="post">
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Bonus
-											Period Title <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" placeholder="  Title"
-												id="bonusTitle" name="bonusTitle" autocomplete="off" value="${editBonus.fyTitle}"
-												onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_bonusTitle"
-												style="display: none;">This field is required.</span>
+									<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="shiftName">Bonus
+												Period Title <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" placeholder="  Title"
+													id="bonusTitle" name="bonusTitle" autocomplete="off" value="${editBonus.fyTitle}"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_bonusTitle"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2">Date Range<span
+										
+										<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float">Date Range<span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control daterange-basic_new "
 												name="leaveDateRange" data-placeholder="Select Date"  value="${dateString}"
 												id="leaveDateRange" >
@@ -119,65 +120,72 @@
 												style="display: none;">This field is required.</span> <span
 												class="validation-invalid-label" id="error_insuf"
 												style="display: none;">Insufficient Leaves.</span>
-
+										</div>
 										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Bonus
-											% <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="E.g. Bonus %" id="bonusPrcnt" name="bonusPrcnt" value="${editBonus.bonusPercentage}"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_bonusPrcnt"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="shiftName">Bonus
+												% <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="E.g. Bonus %" id="bonusPrcnt" name="bonusPrcnt" value="${editBonus.bonusPercentage}"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_bonusPrcnt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
-									
-									
-									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia 
+										
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="shiftName">Exgratia 
 											% <span style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="E.g. Exgratia %" id="exgratiaPrcnt" name="exgratiaPrcnt"  value="${editBonus.exgratiaPercentage}"
 												autocomplete="off" onchange="trim(this)"> <span
 												class="validation-invalid-label" id="error_exgratiaPrcnt"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
 									
 									
-										<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Present Min Days
-										  <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Minimum Bonus Days" id="minDays" name="minDays"  value="${editBonus.minDays}"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_minDays"
-												style="display: none;">This field is required.</span>
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="shiftName">Present Min Days
+											  <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Minimum Bonus Days" id="minDays" name="minDays"  value="${editBonus.minDays}"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_minDays"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="lvngReson">Remark<span
+												style="color: red"> </span> :
+											</label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Remark" onchange="trim(this)" id="bonusRemark"
+													name="bonusRemark">${editBonus.remark} </textarea>
+											</div>
 										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="lvngReson">Remark<span
-											style="color: red"> </span> :
-										</label>
-										<div class="col-lg-10">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Remark" onchange="trim(this)" id="bonusRemark"
-												name="bonusRemark">${editBonus.remark} </textarea>
-										</div>
+										
 									</div>
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
@@ -186,6 +194,8 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 

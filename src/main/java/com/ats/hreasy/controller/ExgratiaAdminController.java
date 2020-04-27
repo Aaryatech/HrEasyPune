@@ -205,10 +205,10 @@ public class ExgratiaAdminController {
 			// System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Exgratia Assign Successfully");
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Assign Exgratia");
 			}
 			a = "redirect:/showEmpListToAssignExgratia?bonusId=" + FormValidation.Encrypt(bonusId);
 		} catch (Exception e) {
@@ -252,10 +252,10 @@ public class ExgratiaAdminController {
 			System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Exgratia Paid :"+" "+startDate);
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Paid Exgratia");
 				a = "redirect:/showEmpListToAssignExgratia";
 			}
 		} catch (Exception e) {
@@ -409,10 +409,10 @@ public class ExgratiaAdminController {
 			//System.err.println("info" + info.toString());
 			if (info.isError() == false) {
 				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Data Inserted Successfully");
+				session.setAttribute("successMsg", "Assigned Exgratia Updated Successfully");
 
 			} else {
-				session.setAttribute("successMsg", "Failed to Insert Data");
+				session.setAttribute("successMsg", "Failed to Updated Assigned Exgratia");
 				a = "redirect:/showEmpListToAssignExgratia";
 			}
 		} catch (Exception e) {

@@ -224,11 +224,11 @@ public class AdvanceAdminController {
 				if (res != null) {
 					session.setAttribute("successMsg", "Advance Inserted Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Insert Advance");
 				}
 
 			} else {
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Insert Advance");
 			}
 
 		} catch (Exception e) {

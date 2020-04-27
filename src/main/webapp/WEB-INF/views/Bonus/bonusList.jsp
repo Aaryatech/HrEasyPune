@@ -97,12 +97,12 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Title</th>
-									<th>From Date</th>
-									<th>To Date</th>
-									<th>Bonus Percentage</th>
-									<th>Exgratia Percentage</th>
+									<th width="10%" class="text-center">Sr. No.</th>
+									<th class="text-center">Title</th>
+									<th class="text-center">From Date</th>
+									<th class="text-center">To Date</th>
+									<th class="text-center">Bonus Percentage</th>
+									<th class="text-center">Exgratia Percentage</th>
 									<!-- <th>Remarks</th> -->
 									<th width="10%" class="text-center">Actions</th>
 								</tr>

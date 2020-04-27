@@ -51,7 +51,7 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Edit Exgretia</h5>
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Exgretia</h5>
 							</div>
 
 							<div class="card-body">
@@ -95,50 +95,47 @@
 									action="${pageContext.request.contextPath}/submitEditExgratiaGS"
 									id="submitBonus" method="post">
 
-
-
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="empCode">Employee
-											Name </label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" id="empName"
-												name="empName" readonly="readonly"
-												value="${editEmp.empCode}" autocomplete="off"
-												onchange="trim(this)">
+									<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="empCode">Employee
+												Name </label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="empName"
+													name="empName" readonly="readonly"
+													value="${editEmp.empCode}" autocomplete="off"
+													onchange="trim(this)">
+											</div>
 										</div>
-										<label class="col-form-label col-lg-2" for="empName">Employee
-											Code : </label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" id="empName"
-												name="empName" readonly="readonly"
-												value="${editEmp.surname} ${editEmp.firstName} ${editEmp.middleName}"
-												autocomplete="off" onchange="trim(this)">
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="empName">Employee
+												Code : </label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="empName"
+													name="empName" readonly="readonly"
+													value="${editEmp.surname} ${editEmp.firstName} ${editEmp.middleName}"
+													autocomplete="off" onchange="trim(this)">
+											</div>
 										</div>
 									</div>
 
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="totalExgretiaWages">Exgratia
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="totalExgretiaWages">Exgratia
 											Amt : </label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="totalExgretiaWages"
 												name="totalExgretiaWages" readonly="readonly"
 												value="${editBonusCalc.totalExgretiaWages}"
 												autocomplete="off" onchange="trim(this)">
 										</div>
-										<!-- <label class="col-form-label col-lg-2" for="grossExgretiaAmt">Gross
-											Exgratia Amt: </label>
-										<div class="col-lg-4">
-											
-										</div> -->
-									</div>
-
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="paidExgratiaAmt">Paid
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="paidExgratiaAmt">Paid
 											Exgratia Amt : </label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 										<input type="hidden" class="form-control" id="grossExgretiaAmt"
 												name="grossExgretiaAmt" readonly="readonly"
 												value="${editBonusCalc.grossExgretiaAmt}" autocomplete="off"
@@ -151,6 +148,17 @@
 												placeholder="E.g. Exgratia %" id="exgratiaPrcnt"
 												name="exgratiaPrcnt" value="${editBonusCalc.exgratiaPrcnt}"
 												autocomplete="off">
+										</div>
+										<!-- <label class="col-form-label col-lg-2" for="grossExgretiaAmt">Gross
+											Exgratia Amt: </label>
+										<div class="col-lg-4">
+											
+										</div> -->
+									</div>
+
+
+									<div class="form-group row">
+										
 										</div>
 
 										<!--  <label class="col-form-label text-info font-weight-bold col-lg-2" for="shiftName">Exgratia
@@ -172,9 +180,9 @@
 										value="${editBonusCalc.bonusCalcId}">
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
@@ -183,6 +191,8 @@
 										</div>
 									</div>
 								</form>
+									<p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p>
 							</div>
 						</div>
 
