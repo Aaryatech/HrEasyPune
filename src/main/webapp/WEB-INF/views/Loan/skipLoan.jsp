@@ -217,7 +217,7 @@
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 											 -->
-											<input type="submit" class="btn btn-primary" value="Submit"
+											<input type="submit" class="btn blue_btn" value="Submit"
 												id="submtbtn"> <a
 												href="${pageContext.request.contextPath}/showLoanListForAction?empId=${encEmpId}"><button
 													type="button" class="btn btn-light">

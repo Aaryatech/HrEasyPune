@@ -182,7 +182,7 @@
 								<div class="col-md-12 text-center">
 
 									<button type="button"
-										class="btn bg-blue ml-3 legitRipple bootbox_custom"
+										class="btn blue_btn ml-3 legitRipple bootbox_custom"
 										id="submtbtn">Paid</button>
 
 

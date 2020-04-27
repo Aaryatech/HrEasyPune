@@ -220,7 +220,7 @@
 								<br>
 								<div class="text-center">
 
-									<button type="button" class="btn bg-blue ml-3 legitRipple"
+									<button type="button" class="btn blue_btn ml-3 legitRipple"
 										id="submtbtn" onclick="submitForm()">
 										Submit <i class="icon-paperplane ml-2"></i>
 									</button>

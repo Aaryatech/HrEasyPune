@@ -70,7 +70,7 @@
 
 
 
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="submit" class="btn blue_btn"
 									id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>

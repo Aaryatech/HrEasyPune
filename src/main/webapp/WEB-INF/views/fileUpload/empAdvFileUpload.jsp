@@ -148,7 +148,7 @@
 															href="${pageContext.request.contextPath}/showEmpListToAddAdvance"><button
 																type="button" class="btn btn-light">
 																<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
-																Cancel
+																Back
 															</button></a>
 													<!-- </div> -->
 												</div>

@@ -107,7 +107,7 @@
 										class="form-control" value="${selectMonth}" required />
 								</div>
 
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="submit" class="btn blue_btn"
 									id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>
@@ -174,7 +174,7 @@
 								</div>
 								<div class="text-center">
 									<button type="button"
-										class="btn bg-blue ml-3 legitRipple bootbox_custom"
+										class="btn blue_btn ml-3 legitRipple bootbox_custom"
 										id="submtbtn">
 										Unfreeze <i class="icon-paperplane ml-2"></i>
 									</button>

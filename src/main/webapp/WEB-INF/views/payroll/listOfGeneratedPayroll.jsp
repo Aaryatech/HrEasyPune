@@ -511,7 +511,8 @@
 									</tbody>
 								</table>
 							</div>
-
+							<span class="validation-invalid-label" id="error_emp"
+								style="display: none;">Select Minimum one employee.</span>
 							<c:if test="${date!=null}">
 								<%
 									if (list.size() > 0) {
@@ -519,13 +520,13 @@
 								<br>
 								<div class="text-center">
 
-									<button type="button" class="btn bg-blue ml-3 legitRipple"
+									<button type="button" class="btn blue_btn ml-3 legitRipple"
+										id="excel" onclick="commonPdf()">PDF</button>
+										
+									<button type="button" class="btn blue_btn ml-3 legitRipple"
 										id="excel"
 										onclick="getProgReport(0,'excelForGeneratedPayroll')">
 										Excel</button>
-									<button type="button" class="btn bg-blue ml-3 legitRipple"
-										id="excel" onclick="commonPdf()">PDF</button>
-
 								</div>
 								<%
 									}
@@ -572,7 +573,7 @@
 
 	<script type="text/javascript">
 		function commonPdf() {
-
+			$("#error_emp").hide();
 			var selectMonth = document.getElementById("datepicker").value;
 			var list = [];
 
@@ -584,7 +585,7 @@
 				window.open('pdfForReport?url=/pdf/generatedPayrollPdf/' + list
 						+ '/' + selectMonth);
 			} else {
-				alert("Select Minimum one employee")
+				$("#error_emp").show();
 			}
 
 		}
