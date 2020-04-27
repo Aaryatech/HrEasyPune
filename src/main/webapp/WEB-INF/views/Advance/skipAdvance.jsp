@@ -51,7 +51,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Skip Advance</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Skip Advance</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -108,65 +108,89 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="empName">Employee
-											Name : </label> <label class="col-form-label col-lg-2" for="empName">${empPersInfoString}
-										</label>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="grossSal">Total
-											Gross Salary: </label> <label class="col-form-label col-lg-2"
+										<div class="col-md-6">									
+											<label class="col-form-label col-lg-5 float" for="empName">Employee
+												Name : </label> <label class="col-form-label col-lg-7 float" for="empName">${empPersInfoString}
+											</label>										
+										</div>
+										
+										<div class="col-md-6">
+												<label class="col-form-label col-lg-5 float" for="grossSal">Total
+											Gross Salary: </label> <label class="col-form-label col-lg-7 float"
 											for="grossSal">${empPersInfo.grossSalary} </label>
+										</div>
+									</div>									
+
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="voucherNo">Voucher
+												No. : </label> <label class="col-form-label col-lg-7 float" for="voucherNo">
+												${advList.voucherNo} </label>
+										</div>									
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="advanceAmt">Advance
+												Amount : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${advList.advAmount} </label>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="voucherNo">Voucher
-											No. : </label> <label class="col-form-label col-lg-2" for="voucherNo">
-											${advList.voucherNo} </label>
-
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="advanceAmt">Advance
-											Amount : </label> <label class="col-form-label col-lg-2"
-											for="voucherNo"> ${advList.advAmount} </label>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="month">Date
-											: </label> <label class="col-form-label col-lg-2" for="voucherNo">
-											${advList.advDate} </label>
-									</div>
-
-
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="advanceAmt">Date(month-year)
-											of Deduction : </label> <label class="col-form-label col-lg-2"
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="month">Date
+												: </label> <label class="col-form-label col-lg-7 float" for="voucherNo">
+												${advList.advDate} </label>
+										</div>
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="advanceAmt">Date(month-year)
+											of Deduction : </label> <label class="col-form-label col-lg-7 float"
 											for="voucherNo"> ${monthName} &nbsp;
 											${advList.dedYear} </label>
+										</div>
 									</div>
 
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="month">Reason
-											/ Remark : </label> <label class="col-form-label col-lg-2"
-											for="voucherNo"> ${advList.advRemarks} </label>
-									</div>
+
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="month">
-											Prev Skipped Reason : </label> <label class="col-form-label col-lg-5"
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-f float" for="month">Reason
+												/ Remark : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${advList.advRemarks} </label>
+										</div>
+										
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="month">
+											Prev Skipped Reason : </label> <label class="col-form-label col-lg-7 float"
 											for="voucherNo"> <c:forEach items="${advDetList}"
 												var="advDetList" varStatus="count">${count.index+1}.${advDetList.skipRemarks}   ${advDetList.skipLoginTime}<br>
 											</c:forEach>
 										</label>
-
+										</div>
 									</div>
 
+
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="month">Skipped
-											Time : </label> <label class="col-form-label col-lg-2"
-											for="voucherNo"> ${count} </label>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="month">Skipped
+												Time : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${count} </label>
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="remark"> Skipping Reason <span
+											style="color: red">*</span>:
+										</label>
+										<div class="col-lg-7 float">
+											<textarea class="form-control"
+												placeholder="Enter Reason / Remark" id="remark"
+												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
+											<span class="validation-invalid-label" id="error_remark"
+												style="display: none;">This field is required.</span>
+										</div>
+										</div>
 									</div>
 
 									<input type="hidden" id="count" name="count" value="${count}">
@@ -179,30 +203,11 @@
 										<label class="col-form-label col-lg-2" for="month">Last
 											Skipped date: </label> <label class="col-form-label col-lg-2"
 											for="voucherNo"> ${advList.skipLoginTime} </label>
-									</div>
- --%>
+									</div> --%>
 
-
-
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="remark"> Skipping Reason <span
-											style="color: red">*</span>:
-										</label>
-										<div class="col-lg-4">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="remark"
-												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
-											<span class="validation-invalid-label" id="error_remark"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-
-
+								
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -217,7 +222,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>

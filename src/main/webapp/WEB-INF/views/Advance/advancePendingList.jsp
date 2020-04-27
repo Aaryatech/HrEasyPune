@@ -42,7 +42,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Pending Advance
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Pending Advance
 										List</h5></td>
 								<td width="40%" align="right"><<%-- c:if
 									test="${addAccess==0}"> <a
@@ -100,15 +100,15 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Emp Code</th>
-									<th>Designation</th>
-									<th>Name</th>
-									<th>Voucher No.</th>
-									<th>Adv Date</th>
-									<th>Advance Amount</th>
-									<th>Advance Pending</th>
-									<th>Deduction Month/Year</th>
-									<th>is Deducted</th>
+									<th class="text-center">Emp Code</th>
+									<th class="text-center">Designation</th>
+									<th class="text-center">Name</th>
+									<th class="text-center">Voucher No.</th>
+									<th class="text-center">Adv Date</th>
+									<th class="text-center">Advance Amount</th>
+									<th class="text-center">Advance Pending</th>
+									<th class="text-center">Deduction Month/Year</th>
+									<th class="text-center">is Deducted</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>

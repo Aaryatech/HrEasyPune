@@ -616,15 +616,15 @@ public class AdvanceAdminController {
 							session.setAttribute("successMsg", "Advance Skipped  Successfully");
 
 						} else {
-							session.setAttribute("errorMsg", "Failed to Insert Record");
+							session.setAttribute("errorMsg", "Failed to Skip Advance");
 						}
 
 					} else {
-						session.setAttribute("errorMsg", "Failed to Insert Record");
+						session.setAttribute("errorMsg", "Failed to Skip Advance");
 					}
 
 				} else {
-					session.setAttribute("errorMsg", "Failed to Insert Record");
+					session.setAttribute("errorMsg", "Failed to Skip Advance");
 				}
 
 			} catch (Exception e) {

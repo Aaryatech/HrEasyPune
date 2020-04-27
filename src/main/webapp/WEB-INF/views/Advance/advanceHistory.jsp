@@ -51,7 +51,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Advance History
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Advance History
 										 </h5></td>
 						 
 							</tr>

@@ -135,8 +135,9 @@
 												</div>
 												
 												<div class="form-group row">
-													<div class="col-md-2 floar">&nbsp;</div>
-													<div class="col-md-4">
+												<div  style="margin: 0 auto;">
+													<!-- <div class="col-md-2 floar">&nbsp;</div> -->
+													<!-- <div class="col-md-4"> -->
 														<button type="submit" id="btnUploadAdvSubmit"
 															name="btnUploadSubmit" class="btn blue_btn">
 															Uplaod File <i class="icon-paperplane ml-2"></i>
@@ -149,9 +150,8 @@
 																<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 																Cancel
 															</button></a>
-													</div>
-													
-												
+													<!-- </div> -->
+												</div>
 												</div>
 
 
