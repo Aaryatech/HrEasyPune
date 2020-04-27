@@ -95,14 +95,14 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr.no</th>
-									<th>Employee Code</th>
-									<th>Employee Name</th>
-									<th>Emp Type</th>
-									<th>Department</th>
-									<th>Designation</th>
-									<th>Location</th>
-									<th>Action</th>
+									<th width="10%" class="text-center">Sr.no</th>
+									<th class="text-center">Employee Code</th>
+									<th class="text-center">Employee Name</th>
+									<th class="text-center">Emp Type</th>
+									<th class="text-center">Department</th>
+									<th class="text-center">Designation</th>
+									<th class="text-center">Location</th>
+									<th class="text-center">Action</th>
 
 
 								</tr>
@@ -122,7 +122,7 @@
 										<td>${empdetList.empDesgn}</td>
 
 										<td>${empdetList.locName}</td>
-										<td><c:if test="${editAccess == 0}">
+										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/showAddAdvance?empId=${empdetList.exVar1}"
 													class="list-icons-item text-primary-600"

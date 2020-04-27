@@ -153,15 +153,15 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Emp Code</th>
-									<th>Designation</th>
-									<th>Name</th>
-									<th>Voucher No.</th>
-									<th>Adv Date</th>
-									<th>Advance Amount</th>
- 									<th>Deduction Month/Year</th>
-									<th>is Deducted</th>
+									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center">Emp Code</th>
+									<th class="text-center">Designation</th>
+									<th class="text-center">Name</th>
+									<th class="text-center">Voucher No.</th>
+									<th class="text-center">Adv. Date</th>
+									<th class="text-center">Advance Amount</th>
+ 									<th class="text-center">Deduction Month/Year</th>
+									<th class="text-center">is Deducted</th>
  								</tr>
 							</thead>
 							<tbody>
@@ -301,7 +301,7 @@
 										i + 1,
 										v.empCode,
 										v.designation,
-										 v.surname+''+v.firstName,
+										v.surname+''+v.firstName,
 										v.voucherNo,
 										v.advDate,
 										v.advAmount,

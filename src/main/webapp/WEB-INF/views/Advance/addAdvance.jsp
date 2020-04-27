@@ -55,7 +55,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Advance</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Advance</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -108,65 +108,71 @@
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${empPersInfo.empId}" id="empId"
 										name="empId">
+										
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="empName">Employee Name <span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												value="${empPersInfoString}" id="empName"
-												readonly="readonly" name="empName" autocomplete="off"
-												onchange="trim(this)">
-
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="empName">Employee Name <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${empPersInfoString}" id="empName"
+													readonly="readonly" name="empName" autocomplete="off"
+													onchange="trim(this)">
+	
+											</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="grossSal">Total Gross Salary <span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" id="grossSal"
 												value="${empPersInfo.grossSalary}" readonly="readonly"
 												name="grossSal" autocomplete="off" onchange="trim(this)">
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="voucherNo">Voucher No. <span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"
-												placeholder="Enter Voucher Number" id="voucherNo"
-												name="voucherNo" autocomplete="off"
-												onchange="uniqueVoucherNum()" maxlength="5"> <span
-												class="validation-invalid-label" id="error_voucherNo"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_voucherNo1"
-												style="display: none;">Voucher No. Already Exists</span>
-
 										</div>
 									</div>
 
+
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="voucherNo">Voucher No. <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Voucher Number" id="voucherNo"
+													name="voucherNo" autocomplete="off"
+													onchange="uniqueVoucherNum()" maxlength="5"> <span
+													class="validation-invalid-label" id="error_voucherNo"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_voucherNo1"
+													style="display: none;">Voucher No. Already Exists</span>
+	
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="advanceAmt">Advance Amount <span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter Advance Amount" id="advanceAmt"
 												name="advanceAmt" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_advanceAmt"
 												style="display: none;">This field is required.</span>
+										</div>
 										</div>
 									</div>
 
@@ -182,57 +188,58 @@
 										</div>
 									</div>
 									 -->
-
-
-
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="dob">Date <span class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control datepickerclass"
-												placeholder="Date of Advance" id="advDate" name="advDate"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="hidedefault  validation-invalid-label"
-												id="error_advDate" style="display: none;">This field
-												is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="dob">Date <span class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass"
+													placeholder="Date of Advance" id="advDate" name="advDate"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="hidedefault  validation-invalid-label"
+													id="error_advDate" style="display: none;">This field
+													is required.</span>
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="date">Select Deduction Month <span
+										
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="date">Deduction Month <span
 											style="color: red">* </span> :
 										</label>
-										<div class="col-md-10">
+										<div class="col-md-7 float">
 											<input type="text" class="form-control "
 												placeholder="Select Deduction Month " id="datepicker"
 												name="date" value="${date}" autocomplete="off"> <span
 												class="validation-invalid-label" id="error_month"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
 									</div>
-
-
+									
 
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="reason"> Remark <span style="color: red">*</span>:
-										</label>
-										<div class="col-lg-4">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="adv_reason"
-												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
-											<span class="validation-invalid-label" id="error_advreason"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="reason"> Remark <span style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="adv_reason"
+													name="remark" autocomplete="off" onchange="trim(this)"></textarea>
+												<span class="validation-invalid-label" id="error_advreason"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div  style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -247,7 +254,7 @@
 										</div>
 									</div>
 								</form>
-								<p class="desc text-danger fontsize11">Notice : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>
