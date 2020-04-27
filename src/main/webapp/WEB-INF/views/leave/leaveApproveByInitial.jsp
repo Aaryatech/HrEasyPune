@@ -111,15 +111,14 @@
 									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
-											<th width="10%">Sr.no</th>
-											<th>Employee Code</th>
-											<th>Employee Name</th>
-											<th>Leave Type</th>
-											<th>From Date</th>
-											<th>To Date</th>
-											<th>No. Of Days</th>
-											<th>Status</th>
-
+											<th class="text-center" width="10%">Sr.no</th>
+											<th class="text-center">Employee Code</th>
+											<th class="text-center">Employee Name</th>
+											<th class="text-center">Leave Type</th>
+											<th class="text-center">From Date</th>
+											<th class="text-center">To Date</th>
+											<th class="text-center">No. Of Days</th>
+											<th class="text-center">Status</th>
 											<th class="text-center" width="10%">Actions</th>
 										</tr>
 									</thead>
@@ -226,14 +225,14 @@
 									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
-											<th width="10%">Sr.no</th>
-											<th>Employee Code</th>
-											<th>Employee Name</th>
-											<th>Type</th>
-											<th>From Date</th>
-											<th>To Date</th>
-											<th>No. Of Days</th>
-											<th>Status</th>
+											<th class="text-center" width="10%">Sr.no</th>
+											<th class="text-center">Employee Code</th>
+											<th class="text-center">Employee Name</th>
+											<th class="text-center">Type</th>
+											<th class="text-center">From Date</th>
+											<th class="text-center">To Date</th>
+											<th class="text-center">No. Of Days</th>
+											<th class="text-center">Status</th>
 											<th class="text-center" width="10%">Actions</th>
 										</tr>
 									</thead>

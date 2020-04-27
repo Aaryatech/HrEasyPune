@@ -93,38 +93,42 @@
 						%>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Employee
+						<div class="col-md-6">
+							<label class="col-form-label col-lg-5 float" for="compName">Employee
 								Code : </label>
-							<div class="col-lg-6">
+							<div class="col-lg-7 float">
 								<input type="text" class="form-control" Value="${lvEmp.empCode}"
 									name="compName" autocomplete="off" readonly>
 
 							</div>
 						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Employee
+							
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Employee
 								Name : </label>
-							<div class="col-lg-6">
+							<div class="col-lg-7 float">
 								<input type="text" class="form-control" Value="${lvEmp.empName}"
 									name="compName" autocomplete="off" readonly>
 
 							</div>
 						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Leave
-								Type : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.leaveTitle}" name="compName" autocomplete="off"
-									readonly>
-
-							</div>
 						</div>
-
+					
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Type
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Leave
+									Type : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.leaveTitle}" name="compName" autocomplete="off"
+										readonly>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Type
 								: </label>
-							<div class="col-lg-6">
+							<div class="col-lg-7 float">
 								<c:set var="type" value="-"></c:set>
 								<c:if test="${lvEmp.leaveDuration==1}">
 									<c:set var="type" value="Full Day"></c:set>
@@ -139,37 +143,43 @@
 									name="compName" autocomplete="off" readonly>
 
 							</div>
-						</div>
-
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">From
-								date : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.leaveFromdt}" name="compName" autocomplete="off"
-									readonly>
-
 							</div>
 						</div>
+
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">To
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">From
+									date : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.leaveFromdt}" name="compName" autocomplete="off"
+										readonly>	
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">To
 								Date : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.leaveTodt}" name="compName" autocomplete="off"
-									readonly>
-
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.leaveTodt}" name="compName" autocomplete="off"
+										readonly>
+	
+								</div>
 							</div>
 						</div>
-
+						
+						
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">No.
-								of Days : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.leaveNumDays}" name="compName"
-									autocomplete="off" readonly>
-
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">No.
+									of Days : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.leaveNumDays}" name="compName"
+										autocomplete="off" readonly>
+	
+								</div>
 							</div>
 						</div>
 						<c:if test="${lvEmp.empPhoto != '-'}">

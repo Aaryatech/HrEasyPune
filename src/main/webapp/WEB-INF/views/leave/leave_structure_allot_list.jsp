@@ -253,7 +253,7 @@
 										style="display: none;">Please select one employee.</span> <br>
 
 									<div class="form-group text-center ">
-										<input type="submit" class="btn btn-primary" value="Add"
+										<input type="submit" class="btn blue_btn" value="Add"
 											id="btnassignstuct">
 
 									</div>

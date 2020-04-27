@@ -393,7 +393,7 @@
 
 											</c:when>
 											<c:otherwise>
-												<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												<button type="submit" class="btn blue_btn"
 													id="submtbtn">
 													Submit <i class="icon-paperplane ml-2"></i>
 												</button>
@@ -401,9 +401,9 @@
 										</c:choose>
 
 										<a href="${pageContext.request.contextPath}/showApplyForLeave"><button
-												type="button" class="btn btn-primary">
+												type="button" class="btn btn-light">
 												<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
-												Cancel
+												Back
 											</button></a>
 									</div>
 								</form>

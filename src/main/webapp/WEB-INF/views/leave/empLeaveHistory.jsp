@@ -47,7 +47,7 @@
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showApplyForLeave"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">Employee
+										<button type="button" class="btn blue_btn">Leave Applied
 											List</button>
 								</a></td>
 							</tr>

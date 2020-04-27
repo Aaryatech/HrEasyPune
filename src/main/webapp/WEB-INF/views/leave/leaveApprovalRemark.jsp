@@ -200,20 +200,20 @@
 									</div>
 								</div>
 
-								<h6 class="card-title">Leave Trail History</h6>
+								<h6 class="pageTitle"><i class="icon-list-unordered"></i> Leave Trail History</h6>
 
 								<table
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
-											<th width="10%">Sr.no</th>
+											<th class="text-center" width="10%">Sr.no</th>
 											<!-- <th>Name</th> -->
-											<th>Action By</th>
-											<th>Remark</th>
-											<th>Date</th>
+											<th class="text-center">Action By</th>
+											<th class="text-center">Remark</th>
+											<th class="text-center">Date</th>
 
-											<th>Leave Status</th>
+											<th class="text-center">Leave Status</th>
 
 
 										</tr>
@@ -305,7 +305,7 @@
 										<div  style="margin: 0 auto;">
 											<!-- 											<button type="reset" class="btn btn-light legitRipple">Reset</button>
  -->
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>

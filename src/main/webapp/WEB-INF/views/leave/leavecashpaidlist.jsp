@@ -81,7 +81,7 @@
 										style="display: none;">This field is required.</span>
 								</div>
 								<div class="col-lg-1"></div>
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="submit" class="btn blue_btn"
 									id="search">Search</button>
 
 							</div>

@@ -246,7 +246,7 @@
 							</div>
 							<br>
 							<div class="col-md-12" style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Add"
+								<input type="submit" class="btn blue_btn" value="Add"
 									id="btnAddLeaveAuthority"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 								<%-- <a href="${pageContext.request.contextPath}/leaveAuthorityList"><button

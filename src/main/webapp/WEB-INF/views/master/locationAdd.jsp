@@ -207,7 +207,7 @@
 									<div class="form-group row mb-0">
 									<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 										
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>

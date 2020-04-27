@@ -138,13 +138,13 @@
 								
  -->
 
-								<button type="button" class="btn bg-blue ml-3 legitRipple"
+								<button type="button" class="btn blue_btn"
 									id="submtbtn"
 									onclick="getProgReport(1,'showEmpLeaveHistoryRep')">
 									PDF <i class="icon-paperplane ml-2"></i>
-								</button>
+								</button>&nbsp;&nbsp;
 
-								<button type="button" class="btn bg-blue ml-3 legitRipple"
+								<button type="button" class="btn blue_btn"
 									id="submtbtn"
 									onclick="getProgReport(0,'showEmpLeaveHistoryRep')">
 									Excel <i class="icon-paperplane ml-2"></i>

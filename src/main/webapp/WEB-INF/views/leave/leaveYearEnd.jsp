@@ -153,7 +153,7 @@
 								<c:when test="${empId==0}">
 									<div class="col-md-12">
 										<div class="text-center">
-											<input type="submit" class="btn bg-blue ml-3 legitRipple"
+											<input type="submit" class="btn blue_btn"
 												id="searchh" value="Search" />
 
 										</div>
@@ -264,10 +264,10 @@
 
 									<div class="col-md-12">
 										<div class="text-center">
-											<input type="submit" class="btn bg-blue ml-3 legitRipple"
+											<input type="submit" class="btn blue_btn"
 												id="searchh" value="Calculate" /> <a
 												href="${pageContext.request.contextPath}/leaveYearEnd"><input
-												type="button" class="btn bg-blue ml-3 legitRipple" id="back"
+												type="button" class="btn btn-light" id="back"
 												value="Back" /></a>
 										</div>
 									</div>
