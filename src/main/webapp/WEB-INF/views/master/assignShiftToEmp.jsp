@@ -42,7 +42,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Shift
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Shift
 										Assignment</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -91,6 +91,9 @@
 							id="showEmpListToAssignShift" method="get">
 
 							<div class="form-group row">
+							
+							
+							
 								<label class="col-form-label text-info font-weight-bold col-lg-2" for="locId">Select
 									Location <span class="text-danger">* </span> :
 								</label>
@@ -135,7 +138,7 @@
 								<label class="col-form-label text-info font-weight-bold col-lg-2" for="locId">
 									Select Shift To Assign <span class="text-danger">* </span>:
 								</label>
-								<div class="col-lg-10">
+								<div class="col-lg-4">
 									<select name="shiftId" data-placeholder="Select Shift"
 										id="shiftId"
 										class="form-control form-control-select2 select2-hidden-accessible"
@@ -153,8 +156,10 @@
 							</div>
 						 
 							<div class="table-responsive">
-								<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
+							<table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1">
+								<!-- <table class="table datatable-scroll-y" width="100%"
+										id="printtable1"> -->
 								<thead>
 									<tr class="bg-blue">
 
@@ -199,7 +204,7 @@
 
 
 							<div style="text-align: center;">
-								<input type="submit" class="btn btn-primary"
+								<input type="submit" class="btn blue_btn"
 									value="Assign Shift" id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>

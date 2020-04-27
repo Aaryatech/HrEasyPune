@@ -129,7 +129,7 @@ body1 {
                                  <div
 								class="form-group form-group-feedback form-group-feedback-left">
 								<input type="text" id="username" name="username"
-									class="form-control" placeholder="Username">
+									class="form-control" placeholder="Username" style="border-radius:5px;">
 								<div class="form-control-feedback" style="padding-left:10px;">
 									<i class="icon-user text-muted"></i>
 								</div>
@@ -137,7 +137,7 @@ body1 {
                                <div
 								class="form-group form-group-feedback form-group-feedback-left">
 								<input type="password" id="password" name="password"
-									class="form-control" placeholder="Password">
+									class="form-control" placeholder="Password" style="border-radius:5px;">
 								<div class="form-control-feedback" style="padding-left:10px;">
 									<i class="icon-lock2 text-muted"></i>
 								</div>

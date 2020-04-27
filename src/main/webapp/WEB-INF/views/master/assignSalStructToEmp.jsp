@@ -45,7 +45,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Salary
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Salary
 										Structure Assignment</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -95,11 +95,11 @@
 
 							<div class="form-group row">
 								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
+									class="col-form-label text-info font-weight-bold col-lg-3"
 									for="locId"> Select Sal Structure To Assign <span
 									class="text-danger">* </span>:
 								</label>
-								<div class="col-lg-10">
+								<div class="col-lg-3">
 									<select name="shiftId"
 										data-placeholder="Select Salary Structure  " id="shiftId"
 										class="form-control form-control-select2 select2-hidden-accessible"
@@ -116,8 +116,10 @@
 							</div>
 						 
 							<div class="table-responsive">
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
+								<table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1">
+									<!-- <table class="table datatable-scroll-y" width="100%"
+										id="printtable1"> -->
 									<thead>
 										<tr class="bg-blue">
 
@@ -167,7 +169,7 @@
 
 
 							<div style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Assign"
+								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>

@@ -100,7 +100,7 @@
 									
 										<div class="col-md-6">
 											<label
-											class="col-form-label col-lg-5 float"
+											class="col-form-label text-info col-lg-5 float"
 											for="locName">Current Password <span
 											style="color: red">* </span>:
 										</label>
@@ -121,7 +121,7 @@
 										
 											<div class="col-md-6">
 												<label
-												class="col-form-label col-lg-5 float"
+												class="col-form-label text-info col-lg-5 float"
 												for="password">New Password <span style="color: red">*
 											</span>:
 											</label>
@@ -145,7 +145,7 @@
 										<div class="form-group row">
 											<div class="col-md-6">
 												<label
-												class="col-form-label col-lg-5 float"
+												class="col-form-label text-info col-lg-5 float"
 												for="password">New Password <span style="color: red">*
 											</span>:
 											</label>
@@ -171,12 +171,12 @@
 									<div class="form-group row mb-0">
 										<div class="col-lg-10 ml-lg-auto">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 											<a href="${pageContext.request.contextPath}/changePass"><button
-													type="button" class="btn btn-primary">
+													type="button" class="btn btn-light">
 													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 													Cancel
 												</button></a>

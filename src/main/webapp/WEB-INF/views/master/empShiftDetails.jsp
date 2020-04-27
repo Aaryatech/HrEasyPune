@@ -44,7 +44,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Shift
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>  Employee Shift
 										Projection</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -177,7 +177,7 @@
 
 
 
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="submit" class="btn blue_btn ml-3 legitRipple"
 									id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>

@@ -296,7 +296,7 @@ color:#2196f3; font-size:16px; width:100%; line-height:20px; font-weight:bold; -
 .clr{clear: both;}
 .power_logo {position: absolute; right: 20px; bottom: 20px; z-index:100;}
 
-.login_bg{background-image:url("/hreasy/resources/global_assets/images/login_bg.jpg"); background-repeat:no-repeat; 
+.login_bg{background-image:url("/hreasy/resources/global_assets/images/login_bg1.jpg"); background-repeat:no-repeat; 
 background-size: cover; position: relative; height: 100vh;}
 .login_bg::after{content:''; left:0; top:0; background:rgba(0,0,0,0.50); position: absolute; width: 100%;
 height:100vh;}

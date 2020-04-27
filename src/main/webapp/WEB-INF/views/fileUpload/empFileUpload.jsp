@@ -51,7 +51,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title"> Employee Bulk Data Upload</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Bulk Data Upload</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -126,21 +126,26 @@
 
 															</div>
 														</div>
-														<div class="col-md-4">
+														
+
+
+
+													</div>
+													
+													<div class="form-group row">
+													<div class="col-md-2 floar">&nbsp;</div>
+													<div class="col-md-4">
 															<button type="submit" id="btnUploadCSVSubmit"
-																name="btnUploadCSVSubmit" class="btn btn-primary">
+																name="btnUploadCSVSubmit" class="btn blue_btn">
 																Upload File <i class="icon-paperplane ml-2"></i>
 															</button>
 															
 																<a href="${pageContext.request.contextPath}/showEmployeeList"><button
-													type="button" class="btn btn-primary">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													type="button" class="btn btn-light">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 													Cancel
 												</button></a>
 														</div>
-
-
-
 													</div>
 
 

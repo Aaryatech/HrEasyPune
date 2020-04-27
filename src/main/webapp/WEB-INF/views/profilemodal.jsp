@@ -25,7 +25,7 @@
 
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"> Emp Code : ${empInfo.empCode }</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Emp Code : ${empInfo.empCode }</h5>
 					</div>
 
 					<div class="card-body fixed_height">

@@ -55,10 +55,10 @@
 						<div class="card">
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">
+								<h5 class="pageTitle">
 									<c:choose>
-										<c:when test="${emp.empId!=0}">Edit Employee</c:when>
-										<c:otherwise>Add Employee</c:otherwise>
+										<c:when test="${emp.empId!=0}"><i class="icon-list-unordered"></i> Edit Employee</c:when>
+										<c:otherwise><i class="icon-list-unordered"></i> Add Employee</c:otherwise>
 									</c:choose>
 								</h5>
 							</div>
@@ -685,7 +685,7 @@
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -1031,7 +1031,7 @@
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -1417,7 +1417,7 @@
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -1514,7 +1514,7 @@
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtnB">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -2062,7 +2062,7 @@
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -2200,7 +2200,7 @@
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -2234,39 +2234,41 @@
 												</div>
 											</div>
 
-											<div class="form-group row">
-												<label class="col-form-label col-lg-2" for="accNo">User
-													Name <span class="text-danger"></span>:
-												</label>
-												<div class="col-lg-5">
-													<input type="text" class="form-control" readonly="readonly"
-														value="${userRes.userName}" id="uname" name="uname"
-														autocomplete="off">
-												</div>
-											</div>
+		<div class="form-group row">
+			<div class="col-md-6">
+				<label class="col-form-label col-lg-5 float" for="accNo">User
+					Name <span class="text-danger"></span>:
+				</label>
+				<div class="col-lg-7 float">
+					<input type="text" class="form-control" readonly="readonly"
+						value="${userRes.userName}" id="uname" name="uname"
+						autocomplete="off">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label
+				class="col-form-label text-info font-weight-bold col-lg-5 float"
+				for="upass">Update User Password <span
+				class="text-danger">*</span>:
+			</label>
+			<div class="col-lg-7 float">
+				<input type="text" class="form-control"
+					placeholder="User Password" id="upass" name="upass"
+					autocomplete="off" onchange="trim(this)"> <span
+					class="hidedefault   validation-invalid-label"
+					style="display: none;" id="error_upass">This Field
+					is Required.</span>
+			</div>
+	
+			</div>
+		</div>
 
-											<div class="form-group row">
-
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="upass">Update User Password <span
-													class="text-danger">*</span>:
-												</label>
-												<div class="col-lg-5">
-													<input type="text" class="form-control"
-														placeholder="User Password" id="upass" name="upass"
-														autocomplete="off" onchange="trim(this)"> <span
-														class="hidedefault   validation-invalid-label"
-														style="display: none;" id="error_upass">This Field
-														is Required.</span>
-												</div>
-
-											</div>
+											
 
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtnUser">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>

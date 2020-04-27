@@ -37,7 +37,7 @@ height: 200px; overflow: auto;}
 .info_title span a{margin: 0 0 0 10px; font-size: 28px;}
 .basic_info{padding-bottom: 20px;}
 .profile_one{display: block; width: 100%; margin: 0 0 20px 0; font-size: 17px; font-weight: 500; color:#324148; 
-line-height: 24px;}
+line-height:22px /* 24px */;}
 .profile_one span{font-weight: 400; color: rgba(51,51,51,.85); display: block; margin: 5px 0 0 0; font-size: 16px;}
 
 .sidebar-light .nav-sidebar > .nav-item-submenu > .nav-group-sub{position: relativer;}

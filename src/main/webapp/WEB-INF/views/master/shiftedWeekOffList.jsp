@@ -48,13 +48,13 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Shifted Weekly
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Shifted Weekly
 										Off List</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/showChangeWeekOff"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Change
+											<button type="button" class="btn blue_btn">Change
 												Weekly Off</button>
 										</a>
 									</c:if></td>
@@ -136,17 +136,18 @@
 
 							</div>
 							<div style="text-align: center;">
-								<input type="button" class="btn btn-primary" value="Search"
+								<input type="button" class="btn blue_btn" value="Search"
 									onclick="show()" id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>
 
 						</div>
 
-
 						<table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1">
+						<!-- <table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+							id="printtable1"> -->
 							<thead>
 								<tr class="bg-blue">
 

@@ -47,7 +47,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Change
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Change
 										WeeklyOff</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -163,7 +163,7 @@
 									for="empId">Employee <span class="text-danger">*</span>:
 								</label>
 
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<select name="empId" data-placeholder="Select  " id="empId"
 										class="form-control form-control-select2 select2-hidden-accessible">
 
@@ -193,7 +193,7 @@
 									class="col-form-label text-info font-weight-bold col-lg-2"
 									for="month"> Month-Year <span class="text-danger">*</span>:
 								</label>
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<input type="text" name="monthyear" id="monthyear"
 										class="form-control datepicker" value="${monthyear}"
 										autocomplete="off" data-min-view-mode="months"
@@ -201,14 +201,16 @@
 										class="validation-invalid-label" id="error_monthyear"
 										style="display: none;">This field is required.</span>
 								</div>
-							</div>
-
-
-							<div style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Search"
+								
+								<div class="col-lg-2">
+								<input type="submit" class="btn blue_btn" value="Search"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>
+							</div>
+
+
+							
 						</form>
 
 						<div class="form-group row"></div>
@@ -263,38 +265,42 @@
 							<div class="form-group row"></div>
 
 							<div class="form-group row">
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
+								<div class="col-md-6">
+								<label class="col-form-label text-info font-weight-bold col-lg-5 float"
 									for="changeDate"> Date <span class="text-danger">*
 								</span>:
 								</label>
-								<div class="col-lg-4">
+								<div class="col-lg-7 float">
 									<input type="text" class="form-control datepickerclass "
 										name="changeDate" id="changeDate" placeholder="Change Date">
 									<span class="validation-invalid-label" id="error_changeDate"
 										style="display: none;">This field is required.</span>
 								</div>
-							</div>
-
-
-							<div class="form-group row">
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
+								
+								</div>
+								<div class="col-md-6">
+									<label
+									class="col-form-label text-info font-weight-bold col-lg-5 float"
 									for="remark"> Reason <span class="text-danger">*</span>:
 								</label>
-								<div class="col-lg-4">
+								<div class="col-lg-7 float">
 									<textarea class="form-control"
 										placeholder="Enter Reason / Remark" id="remark" name="reason"
 										autocomplete="off" onchange="trim(this)"> </textarea>
 									<span class="validation-invalid-label" id="error_remark"
 										style="display: none;">This field is required.</span>
 								</div>
+								
+								</div>
+							
+								
 							</div>
 
 
 
+
 							<div style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Submit"
+								<input type="submit" class="btn blue_btn" value="Submit"
 									id="submtbtn"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 

@@ -62,7 +62,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">List Of Generated Payroll</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> List Of Generated Payroll</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -145,7 +145,7 @@
 										style="display: none;" id="error_subCmpId">This field
 										is required.</span>
 								</div>
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="submit" class="btn blue_btn ml-3 legitRipple"
 									id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>

@@ -6,7 +6,8 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-</head>
+<%--  <script src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_advanced.js"></script>
+ --%></head>
  
 
 <body>
@@ -43,7 +44,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Company Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Company Assignment</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -91,12 +92,13 @@
 							id="submitInsertEmp" method="post">
 
 							<div class="form-group row">
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
+								<div class="col-md-6">
+									<label
+									class="col-form-label col-lg-5 float"
 									for="locId"> Select Company <span
 									class="text-danger">* </span>:
 								</label>
-								<div class="col-lg-10">
+								<div class="col-lg-7 float">
 									<select name="compId"
 										data-placeholder="Select Company" id="compId"
 										class="form-control form-control-select2 select2-hidden-accessible"
@@ -108,24 +110,31 @@
 									</select> <span class="validation-invalid-label" id="error_shiftId"
 										style="display: none;">This field is required.</span>
 								</div>
+								</div>
+							
+							
+								
 							</div>
 						 
 							<div class="table-responsive">
-							<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
+						
+										
+										<table
+							class="table  table-bordered table-hover datatable-highlight  "
+							id="printtable1">
 								<thead>
-									<tr class="bg-blue">
+									<tr class="bg-blue" >
 
-										<th width="10%">Sr.no</th>
+										<th   width="10%">Sr.no</th>
 
-										<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
-										<th>Employee Name</th>
-										<th>Employee Type</th>
-										<th>Department</th>
-										<th>Designation</th>
-										<th>Location</th>
-										<th>Company</th>
+										<th ><input type="checkbox" name="selAll" id="selAll" /></th>
+										<th >Employee Code</th>
+										<th >Employee Name</th>
+										<th >Employee Type</th>
+										<th >Department</th>
+										<th >Designation</th>
+										<th >Location</th>
+										<th >Company</th>
 
 
 									</tr>
@@ -137,19 +146,23 @@
 										varStatus="count">
 										<tr>
 
-											<td>${count.index+1}</td>
-											<td><input type="checkbox" id="empId${empdetList.empId}"
+											<td >${count.index+1}</td>
+											<td ><input type="checkbox" id="empId${empdetList.empId}"
 												value="${empdetList.empId}" name="empId" class="select_all"></td>
-											<td>${empdetList.empCode}</td>
-											<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
-											<td>${empdetList.empTypeName}</td>
-											<td>${empdetList.deptName}</td>
-											<td>${empdetList.empDesgn}</td>
- 											<td>${empdetList.locName}</td>
-											<td>${empdetList.subCompName}</td>
+											<td >${empdetList.empCode}</td>
+											<td >${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+											<td >${empdetList.empTypeName}</td>
+											<td >${empdetList.deptName}</td>
+											<td >${empdetList.empDesgn}</td>
+ 											<td >${empdetList.locName}</td>
+											<td >${empdetList.subCompName}</td>
 
 										</tr>
 									</c:forEach>
+									
+
+									
+									
 
 								</tbody>
 							</table>
@@ -159,7 +172,7 @@
 
 
 							<div style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Assign"
+								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>

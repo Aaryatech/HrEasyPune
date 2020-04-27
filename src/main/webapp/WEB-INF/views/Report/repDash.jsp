@@ -98,7 +98,7 @@
 								<div class="form-group row">
 								
 									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="date">Select
+										<label class="col-form-label text-info col-lg-5 float" for="date">Select
 										Date(F1) <span style="color: red">* </span> :
 									</label>
 									<div class="col-md-7 float">
@@ -110,7 +110,7 @@
 									</div>
 									</div>
 									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float ">Date Range(F2)<span
+										<label class="col-form-label text-info col-lg-5 float ">Date Range(F2)<span
 										style="color: red">* </span>:
 									</label>
 									<div class="col-lg-7 float">
