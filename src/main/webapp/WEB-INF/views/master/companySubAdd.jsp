@@ -292,7 +292,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row mb-0">
 												<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn1">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -356,7 +356,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row mb-0">
 												<div style="margin:0 auto;"><!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -688,7 +688,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row mb-0">
 												<div style="margin:0 auto"><!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -814,7 +814,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row mb-0">
 												<div style="margin:0 auto"><!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
@@ -878,7 +878,7 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row mb-0">
 												<div style="margin: 0 auto;">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
-													<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
