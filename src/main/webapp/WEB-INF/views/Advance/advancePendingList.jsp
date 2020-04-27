@@ -44,7 +44,7 @@
 							<tr width="100%">
 								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Pending Advance
 										List</h5></td>
-								<td width="40%" align="right"><<%-- c:if
+								<td width="40%" align="right"><%-- c:if
 									test="${addAccess==0}"> <a
 									href="${pageContext.request.contextPath}/bankAdd"
 									class="breadcrumb-elements-item"> <button type="button"

@@ -55,7 +55,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Employee
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Employee
 												Payment Deduction</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -117,32 +117,38 @@
 									
 									
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="dedRate">Employee
+											
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
 											 Code<span style="color:red"></span>:</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" value="${emp.empCode}" readonly="readonly">
 												
 										</div>
+										</div>
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="dedRate">Employee Name
+											 <span style="color:red"></span>:</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control" value="${emp.firstName} ${emp.surname}" readonly="readonly"> 
+										</div>
+										</div>
+										
+										
+										
+																				
+									
+										
 									</div> 
 									
 								<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="dedRate">Employee Name
-											 <span style="color:red"></span>:</label>
-										<div class="col-lg-4">
-											<input type="text" class="form-control" value="${emp.firstName} ${emp.surname}" readonly="readonly"> 
-										</div>
-									</div>
-									
-									
-									<div class="form-group row">
-
-
+										<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="dedTypeId"> Deduction Type <span
 											class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="dedTypeId"
 												data-placeholder="Select Deduction Type" id="dedTypeId"
 												onchange="getDeductRate(this.value)"
@@ -156,17 +162,13 @@
 												style="display: none;" id="error_dedTypeId">This
 												field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-
-
-
+										</div>
+										<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="dedRate"> Amount <span class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Address" id="dedRate" name="dedRate"
 												autocomplete="off" onchange="trim(this)"> <span
@@ -174,13 +176,18 @@
 												style="display: none;">This field is required.</span>
 
 										</div>
+										</div>
 									</div>
+									
+									
 									<div class="form-group row">
+
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="month"> Deduction on Month <span class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" name="monthyear" id="monthyear"
 												class="form-control datepicker" autocomplete="off"
 												data-min-view-mode="months" data-start-view="1"
@@ -188,32 +195,34 @@
 												class="validation-invalid-label" id="error_monthyear"
 												style="display: none;">This field is required.</span>
 										</div>
-
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Reason
+										</div>
+										<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="remark">Reason
 											/ Remark <span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<textarea class="form-control"
 												placeholder="Enter Reason / Remark" id="remark"
 												name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
 
 										</div>
+										</div>
+										
 									</div>
+
+									
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div style="margin:0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 											<a href="${pageContext.request.contextPath}/viewPayDeduction"><button
 													type="button" class="btn btn-light">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 													Back
 												</button></a>
 										</div>

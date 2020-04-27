@@ -55,7 +55,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">Add Employee
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Employee
 												Reward</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
@@ -115,36 +115,41 @@
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="dedRate">Employee
+									
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
 											Code<span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												value="${emp.empCode}" readonly="readonly">
 
 										</div>
 									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="dedRate">Employee
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
 											Name <span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7  float">
 											<input type="text" class="form-control"
 												value="${emp.firstName} ${emp.surname}" readonly="readonly">
 										</div>
 									</div>
+									
+									
+										
+									</div>
 
+									
 
 									<div class="form-group row">
-
-
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+									
+									<div class="col-md-6">
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="payTypeId"> Reward Type <span
 											class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="payTypeId"
 												data-placeholder="Select Reward Type" id="payTypeId"
 												onchange="getDeductRate(this.value)"
@@ -159,16 +164,13 @@
 												field is required.</span>
 										</div>
 									</div>
-
-									<div class="form-group row">
-
-
-
+									
+									<div class="col-md-6">
 										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="dedRate"> Amount <span class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												placeholder="Enter  Amount" id="rewardRate"
 												name="rewardRate" autocomplete="off" onchange="trim(this)">
@@ -177,13 +179,19 @@
 
 										</div>
 									</div>
+
+
+										
+									</div>
+
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="month"> Reward on Month <span
 											class="text-danger">*</span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" name="monthyear" id="monthyear"
 												class="form-control datepicker" autocomplete="off"
 												data-min-view-mode="months" data-start-view="1"
@@ -191,26 +199,28 @@
 												class="validation-invalid-label" id="error_monthyear"
 												style="display: none;">This field is required.</span>
 										</div>
-
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="remark">Reason
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Reason
 											/ Remark <span style="color: red"></span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<textarea class="form-control"
 												placeholder="Enter Reason / Remark" id="remark"
 												name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
 
 										</div>
-									</div>
+										</div>
 
+
+										
+									</div>
+									
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div style="margin:0 auto;">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>

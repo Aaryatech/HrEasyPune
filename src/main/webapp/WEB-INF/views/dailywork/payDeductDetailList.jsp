@@ -42,12 +42,12 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Payment Deduction
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Payment Deduction
 								 Details</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/viewPayDeduction"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add Payment 
+											<button type="button" class="btn blue_btn">Add Payment 
 												Deduction</button>
 										</a>
 									</c:if></td>

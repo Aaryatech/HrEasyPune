@@ -49,7 +49,7 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="card-title">${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -103,12 +103,14 @@
 									<input type="hidden" value="${pay.payTypeId}" id="payTypeId"
 										name="payTypeId">
 									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+									
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="bonusType"> Reward Type <span
 											class="text-danger">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Reward Type" value="${pay.typeName}"
 												id="bonusType" name="bonusType" autocomplete="off"
@@ -116,15 +118,14 @@
 												class="validation-invalid-label" id="error_bonusType"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
+										</div>
+										<div class="col-md-6">
+											<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="bonusRate"> Rate<span class="text-danger">
 												*</span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												value="${pay.payRate}" placeholder="Enter Bonus Rate"
 												id="bonusRate" name="bonusRate" autocomplete="off"
@@ -133,12 +134,20 @@
 												style="display: none;">This field is required.</span>
 
 										</div>
+											
+										</div>
+									
+										
+									</div>
+
+									<div class="form-group row">
+										
 									</div>
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div style="margin: 0 auto;">
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
