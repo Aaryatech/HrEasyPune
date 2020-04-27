@@ -56,13 +56,15 @@
 				
 				<li class="nav-item">
 					<div class="dataTables_length"><label><span>Company Combo:</span> 
-					<select name="printtable1_length" aria-controls="printtable1" 
-					class="white-txt select2-hidden-accessible" tabindex="-1" aria-hidden="true" style="width: 100%; color: #FFF;">
-					<option value="10">10</option>
-					<option value="25">25</option>
-					<option value="50">50</option>
-					<option value="100">100</option>
-					</select>
+					
+					<div class="select-style">
+  <select>
+    <option value="one">1 Company</option>
+    <option value="two">2 Company</option>
+    <option value="three">3 Company</option>
+    <option value="four">4 Company</option>
+  </select>
+</div>
 					
 					</div>
 				</li>
