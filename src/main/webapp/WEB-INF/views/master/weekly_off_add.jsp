@@ -309,8 +309,11 @@
 
 								</div>
 								<br>
-								<p class="desc text-danger fontsize11">Note : * Fields are
-									mandatory.</p>
+								<p class="desc text-danger fontsize11">
+									Note * : Fields are mandatory.<br>Note * : Any updation in
+									this master table will have immediate effect on weekly off
+									considerations.
+								</p>
 							</div>
 						</div>
 

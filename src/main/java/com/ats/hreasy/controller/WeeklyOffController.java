@@ -402,16 +402,16 @@ public class WeeklyOffController {
 				woRemarks = request.getParameter("woRemarks");
 				String woType = request.getParameter("woType");
 
-				String[] locIds = request.getParameterValues("locId");
+				// String[] locIds = request.getParameterValues("locId");
 
 				StringBuilder sb = new StringBuilder();
 
-				for (int i = 0; i < locIds.length; i++) {
-					sb = sb.append(locIds[i] + ",");
-
-				}
-				String locIdList = sb.toString();
-				locIdList = locIdList.substring(0, locIdList.length() - 1);
+				/*
+				 * for (int i = 0; i < locIds.length; i++) { sb = sb.append(locIds[i] + ",");
+				 * 
+				 * } String locIdList = sb.toString(); locIdList = locIdList.substring(0,
+				 * locIdList.length() - 1);
+				 */
 
 				Boolean ret = false;
 
@@ -427,7 +427,7 @@ public class WeeklyOffController {
 
 				if (ret == false) {
 
-					editWeeklyOff.setLocId(locIdList);
+					editWeeklyOff.setLocId("0");
 					editWeeklyOff.setWoDay(woDay);
 					editWeeklyOff.setWoPresently(woPresently);
 					editWeeklyOff.setWoRemarks(woRemarks);
