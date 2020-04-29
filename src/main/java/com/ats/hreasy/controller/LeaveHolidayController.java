@@ -50,6 +50,7 @@ public class LeaveHolidayController {
 	String dateTime = dateFormat.format(now);
 
 	List<HolidayMaster> holiList = new ArrayList<>();
+	List<CalenderYear> calenderYearList = new ArrayList<CalenderYear>();
 
 	@RequestMapping(value = "/holidayAdd", method = RequestMethod.GET)
 	public ModelAndView holidayAdd(HttpServletRequest request, HttpServletResponse response) {
@@ -90,12 +91,6 @@ public class LeaveHolidayController {
 				 * model.addObject("locationList", locationList);
 				 */
 
-				HolidayMaster[] holListArray = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getHolidayMaster", HolidayMaster[].class);
-
-				holiList = new ArrayList<>(Arrays.asList(holListArray));
-				model.addObject("holiList", holiList);
-
 				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 				HolidayCategory[] holi = Constants.getRestTemplate()
@@ -105,12 +100,58 @@ public class LeaveHolidayController {
 
 				model.addObject("holidayCatList", holidayCatList);
 
+				CalenderYear[] calenderYear = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getCalculateYearList", CalenderYear[].class);
+				calenderYearList = new ArrayList<CalenderYear>(Arrays.asList(calenderYear));
+
+				model.addObject("calenderYearList", calenderYearList);
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/geHolidayListByYearId", method = RequestMethod.POST)
+	@ResponseBody
+	public List<HolidayMaster> geHolidayListByYearId(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			HolidayMaster[] holListArray = Constants.getRestTemplate().getForObject(Constants.url + "/getHolidayMaster",
+					HolidayMaster[].class);
+
+			holiList = new ArrayList<>(Arrays.asList(holListArray));
+
+			int yearId = Integer.parseInt(request.getParameter("yearId"));
+
+			String date1 = new String();
+			String date2 = new String();
+
+			for (int i = 0; i < calenderYearList.size(); i++) {
+
+				if (calenderYearList.get(i).getCalYrId() == yearId) {
+
+					date1 = calenderYearList.get(i).getCalYrFromDate();
+					date2 = calenderYearList.get(i).getCalYrToDate();
+					break;
+
+				}
+			}
+
+			String[] datearr = date1.split("-");
+
+			for (int i = 0; i < holiList.size(); i++) {
+
+				holiList.get(i).setHolidayDate(holiList.get(i).getHolidayDate() + "-" + datearr[2]);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return holiList;
 	}
 
 	@RequestMapping(value = "/submitInsertHoliday", method = RequestMethod.POST)
@@ -155,19 +196,26 @@ public class LeaveHolidayController {
 
 				List<HolidayMaster> newHoliList = new ArrayList<>();
 
-				for (int j = 0; j < holidayIds.length; j++) {
+				// for (int j = 0; j < holidayIds.length; j++) {
 
-					for (int i = 0; i < holiList.size(); i++) {
+				for (int i = 0; i < holiList.size(); i++) {
 
-						if (Integer.parseInt(holidayIds[j]) == holiList.get(i).getHolidayId()) {
+					int typeId = Integer.parseInt(request.getParameter("typeId" + holiList.get(i).getHolidayId()));
 
-							dates = dates.append(DateConvertor.convertToYMD(holiList.get(i).getHolidayDate()) + ",");
-							newHoliList.add(holiList.get(i));
-							break;
+					if (typeId != 0) {
+
+						String capName = request.getParameter("capName" + holiList.get(i).getHolidayId());
+
+						if (!capName.equals("")) {
+							holiList.get(i).setHolidayName(capName);
 						}
+						holiList.get(i).setDelStatus(typeId);
+						dates = dates.append(DateConvertor.convertToYMD(holiList.get(i).getHolidayDate()) + ",");
+						newHoliList.add(holiList.get(i));
 					}
-
 				}
+
+				// }
 				String holidayDates = dates.toString();
 				holidayDates = holidayDates.substring(0, holidayDates.length() - 1);
 
@@ -214,6 +262,7 @@ public class LeaveHolidayController {
 						holiday.setMakerUserId(userObj.getUserId());
 						holiday.setExInt1(holcatId);
 						holiday.setExInt2(newHoliList.get(i).getHolidayId());
+						holiday.setExInt3(newHoliList.get(i).getDelStatus());
 						saveList.add(holiday);
 
 					}
