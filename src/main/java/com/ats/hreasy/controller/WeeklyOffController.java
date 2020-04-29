@@ -32,6 +32,7 @@ import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetWeekShiftChange;
 import com.ats.hreasy.model.GetWeeklyOff;
+import com.ats.hreasy.model.HolidayMaster;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
@@ -107,6 +108,27 @@ public class WeeklyOffController {
 		return model;
 	}
 
+	@RequestMapping(value = "/getWeeklyOffListByCatId", method = RequestMethod.POST)
+	@ResponseBody
+	public List<GetWeeklyOff> geHolidayListByYearId(HttpServletRequest request, HttpServletResponse response) {
+
+		List<GetWeeklyOff> weeklyoffList = new ArrayList<>();
+
+		try {
+
+			int woCatId = Integer.parseInt(request.getParameter("woCatId"));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("catId", woCatId);
+			GetWeeklyOff[] getWeeklyOff = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getWeeklyOffListByCatId", map, GetWeeklyOff[].class);
+			weeklyoffList = new ArrayList<>(Arrays.asList(getWeeklyOff));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return weeklyoffList;
+	}
+
 	@RequestMapping(value = "/submitInsertWeeklyOff", method = RequestMethod.POST)
 	public String submitInsertWeeklyOff(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -128,16 +150,16 @@ public class WeeklyOffController {
 				woRemarks = request.getParameter("woRemarks");
 				String woType = request.getParameter("woType");
 
-				String[] locIds = request.getParameterValues("locId");
+				// String[] locIds = request.getParameterValues("locId");
 
-				StringBuilder sb = new StringBuilder();
-
-				for (int i = 0; i < locIds.length; i++) {
-					sb = sb.append(locIds[i] + ",");
-
-				}
-				String locIdList = sb.toString();
-				locIdList = locIdList.substring(0, locIdList.length() - 1);
+				/*
+				 * StringBuilder sb = new StringBuilder();
+				 * 
+				 * for (int i = 0; i < locIds.length; i++) { sb = sb.append(locIds[i] + ",");
+				 * 
+				 * } String locIdList = sb.toString(); locIdList = locIdList.substring(0,
+				 * locIdList.length() - 1);
+				 */
 
 				Boolean ret = false;
 
@@ -157,7 +179,7 @@ public class WeeklyOffController {
 					save.setCompanyId(1);
 					save.setDelStatus(1);
 					save.setIsActive(1);
-					save.setLocId(locIdList);
+					save.setLocId("0");
 					save.setWoType(woType);
 					save.setWoRemarks(woRemarks);
 					save.setWoIsUsed(1);
@@ -504,7 +526,7 @@ public class WeeklyOffController {
 				 * model.addObject("locationList", locationList);
 				 */
 				model.addObject("month", (month));
-				model.addObject("empId",empId);
+				model.addObject("empId", empId);
 				model.addObject("year", (year));
 				model.addObject("monthyear", monthyear);
 				/*
@@ -594,15 +616,14 @@ public class WeeklyOffController {
 							weekShft, WeeklyOffShit.class);
 
 					if (res != null) {
-						
+
 						map = new LinkedMultiValueMap<>();
 						map.add("id", res.getId());
-						map.add("userId",userObj.getUserId() );
+						map.add("userId", userObj.getUserId());
 
-						Info inf = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceOfWeeklyOffInDailyDaily", map,
-								Info.class);
-						
-						
+						Info inf = Constants.getRestTemplate().postForObject(
+								Constants.url + "/updateAttendaceOfWeeklyOffInDailyDaily", map, Info.class);
+
 						session.setAttribute("successMsg", "Record Updated Successfully");
 					} else {
 						session.setAttribute("errorMsg", "Failed to Update Record");
@@ -636,7 +657,6 @@ public class WeeklyOffController {
 			} else {
 
 				model = new ModelAndView("master/shiftedWeekOffList");
-				
 
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
@@ -690,7 +710,7 @@ public class WeeklyOffController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("month", calYrId[0]);
 			map.add("year", calYrId[1]);
- 			map.add("empId", Integer.parseInt(empId));
+			map.add("empId", Integer.parseInt(empId));
 
 			GetWeekShiftChange[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAllWeekOffShifted", map, GetWeekShiftChange[].class);

@@ -52,8 +52,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Weekly
-												Off</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Weekly Off
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -105,9 +106,9 @@
 								<form
 									action="${pageContext.request.contextPath}/submitInsertWeeklyOff"
 									id="submitInsertWeeklyOff" method="post">
-									
+
 									<div class="form-group row">
-									<div class="col-md-6">	
+										<%-- <div class="col-md-6">	
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="select2">Select Location <span
@@ -129,80 +130,93 @@
 											</select> <span class="validation-invalid-label" id="error_locId"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-									
-									<div class="col-md-6">	
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="woCatId">Weekly Off Category <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="woCatId" data-placeholder="Select "
-												id="woCatId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												data-fouc="" aria-hidden="true">
+									</div> --%>
 
-												<option value="0">Select</option>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="woCatId">Weekly Off Category <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="woCatId" data-placeholder="Select "
+													id="woCatId"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													data-fouc="" aria-hidden="true"
+													onchange="getweeklyoffList()">
 
-												<c:forEach items="${holiList}" var="holiList">
-													<option value="${holiList.woCatId}">${holiList.woCatName}</option>
-												</c:forEach>
-											</select> <span class="validation-invalid-label" id="error_woCatId"
-												style="display: none;">This field is required.</span>
+													<option value="0">Select</option>
+
+													<c:forEach items="${holiList}" var="holiList">
+														<option value="${holiList.woCatId}">${holiList.woCatName}</option>
+													</c:forEach>
+												</select> <span class="validation-invalid-label" id="error_woCatId"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="select2">Select Weekly Off Type <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="woType" data-placeholder="Please Select"
+													id="woType"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="0">All</option>
+													<option value="1">Even</option>
+													<option value="2">Odd</option>
+													<option value="3">1st</option>
+													<option value="4">2nd</option>
+													<option value="5">3rd</option>
+													<option value="6">4th</option>
+
+
+												</select> <span class="validation-invalid-label" id="error_woType"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										<div class="col-md-6">	
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="select2">Select Weekly Off Type <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="woType" data-placeholder="Please Select"
-												id="woType"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="0">All</option>
-												<option value="1">Even</option>
-												<option value="2">Odd</option>
-												<option value="3">1st</option>
-												<option value="4">2nd</option>
-												<option value="5">3rd</option>
-												<option value="6">4th</option>
 
-
-											</select> <span class="validation-invalid-label" id="error_woType"
-												style="display: none;">This field is required.</span>
-										</div>
-										</div>
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="select2">Select Weekly Off Day <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="woDay" data-placeholder="Please Select"
-												id="woDay"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="0">SUNDAY</option>
-												<option value="1">MONDAY</option>
-												<option value="2">TUESDAY</option>
-												<option value="3">WEDNESDAY</option>
-												<option value="4">THURSDAY</option>
-												<option value="5">FRIDAY</option>
-												<option value="6">SATURDAY</option>
-											</select> <span class="validation-invalid-label" id="error_woDay"
-												style="display: none;">This field is required.</span>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="select2">Select Weekly Off Day <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="woDay" data-placeholder="Please Select"
+													id="woDay"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="0">SUNDAY</option>
+													<option value="1">MONDAY</option>
+													<option value="2">TUESDAY</option>
+													<option value="3">WEDNESDAY</option>
+													<option value="4">THURSDAY</option>
+													<option value="5">FRIDAY</option>
+													<option value="6">SATURDAY</option>
+												</select> <span class="validation-invalid-label" id="error_woDay"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>	
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
+												: </label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)"
+													id="woRemarks" name="woRemarks"></textarea>
+
+											</div>
+										</div>
 									</div>
 
 
@@ -229,25 +243,10 @@
 
 
 									<input type="hidden" value="1" name="woPresently">
-									<div class="form-group row">
-										
-									</div>
 
-									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="remark">Remark
-											: </label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)"
-												id="woRemarks" name="woRemarks"></textarea>
-
-										</div>
-									</div>
-									</div>
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -258,7 +257,58 @@
 													type="button" class="btn btn-light">Back</button></a>
 										</div>
 									</div>
+									<br>
 								</form>
+
+								<div class="table-responsive">
+									<table
+										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+										id="printtable1">
+
+
+										<thead>
+											<tr class="bg-blue" style="text-align: center;">
+
+
+												<th class="text-center">Category</th>
+												<th class="text-center">Weekly Off Type</th>
+												<th class="text-center">Day</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%-- <c:forEach items="${holiList}" var="holiList"
+												varStatus="count">
+												<tr>
+
+													<td><input type="text" class="form-control"
+														placeholder="Holiday Caption Name"
+														id="capName${holiList.holidayId}"
+														name="capName${holiList.holidayId}" autocomplete="off"
+														onchange="trim(this)" value="${holiList.holidayName}"></td>
+													<td><input type="text"
+														class="form-control datepickerclass"
+														placeholder="Select Date" id="date${holiList.holidayId}"
+														name="date${holiList.holidayId}" autocomplete="off"
+														value="${holiList.holidayDate}"></td>
+													<td><select name="typeId${holiList.holidayId}"
+														id="typeId${holiList.holidayId}" class="form-control">
+															<option value="0" selected>NA</option>
+															<option value="1">Fixed</option>
+															<option value="2">Optional</option>
+													</select></td>
+													<td><input type="text" class="form-control  "
+														placeholder="Remark"
+														id="holidayRemark${holiList.holidayId}"
+														name="holidayRemark${holiList.holidayId}"
+														autocomplete="off" onchange="trim(this)"></td>
+												</tr>
+											</c:forEach> --%>
+										</tbody>
+									</table>
+
+
+								</div>
+								<br>
 								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
@@ -283,6 +333,84 @@
 	<!-- /page content -->
 
 	<script>
+		function getweeklyoffList() {
+
+			var woCatId = $("#woCatId").val();
+
+			if ($("#woCatId").val() != 0) {
+
+				var fd = new FormData();
+
+				fd.append('woCatId', woCatId);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getWeeklyOffListByCatId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								$('#printtable1 td').remove();
+
+								$.each(response, function(key, trans) {
+
+									var tr = $('<tr></tr>');
+
+									tr.append($('<td   align="center"></td>')
+											.html(trans.weekOffCat));
+									var woType;
+
+									if (trans.woType == 1) {
+										woType = "Even"
+									} else if (trans.woType == 2) {
+										woType = "Odd"
+									} else if (trans.woType == 3) {
+										woType = "1st"
+									} else if (trans.woType == 4) {
+										woType = "2nd"
+									} else if (trans.woType == 5) {
+										woType = "3rd"
+									} else if (trans.woType == 6) {
+										woType = "4th"
+									} else {
+										woType = "All"
+									}
+
+									tr.append($('<td  align="center"></td>')
+											.html(woType));
+
+									var woDay;
+
+									if (trans.woDay == 1) {
+										woDay = "MONDAY"
+									} else if (trans.woDay == 2) {
+										woDay = "TUESDAY"
+									} else if (trans.woDay == 3) {
+										woDay = "WEDNESDAY"
+									} else if (trans.woDay == 4) {
+										woDay = "THURSDAY"
+									} else if (trans.woDay == 5) {
+										woDay = "FRIDAY"
+									} else if (trans.woDay == 6) {
+										woDay = "SATURDAY"
+									} else {
+										woDay = "SUNDAY"
+									}
+									tr.append($('<td  align="center" ></td>')
+											.html(woDay));
+
+									$('#printtable1 tbody').append(tr);
+
+								})
+
+							},
+						});
+
+			}
+
+		}
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -325,7 +453,7 @@
 												var isError = false;
 												var errMsg = "";
 
-												if (!$("#locId").val()) {
+												/* if (!$("#locId").val()) {
 
 													isError = true;
 
@@ -333,7 +461,7 @@
 													//return false;
 												} else {
 													$("#error_locId").hide()
-												}
+												} */
 
 												if (!$("#woType").val()) {
 
