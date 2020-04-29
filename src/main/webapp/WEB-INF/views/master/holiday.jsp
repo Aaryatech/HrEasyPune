@@ -125,9 +125,8 @@
 									}
 								%>
 
-								<form
-									action="${pageContext.request.contextPath}/submitInsertHoliday"
-									id="submitInsertHoli" method="post">
+								<form action="${pageContext.request.contextPath}/holidayAdd"
+									id="submitInsertHoli" method="get">
 
 									<!-- <div class="form-group row">
 										<label
@@ -147,7 +146,7 @@
 
 									<div class="form-group row">
 
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="yearId">Select Calendar Year<span
@@ -156,14 +155,23 @@
 											<div class="col-lg-7 float">
 												<select name="yearId" data-placeholder="Select " id="yearId"
 													class="form-control form-control-select2 select2-hidden-accessible"
-													data-fouc="" onchange="geHolidayList()" aria-hidden="true">
+													data-fouc="" aria-hidden="true">
 
 													<option value="0">Select</option>
 
 													<c:forEach items="${calenderYearList}"
 														var="calenderYearList">
-														<option value="${calenderYearList.calYrId}">${calenderYearList.calYrFromDate}
-															TO ${calenderYearList.calYrToDate}</option>
+														<c:choose>
+															<c:when test="${yearId==calenderYearList.calYrId}">
+																<option value="${calenderYearList.calYrId}" selected>${calenderYearList.calYrFromDate}
+																	TO ${calenderYearList.calYrToDate}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${calenderYearList.calYrId}">${calenderYearList.calYrFromDate}
+																	TO ${calenderYearList.calYrToDate}</option>
+															</c:otherwise>
+														</c:choose>
+
 													</c:forEach>
 												</select> <span class="validation-invalid-label" id="error_yearId"
 													style="display: none;">This field is required.</span>
@@ -171,7 +179,7 @@
 										</div>
 
 
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="hoCatId">Holiday Category <span
@@ -181,21 +189,36 @@
 												<select name="hoCatId" data-placeholder="Select "
 													id="hoCatId"
 													class="form-control form-control-select2 select2-hidden-accessible"
-													data-fouc="" aria-hidden="true">
+													data-fouc="" required>
 
 													<option value="0">Select</option>
 
 													<c:forEach items="${holidayCatList}" var="holidayCatList">
-														<option value="${holidayCatList.hoCatId}">${holidayCatList.hoCatName}</option>
+
+														<c:choose>
+															<c:when test="${hoCatId==holidayCatList.hoCatId}">
+																<option value="${holidayCatList.hoCatId}" selected>${holidayCatList.hoCatName}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${holidayCatList.hoCatId}">${holidayCatList.hoCatName}</option>
+															</c:otherwise>
+														</c:choose>
 													</c:forEach>
 												</select> <span class="validation-invalid-label" id="error_hoCatId"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
+
+										<div class="col-md-4">
+											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												id="showbtn">Show</button>
+										</div>
 									</div>
 
 
-									<%-- <div class="form-group row">
+									<br>
+								</form>
+								<%-- <div class="form-group row">
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
@@ -224,7 +247,7 @@
 
 									</div> --%>
 
-									<div class="form-group row">
+								<!-- <div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">
 												Remark : </label>
@@ -235,8 +258,10 @@
 
 											</div>
 										</div>
-									</div>
-
+									</div> -->
+								<form
+									action="${pageContext.request.contextPath}/submitInsertHoliday"
+									id="fianlsubmitInsertHoli" method="post">
 									<div class="table-responsive">
 										<table
 											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
@@ -246,26 +271,57 @@
 											<thead>
 												<tr class="bg-blue" style="text-align: center;">
 
-
-													<th>Name</th>
+													<th>Holiday Caption</th>
 													<th>Date</th>
 													<th>Type</th>
-													<th>Caption</th>
+													<th>Remark</th>
 												</tr>
 											</thead>
 											<tbody>
+												<c:forEach items="${holiList}" var="holiList"
+													varStatus="count">
+													<tr>
 
+														<td><input type="text" class="form-control"
+															placeholder="Holiday Caption Name"
+															id="capName${holiList.holidayId}"
+															name="capName${holiList.holidayId}" autocomplete="off"
+															onchange="trim(this)" value="${holiList.holidayName}"></td>
+														<td><input type="text"
+															class="form-control datepickerclass"
+															placeholder="Select Date" id="date${holiList.holidayId}"
+															name="date${holiList.holidayId}" autocomplete="off"
+															value="${holiList.holidayDate}"></td>
+														<td><select name="typeId${holiList.holidayId}"
+															id="typeId${holiList.holidayId}" class="form-control">
+																<option value="0" selected>NA</option>
+																<option value="1">Fixed</option>
+																<option value="2">Optional</option>
+														</select></td>
+														<td><input type="text" class="form-control  "
+															placeholder="Remark"
+															id="holidayRemark${holiList.holidayId}"
+															name="holidayRemark${holiList.holidayId}"
+															autocomplete="off" onchange="trim(this)"></td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
+										<c:if test="${flag==1}">
+											<span class="validation-invalid-label" id="error_notallow">Already
+												Holiday is define of selected year for selected category</span>
+										</c:if>
+
 									</div>
 									<br>
 									<div class="form-group row mb-0">
 										<div style="margin: 0 auto;">
-
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
-												id="submtbtn">
-												Submit <i class="icon-paperplane ml-2"></i>
-											</button>
+											<c:if test="${flag==0}">
+												<button type="submit" class="btn bg-blue ml-3 legitRipple"
+													id="submtbtn">
+													Submit <i class="icon-paperplane ml-2"></i>
+												</button>
+											</c:if>
 											<a href="${pageContext.request.contextPath}/showHolidayList"><button
 													type="button" class="btn btn-light">Back</button></a>
 										</div>
@@ -371,7 +427,7 @@
 												if (!isError) {
 
 													document
-															.getElementById("submtbtn").disabled = true;
+															.getElementById("showbtn").disabled = true;
 													return true;
 
 												}
@@ -409,9 +465,15 @@
 
 													tr
 															.append($(
-																	'<td ></td>')
+																	'<td   align="center"></td>')
 																	.html(
-																			trans.holidayName));
+																			'<input type="text" class="form-control"  placeholder="Holiday Caption Name" id="capName'
+																					+ trans.holidayId
+																					+ '" name="capName'
+																					+ trans.holidayId
+																					+ '" autocomplete="off" onchange="trim(this)" value="'
+																					+ trans.holidayName
+																					+ '">'));
 
 													tr
 															.append($(
@@ -429,13 +491,11 @@
 															.append($(
 																	'<td   align="center"></td>')
 																	.html(
-																			'<input type="text" class="form-control"  placeholder="Holiday Caption Name" id="capName'
+																			'<input type="text" class="form-control  "  placeholder="Remark" id="holidayRemark'
 																					+ trans.holidayId
-																					+ '" name="capName'
+																					+ '" name="holidayRemark'
 																					+ trans.holidayId
-																					+ '" autocomplete="off" onchange="trim(this)" value="'
-																					+ trans.holidayName
-																					+ '">'));
+																					+ '" autocomplete="off" onchange="trim(this)"  >'));
 
 													$('#printtable1 tbody')
 															.append(tr);

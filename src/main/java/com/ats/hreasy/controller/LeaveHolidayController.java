@@ -51,6 +51,8 @@ public class LeaveHolidayController {
 
 	List<HolidayMaster> holiList = new ArrayList<>();
 	List<CalenderYear> calenderYearList = new ArrayList<CalenderYear>();
+	int yearId;
+	int hoCatId;
 
 	@RequestMapping(value = "/holidayAdd", method = RequestMethod.GET)
 	public ModelAndView holidayAdd(HttpServletRequest request, HttpServletResponse response) {
@@ -106,6 +108,59 @@ public class LeaveHolidayController {
 
 				model.addObject("calenderYearList", calenderYearList);
 
+				int flag = 0;
+
+				try {
+
+					yearId = Integer.parseInt(request.getParameter("yearId"));
+					hoCatId = Integer.parseInt(request.getParameter("hoCatId"));
+					model.addObject("yearId", yearId);
+					model.addObject("hoCatId", hoCatId);
+
+					map = new LinkedMultiValueMap<>();
+					map.add("yearId", yearId);
+					map.add("catId", hoCatId);
+
+					Info info = Constants.getRestTemplate().postForObject(Constants.url + "/getcountofholidaybyyear",
+							map, Info.class);
+
+					if (info.isError() == false) {
+
+						HolidayMaster[] holListArray = Constants.getRestTemplate()
+								.getForObject(Constants.url + "/getHolidayMaster", HolidayMaster[].class);
+
+						holiList = new ArrayList<>(Arrays.asList(holListArray));
+
+						String date1 = new String();
+						String date2 = new String();
+
+						for (int i = 0; i < calenderYearList.size(); i++) {
+
+							if (calenderYearList.get(i).getCalYrId() == yearId) {
+
+								date1 = calenderYearList.get(i).getCalYrFromDate();
+								date2 = calenderYearList.get(i).getCalYrToDate();
+								break;
+
+							}
+						}
+
+						String[] datearr = date1.split("-");
+
+						for (int i = 0; i < holiList.size(); i++) {
+
+							holiList.get(i).setHolidayDate(holiList.get(i).getHolidayDate() + "-" + datearr[2]);
+						}
+
+						model.addObject("holiList", holiList);
+					} else {
+						flag = 1;
+					}
+
+				} catch (Exception e) {
+
+				}
+				model.addObject("flag", flag);
 			}
 
 		} catch (Exception e) {
@@ -171,8 +226,8 @@ public class LeaveHolidayController {
 			a = "redirect:/showHolidayList";
 			try {
 
-				String[] holidayIds = request.getParameterValues("locId");
-				int holcatId = Integer.parseInt(request.getParameter("hoCatId"));
+				// String[] holidayIds = request.getParameterValues("locId");
+				// int holcatId = Integer.parseInt(request.getParameter("hoCatId"));
 				String holidayRemark = request.getParameter("holidayRemark");
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -189,8 +244,11 @@ public class LeaveHolidayController {
 				String locIdList = sb.toString();
 				locIdList = locIdList.substring(0, locIdList.length() - 1);
 
-				CalenderYear calculateYear = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+				/*
+				 * CalenderYear calculateYear = Constants.getRestTemplate()
+				 * .getForObject(Constants.url + "/getCalculateYearListIsCurrent",
+				 * CalenderYear.class);
+				 */
 
 				StringBuilder dates = new StringBuilder();
 
@@ -202,28 +260,31 @@ public class LeaveHolidayController {
 
 					int typeId = Integer.parseInt(request.getParameter("typeId" + holiList.get(i).getHolidayId()));
 
-					if (typeId != 0) {
+					// if (typeId != 0) {
 
-						String capName = request.getParameter("capName" + holiList.get(i).getHolidayId());
+					String capName = request.getParameter("capName" + holiList.get(i).getHolidayId());
+					String date = request.getParameter("date" + holiList.get(i).getHolidayId());
 
-						if (!capName.equals("")) {
-							holiList.get(i).setHolidayName(capName);
-						}
-						holiList.get(i).setDelStatus(typeId);
-						dates = dates.append(DateConvertor.convertToYMD(holiList.get(i).getHolidayDate()) + ",");
-						newHoliList.add(holiList.get(i));
+					if (!capName.equals("")) {
+						holiList.get(i).setHolidayName(capName);
 					}
+					holiList.get(i).setDelStatus(typeId);
+					holiList.get(i).setHolidayDate(date);
+					dates = dates.append(DateConvertor.convertToYMD(holiList.get(i).getHolidayDate()) + ",");
+					newHoliList.add(holiList.get(i));
+					// }
 				}
 
 				// }
 				String holidayDates = dates.toString();
 				holidayDates = holidayDates.substring(0, holidayDates.length() - 1);
 
-				map = new LinkedMultiValueMap<>();
-				map.add("dates", holidayDates);
-				map.add("holcatId", holcatId);
-				Holiday[] holidayRes = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getHolidayListByDates", map, Holiday[].class);
+				/*
+				 * map = new LinkedMultiValueMap<>(); map.add("dates", holidayDates);
+				 * map.add("holcatId", hoCatId); Holiday[] holidayRes =
+				 * Constants.getRestTemplate() .postForObject(Constants.url +
+				 * "/getHolidayListByDates", map, Holiday[].class);
+				 */
 
 				List<Holiday> saveList = new ArrayList<>();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -231,22 +292,21 @@ public class LeaveHolidayController {
 
 				for (int i = 0; i < newHoliList.size(); i++) {
 
-					Date date1 = dd.parse(newHoliList.get(i).getHolidayDate());
+					// Date date1 = dd.parse(newHoliList.get(i).getHolidayDate());
 					int flag = 0;
 
-					for (int j = 0; j < holidayRes.length; j++) {
-						Date date2 = sf.parse(holidayRes[j].getHolidayFromdt());
-						if (date1.compareTo(date2) == 0) {
-							flag = 1;
-							break;
-						}
-
-					}
+					/*
+					 * for (int j = 0; j < holidayRes.length; j++) { Date date2 =
+					 * sf.parse(holidayRes[j].getHolidayFromdt()); if (date1.compareTo(date2) == 0)
+					 * { flag = 1; break; }
+					 * 
+					 * }
+					 */
 
 					if (flag == 0) {
 
 						Holiday holiday = new Holiday();
-						holiday.setCalYrId(calculateYear.getCalYrId());
+						holiday.setCalYrId(yearId);
 						holiday.setCompanyId(1);
 						holiday.setDelStatus(1);
 
@@ -260,7 +320,7 @@ public class LeaveHolidayController {
 						holiday.setLocId(locIdList);
 						holiday.setMakerEnterDatetime(dateTime);
 						holiday.setMakerUserId(userObj.getUserId());
-						holiday.setExInt1(holcatId);
+						holiday.setExInt1(hoCatId);
 						holiday.setExInt2(newHoliList.get(i).getHolidayId());
 						holiday.setExInt3(newHoliList.get(i).getDelStatus());
 						saveList.add(holiday);
