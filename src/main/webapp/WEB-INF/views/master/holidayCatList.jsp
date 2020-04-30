@@ -102,6 +102,7 @@
 									<th width="10%" class="text-center">Sr. No.</th>
 									<th class="text-center">Holiday Category Name</th>
 									<th class="text-center">Holiday Category Short Name</th>
+									<th class="text-center">No of Optional Holidays</th>
 
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
@@ -114,7 +115,7 @@
 										<td class="text-left">${count.index+1}</td>
 										<td class="text-left">${holiList.hoCatName}</td>
 										<td class="text-left">${holiList.hoCatShortName}</td>
-
+<td class="text-left">${holiList.exInt1}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editHolidayCat?hoCatId=${holiList.exVar1}"

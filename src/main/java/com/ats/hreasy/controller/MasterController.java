@@ -783,6 +783,8 @@ public class MasterController {
 			String remark = request.getParameter("remark");
 
 			int hoCatId = Integer.parseInt(request.getParameter("hoCatId"));
+			
+			int optHoldayCount = Integer.parseInt(request.getParameter("opt_holday_count"));
 
 			Boolean ret = false;
 
@@ -807,7 +809,11 @@ public class MasterController {
 				location.setRemark(remark);
 
 				location.setCompanyId(1);
-				location.setExInt1(0);
+				try {
+				location.setExInt1(optHoldayCount);
+				}catch (Exception e) {
+					location.setExInt1(0);
+				} 
 				location.setExInt2(0);
 				location.setIsActive(1);
 				location.setDelStatus(1);

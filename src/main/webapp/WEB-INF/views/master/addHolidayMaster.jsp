@@ -75,7 +75,7 @@
 								<table width="100%">
 									<tr width="100%">
 										<td width="60%"><h5 class="pageTitle">
-												<i class="icon-list-unordered"></i> Add Default Holiday
+												<i class="icon-list-unordered"></i> Add Holiday
 											</h5></td>
 										<td width="40%" align="right">
 											<%-- 
@@ -145,11 +145,12 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-
+</div>
+<div class="form-group row">
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float">Date
-												<span class="text-danger">*</span>:
+												<span class="text-danger"></span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
@@ -159,6 +160,7 @@
 													style="display: none;">This field is required.</span>
 
 											</div>
+											<span class="desc text-success fontsize11">Please enter date if holiday is appearing at this specific date every year e.g Independance Day - 15 Aug else keep blank.</span>
 										</div>
 									</div>
 
@@ -250,13 +252,7 @@
 
 				}
 
-				if (!$("#dateRange").val()) {
-
-					isError = true;
-
-					$("#error_Range").show()
-
-				}
+				
 				if (!isError) {
 
 					document.getElementById("submtbtn").disabled = true;
@@ -279,7 +275,6 @@
 				format : 'DD-MM-YYYY'
 			}
 		});
-
 		//daterange-basic_new
 		// Basic initialization
 		$('.daterange-basic_new').daterangepicker({

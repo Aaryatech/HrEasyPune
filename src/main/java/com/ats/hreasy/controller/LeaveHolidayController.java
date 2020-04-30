@@ -685,12 +685,13 @@ public class LeaveHolidayController {
 
 				Boolean ret = false;
 
-				if (FormValidation.Validaton(dateRange, "") == true) {
-
-					ret = true;
-
-				}
-
+				/*
+				 * if (FormValidation.Validaton(dateRange, "") == true) {
+				 * 
+				 * ret = true;
+				 * 
+				 * }
+				 */
 				if (FormValidation.Validaton(holidayTitle, "") == true && ret == false) {
 
 					ret = true;
@@ -703,10 +704,22 @@ public class LeaveHolidayController {
 					holiday.setDelStatus(1);
 					holiday.setHolidayName(holidayTitle);
 					holiday.setHolidayDate(dateRange);
+MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					
+					map = new LinkedMultiValueMap<>();
+					
+					map.add("holidayId", holiday.getHolidayId());
+					map.add("holidaytDate", DateConvertor.convertToYMD(holiday.getHolidayDate()));
+					
+					HolidayMaster res = null;
+					
+					Integer holDayCount = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getHolidayCountsByDate", map, Integer.class);
+					if (holDayCount < 1) {
 
-					HolidayMaster res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
+					 res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
 							holiday, HolidayMaster.class);
-
+					}
 					if (res != null) {
 						session.setAttribute("successMsg", "Holiday Inserted Successfully");
 					} else {
@@ -883,12 +896,13 @@ public class LeaveHolidayController {
 
 				Boolean ret = false;
 
-				if (FormValidation.Validaton(dateRange, "") == true) {
-
-					ret = true;
-
-				}
-
+				/*
+				 * if (FormValidation.Validaton(dateRange, "") == true) {
+				 * 
+				 * ret = true;
+				 * 
+				 * }
+				 */
 				if (FormValidation.Validaton(holidayTitle, "") == true && ret == false) {
 
 					ret = true;
@@ -899,10 +913,19 @@ public class LeaveHolidayController {
 
 					editHolidayMaster.setHolidayName(holidayTitle);
 					editHolidayMaster.setHolidayDate(dateRange);
-
-					HolidayMaster res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map = new LinkedMultiValueMap<>();
+					map.add("holidayId", editHolidayMaster.getHolidayId());
+					map.add("holidaytDate", DateConvertor.convertToYMD(editHolidayMaster.getHolidayDate()));
+					HolidayMaster res = null;
+					
+					Integer holDayCount = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getHolidayCountsByDate", map, Integer.class);
+					if (holDayCount < 1) {
+					 res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
 							editHolidayMaster, HolidayMaster.class);
 
+					}
 					if (res != null) {
 						session.setAttribute("successMsg", "Holiday Updated Successfully");
 					} else {

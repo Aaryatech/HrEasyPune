@@ -144,6 +144,19 @@
 
 									
 									<div class="form-group row">
+									
+									<div class="col-md-6">	
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="opt_holday_count">No of Optional Holiday
+											 </label>
+										<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+												placeholder="No of optional holidays" id="opt_holday_count" value="${holi.exInt1}"
+												name="opt_holday_count" autocomplete="off" onchange="trim(this)"
+												maxlength="3">
+
+										</div>
+									</div>
+									
 									<div class="col-md-6">	
 										<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
@@ -194,6 +207,11 @@
 	
 	
 	<script>
+	
+	$('#opt_holday_count').on('input', function() {
+		  this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	
 		function checkUnique(inputValue, valueType) {
 			//${holi.hoCatId}
 			var primaryKey =	document.getElementById("hoCatId").value ;

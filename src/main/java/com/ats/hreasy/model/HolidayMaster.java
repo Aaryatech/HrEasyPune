@@ -7,6 +7,7 @@ public class HolidayMaster {
 	private String holidayDate;
 	private String holidayName; 
 	private int delStatus;
+
 	public int getHolidayId() {
 		return holidayId;
 	}
@@ -32,12 +33,11 @@ public class HolidayMaster {
 	public void setDelStatus(int delStatus) {
 		this.delStatus = delStatus;
 	}
+	
 	@Override
 	public String toString() {
 		return "HolidayMaster [holidayId=" + holidayId + ", holidayDate=" + holidayDate + ", holidayName=" + holidayName
 				+ ", delStatus=" + delStatus + "]";
 	}
-	
-	
 
 }
