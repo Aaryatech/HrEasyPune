@@ -458,6 +458,8 @@ public class MasterController {
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String selfGrpTitle = request.getParameter("grpName");
 
+				int groupType = Integer.parseInt(request.getParameter("groupType"));
+
 				Boolean ret = false;
 
 				if (FormValidation.Validaton(selfGrpTitle, "") == true) {
@@ -473,7 +475,7 @@ public class MasterController {
 					bonus.setName(selfGrpTitle);
 					;
 					bonus.setDelStatus(1);
-					bonus.setExInt1(0);
+					bonus.setExInt1(groupType);
 					bonus.setExInt2(0);
 					bonus.setExVar1("NA");
 					bonus.setExVar2("NA");
@@ -658,7 +660,7 @@ public class MasterController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String selfGrpTitle = request.getParameter("grpName");
-
+				int groupType = Integer.parseInt(request.getParameter("groupType"));
 				Boolean ret = false;
 
 				if (FormValidation.Validaton(selfGrpTitle, "") == true) {
@@ -670,6 +672,7 @@ public class MasterController {
 				if (ret == false) {
 
 					editSelf.setName(selfGrpTitle);
+					editSelf.setExInt1(groupType);
 					;
 					/*
 					 * editSelf.setDelStatus(1); editSelf.setExInt1(0); editSelf.setExInt2(0);
@@ -783,7 +786,7 @@ public class MasterController {
 			String remark = request.getParameter("remark");
 
 			int hoCatId = Integer.parseInt(request.getParameter("hoCatId"));
-			
+
 			int optHoldayCount = Integer.parseInt(request.getParameter("opt_holday_count"));
 
 			Boolean ret = false;
@@ -810,10 +813,10 @@ public class MasterController {
 
 				location.setCompanyId(1);
 				try {
-				location.setExInt1(optHoldayCount);
-				}catch (Exception e) {
+					location.setExInt1(optHoldayCount);
+				} catch (Exception e) {
 					location.setExInt1(0);
-				} 
+				}
 				location.setExInt2(0);
 				location.setIsActive(1);
 				location.setDelStatus(1);
@@ -827,9 +830,9 @@ public class MasterController {
 						location, HolidayCategory.class);
 
 				if (res != null) {
-					if(location.getHoCatId()>0) {
+					if (location.getHoCatId() > 0) {
 						session.setAttribute("successMsg", "Holiday Category Updated Successfully");
-					}else {
+					} else {
 						session.setAttribute("successMsg", "Holiday Category Inserted Successfully");
 					}
 				} else {
@@ -1360,9 +1363,9 @@ public class MasterController {
 							SkillRates.class);
 
 					if (res != null) {
-						if(skill.getSkillId()>0) {
+						if (skill.getSkillId() > 0) {
 							session.setAttribute("successMsg", "Skill Rate Updated Successfully");
-						}else {
+						} else {
 							session.setAttribute("successMsg", "Skill Rate Inserted Successfully");
 						}
 					} else {
@@ -1517,6 +1520,7 @@ public class MasterController {
 		}
 		return mav;
 	}
+
 	/********************************************************************************************/
 	@RequestMapping(value = "/checkUniqueDates", method = RequestMethod.GET)
 	public @ResponseBody Info checkUniqueDates(HttpServletRequest request, HttpServletResponse response) {

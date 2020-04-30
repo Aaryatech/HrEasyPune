@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,8 +50,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Shift
-												Group</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Shift Group
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -102,10 +104,10 @@
 									action="${pageContext.request.contextPath}/submitInsertSelfGrp"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
-									<div class="col-md-6">
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="locName">Shift Group Name <span
+												for="grpName">Shift Group Type <span
 												class="text-danger">*</span>:
 											</label>
 											<div class="col-lg-7 float">
@@ -116,12 +118,33 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="groupType">Shift Group Type <span
+												class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="groupType" data-placeholder="Select "
+													id="groupType"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													data-fouc="" aria-hidden="true">
+													<option value="">Select Group Type</option>
+													<option value="0">Dynamic Allocation</option>
+													<option value="1">Manual Allocation</option>
+													<option value="2">Flexible Allocation</option>
+
+												</select> <span class="validation-invalid-label" id="error_groupType"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
 									</div>
 
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -171,14 +194,23 @@
 				var isError = false;
 				var errMsg = "";
 
+				$("#error_grpName").hide()
+				$("#error_groupType").hide()
+
 				if (!$("#grpName").val()) {
 
 					isError = true;
 
 					$("#error_grpName").show()
 					//return false;
-				} else {
-					$("#error_grpName").hide()
+				}
+
+				if ($("#groupType").val() == "") {
+
+					isError = true;
+
+					$("#error_groupType").show()
+					//return false;
 				}
 
 				if (!isError) {

@@ -42,13 +42,14 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Shift Group
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Shift Group List
+									</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/showAddSelfGrp"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn blue_btn">Add
-												Shift Group</button>
+											<button type="button" class="btn blue_btn">Add Shift
+												Group</button>
 										</a>
 									</c:if></td>
 							</tr>
@@ -100,18 +101,22 @@
 
 									<th width="10%" class="text-center">Sr. No.</th>
 									<th class="text-center">Shift Group Name</th>
-
+									<th class="text-center">Shift Group Type</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-
 
 								<c:forEach items="${groupList}" var="groupList"
 									varStatus="count">
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${groupList.name}</td>
+										<td><c:choose>
+												<c:when test="${groupList.exInt1==1}">Manual Allocation</c:when>
+												<c:when test="${groupList.exInt1==2}">Flexible Allocation</c:when>
+												<c:otherwise>Dynamic Allocation</c:otherwise>
+											</c:choose></td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
