@@ -153,11 +153,11 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													name="dateRange" value="${editHoliday.holidayDate}"
-													data-placeholder="Select Date" id="dateRange"> <span
-													class="validation-invalid-label" id="error_dateRange"
-													style="display: none;">This field is required.</span>
+													data-placeholder="Select Date" id="dateRange"> 
 	
 											</div>		
+																						<span class="desc text-success fontsize11">Please enter date if holiday is appearing at this specific date every year e.g Independance Day - 15 Aug else keep blank.</span>
+											
 										</div>
 									</div>
 
