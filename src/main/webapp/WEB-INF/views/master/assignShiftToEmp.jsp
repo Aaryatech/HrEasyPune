@@ -91,12 +91,14 @@
 							action="${pageContext.request.contextPath}/showEmpListToAssignShift"
 							id="showEmpListToAssignShift" method="get">
 
-							<%-- <div class="form-group row">
-							
-							
-							
-								<label class="col-form-label text-info font-weight-bold col-lg-2" for="locId">Select
-									Location <span class="text-danger">* </span> :
+							<div class="form-group row">
+
+
+
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="locId">Select Location <span class="text-danger">*
+								</span> :
 								</label>
 								<div class="col-md-2">
 									<select name="locId" data-placeholder="Select Location"
@@ -106,7 +108,7 @@
 										<option value="">Please Select</option>
 										<c:forEach items="${locationList}" var="location">
 											<c:forEach items="${locationAccess}" var="locationAccess">
-												<c:if test="${location.locId==locationAccess}"> 
+												<c:if test="${location.locId==locationAccess}">
 													<c:choose>
 														<c:when test="${location.locId==locationId}">
 															<option value="${location.locId}" selected>${location.locName}</option>
@@ -129,7 +131,7 @@
 								</button>
 
 
-							</div> --%>
+							</div>
 						</form>
 						<form
 							action="${pageContext.request.contextPath}/submitAssignShiftToEmp"
@@ -210,8 +212,7 @@
 
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Assign Shift"
-									id="deleteId"
-									style="align-content: center; >
+									id="deleteId" style="align-content: center;">
 							</div>
 						</form>
 
@@ -236,42 +237,57 @@
 
 	<script type="text/javascript">
 		$(document).ready(function($) {
-			$("
-									#submitInsertEmp").submit(function(e) {
+			$("#submitInsertEmp").submit(function(e) {
 
-				var isError=false;
-									var errMsg="" ;
-				var shiftId=$( "#shiftId").val();
+				var isError = false;
+				var errMsg = "";
+				var shiftId = $("#shiftId").val();
 
-				var
-									checked=$( "#submitInsertEmp input:checked").length>
-								0; if (!checked) { $("#error_chk").show() isError = true; } else
-								{ $("#error_chk").hide() isError = false; } //alert("checked"
-								+checked); if (shiftId == null || shiftId == "") { isError =
-								true; $("#error_shiftId").show() } else {
-								$("#error_shiftId").hide() } if (!isError) { var x = true; if (x
-								== true) { var table = $('#printtable1') .DataTable();
-								table.search("").draw();
-								document.getElementById("deleteId").disabled = true; return
-								true; } //end ajax send this to php page } return false; }); });
-								</script>
+				var checked = $("#submitInsertEmp input:checked").length > 0;
+				if (!checked) {
+					$("#error_chk").show()
+					isError = true;
+				} else {
+					$("#error_chk").hide()
+					isError = false;
+				}
+				//alert("checked" +checked);
+				if (shiftId == null || shiftId == "") {
+					isError = true;
+					$("#error_shiftId").show()
+				} else {
+					$("#error_shiftId").hide()
+				}
 
-								<script type="text/javascript">
-									$(document)
-											.ready(
-													function() {
-														//	$('#printtable').DataTable();
+				if (!isError) {
 
-														$("#selAll")
-																.click(
-																		function() {
-																			$(
-																					'#printtable1 tbody input[type="checkbox"]')
-																					.prop(
-																							'checked',
-																							this.checked);
-																		});
-													});
-								</script>
+					var x = true;
+					if (x == true) {
+						var table = $('#printtable1').DataTable();
+						table.search("").draw();
+						document.getElementById("deleteId").disabled = true;
+
+						return true;
+					}
+					//end ajax send this to php page
+				}
+				return false;
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
+
+					$("#selAll").click(
+							function() {
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
+	</script>
+
 </body>
 </html>
