@@ -236,8 +236,9 @@ public class LeaveStructureController {
 						try {
 							int inCash = Integer
 									.parseInt(request.getParameter("isInCash" + leaveTypeList.get(i).getLvTypeId()));
-							detail.setExInt1(1);
+							detail.setExInt1(inCash);
 						} catch (Exception e) {
+							System.err.println("Error Getting In cash " +e.getMessage());
 							detail.setExInt1(0);
 						}
 
@@ -551,7 +552,7 @@ public class LeaveStructureController {
 									try {
 										int incash = Integer.parseInt(
 												request.getParameter("isInCash" + leaveTypeList.get(i).getLvTypeId()));
-										editStructure.getDetailList().get(j).setExInt1(1);
+										editStructure.getDetailList().get(j).setExInt1(incash);
 									} catch (Exception e) {
 										editStructure.getDetailList().get(j).setExInt1(0);
 									}

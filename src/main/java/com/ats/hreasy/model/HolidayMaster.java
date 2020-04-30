@@ -1,7 +1,8 @@
 package com.ats.hreasy.model;
- 
 
-public class HolidayMaster {
+import java.io.Serializable;
+
+public class HolidayMaster implements Serializable {
 	 
 	private int holidayId; 
 	private String holidayDate;
