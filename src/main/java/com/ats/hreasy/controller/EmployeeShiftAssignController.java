@@ -38,6 +38,7 @@ import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.SalaryTypesMaster;
+import com.ats.hreasy.model.SelfGroup;
 import com.ats.hreasy.model.ShiftMaster;
 import com.ats.hreasy.model.SkillRates;
 import com.ats.hreasy.model.WeekoffCategory;
@@ -80,14 +81,16 @@ public class EmployeeShiftAssignController {
 				model.addObject("locationAccess", userObj.getLocationIds().split(","));
 
 				try {
-					/*int locationId = Integer.parseInt(request.getParameter("locId"));
-
-					map = new LinkedMultiValueMap<String, Object>();
-					map.add("locationIds", locationId);*/
+					/*
+					 * int locationId = Integer.parseInt(request.getParameter("locId"));
+					 * 
+					 * map = new LinkedMultiValueMap<String, Object>(); map.add("locationIds",
+					 * locationId);
+					 */
 
 					List<ShiftMaster> shiftList = new ArrayList<>();
 					GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-							.getForObject(Constants.url + "/getAllEmployeeDetail",  GetEmployeeDetails[].class);
+							.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
 
 					List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 					model.addObject("empdetList", empdetList);
@@ -96,7 +99,7 @@ public class EmployeeShiftAssignController {
 							.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
 					shiftList = new ArrayList<ShiftMaster>(Arrays.asList(shiftMaster));
 					model.addObject("shiftList", shiftList);
-					//model.addObject("locationId", locationId);
+					// model.addObject("locationId", locationId);
 				} catch (Exception e) {
 
 					// e.printStackTrace();
@@ -154,10 +157,10 @@ public class EmployeeShiftAssignController {
 			map.add("flag", 7);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/empParamAssignmentUpdate", map,
 					Info.class);
-		
-			if(info.isError()) {
+
+			if (info.isError()) {
 				redirect = "redirect:/showEmpListToAssignShift";
-			}else {
+			} else {
 				redirect = "redirect:/showEmpShiftDetails";
 			}
 
@@ -1528,6 +1531,98 @@ public class EmployeeShiftAssignController {
 		}
 
 		return "redirect:/showAssignAccessRole";
+	}
+
+	@RequestMapping(value = "/showAssignShiftGroup", method = RequestMethod.GET)
+	public String showAssignShiftGroup(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+		String ret = new String();
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showAssignShiftGroup", "showAssignShiftGroup", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+			ret = "accessDenied";
+
+		} else {
+
+			ret = "master/assignShiftGroup";
+
+			try {
+
+				GetEmployeeDetails[] empdetListar = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getAllEmployeeDetailShiftGroup", GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetListar));
+				model.addAttribute("empdetList", empdetList);
+
+				SelfGroup[] group = Constants.getRestTemplate().getForObject(Constants.url + "/getSelftGroupList",
+						SelfGroup[].class);
+				List<SelfGroup> groupList = new ArrayList<SelfGroup>(Arrays.asList(group));
+
+				model.addAttribute("groupList", groupList);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
+
+	@RequestMapping(value = "/submitAssignShiftGroup", method = RequestMethod.POST)
+	public String submitAssignShiftGroup(HttpServletRequest request, HttpServletResponse response) {
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		try {
+			HttpSession session = request.getSession();
+			String[] empId = request.getParameterValues("empId");
+
+			StringBuilder sb1 = new StringBuilder();
+
+			List<Integer> empIdList = new ArrayList<>();
+
+			for (int i = 0; i < empId.length; i++) {
+				sb1 = sb1.append(empId[i] + ",");
+				empIdList.add(Integer.parseInt(empId[i]));
+
+				// System.out.println("empId id are**" + empId[i]);
+
+			}
+
+			String accessId = null;
+			try {
+				accessId = request.getParameter("accessId");
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+			String items = sb1.toString();
+
+			items = items.substring(0, items.length() - 1);
+
+			StringBuilder sbEmp = new StringBuilder();
+
+			map.add("empIdList", items);
+			map.add("upDateId", accessId);
+			map.add("flag", 12);
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/empParamAssignmentUpdate", map,
+					Info.class);
+
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Shift Group Assigned Successfully");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Assigned Shift Group");
+			}
+
+		} catch (Exception e) {
+			System.err.println("Exce in Saving Cust Login Detail " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/showAssignShiftGroup";
 	}
 
 }
