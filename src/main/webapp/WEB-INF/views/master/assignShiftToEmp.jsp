@@ -91,7 +91,7 @@
 							action="${pageContext.request.contextPath}/showEmpListToAssignShift"
 							id="showEmpListToAssignShift" method="get">
 
-							<div class="form-group row">
+							<%-- <div class="form-group row">
 
 
 
@@ -131,7 +131,7 @@
 								</button>
 
 
-							</div>
+							</div> --%>
 						</form>
 						<form
 							action="${pageContext.request.contextPath}/submitAssignShiftToEmp"
