@@ -33,8 +33,9 @@
 
 			<!-- Content area -->
 			<div class="content">
-
-
+	
+			
+			
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 
@@ -161,6 +162,138 @@
 
 							</tbody>
 						</table>
+						
+						
+						
+						<!-- new table with accordion start here -->
+						
+						
+						<div class="table-responsive accordion">
+  <table class="table">
+    <thead>
+      <tr class="bg-blue">
+        <th scope="col">#</th>
+        <th scope="col">Heading</th>
+        <th scope="col">Heading</th>
+        <th scope="col">Heading</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+<td><span class="expand-button"></span></td>
+<td>Cell</td>
+<td>Cell</td>
+<td>Cell</td>
+
+</tr>
+<tr class="hide-table-padding">
+<!-- <td></td> -->
+<td colspan="4">
+<div id="collapseOne" class="collapse in p-3">
+	
+
+
+
+  <div class="row">
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">value 1</div>
+    
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">
+	<a href="#" class="list-icons-item text-primary-600" ><i class="icon-pencil7"></i></a>
+		 
+
+			<a href="#" class="list-icons-item text-danger-600 bootbox_custom" ><i class="icon-trash"></i></a>
+		</div>
+  </div>
+    <div class="row">
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">value 1</div>
+    
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">
+	<a href="#" class="list-icons-item text-primary-600" ><i class="icon-pencil7"></i></a>
+		 
+
+			<a href="#" class="list-icons-item text-danger-600 bootbox_custom" ><i class="icon-trash"></i></a>
+		</div>
+  </div>
+    <div class="row">
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">value 1</div>
+    
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">
+	<a href="#" class="list-icons-item text-primary-600" ><i class="icon-pencil7"></i></a>
+		 
+
+			<a href="#" class="list-icons-item text-danger-600 bootbox_custom" ><i class="icon-trash"></i></a>
+		</div>
+  </div>
+    <div class="row">
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">value 1</div>
+    
+    <div class="col-3 row_padd">label</div>
+    <div class="col-3 row_padd">
+	<a href="#" class="list-icons-item text-primary-600" ><i class="icon-pencil7"></i></a>
+	<a href="#" class="list-icons-item text-danger-600 bootbox_custom" ><i class="icon-trash"></i></a>
+		</div>
+  </div>
+</div></td>
+</tr>
+
+
+<tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+<td><span class="expand-button"></span></td>
+<td>Cell</td>
+<td>Cell</td>
+<td>Cell</td>
+
+</tr>
+<tr class="hide-table-padding">
+<!-- <td></td> -->
+<td colspan="4">
+<div id="collapseTwo" class="collapse in p-3">
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+    <div class="col-2">label</div>
+    <div class="col-4">value</div>
+  </div>
+</div></td>
+
+
+</tr>
+
+
+   
+   
+   
+    </tbody>
+  </table>
+</div>
+						
+						
+						
 
 					</div>
 
