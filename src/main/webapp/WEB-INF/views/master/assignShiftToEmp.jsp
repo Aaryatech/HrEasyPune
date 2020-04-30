@@ -7,7 +7,7 @@
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
- 
+
 <body>
 
 	<!-- Main navbar -->
@@ -42,8 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Shift
-										Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Shift Assignment
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -90,7 +91,7 @@
 							action="${pageContext.request.contextPath}/showEmpListToAssignShift"
 							id="showEmpListToAssignShift" method="get">
 
-							<div class="form-group row">
+							<%-- <div class="form-group row">
 							
 							
 							
@@ -128,15 +129,17 @@
 								</button>
 
 
-							</div>
+							</div> --%>
 						</form>
 						<form
 							action="${pageContext.request.contextPath}/submitAssignShiftToEmp"
 							id="submitInsertEmp" method="post">
 
 							<div class="form-group row">
-								<label class="col-form-label text-info font-weight-bold col-lg-2" for="locId">
-									Select Shift To Assign <span class="text-danger">* </span>:
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-2"
+									for="locId"> Select Shift To Assign <span
+									class="text-danger">* </span>:
 								</label>
 								<div class="col-lg-4">
 									<select name="shiftId" data-placeholder="Select Shift"
@@ -154,59 +157,61 @@
 								</div>
 
 							</div>
-						 
+
 							<div class="table-responsive">
-							<table
-							class="table table-bordered table-hover datatable-highlight" id="printtable1">
-								<!-- <table class="table datatable-scroll-y" width="100%"
+								<table
+									class="table table-bordered table-hover datatable-highlight"
+									id="printtable1">
+									<!-- <table class="table datatable-scroll-y" width="100%"
 										id="printtable1"> -->
-								<thead>
-									<tr class="bg-blue">
+									<thead>
+										<tr class="bg-blue">
 
-										<th width="10%">Sr.no</th>
+											<th width="10%">Sr.no</th>
 
-										<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
-										<th>Employee Name</th>
-										<th>Emp Type</th>
-										<th>Department</th>
-										<th>Designation</th>
-										<th>Location</th>
-										<th>Shift Name</th>
-
-
-									</tr>
-								</thead>
-								<tbody>
+											<th><input type="checkbox" name="selAll" id="selAll" /></th>
+											<th>Employee Code</th>
+											<th>Employee Name</th>
+											<th>Emp Type</th>
+											<th>Department</th>
+											<th>Designation</th>
+											<th>Location</th>
+											<th>Shift Name</th>
 
 
-									<c:forEach items="${empdetList}" var="empdetList"
-										varStatus="count">
-										<tr>
- 											<td>${count.index+1}</td>
-											<td><input type="checkbox" id="empId${empdetList.empId}"
-												value="${empdetList.empId}" name="empId" class="select_all"></td>
-											<td>${empdetList.empCode}</td>
-											<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
-											<td>${empdetList.empTypeName}</td>
-											<td>${empdetList.deptName}</td>
-											<td>${empdetList.empDesgn}</td>
-  											<td>${empdetList.locName}</td>
-											<td>${empdetList.shiftname}</td>
- 										</tr>
-									</c:forEach>
+										</tr>
+									</thead>
+									<tbody>
 
-								</tbody>
-							</table></div><br>
 
-							<span class="validation-invalid-label" id="error_chk"
+										<c:forEach items="${empdetList}" var="empdetList"
+											varStatus="count">
+											<tr>
+												<td>${count.index+1}</td>
+												<td><input type="checkbox"
+													id="empId${empdetList.empId}" value="${empdetList.empId}"
+													name="empId" class="select_all"></td>
+												<td>${empdetList.empCode}</td>
+												<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+												<td>${empdetList.empTypeName}</td>
+												<td>${empdetList.deptName}</td>
+												<td>${empdetList.empDesgn}</td>
+												<td>${empdetList.locName}</td>
+												<td>${empdetList.shiftname}</td>
+											</tr>
+										</c:forEach>
+
+									</tbody>
+								</table>
+							</div>
+							<br> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span>
 
 
 							<div style="text-align: center;">
-								<input type="submit" class="btn blue_btn"
-									value="Assign Shift" id="deleteId"
-									style="align-content: center; width: 113px; margin-left: 40px;">
+								<input type="submit" class="btn blue_btn" value="Assign Shift"
+									id="deleteId"
+									style="align-content: center; >
 							</div>
 						</form>
 
@@ -231,58 +236,42 @@
 
 	<script type="text/javascript">
 		$(document).ready(function($) {
-			$("#submitInsertEmp").submit(function(e) {
+			$("
+									#submitInsertEmp").submit(function(e) {
 
-				var isError = false;
-				var errMsg = "";
-				var shiftId = $("#shiftId").val();
+				var isError=false;
+									var errMsg="" ;
+				var shiftId=$( "#shiftId").val();
 
-				var checked = $("#submitInsertEmp input:checked").length > 0;
-				if (!checked) {
-					$("#error_chk").show()
-					isError = true;
-				} else {
-					$("#error_chk").hide()
-					isError = false;
-				}
-				//alert("checked" +checked);
-				if (shiftId == null || shiftId == "") {
-					isError = true;
-					$("#error_shiftId").show()
-				} else {
-					$("#error_shiftId").hide()
-				}
+				var
+									checked=$( "#submitInsertEmp input:checked").length>
+								0; if (!checked) { $("#error_chk").show() isError = true; } else
+								{ $("#error_chk").hide() isError = false; } //alert("checked"
+								+checked); if (shiftId == null || shiftId == "") { isError =
+								true; $("#error_shiftId").show() } else {
+								$("#error_shiftId").hide() } if (!isError) { var x = true; if (x
+								== true) { var table = $('#printtable1') .DataTable();
+								table.search("").draw();
+								document.getElementById("deleteId").disabled = true; return
+								true; } //end ajax send this to php page } return false; }); });
+								</script>
 
-				if (!isError) {
+								<script type="text/javascript">
+									$(document)
+											.ready(
+													function() {
+														//	$('#printtable').DataTable();
 
-					var x = true;
-					if (x == true) {
-						var table = $('#printtable1')
-						.DataTable();
-						table.search("").draw();
-						document.getElementById("deleteId").disabled = true;
-
-						return true;
-					}
-					//end ajax send this to php page
-				}
-				return false;
-			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					//	$('#printtable').DataTable();
-
-					$("#selAll").click(
-							function() {
-								$('#printtable1 tbody input[type="checkbox"]')
-										.prop('checked', this.checked);
-							});
-				});
-	</script>
-
+														$("#selAll")
+																.click(
+																		function() {
+																			$(
+																					'#printtable1 tbody input[type="checkbox"]')
+																					.prop(
+																							'checked',
+																							this.checked);
+																		});
+													});
+								</script>
 </body>
 </html>

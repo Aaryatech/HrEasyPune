@@ -80,23 +80,23 @@ public class EmployeeShiftAssignController {
 				model.addObject("locationAccess", userObj.getLocationIds().split(","));
 
 				try {
-					int locationId = Integer.parseInt(request.getParameter("locId"));
+					/*int locationId = Integer.parseInt(request.getParameter("locId"));
 
 					map = new LinkedMultiValueMap<String, Object>();
-					map.add("locationIds", locationId);
+					map.add("locationIds", locationId);*/
 
 					List<ShiftMaster> shiftList = new ArrayList<>();
 					GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getEmpDetailListByLocId", map, GetEmployeeDetails[].class);
+							.getForObject(Constants.url + "/getAllEmployeeDetail",  GetEmployeeDetails[].class);
 
 					List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 					model.addObject("empdetList", empdetList);
 
 					ShiftMaster[] shiftMaster = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/showShiftListByLocationIds", map, ShiftMaster[].class);
+							.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
 					shiftList = new ArrayList<ShiftMaster>(Arrays.asList(shiftMaster));
 					model.addObject("shiftList", shiftList);
-					model.addObject("locationId", locationId);
+					//model.addObject("locationId", locationId);
 				} catch (Exception e) {
 
 					// e.printStackTrace();

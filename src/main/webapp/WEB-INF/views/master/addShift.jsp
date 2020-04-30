@@ -96,7 +96,7 @@
 									action="${pageContext.request.contextPath}/submitShiftTiming"
 									id="submitShiftTiming" method="post">
 									<div class="form-group row">
-									<div class="col-md-6">
+									<%-- <div class="col-md-6">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-5 float"
 											for="locId">Select Location <span style="color: red">
@@ -119,7 +119,7 @@
 											</select> <span class="validation-invalid-label" id="error_locId"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
+									</div> --%>
 									
 									<div class="col-md-6">
 										<label
@@ -373,7 +373,7 @@
 			$("#submitShiftTiming").submit(function(e) {
 				var isError = false;
 				var errMsg = "";
-				$("#error_locId").hide();
+				//$("#error_locId").hide();
 				$("#error_shiftName").hide();
 				$("#error_intime").hide();
 				$("#error_outtime").hide();
@@ -382,11 +382,11 @@
 				$("#error_lateMin").hide();
 				$("#error_groupId").hide();
 
-				if (!$("#locId").val()) {
+				/* if (!$("#locId").val()) {
 
 					isError = true;
 					$("#error_locId").show()
-				}
+				} */
 
 				if (!$("#shiftName").val()) {
 
@@ -449,11 +449,10 @@
 	<script type="text/javascript">
 		function getShiftListByLocationIdAndSelftGroupId() {
 
-			var locationId = $("#locId").val()
+			//var locationId = $("#locId").val()
 			var groupId = $("#groupId").val()
 
-			$.getJSON('${getShiftListByLocationIdAndSelftGroupId}', {
-				locationId : locationId,
+			$.getJSON('${getShiftListByLocationIdAndSelftGroupId}', { 
 				groupId : groupId,
 				ajax : 'true',
 			},

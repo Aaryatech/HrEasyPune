@@ -177,10 +177,10 @@ public class ShiftController {
 
 		try {
 
-			int locationId = Integer.parseInt(request.getParameter("locationId"));
+			//int locationId = Integer.parseInt(request.getParameter("locationId"));
 			int groupId = Integer.parseInt(request.getParameter("groupId"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locationId", locationId);
+			//map.add("locationId", locationId);
 			map.add("groupId", groupId);
 			ShiftMaster[] selfGroup = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getShiftListByGroupIdandlocId", map, ShiftMaster[].class);
@@ -213,7 +213,7 @@ public class ShiftController {
 			} else {
 				mav = "redirect:/getshiftList";
 
-				int locationId = Integer.parseInt(request.getParameter("locId"));
+				//int locationId = Integer.parseInt(request.getParameter("locId"));
 				String shiftName = request.getParameter("shiftName");
 				String intime = request.getParameter("intime");
 				String outtime = request.getParameter("outtime");
@@ -229,7 +229,7 @@ public class ShiftController {
 
 				ShiftMaster shiftMaster = new ShiftMaster();
 				shiftMaster.setShiftname(shiftName);
-				shiftMaster.setLocationId(locationId);
+				shiftMaster.setLocationId(0);
 				shiftMaster.setTotime(outtime + ":00");
 				shiftMaster.setFromtime(intime + ":00");
 				shiftMaster.setMaxLateTimeAllowed(lateMin);
