@@ -26,6 +26,8 @@ public class GetHoliday {
 	
 	private String exVar2;
 	private String hoCatName;
+	private int hoCatId;
+	private int hotype;
 	
 	public int getHolidayId() {
 		return holidayId;
@@ -140,13 +142,29 @@ public class GetHoliday {
 		this.hoCatName = hoCatName;
 	}
 
+	public int getHoCatId() {
+		return hoCatId;
+	}
+
+	public void setHoCatId(int hoCatId) {
+		this.hoCatId = hoCatId;
+	}
+
+	public int getHotype() {
+		return hotype;
+	}
+
+	public void setHotype(int hotype) {
+		this.hotype = hotype;
+	}
+
 	@Override
 	public String toString() {
 		return "GetHoliday [holidayId=" + holidayId + ", calYrId=" + calYrId + ", companyId=" + companyId + ", locId="
 				+ locId + ", holidayFromdt=" + holidayFromdt + ", holidayTodt=" + holidayTodt + ", holidayRemark="
 				+ holidayRemark + ", companyName=" + companyName + ", locName=" + locName + ", calYrFromDate="
 				+ calYrFromDate + ", calYrToDate=" + calYrToDate + ", exVar1=" + exVar1 + ", exVar2=" + exVar2
-				+ ", hoCatName=" + hoCatName + "]";
+				+ ", hoCatName=" + hoCatName + ", hoCatId=" + hoCatId + ", hotype=" + hotype + "]";
 	}
 
 }

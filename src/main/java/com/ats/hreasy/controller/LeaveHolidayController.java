@@ -34,6 +34,7 @@ import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.GetHoliday;
 import com.ats.hreasy.model.Holiday;
 import com.ats.hreasy.model.HolidayCategory;
+import com.ats.hreasy.model.HolidayListCatWise;
 import com.ats.hreasy.model.HolidayMaster;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -446,18 +447,33 @@ public class LeaveHolidayController {
 
 				model = new ModelAndView("master/holiday_list");
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("companyId", 1);
+				/*
+				 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				 * map.add("companyId", 1);
+				 * 
+				 * GetHoliday[] holListArray =
+				 * Constants.getRestTemplate().postForObject(Constants.url + "/getHolidayList",
+				 * map, GetHoliday[].class);
+				 * 
+				 * List<GetHoliday> holList = new ArrayList<>(Arrays.asList(holListArray));
+				 * 
+				 * for (int i = 0; i < holList.size(); i++) {
+				 * 
+				 * holList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(holList.get(i)
+				 * .getHolidayId()))); }
+				 */
 
-				GetHoliday[] holListArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHolidayList",
-						map, GetHoliday[].class);
+				HolidayListCatWise[] holidayListCatWisearr = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getHolidayCategoryListGroupBy", HolidayListCatWise[].class);
 
-				List<GetHoliday> holList = new ArrayList<>(Arrays.asList(holListArray));
+				List<HolidayListCatWise> holList = new ArrayList<>(Arrays.asList(holidayListCatWisearr));
 
-				for (int i = 0; i < holList.size(); i++) {
-
-					holList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(holList.get(i).getHolidayId())));
-				}
+				/*
+				 * for (int i = 0; i < holList.size(); i++) {
+				 * 
+				 * holList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(holList.get(i)
+				 * .getHolidayId()))); }
+				 */
 
 				model.addObject("holList", holList);
 				Info add = AcessController.checkAccess("showHolidayList", "showHolidayList", 0, 1, 0, 0, newModuleList);
@@ -584,12 +600,23 @@ public class LeaveHolidayController {
 
 				a = "redirect:/showHolidayList";
 
-				String base64encodedString = request.getParameter("holidayId");
-				String holidayId = FormValidation.DecodeKey(base64encodedString);
+				/*
+				 * String base64encodedString = request.getParameter("holidayId"); String
+				 * holidayId = FormValidation.DecodeKey(base64encodedString);
+				 * 
+				 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				 * map.add("holidayId", holidayId); Info info =
+				 * Constants.getRestTemplate().postForObject(Constants.url + "/deleteHoliday",
+				 * map, Info.class);
+				 */
+
+				int yearId = Integer.parseInt(request.getParameter("holidayId"));
+				int catid = Integer.parseInt(request.getParameter("catid"));
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("holidayId", holidayId);
-				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteHoliday", map,
+				map.add("yearId", yearId);
+				map.add("catid", catid);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteHolidayByGroup", map,
 						Info.class);
 
 				if (info.isError() == false) {

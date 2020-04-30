@@ -70,7 +70,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Holiday List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Holiday List
+									</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/holidayAdd"
@@ -120,7 +122,7 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<table
+						<%-- <table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 							id="printtable1">
 							<thead>
@@ -147,13 +149,13 @@
 										<td>${holiday.holidayFromdt}</td>
 
 										<td class="text-center">
-											<%-- <c:if test="${editAccess == 0}">
+											<c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editHoliday?holidayId=${holiday.exVar1}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
-											</c:if> --%> <c:if test="${deleteAccess == 0}">
+											</c:if> <c:if test="${deleteAccess == 0}">
 
 
 												<a href="javascript:void(0)"
@@ -166,7 +168,191 @@
 								</c:forEach>
 
 							</tbody>
-						</table>
+						</table> --%>
+
+
+						<div class="table-responsive accordion">
+							<table class="table">
+								<thead>
+									<tr class="bg-blue">
+										<th style="text-align: center;" scope="col">#</th>
+										<th style="text-align: center;" scope="col">Year</th>
+										<th style="text-align: center;" scope="col">Category</th>
+										<th style="text-align: center;" scope="col">Optional
+											Holiday/Optional</th>
+										<th style="text-align: center;" scope="col">Fixed</th>
+										<th style="text-align: center;" scope="col">Total</th>
+										<th style="text-align: center;" scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<c:forEach items="${holList}" var="holList" varStatus="count">
+										<tr class="accordion-toggle collapsed"
+											id="accordion${count.index+1}" data-toggle="collapse"
+											data-parent="#accordion${count.index+1}" href="#collapseOne">
+											<td><span class="expand-button"></span></td>
+											<td>${holList.yearDate}</td>
+											<td>${holList.hoCatName}</td>
+											<td>${holList.optionalHoliday}/${holList.optionalCount}</td>
+											<td align="center">${holList.fixedCount}</td>
+											<td align="center">${holList.fixedCount+holList.optionalCount}</td>
+											<td style="text-align: center;"><a
+												href="javascript:void(0)"
+												class="list-icons-item text-danger-600 bootbox_custom"
+												data-uuid="${holList.calYrId}" data-catid="${holList.catId}"
+												data-popup="tooltip" title="" data-original-title="Delete"><i
+													class="icon-trash"></i></a></td>
+										</tr>
+										<tr class="hide-table-padding">
+											<!-- <td></td> -->
+											<td colspan="8"><div id="collapseOne"
+													class="collapse in p-3">
+													<c:forEach items="${holList.holidaylist}" var="holidaylist">
+
+
+
+
+														<div class="row">
+															<div class="col-3 row_padd">${holidaylist.exVar2}</div>
+															<div class="col-3 row_padd">${holidaylist.holidayFromdt}</div>
+															<div class="col-3 row_padd">
+																<c:choose>
+																	<c:when test="${holidaylist.hotype==1}">Fixed</c:when>
+																	<c:when test="${holidaylist.hotype==2}">Optional</c:when>
+																	<c:when test="${holidaylist.hotype==0}">NA</c:when>
+																</c:choose>
+															</div>
+
+															<%--<div class="col-3 row_padd">${holidaylist.holidaylist}</div> --%>
+															<!-- <div class="col-3 row_padd">
+															<a href="#" class="list-icons-item text-primary-600"><i
+																class="icon-pencil7"></i></a> <a href="#"
+																class="list-icons-item text-danger-600 bootbox_custom"><i
+																class="icon-trash"></i></a>
+														</div> -->
+														</div>
+													</c:forEach>
+												</div></td>
+										</tr>
+									</c:forEach>
+									<!-- <tr class="accordion-toggle collapsed" id="accordion1"
+										data-toggle="collapse" data-parent="#accordion1"
+										href="#collapseOne">
+										<td><span class="expand-button"></span></td>
+										<td>Cell</td>
+										<td>Cell</td>
+										<td>Cell</td>
+
+									</tr>
+									<tr class="hide-table-padding">
+										<td></td>
+										<td colspan="4">
+											<div id="collapseOne" class="collapse in p-3">
+
+												<div class="row">
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">value 1</div>
+
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">
+														<a href="#" class="list-icons-item text-primary-600"><i
+															class="icon-pencil7"></i></a> <a href="#"
+															class="list-icons-item text-danger-600 bootbox_custom"><i
+															class="icon-trash"></i></a>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">value 1</div>
+
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">
+														<a href="#" class="list-icons-item text-primary-600"><i
+															class="icon-pencil7"></i></a> <a href="#"
+															class="list-icons-item text-danger-600 bootbox_custom"><i
+															class="icon-trash"></i></a>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">value 1</div>
+
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">
+														<a href="#" class="list-icons-item text-primary-600"><i
+															class="icon-pencil7"></i></a> <a href="#"
+															class="list-icons-item text-danger-600 bootbox_custom"><i
+															class="icon-trash"></i></a>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">value 1</div>
+
+													<div class="col-3 row_padd">label</div>
+													<div class="col-3 row_padd">
+														<a href="#" class="list-icons-item text-primary-600"><i
+															class="icon-pencil7"></i></a> <a href="#"
+															class="list-icons-item text-danger-600 bootbox_custom"><i
+															class="icon-trash"></i></a>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+
+									<tr class="accordion-toggle collapsed" id="accordion2"
+										data-toggle="collapse" data-parent="#accordion2"
+										href="#collapseTwo">
+										<td><span class="expand-button"></span></td>
+										<td>Cell</td>
+										<td>Cell</td>
+										<td>Cell</td>
+
+									</tr>
+									<tr class="hide-table-padding">
+										<td></td>
+										<td colspan="4">
+											<div id="collapseTwo" class="collapse in p-3">
+												<div class="row">
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+												</div>
+												<div class="row">
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+												</div>
+												<div class="row">
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+												</div>
+												<div class="row">
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+													<div class="col-2">label</div>
+													<div class="col-4">value</div>
+												</div>
+											</div>
+										</td>
+
+
+									</tr> -->
+
+
+
+
+
+								</tbody>
+							</table>
+						</div>
 
 					</div>
 
@@ -193,6 +379,7 @@
 						'click',
 						function() {
 							var uuid = $(this).data("uuid") // will return the number 123
+							var catid = $(this).data("catid")
 							bootbox
 									.confirm({
 										title : 'Confirm ',
@@ -210,7 +397,9 @@
 										callback : function(result) {
 											if (result) {
 												location.href = "${pageContext.request.contextPath}/deleteHoliday?holidayId="
-														+ uuid;
+														+ uuid
+														+ "&catid="
+														+ catid;
 
 											}
 										}
