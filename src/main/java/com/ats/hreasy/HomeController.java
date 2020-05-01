@@ -121,6 +121,7 @@ public class HomeController {
 					mav = "redirect:/dashboard";
 					session.setAttribute("userInfo", userObj);
 					session.setAttribute("headerColor", getSettingByKey.getValue());
+					session.setAttribute("imgViewUrl", Constants.empDocShowUrl);
 
 					map = new LinkedMultiValueMap<>();
 					map.add("empTypeId", 1);

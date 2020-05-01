@@ -86,7 +86,7 @@
 							<ul class="media-list">
 								<li class="media">
 									<div class="mr-3">
-									<img src="${pageContext.request.contextPath}/resources/global_assets/images/face10.jpg" width="36" height="36" class="rounded-circle" alt="">
+									<img src="${imgUrl}/${sessionScope.userObj.empPhoto}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title font-weight-semibold">Jordana Ansley</a>
@@ -256,8 +256,8 @@
 
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						<img src="${pageContext.request.contextPath}/resources/global_assets/images/face11.jpg" width="36" height="36" class="rounded-circle" alt="">
-						<span style="margin:0 0 0 5px;">Victoria</span>
+									<img src="${sessionScope.imgViewUrl}/${sessionScope.userInfo.empPhoto}" width="36" height="36" class="rounded-circle" alt="">
+						<span style="margin:0 0 0 5px;">${sessionScope.userInfo.firstName}&nbsp; ${sessionScope.userInfo.surname}</span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
