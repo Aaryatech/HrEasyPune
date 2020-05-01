@@ -174,7 +174,7 @@
 
 											<input type="hidden" name="selectMonth" id="selectMonth"
 												value="${month}-${year}">
-											<div class="form-group row">
+											<%-- <div class="form-group row">
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-2"
 													for="assignDate"> Select Date <span
@@ -207,7 +207,7 @@
 													<input type="submit" class="btn btn-primary" value="Search"
 														id="deleteId">
 												</div>
-											</div>
+											</div> --%>
 										</form>
 
 										<form
@@ -215,7 +215,7 @@
 											id="submitEmpShiftList" method="post">
 											<input type="hidden" name="sm" id="sm" value="${month}">
 											<input type="hidden" name="sy" id="sy" value="${year}">
-											<div class="form-group row">
+											<%-- <div class="form-group row">
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-2"
 													for="locId"> Select Shift To Assign <span
@@ -236,8 +236,8 @@
 														style="display: none;">This field is required.</span>
 												</div>
 
-											</div>
-											<div class="table-responsive">
+											</div> --%>
+											<%-- <div class="table-responsive">
 												<table class="table datatable-scroll-y" width="100%"
 													id="printtable1">
 													<thead>
@@ -275,6 +275,69 @@
 																<td>${empdetList.empDesgn}</td>
 																<td>${empdetList.locName}</td>
 																<td>${empdetList.shiftname}</td>
+															</tr>
+														</c:forEach>
+
+													</tbody>
+												</table>
+											</div> --%>
+
+											<div class="table-responsive">
+												<table
+													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+													id="bootstrap-data-table">
+													<thead>
+														<tr class="bg-blue">
+															<th width="10%" style="text-align: center;">Sr.no</th>
+															<th style="text-align: center;">EMP Code</th>
+															<th style="text-align: center;">EMP Name</th>
+															<c:forEach items="${dateAndDayList}" var="dates"
+																varStatus="count">
+																<th style="text-align: center;" width="30%;">${count.index+1}<br>${dates.day}</th>
+															</c:forEach>
+														</tr>
+													</thead>
+
+													<tbody>
+														<c:forEach items="${empList}" var="empList"
+															varStatus="count">
+															<tr>
+																<td>${count.index+1}</td>
+																<td style="text-align: center;">${empList.empCode}</td>
+																<td>${empList.name}</td>
+
+																<c:forEach items="${empList.shiftallocationDetailList}"
+																	var="shiftallocationDetailList">
+																	<c:choose>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==3}">
+																			<td
+																				style="text-align: center; background-color: #27bf27;">
+																				${shiftallocationDetailList.shiftname}&nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==2}">
+																			<td
+																				style="text-align: center; background-color: #FFA8A8;">
+																				${shiftallocationDetailList.shiftname}&nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==1}">
+																			<td
+																				style="text-align: center; background-color: #FF9;">
+																				${shiftallocationDetailList.shiftname} &nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:otherwise>
+																			<td style="text-align: center;">
+																				${shiftallocationDetailList.shiftname}</td>
+																		</c:otherwise>
+																	</c:choose>
+
+																</c:forEach>
+
 															</tr>
 														</c:forEach>
 

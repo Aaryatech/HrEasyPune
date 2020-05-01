@@ -25,6 +25,8 @@ import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.CountOfAssignPending;
+import com.ats.hreasy.model.DateAndDay;
+import com.ats.hreasy.model.EmpWithShiftDetail;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
@@ -97,38 +99,68 @@ public class ShiftAssignController {
 			model.addAttribute("month", month1 + 1);
 			model.addAttribute("infoForUploadAttendance", infoForUploadAttendance);
 
-			ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
-					map, ShiftMaster[].class);
-			model.addAttribute("shiftMaster", shiftMaster);
+			/*
+			 * ShiftMaster[] shiftMaster =
+			 * Constants.getRestTemplate().postForObject(Constants.url +
+			 * "/getShiftListByLpad", map, ShiftMaster[].class);
+			 * model.addAttribute("shiftMaster", shiftMaster);
+			 */
 
 			Date fmdt = sf.parse(sf.format(firstDay));
 			Date todt = sf.parse(sf.format(lastDay));
 
 			SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
-			List<String> dates = new ArrayList<>();
-
-			for (Date j = fmdt; j.compareTo(todt) <= 0;) {
-
-				temp = Calendar.getInstance();
-				temp.setTime(j);
-				String attdate = dd.format(j);
-				dates.add(attdate);
-				j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
-
-			}
-			model.addAttribute("dates", dates);
-
-			assignDate = new String();
-			assignDate = request.getParameter("assignDate");
+			/*
+			 * List<String> dates = new ArrayList<>();
+			 * 
+			 * for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+			 * 
+			 * temp = Calendar.getInstance(); temp.setTime(j); String attdate =
+			 * dd.format(j); dates.add(attdate); j.setTime(j.getTime() + 1000 * 60 * 60 *
+			 * 24);
+			 * 
+			 * } model.addAttribute("dates", dates);
+			 * 
+			 * assignDate = new String(); assignDate = request.getParameter("assignDate");
+			 */
 
 			try {
 
+				/*
+				 * map = new LinkedMultiValueMap<String, Object>(); map.add("date",
+				 * DateConvertor.convertToYMD(assignDate)); GetEmployeeDetails[] empList =
+				 * Constants.getRestTemplate().postForObject( Constants.url +
+				 * "/getEmpDetailListforassignshiftbulk", map, GetEmployeeDetails[].class);
+				 * model.addAttribute("empdetList", empList); model.addAttribute("assignDate",
+				 * assignDate);
+				 */
+
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+
+				List<DateAndDay> dateAndDayList = new ArrayList<>();
+
+				for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+
+					DateAndDay dateAndDay = new DateAndDay();
+					String stringDate = sdf.format(j);
+					dateAndDay.setDate(dd.format(j));
+					dateAndDay.setDay(stringDate);
+					dateAndDayList.add(dateAndDay);
+
+					/* System.out.println(sf.parse(sf.format(j))); */
+					j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+				}
+
+				model.addAttribute("dateAndDayList", dateAndDayList);
+
 				map = new LinkedMultiValueMap<String, Object>();
-				map.add("date", DateConvertor.convertToYMD(assignDate));
-				GetEmployeeDetails[] empList = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getEmpDetailListforassignshiftbulk", map, GetEmployeeDetails[].class);
-				model.addAttribute("empdetList", empList);
-				model.addAttribute("assignDate", assignDate);
+				map.add("fromDate", sf.format(firstDay));
+				map.add("toDate", sf.format(lastDay));
+				
+				EmpWithShiftDetail[] empList = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
+				model.addAttribute("empList", empList); 
+
 			} catch (Exception e) {
 
 			}
