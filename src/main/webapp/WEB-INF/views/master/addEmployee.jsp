@@ -997,14 +997,24 @@
 														style="display: none;" id="error_bloodgroup">This
 														field is required.</span>
 												</div>
-												<c:if
+												<c:choose>
+												<c:when
 													test="${empPersInfo.exVar1 != '' && empPersInfo.exVar1 != null}">
 													<div class="col-lg-5">
-														<img src="${imgUrl}${empPersInfo.exVar1}"
+														<img src="${imgUrl}${empPersInfo.exVar1}" 
+														
 															title="Profile Pic" height="50" width="50"
-															alt="profile pic">
+															alt="">
 													</div>
-												</c:if>
+												</c:when>
+												<c:otherwise>
+												<div class="col-lg-5">
+														<img  
+														
+															title="Profile Pic" height="50" width="50"
+															src="${pageContext.request.contextPath}/resources/global_assets/images/face10.jpg">
+													</div>
+												</c:otherwise></c:choose>
 											</div>
 
 
