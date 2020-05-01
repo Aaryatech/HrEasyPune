@@ -865,7 +865,7 @@ public class AdvanceAdminController {
 
 			System.out.println(map);
 			EmpShiftDetails[] employeeInfo = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getshiftProject", map, EmpShiftDetails[].class);
+					.postForObject(Constants.url + "/getEmpShiftDetails", map, EmpShiftDetails[].class);
 
 			ArrayList<EmpShiftDetails> daysList = new ArrayList<EmpShiftDetails>(Arrays.asList(employeeInfo));
 
