@@ -98,47 +98,8 @@ body1 {
 		</div>
 		
 		<!-- login-form -->
-		<form id="form-login" action="loginProcess" method="post">
-			<div class="loginInner"   id="pass_form1">
-
-				<div class="login_l">
-					<a href=""><img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/monginis1.png"
-						alt=""></a>
-
-					<p class="login_txt">
-						Welcome to India’s one of most preferred bakery brand ! <span>Lets
-							make Monginis a part of everybody’s celebration!!</span>
-					</p>
-
-				</div>
-
-				<div class="login_r">
-
-
-
-					<img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png"
-						alt="">
-					<h2 class="login_head_one">Sign into your account</h2>
-					<div class="clr"></div>
-					<c:if test="${msg=null}">
-						<div class="alert alert-danger">${msg}</div>
-
-					</c:if>
-					<c:if test="${sessionScope.errorPassMsg!=null}">
-						<div class="alert alert-danger">${sessionScope.errorPassMsg}</div>
-
-						<%
-							session.removeAttribute("errorPassMsg");
-						%>
-					</c:if>
-
-					<!-- class="login-form" -->
-				<%-- 	<form action="${pageContext.request.contextPath}/loginProcess"
-						id="submitInsertEmpType" method="post"> --%>
-						
-						<%
+		<form id="form-login" action="validateOTP" method="post">
+		<%
 											UUID uuid = UUID.randomUUID();
 											MessageDigest md = MessageDigest.getInstance("MD5");
 											byte[] messageDigest = md.digest(String.valueOf(uuid).getBytes());
@@ -149,85 +110,28 @@ body1 {
 										%>
 										<input type="hidden" value="<%out.println(hashtext);%>"
 											name="token" id="token">
-						<c:if test="${sessionScope.errorMsg!=null}">
-							<div class="alert alert-danger">${sessionScope.errorMsg}</div>
-
-							<%
-								session.removeAttribute("errorMsg");
-							%>
-						</c:if>
-						<div
-							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="text" id="username" name="username"
-								class="form-control form_lgn" placeholder="Username"
-								style="border-radius: 5px;">
-							<div class="form-control-feedback" style="padding-left: 10px;">
-								<i class="icon-user text-muted"></i>
-							</div>
-						</div>
-						<div
-							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="password" id="password" name="password"
-								class="form-control form_lgn" placeholder="Password"
-								style="border-radius: 5px;">
-							<div class="form-control-feedback" style="padding-left: 10px;">
-								<i class="icon-lock2 text-muted"></i>
-							</div>
-
-						</div>
-						<div class="checkbox clearfix">
-
-							<%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
-						</div>
-						<div class="form-group" style="margin:0;">
-							<button type="submit" class="buttonlogin">Login</button>
-							<div class="forgot_pass"><a href="#" onclick="showForgotWindow()">Forgot Password?</a></div>
-						</div>
-						<div class="d-lg-none">
-							<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
-							</a> by <a href="http://aaryatechindia.in/" class="navbar-text"
-								target="_blank">AARYA TECH SOLUTIONS</a>
-							</p> <a href="http://aaryatechindia.in/" target="_blank"><img
-									src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
-									width="60" height="50" alt=""></a>
-						</div>
-					
-				</div>
-
-				<div class="clr"></div>
-			</div>
-		
-		
-		
-		
+		<input type="hidden" value="${sessionScope.userEmail}" name="userEmail">
+											
 		<!-- forgot password form -->
-			<div class="loginInner" style="display: none" id="pass_form">
-
+			<div class="loginInner">
 				<div class="login_l">
 					<a href=""><img
 						src="${pageContext.request.contextPath}/resources/global_assets/images/monginis1.png"
 						alt=""></a>
-
 					<p class="login_txt">
 						Welcome to India’s one of most preferred bakery brand ! <span>Lets
 							make Monginis a part of everybody’s celebration!!</span>
 					</p>
-
 				</div>
 
-				<div class="login_r forgot" >
-
-
+				<div class="login_r forgot" id="pass_form">
 
 					<img
 						src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png"
 						alt="">
-					<h2 class="login_head_one">Forgot Password</h2>
+					<h2 class="login_head_one">OTP Validation</h2>
 					<div class="clr"></div>
-					
-
 					<!-- class="login-form" -->
-					
 					
 												<c:if test="${sessionScope.errorPassMsg1!=null}">
 						<div class="alert alert-danger">${sessionScope.errorPassMsg1}</div>
@@ -238,49 +142,53 @@ body1 {
 					</c:if>
 						<div
 							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="text" id="usernameFp" name="usernameFp"
-								class="form-control form_lgn" placeholder="Email Address"
+							<input type="text" id="otp" name="otp"
+								class="form-control form_lgn" placeholder="Enter OTP "
 								style="border-radius: 5px;">
 							<div class="form-control-feedback" style="padding-left: 10px;">
 								<i class="icon-envelop text-muted" ></i>
 							</div>
 						</div>
 						
-						
 						<div class="form-group" style="margin:0;">
 							<button type="button" onclick="subPassForForm()" class="buttonlogin">Submit</button>
-							<div class="forgot_pass" style="text-align: left;"><a href="#" onclick="hidePassForForm()">Back</a></div>
+							<div class="forgot_pass" style="text-align: left;"><a href="${pageContext.request.contextPath}/">Back</a></div>
 						</div>
+											<span id="countdown" style="color: red; font-size: 12px;"></span>	
 						
 				</div>
-
 				<div class="clr"></div>
 				
 			</div>
 </form>
-
-
 	</div>
 	
 	<script type="text/javascript">
 function subPassForForm(){
 	//alert("Hi")
 	var form = document.getElementById("form-login")
-    form.action ="checkUserAndSendOtpEmail";
+    form.action ="validateOTP";
     form.submit();
 }
 function showForgotWindow(){
 	document.getElementById("pass_form").style.display="block";
-	document.getElementById("pass_form1").style="display:none";
-
 } 
-function hidePassForForm()
-{
-	document.getElementById("pass_form").style="display:none";
-	document.getElementById("pass_form1").style.display="block";
 
-} 
 </script>
+<script type="text/javascript">
+	
+	var timeleft = 114;
+	var downloadTimer = setInterval(function(){
+	  document.getElementById("countdown").innerHTML = timeleft + " seconds remaining to expire sent OTP";
+	  timeleft -= 1;
+	  if(timeleft <= 0){
+	    clearInterval(downloadTimer);
+	    document.getElementById("countdown").innerHTML = "OTP Expired"
+	    	document.getElementById("wp-submit").disabled=true;	
+	  }
+	}, 1000);
+	
+	</script>
 </body>
 
 </html>

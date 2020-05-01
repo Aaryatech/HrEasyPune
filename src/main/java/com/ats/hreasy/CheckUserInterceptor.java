@@ -21,7 +21,7 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 
 		String path = request.getRequestURI().substring(request.getContextPath().length());
-		// System.out.println("path is: "+path);
+		//System.out.println("Current Req Mapping is: "+request.getServletPath());
 
 		if (path.startsWith("/pdf")) {
 			return true;
@@ -55,9 +55,10 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 			try {
 				if (request.getServletPath().equals("/") || request.getServletPath().equals("/loginProcess")
-						|| request.getServletPath().equals("/logout") || request.getServletPath().equals("/login")
-						|| request.getServletPath().startsWith("/pdf")) { // ||request.getServletPath().equals("/logout")
-					// System.out.println("Login request");
+						|| request.getServletPath().equals("/logout") || request.getServletPath().equals("/login") ||request.getServletPath().equals("/checkUserAndSendOtpEmail")
+						|| request.getServletPath().startsWith("/pdf")|| request.getServletPath().startsWith("/showOTPPage")|| request.getServletPath().startsWith("/validateOTP")
+						|| request.getServletPath().startsWith("/chngNewPassword")|| request.getServletPath().startsWith("/changePassPage") ) { // ||request.getServletPath().equals("/logout")) { // ||request.getServletPath().equals("/logout")
+					// System.out.println("Login request"); 
 					return true;
 				} else if (userObj == null) {
 					// System.out.println("Session Expired");
