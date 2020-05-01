@@ -76,7 +76,7 @@
 
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h6 class="card-title">Edit Claim Structure</h6>
+								<h6 class="pageTitle"><i class="icon-list-unordered"></i> Edit Claim Structure</h6>
 							<!-- 	<div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
@@ -125,16 +125,21 @@
 									action="${pageContext.request.contextPath}/insertEditedClaimSummary"
 									id=insertClaimStructure method="post">
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="lvsName">Claim
+										
+											<label class="col-form-label col-lg-3" for="lvsName">Claim
 											Structure Name <span style="color:red">* </span>:</label>
 									  
-										<div class="col-lg-10">
+										<div class="col-lg-3">
 											<input type="text" class="form-control"
 												placeholder="Enter Claim Structure Name" id="clmsName" value="${editStructure.claimStructName}" 
 												name="clmsName" autocomplete="off" onchange="trim(this)">
 											<span class="validation-invalid-label" id="error_clmsName"
 												style="display: none;">This field is required.</span>
 										</div>
+										
+										
+									
+										
 									</div>
 									<hr>
 									<div class="form-group row">
@@ -153,10 +158,11 @@
 										</c:forEach>
 
 										<div class="form-group row">
-											<label class="col-md-2" for="prsnName">${clmType.claimTypeTitle}:
+										
+											<label class="col-md-3 " for="prsnName">${clmType.claimTypeTitle}:
 												: *</label>
 											 
-											<div class="col-md-6">
+											<div class="col-md-3">
 												<input type="text" class="form-control"
 													placeholder="Claim Amount"
 													id="amt${clmType.claimTypeId}" value="${amt}"
@@ -165,6 +171,9 @@
 													class="validation-invalid-label" id="error_prsnName"
 													style="display: none;">This field is required.</span>
 											</div>
+										
+										
+											
 										</div>
 
 
@@ -173,15 +182,15 @@
 
 									
 									
-									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+									<div style="text-align: center;" >
+										<div ><!-- class="col-lg-10 ml-lg-auto" -->
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 											<a href="${pageContext.request.contextPath}/showClaimStructureList"><button
-										type="button" class="btn btn-primary"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Cancel</button></a>
+										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>Cancel</button></a>
 										</div>
 									</div>
 								</form>

@@ -72,12 +72,13 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Claim Type List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+								<i class="icon-list-unordered"></i> Claim Type List</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/claimTypeAdd"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn btn-primary">Add
+											<button type="button" class="btn blue_btn">Add
 												Claim Type</button>
 										</a>
 									</c:if></td>
@@ -157,13 +158,13 @@
 												<a
 													href="${pageContext.request.contextPath}/editClaimType?claimTypeId=${claim.exVar1}"
 													title="Edit"><i class="icon-pencil7"
-													style="color: black;"></i></a>
+													></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/deleteClaimType?claimTypeId=${claim.exVar1}"
 													onClick="return confirm('Are you sure want to delete this record');"
-													title="Delete"><i class="icon-trash"
-													style="color: black;"></i> </a>
+													title="Delete" class="list-icons-item text-danger-600 bootbox_custom"><i class="icon-trash"
+													></i> </a>
 											</c:if>
 
 										</td>

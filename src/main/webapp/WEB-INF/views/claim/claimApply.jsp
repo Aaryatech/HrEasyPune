@@ -85,7 +85,7 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Add Claim</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Claim</h5></td>
 								<td width="40%" align="right">
 								<%--  <a
 									href="${pageContext.request.contextPath}/showApplyForClaim"
@@ -138,22 +138,25 @@
 
 
 								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="lvsName">
+								
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="lvsName">
 										Employee Code <span style="color: red">* </span>:
 									</label>
-									<div class="col-lg-10">
+									<div class="col-lg-7 float">
 										<input type="text" class="form-control"
 											placeholder="Enter Leave Structure Name" id="empCode"
 											value="${editEmp.empCode}" name="lvsName" autocomplete="off"
 											onchange="trim(this)" readonly>
 
 									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="lvsName">
+									</div>
+									
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="lvsName">
 										Employee Name <span style="color: red">* </span>:
 									</label>
-									<div class="col-lg-10">
+									<div class="col-lg-7 float">
 										<input type="text" class="form-control"
 											placeholder="Enter Leave Structure Name" id="empName"
 											value="${editEmp.firstName} ${editEmp.middleName} ${editEmp.surname}   "
@@ -161,7 +164,11 @@
 											readonly>
 
 									</div>
+									</div>
+								
+									
 								</div>
+								
 
 
 
@@ -192,23 +199,23 @@
 									</div> --%>
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="lvsName">
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="lvsName">
 											Claim Remark <span style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control" placeholder="Remark"
 												id="claim_title" name="claim_title" autocomplete="off"
 												onchange="trim(this)"> <span
 												class="validation-invalid-label" id="error_claim_title"
 												style="display: none;">This field is required.</span>
 										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2">Date Range<span
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float">Date Range<span
 											style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control daterange-basic_new "
 												name="claimDate" data-placeholder="Select Date"
 												id="claimDate"> <span
@@ -216,14 +223,21 @@
 												style="display: none;">This field is required.</span>
 
 										</div>
+										</div>
+									
+										
 									</div>
+
+									
 
 									<hr>
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="claimTypeId">Select
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="claimTypeId">Select
 											Claim Type <span style="color: red">* </span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<select name="claimTypeId"
 												data-placeholder="Select Claim Type" id="claimTypeId"
 												class="form-control form-control-select2 select2-hidden-accessible"
@@ -239,34 +253,44 @@
 												id="error_claimTypeId" style="display: none;">This
 												field is required.</span>
 										</div>
-									</div>
-
-
-									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="claimAmt">
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="claimAmt">
 											Claim Amount <span style="color: red">* </span>:
 										</label>
-										<div class="col-lg-4">
+										<div class="col-lg-7 float">
 											<input type="text" class="form-control numbersOnly"
 												 placeholder="Amount of Claim in Rs. "
 												id="claimAmt" name="claimAmt" autocomplete="off"> <span
 												class="validation-invalid-label" id="error_claim_amt"
 												style="display: none;">This field is required.</span>
 										</div>
+										</div>
+									
+										
 									</div>
 
 
 									<div class="form-group row">
-										<label class="col-form-label col-lg-2" for="lvngReson">Remark
+									
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="lvngReson">Remark
 											<span style="color: red">* </span>:
 										</label>
-										<div class="col-lg-10">
+										<div class="col-lg-7 float">
 											<textarea rows="3" cols="3" class="form-control"
 												placeholder="Remark" onchange="trim(this)" id="claimRemark"
 												name="claimRemark"> </textarea>
 											<span class="validation-invalid-label" id="error_claimRemark"
 												style="display: none;">This field is required.</span>
 										</div>
+									</div>
+										
+									</div>
+
+
+									<div class="form-group row">
+										
 
 									</div>
 									<input type="hidden" id="isDelete" name="isDelete" value="0">
@@ -276,8 +300,8 @@
 									<input type="hidden" name="tempAmtX" id="tempAmtX" value="0">
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
-											<input type="button" value="Add" class="btn btn-primary"
+										<div style="display: inline-block; width: 100%; text-align: center;">
+											<input type="button" value="Add" class="btn blue_btn"
 												style="align-content: center; width: 113px;" onclick="add()" />
 
 										</div>
@@ -318,17 +342,17 @@
 
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div style="display: inline-block; width: 100%; text-align: center;"><!--  class="col-lg-10 ml-lg-auto" -->
 
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 
 											<a
 												href="${pageContext.request.contextPath}/showApplyForClaim"><button
-													type="button" class="btn btn-primary">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													type="button" class="btn btn-light">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 													Cancel
 												</button></a>
 										</div>

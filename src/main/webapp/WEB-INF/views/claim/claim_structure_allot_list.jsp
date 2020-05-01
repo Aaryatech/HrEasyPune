@@ -100,7 +100,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Claim Structure Allotment List</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Claim Structure Allotment List</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -153,10 +153,12 @@
 							method="post" id="assignstuct">
 
 							<div class="form-group row">
-								<label class="col-form-label col-lg-2" for="lvsId">Select
+							
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="lvsId">Select
 									Structure <span style="color: red">* </span>:
 								</label>
-								<div class="col-lg-10">
+								<div class="col-lg-7 float">
 									<select name="lvsId" data-placeholder="Select Structure"
 										id="lvsId"
 										class="form-control form-control-select2 select2-hidden-accessible"
@@ -173,6 +175,9 @@
 									</select> <span class="validation-invalid-label" id="error_lvsId"
 										style="display: none;">This field is required.</span>
 								</div>
+							</div>
+							
+								
 							</div>
 
 							<table class="table datatable-scroll-y" width="100%"
@@ -233,7 +238,7 @@
 								style="display: none;">Please select one employee.</span> <br>
 
 							<div class="form-group text-center ">
-								<input type="submit" class="btn btn-primary" value="Add"
+								<input type="submit" class="btn blue_btn" value="Add"
 									id="btnassignstuct">
 
 							</div>

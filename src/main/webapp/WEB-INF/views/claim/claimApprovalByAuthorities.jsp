@@ -42,7 +42,7 @@
 
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Claim List</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Claim List</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -199,7 +199,7 @@
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 									id="printtable1">
 									<thead>
-										<tr>
+										<tr class="bg-blue">
 											<th width="10%">Sr.no</th>
 											<th>Employee Code</th>
 											<th>Employee Name</th>

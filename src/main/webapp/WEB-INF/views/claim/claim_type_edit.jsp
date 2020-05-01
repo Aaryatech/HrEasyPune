@@ -70,7 +70,7 @@
 							<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Edit Claim Type</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Claim Type</h5></td>
 								<td width="40%" align="right">
 								<%--  <a
 									href="${pageContext.request.contextPath}/showClaimTypeList"
@@ -125,9 +125,11 @@
 
 
 										<div class="form-group row">
-											<label class="col-form-label col-lg-2" for="calimTypeTitle">
+										
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="calimTypeTitle">
 												Title <span style="color:red">* </span>: </label>
-											<div class="col-lg-10">
+											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
 													placeholder="Enter Claim Type Title" id="calimTypeTitle"
 													name="calimTypeTitle" autocomplete="off"
@@ -137,11 +139,10 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-
-										<div class="form-group row">
-											<label class="col-form-label col-lg-2"
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float"
 												for="claimShortTypeTitle"> Short Title <span style="color:red">* </span>: </label>
-											<div class="col-lg-10">
+											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
 													placeholder="Enter Claim Short Name "
 													value="${editClaimType.claimTypeTitleShort}"
@@ -154,39 +155,42 @@
 												style="display: none;">Claim Type Short Name Can Not be same as  Claim Type Name. </span>
 											</div>
 										</div>
+										
+											
+										</div>
 
 										<div class="form-group row">
-											<label class="col-form-label col-lg-2">Color <span style="color:red">* </span>: </label>
-											<div class="col-lg-10">
+											<div class="col-md-6">
+												<label class="col-form-label col-lg-5 float">Color <span style="color:red">* </span>: </label>
+											<div class="col-lg-7 float">
 												<input type="text" id="claimColor" name="claimColor"
 													class="form-control colorpicker-show-input"
 													value="${editClaimType.claimTypeColor}"
 													data-preferred-format="hex" value="#f75d1c" data-fouc>
 											</div>
-										</div>
-
-
-
-										<div class="form-group row">
-											<label class="col-form-label col-lg-2" for="remark">Any
+											</div>
+											<div class="col-md-6">
+												<label class="col-form-label col-lg-5 float" for="remark">Any
 												Remark:</label>
-											<div class="col-lg-10">
+											<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Any Remark" onchange="trim(this)" id="remark"
 													name="remark">${editClaimType.claimTypeRemarks}</textarea>
 											</div>
+											</div>
 										</div>
+										
 
 										<div class="form-group row mb-0">
-											<div class="col-lg-10 ml-lg-auto">
+											<div style="display: inline-block; width: 100%; text-align: center;">
 
-												<button type="submit" class="btn bg-blue ml-3 legitRipple"
+												<button type="submit" class="btn blue_btn ml-3 legitRipple"
 													id="submtbtn">
 													Submit <i class="icon-paperplane ml-2"></i>
 												</button>
 												
 												<a href="${pageContext.request.contextPath}/showClaimTypeList"><button
-										type="button" class="btn btn-primary"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Cancel</button></a>
+										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>Cancel</button></a>
 											</div>
 										</div>
 									</form>

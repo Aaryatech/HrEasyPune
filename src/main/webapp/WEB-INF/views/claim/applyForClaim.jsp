@@ -66,7 +66,7 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Employee List</h5>
+						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee List</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -147,10 +147,9 @@
 											 <a
 											href="${pageContext.request.contextPath}/showClaimApply?empId=${tempList.exVar1}"
 											title="Add Claim"><i class="icon-diff-added"
-												style="color: black;"></i></a> <a
+												></i></a> <a
 											href="${pageContext.request.contextPath}/showClaimList?empId=${tempList.exVar1}"
-											title="Claim History"><i class="icon-history"
-												style="color: black;"></i></a>
+											title="Claim History" style="color: black;"><i class="icon-history" ></i></a>
 
 										</td>
 								
@@ -173,11 +172,9 @@
 										<td class="text-center">
 											 <a
 											href="${pageContext.request.contextPath}/showClaimApply?empId=${lvTypeList.exVar1}"
-											title="Add Claim"><i class="icon-diff-added"
-												style="color: black;"></i></a> <a
+											title="Add Claim"><i class="icon-diff-added" ></i></a> <a
 											href="${pageContext.request.contextPath}/showClaimList?empId=${lvTypeList.exVar1}"
-											title="Claim History"><i class="icon-history"
-												style="color: black;"></i></a>
+											title="Claim History" style="color: black;"><i class="icon-history" ></i></a>
 
 										</td>
 									</tr>

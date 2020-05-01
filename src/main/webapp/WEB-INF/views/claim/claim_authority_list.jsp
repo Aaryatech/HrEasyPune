@@ -70,12 +70,12 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Claim Authority List</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Claim Authority List</h5></td>
 								<td width="40%" align="right">
 								 <a
 									href="${pageContext.request.contextPath}/addClaimAuthority"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Add Claim Authority </button>
+										<button type="button" class="btn blue_btn">Add Claim Authority </button>
 								</a> </td>
 							</tr>
 						</table>
@@ -162,8 +162,7 @@
 
 										<td class="text-center"><a
 											href="${pageContext.request.contextPath}/editClaimAuthority?empId=${leaveAuth.exVar1}"
-											title="Edit"><i class="icon-pencil7"
-												style="color: black;"></i></a></td>
+											title="Edit"><i class="icon-pencil7" ></i></a></td>
 									</tr>
 								</c:forEach>
 

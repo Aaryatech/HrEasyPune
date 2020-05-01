@@ -92,7 +92,8 @@ body1 {
 				alt="">
 			</a>
 		</div>
-
+		
+		<!-- login-form -->
 		<form id="form-login" action="loginProcess" method="post">
 			<div class="loginInner">
 
@@ -142,7 +143,7 @@ body1 {
 						<div
 							class="form-group form-group-feedback form-group-feedback-left">
 							<input type="text" id="username" name="username"
-								class="form-control" placeholder="Username"
+								class="form-control form_lgn" placeholder="Username"
 								style="border-radius: 5px;">
 							<div class="form-control-feedback" style="padding-left: 10px;">
 								<i class="icon-user text-muted"></i>
@@ -151,7 +152,7 @@ body1 {
 						<div
 							class="form-group form-group-feedback form-group-feedback-left">
 							<input type="password" id="password" name="password"
-								class="form-control" placeholder="Password"
+								class="form-control form_lgn" placeholder="Password"
 								style="border-radius: 5px;">
 							<div class="form-control-feedback" style="padding-left: 10px;">
 								<i class="icon-lock2 text-muted"></i>
@@ -162,8 +163,9 @@ body1 {
 
 							<%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="margin:0;">
 							<button type="submit" class="buttonlogin">Login</button>
+							<div class="forgot_pass"><a href="#">Forgot Password?</a></div>
 						</div>
 						<div class="d-lg-none">
 							<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
@@ -179,102 +181,62 @@ body1 {
 				<div class="clr"></div>
 			</div>
 		</form>
+		
+		
+		
+		<!-- forgot password form -->
+		<form method="post">
+			<div class="loginInner">
+
+				<div class="login_l">
+					<a href=""><img
+						src="${pageContext.request.contextPath}/resources/global_assets/images/monginis1.png"
+						alt=""></a>
+
+					<p class="login_txt">
+						Welcome to India’s one of most preferred bakery brand ! <span>Lets
+							make Monginis a part of everybody’s celebration!!</span>
+					</p>
+
+				</div>
+
+				<div class="login_r forgot">
 
 
 
+					<img
+						src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png"
+						alt="">
+					<h2 class="login_head_one">Forgot Password</h2>
+					<div class="clr"></div>
+					
 
-
-		<!-- Login 17 start -->
-		<%-- <div class="login-17">
-    <div class="container">
-        <div class="col-md-12 pad-0">
-            <div class="row login-box-6">
-                <div class="col-lg-6 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
-                    <a href="http://aaryatechindia.in/" target="_blank" class="hr_logo">
-                        <img src="${pageContext.request.contextPath}/resources/global_assets/images/companylogo.png" 
-                        class="logo" alt="logo">
-                    </a>
-                    <a href="http://aaryatechindia.in/" target="_blank" class="hr_logo" ><img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy_white.png"
-						 alt=""></a>
-                    <p><span class="navbar-text lgn_powerd"> &copy; 2019 - 2022. <a href="#">Powered
-					</a> by <a href="http://aaryatechindia.in/" class="navbar-text" target="_blank">AARYA
-							TECH SOLUTIONS</a></p>
-                    
-                    
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-pad-0 align-self-center">
-                    <div class="login-inner-form">
-                        <div class="details">
-                        <img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/companylogo.png"
-						  alt="">
-                            <h3>Sign into your account</h3>
-                           <c:if test="${msg=null}">
-									<div class="alert alert-danger" >${msg}</div>
-									 
-								</c:if>
-								<c:if test="${sessionScope.errorPassMsg!=null}">
-								<div class="alert alert-danger" >${sessionScope.errorPassMsg}</div>
-								 
-								<%
-									session.removeAttribute("errorPassMsg");
-								%>
-							</c:if>
+					<!-- class="login-form" -->
+					<form method="post">
 						
-                          <!-- class="login-form" -->  
-                          <form 
-					action="${pageContext.request.contextPath}/loginProcess"
-					id="submitInsertEmpType" method="post">
-						<c:if test="${sessionScope.errorMsg!=null}">
-							<div class="alert alert-danger" >${sessionScope.errorMsg}</div>
-									 
-									<%
-										session.removeAttribute("errorMsg");
-									%>
-								</c:if>
-                                 <div
-								class="form-group form-group-feedback form-group-feedback-left">
-								<input type="text" id="username" name="username"
-									class="form-control" placeholder="Username">
-								<div class="form-control-feedback" style="padding-left:10px;">
-									<i class="icon-user text-muted"></i>
-								</div>
+						<div
+							class="form-group form-group-feedback form-group-feedback-left">
+							<input type="text" id="" name="username"
+								class="form-control form_lgn" placeholder="Email Address"
+								style="border-radius: 5px;">
+							<div class="form-control-feedback" style="padding-left: 10px;">
+								<i class="icon-envelop text-muted" ></i>
 							</div>
-                               <div
-								class="form-group form-group-feedback form-group-feedback-left">
-								<input type="password" id="password" name="password"
-									class="form-control" placeholder="Password">
-								<div class="form-control-feedback" style="padding-left:10px;">
-									<i class="icon-lock2 text-muted"></i>
-								</div>
-								
-							</div>
-                                <div class="checkbox clearfix">
-                                     
-                                    <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn-md btn-theme btn-block">Login</button>
-                                </div>
-                                	<div class="d-lg-none">
-                                	<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
-					</a> by <a href="http://aaryatechindia.in/" class="navbar-text" target="_blank">AARYA
-							TECH SOLUTIONS</a></p>
-                    <a href="http://aaryatechindia.in/" target="_blank" ><img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
-						width="60" height="50" alt=""></a>
-                                	</div>
-                            </form>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --%>
-		<!-- Login 17 end -->
+						</div>
+						
+						
+						<div class="form-group" style="margin:0;">
+							<button type="submit" class="buttonlogin">Submit</button>
+							<div class="forgot_pass" style="text-align: left;"><a href="#">Back</a></div>
+						</div>
+						
+					</form>
+				</div>
+
+				<div class="clr"></div>
+			</div>
+		</form>
+
 
 
 	</div>

@@ -68,12 +68,12 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Edit Claim Authority</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Claim Authority</h5></td>
 								<td width="40%" align="right">
 								 <a
 									href="${pageContext.request.contextPath}/addClaimAuthority"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Add Claim Authority </button>
+										<button type="button" class="btn blue_btn">Add Claim Authority </button>
 								</a> </td>
 							</tr>
 						</table>
@@ -123,9 +123,12 @@
 
 							<div class="row">
 								<div class="col-md-6">
-
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
+									<div class="table-responsive">
+									<table
+							class="table  table-bordered table-hover datatable-highlight  "
+							id="printtable1">	
+									<!-- <table class="table datatable-scroll-y" width="100%"
+										id="printtable1"> -->
 										<thead>
 											<tr class="bg-blue">
 												<th class="check" style="text-align: center; width: 5%;"><input
@@ -156,13 +159,18 @@
 
 										</tbody>
 									</table>
+									</div>
 									<span class="validation-invalid-label" id="error_table1"
 										style="display: none;">Please select one employee.</span>
 								</div>
 
 								<div class="col-md-6">
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable2">
+									<div class="table-responsive">
+									<table
+							class="table  table-bordered table-hover datatable-highlight  "
+							id="printtable1">
+									<!-- <table class="table datatable-scroll-y" width="100%"
+										id="printtable2"> -->
 										<thead>
 											<tr class="bg-blue">
 												<th class="check" style="text-align: center;">Select
@@ -229,14 +237,15 @@
 
 										</tbody>
 									</table>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-12" style="text-align: center;">
+							<div class="col-md-12" style="text-align: center; margin: 20px 0 0 0;">
 
-								<input type="submit" class="btn btn-primary" value="Add"
+								<input type="submit" class="btn blue_btn" value="Add"
 									id="submtbtn"> <a
 									href="${pageContext.request.contextPath}/claimAuthorityList"><button
-										type="button" class="btn btn-primary">Cancel</button></a>
+										type="button" class="btn btn-light">Cancel</button></a>
 
 							</div>
 						</form>
