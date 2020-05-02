@@ -346,13 +346,13 @@
 											</div>
 											<span class="validation-invalid-label" id="error_chk"
 												style="display: none;">Please Select the Employee.</span>
-											<div style="text-align: center;">
+											<!-- <div style="text-align: center;">
 
 												<button type="submit" class="mr-3 btn btn-primary     "
 													id="btnActStep2">
 													Assign Shift <i class="icon-paperplane ml-2"></i>
 												</button>
-											</div>
+											</div> -->
 										</form>
 									</div>
 								</c:if>
