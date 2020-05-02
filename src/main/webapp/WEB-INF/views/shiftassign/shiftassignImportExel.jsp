@@ -215,28 +215,50 @@
 											id="submitEmpShiftList" method="post">
 											<input type="hidden" name="sm" id="sm" value="${month}">
 											<input type="hidden" name="sy" id="sy" value="${year}">
-											<%-- <div class="form-group row">
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="locId"> Select Shift To Assign <span
-													class="text-danger">* </span>:
-												</label>
-												<div class="col-lg-3">
-													<select name="shiftId" data-placeholder="Select Shift"
-														id="shiftId"
-														class="form-control form-control-select2 select2-hidden-accessible"
-														data-fouc="" aria-hidden="true">
 
-														<option value="">Select Shift</option>
 
-														<c:forEach items="${shiftMaster}" var="shiftList">
-															<option value="${shiftList.id}">${shiftList.shiftname}</option>
-														</c:forEach>
-													</select> <span class="validation-invalid-label" id="error_shiftId"
-														style="display: none;">This field is required.</span>
+											<div class="form-group row">
+
+
+												<div class="col-md-6">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="daterange">Date Range<span style="color: red">*
+													</span>:
+													</label>
+													<div class="col-lg-7 float">
+														<input type="text"
+															class="form-control daterange-basic_new "
+															name="daterange" data-placeholder="Select Date"
+															id="daterange"> <span
+															class="validation-invalid-label" id="error_daterange"
+															style="display: none;">This field is required.</span>
+													</div>
 												</div>
 
-											</div> --%>
+												<div class="col-md-6">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="shiftId">Select Shift To Assign <span
+														style="color: red">* </span>:
+													</label>
+													<div class="col-lg-7 float">
+														<select name="shiftId" data-placeholder="Select Shift"
+															id="shiftId"
+															class="form-control form-control-select2 select2-hidden-accessible"
+															data-fouc="" aria-hidden="true">
+
+															<option value="">Select Shift</option>
+
+															<c:forEach items="${shiftMaster}" var="shiftList">
+																<option value="${shiftList.id}">${shiftList.shiftname}</option>
+															</c:forEach>
+														</select> <span class="validation-invalid-label" id="error_shiftId"
+															style="display: none;">This field is required.</span>
+													</div>
+												</div>
+
+											</div>
 											<%-- <div class="table-responsive">
 												<table class="table datatable-scroll-y" width="100%"
 													id="printtable1">
@@ -285,10 +307,11 @@
 											<div class="table-responsive">
 												<table
 													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-													id="bootstrap-data-table">
+													id="printtable1">
 													<thead>
 														<tr class="bg-blue">
 															<th width="10%" style="text-align: center;">Sr.no</th>
+															<th><input type="checkbox" name="selAll" id="selAll" /></th>
 															<th style="text-align: center;">EMP Code</th>
 															<th style="text-align: center;">EMP Name</th>
 															<c:forEach items="${dateAndDayList}" var="dates"
@@ -303,6 +326,10 @@
 															varStatus="count">
 															<tr>
 																<td>${count.index+1}</td>
+
+																<td><input type="checkbox"
+																	id="empId${empList.empId}" value="${empList.empId}"
+																	name="empId" class="select_all"></td>
 																<td style="text-align: center;">${empList.empCode}</td>
 																<td>${empList.name}</td>
 
@@ -345,14 +372,14 @@
 												</table>
 											</div>
 											<span class="validation-invalid-label" id="error_chk"
-												style="display: none;">Please Select the Employee.</span>
-											<!-- <div style="text-align: center;">
+												style="display: none;">Please Select the Employee.</span><br>
+											<div style="text-align: center;">
 
 												<button type="submit" class="mr-3 btn btn-primary     "
 													id="btnActStep2">
 													Assign Shift <i class="icon-paperplane ml-2"></i>
 												</button>
-											</div> -->
+											</div>
 										</form>
 									</div>
 								</c:if>
@@ -499,6 +526,9 @@
 												var errMsg = "";
 												var shiftId = $("#shiftId")
 														.val();
+												var daterange = $("#daterange")
+														.val();
+
 												var assignDate = $(
 														"#assignDate").val();
 
@@ -506,9 +536,14 @@
 												$("#error_chk").hide()
 												$("#error_shiftId").hide()
 												$("#error_assignDate").hide()
-
+												$("#error_daterange").hide()
 												if (!checked) {
 													$("#error_chk").show()
+													isError = true;
+												}
+												if (assignDate == "") {
+													$("#error_daterange")
+															.show()
 													isError = true;
 												}
 												//alert("checked" +checked);
@@ -518,21 +553,11 @@
 													$("#error_shiftId").show()
 												}
 
-												if (assignDate == null
-														|| assignDate == "") {
-													isError = true;
-													$("#error_assignDate")
-															.show()
-												}
-
 												if (!isError) {
 
 													var x = true;
 													if (x == true) {
-														var table = $(
-																'#printtable1')
-																.DataTable();
-														table.search("").draw();
+
 														document
 																.getElementById("btnActStep2").disabled = true;
 
@@ -719,6 +744,15 @@
 										.prop('checked', this.checked);
 							});
 				});
+
+		$('.daterange-basic_new').daterangepicker({
+			applyClass : 'bg-slate-600',
+			cancelClass : 'btn-light',
+			locale : {
+				format : 'DD-MM-YYYY',
+				separator : ' to '
+			}
+		});
 	</script>
 
 </body>

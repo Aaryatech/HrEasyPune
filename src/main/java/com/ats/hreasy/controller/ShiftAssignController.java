@@ -99,12 +99,9 @@ public class ShiftAssignController {
 			model.addAttribute("month", month1 + 1);
 			model.addAttribute("infoForUploadAttendance", infoForUploadAttendance);
 
-			/*
-			 * ShiftMaster[] shiftMaster =
-			 * Constants.getRestTemplate().postForObject(Constants.url +
-			 * "/getShiftListByLpad", map, ShiftMaster[].class);
-			 * model.addAttribute("shiftMaster", shiftMaster);
-			 */
+			ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
+					map, ShiftMaster[].class);
+			model.addAttribute("shiftMaster", shiftMaster);
 
 			Date fmdt = sf.parse(sf.format(firstDay));
 			Date todt = sf.parse(sf.format(lastDay));
@@ -156,10 +153,10 @@ public class ShiftAssignController {
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDate", sf.format(firstDay));
 				map.add("toDate", sf.format(lastDay));
-				
-				EmpWithShiftDetail[] empList = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
-				model.addAttribute("empList", empList); 
+
+				EmpWithShiftDetail[] empList = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
+				model.addAttribute("empList", empList);
 
 			} catch (Exception e) {
 
@@ -220,7 +217,7 @@ public class ShiftAssignController {
 			int sm = Integer.parseInt(request.getParameter("sm"));
 			int sy = Integer.parseInt(request.getParameter("sy"));
 			int shiftId = Integer.parseInt(request.getParameter("shiftId"));
-
+			String daterange = request.getParameter("daterange");
 			String[] empId = request.getParameterValues("empId");
 
 			StringBuilder sb = new StringBuilder();
@@ -236,10 +233,13 @@ public class ShiftAssignController {
 			String items = sb.toString();
 			items = items.substring(0, items.length() - 1);
 
+			String[] daterangear = daterange.split("to");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("empIdList", items);
 			map.add("shiftId", shiftId);
-			map.add("assignDate", DateConvertor.convertToYMD(assignDate));
+			map.add("fromDate", DateConvertor.convertToYMD(daterangear[0]));
+			map.add("toDate", DateConvertor.convertToYMD(daterangear[1])); 
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
 					Info.class);
 

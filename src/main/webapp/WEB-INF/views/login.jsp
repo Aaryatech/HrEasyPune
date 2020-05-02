@@ -122,7 +122,7 @@ body1 {
 						alt="">
 					<h2 class="login_head_one">Sign into your account</h2>
 					<div class="clr"></div>
-					<c:if test="${msg=null}">
+					<c:if test="${msg==null}">
 						<div class="alert alert-danger">${msg}</div>
 
 					</c:if>
