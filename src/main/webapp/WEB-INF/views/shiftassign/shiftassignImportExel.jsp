@@ -92,270 +92,240 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
-								<ul
-									class="nav nav-tabs nav-tabs-solid nav-justified rounded border-0">
-									<li class="nav-item mr-1"><c:choose>
-											<c:when
-												test="${((infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp)==infoForUploadAttendance.updatedByStep1}">
-												<a href="#solid-rounded-justified-tab1"
-													class="nav-link bg-success " id="tabstep1"
-													data-toggle="tab">Step 1</a>
-											</c:when>
-											<c:otherwise>
-												<a href="#solid-rounded-justified-tab1"
-													class="nav-link active show" id="tabstep1"
-													data-toggle="tab">Step 1</a>
-											</c:otherwise>
-										</c:choose></li>
-									<c:if
-										test="${((infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp)==infoForUploadAttendance.updatedByStep1}">
 
-
-										<li class="nav-item mr-1"><a
-											href="#solid-rounded-justified-tab2"
-											class="nav-link active show" data-toggle="tab">Step 2
-												Assign Shift </a></li>
-
-
-									</c:if>
-									<!--  -->
-								</ul>
 								<c:set value="0" var="step1"></c:set>
 								<div class="tab-content">
 									<c:choose>
 										<c:when
 											test="${((infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp)==infoForUploadAttendance.updatedByStep1}">
-											<div class="tab-pane fade " id="solid-rounded-justified-tab1">
+											<form
+												action="${pageContext.request.contextPath}/shiftbulkuploadImportExel"
+												id="searchEmpShiftList" method="get">
+
+												<input type="hidden" name="selectMonth" id="selectMonth"
+													value="${month}-${year}">
+												<div class="form-group row">
+
+
+													<div class="col-md-6">
+														<label
+															class="col-form-label text-info font-weight-bold col-lg-5 float"
+															for="locId"> Select Location <span
+															class="text-danger">* </span>:
+														</label>
+														<div class="col-lg-7 float">
+															<select name="locId" data-placeholder="Select Location"
+																id="locId"
+																class="form-control form-control-select2 select2-hidden-accessible"
+																data-fouc="" aria-hidden="true">
+
+																<option value="">Select Location</option>
+																<c:forEach items="${locationList}" var="locationList">
+																	<c:choose>
+																		<c:when test="${locationList.locId eq locId}">
+																			<option value="${locationList.locId}" selected>${locationList.locName}</option>
+																		</c:when>
+																		<c:otherwise>
+																			<option value="${locationList.locId}">${locationList.locName}</option>
+																		</c:otherwise>
+																	</c:choose>
+
+																</c:forEach>
+
+															</select><span class="validation-invalid-label"
+																id="error_assignDate" style="display: none;">This
+																field is required.</span>
+														</div>
+
+													</div>
+													<div class="col-md-6">
+														<input type="submit" class="btn btn-primary"
+															value="Search" id="deleteId">
+													</div>
+												</div>
+											</form>
+
+											<form
+												action="${pageContext.request.contextPath}/submitEmpShiftList"
+												id="submitEmpShiftList" method="post">
+												<input type="hidden" name="sm" id="sm" value="${month}">
+												<input type="hidden" name="sy" id="sy" value="${year}">
+
+
+												<div class="form-group row">
+
+
+													<div class="col-md-6">
+														<label
+															class="col-form-label text-info font-weight-bold col-lg-5 float"
+															for="daterange">Date Range<span
+															style="color: red">* </span>:
+														</label>
+														<div class="col-lg-7 float">
+															<input type="text"
+																class="form-control daterange-basic_new "
+																name="daterange" data-placeholder="Select Date"
+																id="daterange"> <span
+																class="validation-invalid-label" id="error_daterange"
+																style="display: none;">This field is required.</span>
+														</div>
+													</div>
+
+													<div class="col-md-6">
+														<label
+															class="col-form-label text-info font-weight-bold col-lg-5 float"
+															for="shiftId">Select Shift To Assign <span
+															style="color: red">* </span>:
+														</label>
+														<div class="col-lg-7 float">
+															<select name="shiftId" data-placeholder="Select Shift"
+																id="shiftId"
+																class="form-control form-control-select2 select2-hidden-accessible"
+																data-fouc="" aria-hidden="true">
+
+																<option value="">Select Shift</option>
+
+																<c:forEach items="${shiftMaster}" var="shiftList">
+																	<option value="${shiftList.id}">${shiftList.shiftname}</option>
+																</c:forEach>
+															</select> <span class="validation-invalid-label"
+																id="error_shiftId" style="display: none;">This
+																field is required.</span>
+														</div>
+													</div>
+
+												</div>
+
+
+												<!-- Left fixed column -->
+												<table class="table datatable-fixed-left_custom"
+													width="100%" id="printtable1">
+													<thead>
+
+
+														<tr class="bg-blue">
+
+															<th class="text-center;">Emp Code</th>
+
+															<th class="text-center;">Emp Name</th>
+
+															<th class="text-center"><input type="checkbox"
+																name="selAll" id="selAll" /></th>
+															<c:forEach items="${dateAndDayList}" var="dates"
+																varStatus="count">
+																<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
+															</c:forEach>
+
+														</tr>
+													</thead>
+													<tbody>
+
+														<c:forEach items="${empList}" var="empList"
+															varStatus="count">
+
+															<tr>
+
+																<td class="text-center">${empList.empCode}</td>
+
+																<td>${empList.name}</td>
+																<td><input type="checkbox"
+																	id="empId${empList.empId}" value="${empList.empId}"
+																	name="empId" class="select_all"></td>
+
+																<c:forEach items="${empList.shiftallocationDetailList}"
+																	var="shiftallocationDetailList">
+																	<c:choose>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==3}">
+																			<td style="background-color: #27bf27;">
+																				${shiftallocationDetailList.shiftname}&nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==2}">
+																			<td style="background-color: #FFA8A8;">
+																				${shiftallocationDetailList.shiftname}&nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:when
+																			test="${shiftallocationDetailList.extraType==1}">
+																			<td style="background-color: #FF9;">
+																				${shiftallocationDetailList.shiftname} &nbsp;
+																				(${shiftallocationDetailList.extra})</td>
+																		</c:when>
+																		<c:otherwise>
+																			<td>${shiftallocationDetailList.shiftname}</td>
+																		</c:otherwise>
+																	</c:choose>
+
+																</c:forEach>
+															</tr>
+
+														</c:forEach>
+
+
+													</tbody>
+												</table>
+												<span class="validation-invalid-label" id="error_chk"
+													style="display: none;">Please Select the Employee.</span><br>
+												<!-- /left fixed column -->
+
+												<div style="text-align: center;">
+
+													<button type="submit" class="mr-3 btn btn-primary     "
+														id="btnActStep2">
+														Assign Shift <i class="icon-paperplane ml-2"></i>
+													</button>
+												</div>
+											</form>
 										</c:when>
 										<c:otherwise>
-											<div class="tab-pane fade  show active"
-												id="solid-rounded-justified-tab1">
+											<form name="attendanceStep1" id="attendanceStep1"
+												action="http://gfplphp.aaryatechindia.in/index.php/attendance/attendanceprocess"
+												class="form-inline justify-content-center">
+
+												<input type="hidden" name="mode" id="mode"
+													value="submitform"> <input type="hidden"
+													name="month" id="month" class="form-control "
+													value="${month}"> <input type="hidden" name="year"
+													id="year" class="form-control " value="${year}">
+
+												<c:if
+													test="${((infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp)!=infoForUploadAttendance.updatedByStep1}">
+													<c:set value="1" var="step1"></c:set>
+													<button type="button"
+														class="mr-3 btn btn-primary   btnActStep1 "
+														id="btnActStep1" data-toggle1="modal"
+														data-target1="#modal_step1">
+														Start <i class="icon-paperplane ml-2"></i>
+													</button>
+
+												</c:if>
+
+											</form>
 										</c:otherwise>
 									</c:choose>
 
 
 
-									<form name="attendanceStep1" id="attendanceStep1"
-										action="http://gfplphp.aaryatechindia.in/index.php/attendance/attendanceprocess"
-										class="form-inline justify-content-center">
-
-										<input type="hidden" name="mode" id="mode" value="submitform">
-										<input type="hidden" name="month" id="month"
-											class="form-control " value="${month}"> <input
-											type="hidden" name="year" id="year" class="form-control "
-											value="${year}">
-
-										<c:if
-											test="${((infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp)!=infoForUploadAttendance.updatedByStep1}">
-											<c:set value="1" var="step1"></c:set>
-											<button type="button"
-												class="mr-3 btn btn-primary   btnActStep1 " id="btnActStep1"
-												data-toggle1="modal" data-target1="#modal_step1">
-												Start <i class="icon-paperplane ml-2"></i>
-											</button>
-
-										</c:if>
-
-									</form>
 
 
 
+
+
+									<c:if test="${step1==0}">
+										<div class="tab-pane fade show active"
+											id="solid-rounded-justified-tab2">
+											<div class="hidedefault alert bg-danger text-white"
+												id="error_step2" style="display: none;"></div>
+
+
+
+										</div>
+									</c:if>
 								</div>
-								<c:if test="${step1==0}">
-									<div class="tab-pane fade show active"
-										id="solid-rounded-justified-tab2">
-										<div class="hidedefault alert bg-danger text-white"
-											id="error_step2" style="display: none;"></div>
 
-
-										<form
-											action="${pageContext.request.contextPath}/shiftbulkuploadImportExel"
-											id="searchEmpShiftList" method="get">
-
-											<input type="hidden" name="selectMonth" id="selectMonth"
-												value="${month}-${year}">
-											<div class="form-group row">
-
-
-												<div class="col-md-6">
-													<label
-														class="col-form-label text-info font-weight-bold col-lg-5 float"
-														for="locId"> Select Location <span
-														class="text-danger">* </span>:
-													</label>
-													<div class="col-lg-7 float">
-														<select name="locId" data-placeholder="Select Location"
-															id="locId"
-															class="form-control form-control-select2 select2-hidden-accessible"
-															data-fouc="" aria-hidden="true">
-
-															<option value="">Select Location</option>
-															<c:forEach items="${locationList}" var="locationList">
-																<c:choose>
-																	<c:when test="${locationList.locId eq locId}">
-																		<option value="${locationList.locId}" selected>${locationList.locName}</option>
-																	</c:when>
-																	<c:otherwise>
-																		<option value="${locationList.locId}">${locationList.locName}</option>
-																	</c:otherwise>
-																</c:choose>
-
-															</c:forEach>
-
-														</select><span class="validation-invalid-label"
-															id="error_assignDate" style="display: none;">This
-															field is required.</span>
-													</div>
-
-												</div>
-												<div class="col-md-6">
-													<input type="submit" class="btn btn-primary" value="Search"
-														id="deleteId">
-												</div>
-											</div>
-										</form>
-
-										<form
-											action="${pageContext.request.contextPath}/submitEmpShiftList"
-											id="submitEmpShiftList" method="post">
-											<input type="hidden" name="sm" id="sm" value="${month}">
-											<input type="hidden" name="sy" id="sy" value="${year}">
-
-
-											<div class="form-group row">
-
-
-												<div class="col-md-6">
-													<label
-														class="col-form-label text-info font-weight-bold col-lg-5 float"
-														for="daterange">Date Range<span style="color: red">*
-													</span>:
-													</label>
-													<div class="col-lg-7 float">
-														<input type="text"
-															class="form-control daterange-basic_new "
-															name="daterange" data-placeholder="Select Date"
-															id="daterange"> <span
-															class="validation-invalid-label" id="error_daterange"
-															style="display: none;">This field is required.</span>
-													</div>
-												</div>
-
-												<div class="col-md-6">
-													<label
-														class="col-form-label text-info font-weight-bold col-lg-5 float"
-														for="shiftId">Select Shift To Assign <span
-														style="color: red">* </span>:
-													</label>
-													<div class="col-lg-7 float">
-														<select name="shiftId" data-placeholder="Select Shift"
-															id="shiftId"
-															class="form-control form-control-select2 select2-hidden-accessible"
-															data-fouc="" aria-hidden="true">
-
-															<option value="">Select Shift</option>
-
-															<c:forEach items="${shiftMaster}" var="shiftList">
-																<option value="${shiftList.id}">${shiftList.shiftname}</option>
-															</c:forEach>
-														</select> <span class="validation-invalid-label" id="error_shiftId"
-															style="display: none;">This field is required.</span>
-													</div>
-												</div>
-
-											</div>
-
-
-											<!-- Left fixed column -->
-											<table class="table datatable-fixed-left_custom" width="100%"
-												id="printtable1">
-												<thead>
-
-
-													<tr class="bg-blue">
-
-														<th class="text-center;">Emp Code</th>
-
-														<th class="text-center;">Emp Name</th>
-
-														<th class="text-center"><input type="checkbox"
-															name="selAll" id="selAll" /></th>
-														<c:forEach items="${dateAndDayList}" var="dates"
-															varStatus="count">
-															<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
-														</c:forEach>
-
-													</tr>
-												</thead>
-												<tbody>
-
-													<c:forEach items="${empList}" var="empList"
-														varStatus="count">
-
-														<tr>
-
-															<td class="text-center">${empList.empCode}</td>
-
-															<td>${empList.name}</td>
-															<td><input type="checkbox"
-																id="empId${empList.empId}" value="${empList.empId}"
-																name="empId" class="select_all"></td>
-
-															<c:forEach items="${empList.shiftallocationDetailList}"
-																var="shiftallocationDetailList">
-																<c:choose>
-																	<c:when
-																		test="${shiftallocationDetailList.extraType==3}">
-																		<td class="text-center"
-																			style="background-color: #27bf27;">
-																			${shiftallocationDetailList.shiftname}&nbsp;
-																			(${shiftallocationDetailList.extra})</td>
-																	</c:when>
-																	<c:when
-																		test="${shiftallocationDetailList.extraType==2}">
-																		<td class="text-center"
-																			style="background-color: #FFA8A8;">
-																			${shiftallocationDetailList.shiftname}&nbsp;
-																			(${shiftallocationDetailList.extra})</td>
-																	</c:when>
-																	<c:when
-																		test="${shiftallocationDetailList.extraType==1}">
-																		<td class="text-center"
-																			style="background-color: #FF9;">
-																			${shiftallocationDetailList.shiftname} &nbsp;
-																			(${shiftallocationDetailList.extra})</td>
-																	</c:when>
-																	<c:otherwise>
-																		<td class="text-center">
-																			${shiftallocationDetailList.shiftname}</td>
-																	</c:otherwise>
-																</c:choose>
-
-															</c:forEach>
-														</tr>
-
-													</c:forEach>
-
-
-												</tbody>
-											</table>
-											<span class="validation-invalid-label" id="error_chk"
-												style="display: none;">Please Select the Employee.</span><br>
-											<!-- /left fixed column -->
-
-											<div style="text-align: center;">
-
-												<button type="submit" class="mr-3 btn btn-primary     "
-													id="btnActStep2">
-													Assign Shift <i class="icon-paperplane ml-2"></i>
-												</button>
-											</div>
-										</form>
-									</div>
-								</c:if>
-							</div>
-
-							<%-- <div
+								<%-- <div
 								class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md card">
 								<div class="card-header bg-transparent header-elements-inline">
 
@@ -384,22 +354,22 @@
 
 							</div> --%>
 
+							</div>
 						</div>
-					</div>
 
+					</div>
 				</div>
+
 			</div>
+			<!-- /content area -->
+
+
+			<!-- Footer -->
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+			<!-- /footer -->
 
 		</div>
-		<!-- /content area -->
-
-
-		<!-- Footer -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
-		<!-- /footer -->
-
-	</div>
-	<!-- /main content -->
+		<!-- /main content -->
 
 	</div>
 
