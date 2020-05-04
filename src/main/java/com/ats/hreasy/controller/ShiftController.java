@@ -225,6 +225,8 @@ public class ShiftController {
 				
 				String changeWith = request.getParameter("changeWith");
 
+				String shrtName = request.getParameter("shrtName");
+				
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 				ShiftMaster shiftMaster = new ShiftMaster();
@@ -238,7 +240,7 @@ public class ShiftController {
 				shiftMaster.setOtCalculatedTime(outtime + ":00");
 				shiftMaster.setCompanyId(1);
 				shiftMaster.setDepartmentId(isNightShift);
-				
+				shiftMaster.setShortName(shrtName); 
 				String[] hfhour = hfdayhour.split(":");
 				String[] ot = othour.split(":");
 

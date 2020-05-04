@@ -22,7 +22,7 @@ public class ShiftMaster {
 	private int selfGroupId;  
 	private int status; 
 	private int locationId;
-	
+	private String shortName;
 	
 	public int getId() {
 		return id;
@@ -132,6 +132,12 @@ public class ShiftMaster {
 	public void setSelfGroupId(int selfGroupId) {
 		this.selfGroupId = selfGroupId;
 	}
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 	@Override
 	public String toString() {
 		return "ShiftMaster [id=" + id + ", shiftname=" + shiftname + ", fromtime=" + fromtime + ", totime=" + totime
@@ -140,7 +146,7 @@ public class ShiftMaster {
 				+ shiftHalfdayHr + ", earlyGoingMin=" + earlyGoingMin + ", otCalculatedTime=" + otCalculatedTime
 				+ ", otCalculatedAfterHr=" + otCalculatedAfterHr + ", shiftOtHour=" + shiftOtHour + ", departmentId="
 				+ departmentId + ", selfGroupId=" + selfGroupId + ", status=" + status + ", locationId=" + locationId
-				+ "]";
+				+ ", shortName=" + shortName + "]";
 	}
 	
 	

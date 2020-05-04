@@ -52,7 +52,9 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Shift</h5>
+								<h5 class="pageTitle">
+									<i class="icon-list-unordered"></i> Add Shift
+								</h5>
 							</div>
 
 							<div class="card-body">
@@ -96,45 +98,36 @@
 									action="${pageContext.request.contextPath}/submitShiftTiming"
 									id="submitShiftTiming" method="post">
 									<div class="form-group row">
-									<%-- <div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="locId">Select Location <span style="color: red">
-												*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="locId" data-placeholder="Select Location"
-												id="locId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												aria-hidden="true"
-												onchange="getShiftListByLocationIdAndSelftGroupId()">
-												<option value="">Please Select</option>
-												<c:forEach items="${locationList}" var="location">
-													<c:forEach items="${locationAccess}" var="locationAccess">
-														<c:if test="${location.locId==locationAccess}">
-															<option value="${location.locId}">${location.locName}</option>
-														</c:if>
-													</c:forEach>
-												</c:forEach>
-											</select> <span class="validation-invalid-label" id="error_locId"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="shrtName">Shift Short Name <span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Shift Short Name" id="shrtName"
+													name="shrtName" autocomplete="off" onchange="trim(this)"
+													maxlength="10"><span
+													class="validation-invalid-label" id="error_shrtName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div> --%>
-									
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold  col-lg-5 float"
-											for="shiftName">Shift Name <span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Shift Name" id="shiftName" name="shiftName"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_shiftName"
-												style="display: none;">This field is required.</span>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold  col-lg-5 float"
+												for="shiftName">Shift Name <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Shift Name" id="shiftName" name="shiftName"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_shiftName"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
 									</div>
 
 
@@ -153,11 +146,11 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold  col-lg-5 float"
-											for="outtime">Out Time<span style="color: red">*
+												class="col-form-label text-info font-weight-bold  col-lg-5 float"
+												for="outtime">Out Time<span style="color: red">*
 											</span>:
 											</label>
 											<div class="col-lg-7 float">
@@ -172,33 +165,33 @@
 
 									<div class="form-group row">
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold  col-lg-5 float"
-											for="hfdayhour">Shift Half Day Hour<span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="time" class="form-control timehour24"
-												id="hfdayhour" data-mask="23:59" name="hfdayhour"
-												autocomplete="off"> <span
-												class="validation-invalid-label" id="error_hfdayhour"
-												style="display: none;">This field is required.</span>
+											<label
+												class="col-form-label text-info font-weight-bold  col-lg-5 float"
+												for="hfdayhour">Shift Half Day Hour<span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="time" class="form-control timehour24"
+													id="hfdayhour" data-mask="23:59" name="hfdayhour"
+													autocomplete="off"> <span
+													class="validation-invalid-label" id="error_hfdayhour"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float text-info font-weight-bold"
-											for="othour">Shift OT Hour<span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="time" class="form-control timehour24"
-												id="othour" data-mask="23:59" name="othour"
-												autocomplete="off"> <span
-												class="validation-invalid-label" id="error_othour"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float text-info font-weight-bold"
+												for="othour">Shift OT Hour<span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="time" class="form-control timehour24"
+													id="othour" data-mask="23:59" name="othour"
+													autocomplete="off"> <span
+													class="validation-invalid-label" id="error_othour"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
@@ -217,31 +210,31 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold  col-lg-5 float"
-											for="groupId">Select Group <span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="groupId" data-placeholder="Select Group"
-												id="groupId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												aria-hidden="true"
-												onchange="getShiftListByLocationIdAndSelftGroupId()">
-												<option value="">Please Select</option>
-												<c:forEach items="${selfGroupList}" var="selfGroupList">
-													<option value="${selfGroupList.selftGroupId}">${selfGroupList.name}</option>
-												</c:forEach>
-											</select> <span class="validation-invalid-label" id="error_groupId"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold  col-lg-5 float"
+												for="groupId">Select Group <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="groupId" data-placeholder="Select Group"
+													id="groupId"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													aria-hidden="true"
+													onchange="getShiftListByLocationIdAndSelftGroupId()">
+													<option value="">Please Select</option>
+													<c:forEach items="${selfGroupList}" var="selfGroupList">
+														<option value="${selfGroupList.selftGroupId}">${selfGroupList.name}</option>
+													</c:forEach>
+												</select> <span class="validation-invalid-label" id="error_groupId"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 									<div class="form-group row">
-											<div class="col-md-6">
+										<div class="col-md-6">
 											<label
 												class="col-form-label  text-info font-weight-bold col-lg-5 float"
 												for="ischange">Is Changeable<span style="color: red">*
@@ -250,44 +243,48 @@
 											<div class="col-lg-7 float">
 												<input type="checkbox" id="ischange" name="ischange"
 													onchange="changeIsChange()">
+
 											</div>
+
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label   text-info font-weight-bold col-lg-5 float"
-											for="isNightShiftNo">Is Night Shift<span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="radio" id="isNightShiftNo" name="isNightShift"
-												checked value="0">No <input type="radio"
-												id="isNightShiftYes" name="isNightShift" value="1">Yes
-										</div>
+												class="col-form-label   text-info font-weight-bold col-lg-5 float"
+												for="isNightShiftNo">Is Night Shift<span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="radio" id="isNightShiftNo" name="isNightShift"
+													checked value="0">No <input type="radio"
+													id="isNightShiftYes" name="isNightShift" value="1">Yes
+
+											</div>
+
 										</div>
 
 									</div>
 									<div id="changeHideShow" style="display: none;">
 										<div class="form-group row">
 											<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="changeWith">Change
-												With : </label>
-											<div class="col-lg-7 float">
-												<select name="changeWith" data-placeholder="Change With"
-													id="changeWith"
-													class="form-control form-control-select2 select2-hidden-accessible"
-													aria-hidden="true">
+												<label class="col-form-label col-lg-5 float"
+													for="changeWith">Change With : </label>
+												<div class="col-lg-7 float">
+													<select name="changeWith" data-placeholder="Change With"
+														id="changeWith"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														aria-hidden="true">
 
 
-												</select>
-											</div>
+													</select>
+												</div>
 											</div>
 										</div>
-									</div> 
+									</div>
 
-								
+
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
@@ -298,6 +295,13 @@
 										</div>
 									</div>
 								</form>
+								<p class="desc text-danger fontsize11">MIN : (in Minutes)</p>
+								<p class="desc text-danger fontsize11">Is Changeable - Note
+									: Post cyclic shift allotment, existing shift change with
+									selected shift.</p>
+								<p class="desc text-danger fontsize11">Is Night Shift - Note
+									: In case of Night Shift - Night Shift allowance will be
+									applicable to employees working in this shift</p>
 								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
@@ -381,12 +385,19 @@
 				$("#error_othour").hide();
 				$("#error_lateMin").hide();
 				$("#error_groupId").hide();
+				$("#error_shrtName").hide();
 
 				/* if (!$("#locId").val()) {
 
 					isError = true;
 					$("#error_locId").show()
 				} */
+
+				if (!$("#shrtName").val()) {
+
+					isError = true;
+					$("#error_shrtName").show()
+				}
 
 				if (!$("#shiftName").val()) {
 
@@ -452,7 +463,7 @@
 			//var locationId = $("#locId").val()
 			var groupId = $("#groupId").val()
 
-			$.getJSON('${getShiftListByLocationIdAndSelftGroupId}', { 
+			$.getJSON('${getShiftListByLocationIdAndSelftGroupId}', {
 				groupId : groupId,
 				ajax : 'true',
 			},
