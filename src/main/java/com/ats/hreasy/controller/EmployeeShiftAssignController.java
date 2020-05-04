@@ -161,7 +161,7 @@ public class EmployeeShiftAssignController {
 			if (info.isError()) {
 				redirect = "redirect:/showEmpListToAssignShift";
 			} else {
-				redirect = "redirect:/showEmpShiftDetails";
+				redirect = "redirect:/showEmpListToAssignShift";
 			}
 
 		} catch (Exception e) {

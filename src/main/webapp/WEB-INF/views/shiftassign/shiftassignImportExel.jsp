@@ -274,10 +274,12 @@
 
 													<tr class="bg-blue">
 
-														<th class="text-center">Emp Code</th>
-														<th class="text-center"><input
-															type="checkbox" name="selAll" id="selAll" /></th>
-														<th class="text-center">Emp Name</th>
+														<th class="text-center;">Emp Code</th>
+
+														<th class="text-center;">Emp Name</th>
+
+														<th class="text-center"><input type="checkbox"
+															name="selAll" id="selAll" /></th>
 														<c:forEach items="${dateAndDayList}" var="dates"
 															varStatus="count">
 															<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
@@ -293,10 +295,11 @@
 														<tr>
 
 															<td class="text-center">${empList.empCode}</td>
+
+															<td>${empList.name}</td>
 															<td><input type="checkbox"
 																id="empId${empList.empId}" value="${empList.empId}"
 																name="empId" class="select_all"></td>
-															<td>${empList.name}</td>
 
 															<c:forEach items="${empList.shiftallocationDetailList}"
 																var="shiftallocationDetailList">
@@ -304,21 +307,21 @@
 																	<c:when
 																		test="${shiftallocationDetailList.extraType==3}">
 																		<td class="text-center"
-																			style=" background-color: #27bf27;">
+																			style="background-color: #27bf27;">
 																			${shiftallocationDetailList.shiftname}&nbsp;
 																			(${shiftallocationDetailList.extra})</td>
 																	</c:when>
 																	<c:when
 																		test="${shiftallocationDetailList.extraType==2}">
 																		<td class="text-center"
-																			style=" background-color: #FFA8A8;">
+																			style="background-color: #FFA8A8;">
 																			${shiftallocationDetailList.shiftname}&nbsp;
 																			(${shiftallocationDetailList.extra})</td>
 																	</c:when>
 																	<c:when
 																		test="${shiftallocationDetailList.extraType==1}">
 																		<td class="text-center"
-																			style=" background-color: #FF9;">
+																			style="background-color: #FF9;">
 																			${shiftallocationDetailList.shiftname} &nbsp;
 																			(${shiftallocationDetailList.extra})</td>
 																	</c:when>
@@ -504,6 +507,7 @@
 														"#assignDate").val();
 
 												var checked = $("#submitEmpShiftList input:checked").length > 0;
+												//$('body input[type="checkbox"]').prop('checked', this.checked);
 												$("#error_chk").hide()
 												$("#error_shiftId").hide()
 												$("#error_assignDate").hide()
@@ -705,32 +709,31 @@
 	</script>
 
 	<script type="text/javascript">
-	 $('.datatable-fixed-left_custom').DataTable({
-     	
-		 columnDefs: [
-             { 
-                 orderable: false,
-                 targets: [1]
-             },
-             { 
-                 width: "100px",
-                 targets: [0]
-             },
-             { 
-                 width: "200px",
-                 targets: [1]
-             } 
-         ],
-         scrollX: true,
-         scrollY: '600px',
-         scrollCollapse: true,
-         paging: false,
+		$('.datatable-fixed-left_custom').DataTable({
 
-         fixedColumns: {
-         	leftColumns: 2
-         	}
-         
-     });
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 2 ]
+			}, {
+				width : "50px",
+				targets : [ 2 ]
+			}, {
+				width : "100px",
+				targets : [ 0 ]
+			}, {
+				width : "700px",
+				targets : [ 1 ]
+			} ],
+			scrollX : true,
+			//scrollY : '600px',
+			scrollCollapse : true,
+			paging : false,
+
+			fixedColumns : {
+				leftColumns : 2
+			}
+
+		});
 		$(document).ready(
 				function() {
 					//	$('#printtable').DataTable();
@@ -751,16 +754,13 @@
 			}
 		});
 
-		$(document).ready(function () { 
-		   
-		   
+		$(document).ready(function() {
 
-		    $('body').on('click', '#selAll', function () {
-			    //alert("111111");
-		    	$('body input[type="checkbox"]')
-				.prop('checked', this.checked);
-		       // $(this).toggleClass('allChecked');
-		    })
+			$('body').on('click', '#selAll', function() {
+				//alert("111111");
+				$('body input[type="checkbox"]').prop('checked', this.checked);
+				// $(this).toggleClass('allChecked');
+			})
 		});
 	</script>
 

@@ -42,12 +42,14 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Payment Deduction List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Payment Deduction List
+									</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/payDeductionAdd"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn blue_btn">Add
-												Pay Deduction Type</button>
+											<button type="button" class="btn blue_btn">Add Pay
+												Deduction Type</button>
 										</a>
 									</c:if></td>
 							</tr>
@@ -97,39 +99,38 @@
 							<thead>
 								<tr class="bg-blue">
 
-								 <th width="10%">Sr. No.</th>
+									<th width="10%">Sr. No.</th>
 									<th class="text-center">Payment Deduction Type</th>
-									<th class="text-center">Deduction Rate</th>
+									<th class="text-center">Deduction Amount</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 
 
-								<c:forEach items="${payList}" var="payList"
-									varStatus="count">
-									
+								<c:forEach items="${payList}" var="payList" varStatus="count">
+
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${payList.typeName}</td>
-										<td class="text-right">${payList.dedRate}</td> 	 						
-										
+										<td class="text-right">${payList.dedRate}</td>
+
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editPayDeduct?typeId=${payList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
 												<%-- <a
 													href="${pageContext.request.contextPath}/deleteDesignation?desigId=${designationList.exVar1}"
 													onClick="return confirm('Are you sure want to delete this record');"
 													title="Delete"><i class="icon-trash"
 													style="color: black;"></i> </a> --%>
-											<a href="javascript:void(0)"
+												<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${payList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
+													data-uuid="${payList.exVar1}" data-popup="tooltip" title=""
+													data-original-title="Delete"><i class="icon-trash"></i></a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -155,14 +156,15 @@
 
 	</div>
 	<!-- /page content -->
-<script>
+	<script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(
 						'click',
 						function() {
 							var uuid = $(this).data("uuid") // will return the number 123
-										bootbox.confirm({
+							bootbox
+									.confirm({
 										title : 'Confirm ',
 										message : 'Are you sure you want to delete selected records ?',
 										buttons : {
