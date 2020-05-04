@@ -264,120 +264,82 @@
 												</div>
 
 											</div>
-											<%-- <div class="table-responsive">
-												<table class="table datatable-scroll-y" width="100%"
-													id="printtable1">
-													<thead>
-														<tr class="bg-blue">
-
-															<th width="10%">Sr.no</th>
-
-															<th><input type="checkbox" name="selAll" id="selAll" /></th>
-															<th>Employee Code</th>
-															<th>Employee Name</th>
-															<th>Emp Type</th>
-															<th>Department</th>
-															<th>Designation</th>
-															<th>Location</th>
-															<th>Shift Name</th>
 
 
-														</tr>
-													</thead>
-													<tbody>
+											<!-- Left fixed column -->
+											<table class="table datatable-fixed-left" width="100%"
+												id="printtable1">
+												<thead>
 
 
-														<c:forEach items="${empdetList}" var="empdetList"
+													<tr>
+
+														<th style="text-align: center;">Emp Code</th>
+														<th style="text-align: center;"><input
+															type="checkbox" name="selAll" id="selAll" /></th>
+														<th style="text-align: center;">Emp Name</th>
+														<c:forEach items="${dateAndDayList}" var="dates"
 															varStatus="count">
-															<tr>
-																<td>${count.index+1}</td>
-																<td><input type="checkbox"
-																	id="empId${empdetList.empId}"
-																	value="${empdetList.empId}" name="empId"
-																	class="select_all"></td>
-																<td>${empdetList.empCode}</td>
-																<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
-																<td>${empdetList.empTypeName}</td>
-																<td>${empdetList.deptName}</td>
-																<td>${empdetList.empDesgn}</td>
-																<td>${empdetList.locName}</td>
-																<td>${empdetList.shiftname}</td>
-															</tr>
+															<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
 														</c:forEach>
 
-													</tbody>
-												</table>
-											</div> --%>
+													</tr>
+												</thead>
+												<tbody>
 
-											<div class="table-responsive">
-												<table
-													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-													id="printtable1">
-													<thead>
-														<tr class="bg-blue">
-															<th width="10%" style="text-align: center;">Sr.no</th>
-															<th><input type="checkbox" name="selAll" id="selAll" /></th>
-															<th style="text-align: center;">Emp Code</th>
-															<th style="text-align: center;">Emp Name</th>
-															<c:forEach items="${dateAndDayList}" var="dates"
-																varStatus="count">
-																<th style="text-align: center;" width="30%;">${count.index+1}<br>${dates.day}</th>
+													<c:forEach items="${empList}" var="empList"
+														varStatus="count">
+
+														<tr>
+
+															<td style="text-align: center;">${empList.empCode}</td>
+															<td><input type="checkbox"
+																id="empId${empList.empId}" value="${empList.empId}"
+																name="empId" class="select_all"></td>
+															<td>${empList.name}</td>
+
+															<c:forEach items="${empList.shiftallocationDetailList}"
+																var="shiftallocationDetailList">
+																<c:choose>
+																	<c:when
+																		test="${shiftallocationDetailList.extraType==3}">
+																		<td
+																			style="text-align: center; background-color: #27bf27;">
+																			${shiftallocationDetailList.shiftname}&nbsp;
+																			(${shiftallocationDetailList.extra})</td>
+																	</c:when>
+																	<c:when
+																		test="${shiftallocationDetailList.extraType==2}">
+																		<td
+																			style="text-align: center; background-color: #FFA8A8;">
+																			${shiftallocationDetailList.shiftname}&nbsp;
+																			(${shiftallocationDetailList.extra})</td>
+																	</c:when>
+																	<c:when
+																		test="${shiftallocationDetailList.extraType==1}">
+																		<td
+																			style="text-align: center; background-color: #FF9;">
+																			${shiftallocationDetailList.shiftname} &nbsp;
+																			(${shiftallocationDetailList.extra})</td>
+																	</c:when>
+																	<c:otherwise>
+																		<td style="text-align: center;">
+																			${shiftallocationDetailList.shiftname}</td>
+																	</c:otherwise>
+																</c:choose>
+
 															</c:forEach>
 														</tr>
-													</thead>
 
-													<tbody>
-														<c:forEach items="${empList}" var="empList"
-															varStatus="count">
-															<tr>
-																<td>${count.index+1}</td>
+													</c:forEach>
 
-																<td><input type="checkbox"
-																	id="empId${empList.empId}" value="${empList.empId}"
-																	name="empId" class="select_all"></td>
-																<td style="text-align: center;">${empList.empCode}</td>
-																<td>${empList.name}</td>
 
-																<c:forEach items="${empList.shiftallocationDetailList}"
-																	var="shiftallocationDetailList">
-																	<c:choose>
-																		<c:when
-																			test="${shiftallocationDetailList.extraType==3}">
-																			<td
-																				style="text-align: center; background-color: #27bf27;">
-																				${shiftallocationDetailList.shiftname}&nbsp;
-																				(${shiftallocationDetailList.extra})</td>
-																		</c:when>
-																		<c:when
-																			test="${shiftallocationDetailList.extraType==2}">
-																			<td
-																				style="text-align: center; background-color: #FFA8A8;">
-																				${shiftallocationDetailList.shiftname}&nbsp;
-																				(${shiftallocationDetailList.extra})</td>
-																		</c:when>
-																		<c:when
-																			test="${shiftallocationDetailList.extraType==1}">
-																			<td
-																				style="text-align: center; background-color: #FF9;">
-																				${shiftallocationDetailList.shiftname} &nbsp;
-																				(${shiftallocationDetailList.extra})</td>
-																		</c:when>
-																		<c:otherwise>
-																			<td style="text-align: center;">
-																				${shiftallocationDetailList.shiftname}</td>
-																		</c:otherwise>
-																	</c:choose>
-
-																</c:forEach>
-
-															</tr>
-														</c:forEach>
-
-													</tbody>
-												</table>
-											</div>
+												</tbody>
+											</table>
 											<span class="validation-invalid-label" id="error_chk"
 												style="display: none;">Please Select the Employee.</span><br>
+											<!-- /left fixed column -->
+
 											<div style="text-align: center;">
 
 												<button type="submit" class="mr-3 btn btn-primary     "
@@ -390,7 +352,7 @@
 								</c:if>
 							</div>
 
-							<div
+							<%-- <div
 								class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md card">
 								<div class="card-header bg-transparent header-elements-inline">
 
@@ -410,14 +372,14 @@
 											added by step1 <span
 											class="badge bg-success badge-pill ml-auto"
 											id="total_att_present">${infoForUploadAttendance.updatedByStep1}</span></li>
-										<%-- <li class="nav-item"><i class="icon-grid52"></i> Total
+										<li class="nav-item"><i class="icon-grid52"></i> Total
 											attendance uploaded <span
 											class="badge bg-danger badge-pill ml-auto"
-											id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span></li> --%>
+											id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span></li>
 									</ul>
 								</div>
 
-							</div>
+							</div> --%>
 
 						</div>
 					</div>
@@ -526,6 +488,10 @@
 							$("#submitEmpShiftList")
 									.submit(
 											function(e) {
+
+												var table = $('#printtable1')
+														.DataTable();
+												table.search("").draw();
 
 												var isError = false;
 												var errMsg = "";
