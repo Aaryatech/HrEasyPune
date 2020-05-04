@@ -174,40 +174,45 @@
 
 											<input type="hidden" name="selectMonth" id="selectMonth"
 												value="${month}-${year}">
-											<%-- <div class="form-group row">
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="assignDate"> Select Date <span
-													class="text-danger">* </span>:
-												</label>
-												<div class="col-lg-3">
-													<select name="assignDate" data-placeholder="Select Date"
-														id="assignDate"
-														class="form-control form-control-select2 select2-hidden-accessible"
-														data-fouc="" aria-hidden="true">
+											<div class="form-group row">
 
-														<option value="">Select Date</option>
-														<c:forEach items="${dates}" var="dates">
-															<c:choose>
-																<c:when test="${dates eq assignDate}">
-																	<option value="${dates}" selected>${dates}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${dates}">${dates}</option>
-																</c:otherwise>
-															</c:choose>
 
-														</c:forEach>
+												<div class="col-md-6">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="locId"> Select Location <span
+														class="text-danger">* </span>:
+													</label>
+													<div class="col-lg-7 float">
+														<select name="locId" data-placeholder="Select Location"
+															id="locId"
+															class="form-control form-control-select2 select2-hidden-accessible"
+															data-fouc="" aria-hidden="true">
 
-													</select><span class="validation-invalid-label"
-														id="error_assignDate" style="display: none;">This
-														field is required.</span>
+															<option value="">Select Location</option>
+															<c:forEach items="${locationList}" var="locationList">
+																<c:choose>
+																	<c:when test="${locationList.locId eq locId}">
+																		<option value="${locationList.locId}" selected>${locationList.locName}</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${locationList.locId}">${locationList.locName}</option>
+																	</c:otherwise>
+																</c:choose>
+
+															</c:forEach>
+
+														</select><span class="validation-invalid-label"
+															id="error_assignDate" style="display: none;">This
+															field is required.</span>
+													</div>
+
 												</div>
-												<div class="col-lg-2">
+												<div class="col-md-6">
 													<input type="submit" class="btn btn-primary" value="Search"
 														id="deleteId">
 												</div>
-											</div> --%>
+											</div>
 										</form>
 
 										<form
@@ -312,8 +317,8 @@
 														<tr class="bg-blue">
 															<th width="10%" style="text-align: center;">Sr.no</th>
 															<th><input type="checkbox" name="selAll" id="selAll" /></th>
-															<th style="text-align: center;">EMP Code</th>
-															<th style="text-align: center;">EMP Name</th>
+															<th style="text-align: center;">Emp Code</th>
+															<th style="text-align: center;">Emp Name</th>
 															<c:forEach items="${dateAndDayList}" var="dates"
 																varStatus="count">
 																<th style="text-align: center;" width="30%;">${count.index+1}<br>${dates.day}</th>
@@ -574,9 +579,9 @@
 
 				var isError = false;
 
-				var assignDate = $("#assignDate").val();
+				var locId = $("#locId").val();
 
-				if (assignDate == null || assignDate == "") {
+				if (locId == null || locId == "") {
 					isError = true;
 					$("#error_assignDate").show()
 				}

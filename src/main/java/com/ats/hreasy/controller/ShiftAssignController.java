@@ -2,6 +2,7 @@ package com.ats.hreasy.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,6 +31,7 @@ import com.ats.hreasy.model.EmpWithShiftDetail;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
+import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.ShiftMaster;
 
@@ -59,7 +61,7 @@ public class ShiftAssignController {
 
 	}
 
-	String assignDate = new String();
+	int locId = 0;
 
 	@RequestMapping(value = "/shiftbulkuploadImportExel", method = RequestMethod.GET)
 	public String shiftbulkuploadImportExel(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -103,6 +105,14 @@ public class ShiftAssignController {
 					map, ShiftMaster[].class);
 			model.addAttribute("shiftMaster", shiftMaster);
 
+			map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+					Location[].class);
+
+			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+			model.addAttribute("locationList", locationList);
+
 			Date fmdt = sf.parse(sf.format(firstDay));
 			Date todt = sf.parse(sf.format(lastDay));
 
@@ -132,6 +142,8 @@ public class ShiftAssignController {
 				 * assignDate);
 				 */
 
+				locId = Integer.parseInt(request.getParameter("locId"));
+
 				SimpleDateFormat sdf = new SimpleDateFormat("EEE");
 
 				List<DateAndDay> dateAndDayList = new ArrayList<>();
@@ -153,10 +165,13 @@ public class ShiftAssignController {
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDate", sf.format(firstDay));
 				map.add("toDate", sf.format(lastDay));
+				map.add("locId", locId);
 
 				EmpWithShiftDetail[] empList = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
 				model.addAttribute("empList", empList);
+				
+				model.addAttribute("locId", locId);
 
 			} catch (Exception e) {
 
@@ -239,7 +254,7 @@ public class ShiftAssignController {
 			map.add("empIdList", items);
 			map.add("shiftId", shiftId);
 			map.add("fromDate", DateConvertor.convertToYMD(daterangear[0]));
-			map.add("toDate", DateConvertor.convertToYMD(daterangear[1])); 
+			map.add("toDate", DateConvertor.convertToYMD(daterangear[1]));
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
 					Info.class);
 
