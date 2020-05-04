@@ -41,14 +41,16 @@
 						<table width="100%">
 							<tr width="100%">
 								<td width="60%">
-									<h5 class="pageTitle"><i class="icon-list-unordered"></i>Leaves Details of ${fname}&nbsp;${sname}&nbsp;
-										</h5>
+									<h5 class="pageTitle">
+										<i class="icon-list-unordered"></i>Leaves Details of
+										${fname}&nbsp;${sname}&nbsp;
+									</h5>
 								</td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showApplyForLeave"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">Leave Applied
-											List</button>
+										<button type="button" class="btn blue_btn">Leave
+											Applied List</button>
 								</a></td>
 							</tr>
 						</table>
@@ -161,7 +163,7 @@
 												test="${empId==loginEmpId && holiday.exInt1!=7 && holiday.exInt1!=8 && holiday.exInt1!=9 && holiday.empDeptName==0}">
 
 												<a
-													href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${encryptEmpId}&leaveId=${holiday.exVar1}&stat=7"
+													href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${encryptEmpId}&leaveId=${holiday.exVar1}&&apprsts=7&rejctsts=0"
 													title="Cancel"><i class="icon-cancel-square "
 													style="color: black;"></i></a>
 

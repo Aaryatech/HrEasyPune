@@ -29,7 +29,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			 
+
 			<!-- /page header -->
 
 
@@ -39,61 +39,64 @@
 
 				<!-- Highlighting rows and columns -->
 				<div class="card">
-					 
-					
-							<div class="card-header header-elements-inline">
- 						<table width="100%">
+
+
+					<div class="card-header header-elements-inline">
+						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Approval By Authority</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Leave Approval By
+										Authority
+									</h5></td>
 								<td width="40%" align="right">
-							  
-								 <%-- <a
+									<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">KRA List </button>
-								</a>  --%></td>
+								</a>  --%>
+								</td>
 							</tr>
 						</table>
 					</div>
-					
+
 
 					<div class="card-body">
-					
-					<%
-									if (session.getAttribute("errorMsg") != null) {
-								%>
-								<div
-									class="alert bg-danger text-white alert-styled-left alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert">
-										<span>×</span>
-									</button>
-									<span class="font-weight-semibold">Oh snap!</span>
-									<%
-										out.println(session.getAttribute("errorMsg"));
-									%>
-								</div>
 
-								<%
-									session.removeAttribute("errorMsg");
-									}
-								%>
-								<%
-									if (session.getAttribute("successMsg") != null) {
-								%>
-								<div
-									class="alert bg-success text-white alert-styled-left alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert">
-										<span>×</span>
-									</button>
-									<span class="font-weight-semibold">Well done!</span>
-									<%
-										out.println(session.getAttribute("successMsg"));
-									%>
-								</div>
-								<%
-									session.removeAttribute("successMsg");
-									}
-								%>
+						<%
+							if (session.getAttribute("errorMsg") != null) {
+						%>
+						<div
+							class="alert bg-danger text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Oh snap!</span>
+							<%
+								out.println(session.getAttribute("errorMsg"));
+							%>
+						</div>
+
+						<%
+							session.removeAttribute("errorMsg");
+							}
+						%>
+						<%
+							if (session.getAttribute("successMsg") != null) {
+						%>
+						<div
+							class="alert bg-success text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Well done!</span>
+							<%
+								out.println(session.getAttribute("successMsg"));
+							%>
+						</div>
+						<%
+							session.removeAttribute("successMsg");
+							}
+						%>
 						<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
 							<li class="nav-item"><a href="#highlighted-justified-tab1"
 								class="nav-link active" data-toggle="tab">Pending
@@ -137,81 +140,95 @@
 												<td>${leaveList.leaveTodt}</td>
 												<td>${leaveList.leaveNumDays}</td>
 
-										<c:if test="${leaveList.exInt1==1}">
-										<td><span class="badge badge-info">Initial Pending</span></td>
-										</c:if>
-										<c:if test="${leaveList.exInt1==2}">
-										<td><span class="badge badge-secondary">Final Pending</span></td>
-										</c:if>
-											<c:if test="${leaveList.exInt1==3}">
-										<td><span class="badge badge-success"> Final Approved</span></td>
-										</c:if>
-											<c:if test="${leaveList.exInt1==7}">
-										<td><span class="badge badge-danger">Leave Cancelled</span></td>
-										</c:if>
-											<c:if test="${leaveList.exInt1==8}">
-										<td><span class="badge badge-danger">Initial Rejected</span></td>
-										</c:if>
-											<c:if test="${leaveList.exInt1==9}">
-										<td><span class="badge badge-danger"> Final Rejected</span></td>
-										</c:if>
+												<c:if test="${leaveList.exInt1==1}">
+													<td><span class="badge badge-info">Initial
+															Pending</span></td>
+												</c:if>
+												<c:if test="${leaveList.exInt1==2}">
+													<td><span class="badge badge-secondary">Final
+															Pending</span></td>
+												</c:if>
+												<c:if test="${leaveList.exInt1==3}">
+													<td><span class="badge badge-success"> Final
+															Approved</span></td>
+												</c:if>
+												<c:if test="${leaveList.exInt1==7}">
+													<td><span class="badge badge-danger">Leave
+															Cancelled</span></td>
+												</c:if>
+												<c:if test="${leaveList.exInt1==8}">
+													<td><span class="badge badge-danger">Initial
+															Rejected</span></td>
+												</c:if>
+												<c:if test="${leaveList.exInt1==9}">
+													<td><span class="badge badge-danger"> Final
+															Rejected</span></td>
+												</c:if>
 
-												<td class="text-center">
-												
-																<c:choose>
-																	<c:when test="${leaveList.finAuthEmpId==empIdOrig}">
+												<td class="text-center"><c:choose>
+														<c:when test="${leaveList.finAuthEmpId==empIdOrig}">
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=3"
- 																			title="Approve"><i class="icon-checkmark4 " style="color: black;"></i></a>
+															<%-- <a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=3"
+																title="Approve"><i class="icon-checkmark4 "
+																style="color: black;"></i></a>
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=9"
- 																			title="Reject"><i class="icon-x" style="color: black;"></i></a>
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=9"
+																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
 
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&apprsts=3&rejctsts=9"
+																title="Reject"><i class="icon-checkmark4"
+																style="color: black;"></i></a>
 
+														</c:when>
 
-																	</c:when>
+														<c:when test="${leaveList.iniAuthEmpId==empIdOrig}">
 
-																	<c:when test="${leaveList.iniAuthEmpId==empIdOrig}">
+															<%-- <a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=2"
+																title="Approve"><i class="icon-checkmark4 "
+																style="color: black;"></i></a>
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=2"
- 																			title="Approve"><i class="icon-checkmark4 " style="color: black;"></i></a>
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=8"
+																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=8"
- 																			title="Reject"><i class="icon-x" style="color: black;"></i></a>
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&apprsts=2&rejctsts=8"
+																title="Reject"><i class="icon-checkmark4"
+																style="color: black;"></i></a>
 
-																	</c:when>
+														</c:when>
 
-																	<c:when test="${leaveList.empId==empIdOrig}">
+														<c:when test="${leaveList.empId==empIdOrig}">
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=7"
- 																			title="Cancel"><i
-																			class="icon-cancel-squareed65" style="color: black;"></i></a>
-
-
-																	</c:when>
-
-
-																	<c:otherwise>
-
-
-
-
-																	</c:otherwise>
-																</c:choose>
-
-
-																<a
-																	href="${pageContext.request.contextPath}/empDetailHistory?leaveId=${leaveList.circulatedTo}"
-																	title="Detail"><i class="icon-list-unordered" style="color: black;"></i></a>
+															<%-- <a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=7"
+																title="Cancel"><i class="icon-cancel-squareed65"
+																style="color: black;"></i></a> --%>
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&apprsts=7&rejctsts=0"
+																title="Cancel"><i class="icon-cancel-square "
+																style="color: black;"></i></a>
 
 
-															
-												</td>
+														</c:when>
+
+
+														<c:otherwise>
+
+
+
+
+														</c:otherwise>
+													</c:choose> <a
+													href="${pageContext.request.contextPath}/empDetailHistory?leaveId=${leaveList.circulatedTo}"
+													title="Detail"><i class="icon-list-unordered"
+														style="color: black;"></i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -261,45 +278,56 @@
 
 												</c:choose> --%>
 
-										<c:if test="${leaveList1.exInt1==1}">
-										<td><span class="badge badge-info">Initial Pending & Final Pending</span></td>
-										</c:if>
-										<c:if test="${leaveList1.exInt1==2}">
-										<td><span class="badge badge-secondary">Final Pending</span></td>
-										</c:if>
-											<c:if test="${leaveList1.exInt1==3}">
-										<td><span class="badge badge-success"> Final Approved</span></td>
-										</c:if>
-											<c:if test="${leaveList1.exInt1==7}">
-										<td><span class="badge badge-danger"> Leave Cancelled</span></td>
-										</c:if>
-											<c:if test="${leaveList1.exInt1==8}">
-										<td><span class="badge badge-danger">Initial Rejected</span></td>
-										</c:if>
-											<c:if test="${leaveList1.exInt1==9}">
-										<td><span class="badge badge-danger">Final Rejected</span></td>
-										</c:if>
+												<c:if test="${leaveList1.exInt1==1}">
+													<td><span class="badge badge-info">Initial
+															Pending & Final Pending</span></td>
+												</c:if>
+												<c:if test="${leaveList1.exInt1==2}">
+													<td><span class="badge badge-secondary">Final
+															Pending</span></td>
+												</c:if>
+												<c:if test="${leaveList1.exInt1==3}">
+													<td><span class="badge badge-success"> Final
+															Approved</span></td>
+												</c:if>
+												<c:if test="${leaveList1.exInt1==7}">
+													<td><span class="badge badge-danger"> Leave
+															Cancelled</span></td>
+												</c:if>
+												<c:if test="${leaveList1.exInt1==8}">
+													<td><span class="badge badge-danger">Initial
+															Rejected</span></td>
+												</c:if>
+												<c:if test="${leaveList1.exInt1==9}">
+													<td><span class="badge badge-danger">Final
+															Rejected</span></td>
+												</c:if>
 
 
 
 
-												<td class="text-center">
-												
-																<c:choose>
-																	<c:when test="${leaveList1.finAuthEmpId==empIdOrig}">
+												<td class="text-center"><c:choose>
+														<c:when test="${leaveList1.finAuthEmpId==empIdOrig}">
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=3"
- 																			title="Approve"><i class="icon-checkmark4 " style="color: black;"></i></a>
+															<%-- <a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=3"
+																title="Approve"><i class="icon-checkmark4 "
+																style="color: black;"></i></a>
 
-																		<a
-																			href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=9"
- 																			title="Reject"><i class="icon-x" style="color: black;"></i></a>
-																	</c:when>
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=9"
+																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
 
-																	<c:when test="${leaveList1.iniAuthEmpId==empIdOrig}">
+															<a
+																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&apprsts=3&rejctsts=9"
+																title="Reject"><i class="icon-checkmark4"
+																style="color: black;"></i></a>
+														</c:when>
 
-																		<%-- <a
+														<c:when test="${leaveList1.iniAuthEmpId==empIdOrig}">
+
+															<%-- <a
 															href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&stat=2"
 															class="dropdown-item"><i class="icon-pencil7"></i>Approve</a>
 															
@@ -309,33 +337,28 @@
 
 
 
-																	</c:when>
+														</c:when>
 
-																	<c:otherwise>
+														<c:otherwise>
 
-																	</c:otherwise>
-																</c:choose>
+														</c:otherwise>
+													</c:choose> <c:if test="${leaveList1.empId==empIdOrig}">
 
+														<%-- 	<a
+															href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=7"
+															title="Cancel"><i class="icon-cancel-square "
+															style="color: black;"></i></a> --%>
 
-																<c:if test="${leaveList1.empId==empIdOrig}">
-
-																	<a
-																		href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&stat=7"
- 																		title="Cancel"><i
-																		class="icon-cancel-square "style="color: black;"></i></a>
-
-
-																</c:if>
-
-															
-
-																<a
-																	href="${pageContext.request.contextPath}/empDetailHistory?leaveId=${leaveList1.circulatedTo}"
-																	title="Detail"><i class="icon-list-unordered" style="color: black;"></i></a>
+														<a
+															href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&apprsts=7&rejctsts=0"
+															title="Cancel"><i class="icon-cancel-square "
+															style="color: black;"></i></a>
 
 
-														
-												</td>
+													</c:if> <a
+													href="${pageContext.request.contextPath}/empDetailHistory?leaveId=${leaveList1.circulatedTo}"
+													title="Detail"><i class="icon-list-unordered"
+														style="color: black;"></i></a></td>
 											</tr>
 										</c:forEach>
 

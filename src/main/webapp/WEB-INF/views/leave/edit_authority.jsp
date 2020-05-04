@@ -77,12 +77,14 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Leave Authority</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Edit Leave Authority
+									</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/leaveAuthorityList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">Leave Authority
-											List</button>
+										<button type="button" class="btn blue_btn">Leave
+											Authority List</button>
 								</a></td>
 							</tr>
 						</table>
@@ -256,7 +258,7 @@
 
 								<a href="${pageContext.request.contextPath}/leaveAuthorityList"><button
 										type="button" class="btn btn-light">
-										<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+										<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
 										Back
 									</button></a>
 
@@ -420,7 +422,6 @@
 													return false;
 												}
 
-												
 												/* if (!isError) {
 
 													var x = confirm("Do you really want to submit the form?");
@@ -432,25 +433,25 @@
 													}
 													//end ajax send this to php page
 												} */
-												if (!isError) {													
-													
-													$('#modal_scrollable')
-													.modal('show');
+												if (!isError) {
 
-														return false;
-								 				}
+													$('#modal_scrollable')
+															.modal('show');
+
+													return false;
+												}
 												return false;
 											});
 
 						});
 	</script>
-<script>
-function submitForm() {
-	$('#modal_scrollable').modal('hide');
-	document.getElementById("submtbtn").disabled = true;
-	document.getElementById("frmAddLeaveAuthority").submit();
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("submtbtn").disabled = true;
+			document.getElementById("frmAddLeaveAuthority").submit();
 
-}
+		}
 	</script>
 	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">
@@ -464,7 +465,7 @@ function submitForm() {
 				<div class="modal-body py-0">
 					<h5 class="modal-title">Do you really want to submit the form?</h5>
 					<br>
-				 
+
 				</div>
 
 				<div class="modal-footer pt-3">

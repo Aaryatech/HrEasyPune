@@ -40,12 +40,17 @@ public class LeaveApprovalController {
 
 			int empId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("empId")));
 			int leaveId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("leaveId")));
-			String stat = request.getParameter("stat");
-
+			String apprsts = request.getParameter("apprsts");
+			String rejctsts = request.getParameter("rejctsts");
+			
+			String encryptEmpId = request.getParameter("empId");
+			
+			model.addObject("encryptEmpId", encryptEmpId);
 			model.addObject("empId", empId);
 			model.addObject("leaveId", leaveId);
-			model.addObject("stat", stat);
-
+			model.addObject("stat", apprsts);
+			model.addObject("stat2", rejctsts);
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("leaveId", leaveId);
 			GetLeaveStatus[] employeeDoc = Constants.getRestTemplate()
@@ -87,7 +92,7 @@ public class LeaveApprovalController {
 
 			int empId = Integer.parseInt((request.getParameter("empId")));
 			int leaveId = Integer.parseInt((request.getParameter("leaveId")));
-			String stat = request.getParameter("stat");
+			String stat = request.getParameter("selectedSts");
 			String remark = null;
 			try {
 				remark = request.getParameter("remark");
