@@ -45,7 +45,7 @@ import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 @Scope("session")
 public class DashboardAdminController {
 
-	/*@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard1(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome";
@@ -278,16 +278,15 @@ public class DashboardAdminController {
 
 		return mav;
 
-	}*/
+	}
 
-	
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome1";
 
 		return mav;
-	}
+	}*/
 
 	@RequestMapping(value = "/dashboardModified", method = RequestMethod.GET)
 	public String dashboardNew(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -331,8 +330,8 @@ public class DashboardAdminController {
 		map = new LinkedMultiValueMap<>();
 		map.add("fiterdate", fiterdate);
 		map.add("empId", userObj.getEmpId());
- 		map.add("userType", userObj.getDesignType());
- 		map.add("isAuth", n);
+		map.add("userType", userObj.getDesignType());
+		map.add("isAuth", n);
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 

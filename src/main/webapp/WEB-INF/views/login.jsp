@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@ page import="java.util.UUID"%>
+<%@ page import="java.util.UUID"%>
 <%@ page import="java.security.MessageDigest"%>
 <%@ page import="java.math.BigInteger"%>
-s
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,10 +95,10 @@ body1 {
 				alt="">
 			</a>
 		</div>
-		
+
 		<!-- login-form -->
 		<form id="form-login" action="loginProcess" method="post">
-			<div class="loginInner"   id="pass_form1">
+			<div class="loginInner" id="pass_form1">
 
 				<div class="login_l">
 					<a href=""><img
@@ -122,7 +121,7 @@ body1 {
 						alt="">
 					<h2 class="login_head_one">Sign into your account</h2>
 					<div class="clr"></div>
-					<c:if test="${msg==null}">
+					<c:if test="${msg!=null}">
 						<div class="alert alert-danger">${msg}</div>
 
 					</c:if>
@@ -135,72 +134,74 @@ body1 {
 					</c:if>
 
 					<!-- class="login-form" -->
-				<%-- 	<form action="${pageContext.request.contextPath}/loginProcess"
+					<%-- 	<form action="${pageContext.request.contextPath}/loginProcess"
 						id="submitInsertEmpType" method="post"> --%>
-						
+
+					<%
+						UUID uuid = UUID.randomUUID();
+						MessageDigest md = MessageDigest.getInstance("MD5");
+						byte[] messageDigest = md.digest(String.valueOf(uuid).getBytes());
+						BigInteger number = new BigInteger(1, messageDigest);
+						String hashtext = number.toString(16);
+						session = request.getSession();
+						session.setAttribute("generatedKey", hashtext);
+					%>
+					<input type="hidden" value="<%out.println(hashtext);%>"
+						name="token" id="token">
+					<c:if test="${sessionScope.errorMsg!=null}">
+						<div class="alert alert-danger">${sessionScope.errorMsg}</div>
+
 						<%
-											UUID uuid = UUID.randomUUID();
-											MessageDigest md = MessageDigest.getInstance("MD5");
-											byte[] messageDigest = md.digest(String.valueOf(uuid).getBytes());
-											BigInteger number = new BigInteger(1, messageDigest);
-											String hashtext = number.toString(16);
-											session = request.getSession();
-											session.setAttribute("generatedKey", hashtext);
-										%>
-										<input type="hidden" value="<%out.println(hashtext);%>"
-											name="token" id="token">
-						<c:if test="${sessionScope.errorMsg!=null}">
-							<div class="alert alert-danger">${sessionScope.errorMsg}</div>
+							session.removeAttribute("errorMsg");
+						%>
+					</c:if>
+					<div
+						class="form-group form-group-feedback form-group-feedback-left">
+						<input type="text" id="username" name="username"
+							class="form-control form_lgn" placeholder="Username"
+							style="border-radius: 5px;">
+						<div class="form-control-feedback" style="padding-left: 10px;">
+							<i class="icon-user text-muted"></i>
+						</div>
+					</div>
+					<div
+						class="form-group form-group-feedback form-group-feedback-left">
+						<input type="password" id="password" name="password"
+							class="form-control form_lgn" placeholder="Password"
+							style="border-radius: 5px;">
+						<div class="form-control-feedback" style="padding-left: 10px;">
+							<i class="icon-lock2 text-muted"></i>
+						</div>
 
-							<%
-								session.removeAttribute("errorMsg");
-							%>
-						</c:if>
-						<div
-							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="text" id="username" name="username"
-								class="form-control form_lgn" placeholder="Username"
-								style="border-radius: 5px;">
-							<div class="form-control-feedback" style="padding-left: 10px;">
-								<i class="icon-user text-muted"></i>
-							</div>
-						</div>
-						<div
-							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="password" id="password" name="password"
-								class="form-control form_lgn" placeholder="Password"
-								style="border-radius: 5px;">
-							<div class="form-control-feedback" style="padding-left: 10px;">
-								<i class="icon-lock2 text-muted"></i>
-							</div>
+					</div>
+					<div class="checkbox clearfix">
 
+						<%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
+					</div>
+					<div class="form-group" style="margin: 0;">
+						<button type="submit" class="buttonlogin">Login</button>
+						<div class="forgot_pass">
+							<a href="#" onclick="showForgotWindow()">Forgot Password?</a>
 						</div>
-						<div class="checkbox clearfix">
-
-							<%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
-						</div>
-						<div class="form-group" style="margin:0;">
-							<button type="submit" class="buttonlogin">Login</button>
-							<div class="forgot_pass"><a href="#" onclick="showForgotWindow()">Forgot Password?</a></div>
-						</div>
-						<div class="d-lg-none">
-							<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
-							</a> by <a href="http://aaryatechindia.in/" class="navbar-text"
-								target="_blank">AARYA TECH SOLUTIONS</a>
+					</div>
+					<div class="d-lg-none">
+						<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
+						</a> by <a href="http://aaryatechindia.in/" class="navbar-text"
+							target="_blank">AARYA TECH SOLUTIONS</a>
 							</p> <a href="http://aaryatechindia.in/" target="_blank"><img
-									src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
-									width="60" height="50" alt=""></a>
-						</div>
-					
+								src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
+								width="60" height="50" alt=""></a>
+					</div>
+
 				</div>
 
 				<div class="clr"></div>
 			</div>
-		
-		
-		
-		
-		<!-- forgot password form -->
+
+
+
+
+			<!-- forgot password form -->
 			<div class="loginInner" style="display: none" id="pass_form">
 
 				<div class="login_l">
@@ -215,7 +216,7 @@ body1 {
 
 				</div>
 
-				<div class="login_r forgot" >
+				<div class="login_r forgot">
 
 
 
@@ -224,63 +225,65 @@ body1 {
 						alt="">
 					<h2 class="login_head_one">Forgot Password</h2>
 					<div class="clr"></div>
-					
+
 
 					<!-- class="login-form" -->
-					
-					
-												<c:if test="${sessionScope.errorPassMsg1!=null}">
+
+
+					<c:if test="${sessionScope.errorPassMsg1!=null}">
 						<div class="alert alert-danger">${sessionScope.errorPassMsg1}</div>
 
 						<%
 							session.removeAttribute("errorPassMsg1");
 						%>
 					</c:if>
-						<div
-							class="form-group form-group-feedback form-group-feedback-left">
-							<input type="text" id="usernameFp" name="usernameFp"
-								class="form-control form_lgn" placeholder="Email Address"
-								style="border-radius: 5px;">
-							<div class="form-control-feedback" style="padding-left: 10px;">
-								<i class="icon-envelop text-muted" ></i>
-							</div>
+					<div
+						class="form-group form-group-feedback form-group-feedback-left">
+						<input type="text" id="usernameFp" name="usernameFp"
+							class="form-control form_lgn" placeholder="Email Address"
+							style="border-radius: 5px;">
+						<div class="form-control-feedback" style="padding-left: 10px;">
+							<i class="icon-envelop text-muted"></i>
 						</div>
-						
-						
-						<div class="form-group" style="margin:0;">
-							<button type="button" onclick="subPassForForm()" class="buttonlogin">Submit</button>
-							<div class="forgot_pass" style="text-align: left;"><a href="#" onclick="hidePassForForm()">Back</a></div>
+					</div>
+
+
+					<div class="form-group" style="margin: 0;">
+						<button type="button" onclick="subPassForForm()"
+							class="buttonlogin">Submit</button>
+						<div class="forgot_pass" style="text-align: left;">
+							<a href="#" onclick="hidePassForForm()">Back</a>
 						</div>
-						
+					</div>
+
 				</div>
 
 				<div class="clr"></div>
-				
+
 			</div>
-</form>
+		</form>
 
 
 	</div>
-	
+
 	<script type="text/javascript">
-function subPassForForm(){
-	//alert("Hi")
-	var form = document.getElementById("form-login")
-    form.action ="checkUserAndSendOtpEmail";
-    form.submit();
-}
-function showForgotWindow(){
-	document.getElementById("pass_form").style.display="block";
-	document.getElementById("pass_form1").style="display:none";
+		function subPassForForm() {
+			//alert("Hi")
+			var form = document.getElementById("form-login")
+			form.action = "checkUserAndSendOtpEmail";
+			form.submit();
+		}
+		function showForgotWindow() {
+			document.getElementById("pass_form").style.display = "block";
+			document.getElementById("pass_form1").style = "display:none";
 
-} 
-function hidePassForForm()
-{
-	document.getElementById("pass_form").style="display:none";
-	document.getElementById("pass_form1").style.display="block";
+		}
+		function hidePassForForm() {
+			document.getElementById("pass_form").style = "display:none";
+			document.getElementById("pass_form1").style.display = "block";
 
-} 
-</script>
+		}
+	</script>
 </body>
 
 </html>
