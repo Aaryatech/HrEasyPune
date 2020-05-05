@@ -178,86 +178,81 @@
 
 									<hr>
 
-									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-										id="printtable1">
-										<thead>
-											<tr class="bg-blue">
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+											id="printtable1">
+											<thead>
+												<tr class="bg-blue">
 
-												<th class="text-center">Leave Name</th>
-							<th width="10%" class="text-center">No of Leaves</th>
-												
-												<th width="10%" class="text-center">Min Days</th>
-												<th width="10%" class="text-center">Max Days</th>
-												<th width="15%" class="text-center">Max Carry Forward
-													Days</th>
-												<th width="15%" class="text-center">Can Encashed ?</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${leaveTypeList}" var="leaveType">
-<tr>
-<td><label class="col-form-label text-info font-weight-bold"
-												for="noOfLeaves${leaveType.lvTypeId}">${leaveType.lvTitle}
-												<span class="text-danger">* </span>:
-											</label>  </td>
-											<td>
-											<input type="text" class="form-control numbersOnly"
-													id="noOfLeaves${leaveType.lvTypeId}" value="0"
-													name="noOfLeaves${leaveType.lvTypeId}" autocomplete="off"
-													onchange="trim(this)">
-											</td>
-											<td>
-											<input type="text" class="form-control numbersOnly"
-													id="min${leaveType.lvTypeId}" value="0"
-													name="min${leaveType.lvTypeId}" autocomplete="off"
-													onchange="chkVal(${leaveType.lvTypeId})">
-											</td>
-											<td>
-											<input type="text" class="form-control numbersOnly"
-													id="max${leaveType.lvTypeId}" value="0"
-													name="max${leaveType.lvTypeId}" autocomplete="off"
-													onchange="chkVal(${leaveType.lvTypeId})"> <span
-													class="validation-invalid-label"
-													id="error_prsnName${leaveType.lvTypeId}"
-													style="display: none;">Min. Days Should be Less than
-													Max. Days .</span> <span class="validation-invalid-label"
-													id="error_prsnName1${leaveType.lvTypeId}"
-													style="display: none;">Min. Days & Max. Days Should
-													be Less than Leave Type Days.</span>
-											</td>
-											<td>
-											<input type="text" class="form-control numbersOnly"
-													id="maxCarryForword${leaveType.lvTypeId}" value="0"
-													name="maxCarryForword${leaveType.lvTypeId}"
-													autocomplete="off">
-											</td>
-											<td>
-											<input type="checkbox" id="isInCash${leaveType.lvTypeId}"
-													value="0" name="isInCash${leaveType.lvTypeId}"
-													autocomplete="off" onclick="showYesNo(${leaveType.lvTypeId})">
-													 
-													 <span class="validation-valid-label" style="display: none"
-													id="isInCashMessageYes${leaveType.lvTypeId}"
-													></span>
-													<span class="validation-invalid-label" style="display: none"
-													id="isInCashMessageNo${leaveType.lvTypeId}"
-													></span>
-											
-											</td>
-</tr>
+													<th class="text-center">Leave Name</th>
+													<th width="10%" class="text-center">No of Leaves</th>
 
-											</c:forEach>
+													<th width="10%" class="text-center">Min Days</th>
+													<th width="10%" class="text-center">Max Days</th>
+													<th width="15%" class="text-center">Max Carry Forward
+														Days</th>
+													<th width="15%" class="text-center">Can Encashed ?</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${leaveTypeList}" var="leaveType">
+													<tr>
+														<td><label
+															class="col-form-label text-info font-weight-bold"
+															for="noOfLeaves${leaveType.lvTypeId}">${leaveType.lvTitle}
+																<span class="text-danger">* </span>:
+														</label></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="noOfLeaves${leaveType.lvTypeId}" value="0"
+															name="noOfLeaves${leaveType.lvTypeId}" autocomplete="off"
+															onchange="trim(this)"></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="min${leaveType.lvTypeId}" value="0"
+															name="min${leaveType.lvTypeId}" autocomplete="off"
+															onchange="chkVal(${leaveType.lvTypeId})"></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="max${leaveType.lvTypeId}" value="0"
+															name="max${leaveType.lvTypeId}" autocomplete="off"
+															onchange="chkVal(${leaveType.lvTypeId})"> <span
+															class="validation-invalid-label"
+															id="error_prsnName${leaveType.lvTypeId}"
+															style="display: none;">Min. Days Should be Less
+																than Max. Days .</span> <span class="validation-invalid-label"
+															id="error_prsnName1${leaveType.lvTypeId}"
+															style="display: none;">Min. Days & Max. Days
+																Should be Less than Leave Type Days.</span></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="maxCarryForword${leaveType.lvTypeId}" value="0"
+															name="maxCarryForword${leaveType.lvTypeId}"
+															autocomplete="off"></td>
+														<td class="text-center"><input type="checkbox"
+															id="isInCash${leaveType.lvTypeId}" value="0"
+															name="isInCash${leaveType.lvTypeId}" autocomplete="off"
+															onclick="showYesNo(${leaveType.lvTypeId})"> <span
+															class="validation-valid-label" style="display: none"
+															id="isInCashMessageYes${leaveType.lvTypeId}"></span> <span
+															class="validation-invalid-label" style="display: none"
+															id="isInCashMessageNo${leaveType.lvTypeId}"></span></td>
+													</tr>
+
+												</c:forEach>
 
 
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
+									<br>
 									<!-- <div class="form-group row">
 										<strong> Leaves Types :</strong>
 									</div>
  -->
 
-								<%-- 	<c:forEach items="${leaveTypeList}" var="leaveType">
+									<%-- 	<c:forEach items="${leaveTypeList}" var="leaveType">
 
 										<div class="form-group row">
 											<label
@@ -373,11 +368,12 @@
 			document.getElementById("isInCashMessageYes"+id).innerHTML="Yes";
 			$("#isInCashMessageYes"+id).show();
 			$("#isInCashMessageNo"+id).hide();
+			document.getElementById("isInCash"+id).value=1;
 		}else{
 			document.getElementById("isInCashMessageNo"+id).innerHTML="No";
 			$("#isInCashMessageYes"+id).hide();
 			$("#isInCashMessageNo"+id).show();
-
+			document.getElementById("isInCash"+id).value=0;
 		}
 	}
 

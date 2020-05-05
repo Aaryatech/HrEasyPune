@@ -196,7 +196,7 @@
 											<td>${holList.hoCatName}</td>
 											<td>${holList.optionalHoliday}/${holList.optionalCount}</td>
 											<td align="center">${holList.fixedCount}</td>
-											<td align="center">${holList.fixedCount+holList.optionalCount}</td>
+											<td align="center">${holList.fixedCount+holList.optionalHoliday}</td>
 											<td style="text-align: center;"><a
 												href="javascript:void(0)"
 												class="list-icons-item text-danger-600 bootbox_custom"

@@ -49,7 +49,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> ${title}
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -116,7 +118,7 @@
 									</div> --%>
 
 									<div class="form-group row">
-										<div class="col-md-6">			
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="organisation">Organization <span
@@ -126,30 +128,29 @@
 												<input type="text" class="form-control" maxlength="20"
 													placeholder="Enter Organization Name" id="organisation"
 													value="${contract.orgName}" name="organisation"
-													autocomplete="off" onchange="trim(this)">
-												<span class="validation-invalid-label"
-													id="error_organisation" style="display: none;">This
-													field is required.</span>
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_organisation"
+													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="desination">License
-											No. <span class="text-danger"> </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${contract.licenceNo}"
-												placeholder="Enter Licence No." id="licenceNo"
-												name="licenceNo" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_licenceNo"
-												style="display: none;">This field is required.</span>
-										</div>
+												No. <span class="text-danger"> </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.licenceNo}"
+													placeholder="Enter Licence No." id="licenceNo"
+													name="licenceNo" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_licenceNo"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
-										<div class="col-md-6">	
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="vat">GST
 												No. <span class="text-danger"></span>:
 											</label>
@@ -162,59 +163,59 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="pan">PAN
-											No. <span class="text-danger"> </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${contract.panNo}" placeholder="Enter PAN No."
-												id="panNo" maxlength="10" style="text-transform: uppercase;"
-												name="panNo" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_pan"
-												style="display: none;">This field is required.</span>
-										</div>
+												<span class="text-danger"> </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.panNo}" placeholder="Enter PAN "
+													id="panNo" maxlength="10"
+													style="text-transform: uppercase;" name="panNo"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_pan"
+													style="display: none;">Enter valid pan. example :
+													ABCDE1234F</span>
+											</div>
 										</div>
 									</div>
 
-									<div class="form-group row">
-										
-									</div>
+									<div class="form-group row"></div>
 
 									<div class="form-group row">
-										<div class="col-md-6">	
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="pf">PF.No.
 												<span class="text-danger"> </span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
-													value="${contract.pfNo}" placeholder="Enter PF. No." id="pf"
-													maxlength="25" name="pf" autocomplete="off"
+													value="${contract.pfNo}" placeholder="Enter PF. No."
+													id="pf" maxlength="25" name="pf" autocomplete="off"
 													onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_pf"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="esic">ESIC
-											No. <span class="text-danger"> </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${contract.esicNo}" placeholder="Enter ESIC No."
-												id="esic" maxlength="25" name="esic" autocomplete="off"
-												onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_esic"
-												style="display: none;">This field is required.</span>
+												No. <span class="text-danger"> </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.esicNo}" placeholder="Enter ESIC No."
+													id="esic" maxlength="25" name="esic" autocomplete="off"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_esic"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>
 									</div>
 
 
 									<div class="form-group row">
-										<div class="col-md-6">	
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="address">Address
 												<span class="text-danger"></span>:
 											</label>
@@ -227,8 +228,8 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="officeNo">Office
 												No. <span class="text-danger"> </span>:
 											</label>
@@ -245,7 +246,7 @@
 
 
 									<div class="form-group row">
-										<div class="col-md-6">	
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="email">Email
 												<span class="text-danger"> </span>:
 											</label>
@@ -255,41 +256,41 @@
 													id="email" name="email" autocomplete="off"
 													onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_email"
-													style="display: none;">This field is required.</span>
+													style="display: none;">Enter valid email.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="owner">Owner
-											Name <span class="text-danger"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${contract.owner}" placeholder="Enter Owner Name"
-												id="owner" name="owner" autocomplete="off"
-												onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_owner"
-												style="display: none;">This field is required.</span>
-										</div>
+												Name <span class="text-danger"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.owner}" placeholder="Enter Owner Name"
+													id="owner" name="owner" autocomplete="off"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_owner"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 									<div class="form-group row">
-										<div class="col-md-6">	
-										<label class="col-form-label col-lg-5 float" for="mobileNo">Mob
-											No. <span class="text-danger"> </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${contract.mobileNo}" placeholder="Enter Mobile No."
-												id="mobileNo" maxlength="10" name="mobileNo"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_mobileNo"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="mobileNo">Mob
+												No. <span class="text-danger"> </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.mobileNo}" placeholder="Enter Mobile No."
+													id="mobileNo" maxlength="10" name="mobileNo"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_mobileNo"
+													style="display: none;">Enter valid mobile no.</span>
+											</div>
 										</div>
-										</div>
-										
-										<div class="col-md-6">	
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="desination">Duration
 												<span class="text-danger"> </span>:
 											</label>
@@ -305,20 +306,20 @@
 									</div>
 
 									<div class="form-group row">
-									<div class="col-md-6">	
-										<label class="col-form-label col-lg-5 float" for="remark">Remark
-											: </label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark">${contract.remark}</textarea>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
+												: </label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)" id="remark"
+													name="remark">${contract.remark}</textarea>
 
+											</div>
 										</div>
-									</div>
 									</div>
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -357,10 +358,13 @@
 	<!-- /page content -->
 
 	<script>
-	$('#mobileNo').on('input', function() {
-		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
-		})
-	
+		$('#mobileNo').on(
+				'input',
+				function() {
+					this.value = this.value.replace(/[^0-9]/g, '').replace(
+							/(\..*)\./g, '$1');
+				})
+
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -410,7 +414,10 @@
 											function(e) {
 												var isError = false;
 												var errMsg = "";
-
+												$("#error_pan").hide()
+												$("#error_organisation").hide();
+												$("#error_mobileNo").hide();
+												$("#error_email").hide()
 												if (!$("#organisation").val()) {
 
 													isError = true;
@@ -418,9 +425,6 @@
 													$("#error_organisation")
 															.show()
 
-												} else {
-													$("#error_organisation")
-															.hide()
 												}
 
 												/*  if (!$("#licenceNo").val()) { 
@@ -455,8 +459,6 @@
 
 														isError = true;
 														$("#error_pan").show()
-													} else {
-														$("#error_pan").hide()
 													}
 												}
 
@@ -512,9 +514,6 @@
 														$("#error_mobileNo")
 																.show()
 
-													} else {
-														$("#error_mobileNo")
-																.hide()
 													}
 												}
 
@@ -529,9 +528,6 @@
 														$("#error_email")
 																.show()
 
-													} else {
-														$("#error_email")
-																.hide()
 													}
 												}
 

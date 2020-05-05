@@ -52,8 +52,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Leave
-												Type</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Edit Leave Type
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -109,85 +110,87 @@
 
 
 									<div class="form-group row">
-									<div class="col-md-6">	
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="leaveTypeTitle"> Leave Type <span
-											style="color: red">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" maxlength="50"
-												placeholder="Enter Leave Type" id="leaveTypeTitle"
-												value="${editCompany.lvTitle}" name="leaveTypeTitle"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_leaveType"
-												style="display: none;">This field is required.</span>
-										</div>
-										</div>
-										
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="leaveShortTypeTitle"> Short Name <span
-											style="color: red">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" maxlength="2"
-												placeholder="Enter Leave Type Short Name"
-												id="leaveShortTypeTitle" value="${editCompany.lvTitleShort}"
-												name="leaveShortTypeTitle" autocomplete="off"
-												onchange="trim(this)"
-												oninput="checkUniqueShortName(this.value)"> <span
-												class="validation-invalid-label" id="error_leaveScType"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_shotname"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_leaveShortname"
-												style="display: none;">Already exist.</span> <span
-												class="validation-invalid-label" id="error_sameName"
-												style="display: none;">Leave Type Short Name Can Not
-												be same as Leave Type Name. </span>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="leaveTypeTitle"> Leave Type <span
+												style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" maxlength="50"
+													placeholder="Enter Leave Type" id="leaveTypeTitle"
+													value="${editCompany.lvTitle}" name="leaveTypeTitle"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_leaveType"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="leaveShortTypeTitle"> Short Name <span
+												style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" maxlength="2"
+													placeholder="Enter Leave Type Short Name"
+													id="leaveShortTypeTitle"
+													value="${editCompany.lvTitleShort}"
+													name="leaveShortTypeTitle" autocomplete="off"
+													onchange="trim(this)"
+													oninput="checkUniqueShortName(this.value)"> <span
+													class="validation-invalid-label" id="error_leaveScType"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_shotname"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_leaveShortname"
+													style="display: none;">Already exist.</span> <span
+													class="validation-invalid-label" id="error_sameName"
+													style="display: none;">Leave Type Short Name Can Not
+													be same as Leave Type Name. </span>
+											</div>
 										</div>
 									</div>
-									
+
 									<input type="hidden" class="form-control" id="shortname"
 										value="${editCompany.lvTitleShort}" name="shortname">
 
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="isFile">Is File Upload Required <span style="color: red">
-												*</span>:
-										</label>
-										<div class="form-check form-check-inline">
-											<label class="form-check-label"> <input type="radio"
-												${editCompany.isFile==1 ? 'checked' : ''}
-												class="form-check-input" name="isFile" id="isFile" checked
-												value="1"> Yes
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="isFile">Is File Upload Required <span
+												style="color: red"> *</span>:
 											</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<label class="form-check-label"> <input type="radio"
-												class="form-check-input" name="isFile"
-												${editCompany.isFile==0 ? 'checked' : ''} id="isFile"
-												value="0"> No
-											</label>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label"> <input type="radio"
+													class="form-check-input" name="isFile"
+													${editCompany.isFile==0 ? 'checked' : ''} id="isFile"
+													value="0"> No
+												</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<label class="form-check-label"> <input type="radio"
+													${editCompany.isFile==1 ? 'checked' : ''}
+													class="form-check-input" name="isFile" id="isFile" checked
+													value="1"> Yes
+												</label>
+											</div>
+
+
+											<span class="validation-invalid-label" id="error_isFile"
+												style="display: none;">This field is required.</span>
 										</div>
 
-										<span class="validation-invalid-label" id="error_isFile"
-											style="display: none;">This field is required.</span>
-										</div>
-										
 										<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float">Color:</label>
-										<div class="col-lg-7 float">
-											<input type="text" id="leaveColor" name="leaveColor"
-												class="form-control colorpicker-show-input"
-												data-preferred-format="hex" value="${editCompany.lvColor}"
-												data-fouc>
-										</div>
+											<label class="col-form-label col-lg-5 float">Color:</label>
+											<div class="col-lg-7 float">
+												<input type="text" id="leaveColor" name="leaveColor"
+													class="form-control colorpicker-show-input"
+													data-preferred-format="hex" value="${editCompany.lvColor}"
+													data-fouc>
+											</div>
 										</div>
 									</div>
 									<%-- 	<div class="form-group row">
@@ -216,47 +219,47 @@
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="select2">Leave
-											Summary:</label>
-										<div class="col-lg-7 float">
-											<select name="summId" data-placeholder="Select a Summary"
-												id="summId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												required data-fouc="" tabindex="-1" aria-hidden="true">
-												<option value="0"
-													${editCompany.lvSumupId == '0' ? 'selected' : ''}>Please
-													Select</option>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="select2">Leave
+												Summary:</label>
+											<div class="col-lg-7 float">
+												<select name="summId" data-placeholder="Select a Summary"
+													id="summId"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													required data-fouc="" tabindex="-1" aria-hidden="true">
+													<option value="0"
+														${editCompany.lvSumupId == '0' ? 'selected' : ''}>Please
+														Select</option>
 
-												<c:forEach items="${sumList}" var="sumList">
-													<c:choose>
-														<c:when
-															test="${sumList.lvSumupId == editCompany.lvSumupId}">
-															<option selected value="${sumList.lvSumupId}">${sumList.lvSumupTitle}</option>
-														</c:when>
-														<c:otherwise>
-															<option value="${sumList.lvSumupId}">${sumList.lvSumupTitle}</option>
-														</c:otherwise>
+													<c:forEach items="${sumList}" var="sumList">
+														<c:choose>
+															<c:when
+																test="${sumList.lvSumupId == editCompany.lvSumupId}">
+																<option selected value="${sumList.lvSumupId}">${sumList.lvSumupTitle}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${sumList.lvSumupId}">${sumList.lvSumupTitle}</option>
+															</c:otherwise>
 
-													</c:choose>
-												</c:forEach>
-											</select>
+														</c:choose>
+													</c:forEach>
+												</select>
+											</div>
 										</div>
-										</div>
-										
+
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Any
-											Remark:</label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark">${editCompany.lvRmarks}</textarea>
+												Remark:</label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)" id="remark"
+													name="remark">${editCompany.lvRmarks}</textarea>
+											</div>
 										</div>
-									</div>										
-								</div>
+									</div>
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib
-	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,10 +28,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
-
- 
-			</div>
+			<div class="page-header page-header-light"></div>
 			<!-- /page header -->
 
 
@@ -51,21 +47,23 @@
 
 
 						<div class="card">
-							 
-					<div class="card-header header-elements-inline">
- 						<table width="100%">
-							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
-								<td width="40%" align="right">
-							  
-								 <%-- <a
+
+							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> ${title}
+											</h5></td>
+										<td width="40%" align="right">
+											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">KRA List </button>
-								</a>  --%></td>
-							</tr>
-						</table>
-					</div>
+								</a>  --%>
+										</td>
+									</tr>
+								</table>
+							</div>
 							<div class="card-body">
 								<%
 									if (session.getAttribute("errorMsg") != null) {
@@ -106,61 +104,67 @@
 								<form
 									action="${pageContext.request.contextPath}/submitInsertWeekoffCategory"
 									id="submitInsertWeekoffCategory" method="post">
-									<input type="hidden" value="${holi.woCatId}" id="woCatId" name="woCatId">
-									
+									<input type="hidden" value="${holi.woCatId}" id="woCatId"
+										name="woCatId">
+
 									<div class="form-group row">
-										<div class="col-md-6">	
-										<label class="col-form-label text-info font-weight-bold col-lg- float" for="woCatName">Week Off Category 
-											Name <span class="text-danger">* </span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" value="${holi.woCatName}"
-												placeholder="Enter Week Off Category" id="woCatName" maxlength="10"
-												name="woCatName" autocomplete="off"  onchange="checkUnique(this.value,4)">
-											<span class="validation-invalid-label" id="error_woCatName"
-												style="display: none;">This field is required.</span>
-												
-												<span class="validation-invalid-label" id="error_unique"
-												style="display: none;">Week Off Category  Name Already Exists.</span>
-										</div>
-										</div>
-										
-											<div class="col-md-6">	
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="woShortName">Short Name
-											 <span class="text-danger">* </span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Enter Short Name" id="woShortName" value="${holi.woCatShortName}"
-												name="woShortName" autocomplete="off" onchange="trim(this)"
-												maxlength="10"> <span
-												class="validation-invalid-label" id="error_woShortName"
-												style="display: none;">This field is required.</span>
-												<span
-												class="validation-invalid-label" id="error_sameName"
-												style="display: none;">Week Off Category Short Name Can Not be same as Week Off Category  Name.</span>
-												
-										</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="woCatName">Week Off Category Name <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${holi.woCatName}"
+													placeholder="Enter Week Off Category" id="woCatName"
+													maxlength="10" name="woCatName" autocomplete="off"
+													onchange="checkUnique(this.value,4)"> <span
+													class="validation-invalid-label" id="error_woCatName"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_unique"
+													style="display: none;">Week Off Category Name
+													Already Exists.</span>
 											</div>
+										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="woShortName">Short Name <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Short Name" id="woShortName"
+													value="${holi.woCatShortName}" name="woShortName"
+													autocomplete="off" onchange="trim(this)" maxlength="10">
+												<span class="validation-invalid-label"
+													id="error_woShortName" style="display: none;">This
+													field is required.</span> <span class="validation-invalid-label"
+													id="error_sameName" style="display: none;">Week Off
+													Category Short Name Can Not be same as Week Off Category
+													Name.</span>
+
+											</div>
+										</div>
 									</div>
 
 									<div class="form-group row">
-										
-									</div>
-									
-									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="remark">Remark
-											: </label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark">${holi.remark}</textarea>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
+												: </label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)" id="remark"
+													name="remark">${holi.remark}</textarea>
 
-										</div>
+											</div>
 										</div>
 									</div>
 
-									 <div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+									<div class="form-group row mb-0">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -194,39 +198,34 @@
 
 	</div>
 	<!-- /page content -->
-	
-	
+
+
 	<script>
 		function checkUnique(inputValue, valueType) {
-			
-		 
-			 
-			var primaryKey =	document.getElementById("woCatId").value ;
-	 
+
+			var primaryKey = document.getElementById("woCatId").value;
+
 			var isEdit = 0;
 			if (primaryKey > 0) {
 				isEdit = 1;
 			}
-	 
+
 			var valid = false;
 			if (inputValue == '' || inputValue == null) {
 				valid = false;
 			} else {
 				valid = true;
 			}
-			
-		 
-			 
-			if (valid == true){
-				
-				
+
+			if (valid == true) {
+
 				$.getJSON('${checkUniqueField}', {
 
 					inputValue : inputValue,
 					valueType : valueType,
 					primaryKey : primaryKey,
 					isEdit : isEdit,
- 					ajax : 'true',
+					ajax : 'true',
 
 				}, function(data) {
 
@@ -248,23 +247,21 @@
 
 
 	<script>
-	
-	function checkSame(){
-		x=document.getElementById("woCatName").value;
-		y=document.getElementById("woShortName").value;
-		//alert(x);
-		
-		if(x!== '' && y!== ''){
-			if(x==y){
-				$("#error_sameName").show()
-				document.getElementById("woShortName").value="";
+		function checkSame() {
+			x = document.getElementById("woCatName").value;
+			y = document.getElementById("woShortName").value;
+			//alert(x);
+
+			if (x !== '' && y !== '') {
+				if (x == y) {
+					$("#error_sameName").show()
+					document.getElementById("woShortName").value = "";
+				} else {
+					$("#error_sameName").hide()
+				}
 			}
-			else{
-				$("#error_sameName").hide()
-			}
-	}
-		
-	}
+
+		}
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -273,57 +270,49 @@
 			return;
 		}
 
-		 
-		$(document)
-				.ready(
-						function($) {
+		$(document).ready(function($) {
 
-							$("#submitInsertWeekoffCategory")
-									.submit(
-											function(e) {
-												var isError = false;
-												var errMsg = "";
+			$("#submitInsertWeekoffCategory").submit(function(e) {
+				var isError = false;
+				var errMsg = "";
 
-												if (!$("#woCatName").val()) {
+				if (!$("#woCatName").val()) {
 
-													isError = true;
+					isError = true;
 
-													$("#error_woCatName").show()
-													//return false;
-												} else {
-													$("#error_woCatName").hide()
-												}
+					$("#error_woCatName").show()
+					//return false;
+				} else {
+					$("#error_woCatName").hide()
+				}
 
-												if (!$("#woShortName").val()) {
+				if (!$("#woShortName").val()) {
 
-													isError = true;
+					isError = true;
 
-													$("#error_woShortName")
-															.show()
+					$("#error_woShortName").show()
 
-												} else {
-													$("#error_woShortName")
-															.hide()
-												}
+				} else {
+					$("#error_woShortName").hide()
+				}
 
-												if (!isError) {
+				if (!isError) {
 
-													var x = true;
-													if (x == true) {
+					var x = true;
+					if (x == true) {
 
-														document
-																.getElementById("submtbtn").disabled = true;
-														return true;
-													}
-													//end ajax send this to php page
-												}
-												return false;
-											});
-						});
+						document.getElementById("submtbtn").disabled = true;
+						return true;
+					}
+					//end ajax send this to php page
+				}
+				return false;
+			});
+		});
 		//
 	</script>
-	
-	 
+
+
 
 </body>
 </html>

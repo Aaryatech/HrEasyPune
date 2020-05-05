@@ -55,8 +55,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Leave
-												Structure</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Edit Leave Structure
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- 
 								 <a
@@ -124,153 +125,154 @@
 													autocomplete="off" onchange="trim(this)">
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="select2">Leave Encashment Calculate On = Basic
-												+ <span
-											style="color: red">* </span> :
-										</label>
-										<div class="col-lg-7 float">
-											<select name="allowanceIds"
-												data-placeholder="Select Structure Allotment"
-												id="allowanceIds"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true" multiple>
-												<c:forEach items="${allowanceList}" var="allowanceList">
-													<c:set value="0" var="find">
-													</c:set>
-													<c:forEach items="${allownceIds}" var="allownceIds">
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="select2">Leave Encashment Calculate On = Basic
+												+ <span style="color: red">* </span> :
+											</label>
+											<div class="col-lg-7 float">
+												<select name="allowanceIds"
+													data-placeholder="Select Structure Allotment"
+													id="allowanceIds"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true" multiple>
+													<c:forEach items="${allowanceList}" var="allowanceList">
+														<c:set value="0" var="find">
+														</c:set>
+														<c:forEach items="${allownceIds}" var="allownceIds">
 
-														<c:if test="${allownceIds==allowanceList.allowanceId}">
-															<option value="${allowanceList.allowanceId}" selected>${allowanceList.name}
-															</option>
-															<c:set value="1" var="find">
-															</c:set>
+															<c:if test="${allownceIds==allowanceList.allowanceId}">
+																<option value="${allowanceList.allowanceId}" selected>${allowanceList.name}
+																</option>
+																<c:set value="1" var="find">
+																</c:set>
+															</c:if>
+
+														</c:forEach>
+														<c:if test="${find==0}">
+															<option value="${allowanceList.allowanceId}">${allowanceList.name}</option>
 														</c:if>
-
 													</c:forEach>
-													<c:if test="${find==0}">
-														<option value="${allowanceList.allowanceId}">${allowanceList.name}</option>
-													</c:if>
-												</c:forEach>
-											</select>
-										</div>
+												</select>
+											</div>
 										</div>
 									</div>
-									
+
 									<hr>
-									
-									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-										id="printtable1">
-										<thead>
-											<tr class="bg-blue">
 
-												<th class="text-center">Leave Name</th>
-							<th width="10%" class="text-center">No of Leaves</th>
-												
-												<th width="10%" class="text-center">Min Days</th>
-												<th width="10%" class="text-center">Max Days</th>
-												<th width="10%" class="text-center">Max Carry Forward
-													Days</th>
-												<th width="10%" class="text-center">Can Encashed ?</th>
-											</tr>
-										</thead>
-										<tbody>
-										<c:forEach items="${leaveTypeList}" var="leaveType">
+									<div class="table-responsive">
+										<table
+											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+											id="printtable1">
+											<thead>
+												<tr class="bg-blue">
 
-										<c:set var="NoOfLeaves" value="0"></c:set>
-										<c:set var="minVal" value="0"></c:set>
-										<c:set var="maxVal" value="0"></c:set>
-										<c:set var="maxCarryForword" value="0"></c:set>
-										<c:set var="isInCash" value="0"></c:set>
-										<c:forEach items="${editStructureDetail}" var="detail">
-											<c:choose>
-												<c:when test="${detail.lvTypeId==leaveType.lvTypeId}">
-													<c:set var="NoOfLeaves" value="${detail.lvsAllotedLeaves}"></c:set>
+													<th class="text-center">Leave Name</th>
+													<th width="10%" class="text-center">No of Leaves</th>
 
-													<c:set var="minNoDays" value="${detail.minNoDays}"></c:set>
+													<th width="10%" class="text-center">Min Days</th>
+													<th width="10%" class="text-center">Max Days</th>
+													<th width="10%" class="text-center">Max Carry Forward
+														Days</th>
+													<th width="10%" class="text-center">Can Encashed ?</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${leaveTypeList}" var="leaveType">
 
-													<c:set var="maxNoDays" value="${detail.maxNoDays}"></c:set>
-													<c:set var="maxCarryForword"
-														value="${detail.maxAccumulateCarryforward}"></c:set>
-													<c:set var="isInCash" value="${detail.exInt1}"></c:set>
-												</c:when>
+													<c:set var="NoOfLeaves" value="0"></c:set>
+													<c:set var="minVal" value="0"></c:set>
+													<c:set var="maxVal" value="0"></c:set>
+													<c:set var="maxCarryForword" value="0"></c:set>
+													<c:set var="isInCash" value="0"></c:set>
+													<c:forEach items="${editStructureDetail}" var="detail">
+														<c:choose>
+															<c:when test="${detail.lvTypeId==leaveType.lvTypeId}">
+																<c:set var="NoOfLeaves"
+																	value="${detail.lvsAllotedLeaves}"></c:set>
+
+																<c:set var="minNoDays" value="${detail.minNoDays}"></c:set>
+
+																<c:set var="maxNoDays" value="${detail.maxNoDays}"></c:set>
+																<c:set var="maxCarryForword"
+																	value="${detail.maxAccumulateCarryforward}"></c:set>
+																<c:set var="isInCash" value="${detail.exInt1}"></c:set>
+															</c:when>
 
 
 
-											</c:choose>
-										</c:forEach>
-										
-										<tr>
-											<td><label
-												class="col-form-label text-info font-weight-bold"
-												for="noOfLeaves${leaveType.lvTypeId}">${leaveType.lvTitle} ${isInCash}
-												<span class="text-danger">* </span>:
-											</label></td>
-											<td> <input type="text" class="form-control numbersOnly"
-													placeholder="No.of Leaves Peryear"
-													id="noOfLeaves${leaveType.lvTypeId}" value="${NoOfLeaves}"
-													name="noOfLeaves${leaveType.lvTypeId}" autocomplete="off"
-													onchange="trim(this)"> </td>
-													
-													<td>
-													<input type="text" class="form-control numbersOnly"
-													id="min${leaveType.lvTypeId}" value="${minNoDays}"
-													name="min${leaveType.lvTypeId}" autocomplete="off"
-													onchange="chkVal(${leaveType.lvTypeId})">
-													</td>
-													<td>
-													<input type="text" class="form-control numbersOnly"
-													id="max${leaveType.lvTypeId}" value="${maxNoDays}"
-													name="max${leaveType.lvTypeId}" autocomplete="off"
-													onchange="chkVal(${leaveType.lvTypeId})"> <span
-													class="validation-invalid-label"
-													id="error_prsnName${leaveType.lvTypeId}"
-													style="display: none;">Min. Days Should be Less than
-													Max. Days .</span> <span class="validation-invalid-label"
-													id="error_prsnName1${leaveType.lvTypeId}"
-													style="display: none;">Min. Days & Max. Days Should
-													be Less than Leave Type Days.</span>
-													</td>
-													<td>
-														<input type="text" class="form-control numbersOnly"
-													id="maxCarryForword${leaveType.lvTypeId}"
-													value="${maxCarryForword}"
-													name="maxCarryForword${leaveType.lvTypeId}"
-													autocomplete="off" onchange="chkVal(${leaveType.lvTypeId})">
-													</td>
-													<td>
-													<c:choose>
-													<c:when test="${isInCash==1}">
-												<input type="checkbox" id="isInCash${leaveType.lvTypeId}"
-															value="0" name="isInCash${leaveType.lvTypeId}"
-															autocomplete="off"  onclick="showYesNo(${leaveType.lvTypeId})" checked>Yes
-													</c:when>
-													<c:otherwise>
-														<input type="checkbox" id="isInCash${leaveType.lvTypeId}"
-															value="0" name="isInCash${leaveType.lvTypeId}"
-															autocomplete="off"  onclick="showYesNo(${leaveType.lvTypeId})">No
-													</c:otherwise>
-												</c:choose>
-												 <span class="validation-valid-label"
-													id="isInCashMessageYes${leaveType.lvTypeId}"
-													></span>
-													 <span class="validation-invalid-label"
-													id="isInCashMessageNo${leaveType.lvTypeId}"
-													></span>
-													</td>
-											</tr>
-											
-										</c:forEach>
-										
-										</tbody>
+														</c:choose>
+													</c:forEach>
+
+													<tr>
+														<td><label
+															class="col-form-label text-info font-weight-bold"
+															for="noOfLeaves${leaveType.lvTypeId}">${leaveType.lvTitle}
+																<span class="text-danger">* </span>:
+														</label></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															placeholder="No.of Leaves Peryear"
+															id="noOfLeaves${leaveType.lvTypeId}"
+															value="${NoOfLeaves}"
+															name="noOfLeaves${leaveType.lvTypeId}" autocomplete="off"
+															onchange="trim(this)"></td>
+
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="min${leaveType.lvTypeId}" value="${minNoDays}"
+															name="min${leaveType.lvTypeId}" autocomplete="off"
+															onchange="chkVal(${leaveType.lvTypeId})"></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="max${leaveType.lvTypeId}" value="${maxNoDays}"
+															name="max${leaveType.lvTypeId}" autocomplete="off"
+															onchange="chkVal(${leaveType.lvTypeId})"> <span
+															class="validation-invalid-label"
+															id="error_prsnName${leaveType.lvTypeId}"
+															style="display: none;">Min. Days Should be Less
+																than Max. Days .</span> <span class="validation-invalid-label"
+															id="error_prsnName1${leaveType.lvTypeId}"
+															style="display: none;">Min. Days & Max. Days
+																Should be Less than Leave Type Days.</span></td>
+														<td><input type="text"
+															class="form-control numbersOnly"
+															id="maxCarryForword${leaveType.lvTypeId}"
+															value="${maxCarryForword}"
+															name="maxCarryForword${leaveType.lvTypeId}"
+															autocomplete="off"
+															onchange="chkVal(${leaveType.lvTypeId})"></td>
+														<td class="text-center"><c:choose>
+																<c:when test="${isInCash==1}">
+																	<input type="checkbox"
+																		id="isInCash${leaveType.lvTypeId}" value="0"
+																		name="isInCash${leaveType.lvTypeId}"
+																		autocomplete="off"
+																		onclick="showYesNo(${leaveType.lvTypeId})" checked>
+																</c:when>
+																<c:otherwise>
+																	<input type="checkbox"
+																		id="isInCash${leaveType.lvTypeId}" value="0"
+																		name="isInCash${leaveType.lvTypeId}"
+																		autocomplete="off"
+																		onclick="showYesNo(${leaveType.lvTypeId})">
+																</c:otherwise>
+															</c:choose> <span class="validation-valid-label"
+															id="isInCashMessageYes${leaveType.lvTypeId}"></span> <span
+															class="validation-invalid-label"
+															id="isInCashMessageNo${leaveType.lvTypeId}"></span></td>
+													</tr>
+
+												</c:forEach>
+
+											</tbody>
 										</table>
-									
-									
-										<!-- <div class="form-group row">
+									</div>
+									<br>
+
+									<!-- <div class="form-group row">
 											<strong> Leaves Types :</strong>
 										</div> -->
 
@@ -443,7 +445,7 @@
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn mr-3 legitRipple"
 												id="submtbtn">
@@ -483,10 +485,12 @@
 			document.getElementById("isInCashMessageYes"+id).innerHTML="Yes";
 			$("#isInCashMessageYes"+id).show();
 			$("#isInCashMessageNo"+id).hide();
+			document.getElementById("isInCash"+id).value=1;
 		}else{
 			document.getElementById("isInCashMessageNo"+id).innerHTML="No";
 			$("#isInCashMessageYes"+id).hide();
 			$("#isInCashMessageNo"+id).show();
+			document.getElementById("isInCash"+id).value=0;
 		}
 
 		

@@ -49,7 +49,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> ${title}
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -102,88 +104,97 @@
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${bank.bankId}" id="bankId"
 										name="bankId">
-										
+
 									<div class="form-group row">
-										<div class="col-md-6">		
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="bank">Bank
-											Name <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" value="${bank.name}"
-												placeholder="Enter Bank Name" id="bankName" name="bankName"
-												autocomplete="off" onchange="trim(this)" maxlength="30"> <span
-												class="validation-invalid-label" id="error_bank"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="bank">Bank Name <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" value="${bank.name}"
+													placeholder="Enter Bank Name" id="bankName" name="bankName"
+													autocomplete="off" onchange="trim(this)" maxlength="30">
+												<span class="validation-invalid-label" id="error_bank"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>
-										
-										<div class="col-md-6">		
+
+										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="micrCode">MICR
-											Code <span class="text-danger"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${bank.micrCode}" placeholder="Enter MICR Code"
-												id="micrCode" maxlength="9" name="micrCode"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_micrCode"
-												style="display: none;">This field is required.</span>
+												Code <span class="text-danger"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													value="${bank.micrCode}" placeholder="Enter MICR Code"
+													id="micrCode" maxlength="9" name="micrCode"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_micrCode"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-									</div>									
-										
+
 									</div>
 
 									<div class="form-group row">
-									<div class="col-md-6">		
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="branchName">Branch
-											Name <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" maxlength="20"
-												placeholder="Enter Branch Name" id="branchName"
-												value="${bank.branchName}" name="branchName"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_branchName"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="branchName">Branch Name <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" maxlength="20"
+													placeholder="Enter Branch Name" id="branchName"
+													value="${bank.branchName}" name="branchName"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_branchName"
+													style="display: none;">This field is required.</span>
 
+											</div>
+										</div>
+
+										<div class="col-md-6">
+
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="address">Address <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Branch Address" id="address"
+													value="${bank.address}" name="address" autocomplete="off"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_address"
+													style="display: none;">This field is required.</span>
+
+											</div>
 										</div>
 									</div>
-									
-									<div class="col-md-6">
-									
-									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="address">Address
-											<span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" 
-												placeholder="Enter Branch Address" id="address"
-												value="${bank.address}" name="address" autocomplete="off"
-												onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_address"
-												style="display: none;">This field is required.</span>
-
-										</div>										
-									</div>		
-								</div>
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="ifscCode">IFSC
-											Code <span class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${bank.ifscCode}" placeholder="Enter IFSC Code"
-												id="ifscCode" maxlength="11" name="ifscCode"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_ifscCode"
-												style="display: none;">This field is required.</span>
-										</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="ifscCode">IFSC Code <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${bank.ifscCode}" placeholder="Enter IFSC Code"
+													id="ifscCode" maxlength="11" name="ifscCode"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_ifscCode"
+													style="display: none;">This field is required.
+													Example : SBINXXXXXXX </span>
+											</div>
 										</div>
 									</div>
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -225,7 +236,7 @@
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-		 
+
 			return;
 		}
 
@@ -297,8 +308,8 @@
 													$("#error_branchName")
 															.hide()
 												}
-												
-												if($("#micrCode").val().length > 0){
+
+												if ($("#micrCode").val().length > 0) {
 													if (!$("#micrCode").val()
 															|| !validateMicr($(
 																	"#micrCode")
@@ -306,13 +317,18 @@
 
 														isError = true;
 
-														$("#error_micrCode").show()
-
+														document
+																.getElementById("error_micrCode").innerHTML = "Enter valid MICR code. Enter 9 digit no."
+														$("#error_micrCode")
+																.show()
 													} else {
-														$("#error_micrCode").hide()
+														$("#error_micrCode")
+																.hide()
 													}
+												} else {
+													$("#error_micrCode").hide()
 												}
-												
+
 												if (!$("#ifscCode").val()
 														|| !validateIfsc($(
 																"#ifscCode")

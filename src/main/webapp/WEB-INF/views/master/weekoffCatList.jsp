@@ -42,14 +42,15 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Week Off Category List</h5></td>
-								<td width="40%" align="right"> 
-										<a href="${pageContext.request.contextPath}/weekoffCategoryAdd"
-											class="breadcrumb-elements-item">
-											<button type="button" class="btn blue_btn">Add
-												Week Off Category</button>
-										</a>
-								 </td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Week Off Category List
+									</h5></td>
+								<td width="40%" align="right"><a
+									href="${pageContext.request.contextPath}/weekoffCategoryAdd"
+									class="breadcrumb-elements-item">
+										<button type="button" class="btn blue_btn">Add Week
+											Off Category</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
@@ -100,32 +101,28 @@
 									<th width="10%" class="text-center">Sr. No.</th>
 									<th class="text-center">Week Off Category Name</th>
 									<th class="text-center">Week Off Category Short Name</th>
-								 
+
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 
 
-								<c:forEach items="${holiList}" var="holiList"
-									varStatus="count">
+								<c:forEach items="${holiList}" var="holiList" varStatus="count">
 									<tr>
 										<td class="text-left">${count.index+1}</td>
 										<td class="text-left">${holiList.woCatName}</td>
 										<td class="text-left">${holiList.woCatShortName}</td>
-										 
-										<td class="text-center"> 
-												<a
-													href="${pageContext.request.contextPath}/editWeekoffCat?woCatId=${holiList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-										  
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${holiList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-										 </td>
+
+										<td class="text-center"><a
+											href="${pageContext.request.contextPath}/editWeekoffCat?woCatId=${holiList.exVar1}"
+											class="list-icons-item text-primary-600" data-popup="tooltip"
+											title="" data-original-title="Edit"><i
+												class="icon-pencil7"></i></a> <a
+											href="javascript:void(0)"
+											class="list-icons-item text-danger-600 bootbox_custom"
+											data-uuid="${holiList.exVar1}" data-popup="tooltip" title=""
+											data-original-title="Delete"><i class="icon-trash"></i></a></td>
 									</tr>
 								</c:forEach>
 
@@ -150,14 +147,15 @@
 
 	</div>
 	<!-- /page content -->
-<script>
+	<script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(
 						'click',
 						function() {
 							var uuid = $(this).data("uuid") // will return the number 123
-										bootbox.confirm({
+							bootbox
+									.confirm({
 										title : 'Confirm ',
 										message : 'Are you sure you want to delete selected records ?',
 										buttons : {

@@ -47,8 +47,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> 
-										Company Details</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Company Details
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -143,8 +144,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="companyName">Company Name <span
 													class="text-danger">*</span>:
 												</label>
@@ -158,8 +158,7 @@ System.out.println("val**"+flagNew);%> --%>
 														field is required.</span>
 												</div>
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="companyShortName">Company Short Name<span
 													class="text-danger">*</span>:
 												</label>
@@ -176,8 +175,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 
 											<div class="form-group row">
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="companyAddress1">Address1 <span
 													class="text-danger">*</span>:
 												</label>
@@ -230,14 +228,13 @@ System.out.println("val**"+flagNew);%> --%>
 
 
 											<div class="form-group row">
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
-													for="landline1">Landline No. 1 <span
+												<label class="col-form-label font-weight-bold col-lg-2"
+													for="landline1">Contact No. 1 <span
 													class="text-danger">* </span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control numbersOnly"
-														value="${company.landline1}" placeholder="Landline No."
+														value="${company.landline1}" placeholder="Contact No."
 														id="landline1" name="landline1" autocomplete="off"
 														onchange="trim(this)" maxlength="10"> <span
 														style="display: none;"
@@ -246,18 +243,18 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 
 
-												<label class="col-form-label col-lg-2" for="landline2">Landline
+												<label class="col-form-label col-lg-2" for="landline2">Contact
 													No. 2 <span class="text-danger"></span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control numbersOnly"
 														value="${company.landline2}"
-														placeholder="Other Landline No." id="landline2"
+														placeholder="Other Contact No." id="landline2"
 														name="landline2" autocomplete="off" onchange="trim(this)"
 														maxlength="10"> <span
 														class="hidedefault   validation-invalid-label"
 														style="display: none;" id="error_landline2">Enter
-														Valid Landine No. .</span>
+														Valid Landline No. .</span>
 												</div>
 
 											</div>
@@ -274,13 +271,12 @@ System.out.println("val**"+flagNew);%> --%>
 														onchange="trim(this)">
 												</div>
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
-													for="pan">PAN No. <span class="text-danger">*</span>:
+												<label class="col-form-label font-weight-bold col-lg-2"
+													for="pan">PAN <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control" maxlength="10"
-														placeholder="PAN No." id="pan" name="pan"
+														placeholder="PAN " id="pan" name="pan"
 														value="${company.panNo}" autocomplete="off"
 														onchange="trim(this)"><span
 														class="hidedefault  validation-invalid-label"
@@ -290,7 +286,8 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
+												<div style="margin: 0 auto;">
+													<!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn1">
@@ -334,27 +331,33 @@ System.out.println("val**"+flagNew);%> --%>
 														style="padding-bottom: 8px" class="form-control"
 														title="Only jpg,png,gif">${company.logo}
 												</div>
+
+												<div class="col-lg-4">
+													<img src="${viewUrl}${company.logo}" height="150px"
+														width="200px" onerror="imgError(this);">
+												</div>
 												<!-- onchange="readURL(this); return Upload(logo)" -->
 											</div>
-											
-											<div class="form-group row">
+
+											<%-- <div class="form-group row">
 												<div class="col-md-2">&nbsp;</div>
 												<div class="col-md-10">
 													<c:if test="${not empty company.logo}">
-												<div class="form-group col-lg-4">
-													<img src="${viewUrl}${company.logo}" height="150px"
-														width="200px">
+														<div class="form-group col-lg-4">
+															<img src="${viewUrl}${company.logo}" height="150px"
+																width="200px" onerror="imgError(this);">
 
+														</div>
+													</c:if>
 												</div>
-											</c:if>
-												</div>
-											</div>
-											
+											</div> --%>
+
 
 
 
 											<div class="form-group row mb-0">
-												<div style="margin:0 auto;"><!-- class="col-lg-10 ml-lg-auto" -->
+												<div style="margin: 0 auto;">
+													<!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
@@ -387,8 +390,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="taxNo">TAN No. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -475,8 +477,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="pf">PF <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -499,8 +500,7 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 											<div id="abc" style="display: none;">
 												<div class="form-group row">
-													<label
-														class="col-form-label font-weight-bold col-lg-2"
+													<label class="col-form-label font-weight-bold col-lg-2"
 														for="pfNo">PF No. <span class="text-danger">*</span>:
 													</label>
 													<div class="col-lg-4">
@@ -515,8 +515,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 												<div class="form-group row">
 
-													<label
-														class="col-form-label font-weight-bold col-lg-2"
+													<label class="col-form-label font-weight-bold col-lg-2"
 														for="pfCoveregDate">PF Coverage Date<span
 														class="text-danger">*</span>:
 													</label>
@@ -577,8 +576,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="isEsicApplicable">ESIC Applicable <span
 													class="text-danger">*</span>:
 												</label>
@@ -608,8 +606,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 												<div class="form-group row">
 
-													<label
-														class="col-form-label font-weight-bold col-lg-2"
+													<label class="col-form-label font-weight-bold col-lg-2"
 														for="esicNo">ESIC No. <span class="text-danger">*</span>:
 													</label>
 													<div class="col-lg-4">
@@ -624,8 +621,7 @@ System.out.println("val**"+flagNew);%> --%>
 												</div>
 												<div class="form-group row">
 
-													<label
-														class="col-form-label font-weight-bold col-lg-2"
+													<label class="col-form-label font-weight-bold col-lg-2"
 														for="esicCoverageDate">ESIC Coverage Date <span
 														class="text-danger">*</span>:
 													</label>
@@ -686,7 +682,8 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div style="margin:0 auto"><!--  class="col-lg-10 ml-lg-auto" -->
+												<div style="margin: 0 auto">
+													<!--  class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
@@ -722,8 +719,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="person">Person Name <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -752,8 +748,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="mobile">Mobile No. <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -766,8 +761,7 @@ System.out.println("val**"+flagNew);%> --%>
 														is required.</span>
 												</div>
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="designation">Bank Account No <span
 													class="text-danger">*</span>:
 												</label>
@@ -777,15 +771,14 @@ System.out.println("val**"+flagNew);%> --%>
 														autocomplete="off" onchange="trim(this)"
 														placeholder="Bank Account No " name="accno" maxlength="17">
 													<span class="hidedefault  validation-invalid-label"
-														style="display: none;" id="error_accNoDigit">TInvalid
+														style="display: none;" id="error_accNoDigit">Invalid
 														Account No.</span>
 												</div>
 											</div>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="email1">Email 1 <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
@@ -812,7 +805,8 @@ System.out.println("val**"+flagNew);%> --%>
 											</div>
 
 											<div class="form-group row mb-0">
-												<div style="margin:0 auto"><!-- class="col-lg-10 ml-lg-auto" -->
+												<div style="margin: 0 auto">
+													<!-- class="col-lg-10 ml-lg-auto" -->
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
 													<button type="submit" class="btn blue_btn ml-3 legitRipple"
 														id="submtbtn">
@@ -846,8 +840,7 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label
-													class="col-form-label font-weight-bold col-lg-2"
+												<label class="col-form-label font-weight-bold col-lg-2"
 													for="manager">Manager Under Shop Act <span
 													class="text-danger">*</span>:
 												</label>
@@ -1059,85 +1052,106 @@ System.out.println("val**"+flagNew);%> --%>
 			});
 		}); */
 
-		$(document).ready(function($) {
+		$(document)
+				.ready(
+						function($) {
 
-			$("#insertCompanyInfo").submit(function(e) {
-				var isError = false;
-				var errMsg = "";
+							$("#insertCompanyInfo")
+									.submit(
+											function(e) {
+												var isError = false;
+												var errMsg = "";
 
-				if (!$("#companyName").val()) {
+												if (!$("#companyName").val()) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_company").show()
-					//return false;
-				} else {
-					$("#error_company").hide()
-				}
+													$("#error_company").show()
+													//return false;
+												} else {
+													$("#error_company").hide()
+												}
 
-				if (!$("#companyShortName").val()) {
+												if (!$("#companyShortName")
+														.val()) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_companyShortName").show()
+													$("#error_companyShortName")
+															.show()
 
-				} else {
-					$("#error_companyShortName").hide()
-				}
-				if (!$("#companyAddress1").val()) {
+												} else {
+													$("#error_companyShortName")
+															.hide()
+												}
+												if (!$("#companyAddress1")
+														.val()) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_companyAddress1").show()
+													$("#error_companyAddress1")
+															.show()
 
-				} else {
-					$("#error_companyAddress1").hide()
-				}
-				if (!$("#landline1").val()) {
+												} else {
+													$("#error_companyAddress1")
+															.hide()
+												}
+												if (!$("#landline1").val()
+														|| !validateMobile($(
+																"#landline1")
+																.val())) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_landline1").show()
+													$("#error_landline1")
+															.show()
 
-				} else {
-					$("#error_landline1").hide()
-				}
-				if ($("#landline2").val().length > 0) {
+												} else {
+													$("#error_landline1")
+															.hide()
+												}
+												if ($("#landline2").val().length > 0) {
 
-					if (!validateMobile($("#landline2").val())) {
+													if (!validateMobile($(
+															"#landline2").val())) {
 
-						isError = true;
+														isError = true;
 
-						$("#error_landline2").show()
+														$("#error_landline2")
+																.show()
 
-					} else {
-						$("#error_landline2").hide()
-					}
-				}
+													} else {
+														$("#error_landline2")
+																.hide()
+													}
+												}
 
-				if (!$("#pan").val() || !validatePAN($("#pan").val())) {
+												if (!$("#pan").val()
+														|| !validatePAN($(
+																"#pan").val())) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_pan").show()
+													$("#error_pan").show()
 
-				} else {
-					$("#error_pan").hide()
-				}
+												} else {
+													$("#error_pan").hide()
+												}
 
-				if (!isError) {
+												if (!isError) {
 
-					var x = true;
-					if (x == true) {
+													var x = true;
+													if (x == true) {
 
-						document.getElementById("submtbtn1").disabled = true;
-						return true;
-					}
-					//
-				}
-				return false;
-			});
-		});
+														document
+																.getElementById("submtbtn1").disabled = true;
+														return true;
+													}
+													//
+												}
+												return false;
+											});
+						});
 		//
 		/* 2 Funds */
 		$(document).ready(function($) {

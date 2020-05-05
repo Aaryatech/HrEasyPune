@@ -49,7 +49,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> ${title}</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> ${title}
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -109,33 +111,36 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
-													placeholder="Enter Skill Name" id="skillName" value="${editSkill.name}"
-													name="skillName" autocomplete="off"> <span
+													placeholder="Enter Skill Name" id="skillName"
+													value="${editSkill.name}" name="skillName"
+													autocomplete="off" onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_skillName"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="skillRate">Skill Rate <span class="text-danger">*
-										</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="Enter Skill Rate" id="skillRate" value="${editSkill.rate}"
-												name="skillRate" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_skillRate"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="skillRate">Skill Rate <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Enter Skill Rate" id="skillRate"
+													value="${editSkill.rate}" name="skillRate"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_skillRate"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
-									<input type="hidden" id="skillId" name="skillId" value="${editSkill.skillId}">
-								
+									<input type="hidden" id="skillId" name="skillId"
+										value="${editSkill.skillId}">
+
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -213,6 +218,13 @@
 			});
 		});
 		//
+		function trim(el) {
+			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+			replace(/\n +/, "\n"); // Removes spaces after newlines
+			checkSame();
+			return;
+		}
 	</script>
 
 

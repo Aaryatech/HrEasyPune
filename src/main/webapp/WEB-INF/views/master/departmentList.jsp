@@ -42,8 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"> Department
-										List</i></h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"> </i>Department List
+									</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/departmentAdd"
 											class="breadcrumb-elements-item">
@@ -102,8 +103,7 @@
 									<th style="text-align: center;">Department</th>
 									<th style="text-align: center;">Department Short Name</th>
 									<th style="text-align: center;">Remark</th>
-									<th width="10%" class="text-center"
-									 style="text-align: center;">Actions</th>
+									<th width="10%" class="text-center" style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -120,10 +120,11 @@
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editDepartment?deptId=${departmentList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
-											<%-- 	<a
+												<%-- 	<a
 													href="${pageContext.request.contextPath}/deleteDepartment?deptId=${departmentList.exVar1}"
 													onClick="return confirm('Are you sure want to delete this record');"
 													title="Delete" class="bootbox_custom"><i
@@ -166,7 +167,8 @@
 						'click',
 						function() {
 							var uuid = $(this).data("uuid") // will return the number 123
-										bootbox.confirm({
+							bootbox
+									.confirm({
 										title : 'Confirm ',
 										message : 'Are you sure you want to delete selected records ?',
 										buttons : {

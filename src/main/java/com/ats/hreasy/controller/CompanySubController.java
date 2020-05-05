@@ -224,15 +224,6 @@ public class CompanySubController {
 
 			}
 
-			if (compId != 0) {
-
-				encryptCompId = FormValidation.Encrypt(String.valueOf(compId));
-				System.out.println("Set CompId 1: " + encryptCompId);
-				a = "redirect:/editSubCompanyInfo?compId=" + encryptCompId + "&redirectFlag=1";
-			} else {
-				a = "redirect:/showSubCompanyList";
-			}
-
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("companyId", compId);
 
@@ -306,12 +297,17 @@ public class CompanySubController {
 				} else {
 					session.setAttribute("errorMsg", "Failed to Update Company Details");
 				}
+				encryptCompId = FormValidation.Encrypt(String.valueOf(compId));
+				a = "redirect:/editSubCompanyInfo?compId=" + encryptCompId + "&redirectFlag=2";
 			} else {
 				if (saveComp != null) {
 					session.setAttribute("successMsg", "Company Details Inserted Successfully");
 				} else {
 					session.setAttribute("errorMsg", "Failed to Insert Company Details");
 				}
+
+				a = "redirect:/editSubCompanyInfo?compId="
+						+ FormValidation.Encrypt(String.valueOf(saveComp.getCompanyId())) + "&redirectFlag=2";
 			}
 
 		} catch (Exception e) {
