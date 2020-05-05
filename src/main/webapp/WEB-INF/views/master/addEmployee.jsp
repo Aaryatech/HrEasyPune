@@ -57,8 +57,10 @@
 							<div class="card-header header-elements-inline">
 								<h5 class="pageTitle">
 									<c:choose>
-										<c:when test="${emp.empId!=0}"><i class="icon-list-unordered"></i> Edit Employee</c:when>
-										<c:otherwise><i class="icon-list-unordered"></i> Add Employee</c:otherwise>
+										<c:when test="${emp.empId!=0}">
+											<i class="icon-list-unordered"></i> Edit Employee</c:when>
+										<c:otherwise>
+											<i class="icon-list-unordered"></i> Add Employee</c:otherwise>
 									</c:choose>
 								</h5>
 							</div>
@@ -997,24 +999,27 @@
 														style="display: none;" id="error_bloodgroup">This
 														field is required.</span>
 												</div>
-												<c:choose>
-												<c:when
-													test="${empPersInfo.exVar1 != '' && empPersInfo.exVar1 != null}">
-													<div class="col-lg-5">
-														<img src="${imgUrl}${empPersInfo.exVar1}" 
-														
-															title="Profile Pic" height="50" width="50"
-															alt="">
-													</div>
-												</c:when>
-												<c:otherwise>
+												<%-- <c:choose>
+													<c:when
+														test="${empPersInfo.exVar1 != '' && empPersInfo.exVar1 != null}">
+														<div class="col-lg-5">
+															<img src="${imgUrl}${empPersInfo.exVar1}"
+																title="Profile Pic" height="50" width="50" alt="">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="col-lg-5">
+															<img title="Profile Pic" height="50" width="50"
+																src="${pageContext.request.contextPath}/resources/global_assets/images/face10.jpg">
+														</div>
+													</c:otherwise>
+												</c:choose> --%>
+
 												<div class="col-lg-5">
-														<img  
-														
-															title="Profile Pic" height="50" width="50"
-															src="${pageContext.request.contextPath}/resources/global_assets/images/face10.jpg">
-													</div>
-												</c:otherwise></c:choose>
+													<img src="${imgUrl}${empPersInfo.exVar1}"
+														title="Profile Pic" height="50" width="50" alt=""
+														onerror="imgError(this);">
+												</div>
 											</div>
 
 
@@ -2244,36 +2249,36 @@
 												</div>
 											</div>
 
-		<div class="form-group row">
-			<div class="col-md-6">
-				<label class="col-form-label col-lg-5 float" for="accNo">User
-					Name <span class="text-danger"></span>:
-				</label>
-				<div class="col-lg-7 float">
-					<input type="text" class="form-control" readonly="readonly"
-						value="${userRes.userName}" id="uname" name="uname"
-						autocomplete="off">
-				</div>
-			</div>
-			<div class="col-md-6">
-				<label
-				class="col-form-label text-info font-weight-bold col-lg-5 float"
-				for="upass">Update User Password <span
-				class="text-danger">*</span>:
-			</label>
-			<div class="col-lg-7 float">
-				<input type="text" class="form-control"
-					placeholder="User Password" id="upass" name="upass"
-					autocomplete="off" onchange="trim(this)"> <span
-					class="hidedefault   validation-invalid-label"
-					style="display: none;" id="error_upass">This Field
-					is Required.</span>
-			</div>
-	
-			</div>
-		</div>
+											<div class="form-group row">
+												<div class="col-md-6">
+													<label class="col-form-label col-lg-5 float" for="accNo">User
+														Name <span class="text-danger"></span>:
+													</label>
+													<div class="col-lg-7 float">
+														<input type="text" class="form-control"
+															readonly="readonly" value="${userRes.userName}"
+															id="uname" name="uname" autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="upass">Update User Password <span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-7 float">
+														<input type="text" class="form-control"
+															placeholder="User Password" id="upass" name="upass"
+															autocomplete="off" onchange="trim(this)"> <span
+															class="hidedefault   validation-invalid-label"
+															style="display: none;" id="error_upass">This Field
+															is Required.</span>
+													</div>
 
-											
+												</div>
+											</div>
+
+
 
 											<div class="form-group text-center">
 												<div class="col-lg-12">

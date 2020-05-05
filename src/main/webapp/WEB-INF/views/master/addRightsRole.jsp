@@ -106,25 +106,29 @@
 									action="${pageContext.request.contextPath}/submitInsertAccessRole"
 									id="submitInsertEmpType" method="post">
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="empTypeName">Role
-											Name <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="empTypeName">Role Name <span style="color: red">*
+										</span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control"
-												placeholder="Role Name" id="empTypeName"
-												name="empTypeName" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_empTypeName"
+												placeholder="Role Name" id="empTypeName" name="empTypeName"
+												autocomplete="off" onchange="trim(this)"> <span
+												class="validation-invalid-label" id="error_empTypeName"
 												style="display: none;">This field is required.</span>
 										</div>
 									</div>
 
 									<div class="form-group row">
-										<label class="col-form-label text-info font-weight-bold col-lg-2" for="empShortName">Role
-											Short Name <span style="color: red">* </span>:
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="empShortName">Role Short Name <span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control"
-												placeholder="Role Short Name" id="empShortName"s
+												placeholder="Role Short Name" id="empShortName" s
 												name="empShortName" autocomplete="off" onchange="trim(this)"
 												maxlength="5"> <span
 												class="validation-invalid-label" id="error_empShortName"
@@ -235,8 +239,8 @@
 
 										</tbody>
 									</table>
-									<span class="form-text text-muted">* If Want To Access
-										Add, Edit,Delete Then View Access is Compulsory</span>
+									<span class="form-text text-muted">Not : If want to
+										access Add, Edit,Delete then View access is compulsory.</span>
 									<div class="form-group row">
 										<div class="col-lg-10">
 											<span class="validation-invalid-label" id="error_checkbox"

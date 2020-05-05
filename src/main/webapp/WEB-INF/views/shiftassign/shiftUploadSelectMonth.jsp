@@ -42,22 +42,33 @@
 				<!-- Form validation -->
 				<div class="row">
 					<div class="col-md-12">
-						<!-- Title -->
-						<!-- <div class="mb-3">
-							<h6 class="mb-0 font-weight-semibold">Hidden labels</h6>
-							<span class="text-muted d-block">Inputs with empty values</span>
-						</div> -->
-						<!-- /title -->
+
 
 
 						<div class="card">
-
 							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Shift Allocation Month
+												wise
+											</h5></td>
+										<td width="40%" align="right">
+											<%-- <a
+									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
+									class="breadcrumb-elements-item">
+										<button type="button" class="btn btn-primary">KRA List </button>
+								</a>  --%>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- <div class="card-header header-elements-inline">
 								<h6 class="card-title">Shift Allocation Upload for month
 									wise</h6>
 
 								<div class="header-elements"></div>
-							</div>
+							</div> -->
 
 							<div class="card-body">
 

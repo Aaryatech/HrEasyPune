@@ -172,7 +172,7 @@
 						<!-- new table with accordion start here -->
 
 
-						<div class="table-responsive accordion">
+						<!-- <div class="table-responsive accordion">
 							<table class="table">
 								<thead>
 									<tr class="bg-blue">
@@ -193,7 +193,7 @@
 
 									</tr>
 									<tr class="hide-table-padding">
-										<!-- <td></td> -->
+										<td></td>
 										<td colspan="4">
 											<div id="collapseOne" class="collapse in p-3">
 
@@ -263,7 +263,7 @@
 
 									</tr>
 									<tr class="hide-table-padding">
-										<!-- <td></td> -->
+										<td></td>
 										<td colspan="4">
 											<div id="collapseTwo" class="collapse in p-3">
 												<div class="row">
@@ -302,7 +302,7 @@
 
 								</tbody>
 							</table>
-						</div>
+						</div> -->
 
 
 

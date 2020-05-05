@@ -51,8 +51,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Access
-												Role</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Edit Access Role
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -105,70 +106,65 @@
 									action="${pageContext.request.contextPath}/submitEditAccessRole"
 									id="submitInsertEmpType" method="post">
 									<div class="form-group row">
-									
-									<div class="col-md-6">										
-											<label class="col-form-label col-lg-5 float" for="empTypeName">Employee
-											Type Name : *</label>										
-										
-										<div class="col-lg-7  float">
-											<input type="text" class="form-control"
-												placeholder="Employee Type Name" id="empTypeName"
-												name="empTypeName" autocomplete="off" onchange="trim(this)"
-												value="${editEmpType.empTypeName}"> <span
-												class="validation-invalid-label" id="error_empTypeName"
-												style="display: none;">This field is required.</span>
-										</div>	
-									</div>
-									
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="empShortName">Employee
-											Type Short Name : *</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Employee Type Short Name" id="empShortName"
-												name="empShortName" autocomplete="off" onchange="trim(this)"
-												maxlength="5" value="${editEmpType.empTypeShortName}">
-											<span class="validation-invalid-label"
-												id="error_empShortName" style="display: none;">This
-												field is required.</span> <span class="validation-invalid-label"
-												id="error_sameName" style="display: none;">Employee
-												Type Short Name Can Not be same as Employee Type Name.</span>
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float"
+												for="empTypeName">Employee Type Name : *</label>
+
+											<div class="col-lg-7  float">
+												<input type="text" class="form-control"
+													placeholder="Employee Type Name" id="empTypeName"
+													name="empTypeName" autocomplete="off" onchange="trim(this)"
+													value="${editEmpType.empTypeName}"> <span
+													class="validation-invalid-label" id="error_empTypeName"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float"
+												for="empShortName">Employee Type Short Name : *</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Employee Type Short Name" id="empShortName"
+													name="empShortName" autocomplete="off"
+													onchange="trim(this)" maxlength="5"
+													value="${editEmpType.empTypeShortName}"> <span
+													class="validation-invalid-label" id="error_empShortName"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_sameName"
+													style="display: none;">Employee Type Short Name Can
+													Not be same as Employee Type Name.</span>
 
 
 
-										</div>	
+											</div>
+										</div>
+
+
+
+
 									</div>
-									
-									
-										
-										
-									</div>
-									
-									
+
+
 									<div class="form-group row">
-									<input type="hidden" id="comoffallowed" name="comoffallowed"
-										value="${editEmpType.compOffRequestAllowed}">
+										<input type="hidden" id="comoffallowed" name="comoffallowed"
+											value="${editEmpType.compOffRequestAllowed}">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
-											: </label>
+												: </label>
 											<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control" style="resize:none"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark">${editEmpType.empTypeRemarks}</textarea>
+												<textarea rows="3" cols="3" class="form-control"
+													style="resize: none" placeholder="Any Remark"
+													onchange="trim(this)" id="remark" name="remark">${editEmpType.empTypeRemarks}</textarea>
 
-										</div>
+											</div>
 										</div>
 									</div>
 
-									<div class="form-group row">
-										
-										
-									</div>
-									
-									<div class="form-group row">
-										
-										
-									</div>
+									<div class="form-group row"></div>
+
+									<div class="form-group row"></div>
 
 									<%-- <div class="form-group row">
 										<label class="col-form-label col-lg-2" for="comoffallowed">Comp
@@ -204,8 +200,8 @@
 											</label>
 										</div>
 									</div> --%>
-									
-									
+
+
 
 									<table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
@@ -325,8 +321,8 @@
 
 										</tbody>
 									</table>
-									<span class="form-text text-muted">* If Want To Access
-										Add, Edit,Delete Then View Access is Compulsory</span>
+									<span class="form-text text-muted">Not : If want to
+										access Add, Edit,Delete then View access is compulsory.</span>
 									<div class="form-group row">
 										<div class="col-lg-10">
 											<span class="validation-invalid-label" id="error_checkbox"
