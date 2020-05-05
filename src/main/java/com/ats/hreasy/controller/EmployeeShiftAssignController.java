@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -843,13 +845,15 @@ public class EmployeeShiftAssignController {
 						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				System.err.println("empdetList " +empdetList.toString());
+
+				
 				model.addAttribute("empdetList", empdetList);
 
 				MstCompanySub[] location1 = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getAllActiveSubCompanies", MstCompanySub[].class);
 
 				List<MstCompanySub> locationList1 = new ArrayList<MstCompanySub>(Arrays.asList(location1));
-
 				model.addAttribute("subCompList", locationList1);
 
 			} catch (Exception e) {

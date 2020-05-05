@@ -128,11 +128,11 @@
 										<th   width="10%">Sr.no</th>
 
 										<th ><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th >Employee Code</th>
-										<th >Employee Name</th>
-										<th >Employee Type</th>
-										<th >Department</th>
-										<th >Designation</th>
+										<th >Employee Code (Emp Type)</th>
+										<th >Employee Name (Designation - Department)</th>
+										<!-- <th ></th>
+										<th ></th>
+										<th ></th> -->
 										<th >Location</th>
 										<th >Company</th>
 
@@ -149,11 +149,11 @@
 											<td >${count.index+1}</td>
 											<td ><input type="checkbox" id="empId${empdetList.empId}"
 												value="${empdetList.empId}" name="empId" class="select_all"></td>
-											<td >${empdetList.empCode}</td>
-											<td >${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
-											<td >${empdetList.empTypeName}</td>
-											<td >${empdetList.deptName}</td>
-											<td >${empdetList.empDesgn}</td>
+											<td >${empdetList.empCode} (${empdetList.empTypeName})</td>
+											<td >${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName} (${empdetList.deptName} - ${empdetList.empDesgn})</td>
+											<!-- <td ></td>
+											<td ></td>
+											<td ></td> -->
  											<td >${empdetList.locName}</td>
 											<td >${empdetList.subCompName}</td>
 

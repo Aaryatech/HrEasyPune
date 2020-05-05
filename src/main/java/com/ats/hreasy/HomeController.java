@@ -112,7 +112,12 @@ public class HomeController {
 						LoginResponse.class);
 
 				if (userObj.getIsError() == false) {
-
+//System.err.println("userObj.getIsVisit() "+userObj.getIsVisit());
+					if(userObj.getIsVisit()==1) {
+						session.setAttribute("userId", userObj.getEmpId());
+						mav = "redirect:/changePassPage";
+					}else {
+					
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("limitKey", "header_color");
 					Setting getSettingByKey = Constants.getRestTemplate()
@@ -142,7 +147,7 @@ public class HomeController {
 					}
 					session.setAttribute("moduleJsonList", moduleJsonList);
 					// System.err.println("Hoem**"+userObj.toString());
-
+					}
 				} else {
 					mav = "redirect:/";
 					session.setAttribute("errorMsg", "Login Failed");
