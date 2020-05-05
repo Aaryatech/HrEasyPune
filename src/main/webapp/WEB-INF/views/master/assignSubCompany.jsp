@@ -7,8 +7,9 @@
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 <%--  <script src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_advanced.js"></script>
- --%></head>
- 
+ --%>
+</head>
+
 
 <body>
 
@@ -44,7 +45,10 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Company Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Company
+										Assignment
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -93,81 +97,91 @@
 
 							<div class="form-group row">
 								<div class="col-md-6">
-									<label
-									class="col-form-label col-lg-5 float"
-									for="locId"> Select Company <span
-									class="text-danger">* </span>:
-								</label>
-								<div class="col-lg-7 float">
-									<select name="compId"
-										data-placeholder="Select Company" id="compId"
-										class="form-control form-control-select2 select2-hidden-accessible"
-										data-fouc="" aria-hidden="true">
-										<option value="">Select Company</option>
-										<c:forEach items="${subCompList}" var="subCompList">
-											<option value="${subCompList.companyId}">${subCompList.companyName}[${subCompList.nameSd}]</option>
-										</c:forEach>
-									</select> <span class="validation-invalid-label" id="error_shiftId"
-										style="display: none;">This field is required.</span>
+									<label class="col-form-label col-lg-5 float" for="locId">
+										Select Company <span class="text-danger">* </span>:
+									</label>
+									<div class="col-lg-7 float">
+										<select name="compId" data-placeholder="Select Company"
+											id="compId"
+											class="form-control form-control-select2 select2-hidden-accessible"
+											data-fouc="" aria-hidden="true">
+											<option value="">Select Company</option>
+											<c:forEach items="${subCompList}" var="subCompList">
+												<option value="${subCompList.companyId}">${subCompList.companyName}[${subCompList.nameSd}]</option>
+											</c:forEach>
+										</select> <span class="validation-invalid-label" id="error_shiftId"
+											style="display: none;">This field is required.</span>
+									</div>
 								</div>
-								</div>
-							
-							
-								
+
+
+
 							</div>
-						 
+
 							<div class="table-responsive">
-						
-										
-										<table
-							class="table  table-bordered table-hover datatable-highlight  "
-							id="printtable1">
-								<thead>
-									<tr class="bg-blue" >
 
-										<th   width="10%">Sr.no</th>
 
-										<th ><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th >Employee Code (Emp Type)</th>
-										<th >Employee Name (Designation - Department)</th>
-										<!-- <th ></th>
+								<table
+									class="table  table-bordered table-hover datatable-highlight  "
+									id="printtable1">
+									<thead>
+										<tr class="bg-blue">
+
+											<th width="10%">Sr.no</th>
+
+											<th><input type="checkbox" name="selAll" id="selAll" /></th>
+											<th>Employee Code (Emp Type)</th>
+											<th>Employee Name (Designation - Department)</th>
+											<!-- <th ></th>
 										<th ></th>
 										<th ></th> -->
-										<th >Location</th>
-										<th >Company</th>
+											<th>Location</th>
+											<th>Company</th>
 
 
-									</tr>
-								</thead>
-								<tbody>
+										</tr>
+									</thead>
+									<tbody>
 
 
-									<c:forEach items="${empdetList}" var="empdetList"
-										varStatus="count">
-										<tr>
-
-											<td >${count.index+1}</td>
-											<td ><input type="checkbox" id="empId${empdetList.empId}"
-												value="${empdetList.empId}" name="empId" class="select_all"></td>
-											<td >${empdetList.empCode} (${empdetList.empTypeName})</td>
-											<td >${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName} (${empdetList.deptName} - ${empdetList.empDesgn})</td>
+										<c:forEach items="${empdetList}" var="empdetList"
+											varStatus="count">
+											<tr>
+											<c:choose>
+								<c:when test="${empdetList.subCompName eq null}">
+												<tr style="background: orange;">
+											</c:when>
+											<c:otherwise>
+											<tr>
+											</c:otherwise>
+														
+											
+											</c:choose>
+											
+											<td>${count.index+1}</td>
+											<td><input type="checkbox"
+												id="empId${empdetList.empId}" value="${empdetList.empId}"
+												name="empId" class="select_all"></td>
+											<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 											<!-- <td ></td>
 											<td ></td>
 											<td ></td> -->
- 											<td >${empdetList.locName}</td>
-											<td >${empdetList.subCompName}</td>
+											<td>${empdetList.locName}</td>
+											<td>${empdetList.subCompName}</td>
 
-										</tr>
-									</c:forEach>
-									
+											</tr>
+										</c:forEach>
 
-									
-									
 
-								</tbody>
-							</table>
-</div><br/>
-							<span class="validation-invalid-label" id="error_chk"
+
+
+
+									</tbody>
+								</table>
+							</div>
+							<br /> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span>
 
 
@@ -196,7 +210,7 @@
 
 	</div>
 	<!-- /page content -->
- 
+
 
 	<script type="text/javascript">
 		$(document).ready(function($) {
@@ -226,8 +240,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1')
-						.DataTable();
+						var table = $('#printtable1').DataTable();
 						table.search("").draw();
 						document.getElementById("deleteId").disabled = true;
 
