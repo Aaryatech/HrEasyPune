@@ -146,17 +146,17 @@
 
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-											<tr>
+												
+											<c:set  var="sty_color" value="orange"></c:set>
 											<c:choose>
 								<c:when test="${empdetList.subCompName eq null}">
-												<tr style="background: orange;">
+									<c:set  var="sty_color" value="orange"></c:set>
 											</c:when>
 											<c:otherwise>
-											<tr>
+											<c:set  var="sty_color" value=""></c:set>
 											</c:otherwise>
-														
-											
 											</c:choose>
+											<tr style="background: ${sty_color};">
 											
 											<td>${count.index+1}</td>
 											<td><input type="checkbox"

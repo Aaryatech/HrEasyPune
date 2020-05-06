@@ -129,8 +129,6 @@
 										<th>Employee Code</th>
 											<th>Employee Detail</th>
 											<th>Employee Type</th>
-											<th>Department</th>
-											<th>Designation</th>
 											<th>Location</th>
 											<th>Company</th>
 
@@ -142,17 +140,25 @@
 
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-											<tr>
+										<c:set  var="sty_color" value="orange"></c:set>
+											<c:choose>
+								<c:when test="${empdetList.empTypeName eq null}">
+									<c:set  var="sty_color" value="orange"></c:set>
+											</c:when>
+											<c:otherwise>
+											<c:set  var="sty_color" value=""></c:set>
+											</c:otherwise>
+											</c:choose>
+											<tr style="background: ${sty_color};">
 
 												<td>${count.index+1}</td>
 												<td><input type="checkbox"
 													id="empId${empdetList.empId}" value="${empdetList.empId}"
 													name="empId" class="select_all"></td>
-												<td>${empdetList.empCode}</td>
-												<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 												<td>${empdetList.empTypeName}</td>
-												<td>${empdetList.deptName}</td>
-												<td>${empdetList.empDesgn}</td>
 												<td>${empdetList.locName}</td>
 												<td>${empdetList.subCompName}</td>
 
