@@ -33,7 +33,9 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.InfoForUploadAttendance;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.ShiftCurrentMonth;
 import com.ats.hreasy.model.ShiftMaster;
+import com.ats.hreasy.model.TempFistDayAssignList;
 
 @Controller
 @Scope("session")
@@ -170,7 +172,7 @@ public class ShiftAssignController {
 				EmpWithShiftDetail[] empList = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
 				model.addAttribute("empList", empList);
-				
+
 				model.addAttribute("locId", locId);
 
 			} catch (Exception e) {
@@ -229,8 +231,10 @@ public class ShiftAssignController {
 
 		try {
 
-			int sm = Integer.parseInt(request.getParameter("sm"));
-			int sy = Integer.parseInt(request.getParameter("sy"));
+			/*
+			 * int sm = Integer.parseInt(request.getParameter("sm")); int sy =
+			 * Integer.parseInt(request.getParameter("sy"));
+			 */
 			int shiftId = Integer.parseInt(request.getParameter("shiftId"));
 			String daterange = request.getParameter("daterange");
 			String[] empId = request.getParameterValues("empId");
@@ -258,7 +262,7 @@ public class ShiftAssignController {
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
 					Info.class);
 
-			redirect = "redirect:/shiftbulkuploadImportExel?selectMonth=" + sm + "-" + sy;
+			redirect = "redirect:/showShiftProjectionAllocation?locId=" + locId;
 
 		} catch (Exception e) {
 
@@ -266,6 +270,194 @@ public class ShiftAssignController {
 		}
 
 		return redirect;
+	}
+
+	@RequestMapping(value = "/assignFistDayShift", method = RequestMethod.GET)
+	public String assignFistDayShift(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "shiftassign/assignFistDayShift";
+
+		try {
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar temp = Calendar.getInstance();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			ShiftMaster[] shiftMaster = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getShiftListByLpadForShiftAllocation", map, ShiftMaster[].class);
+			model.addAttribute("shiftMaster", shiftMaster);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+					Location[].class);
+
+			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+			model.addAttribute("locationList", locationList);
+
+			locId = Integer.parseInt(request.getParameter("locId"));
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("userId", 1);
+			map.add("locId", locId);
+			ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("date", shiftCurrentMonth.getDate());
+			map.add("locId", locId);
+			TempFistDayAssignList[] tempFistDayAssignListList = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getFistDayAssignShiftFromTemp", map, TempFistDayAssignList[].class);
+			model.addAttribute("locId", locId);
+			model.addAttribute("tempFistDayAssignListList", tempFistDayAssignListList);
+
+			// System.out.println(dates);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/updateShiftIdInTemp", method = RequestMethod.POST)
+	@ResponseBody
+	public Info updateShiftIdInTemp(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+
+		try {
+
+			int id = Integer.parseInt(request.getParameter("id"));
+			int shiftId = Integer.parseInt(request.getParameter("shiftId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("id", id);
+			map.add("shiftId", shiftId);
+
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateShiftIdInTempAllocation", map,
+					Info.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			info = new Info();
+			info.setError(true);
+			info.setMsg("failed");
+		}
+		return info;
+
+	}
+
+	@RequestMapping(value = "/submitEmpShiftListFisttime", method = RequestMethod.POST)
+	public String submitEmpShiftListFisttime(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "redirect:/assignFistDayShift";
+
+		try {
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("locId", locId);
+			map.add("userId", 1);
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/autoshiftAllocation", map,
+					Info.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/showShiftProjectionAllocation", method = RequestMethod.GET)
+	public String showShiftProjectionAllocation(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "shiftassign/showShiftProjectionAllocation";
+
+		try {
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar temp = Calendar.getInstance();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
+					map, ShiftMaster[].class);
+			model.addAttribute("shiftMaster", shiftMaster);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+					Location[].class);
+
+			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+			model.addAttribute("locationList", locationList);
+
+			locId = Integer.parseInt(request.getParameter("locId"));
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("userId", 1);
+			map.add("locId", locId);
+			ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
+
+			Date myDate = sf.parse(shiftCurrentMonth.getDate());
+			Date oneDayBefore = new Date(myDate.getTime() - 2);
+			String previousDate = sf.format(oneDayBefore);
+
+			String[] monthsplt = previousDate.split("-");
+
+			Date firstDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]) - 1, 1)
+					.getTime();
+			Date lastDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]), 0)
+					.getTime();
+
+			Date fmdt = sf.parse(sf.format(firstDay));
+			Date todt = sf.parse(sf.format(lastDay));
+
+			SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
+
+			try {
+
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+
+				List<DateAndDay> dateAndDayList = new ArrayList<>();
+
+				for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+
+					DateAndDay dateAndDay = new DateAndDay();
+					String stringDate = sdf.format(j);
+					dateAndDay.setDate(dd.format(j));
+					dateAndDay.setDay(stringDate);
+					dateAndDayList.add(dateAndDay);
+
+					/* System.out.println(sf.parse(sf.format(j))); */
+					j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+				}
+
+				model.addAttribute("dateAndDayList", dateAndDayList);
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("fromDate", sf.format(firstDay));
+				map.add("toDate", sf.format(lastDay));
+				map.add("locId", locId);
+
+				EmpWithShiftDetail[] empList = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
+				model.addAttribute("empList", empList);
+
+				model.addAttribute("locId", locId);
+
+				model.addAttribute("firstDate", dd.format(firstDay));
+				model.addAttribute("lastDate", dd.format(lastDay));
+
+			} catch (Exception e) {
+
+			}
+			// System.out.println(dates);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+
 	}
 
 }
