@@ -160,13 +160,13 @@
 												<td>${empdetList.empDesgn}</td> --%>
 												<c:set var="loginType" value="NA" />
 												<c:choose>
-													<c:when test="${empdetList.shiftname eq 1}">
+													<c:when test="${empdetList.shiftname eq '1'}">
 														<c:set var="loginType" value="Web Application" />
 													</c:when>
-													<c:when test="${empdetList.shiftname eq 2}">
+													<c:when test="${empdetList.shiftname eq '2'}">
 														<c:set var="loginType" value="Mobile App" />
 													</c:when>
-													<c:when test="${empdetList.shiftname eq 3}">
+													<c:when test="${empdetList.shiftname eq '3'}">
 														<c:set var="loginType"
 															value="Mobile and Web Application Both" />
 													</c:when>

@@ -126,8 +126,8 @@
 											<th width="10%">Sr.no</th>
 
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-											<th>Employee Code</th>
-											<th>Employee Name</th>
+										<th>Employee Code</th>
+											<th>Employee Detail</th>
 											<th>Employee Type</th>
 											<th>Department</th>
 											<th>Designation</th>
