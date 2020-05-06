@@ -192,7 +192,7 @@ public class EmployeeShiftAssignController {
 			try {
 				List<SalaryTypesMaster> shiftList = new ArrayList<>();
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+						.getForObject(Constants.url + "/getAllEmployeeDetailshowEmpListToAssignSalStruct", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -753,7 +753,7 @@ public class EmployeeShiftAssignController {
 			try {
 
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+						.getForObject(Constants.url + "/getAllEmployeeDetailassignWeekoffCategory", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);

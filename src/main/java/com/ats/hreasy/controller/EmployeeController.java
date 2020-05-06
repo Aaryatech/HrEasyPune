@@ -1645,7 +1645,7 @@ public class EmployeeController {
 		try {
 
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+					.getForObject(Constants.url + "/getAllEmployeeDetailassignHolidayCategory", GetEmployeeDetails[].class);
 
 			List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 			model.addAttribute("empdetList", empdetList);
