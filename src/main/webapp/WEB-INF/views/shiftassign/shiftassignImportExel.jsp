@@ -48,11 +48,22 @@
 						<div class="card">
 
 							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Assign Shift Record for
+												month <strong>${monthName} &nbsp;${year}</strong>
+											</h5></td>
+										<td width="40%" align="right"></td>
+									</tr>
+								</table>
+							</div>
+							<%-- <div class="card-header header-elements-inline">
 								<h5 class="card-title">
 									Assign Shift Record for month <strong>${monthName}
 										&nbsp;${year}</strong>
 								</h5>
-							</div>
+							</div> --%>
 
 
 							<div class="card-body">
