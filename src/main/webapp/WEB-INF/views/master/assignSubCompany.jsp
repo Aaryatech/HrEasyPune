@@ -121,8 +121,7 @@
 							<div class="table-responsive">
 
 
-								<table
-									class="table  table-bordered table-hover datatable-highlight  "
+								<table class="table datatable-scroll-y" width="100%"
 									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
@@ -146,30 +145,30 @@
 
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-												
-											<c:set  var="sty_color" value="orange"></c:set>
+
+											<c:set var="sty_color" value="orange"></c:set>
 											<c:choose>
-								<c:when test="${empdetList.subCompName eq null}">
-									<c:set  var="sty_color" value="orange"></c:set>
-											</c:when>
-											<c:otherwise>
-											<c:set  var="sty_color" value=""></c:set>
-											</c:otherwise>
+												<c:when test="${empdetList.subCompName eq null}">
+													<c:set var="sty_color" value="orange"></c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="sty_color" value=""></c:set>
+												</c:otherwise>
 											</c:choose>
 											<tr style="background: ${sty_color};">
-											
-											<td>${count.index+1}</td>
-											<td><input type="checkbox"
-												id="empId${empdetList.empId}" value="${empdetList.empId}"
-												name="empId" class="select_all"></td>
-											<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-											<!-- <td ></td>
+
+												<td>${count.index+1}</td>
+												<td><input type="checkbox"
+													id="empId${empdetList.empId}" value="${empdetList.empId}"
+													name="empId" class="select_all"></td>
+												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+												<!-- <td ></td>
 											<td ></td>
 											<td ></td> -->
-											<td>${empdetList.locName}</td>
-											<td>${empdetList.subCompName}</td>
+												<td>${empdetList.locName}</td>
+												<td>${empdetList.subCompName}</td>
 
 											</tr>
 										</c:forEach>
@@ -216,6 +215,8 @@
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
 
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
 				var isError = false;
 				var errMsg = "";
 				var compId = $("#compId").val();
@@ -240,8 +241,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1').DataTable();
-						table.search("").draw();
+						
 						document.getElementById("deleteId").disabled = true;
 
 						return true;
