@@ -234,7 +234,7 @@
 														name="selAll" id="selAll" /></th>
 													<c:forEach items="${dateAndDayList}" var="dates"
 														varStatus="count">
-														<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
+														<th style="text-align: center;">${dates.date}<br>${dates.day}</th>
 													</c:forEach>
 
 												</tr>

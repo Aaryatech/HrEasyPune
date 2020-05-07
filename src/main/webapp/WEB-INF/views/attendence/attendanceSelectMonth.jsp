@@ -53,46 +53,10 @@
 						<div class="card">
 
 							<div class="card-header header-elements-inline">
-								
-								<div class="form-group row">
-									<div class="col-md-6">
-										<h6 class="pageTitle">
-									<i class="icon-list-unordered"></i> Attendance process for month <span> ${monthName}
-										&nbsp;${year}</span>
+								<h6 class="pageTitle">
+									<i class="icon-list-unordered"></i> Attendance process for
+									month <span> ${monthName} &nbsp;${year}</span>
 								</h6>
-									</div>
-									<div class="col-md-6">
-										<form name="attendanceStep1" id="attendanceStep1"
-												action="${pageContext.request.contextPath}/attendenceImportExel"
-												method="GET" class="form-inline justify-content-center">
-
-												<input type="hidden" name="mode" id="mode"
-													value="submitform">
-												<div class="form-group ">
-													<label for="staticEmail" class="col-md-12 col-form-label">Month
-														: </label>
-
-
-												</div>
-												<div class="input-group mr-3">
-
-													<input type="text" name="selectMonth" id="datepicker"
-														class="form-control" required />
-													
-												</div>
-
-												<button type="submit" class="btn blue_btn  btnActStep1 "
-													id="btnActStep1" data-toggle1="modal"
-													data-target1="#modal_step1">
-													Submit <i class="icon-paperplane ml-2"></i>
-												</button>
-
-											</form>
-									</div>
-								</div>
-							
-							
-								
 
 								<div class="header-elements"></div>
 							</div>
@@ -152,47 +116,72 @@
 
 								<div class="tab-content">
 									<c:if test="${flag==0}">
+										<div class="form-group row">
+
+											<form name="attendanceStep1" id="attendanceStep1"
+												action="${pageContext.request.contextPath}/attendenceImportExel"
+												method="GET" class="form-inline justify-content-center">
+
+												<input type="hidden" name="mode" id="mode"
+													value="submitform">
+												<div class="form-group ">
+													<label for="staticEmail" class="col-md-12 col-form-label">Month
+														: </label>
+
+
+												</div>
+												<div class="input-group mr-3">
+
+													<input type="text" name="selectMonth" id="datepicker"
+														class="form-control" required />
+
+												</div>
+
+												<button type="submit" class="btn blue_btn  btnActStep1 "
+													id="btnActStep1" data-toggle1="modal"
+													data-target1="#modal_step1">
+													Submit <i class="icon-paperplane ml-2"></i>
+												</button>
+
+											</form>
+
+										</div>
 										<div class="" id="solid-rounded-justified-tab1">
 
-											<div
-												class="aaa">
-												
-				<div class="row">
-					<div class="col-md-3">
-						<div class="box_one bg_one">
-							<i class="icon-users"></i> 
-							<h2 class="box_title">Total Employee</h2>							 
-							<span class="round_one"
-							id="total_emp">${infoForUploadAttendance.totalEmp}</span>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box_one bg_two">
-							<i class="icon-grid4"></i> 
-							<h2 class="box_title">Total attendance expected</h2> 							
-							<span class="round_one"
-							id="total_attendce_expected">${(infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp}</span>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box_one bg_three">
-							<i class="icon-grid52"></i> 
-							<h2 class="box_title">Total added by step1</h2> 							
-							<span class="round_one"
-							id="total_att_present">${infoForUploadAttendance.updatedByStep1}</span>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="box_one bg_four">
-							<i class="icon-grid52"></i> 
-							<h2 class="box_title">Total attendance uploaded</h2> 							
-							<span class="round_one"
-							id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span>
-						</div>
-					</div>
-				</div>			
+											<div class="aaa">
 
-	
+												<div class="row">
+													<div class="col-md-3">
+														<div class="box_one bg_one">
+															<i class="icon-users"></i>
+															<h2 class="box_title">Total Employee</h2>
+															<span class="round_one" id="total_emp">${infoForUploadAttendance.totalEmp}</span>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="box_one bg_two">
+															<i class="icon-grid4"></i>
+															<h2 class="box_title">Total attendance expected</h2>
+															<span class="round_one" id="total_attendce_expected">${(infoForUploadAttendance.dateDiff+1)*infoForUploadAttendance.totalEmp}</span>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="box_one bg_three">
+															<i class="icon-grid52"></i>
+															<h2 class="box_title">Total added by step1</h2>
+															<span class="round_one" id="total_att_present">${infoForUploadAttendance.updatedByStep1}</span>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<div class="box_one bg_four">
+															<i class="icon-grid52"></i>
+															<h2 class="box_title">Total attendance uploaded</h2>
+															<span class="round_one" id="by_file_updated">${infoForUploadAttendance.updatedByFile}</span>
+														</div>
+													</div>
+												</div>
+
+
 												<!-- <div class="card-body p-0">
 													<ul class="nav nav-sidebar my-2">
 														<li class="nav-item"></li>
@@ -203,7 +192,7 @@
 												</div> -->
 
 											</div>
-											
+
 
 
 										</div>

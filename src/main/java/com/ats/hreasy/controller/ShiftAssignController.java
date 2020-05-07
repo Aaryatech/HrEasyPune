@@ -399,57 +399,78 @@ public class ShiftAssignController {
 					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
 
 			Date myDate = sf.parse(shiftCurrentMonth.getDate());
+			Date currentDate = new Date();
+
 			Date oneDayBefore = new Date(myDate.getTime() - 2);
 			String previousDate = sf.format(oneDayBefore);
 
-			String[] monthsplt = previousDate.split("-");
+			if (currentDate.compareTo(oneDayBefore) < 0) {
 
-			Date firstDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]) - 1, 1)
-					.getTime();
-			Date lastDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]), 0)
-					.getTime();
+				String[] monthsplt = previousDate.split("-");
 
-			Date fmdt = sf.parse(sf.format(firstDay));
-			Date todt = sf.parse(sf.format(lastDay));
+				/*
+				 * Date firstDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]),
+				 * Integer.parseInt(monthsplt[1]) - 1, 1).getTime();
+				 */
+				Date firstDay = currentDate;
+				Date lastDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]), 0)
+						.getTime();
 
-			SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
+				Date fmdt = sf.parse(sf.format(firstDay));
+				Date todt = sf.parse(sf.format(lastDay));
 
-			try {
+				SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
 
-				SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+				try {
 
-				List<DateAndDay> dateAndDayList = new ArrayList<>();
+					SimpleDateFormat sdf = new SimpleDateFormat("EEE");
 
-				for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+					List<DateAndDay> dateAndDayList = new ArrayList<>();
 
-					DateAndDay dateAndDay = new DateAndDay();
-					String stringDate = sdf.format(j);
-					dateAndDay.setDate(dd.format(j));
-					dateAndDay.setDay(stringDate);
-					dateAndDayList.add(dateAndDay);
+					for (Date j = fmdt; j.compareTo(todt) <= 0;) {
 
-					/* System.out.println(sf.parse(sf.format(j))); */
-					j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+						temp = Calendar.getInstance();
+						temp.setTime(j);
+
+						int date = temp.get(Calendar.DATE);
+
+						DateAndDay dateAndDay = new DateAndDay();
+						String stringDate = sdf.format(j);
+						dateAndDay.setDate(dd.format(j)); 
+						/*dateAndDay.setDate(String.valueOf(date));*/
+
+						dateAndDay.setDay(stringDate);
+						dateAndDayList.add(dateAndDay);
+
+						j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+
+						/* System.out.println(sf.parse(sf.format(j))); */
+					}
+
+					model.addAttribute("dateAndDayList", dateAndDayList);
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("fromDate", sf.format(firstDay));
+					map.add("toDate", sf.format(lastDay));
+					map.add("locId", locId);
+
+					EmpWithShiftDetail[] empList = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
+					model.addAttribute("empList", empList);
+
+					model.addAttribute("locId", locId);
+
+					model.addAttribute("firstDate", dd.format(firstDay));
+					model.addAttribute("lastDate", dd.format(lastDay));
+
+				} catch (Exception e) {
+
 				}
 
-				model.addAttribute("dateAndDayList", dateAndDayList);
-
-				map = new LinkedMultiValueMap<String, Object>();
-				map.add("fromDate", sf.format(firstDay));
-				map.add("toDate", sf.format(lastDay));
-				map.add("locId", locId);
-
-				EmpWithShiftDetail[] empList = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
-				model.addAttribute("empList", empList);
-
-				model.addAttribute("locId", locId);
-
-				model.addAttribute("firstDate", dd.format(firstDay));
-				model.addAttribute("lastDate", dd.format(lastDay));
-
-			} catch (Exception e) {
-
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("errorMsg", "Shift Allocation Step is not completed For current Month");
+				System.out.println("Shift Allocation Step is not completed For current Month");
 			}
 			// System.out.println(dates);
 
