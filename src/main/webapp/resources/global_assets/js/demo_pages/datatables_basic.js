@@ -58,7 +58,7 @@ var DatatableBasic = function() {
         });
 
         // Scrollable datatable
-        var table = $('.datatable-scroll-y').DataTable({
+      /* var table = $('.datatable-scroll-y').DataTable({
             autoWidth: true,
             scrollY: 500,
             "order": [],
@@ -70,7 +70,29 @@ var DatatableBasic = function() {
         // Resize scrollable table when sidebar width changes
         $('.sidebar-control').on('click', function() {
             table.columns.adjust().draw();
+        });*/
+        var table = $('.datatable-scroll-y').DataTable({
+            autoWidth: true,
+            
+            "order": [],
+            "bInfo": false,
+            "lengthChange": false,
+            "bPaginate": false
         });
+
+        // Resize scrollable table when sidebar width changes
+        $('.sidebar-control').on('click', function() {
+            table.columns.adjust().draw();
+        });
+        
+        
+        /*$('.datatable-scroll-y').DataTable({
+            autoWidth: true,
+         
+            "order": [],
+         
+            "bPaginate": false
+        });*/
     };
 
     // Select2 for length menu styling
