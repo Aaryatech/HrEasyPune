@@ -113,57 +113,56 @@
 							</div>
 
 							<div class="table-responsive">
-							<table
-							class="table table-bordered table-hover datatable-highlight" id="printtable1">
-							
-								<!-- <table class="table datatable-scroll-y" width="100%"
-									id="printtable1"> -->
-									<thead>
-										<tr class="bg-blue">
+							<!-- <table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1"> -->
 
-											<th width="10%">Sr.no</th>
+									<table class="table datatable-scroll-y" width="100%"
+										id="printtable1">
+										<thead>
+											<tr class="bg-blue">
 
-											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
-											<th>Employee Detail</th>
-											<th>Location</th>
-											<th>Weekly Off Category</th>
+												<th width="10%">Sr.no</th>
 
+												<th><input type="checkbox" name="selAll" id="selAll" /></th>
+												<th>Employee Code</th>
+												<th>Employee Detail</th>
+												<th>Location</th>
+												<th>Weekly Off Category</th>
 
-										</tr>
-									</thead>
-									<tbody>
-
-
-										<c:forEach items="${empdetList}" var="empdetList"
-											varStatus="count">
-											<c:set  var="sty_color" value="orange"></c:set>
-											<c:choose>
-								<c:when test="${empdetList.woCatName eq null}">
-									<c:set  var="sty_color" value="orange"></c:set>
-											</c:when>
-											<c:otherwise>
-											<c:set  var="sty_color" value=""></c:set>
-											</c:otherwise>
-											</c:choose>
-											<tr style="background: ${sty_color};">
-
-												<td>${count.index+1}</td>
-												<td><input type="checkbox"
-													id="empId${empdetList.empId}" value="${empdetList.empId}"
-													name="empId" class="select_all"></td>
-											<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<td>${empdetList.locName}</td>
-												<td>${empdetList.woCatName}</td>
 
 											</tr>
-										</c:forEach>
+										</thead>
+										<tbody>
 
-									</tbody>
-								</table>
-							</div>
+
+											<c:forEach items="${empdetList}" var="empdetList"
+												varStatus="count">
+												<c:set var="sty_color" value="orange"></c:set>
+												<c:choose>
+													<c:when test="${empdetList.woCatName eq null}">
+														<c:set var="sty_color" value="orange"></c:set>
+													</c:when>
+													<c:otherwise>
+														<c:set var="sty_color" value=""></c:set>
+													</c:otherwise>
+												</c:choose>
+												<tr style="background: ${sty_color};">
+
+													<td>${count.index+1}</td>
+													<td><input type="checkbox"
+														id="empId${empdetList.empId}" value="${empdetList.empId}"
+														name="empId" class="select_all"></td>
+													<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+													<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+														(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+													<td>${empdetList.locName}</td>
+													<td>${empdetList.woCatName}</td>
+
+												</tr>
+											</c:forEach>
+
+										</tbody>
+									</table></div>
 							<br /> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span>
 
@@ -199,6 +198,9 @@
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
 
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
+				
 				var isError = false;
 				var errMsg = "";
 				var holiCatId = $("#holiCatId").val();
@@ -223,8 +225,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1').DataTable();
-						table.search("").draw();
+						
 						document.getElementById("deleteId").disabled = true;
 
 						return true;

@@ -113,10 +113,10 @@
 							</div>
 
 							<div class="table-responsive">
-								<table
-							class="table table-bordered table-hover datatable-highlight" id="printtable1">
-								<!-- <table class="table datatable-scroll-y" width="100%"
-									id="printtable1"> -->
+								<!-- 	<table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1"> -->
+								<table class="table datatable-scroll-y" width="100%"
+									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 
@@ -199,6 +199,9 @@
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
 
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
+				
 				var isError = false;
 				var errMsg = "";
 
@@ -225,8 +228,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1').DataTable();
-						table.search("").draw();
+						
 						document.getElementById("deleteId").disabled = true;
 
 						return true;

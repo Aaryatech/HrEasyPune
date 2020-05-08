@@ -7,7 +7,7 @@
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
- 
+
 <body>
 
 	<!-- Main navbar -->
@@ -42,8 +42,10 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee
-										Holiday Category Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Holiday Category
+										Assignment
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -103,26 +105,28 @@
 										data-fouc="" aria-hidden="true">
 										<option value="">Select Holiday Category</option>
 										<c:forEach items="${holiList}" var="holiList">
-											<option value="${holiList.hoCatId}">${holiList.hoCatName} [${holiList.hoCatShortName}]</option>
+											<option value="${holiList.hoCatId}">${holiList.hoCatName}
+												[${holiList.hoCatShortName}]</option>
 										</c:forEach>
 									</select> <span class="validation-invalid-label" id="error_shiftId"
 										style="display: none;">This field is required.</span>
 								</div>
 							</div>
-							 
+
 							<div class="table-responsive">
-							<table
-							class="table table-bordered table-hover datatable-highlight" id="printtable1">
-							
-							<!-- <table class="table datatable-scroll-y" width="100%"
-										id="printtable1"> -->
+								<!-- <table
+									class="table table-bordered table-hover datatable-highlight"
+									id="printtable1"> -->
+
+									<table class="table datatable-scroll-y" width="100%"
+										id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 
 											<th width="10%">Sr.no</th>
 
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
+											<th>Employee Code</th>
 											<th>Employee Detail</th>
 											<th>Location</th>
 											<th>Holiday Category</th>
@@ -131,17 +135,17 @@
 										</tr>
 									</thead>
 									<tbody>
- 
+
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-											<c:set  var="sty_color" value="orange"></c:set>
+											<c:set var="sty_color" value="orange"></c:set>
 											<c:choose>
-								<c:when test="${empdetList.hoCatName eq null}">
-									<c:set  var="sty_color" value="orange"></c:set>
-											</c:when>
-											<c:otherwise>
-											<c:set  var="sty_color" value=""></c:set>
-											</c:otherwise>
+												<c:when test="${empdetList.hoCatName eq null}">
+													<c:set var="sty_color" value="orange"></c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="sty_color" value=""></c:set>
+												</c:otherwise>
 											</c:choose>
 											<tr style="background: ${sty_color};">
 
@@ -149,9 +153,9 @@
 												<td><input type="checkbox"
 													id="empId${empdetList.empId}" value="${empdetList.empId}"
 													name="empId" class="select_all"></td>
-													<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 												<td>${empdetList.locName}</td>
 												<td>${empdetList.hoCatName}</td>
 
@@ -161,8 +165,7 @@
 									</tbody>
 								</table>
 							</div>
-							<br/>
-							<span class="validation-invalid-label" id="error_chk"
+							<br /> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span>
 
 
@@ -191,7 +194,7 @@
 
 	</div>
 	<!-- /page content -->
-<!-- 
+	<!-- 
 	<script>
 		function myFunction1() {
 			var input, filter, table, tr, i, txtValue, td0, td1, td2, td3, td4, td5, td6, td7, td8;
@@ -243,6 +246,9 @@
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
 
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
+				
 				var isError = false;
 				var errMsg = "";
 				var holiCatId = $("#holiCatId").val();
@@ -267,9 +273,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1')
-						.DataTable();
-						table.search("").draw();
+						
 						document.getElementById("deleteId").disabled = true;
 
 						return true;

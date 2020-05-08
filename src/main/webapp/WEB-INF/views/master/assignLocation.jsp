@@ -43,8 +43,10 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee
-										Location Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Location
+										Assignment
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -116,17 +118,17 @@
 							</div>
 
 							<div class="table-responsive">
-							<table
-							class="table table-bordered table-hover datatable-highlight" id="printtable1">
-								<!-- <table class="table datatable-scroll-y" width="100%"
-									id="printtable1"> -->
+								<!-- <table
+							class="table table-bordered table-hover datatable-highlight" id="printtable1"> -->
+								<table class="table datatable-scroll-y" width="100%"
+									id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 
 											<th width="10%">Sr.no</th>
 
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
+											<th>Employee Code</th>
 											<th>Employee Detail</th>
 											<th>Location</th>
 											<th>Company</th>
@@ -139,14 +141,14 @@
 
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-											<c:set  var="sty_color" value="orange"></c:set>
+											<c:set var="sty_color" value="orange"></c:set>
 											<c:choose>
-								<c:when test="${empdetList.locName eq null}">
-									<c:set  var="sty_color" value="orange"></c:set>
-											</c:when>
-											<c:otherwise>
-											<c:set  var="sty_color" value=""></c:set>
-											</c:otherwise>
+												<c:when test="${empdetList.locName eq null}">
+													<c:set var="sty_color" value="orange"></c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="sty_color" value=""></c:set>
+												</c:otherwise>
 											</c:choose>
 											<tr style="background: ${sty_color};">
 
@@ -155,8 +157,8 @@
 													id="empId${empdetList.empId}" value="${empdetList.empId}"
 													name="empId" class="select_all"></td>
 												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 												<td>${empdetList.locName}</td>
 												<td>${empdetList.subCompName}</td>
 
@@ -200,6 +202,8 @@
 	<script type="text/javascript">
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
 
 				var isError = false;
 				var errMsg = "";
@@ -225,8 +229,7 @@
 
 					var x = true;
 					if (x == true) {
-						var table = $('#printtable1').DataTable();
-						table.search("").draw();
+
 						document.getElementById("deleteId").disabled = true;
 
 						return true;
