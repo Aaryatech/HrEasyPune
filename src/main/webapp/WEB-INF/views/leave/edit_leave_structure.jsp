@@ -247,7 +247,7 @@
 														<td class="text-center"><c:choose>
 																<c:when test="${isInCash==1}">
 																	<input type="checkbox"
-																		id="isInCash${leaveType.lvTypeId}" value="0"
+																		id="isInCash${leaveType.lvTypeId}" value="1"
 																		name="isInCash${leaveType.lvTypeId}"
 																		autocomplete="off"
 																		onclick="showYesNo(${leaveType.lvTypeId})" checked>

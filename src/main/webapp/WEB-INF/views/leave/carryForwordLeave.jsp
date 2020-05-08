@@ -160,7 +160,7 @@
 										<th class="text-center" width="10%">Employee Code<br>(Emp
 											Type)
 										</th>
-										<th class="text-center" class="text-center" width="30%">Employee
+										<th class="text-center" class="text-center" width="20%">Employee
 											Name<br>(Designation-Department)
 										</th>
 										<th class="text-center" class="text-center"></th>
@@ -176,23 +176,106 @@
 											<td>${count.index+1}</td>
 											<td>${employeeInfoList.empCode}<br>(${employeeInfoList.empTypeName})
 											</td>
-											<td>${employeeInfoList.empName}<br>(${employeeInfoList.empDesgn}-${employeeInfoList.deptName})
+											<td>${employeeInfoList.empName}<br>(${employeeInfoList.empDesgn}-${employeeInfoList.deptName})<br>Per
+												Day - <fmt:formatNumber type="number" maxFractionDigits="2"
+													minFractionDigits="2" groupingUsed="false"
+													value=" ${((employeeInfoList.basic+
+																	employeeInfoList.allowSum)/day)}" />
 											</td>
 
 											<td><table
 													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1">
 
-
-
 													<tr>
-
-														<td>${employeeInfoList.empCode}<br>(${employeeInfoList.empTypeName})
-														</td>
-														<td>${employeeInfoList.empName}<br>(${employeeInfoList.empDesgn}-${employeeInfoList.deptName})
-														</td>
-
+														<td class="text-center">Leave Type Name</td>
+														<!-- <td>Opening Bal</td>
+														<td>Earned</td>
+														<td>Approved</td>
+														<td>Applied</td> -->
+														<td class="text-center">Balanced</td>
+														<td class="text-center">Max CF - Encash</td>
+														<td class="text-center">Encash Count</td>
+														<td class="text-center">Encash AMT</td>
+														<td class="text-center">Carry Forward</td>
 													</tr>
+													<c:forEach items="${leaveHistoryDetailForCarryList}"
+														var="leaveHistoryDetailForCarryList">
+														<c:if
+															test="${leaveHistoryDetailForCarryList.empId==employeeInfoList.empId}">
 
+															<c:set
+																value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
+																leaveHistoryDetailForCarryList.sactionLeave-leaveHistoryDetailForCarryList.aplliedLeaeve}"
+																var="ballv"></c:set>
+															<c:set var="carryForward" value="0"></c:set>
+															<c:if
+																test="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward>0}">
+																<c:choose>
+
+																	<c:when
+																		test="${ballv>leaveHistoryDetailForCarryList.maxAccumulateCarryforward}">
+																		<c:set var="carryForward"
+																			value="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}"></c:set>
+																	</c:when>
+
+																	<c:otherwise>
+																		<c:set var="carryForward" value="${ballv}"></c:set>
+																	</c:otherwise>
+																</c:choose>
+															</c:if>
+															<c:set var="inCashleavCount" value="0"></c:set>
+															<c:set var="inCashleavYesNo" value="No"></c:set>
+															<c:choose>
+																<c:when
+																	test="${leaveHistoryDetailForCarryList.isInCash==1}">
+																	<c:set var="inCashleavCount"
+																		value="${ballv-carryForward}"></c:set>
+																	<c:set var="inCashleavYesNo" value="Yes"></c:set>
+																	<%-- <td>${inCashleavCount}</td> --%>
+
+																	<%-- <td><input
+																		id="inCash${previousleavehistorylist.lvTypeId}"
+																		name="inCash${previousleavehistorylist.lvTypeId}"
+																		onchange="resetAmtValue(${previousleavehistorylist.lvTypeId})"
+																		value="<fmt:formatNumber type="number"
+																		maxFractionDigits="2" minFractionDigits="2" groupingUsed="false" 
+																		value=" ${((empBasicAllownceForLeaveInCash.basic+
+																	empBasicAllownceForLeaveInCash.allowanceValue)/day)*inCashleavCount}" />"
+																		class="form-control numbersOnly" type="text" required></td> --%>
+																</c:when>
+															</c:choose>
+															<c:set
+																value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
+																leaveHistoryDetailForCarryList.sactionLeave-leaveHistoryDetailForCarryList.aplliedLeaeve}"
+																var="carryForword"></c:set>
+															<tr>
+																<td>${leaveHistoryDetailForCarryList.lvTitleShort}
+																</td>
+																<%-- <td>${leaveHistoryDetailForCarryList.balLeave}</td>
+																<td>${leaveHistoryDetailForCarryList.lvsAllotedLeaves}</td>
+																<td>${leaveHistoryDetailForCarryList.sactionLeave}</td>
+																<td>${leaveHistoryDetailForCarryList.aplliedLeaeve}</td> --%>
+																<td class="text-right">${ballv}</td>
+																<td class="text-center">${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}-${inCashleavYesNo}</td>
+																<td class="text-right">${inCashleavCount}</td>
+																<td><input style="text-align: right;"
+																	id="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																	name="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																	value="<fmt:formatNumber type="number"
+																		maxFractionDigits="2" minFractionDigits="2" groupingUsed="false" 
+																		value=" ${((employeeInfoList.basic+
+																	employeeInfoList.allowSum)/day)*inCashleavCount}" />"
+																	class="form-control numbersOnly" type="text" required></td>
+																<td class="text-right"><input
+																	style="text-align: right;"
+																	id="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																	name="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																	value="${carryForward}"
+																	onchange="changeCarryforward(${previousleavehistorylist.lvTypeId})"
+																	class="form-control numbersOnly" type="text" required></td>
+															</tr>
+														</c:if>
+													</c:forEach>
 												</table></td>
 
 										</tr>
@@ -222,71 +305,7 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
-		function search() {
-
-			//alert("
-												Hi View Orders  ");
-
-			var empId=document.getElementById(
-												"empId").value;
-
-			//alert(compId);
-
-			var valid=true;
-												if (empId== null || empId== "") {
-				valid=false;
-												alert("Please Select Employee");
-			}
-
-			if (valid==
-												true) {
-				$("#loader").show();
-				$
-						.getJSON(
-								'${getPreviousYearHistory}',
-								{
-									empId
-												: empId,
-									ajax
-												: 'true',
-								},
-
-								function(data) {
-
-									$("#printtable1
-												tbody").empty();
-
-									for (var i=0; i< data.length; i++) {
-
-										var ballv = data[i].balLeave
-												+ data[i].lvsAllotedLeaves
-												- data[i].sactionLeave
-												- data[i].aplliedLeaeve;
-										var tr_data = '<tr>
-													<td>' + data[i].lvTitle + '</td>' + '
-													<td>' + data[i].balLeave + '</td>' + '
-													<td>' + data[i].lvsAllotedLeaves + '</td>' + '
-													<td>' + data[i].sactionLeave + '</td>' + '
-													<td>' + data[i].aplliedLeaeve + '</td>
-													<td>' + ballv + '</td>
-													<td><input id="inchashLv'+data[i].lvTypeId+'"
-														name="inchashLv'+data[i].lvTypeId+'" value="'+0+'"
-														class="form-control" type="number" required></td>' + '
-													<td><input id="carryfrwd'+data[i].lvTypeId+'"
-														name="carryfrwd'+data[i].lvTypeId+'" value="'+ballv+'"
-														class="form-control" type="text" required></td>
-												</tr>';
-										$('#printtable1' + ' tbody').append(
-												tr_data);
-									}
-
-									$("#loader").hide();
-
-								});
-
-			}//end of if valid ==true
-
-		}
+		 
 
 		function callDetail(exVar1, empId) {
 			alert(exVar1);

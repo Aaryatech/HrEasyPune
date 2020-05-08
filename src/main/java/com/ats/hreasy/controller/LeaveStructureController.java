@@ -1491,6 +1491,12 @@ public class LeaveStructureController {
 				model.addObject("leaveHistoryDetailForCarryList", leaveHistoryDetailForCarryList);
 				
 				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "monthday");
+				Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+				model.addObject("day", dayInMonth.getValue());
+				
+				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 				LeaveStructureHeader[] lvStrSummery = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getStructureList", map, LeaveStructureHeader[].class);
