@@ -35,6 +35,7 @@ import com.ats.hreasy.model.EmpBasicAllownceForLeaveInCash;
 import com.ats.hreasy.model.EmpInfo;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
+import com.ats.hreasy.model.GetEmployeeDetailsForCarryFrwdLeave;
 import com.ats.hreasy.model.GetLeaveAuthority;
 import com.ats.hreasy.model.GetStructureAllotment;
 import com.ats.hreasy.model.Info;
@@ -42,12 +43,14 @@ import com.ats.hreasy.model.LeaveAuthority;
 import com.ats.hreasy.model.LeaveBalanceCal;
 import com.ats.hreasy.model.LeaveCashReport;
 import com.ats.hreasy.model.LeaveHistory;
+import com.ats.hreasy.model.LeaveHistoryDetailForCarry;
 import com.ats.hreasy.model.LeaveStructureDetails;
 import com.ats.hreasy.model.LeaveStructureHeader;
 import com.ats.hreasy.model.LeaveType;
 import com.ats.hreasy.model.LeavesAllotment;
+import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
-import com.ats.hreasy.model.Setting;
+import com.ats.hreasy.model.Setting; 
 
 @Controller
 @Scope("session")
@@ -238,7 +241,7 @@ public class LeaveStructureController {
 									.parseInt(request.getParameter("isInCash" + leaveTypeList.get(i).getLvTypeId()));
 							detail.setExInt1(inCash);
 						} catch (Exception e) {
-							System.err.println("Error Getting In cash " +e.getMessage());
+							System.err.println("Error Getting In cash " + e.getMessage());
 							detail.setExInt1(0);
 						}
 
@@ -1438,6 +1441,68 @@ public class LeaveStructureController {
 		}
 		return mav;
 
+	}
+
+	int locId = 0;
+
+	@RequestMapping(value = "/carryForwordLeave", method = RequestMethod.GET)
+	public ModelAndView carryForwordLeave(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+
+		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("leaveYearEnd", "leaveYearEnd", 1, 0, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("leave/carryForwordLeave");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
+
+				locId = Integer.parseInt(request.getParameter("locId")); 
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				GetEmployeeDetailsForCarryFrwdLeave[] employeeInfo = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllEmployeeDetailForCarryForwordLeave",map, GetEmployeeDetailsForCarryFrwdLeave[].class);
+
+				List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>(Arrays.asList(employeeInfo));
+				model.addObject("employeeInfoList", employeeInfoList);
+				model.addObject("locId", locId);
+				
+				
+				LeaveHistoryDetailForCarry[] leaveHistoryDetailForCarry = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getPreviousleaveHistoryForCarryFrwd",map, LeaveHistoryDetailForCarry[].class); 
+				List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>(Arrays.asList(leaveHistoryDetailForCarry));
+				model.addObject("leaveHistoryDetailForCarryList", leaveHistoryDetailForCarryList);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				LeaveStructureHeader[] lvStrSummery = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getStructureList", map, LeaveStructureHeader[].class);
+				List<LeaveStructureHeader> lSummarylist = new ArrayList<>(Arrays.asList(lvStrSummery));
+				model.addObject("lStrList", lSummarylist);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 
 }
