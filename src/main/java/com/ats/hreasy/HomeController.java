@@ -129,7 +129,7 @@ public class HomeController {
 					session.setAttribute("imgViewUrl", Constants.empDocShowUrl);
 
 					map = new LinkedMultiValueMap<>();
-					map.add("empTypeId", 1);
+					map.add("empTypeId", userObj.getAccessRoleId());
 					EmpType editEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeById",
 							map, EmpType.class);
 					List<AccessRightModule> moduleJsonList = new ArrayList<AccessRightModule>();
