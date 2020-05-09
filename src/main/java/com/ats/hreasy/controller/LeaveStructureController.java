@@ -1458,7 +1458,7 @@ public class LeaveStructureController {
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("leaveYearEnd", "leaveYearEnd", 1, 0, 0, 0, newModuleList);
+			Info view = AcessController.checkAccess("carryForwordLeave", "carryForwordLeave", 1, 0, 0, 0, newModuleList);
 
 			if (view.isError() == true) {
 
