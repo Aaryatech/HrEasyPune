@@ -148,92 +148,107 @@
 								style="display: block; margin-left: auto; margin-right: auto">
 						</div>
 
+						<form
+							action="${pageContext.request.contextPath}/submitCarryFrwdAndAssignNewStructure"
+							id="submitCarryFrwdAndAssignNewStructure" method="post">
+							<div class="table-responsive">
+								<table
+									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+									id="printtable1">
+									<thead>
+										<tr class="bg-blue">
 
-						<div class="table-responsive">
-							<table
-								class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-								id="printtable2">
-								<thead>
-									<tr class="bg-blue">
+											<th class="text-center" width="5%">Sr. No.</th>
+											<th class="text-center" width="5%"><input
+												type="checkbox" name="selAll" id="selAll" /></th>
+											<th class="text-center" width="10%">Employee Code<br>(Emp
+												Type)
+											</th>
+											<th class="text-center" class="text-center" width="20%">Employee
+												Name<br>(Designation-Department)
+											</th>
+											<th class="text-center" class="text-center"></th>
+											<th class="text-center" class="text-center"
+												class="text-center" width="10%">Current Year Structure
+												Allotment</th>
 
-										<th class="text-center" width="5%">Sr. No.</th>
-										<th class="text-center" width="10%">Employee Code<br>(Emp
-											Type)
-										</th>
-										<th class="text-center" class="text-center" width="20%">Employee
-											Name<br>(Designation-Department)
-										</th>
-										<th class="text-center" class="text-center"></th>
-
-									</tr>
-								</thead>
-								<tbody>
+										</tr>
+									</thead>
+									<tbody>
 
 
-									<c:forEach items="${employeeInfoList}" var="employeeInfoList"
-										varStatus="count">
-										<tr>
-											<td>${count.index+1}</td>
-											<td>${employeeInfoList.empCode}<br>(${employeeInfoList.empTypeName})
-											</td>
-											<td>${employeeInfoList.empName}<br>(${employeeInfoList.empDesgn}-${employeeInfoList.deptName})<br>Per
-												Day - <fmt:formatNumber type="number" maxFractionDigits="2"
-													minFractionDigits="2" groupingUsed="false"
-													value=" ${((employeeInfoList.basic+
+										<c:forEach items="${employeeInfoList}" var="employeeInfoList"
+											varStatus="count">
+
+											<c:set var="perDay"
+												value="${((employeeInfoList.basic+
+																	employeeInfoList.allowSum)/day)}"></c:set>
+											<tr>
+												<td>${count.index+1}</td>
+												<td><input type="checkbox"
+													id="empId${employeeInfoList.empId}"
+													value="${employeeInfoList.empId}" name="empId"
+													class="select_all"></td>
+												<td>${employeeInfoList.empCode}<br>(${employeeInfoList.empTypeName})
+												</td>
+												<td>${employeeInfoList.empName}<br>(${employeeInfoList.empDesgn}-${employeeInfoList.deptName})<br>Per
+													Day - <fmt:formatNumber type="number" maxFractionDigits="2"
+														minFractionDigits="2" groupingUsed="false"
+														value=" ${((employeeInfoList.basic+
 																	employeeInfoList.allowSum)/day)}" />
-											</td>
+												</td>
 
-											<td><table
-													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1">
+												<td><table
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1">
 
-													<tr>
-														<td class="text-center">Leave Type Name</td>
-														<!-- <td>Opening Bal</td>
+														<tr>
+															<td class="text-center">Leave Type Name</td>
+															<!-- <td>Opening Bal</td>
 														<td>Earned</td>
 														<td>Approved</td>
 														<td>Applied</td> -->
-														<td class="text-center">Balanced</td>
-														<td class="text-center">Max CF - Encash</td>
-														<td class="text-center">Encash Count</td>
-														<td class="text-center">Encash AMT</td>
-														<td class="text-center">Carry Forward</td>
-													</tr>
-													<c:forEach items="${leaveHistoryDetailForCarryList}"
-														var="leaveHistoryDetailForCarryList">
-														<c:if
-															test="${leaveHistoryDetailForCarryList.empId==employeeInfoList.empId}">
-
-															<c:set
-																value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
-																leaveHistoryDetailForCarryList.sactionLeave-leaveHistoryDetailForCarryList.aplliedLeaeve}"
-																var="ballv"></c:set>
-															<c:set var="carryForward" value="0"></c:set>
+															<td class="text-center">Balanced</td>
+															<td class="text-center">Max CF - Encash</td>
+															<td class="text-center">Encash Count</td>
+															<td class="text-center">Encash AMT</td>
+															<td class="text-center">Carry Forward</td>
+														</tr>
+														<c:forEach items="${leaveHistoryDetailForCarryList}"
+															var="leaveHistoryDetailForCarryList">
 															<c:if
-																test="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward>0}">
+																test="${leaveHistoryDetailForCarryList.empId==employeeInfoList.empId}">
+
+																<c:set
+																	value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
+																leaveHistoryDetailForCarryList.sactionLeave-leaveHistoryDetailForCarryList.aplliedLeaeve}"
+																	var="ballv"></c:set>
+																<c:set var="carryForward" value="0"></c:set>
+																<c:if
+																	test="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward>0}">
+																	<c:choose>
+
+																		<c:when
+																			test="${ballv>leaveHistoryDetailForCarryList.maxAccumulateCarryforward}">
+																			<c:set var="carryForward"
+																				value="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}"></c:set>
+																		</c:when>
+
+																		<c:otherwise>
+																			<c:set var="carryForward" value="${ballv}"></c:set>
+																		</c:otherwise>
+																	</c:choose>
+																</c:if>
+																<c:set var="inCashleavCount" value="0"></c:set>
+																<c:set var="inCashleavYesNo" value="No"></c:set>
 																<c:choose>
-
 																	<c:when
-																		test="${ballv>leaveHistoryDetailForCarryList.maxAccumulateCarryforward}">
-																		<c:set var="carryForward"
-																			value="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}"></c:set>
-																	</c:when>
+																		test="${leaveHistoryDetailForCarryList.isInCash==1}">
+																		<c:set var="inCashleavCount"
+																			value="${ballv-carryForward}"></c:set>
+																		<c:set var="inCashleavYesNo" value="Yes"></c:set>
+																		<%-- <td>${inCashleavCount}</td> --%>
 
-																	<c:otherwise>
-																		<c:set var="carryForward" value="${ballv}"></c:set>
-																	</c:otherwise>
-																</c:choose>
-															</c:if>
-															<c:set var="inCashleavCount" value="0"></c:set>
-															<c:set var="inCashleavYesNo" value="No"></c:set>
-															<c:choose>
-																<c:when
-																	test="${leaveHistoryDetailForCarryList.isInCash==1}">
-																	<c:set var="inCashleavCount"
-																		value="${ballv-carryForward}"></c:set>
-																	<c:set var="inCashleavYesNo" value="Yes"></c:set>
-																	<%-- <td>${inCashleavCount}</td> --%>
-
-																	<%-- <td><input
+																		<%-- <td><input
 																		id="inCash${previousleavehistorylist.lvTypeId}"
 																		name="inCash${previousleavehistorylist.lvTypeId}"
 																		onchange="resetAmtValue(${previousleavehistorylist.lvTypeId})"
@@ -242,50 +257,89 @@
 																		value=" ${((empBasicAllownceForLeaveInCash.basic+
 																	empBasicAllownceForLeaveInCash.allowanceValue)/day)*inCashleavCount}" />"
 																		class="form-control numbersOnly" type="text" required></td> --%>
-																</c:when>
-															</c:choose>
-															<c:set
-																value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
+																	</c:when>
+																</c:choose>
+																<c:set
+																	value="${leaveHistoryDetailForCarryList.balLeave+leaveHistoryDetailForCarryList.lvsAllotedLeaves-
 																leaveHistoryDetailForCarryList.sactionLeave-leaveHistoryDetailForCarryList.aplliedLeaeve}"
-																var="carryForword"></c:set>
-															<tr>
-																<td>${leaveHistoryDetailForCarryList.lvTitleShort}
-																</td>
-																<%-- <td>${leaveHistoryDetailForCarryList.balLeave}</td>
+																	var="carryForword"></c:set>
+
+																<c:if
+																	test="${ballv!=0 || leaveHistoryDetailForCarryList.maxAccumulateCarryforward!=0 || inCashleavYesNo!='No'}">
+																	<tr>
+																		<td>${leaveHistoryDetailForCarryList.lvTitleShort}
+																		</td>
+																		<%-- <td>${leaveHistoryDetailForCarryList.balLeave}</td>
 																<td>${leaveHistoryDetailForCarryList.lvsAllotedLeaves}</td>
 																<td>${leaveHistoryDetailForCarryList.sactionLeave}</td>
 																<td>${leaveHistoryDetailForCarryList.aplliedLeaeve}</td> --%>
-																<td class="text-right">${ballv}</td>
-																<td class="text-center">${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}-${inCashleavYesNo}</td>
-																<td class="text-right">${inCashleavCount}</td>
-																<td><input style="text-align: right;"
-																	id="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
-																	name="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
-																	value="<fmt:formatNumber type="number"
-																		maxFractionDigits="2" minFractionDigits="2" groupingUsed="false" 
-																		value=" ${((employeeInfoList.basic+
-																	employeeInfoList.allowSum)/day)*inCashleavCount}" />"
-																	class="form-control numbersOnly" type="text" required></td>
-																<td class="text-right"><input
-																	style="text-align: right;"
-																	id="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
-																	name="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
-																	value="${carryForward}"
-																	onchange="changeCarryforward(${previousleavehistorylist.lvTypeId})"
-																	class="form-control numbersOnly" type="text" required></td>
-															</tr>
-														</c:if>
-													</c:forEach>
-												</table></td>
+																		<td class="text-right">${ballv}</td>
+																		<td class="text-center">${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}-${inCashleavYesNo}</td>
+																		<td class="text-right">
+																			<%-- <c:choose>
+																				<c:when test="${inCashleavYesNo=='Yes'}"> --%> <input
+																			style="text-align: right;"
+																			id="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			name="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			value="${inCashleavCount}"
+																			onchange="changeCarryforward(${employeeInfoList.empId},
+																		${leaveHistoryDetailForCarryList.lvTypeId})"
+																			class="form-control numbersOnly" type="text" required>
+																			<%-- </c:when>
+																				<c:otherwise>${inCashleavCount}</c:otherwise>
+																			</c:choose> --%>
+																		</td>
+																		<td class="text-right"
+																			id="amtTd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			data-bal="${ballv}" data-perday="${perDay}"
+																			data-incashleavcount="${inCashleavCount}"
+																			data-carryforward="${carryForward}"><fmt:formatNumber
+																				type="number" maxFractionDigits="2"
+																				minFractionDigits="2" groupingUsed="false"
+																				value=" ${perDay*inCashleavCount}" /></td>
+																		<td class="text-right"><input
+																			style="text-align: right;"
+																			id="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			name="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			value="${carryForward}"
+																			onchange="changeCarryforward(${employeeInfoList.empId},
+																		${leaveHistoryDetailForCarryList.lvTypeId})"
+																			class="form-control numbersOnly" type="text" required></td>
+																	</tr>
+																</c:if>
+															</c:if>
+														</c:forEach>
+													</table></td>
+												<td><select name="structId${employeeInfoList.empId}"
+													data-placeholder="Select Structure"
+													id="structId${employeeInfoList.empId}"
+													class="form-control form-control-select2 select2-hidden-accessible">
 
-										</tr>
+														<option value="">Select Structure</option>
+														<c:forEach items="${lStrList}" var="lStrList">
+
+															<option value="${lStrList.lvsId}">${lStrList.lvsName}</option>
+
+														</c:forEach>
+
+												</select><span class="validation-invalid-label"
+													id="error_structId${employeeInfoList.empId}"
+													style="display: none;">This field is required.</span></td>
+
+											</tr>
 
 
-									</c:forEach>
+										</c:forEach>
 
-								</tbody>
-							</table>
-						</div>
+									</tbody>
+								</table>
+							</div>
+							<br>
+							<div style="text-align: center;">
+								<input type="submit" class="btn blue_btn" value="Submit"
+									id="sbtnbutn">
+							</div>
+						</form>
 					</div>
 
 				</div>
@@ -305,116 +359,83 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
-		 
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
 
-		function callDetail(exVar1, empId) {
-			alert(exVar1);
-			window
-					.open("${pageContext.request.contextPath}/empDetailHistory?empId="
-							+ exVar1);
-
-		}
-
-		function callDelete(weighId) {
-			window.open("${pageContext.request.contextPath}/deleteWeighing/"
-					+ weighId);
-
-		}
+					$("#selAll").click(
+							function() {
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
 	</script>
+
 	<script>
-													function trim(el) {
-														el.value = el.value
-																.replace(
-																		/(^\s*)|(\s*$)/gi,
-																		"")
-																. // removes leading and trailing spaces
-																replace(
-																		/[ ]{2,}/gi,
-																		" "). // replaces multiple spaces with one space 
-																replace(/\n +/,
-																		"\n"); // Removes spaces after newlines
-														return;
-													}
+												 
 
-													function validateEmail(
-															email) {
-
-														var eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-														if (eml.test($
-																.trim(email)) == false) {
-
-															return false;
-
-														}
-
-														return true;
-
-													}
-													function validateMobile(
-															mobile) {
-														var mob = /^[1-9]{1}[0-9]{9}$/;
-
-														if (mob.test($
-																.trim(mobile)) == false) {
-
-															//alert("Please enter a valid email address .");
-															return false;
-
-														}
-														return true;
-
-													}
+											 
 													function changeCarryforward(
-															typeId) {
-														var carryfrwd = parseFloat(document
+															empId,typeId) {
+														
+														var perday = $("#amtTd"+typeId+""+empId).data("perday");
+														var carryforward = $("#amtTd"+typeId+""+empId).data("carryforward");
+														var incashleavcount = $("#amtTd"+typeId+""+empId).data("incashleavcount");
+														
+														 var carryfrwdChange = parseFloat(document
 																.getElementById("carryfrwd"
-																		+ typeId).value);
-														var currentYearBalace = parseFloat($(
-																"#currentEarn"
-																		+ typeId)
-																.data("uuid"));
+																		+typeId+''+empId).value);
+														 
+														 var inCash = parseFloat(document
+																	.getElementById("inCash"
+																			+typeId+''+empId).value);
+														 
+														if (isNaN(carryfrwdChange)) {
 
-														if (isNaN(carryfrwd)) {
-
-															carryfrwd = parseFloat($(
-																	"#currentEarn"
-																			+ typeId)
-																	.data(
-																			"orignalcarryfrwd"));
-															//alert(carryfrwd)
+															carryfrwdChange=carryforward;
 															document
 																	.getElementById('carryfrwd'
-																			+ typeId).value = carryfrwd;
+																			+typeId+''+empId).value = carryforward;
 														}
-														document
-																.getElementById('currentYearBalance'
-																		+ typeId).innerHTML = carryfrwd
-																+ currentYearBalace;
-
-													}
-													function resetAmtValue(
-															typeId) {
-														var inCash = parseFloat(document
-																.getElementById("inCash"
-																		+ typeId).value);
-														 
+														
 														if (isNaN(inCash)) {
-
-															 
+															inCash=incashleavcount;
 															document
 																	.getElementById('inCash'
-																			+ typeId).value = 0;
+																			+typeId+''+empId).value = incashleavcount;
 														}
+														
+														document
+														.getElementById('amtTd'
+																+ typeId+''+empId).innerHTML = (inCash*perday).toFixed(2);
 														 
 
 													}
+												 
 													
-													/* $(document).ready(function($) {
+													  $(document).ready(function($) {
 
-														$("#submitForm").submit(function(e) {
+														$("#submitCarryFrwdAndAssignNewStructure").submit(function(e) {
 															var isError = false;
-
+															var checkboxes = document.getElementsByName('empId');
+															var vals = "";
+															for (var i=0, n=checkboxes.length;i<n;i++) 
+															{
+															    if (checkboxes[i].checked) 
+															    {
+															        //vals += ","+checkboxes[i].value;
+															        
+															        if(document.getElementById("structId"+checkboxes[i].value).value == ""){
+															        	
+															        	$("#error_structId"+checkboxes[i].value).show();
+															        	var isError = true;
+															        }else{
+															        	$("#error_structId"+checkboxes[i].value).hide();
+															        }
+															    }
+															}
+															
+															//alert(vals)
 															if (!isError) {
 
 																var x = confirm("Do you really want to Assign Structure?");
@@ -427,40 +448,7 @@
 															}
 															return false;
 														});
-													}); */
-
-													$('.bootbox_custom')
-															.on(
-																	'click',
-																	function() {
-
-																		bootbox
-																				.confirm({
-																					title : 'Confirm ',
-																					message : 'Do you really want to Assign Structure?',
-																					buttons : {
-																						confirm : {
-																							label : 'Yes',
-																							className : 'btn-success'
-																						},
-																						cancel : {
-																							label : 'Cancel',
-																							className : 'btn-link'
-																						}
-																					},
-																					callback : function(
-																							result) {
-																						if (result) {
-																							document
-																									.getElementById(
-																											'submitForm')
-																									.submit();
-
-																						}
-																					}
-																				});
-																	});
-													//
-												</script>
+													}); 
+</script>
 </body>
 </html>

@@ -241,7 +241,7 @@
 
 					var x = true;
 					if (x == true) {
-						
+
 						document.getElementById("deleteId").disabled = true;
 
 						return true;

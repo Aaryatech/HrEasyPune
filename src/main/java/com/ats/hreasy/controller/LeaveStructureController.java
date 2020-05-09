@@ -50,7 +50,7 @@ import com.ats.hreasy.model.LeaveType;
 import com.ats.hreasy.model.LeavesAllotment;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
-import com.ats.hreasy.model.Setting; 
+import com.ats.hreasy.model.Setting;
 
 @Controller
 @Scope("session")
@@ -1444,7 +1444,8 @@ public class LeaveStructureController {
 	}
 
 	int locId = 0;
-
+	List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>();
+	
 	@RequestMapping(value = "/carryForwordLeave", method = RequestMethod.GET)
 	public ModelAndView carryForwordLeave(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1473,29 +1474,32 @@ public class LeaveStructureController {
 				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 				model.addObject("locationList", locationList);
 
-				locId = Integer.parseInt(request.getParameter("locId")); 
-				
+				locId = Integer.parseInt(request.getParameter("locId"));
+
 				map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
-				GetEmployeeDetailsForCarryFrwdLeave[] employeeInfo = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getAllEmployeeDetailForCarryForwordLeave",map, GetEmployeeDetailsForCarryFrwdLeave[].class);
+				GetEmployeeDetailsForCarryFrwdLeave[] employeeInfo = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailForCarryForwordLeave", map,
+						GetEmployeeDetailsForCarryFrwdLeave[].class);
 
-				List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>(Arrays.asList(employeeInfo));
+				List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>(
+						Arrays.asList(employeeInfo));
 				model.addObject("employeeInfoList", employeeInfoList);
 				model.addObject("locId", locId);
-				
-				
-				LeaveHistoryDetailForCarry[] leaveHistoryDetailForCarry = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getPreviousleaveHistoryForCarryFrwd",map, LeaveHistoryDetailForCarry[].class); 
-				List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>(Arrays.asList(leaveHistoryDetailForCarry));
+
+				LeaveHistoryDetailForCarry[] leaveHistoryDetailForCarry = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getPreviousleaveHistoryForCarryFrwd", map,
+						LeaveHistoryDetailForCarry[].class);
+				leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>(
+						Arrays.asList(leaveHistoryDetailForCarry));
 				model.addObject("leaveHistoryDetailForCarryList", leaveHistoryDetailForCarryList);
-				
+
 				map = new LinkedMultiValueMap<>();
 				map.add("limitKey", "monthday");
-				Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
-						map, Setting.class);
+				Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
 				model.addObject("day", dayInMonth.getValue());
-				
+
 				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 				LeaveStructureHeader[] lvStrSummery = Constants.getRestTemplate()
@@ -1509,6 +1513,94 @@ public class LeaveStructureController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/submitCarryFrwdAndAssignNewStructure", method = RequestMethod.POST)
+	public String submitCarryFrwdAndAssignNewStructure(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+
+			/*
+			 * empId = Integer.parseInt(request.getParameter("empId")); int structId =
+			 * Integer.parseInt(request.getParameter("structId"));
+			 */
+
+			/*if (leaveHistoryDetailForCarryList.size() > 0) {
+
+				LeavesAllotment leavesAllotment = new LeavesAllotment();
+				leavesAllotment.setCalYrId(calculateYear.getCalYrId());
+				leavesAllotment.setDelStatus(1);
+				leavesAllotment.setEmpId(empId);
+				leavesAllotment.setExVar1("NA");
+				leavesAllotment.setExVar2("NA");
+				leavesAllotment.setExVar3("NA");
+				leavesAllotment.setIsActive(1);
+				leavesAllotment.setMakerUserId(userObj.getUserId());
+				leavesAllotment.setMakerEnterDatetime(dateTime);
+				leavesAllotment.setLvsId(structId);
+
+				List<LeaveBalanceCal> leavBalList = new ArrayList<>();
+
+				for (int i = 0; i < previousleavehistorylist.size(); i++) {
+					LeaveBalanceCal leaveBalanceCal = new LeaveBalanceCal();
+					leaveBalanceCal.setCalYrId(leavesAllotment.getCalYrId());
+					leaveBalanceCal.setDelStatus(1);
+					leaveBalanceCal.setEmpId(empId);
+					leaveBalanceCal.setIsActive(1);
+					leaveBalanceCal.setLvAlloted(0);
+					leaveBalanceCal.setLvbalId(0);
+					
+					 * leaveBalanceCal.setLvCarryFwd(Float.parseFloat(
+					 * request.getParameter("carryfrwd" +
+					 * previousleavehistorylist.get(i).getLvTypeId())));
+					 
+					leaveBalanceCal.setLvCarryFwdRemarks("Null");
+					leaveBalanceCal.setOpBal(Float.parseFloat(
+							request.getParameter("carryfrwd" + previousleavehistorylist.get(i).getLvTypeId())));
+					try {
+						float incashValue = Float.parseFloat(
+								request.getParameter("inCash" + previousleavehistorylist.get(i).getLvTypeId()));
+						float leaveInCashCount = Float.parseFloat(request
+								.getParameter("inCashleavCount" + previousleavehistorylist.get(i).getLvTypeId()));
+						leaveBalanceCal.setLvEncash(leaveInCashCount);
+						leaveBalanceCal.setLvEncashRemarks(String.valueOf(incashValue));
+					} catch (Exception e) {
+
+						e.printStackTrace();
+						leaveBalanceCal.setLvEncash(0);
+						leaveBalanceCal.setLvEncashRemarks(String.valueOf(0));
+					}
+					leaveBalanceCal.setExInt1(1);
+					leaveBalanceCal.setMakerUserId(1);
+					leaveBalanceCal.setMakerEnterDatetime(dateTime);
+					leaveBalanceCal.setLvTypeId(previousleavehistorylist.get(i).getLvTypeId());
+					leavBalList.add(leaveBalanceCal);
+				}
+
+				LeavesAllotment res = Constants.getRestTemplate().postForObject(
+						Constants.url + "/saveNewLeaveAllotment", leavesAllotment, LeavesAllotment.class);
+				LeaveBalanceCal[] leaveBalanceCalres = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/saveNewBalRecord", leavBalList, LeaveBalanceCal[].class);
+				if (res != null) {
+					session.setAttribute("successMsg", "Stucture Allocate Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Allocate Stucture");
+				}
+			} else {
+
+				session.setAttribute("errorMsg", "Failed to Assign");
+
+			}*/
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/leaveYearEnd";
 	}
 
 }
