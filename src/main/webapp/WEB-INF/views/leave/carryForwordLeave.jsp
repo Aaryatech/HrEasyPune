@@ -196,6 +196,13 @@
 														minFractionDigits="2" groupingUsed="false"
 														value=" ${((employeeInfoList.basic+
 																	employeeInfoList.allowSum)/day)}" />
+													<input id="perDay${employeeInfoList.empId}"
+													name="perDay${employeeInfoList.empId}"
+													value="<fmt:formatNumber type="number" maxFractionDigits="2"
+														minFractionDigits="2" groupingUsed="false"
+														value=" ${((employeeInfoList.basic+
+																	employeeInfoList.allowSum)/day)}" />"
+													type="hidden" required>
 												</td>
 
 												<td><table

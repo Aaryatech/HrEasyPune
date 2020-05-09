@@ -1445,7 +1445,8 @@ public class LeaveStructureController {
 
 	int locId = 0;
 	List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>();
-	
+	List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>();
+
 	@RequestMapping(value = "/carryForwordLeave", method = RequestMethod.GET)
 	public ModelAndView carryForwordLeave(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1482,8 +1483,7 @@ public class LeaveStructureController {
 						Constants.url + "/getAllEmployeeDetailForCarryForwordLeave", map,
 						GetEmployeeDetailsForCarryFrwdLeave[].class);
 
-				List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>(
-						Arrays.asList(employeeInfo));
+				employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>(Arrays.asList(employeeInfo));
 				model.addObject("employeeInfoList", employeeInfoList);
 				model.addObject("locId", locId);
 
@@ -1518,89 +1518,195 @@ public class LeaveStructureController {
 	@RequestMapping(value = "/submitCarryFrwdAndAssignNewStructure", method = RequestMethod.POST)
 	public String submitCarryFrwdAndAssignNewStructure(HttpServletRequest request, HttpServletResponse response) {
 
+		HttpSession session = request.getSession();
+
 		try {
-			HttpSession session = request.getSession();
+
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
+			String[] empId = request.getParameterValues("empId");
+
 			/*
-			 * empId = Integer.parseInt(request.getParameter("empId")); int structId =
-			 * Integer.parseInt(request.getParameter("structId"));
+			 * StringBuilder sb = new StringBuilder();
+			 * 
+			 * List<Integer> empIdList = new ArrayList<>();
+			 * 
+			 * for (int i = 0; i < empId.length; i++) { sb = sb.append(empId[i] + ",");
+			 * empIdList.add(Integer.parseInt(empId[i]));
+			 * 
+			 * }
+			 * 
+			 * String empIds = sb.toString(); empIds = empIds.substring(0, empIds.length() -
+			 * 1); System.out.println(empIds);
 			 */
 
-			/*if (leaveHistoryDetailForCarryList.size() > 0) {
+			List<LeaveBalanceCal> leavBalList = new ArrayList<>();
+			List<LeavesAllotment> leavesAllotmentList = new ArrayList<>();
 
-				LeavesAllotment leavesAllotment = new LeavesAllotment();
-				leavesAllotment.setCalYrId(calculateYear.getCalYrId());
-				leavesAllotment.setDelStatus(1);
-				leavesAllotment.setEmpId(empId);
-				leavesAllotment.setExVar1("NA");
-				leavesAllotment.setExVar2("NA");
-				leavesAllotment.setExVar3("NA");
-				leavesAllotment.setIsActive(1);
-				leavesAllotment.setMakerUserId(userObj.getUserId());
-				leavesAllotment.setMakerEnterDatetime(dateTime);
-				leavesAllotment.setLvsId(structId);
+			for (int i = 0; i < empId.length; i++) {
 
-				List<LeaveBalanceCal> leavBalList = new ArrayList<>();
+				for (int j = 0; j < employeeInfoList.size(); j++) {
 
-				for (int i = 0; i < previousleavehistorylist.size(); i++) {
-					LeaveBalanceCal leaveBalanceCal = new LeaveBalanceCal();
-					leaveBalanceCal.setCalYrId(leavesAllotment.getCalYrId());
-					leaveBalanceCal.setDelStatus(1);
-					leaveBalanceCal.setEmpId(empId);
-					leaveBalanceCal.setIsActive(1);
-					leaveBalanceCal.setLvAlloted(0);
-					leaveBalanceCal.setLvbalId(0);
-					
-					 * leaveBalanceCal.setLvCarryFwd(Float.parseFloat(
-					 * request.getParameter("carryfrwd" +
-					 * previousleavehistorylist.get(i).getLvTypeId())));
-					 
-					leaveBalanceCal.setLvCarryFwdRemarks("Null");
-					leaveBalanceCal.setOpBal(Float.parseFloat(
-							request.getParameter("carryfrwd" + previousleavehistorylist.get(i).getLvTypeId())));
-					try {
-						float incashValue = Float.parseFloat(
-								request.getParameter("inCash" + previousleavehistorylist.get(i).getLvTypeId()));
-						float leaveInCashCount = Float.parseFloat(request
-								.getParameter("inCashleavCount" + previousleavehistorylist.get(i).getLvTypeId()));
-						leaveBalanceCal.setLvEncash(leaveInCashCount);
-						leaveBalanceCal.setLvEncashRemarks(String.valueOf(incashValue));
-					} catch (Exception e) {
+					if (employeeInfoList.get(j).getEmpId() == Integer.parseInt(empId[i])) {
 
-						e.printStackTrace();
-						leaveBalanceCal.setLvEncash(0);
-						leaveBalanceCal.setLvEncashRemarks(String.valueOf(0));
+						LeavesAllotment leavesAllotment = new LeavesAllotment();
+						leavesAllotment.setCalYrId(calculateYear.getCalYrId());
+						leavesAllotment.setDelStatus(1);
+						leavesAllotment.setEmpId(employeeInfoList.get(j).getEmpId());
+						leavesAllotment.setExVar1("NA");
+						leavesAllotment.setExVar2("NA");
+						leavesAllotment.setExVar3("NA");
+						leavesAllotment.setIsActive(1);
+						leavesAllotment.setMakerUserId(userObj.getUserId());
+						leavesAllotment.setMakerEnterDatetime(dateTime);
+						leavesAllotment.setLvsId(Integer
+								.parseInt(request.getParameter("structId" + employeeInfoList.get(j).getEmpId())));
+						leavesAllotmentList.add(leavesAllotment);
+
+						for (int k = 0; k < leaveHistoryDetailForCarryList.size(); k++) {
+
+							if (leaveHistoryDetailForCarryList.get(k).getEmpId() == employeeInfoList.get(j)
+									.getEmpId()) {
+
+								System.out.println("carryfrwd" + leaveHistoryDetailForCarryList.get(k).getLvTypeId()
+										+ "" + employeeInfoList.get(j).getEmpId());
+								try {
+									LeaveBalanceCal leaveBalanceCal = new LeaveBalanceCal();
+									leaveBalanceCal.setCalYrId(leavesAllotment.getCalYrId());
+									leaveBalanceCal.setDelStatus(1);
+									leaveBalanceCal.setEmpId(leaveHistoryDetailForCarryList.get(k).getEmpId());
+									leaveBalanceCal.setIsActive(1);
+									leaveBalanceCal.setLvAlloted(0);
+									leaveBalanceCal.setLvbalId(0);
+
+									try {
+										leaveBalanceCal.setLvCarryFwd(Float.parseFloat(request.getParameter(
+												"carryfrwd" + leaveHistoryDetailForCarryList.get(k).getLvTypeId() + ""
+														+ employeeInfoList.get(j).getEmpId())));
+										leaveBalanceCal.setOpBal(Float.parseFloat(request.getParameter(
+												"carryfrwd" + leaveHistoryDetailForCarryList.get(k).getLvTypeId() + ""
+														+ employeeInfoList.get(j).getEmpId())));
+									} catch (Exception e) {
+										leaveBalanceCal.setLvCarryFwd(0);
+										leaveBalanceCal.setOpBal(0);
+										// e.printStackTrace();
+									}
+									leaveBalanceCal.setLvCarryFwdRemarks("Null");
+
+									try {
+
+										float leaveInCashCount = Float.parseFloat(request.getParameter(
+												"inCash" + leaveHistoryDetailForCarryList.get(k).getLvTypeId() + ""
+														+ employeeInfoList.get(j).getEmpId()));
+										float perDay = Float.parseFloat(
+												request.getParameter("perDay" + employeeInfoList.get(j).getEmpId()));
+										leaveBalanceCal.setLvEncash(leaveInCashCount);
+										leaveBalanceCal.setLvEncashRemarks(String.valueOf(perDay * leaveInCashCount));
+									} catch (Exception e) {
+
+										e.printStackTrace();
+										leaveBalanceCal.setLvEncash(0);
+										leaveBalanceCal.setLvEncashRemarks(String.valueOf(0));
+									}
+									leaveBalanceCal.setExInt1(1);
+									leaveBalanceCal.setMakerUserId(1);
+									leaveBalanceCal.setMakerEnterDatetime(dateTime);
+									leaveBalanceCal.setLvTypeId(leaveHistoryDetailForCarryList.get(k).getLvTypeId());
+									leavBalList.add(leaveBalanceCal);
+
+								} catch (Exception e) {
+
+									// e.printStackTrace();
+								}
+
+							}
+
+						}
+
 					}
-					leaveBalanceCal.setExInt1(1);
-					leaveBalanceCal.setMakerUserId(1);
-					leaveBalanceCal.setMakerEnterDatetime(dateTime);
-					leaveBalanceCal.setLvTypeId(previousleavehistorylist.get(i).getLvTypeId());
-					leavBalList.add(leaveBalanceCal);
+
 				}
 
-				LeavesAllotment res = Constants.getRestTemplate().postForObject(
-						Constants.url + "/saveNewLeaveAllotment", leavesAllotment, LeavesAllotment.class);
-				LeaveBalanceCal[] leaveBalanceCalres = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/saveNewBalRecord", leavBalList, LeaveBalanceCal[].class);
-				if (res != null) {
-					session.setAttribute("successMsg", "Stucture Allocate Successfully");
-				} else {
-					session.setAttribute("errorMsg", "Failed to Allocate Stucture");
-				}
+			}
+
+			LeavesAllotment[] res = Constants.getRestTemplate().postForObject(
+					Constants.url + "/saveNewLeaveAllotmentAll", leavesAllotmentList, LeavesAllotment[].class);
+			LeaveBalanceCal[] leaveBalanceCalres = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/saveNewBalRecord", leavBalList, LeaveBalanceCal[].class);
+
+			// System.out.println(leavBalList);
+
+			if (res != null) {
+				session.setAttribute("successMsg", "Stucture Allocate Successfully");
 			} else {
+				session.setAttribute("errorMsg", "Failed to Allocate Stucture");
+			}
 
-				session.setAttribute("errorMsg", "Failed to Assign");
-
-			}*/
+			/*
+			 * if (leaveHistoryDetailForCarryList.size() > 0) {
+			 * 
+			 * LeavesAllotment leavesAllotment = new LeavesAllotment();
+			 * leavesAllotment.setCalYrId(calculateYear.getCalYrId());
+			 * leavesAllotment.setDelStatus(1); leavesAllotment.setEmpId(empId);
+			 * leavesAllotment.setExVar1("NA"); leavesAllotment.setExVar2("NA");
+			 * leavesAllotment.setExVar3("NA"); leavesAllotment.setIsActive(1);
+			 * leavesAllotment.setMakerUserId(userObj.getUserId());
+			 * leavesAllotment.setMakerEnterDatetime(dateTime);
+			 * leavesAllotment.setLvsId(structId);
+			 * 
+			 * List<LeaveBalanceCal> leavBalList = new ArrayList<>();
+			 * 
+			 * for (int i = 0; i < previousleavehistorylist.size(); i++) { LeaveBalanceCal
+			 * leaveBalanceCal = new LeaveBalanceCal();
+			 * leaveBalanceCal.setCalYrId(leavesAllotment.getCalYrId());
+			 * leaveBalanceCal.setDelStatus(1); leaveBalanceCal.setEmpId(empId);
+			 * leaveBalanceCal.setIsActive(1); leaveBalanceCal.setLvAlloted(0);
+			 * leaveBalanceCal.setLvbalId(0);
+			 * 
+			 * leaveBalanceCal.setLvCarryFwd(Float.parseFloat(
+			 * request.getParameter("carryfrwd" +
+			 * previousleavehistorylist.get(i).getLvTypeId())));
+			 * 
+			 * leaveBalanceCal.setLvCarryFwdRemarks("Null");
+			 * leaveBalanceCal.setOpBal(Float.parseFloat( request.getParameter("carryfrwd" +
+			 * previousleavehistorylist.get(i).getLvTypeId()))); try { float incashValue =
+			 * Float.parseFloat( request.getParameter("inCash" +
+			 * previousleavehistorylist.get(i).getLvTypeId())); float leaveInCashCount =
+			 * Float.parseFloat(request .getParameter("inCashleavCount" +
+			 * previousleavehistorylist.get(i).getLvTypeId()));
+			 * leaveBalanceCal.setLvEncash(leaveInCashCount);
+			 * leaveBalanceCal.setLvEncashRemarks(String.valueOf(incashValue)); } catch
+			 * (Exception e) {
+			 * 
+			 * e.printStackTrace(); leaveBalanceCal.setLvEncash(0);
+			 * leaveBalanceCal.setLvEncashRemarks(String.valueOf(0)); }
+			 * leaveBalanceCal.setExInt1(1); leaveBalanceCal.setMakerUserId(1);
+			 * leaveBalanceCal.setMakerEnterDatetime(dateTime);
+			 * leaveBalanceCal.setLvTypeId(previousleavehistorylist.get(i).getLvTypeId());
+			 * leavBalList.add(leaveBalanceCal); }
+			 * 
+			 * LeavesAllotment res = Constants.getRestTemplate().postForObject(
+			 * Constants.url + "/saveNewLeaveAllotment", leavesAllotment,
+			 * LeavesAllotment.class); LeaveBalanceCal[] leaveBalanceCalres =
+			 * Constants.getRestTemplate() .postForObject(Constants.url +
+			 * "/saveNewBalRecord", leavBalList, LeaveBalanceCal[].class); if (res != null)
+			 * { session.setAttribute("successMsg", "Stucture Allocate Successfully"); }
+			 * else { session.setAttribute("errorMsg", "Failed to Allocate Stucture"); } }
+			 * else {
+			 * 
+			 * session.setAttribute("errorMsg", "Failed to Assign");
+			 * 
+			 * }
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Allocate Stucture");
 		}
-		return "redirect:/leaveYearEnd";
+		return "redirect:/carryForwordLeave?locId=" + locId;
 	}
 
 }
