@@ -216,9 +216,13 @@
 														<td>Applied</td> -->
 															<td class="text-center">Balanced</td>
 															<td class="text-center">Max CF - Encash</td>
+															<td class="text-center">Encash Laps</td>
 															<td class="text-center">Encash Count</td>
 															<td class="text-center">Encash AMT</td>
 															<td class="text-center">Carry Forward</td>
+															<td class="text-center">Sys Laps</td>
+															<!-- 
+															<td class="text-center">CF Laps</td> -->
 														</tr>
 														<c:forEach items="${leaveHistoryDetailForCarryList}"
 															var="leaveHistoryDetailForCarryList">
@@ -272,7 +276,7 @@
 																	var="carryForword"></c:set>
 
 																<c:if
-																	test="${ballv!=0 || leaveHistoryDetailForCarryList.maxAccumulateCarryforward!=0 || inCashleavYesNo!='No'}">
+																	test="${leaveHistoryDetailForCarryList.maxAccumulateCarryforward!=0 || inCashleavYesNo!='No'}">
 																	<tr>
 																		<td>${leaveHistoryDetailForCarryList.lvTitleShort}
 																		</td>
@@ -282,6 +286,14 @@
 																<td>${leaveHistoryDetailForCarryList.aplliedLeaeve}</td> --%>
 																		<td class="text-right">${ballv}</td>
 																		<td class="text-center">${leaveHistoryDetailForCarryList.maxAccumulateCarryforward}-${inCashleavYesNo}</td>
+																		<td class="text-right"><input
+																			id="lapfix${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			name="lapfix${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			value="0" type="text"
+																			onchange="setfixlap(${employeeInfoList.empId},
+																		${leaveHistoryDetailForCarryList.lvTypeId},${leaveHistoryDetailForCarryList.isInCash},
+																		${leaveHistoryDetailForCarryList.maxAccumulateCarryforward})"
+																			class="form-control numbersOnly" type="text" required></td>
 																		<td class="text-right">
 																			<%-- <c:choose>
 																				<c:when test="${inCashleavYesNo=='Yes'}"> --%> <input
@@ -289,8 +301,9 @@
 																			id="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			name="inCash${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			value="${inCashleavCount}"
-																			onchange="changeCarryforward(${employeeInfoList.empId},
-																		${leaveHistoryDetailForCarryList.lvTypeId})"
+																			onchange="setfixIncash(${employeeInfoList.empId},
+																		${leaveHistoryDetailForCarryList.lvTypeId},${leaveHistoryDetailForCarryList.isInCash},
+																		${leaveHistoryDetailForCarryList.maxAccumulateCarryforward})"
 																			class="form-control numbersOnly" type="text" required>
 																			<%-- </c:when>
 																				<c:otherwise>${inCashleavCount}</c:otherwise>
@@ -304,14 +317,23 @@
 																				type="number" maxFractionDigits="2"
 																				minFractionDigits="2" groupingUsed="false"
 																				value=" ${perDay*inCashleavCount}" /></td>
+
 																		<td class="text-right"><input
 																			style="text-align: right;"
 																			id="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			name="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			value="${carryForward}"
 																			onchange="changeCarryforward(${employeeInfoList.empId},
-																		${leaveHistoryDetailForCarryList.lvTypeId})"
-																			class="form-control numbersOnly" type="text" required></td>
+																		${leaveHistoryDetailForCarryList.lvTypeId},${leaveHistoryDetailForCarryList.isInCash},
+																		${leaveHistoryDetailForCarryList.maxAccumulateCarryforward},2)"
+																			class="form-control numbersOnly" type="text" required
+																			readonly><input
+																			id="systmlaps${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			name="systmlaps${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
+																			value="0" type="hidden" required></td>
+																		<td class="text-right"
+																			id="systmlapstd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}">0</td>
+
 																	</tr>
 																</c:if>
 															</c:if>
@@ -341,7 +363,8 @@
 									</tbody>
 								</table>
 							</div>
-							<br>
+							<br> <span class="validation-invalid-label" id="error_chk"
+								style="display: none;">Please Select the Employee.</span>
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Submit"
 									id="sbtnbutn">
@@ -381,48 +404,381 @@
 	<script>
 												 
 
-											 
-													function changeCarryforward(
-															empId,typeId) {
+	function setfixlap(
+			empId,typeId,isincash,maxcarryfrwd,pressType) {
+		
+		var perday = $("#amtTd"+typeId+""+empId).data("perday");
+		var carryforward = $("#amtTd"+typeId+""+empId).data("carryforward");
+		var incashleavcount = $("#amtTd"+typeId+""+empId).data("incashleavcount");
+		var bal = $("#amtTd"+typeId+""+empId).data("bal");
+		 
+		var lapfix = parseFloat(document
+				.getElementById("lapfix"
+						+typeId+''+empId).value);
+		
+		
+		if(lapfix>bal){ 
+			document
+			.getElementById('lapfix'
+					+typeId+''+empId).value = 0;
+			setfixlap(
+					empId,typeId,isincash,maxcarryfrwd,pressType);
+		}else{
+			 
+			var currentbal=bal-lapfix; 
+			
+			if(maxcarryfrwd>0 && isincash==1){
+				
+				if(maxcarryfrwd>currentbal){
+					document
+					.getElementById('carryfrwd'
+							+typeId+''+empId).value = currentbal;
+					document
+					.getElementById('inCash'
+							+typeId+''+empId).value = 0; 
+					document
+					.getElementById('systmlaps'
+							+typeId+''+empId).value = 0; 
+					document
+					.getElementById('systmlapstd'
+							+ typeId+''+empId).innerHTML = 0;
+					document
+					.getElementById('amtTd'
+							+ typeId+''+empId).innerHTML = (0*perday).toFixed(2);
+				}else{
+					document
+					.getElementById('carryfrwd'
+							+typeId+''+empId).value = maxcarryfrwd;
+					document
+					.getElementById('inCash'
+							+typeId+''+empId).value = currentbal-maxcarryfrwd; 
+					document
+					.getElementById('amtTd'
+							+ typeId+''+empId).innerHTML = ((currentbal-maxcarryfrwd)*perday).toFixed(2);
+					document
+					.getElementById('systmlaps'
+							+typeId+''+empId).value = 0; 
+					document
+					.getElementById('systmlapstd'
+							+ typeId+''+empId).innerHTML = 0;
+				}
+				
+			}else if(maxcarryfrwd>0 && isincash==0){
+				
+				
+				if(maxcarryfrwd>currentbal){
+					
+					alert("dfg")
+					
+					document
+					.getElementById('carryfrwd'
+							+typeId+''+empId).value = currentbal; 
+					document
+					.getElementById('systmlaps'
+							+typeId+''+empId).value = 0; 
+					document
+					.getElementById('systmlapstd'
+							+ typeId+''+empId).innerHTML = 0;
+					
+				}else{
+					 alert("sdf")
+					document
+					.getElementById('carryfrwd'
+							+typeId+''+empId).value = maxcarryfrwd; 
+					document
+					.getElementById('systmlaps'
+							+typeId+''+empId).value = currentbal-maxcarryfrwd; 
+					document
+					.getElementById('systmlapstd'
+							+ typeId+''+empId).innerHTML = currentbal-maxcarryfrwd;
+				}
+				 
+				document
+				.getElementById('inCash'
+						+typeId+''+empId).value = 0; 
+				document
+				.getElementById('amtTd'
+						+ typeId+''+empId).innerHTML = (0*perday).toFixed(2);
+			}else if(maxcarryfrwd==0 && isincash==1){
+				
+				document
+				.getElementById('inCash'
+						+typeId+''+empId).value = currentbal 
+				document
+				.getElementById('amtTd'
+						+ typeId+''+empId).innerHTML = ((currentbal)*perday).toFixed(2);
+				document
+				.getElementById('systmlaps'
+						+typeId+''+empId).value = 0; 
+				document
+				.getElementById('systmlapstd'
+						+ typeId+''+empId).innerHTML = 0;
+				
+			}else{
+				document
+				.getElementById('systmlaps'
+						+typeId+''+empId).value = currentbal; 
+				document
+				.getElementById('systmlapstd'
+						+ typeId+''+empId).innerHTML = currentbal;
+			}
+			 
+		}
+		 
+
+	}
+	
+
+	function setfixIncash(
+			empId,typeId,isincash,maxcarryfrwd,pressType) {
+		
+		var perday = $("#amtTd"+typeId+""+empId).data("perday");
+		var carryforward = $("#amtTd"+typeId+""+empId).data("carryforward");
+		var incashleavcount = $("#amtTd"+typeId+""+empId).data("incashleavcount");
+		var bal = $("#amtTd"+typeId+""+empId).data("bal");
+		 
+		var lapfix = parseFloat(document
+				.getElementById("lapfix"
+						+typeId+''+empId).value);
+		
+		
+		if(lapfix>bal){ 
+			document
+			.getElementById('lapfix'
+					+typeId+''+empId).value = 0;
+			setfixIncash(
+					empId,typeId,isincash,maxcarryfrwd,pressType);
+		}else{
+			 
+			var currentbal=bal-lapfix; 
+			if(isincash==1){
+				
+			}else{
+				document
+				.getElementById('lapfix'
+						+typeId+''+empId).value = 0;
+				setfixIncash(
+						empId,typeId,isincash,maxcarryfrwd,pressType);
+			}
+		}
+		 
+
+	}
+													/* function changeCarryforward(
+															empId,typeId,isincash,maxcarryfrwd,pressType) {
 														
 														var perday = $("#amtTd"+typeId+""+empId).data("perday");
 														var carryforward = $("#amtTd"+typeId+""+empId).data("carryforward");
 														var incashleavcount = $("#amtTd"+typeId+""+empId).data("incashleavcount");
-														
-														 var carryfrwdChange = parseFloat(document
-																.getElementById("carryfrwd"
-																		+typeId+''+empId).value);
+														var bal = $("#amtTd"+typeId+""+empId).data("bal");
 														 
-														 var inCash = parseFloat(document
+														if(pressType==1 ){
+															
+															var inCash = parseFloat(document
 																	.getElementById("inCash"
 																			+typeId+''+empId).value);
-														 
-														if (isNaN(carryfrwdChange)) {
+															
+															if(maxcarryfrwd==0 && isincash==1){
+																
+																
+																if (isNaN(inCash)) {
+																	inCash=incashleavcount;
+																	document
+																			.getElementById('inCash'
+																					+typeId+''+empId).value = incashleavcount;
+																}
+																
+																if(inCash>incashleavcount){
+																	inCash=incashleavcount;
+																	document
+																			.getElementById('inCash'
+																					+typeId+''+empId).value = incashleavcount;
+																	//alert("encash limit is " + inCash);
+																	document
+																	.getElementById('laps'
+																			+ typeId+''+empId).innerHTML = 0;
+																	document
+																	.getElementById('lapshidden'
+																			+typeId+''+empId).value = 0; 
+																}else{
+																	document
+																	.getElementById('laps'
+																			+ typeId+''+empId).innerHTML = incashleavcount-inCash;
+																	document
+																	.getElementById('lapshidden'
+																			+typeId+''+empId).value = incashleavcount-inCash; 
+																}
+																document
+																.getElementById('amtTd'
+																		+ typeId+''+empId).innerHTML = (inCash*perday).toFixed(2);
+															}else if(maxcarryfrwd>0 && isincash==1){
+																
+																 var currentcarryfrwd=document
+																.getElementById('carryfrwd'
+																		+typeId+''+empId).value ;
+																  
+																 
+																 var possibleIncash = bal-currentcarryfrwd;
+																 
+																 
+																 
+																 if(inCash<=possibleIncash){
+																	 document
+																		.getElementById('laps'
+																				+ typeId+''+empId).innerHTML = possibleIncash-inCash;
+																		document
+																		.getElementById('lapshidden'
+																				+typeId+''+empId).value = possibleIncash-inCash; 
+																		document
+																		.getElementById('amtTd'
+																				+ typeId+''+empId).innerHTML = (inCash*perday).toFixed(2);
+																 } else{
+																	 document
+																		.getElementById('inCash'
+																				+typeId+''+empId).value = incashleavcount;
+																	 document
+																		.getElementById('carryfrwd'
+																				+typeId+''+empId).value = carryforward;
+																		document
+																		.getElementById('laps'
+																				+ typeId+''+empId).innerHTML = 0;
+																		document
+																		.getElementById('lapshidden'
+																				+typeId+''+empId).value = 0;
+																		
+																		document
+																		.getElementById('amtTd'
+																				+ typeId+''+empId).innerHTML = (incashleavcount*perday).toFixed(2);
+																		 
+																 }
+																 
+																 
+															}else{
+																document
+																.getElementById('inCash'
+																		+typeId+''+empId).value = 0;
+																document
+																.getElementById('amtTd'
+																		+ typeId+''+empId).innerHTML = (0).toFixed(2);
+																 
+															}
+															
+														}else if(pressType==2 ){
+															
+															var carryfrwdChange = parseFloat(document
+																	.getElementById("carryfrwd"
+																			+typeId+''+empId).value);
+															
+															if(isincash==0 && maxcarryfrwd>0){
+																
+																
+																if (isNaN(carryfrwdChange)) {
 
-															carryfrwdChange=carryforward;
-															document
+																	carryfrwdChange=carryforward;
+																	document
+																			.getElementById('carryfrwd'
+																					+typeId+''+empId).value = carryforward;
+																}
+																
+																
+																if(maxcarryfrwd>carryfrwdChange){
+																	document
+																	.getElementById('carryfrwd'
+																			+typeId+''+empId).value = carryfrwdChange;
+																	document
+																	.getElementById('laps'
+																			+ typeId+''+empId).innerHTML = carryforward-carryfrwdChange;
+																	document
+																	.getElementById('lapshidden'
+																			+typeId+''+empId).value = carryforward-carryfrwdChange; 
+																}else{
+																	
+																	document
 																	.getElementById('carryfrwd'
 																			+typeId+''+empId).value = carryforward;
-														}
-														
-														if (isNaN(inCash)) {
-															inCash=incashleavcount;
-															document
+																	document
+																	.getElementById('laps'
+																			+ typeId+''+empId).innerHTML = 0;
+																	document
+																	.getElementById('lapshidden'
+																			+typeId+''+empId).value = 0; 
+																	 
+																}
+															}else if(isincash==1 && maxcarryfrwd>0){
+																var currentinCash=document
+																.getElementById('inCash'
+																		+typeId+''+empId).value ;
+																 
+																if(carryfrwdChange<=maxcarryfrwd){
+																	 
+																	var possibleIncash = parseInt(bal);
+																	 
+																	
+																	if(carryfrwdChange<=possibleIncash){
+																		 
+																		document
+																		.getElementById('laps'
+																				+ typeId+''+empId).innerHTML = possibleIncash-carryfrwdChange-parseInt(currentinCash);
+																		document
+																		.getElementById('lapshidden'
+																				+typeId+''+empId).value = possibleIncash-carryfrwdChange-parseInt(currentinCash); 
+																		
+																	}else{
+																		document
+																		.getElementById('inCash'
+																				+typeId+''+empId).value = incashleavcount;
+																	 document
+																		.getElementById('carryfrwd'
+																				+typeId+''+empId).value = carryforward;
+																		document
+																		.getElementById('laps'
+																				+ typeId+''+empId).innerHTML = 0;
+																		document
+																		.getElementById('lapshidden'
+																				+typeId+''+empId).value = 0;
+																		document
+																		.getElementById('amtTd'
+																				+ typeId+''+empId).innerHTML = (incashleavcount*perday).toFixed(2);
+																	}
+																}else{
+																	document
 																	.getElementById('inCash'
 																			+typeId+''+empId).value = incashleavcount;
+																 document
+																	.getElementById('carryfrwd'
+																			+typeId+''+empId).value = carryforward;
+																	document
+																	.getElementById('laps'
+																			+ typeId+''+empId).innerHTML = 0;
+																	document
+																	.getElementById('lapshidden'
+																			+typeId+''+empId).value = 0;
+																	document
+																	.getElementById('amtTd'
+																			+ typeId+''+empId).innerHTML = (incashleavcount*perday).toFixed(2);
+																}
+																//alert(possibleIncash);
+																
+															}else{
+																document
+																.getElementById('carryfrwd'
+																		+typeId+''+empId).value = 0;
+																 
+																 
+															}
 														}
-														
-														document
-														.getElementById('amtTd'
-																+ typeId+''+empId).innerHTML = (inCash*perday).toFixed(2);
+														 
 														 
 
-													}
+													} */
 												 
 													
 													  $(document).ready(function($) {
 
 														$("#submitCarryFrwdAndAssignNewStructure").submit(function(e) {
+															
+															$("#error_chk").hide();
+															
 															var isError = false;
 															var checkboxes = document.getElementsByName('empId');
 															var vals = "";
@@ -441,7 +797,11 @@
 															        }
 															    }
 															}
-															
+															var checked = $("#submitCarryFrwdAndAssignNewStructure input:checked").length > 0;
+															if (!checked) {
+																$("#error_chk").show()
+																isError = true;
+															} 
 															//alert(vals)
 															if (!isError) {
 
