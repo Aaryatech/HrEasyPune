@@ -1447,6 +1447,7 @@ public class LeaveStructureController {
 	List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>();
 	List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>();
 
+	
 	@RequestMapping(value = "/carryForwordLeave", method = RequestMethod.GET)
 	public ModelAndView carryForwordLeave(HttpServletRequest request, HttpServletResponse response) {
 
