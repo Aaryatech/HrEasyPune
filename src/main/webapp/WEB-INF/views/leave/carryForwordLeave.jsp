@@ -323,9 +323,6 @@
 																			id="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			name="carryfrwd${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
 																			value="${carryForward}"
-																			onchange="changeCarryforward(${employeeInfoList.empId},
-																		${leaveHistoryDetailForCarryList.lvTypeId},${leaveHistoryDetailForCarryList.isInCash},
-																		${leaveHistoryDetailForCarryList.maxAccumulateCarryforward},2)"
 																			class="form-control numbersOnly" type="text" required
 																			readonly><input
 																			id="systmlaps${leaveHistoryDetailForCarryList.lvTypeId}${employeeInfoList.empId}"
@@ -416,7 +413,12 @@
 				.getElementById("lapfix"
 						+typeId+''+empId).value);
 		
-		
+		if (isNaN(lapfix)) {
+			document
+			.getElementById('lapfix'
+					+typeId+''+empId).value = 0;
+			lapfix=0; 
+		}
 		if(lapfix>bal){ 
 			document
 			.getElementById('lapfix'
@@ -464,34 +466,48 @@
 				}
 				
 			}else if(maxcarryfrwd>0 && isincash==0){
-				
-				
-				if(maxcarryfrwd>currentbal){
+				 
+				 if(maxcarryfrwd>bal){
+					 //currentbal=bal-lapfix; 
+					 document
+						.getElementById('carryfrwd'
+								+typeId+''+empId).value = currentbal; 
+						document
+						.getElementById('systmlaps'
+								+typeId+''+empId).value = 0; 
+						document
+						.getElementById('systmlapstd'
+								+ typeId+''+empId).innerHTML = 0;
+				 }else{
+					 
 					
-					alert("dfg")
-					
-					document
-					.getElementById('carryfrwd'
-							+typeId+''+empId).value = currentbal; 
-					document
-					.getElementById('systmlaps'
-							+typeId+''+empId).value = 0; 
-					document
-					.getElementById('systmlapstd'
-							+ typeId+''+empId).innerHTML = 0;
-					
-				}else{
-					 alert("sdf")
-					document
-					.getElementById('carryfrwd'
-							+typeId+''+empId).value = maxcarryfrwd; 
-					document
-					.getElementById('systmlaps'
-							+typeId+''+empId).value = currentbal-maxcarryfrwd; 
-					document
-					.getElementById('systmlapstd'
-							+ typeId+''+empId).innerHTML = currentbal-maxcarryfrwd;
-				}
+					 //currentbal=bal-lapfix; 
+					 //alert(bal)
+					 if(maxcarryfrwd<=currentbal){
+						
+						 document
+							.getElementById('carryfrwd'
+									+typeId+''+empId).value = maxcarryfrwd; 
+							document
+							.getElementById('systmlaps'
+									+typeId+''+empId).value =currentbal-maxcarryfrwd; 
+							document
+							.getElementById('systmlapstd'
+									+ typeId+''+empId).innerHTML = currentbal-maxcarryfrwd;
+					 }else{
+						 document
+							.getElementById('carryfrwd'
+									+typeId+''+empId).value = currentbal; 
+							document
+							.getElementById('systmlaps'
+									+typeId+''+empId).value = 0; 
+							document
+							.getElementById('systmlapstd'
+									+ typeId+''+empId).innerHTML = 0;
+					 }
+					 
+				 }
+				  
 				 
 				document
 				.getElementById('inCash'
@@ -501,6 +517,7 @@
 						+ typeId+''+empId).innerHTML = (0*perday).toFixed(2);
 			}else if(maxcarryfrwd==0 && isincash==1){
 				
+				//currentbal=bal-lapfix; 
 				document
 				.getElementById('inCash'
 						+typeId+''+empId).value = currentbal 
@@ -537,33 +554,79 @@
 		var incashleavcount = $("#amtTd"+typeId+""+empId).data("incashleavcount");
 		var bal = $("#amtTd"+typeId+""+empId).data("bal");
 		 
+		var inCash = parseFloat(document
+				.getElementById("inCash"
+						+typeId+''+empId).value);
 		var lapfix = parseFloat(document
 				.getElementById("lapfix"
 						+typeId+''+empId).value);
 		
-		
-		if(lapfix>bal){ 
+		if (isNaN(inCash)) {
 			document
-			.getElementById('lapfix'
+			.getElementById('inCash'
+					+typeId+''+empId).value = incashleavcount;
+			inCash=incashleavcount; 
+		}
+		if(inCash>bal || isincash==0){ 
+			
+			document
+			.getElementById('inCash'
 					+typeId+''+empId).value = 0;
-			setfixIncash(
-					empId,typeId,isincash,maxcarryfrwd,pressType);
+			
+			if(inCash>bal){
+				setfixIncash(
+						empId,typeId,isincash,maxcarryfrwd,pressType); 
+			}
+			
 		}else{
 			 
-			var currentbal=bal-lapfix; 
-			if(isincash==1){
-				
-			}else{
+			var currentbal=bal-lapfix-inCash; 
+			
+			if(maxcarryfrwd==0){
 				document
-				.getElementById('lapfix'
-						+typeId+''+empId).value = 0;
-				setfixIncash(
-						empId,typeId,isincash,maxcarryfrwd,pressType);
+				.getElementById('carryfrwd'
+						+typeId+''+empId).value = 0; 
+				document
+				.getElementById('systmlaps'
+						+typeId+''+empId).value = currentbal; 
+				document
+				.getElementById('systmlapstd'
+						+ typeId+''+empId).innerHTML = currentbal;
+				document
+				.getElementById('amtTd'
+						+ typeId+''+empId).innerHTML = (inCash*perday).toFixed(2);
+			}else{
+				if(maxcarryfrwd>currentbal){
+					 //currentbal=bal-lapfix; 
+					 document
+						.getElementById('carryfrwd'
+								+typeId+''+empId).value = currentbal; 
+						document
+						.getElementById('systmlaps'
+								+typeId+''+empId).value = 0; 
+						document
+						.getElementById('systmlapstd'
+								+ typeId+''+empId).innerHTML = 0;
+				 }else{
+					 
+					
+					 document
+						.getElementById('carryfrwd'
+								+typeId+''+empId).value = maxcarryfrwd; 
+						document
+						.getElementById('systmlaps'
+								+typeId+''+empId).value =currentbal-maxcarryfrwd; 
+						document
+						.getElementById('systmlapstd'
+								+ typeId+''+empId).innerHTML = currentbal-maxcarryfrwd;
 			}
+			
+			 
 		}
 		 
 
 	}
+		}
 													/* function changeCarryforward(
 															empId,typeId,isincash,maxcarryfrwd,pressType) {
 														

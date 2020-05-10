@@ -1458,7 +1458,8 @@ public class LeaveStructureController {
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("carryForwordLeave", "carryForwordLeave", 1, 0, 0, 0, newModuleList);
+			Info view = AcessController.checkAccess("carryForwordLeave", "carryForwordLeave", 1, 0, 0, 0,
+					newModuleList);
 
 			if (view.isError() == true) {
 
@@ -1594,7 +1595,6 @@ public class LeaveStructureController {
 										leaveBalanceCal.setOpBal(0);
 										// e.printStackTrace();
 									}
-									leaveBalanceCal.setLvCarryFwdRemarks("Null");
 
 									try {
 
@@ -1611,6 +1611,23 @@ public class LeaveStructureController {
 										leaveBalanceCal.setLvEncash(0);
 										leaveBalanceCal.setLvEncashRemarks(String.valueOf(0));
 									}
+
+									try {
+
+										float lapfix = Float.parseFloat(request.getParameter(
+												"lapfix" + leaveHistoryDetailForCarryList.get(k).getLvTypeId() + ""
+														+ employeeInfoList.get(j).getEmpId()));
+										float systmlaps = Float.parseFloat(request.getParameter(
+												"systmlaps" + leaveHistoryDetailForCarryList.get(k).getLvTypeId() + ""
+														+ employeeInfoList.get(j).getEmpId()));
+										leaveBalanceCal.setLvCarryFwdRemarks(String.valueOf(lapfix));
+										leaveBalanceCal.setExVar1(String.valueOf(systmlaps));
+									} catch (Exception e) {
+
+										e.printStackTrace();
+										leaveBalanceCal.setLvCarryFwdRemarks(String.valueOf(0));
+									}
+
 									leaveBalanceCal.setExInt1(1);
 									leaveBalanceCal.setMakerUserId(1);
 									leaveBalanceCal.setMakerEnterDatetime(dateTime);

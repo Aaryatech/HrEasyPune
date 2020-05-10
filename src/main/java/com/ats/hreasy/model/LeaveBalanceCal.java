@@ -14,13 +14,13 @@ public class LeaveBalanceCal {
 
 	private float lvAlloted;
 
-	private float lvEncash;
+	private float lvEncash; //encash count
 
-	private String lvEncashRemarks;
+	private String lvEncashRemarks; //encash Amt
 
-	private float lvCarryFwd;
+	private float lvCarryFwd; //carryfrwd
 
-	private String lvCarryFwdRemarks;
+	private String lvCarryFwdRemarks; //laps
 
 	private int delStatus;
 
