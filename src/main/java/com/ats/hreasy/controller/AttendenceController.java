@@ -63,6 +63,7 @@ import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.Setting;
+import com.ats.hreasy.model.ShiftMaster;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.VariousList;
@@ -576,6 +577,13 @@ public class AttendenceController {
 						map, MstEmpType.class);
 				model.addAttribute("mstEmpType", mstEmpType);
 				model.addAttribute("empId", empId);
+				
+				 
+				ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
+						map, ShiftMaster[].class);
+				model.addAttribute("shiftMaster", shiftMaster);
+				
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -654,6 +662,7 @@ public class AttendenceController {
 			String selectStatusText = request.getParameter("selectStatusText");
 			int year = Integer.parseInt(request.getParameter("year"));
 			int month = Integer.parseInt(request.getParameter("month"));
+			int selectShift = Integer.parseInt(request.getParameter("selectShift"));
 
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
@@ -674,6 +683,7 @@ public class AttendenceController {
 			map.add("userId", userObj.getUserId());
 			map.add("year", year);
 			map.add("month", month);
+			map.add("selectShift", selectShift);
 			System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingle", map,
 					Info.class);

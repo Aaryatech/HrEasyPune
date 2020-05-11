@@ -52,8 +52,10 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Attendance Details for
-									${year}-${month}</h5>
+								<h5 class="pageTitle">
+									<i class="icon-list-unordered"></i> Employee Attendance Details
+									for ${year}-${month}
+								</h5>
 							</div>
 
 							<div class="card-body">
@@ -173,9 +175,27 @@
 									</div>
 
 									<div class="form-group row">
+										<label class="col-form-label col-lg-2" for="selectStatus">
+											Select Shift : </label>
+										<div class="col-lg-4">
+											<select name="selectShift"
+												data-placeholder="Select Leave Type" id="selectShift"
+												class="form-control ">
+												<option value="0">Select Shift</option>
+												<c:forEach items="${shiftMaster}" var="shiftMaster">
+													<%-- data-leavestrname="${leaveHistoryList.lvTitle}" --%>
+													<option value="${shiftMaster.id}">${shiftMaster.shiftname}</option>
+
+												</c:forEach>
+											</select>
+										</div>
+
+									</div>
+
+									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="selectUpdateBy">
 											Update By : </label>
-										<div class="col-lg-2">
+										<div class="col-lg-3">
 											<input type="radio" name="selectUpdateBy" id="byStatus"
 												value="1" checked onclick="openHideDiv(1)">By Status
 											<input type="radio" name="selectUpdateBy" id="byIntime"
@@ -489,7 +509,8 @@
 					document.getElementById("dailyId").value = response.id;
 					document.getElementById("attDate").value = response.attDate;
 					document.getElementById("attStatus").value = response.attStatus;
-					 
+					document.getElementById("selectShift").value = response.currentShiftid;
+					
 					if(response.otHr.length==4){
 						document.getElementById("otHours").value = 0+response.otHr;
 					}else{
@@ -546,6 +567,8 @@
 		var dailyId = document.getElementById("dailyId").value;
 		var inTime = document.getElementById("inTime").value;
 		var outTime = document.getElementById("outTime").value;
+		var selectShift = document.getElementById("selectShift").value;
+		
 		var byStatus=1;
 		var lateMark=0;
 		var month = document.getElementById("month").value;
@@ -571,6 +594,7 @@
 			fd.append('selectStatusText', selectStatusText);
 			fd.append('month', month);
 			fd.append('year', year);
+			fd.append('selectShift', selectShift);
 			
 			  $
 			.ajax({
