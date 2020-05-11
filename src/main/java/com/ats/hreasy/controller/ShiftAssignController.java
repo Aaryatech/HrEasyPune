@@ -278,6 +278,8 @@ public class ShiftAssignController {
 		String mav = "shiftassign/assignFistDayShift";
 
 		try {
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar temp = Calendar.getInstance();
@@ -298,7 +300,7 @@ public class ShiftAssignController {
 			locId = Integer.parseInt(request.getParameter("locId"));
 
 			map = new LinkedMultiValueMap<String, Object>();
-			map.add("userId", 1);
+			map.add("userId", userObj.getUserId());
 			map.add("locId", locId);
 			ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
@@ -354,9 +356,13 @@ public class ShiftAssignController {
 		String mav = "redirect:/assignFistDayShift";
 
 		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
-			map.add("userId", 1);
+			map.add("userId", userObj.getUserId());
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/autoshiftAllocation", map,
 					Info.class);
 
@@ -373,6 +379,9 @@ public class ShiftAssignController {
 		String mav = "shiftassign/showShiftProjectionAllocation";
 
 		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar temp = Calendar.getInstance();
@@ -393,7 +402,7 @@ public class ShiftAssignController {
 			locId = Integer.parseInt(request.getParameter("locId"));
 
 			map = new LinkedMultiValueMap<String, Object>();
-			map.add("userId", 1);
+			map.add("userId", userObj.getUserId());
 			map.add("locId", locId);
 			ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
@@ -421,6 +430,24 @@ public class ShiftAssignController {
 
 				SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
 
+				temp = Calendar.getInstance();
+				temp.setTime(currentDate);
+
+				int year = temp.get(Calendar.YEAR);
+				int month = temp.get(Calendar.MONTH);
+				
+				Date firstDayOfMonth = new GregorianCalendar(year,
+						month, 1).getTime();
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("fromDate", sf.format(firstDayOfMonth));
+				map.add("toDate", sf.format(lastDay));
+				map.add("locId", locId);
+				map.add("userId", userObj.getUserId());
+				
+				Info info = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/checkRemainingEmployeeForProjection", map, Info.class);
+
 				try {
 
 					SimpleDateFormat sdf = new SimpleDateFormat("EEE");
@@ -436,8 +463,8 @@ public class ShiftAssignController {
 
 						DateAndDay dateAndDay = new DateAndDay();
 						String stringDate = sdf.format(j);
-						dateAndDay.setDate(dd.format(j)); 
-						/*dateAndDay.setDate(String.valueOf(date));*/
+						dateAndDay.setDate(dd.format(j));
+						/* dateAndDay.setDate(String.valueOf(date)); */
 
 						dateAndDay.setDay(stringDate);
 						dateAndDayList.add(dateAndDay);
@@ -468,7 +495,7 @@ public class ShiftAssignController {
 				}
 
 			} else {
-				HttpSession session = request.getSession();
+
 				session.setAttribute("errorMsg", "Shift Allocation Step is not completed For current Month");
 				System.out.println("Shift Allocation Step is not completed For current Month");
 			}
