@@ -91,13 +91,14 @@ public class ForgotPassController {
 					// model = new ModelAndView("forgotPassword");
 					c = "redirect:/";
 					// model.addObject("msg", "Invalid User Name");
-					session.setAttribute("errorPassMsg1", "Invalid User Name !");
+					session.setAttribute("errorMsg", "Invalid User Name !");
 				}
 				SessionKeyGen.changeSessionKey(request);
 			} catch (Exception e) {
 				SessionKeyGen.changeSessionKey(request);
-				System.err.println("Exce in checkUserAndSendOtpEmail  " + e.getMessage());
-				e.printStackTrace();
+				session.setAttribute("errorMsg", "Invalid User Name !");
+				c = "redirect:/";
+				
 			}
 		} else {
 			SessionKeyGen.changeSessionKey(request);
@@ -352,7 +353,7 @@ System.err.println("otp " +otp +" userKey ie email " +userKey);
 			String empEmail= request.getParameter("empEmail");
 			System.err.println("empEmail " +empEmail);
 
-			EmailUtility.sendEmailWithSubMsgAndToAdd("HR Application Credentials", "Your credentials to use the HR Application as below "
+			EmailUtility.sendEmailWithSubMsgAndToAdd("HR Application Credentials ", "Your credentials to use the HR Application as below "
 					+ "\n User name: " + empEmail + " \n Password : " + password,empEmail);
 			
 			MessageDigest md = MessageDigest.getInstance("MD5");
