@@ -359,10 +359,14 @@ System.err.println("otp " +otp +" userKey ie email " +userKey);
 			int empId=Integer.parseInt(request.getParameter("empId"));
 			String empEmail= request.getParameter("empEmail");
 			System.err.println("empEmail " +empEmail);
+			try {
 
 			EmailUtility.sendEmailWithSubMsgAndToAdd("HR Application Credentials ", "Your credentials to use the HR Application as below "
 					+ "\n User name: " + empEmail + " \n Password : " + password,empEmail);
-			
+			}catch (Exception e2) {
+				info=new Info();
+				return info;
+			}
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] messageDigest = md.digest(password.getBytes());
 			BigInteger number = new BigInteger(1, messageDigest);

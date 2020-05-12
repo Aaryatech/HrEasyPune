@@ -233,7 +233,7 @@
 		},
 
 		function(data) {
-			alert(JSON.stringify(data));
+			//alert(JSON.stringify(data));
 			document.getElementById("empId"+empId).style.backgroundColor='blue';
 
 		});
