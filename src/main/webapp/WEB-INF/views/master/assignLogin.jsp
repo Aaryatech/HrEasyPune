@@ -111,6 +111,15 @@
 										style="display: none;" id="error_desigId">This field is
 										required.</span>
 								</div>
+								<div class="col-lg-3">
+								<div id="loader" align="center" style="display: none;">
+
+								<button type="button" class="btn bg-teal-400 ml-2" id="spinner-dark">
+									<i class="icon-spinner spinner mr-2"></i>
+									Sending...
+								</button>
+							</div>
+							</div>
 							</div>
 
 							<div class="table-responsive">
@@ -185,7 +194,7 @@
 												</c:choose>
 												<td>${loginType}</td>
 												
-												<td><a href="#" title="Reset and send Login Credential on Email" onclick="sendUserCred(${empdetList.empId},'${empdetList.emailId}')" ><i class="icon-mail5 mr-3 icon-2x" style="color:red;"></i></a></td>
+												<td><a href="#" title="Reset and send Login Credential on Email" onclick="sendUserCred(${empdetList.empId},'${empdetList.woCatName}')" ><i class="icon-mail5 mr-3 icon-2x" style="color:red;"></i></a></td>
 
 											</tr>
 										</c:forEach>
@@ -226,6 +235,7 @@
 
 	<script type="text/javascript">
 	function sendUserCred(empId,empEmail){
+		$("#loader").show();
 		$.getJSON('${sendUserCred}', { 
 			empId : empId,
 			empEmail : empEmail,
@@ -234,7 +244,11 @@
 
 		function(data) {
 			//alert(JSON.stringify(data));
-			document.getElementById("empId"+empId).style.backgroundColor='blue';
+			$("#loader").hide();
+			if(data.error==true)
+			document.getElementById("empId"+empId).style.backgroundColor='orange';
+			else
+			document.getElementById("empId"+empId).style.backgroundColor='green';
 
 		});
 
