@@ -163,7 +163,7 @@
 												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 												
 												<td>${empdetList.mobileNo1}</td>
-												<td>${empdetList.emailId}</td>
+												<td>${empdetList.woCatName}</td>
 												
 												<%-- <td>${empdetList.deptName}</td>
 												<td>${empdetList.empDesgn}</td> --%>
