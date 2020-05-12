@@ -45,20 +45,26 @@ public class ForgotPassController {
 	LinkedHashMap<String, String> userOtpMap = new LinkedHashMap<>();
 	LinkedHashMap<String, Calendar> userTimeMap = new LinkedHashMap<>();
 
+	@RequestMapping(value = "/showForPassPage", method = RequestMethod.GET)
+	public ModelAndView showForPassPage(Locale locale, Model model) {
+		ModelAndView mav = new ModelAndView("login_fpass");
+		return mav;
+	}
+	
+	
 	@RequestMapping(value = "/checkUserAndSendOtpEmail", method = RequestMethod.POST)
-	public String checkUserAndSendOtpEmail(HttpServletRequest request, HttpServletResponse response) {
+	public String checkUserAndSendOtpEmail(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String c = null;
 		System.err.println("Hiii  checkValue  ");
-		Info info = new Info();
-		ModelAndView model = new ModelAndView();
 		HttpSession session = request.getSession();
 
 		String token = request.getParameter("token");
 		String key = (String) session.getAttribute("generatedKey");
-
+int pageValue=0;
 		if (token.trim().equals(key.trim())) {
 			try {
 				// model = new ModelAndView("forgotPassword");
+				model.addAttribute("pageValue", pageValue);
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
@@ -87,17 +93,18 @@ public class ForgotPassController {
 					session.setAttribute("userEmail", empMast.getEmailId());
 				} else {
 					// model.addObject("msg", "Password has been sent to your email");
-
+					pageValue=1;
+					session.setAttribute("pageValue", pageValue);
 					// model = new ModelAndView("forgotPassword");
-					c = "redirect:/";
+					c = "redirect:/showForPassPage";
 					// model.addObject("msg", "Invalid User Name");
-					session.setAttribute("errorMsg", "Invalid User Name !");
+					session.setAttribute("errorPassMsg1", "Invalid User Name !");
 				}
 				SessionKeyGen.changeSessionKey(request);
 			} catch (Exception e) {
 				SessionKeyGen.changeSessionKey(request);
-				session.setAttribute("errorMsg", "Invalid User Name !");
-				c = "redirect:/";
+				session.setAttribute("errorPassMsg1", "Invalid User Name !");
+				c = "redirect:/showForPassPage";
 				
 			}
 		} else {

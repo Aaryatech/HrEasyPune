@@ -97,47 +97,9 @@ body1 {
 		</div>
 
 		<!-- login-form -->
-		<form id="form-login" action="loginProcess" method="post">
-			<div class="loginInner" id="pass_form1">
+		<form id="form-login" action="${pageContext.request.contextPath}/checkUserAndSendOtpEmail" method="post">
 
-				<div class="login_l">
-					<a href=""><img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/monginis1.png"
-						alt=""></a>
-
-					<p class="login_txt">
-						Welcome to India’s one of most preferred bakery brand ! <span>Lets
-							make Monginis a part of everybody’s celebration!!</span>
-					</p>
-
-				</div>
-
-				<div class="login_r">
-
-
-
-					<img
-						src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png"
-						alt="">
-					<h2 class="login_head_one">Sign into your account</h2>
-					<div class="clr"></div>
-					<c:if test="${msg!=null}">
-						<div class="alert alert-danger">${msg}</div>
-
-					</c:if>
-					<c:if test="${sessionScope.errorPassMsg!=null}">
-						<div class="alert alert-danger">${sessionScope.errorPassMsg}</div>
-
-						<%
-							session.removeAttribute("errorPassMsg");
-						%>
-					</c:if>
-
-					<!-- class="login-form" -->
-					<%-- 	<form action="${pageContext.request.contextPath}/loginProcess"
-						id="submitInsertEmpType" method="post"> --%>
-
-					<%
+<%
 						UUID uuid = UUID.randomUUID();
 						MessageDigest md = MessageDigest.getInstance("MD5");
 						byte[] messageDigest = md.digest(String.valueOf(uuid).getBytes());
@@ -148,61 +110,8 @@ body1 {
 					%>
 					<input type="hidden" value="<%out.println(hashtext);%>"
 						name="token" id="token">
-					<c:if test="${sessionScope.errorMsg!=null}">
-						<div class="alert alert-danger">${sessionScope.errorMsg}</div>
-
-						<%
-							session.removeAttribute("errorMsg");
-						%>
-					</c:if>
-					<div
-						class="form-group form-group-feedback form-group-feedback-left">
-						<input type="text" id="username" name="username"
-							class="form-control form_lgn" placeholder="Username"
-							style="border-radius: 5px;">
-						<div class="form-control-feedback" style="padding-left: 10px;">
-							<i class="icon-user text-muted"></i>
-						</div>
-					</div>
-					<div
-						class="form-group form-group-feedback form-group-feedback-left">
-						<input type="password" id="password" name="password"
-							class="form-control form_lgn" placeholder="Password"
-							style="border-radius: 5px;">
-						<div class="form-control-feedback" style="padding-left: 10px;">
-							<i class="icon-lock2 text-muted"></i>
-						</div>
-
-					</div>
-					<div class="checkbox clearfix">
-
-						<%--  <a href="${pageContext.request.contextPath}/showForgotPass">Forgot Password?</a> --%>
-					</div>
-					<div class="form-group" style="margin: 0;">
-						<button type="submit" class="buttonlogin">Login</button>
-						<div class="forgot_pass">
-							<a href="${pageContext.request.contextPath}/showForPassPage" onclick="showForgotWindow()">Forgot Password?</a>
-						</div>
-					</div>
-					<div class="d-lg-none">
-						<span class="navbar-text"> &copy; 2019 - 2022. <a href="#">Powered
-						</a> by <a href="http://aaryatechindia.in/" class="navbar-text"
-							target="_blank">AARYA TECH SOLUTIONS</a>
-							</p> <a href="http://aaryatechindia.in/" target="_blank"><img
-								src="${pageContext.request.contextPath}/resources/global_assets/images/powerdBy.png"
-								width="60" height="50" alt=""></a>
-					</div>
-
-				</div>
-
-				<div class="clr"></div>
-			</div>
-
-
-
-
 			<!-- forgot password form -->
-			<div class="loginInner" style="display: none" id="pass_form">
+			<div class="loginInner"  id="pass_form">
 
 				<div class="login_l">
 					<a href=""><img
@@ -216,10 +125,7 @@ body1 {
 
 				</div>
 
-				<<%-- div class="login_r forgot">
-
-
-
+				<div class="login_r forgot">
 					<img
 						src="${pageContext.request.contextPath}/resources/global_assets/images/logo_white.png"
 						alt="">
@@ -239,7 +145,7 @@ body1 {
 					</c:if>
 					<div
 						class="form-group form-group-feedback form-group-feedback-left">
-						<input type="text" id="usernameFp" name="usernameFp"
+						<input type="text" required id="usernameFp"  name="usernameFp"
 							class="form-control form_lgn" placeholder="Email Address"
 							style="border-radius: 5px;">
 						<div class="form-control-feedback" style="padding-left: 10px;">
@@ -249,14 +155,14 @@ body1 {
 
 
 					<div class="form-group" style="margin: 0;">
-						<button type="button" onclick="subPassForForm()"
+						<button type="submit" onclick="subPassForForm1()"
 							class="buttonlogin">Submit</button>
 						<div class="forgot_pass" style="text-align: left;">
-							<a href="#" onclick="hidePassForForm()">Back</a>
+							<a href="${pageContext.request.contextPath}/">Back</a>
 						</div>
 					</div>
 
-				</div> --%>
+				</div>
 
 				<div class="clr"></div>
 
