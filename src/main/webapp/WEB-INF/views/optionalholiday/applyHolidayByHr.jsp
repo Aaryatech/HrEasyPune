@@ -182,7 +182,7 @@
 								</div>
 								<br>
 								<form
-									action="${pageContext.request.contextPath}/submitApplyHoliday"
+									action="${pageContext.request.contextPath}/submitApplyHolidayByHr"
 									id="submitApplyHoliday" method="post"
 									enctype="multipart/form-data">
 
@@ -242,11 +242,9 @@
 										<button type="submit" class="btn blue_btn" id="submtbtn">
 											Submit</button>
 
-										<a href="${pageContext.request.contextPath}/applyHoliday"><button
-												type="button" class="btn btn-light">
-												<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
-												Back
-											</button></a>
+										<a
+											href="${pageContext.request.contextPath}/empListForApplyOptionalHoliday"><button
+												type="button" class="btn btn-light">Back</button></a>
 									</div>
 								</form>
 								<p class="desc text-danger fontsize11">Note : * Fields are
