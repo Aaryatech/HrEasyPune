@@ -184,7 +184,7 @@
 														<td>${tempFistDayAssignListList.date}</td>
 														<td><select
 															name="shiftId${tempFistDayAssignListList.id}"
-															data-placeholder="Select Location"
+															data-placeholder="Select Shift"
 															id="shiftId${tempFistDayAssignListList.id}"
 															class="form-control form-control-select2 select2-hidden-accessible"
 															onchange="updateshiftfirsttime(${tempFistDayAssignListList.id})">

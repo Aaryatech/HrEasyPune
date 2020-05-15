@@ -2494,7 +2494,7 @@
 				$(".pf_block").hide()
 			}
 
-			$("#pan").change(function() {
+			/* $("#pan").change(function() {
 				var pan = $("#pan").val();
 
 				var regex1 = /^[A-Z]{5}\d{4}[A-Z]{1}$/;
@@ -2504,7 +2504,7 @@
 				}
 				$("#error_pan").hide()
 				return true;
-			});
+			}); */
 		});
 
 		$(document).ready(function() {
@@ -2727,7 +2727,7 @@
 													}
 												}
 
-												if (validatePAN($("#pan").val())) {
+												/* if (validatePAN($("#pan").val())) {
 
 													isError = true;
 
@@ -2735,7 +2735,7 @@
 
 												} else {
 													$("#error_pan").hide()
-												}
+												} */
 												if ($("#ishod").val() == 1) {
 													if ($("#hoddeptId").val() == "") {
 														isError = true;

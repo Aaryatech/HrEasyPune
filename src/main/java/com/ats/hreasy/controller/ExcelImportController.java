@@ -384,7 +384,8 @@ public class ExcelImportController {
 								.postForObject(Constants.url + "/saveEmployee", emp, EmployeeMaster.class);
 
 						/************************* Employee User Info *******************************/
-						/*RandomString randomString = new RandomString();
+
+						RandomString randomString = new RandomString();
 						String password = "1947";
 						MessageDigest md = MessageDigest.getInstance("MD5");
 						byte[] messageDigest = md.digest(password.getBytes());
@@ -414,9 +415,8 @@ public class ExcelImportController {
 							uinfo.setUser_id(0);
 						}
 
-						 
 						User res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveUserInfo", uinfo,
-								User.class);*/
+								User.class);
 
 						/************************* Employee othet Info *******************************/
 						String empInfoMiddlename = null;
@@ -461,7 +461,12 @@ public class ExcelImportController {
 						TblEmpInfo empInfo = new TblEmpInfo();
 						empInfo.setEmpId(empSaveResp.getEmpId());
 						empInfo.setMiddleName(empInfoMiddlename);
-						empInfo.setMiddleNameRelation(middlenamerelation.toLowerCase());
+						try {
+							empInfo.setMiddleNameRelation(middlenamerelation.toLowerCase());
+						} catch (Exception e) {
+							empInfo.setMiddleNameRelation(middlenamerelation);
+						}
+
 						empInfo.setDob(dob);
 						empInfo.setGender(gender);
 						empInfo.setAddress(address);
@@ -729,18 +734,16 @@ public class ExcelImportController {
 
 								if (empAllowncList.get(k).getAllowanceId() == 1) {
 									keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 1) {
-									keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 9) {
-									keyVal2 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 14) {
-									keyVal3 = empAllowncList.get(k).getEmpSalAllowanceId();
 								} else if (empAllowncList.get(k).getAllowanceId() == 5) {
 									keyVal4 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 9) {
+									keyVal2 = empAllowncList.get(k).getEmpSalAllowanceId();
 								} else if (empAllowncList.get(k).getAllowanceId() == 10) {
 									keyVal5 = empAllowncList.get(k).getEmpSalAllowanceId();
 								} else if (empAllowncList.get(k).getAllowanceId() == 11) {
 									keyVal6 = empAllowncList.get(k).getEmpSalAllowanceId();
+								} else if (empAllowncList.get(k).getAllowanceId() == 14) {
+									keyVal3 = empAllowncList.get(k).getEmpSalAllowanceId();
 								} else if (empAllowncList.get(k).getAllowanceId() == 19) {
 									keyVal7 = empAllowncList.get(k).getEmpSalAllowanceId();
 								} else if (empAllowncList.get(k).getAllowanceId() == 173) {
@@ -837,6 +840,7 @@ public class ExcelImportController {
 							allowncList.add(empSalAllwance);
 
 						} catch (Exception e) {
+							e.printStackTrace();
 							// empSellAllwance.setSalaryInfoId(0);
 						}
 						EmpSalAllowance[] allowance = Constants.getRestTemplate().postForObject(
@@ -846,6 +850,7 @@ public class ExcelImportController {
 				} // For Loop End
 			} catch (Exception e) {
 
+				e.printStackTrace();
 			}
 			session.setAttribute("successMsg", "Information Updated Successfully");
 
