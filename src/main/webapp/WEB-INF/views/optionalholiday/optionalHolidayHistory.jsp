@@ -45,7 +45,7 @@
 							<th style="text-align: center;">Emp Name</th>
 							<th style="text-align: center;">Holiday</th>
 							<th style="text-align: center;">Remark</th>
-
+							<th style="text-align: center;" width="15%">status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -63,7 +63,12 @@
 								<td>${historyList.empName}</td>
 								<td>${historyList.holidayName}&nbsp;(${historyList.holidate})</td>
 								<td>${historyList.remark}</td>
-
+								<td style="text-align: center;"><c:choose>
+										<c:when test="${historyList.status==0}">Pending</c:when>
+										<c:when test="${historyList.status==1}">Approved</c:when>
+										<c:when test="${historyList.status==2}">Reject</c:when>
+										<c:when test="${historyList.status==3}">Cancel</c:when>
+									</c:choose></td>
 							</tr>
 						</c:forEach>
 
