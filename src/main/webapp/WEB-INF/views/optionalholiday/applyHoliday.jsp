@@ -153,6 +153,17 @@
 
 									</div>
 								</div>
+
+								<div class="form-group row">
+									<label class="col-form-label col-lg-2" for="hoCatName">
+									</label>
+									<div class="col-lg-2">
+										<button type="button" class="btn blue_btn" id="historybtn"
+											onclick="getOptionalHolidayHistory(${empDetail.empId})">History</button>
+									</div>
+								</div>
+
+
 								<hr>
 								<div class="table-responsive">
 									<table
@@ -268,7 +279,30 @@
 
 		</div>
 		<!-- /main content -->
+		<!-- Large modal -->
+		<div id="modal_large1" class="modal fade" tabindex="-1">
 
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"></h5>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body" id="modalbody">
+						<!--  Profile Model -->
+						<!--  Profile Model -->
+						<!--  Profile Model -->
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn bg-primary">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /large modal -->
 	</div>
 	<!-- /page content -->
 
@@ -371,6 +405,20 @@
 			document.getElementById("submtbtn").disabled = true;
 			document.getElementById("submitApplyHoliday").submit();
 
+		}
+		
+		function getOptionalHolidayHistory(empId) {
+			 
+			   var strhref ="${pageContext.request.contextPath}/getOptionalHolidayHistory?empId="+empId;
+			   $("#modalbody").load(strhref);
+			   $("#modal_large1").modal("show");
+			   $('#modal_large1').on('hidden.bs.modal', function () {
+				 $("#modalbody").html("");
+			   }); 
+			   
+			$(document).ready(function(){
+	  
+				});
 		}
 	</script>
 	<!-- Scrollable modal -->

@@ -301,7 +301,7 @@ public class OptionalHolidayController {
 
 		try {
 			HttpSession session = request.getSession();
-			//LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			// LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
@@ -392,7 +392,55 @@ public class OptionalHolidayController {
 		}
 		return ret;
 	}
-	
-	
+
+	@RequestMapping(value = "/getOptionalHolidayHistory", method = RequestMethod.GET)
+	public String getOptionalHolidayHistory(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "optionalholiday/optionalHolidayHistory";
+
+		try {
+			// HttpSession session = request.getSession();
+			// LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			int empId = Integer.parseInt(request.getParameter("empId"));
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			map.add("yearId", calculateYear.getCalYrId());
+			map.add("sts", "0,1,2,3");
+			EmpListForHolidayApprove[] empListForHolidayApprove = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getHistoryOptionalHoliday", map, EmpListForHolidayApprove[].class);
+			List<EmpListForHolidayApprove> historyList = new ArrayList<EmpListForHolidayApprove>(
+					Arrays.asList(empListForHolidayApprove));
+			model.addAttribute("historyList", historyList);
+
+			/*
+			 * Date dt = new Date(); SimpleDateFormat sf = new
+			 * SimpleDateFormat("yyyy-MM-dd");
+			 * 
+			 * map = new LinkedMultiValueMap<>(); map.add("date", sf.format(dt));
+			 * map.add("yearId", calculateYear.getCalYrId()); map.add("catId",
+			 * empDetail.getHolidayCategory()); map.add("empId", userObj.getEmpId());
+			 * Holiday[] holiday = Constants.getRestTemplate() .postForObject(Constants.url
+			 * + "/getHolidayListforoptionalHoliday", map, Holiday[].class);
+			 * 
+			 * holidayList = new ArrayList<>(Arrays.asList(holiday));
+			 * 
+			 * for (int i = 0; i < holidayList.size(); i++) {
+			 * holidayList.get(i).setHolidayFromdt(DateConvertor.convertToDMY(holidayList.
+			 * get(i).getHolidayFromdt())); }
+			 * 
+			 * model.addAttribute("holidayList", holidayList);
+			 */
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return mav;
+	}
 
 }
