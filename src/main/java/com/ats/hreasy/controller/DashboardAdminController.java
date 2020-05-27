@@ -45,7 +45,7 @@ import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 @Scope("session")
 public class DashboardAdminController {
 
-	/*@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard1(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome";
@@ -278,15 +278,15 @@ public class DashboardAdminController {
 
 		return mav;
 
-	}*/
+	}
 
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "welcome1";
 
 		return mav;
-	}
+	}*/
 
 	@RequestMapping(value = "/dashboardModified", method = RequestMethod.GET)
 	public String dashboardNew(HttpServletRequest request, HttpServletResponse response, Model model) {
