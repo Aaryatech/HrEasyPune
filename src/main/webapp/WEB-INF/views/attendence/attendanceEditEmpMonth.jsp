@@ -352,7 +352,17 @@
 													<td class="text-right">${dailyrecordList.lateMin}</td>
 													<td class="text-right">${dailyrecordList.workingHrs}</td>
 													<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
-														<td class="text-right">${dailyrecordList.otHr}</td>
+
+														<c:set value="" var="bgclr"></c:set>
+														<c:choose>
+															<c:when test="${dailyrecordList.freezeBySupervisor==1}">
+																<c:set value="#e4cf12" var="bgclr"></c:set>
+															</c:when>
+															<c:when test="${dailyrecordList.freezeBySupervisor==2}">
+																<c:set value="#a2951e" var="bgclr"></c:set>
+															</c:when>
+														</c:choose>
+														<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
 													</c:if>
 													<td>${dailyrecordList.currentShiftname}</td>
 													<td class="text-center"><c:if

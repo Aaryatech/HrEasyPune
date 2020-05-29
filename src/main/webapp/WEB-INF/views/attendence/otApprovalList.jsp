@@ -169,7 +169,7 @@
 											<th class="text-center">Production Incentive <br>Hrs
 											</th>
 
-											<th class="text-center">OShift/Loc</th>
+											<th class="text-center">Shift</th>
 											<!-- <th class="text-center" style="width: 10%;">Action</th> -->
 
 										</tr>

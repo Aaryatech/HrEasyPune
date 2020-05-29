@@ -1,7 +1,10 @@
 package com.ats.hreasy.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,7 +136,7 @@ public class OtModuleController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/submitFinalApproveProductionIncentive", method = RequestMethod.POST)
 	public String submitFinalApproveProductionIncentive(HttpServletRequest request, HttpServletResponse response) {
 		String redirect = new String();
@@ -145,23 +148,44 @@ public class OtModuleController {
 			String[] ids = request.getParameterValues("selectEmp");
 
 			String id = "0";
+			String empId = "0";
 			for (int i = 0; i < ids.length; i++) {
 
 				for (int j = 0; j < dailyrecordList.size(); j++) {
 
 					if (dailyrecordList.get(j).getId() == Integer.parseInt(ids[i])) {
 						id = id + "," + ids[i];
+						empId = empId + "," + dailyrecordList.get(j).getEmpId();
 						break;
 					}
 				}
 
 			}
 
+			String[] dtsplt = date.split("-");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("ids", id);
 			map.add("status", 2);
 			System.out.println(map);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateOtApproveStatus", map,
+					Info.class);
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			Date firstDay = new GregorianCalendar(Integer.parseInt(dtsplt[2]), Integer.parseInt(dtsplt[1]) - 1, 1)
+					.getTime();
+			Date lastDay = new GregorianCalendar(Integer.parseInt(dtsplt[2]), Integer.parseInt(dtsplt[1]), 0).getTime();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", sf.format(firstDay));
+			map.add("toDate", sf.format(lastDay));
+			map.add("userId", userObj.getUserId());
+			map.add("year", Integer.parseInt(dtsplt[2]));
+			map.add("month", Integer.parseInt(dtsplt[1]));
+			map.add("empIds", empId);
+
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceFinalRecordByempId", map,
 					Info.class);
 
 			if (info.isError() == false) {
