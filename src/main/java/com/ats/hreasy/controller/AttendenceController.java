@@ -663,6 +663,7 @@ public class AttendenceController {
 			int year = Integer.parseInt(request.getParameter("year"));
 			int month = Integer.parseInt(request.getParameter("month"));
 			int selectShift = Integer.parseInt(request.getParameter("selectShift"));
+			int otApproval = Integer.parseInt(request.getParameter("otApproval"));
 
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
@@ -684,6 +685,7 @@ public class AttendenceController {
 			map.add("year", year);
 			map.add("month", month);
 			map.add("selectShift", selectShift);
+			map.add("otApproval", otApproval);
 			System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingle", map,
 					Info.class);

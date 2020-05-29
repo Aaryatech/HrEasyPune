@@ -242,6 +242,17 @@
 													autocomplete="off">
 
 											</div>
+											<div class="col-lg-1"></div>
+											<label class="col-form-label col-lg-2" for="otApproval">
+												Approve PI : </label>
+											<div class="col-lg-2">
+												<select name="otApproval" id="otApproval"
+													class="form-control ">
+													<option value="0">Select</option>
+													<option value="1">Approve</option>
+
+												</select>
+											</div>
 
 										</div>
 									</div>
@@ -583,7 +594,7 @@
 		var lateMark=0;
 		var month = document.getElementById("month").value;
 		var year = document.getElementById("year").value;
-		
+		var otApproval = document.getElementById("otApproval").value;
 		
 		if(document.getElementById("byIntime").checked==true){
 			byStatus=2;
@@ -605,6 +616,7 @@
 			fd.append('month', month);
 			fd.append('year', year);
 			fd.append('selectShift', selectShift);
+			fd.append('otApproval', otApproval);
 			
 			  $
 			.ajax({

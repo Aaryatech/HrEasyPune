@@ -217,7 +217,13 @@
 												<td class="text-right"
 													title="In Time : ${dailyrecordList.inTime},Out Time : ${dailyrecordList.outTime}">${dailyrecordList.workingHrs}</td>
 
-												<td class="text-right">${dailyrecordList.otHr}</td>
+												<td class="text-right">
+													<%-- <input type="time"
+													class="form-control" placeholder="OT Hours"
+													id="otHours${dailyrecordList.id}"
+													name="otHours${dailyrecordList.id}" autocomplete="off"
+													data-uuid="${dailyrecordList.otHr}"
+													onchange="setOthrs(${dailyrecordList.id})"> --%>${dailyrecordList.otHr}</td>
 
 												<td>${dailyrecordList.currentShiftname}</td>
 												<!-- <td class="text-center"></td> -->
@@ -283,6 +289,20 @@
 	<script type="text/javascript">
 		function changeValue(val) {
 			document.getElementById("stsaprv").value = val;
+		}
+		function setOthrs(id) {
+			/* time=time.toFixed(2);
+			alert(time) */
+			var time = $("#otHours" + id).data("uuid")
+			alert(time)
+			if (time.length == 4) {
+
+				document.getElementById("otHours" + id).value = 0 + time;
+
+			} else {
+				document.getElementById("otHours" + id).value = time;
+			}
+			//document.getElementById("otHours"+id).value = time;
 		}
 	</script>
 
