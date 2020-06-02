@@ -205,7 +205,7 @@
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="lvsName">
-												Claim Remark <span style="color: red">* </span>:
+												Claim Title <span style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control" placeholder="Remark"
@@ -216,8 +216,8 @@
 											</div>
 										</div>
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float">Date
-												Range<span style="color: red">* </span>:
+											<label class="col-form-label col-lg-5 float">Date <span
+												style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass "

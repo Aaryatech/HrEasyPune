@@ -438,11 +438,16 @@ public class ClaimApplicationController {
 			int empId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("empId")));
 			int claimId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("claimId")));
 			String stat = request.getParameter("stat");
+			String rejctsts = request.getParameter("rejctsts");
 
 			model.addObject("empId", empId);
 			model.addObject("claimId", claimId);
 			model.addObject("stat", stat);
+			model.addObject("stat2", rejctsts);
+
 			// System.out.println("empId" + empId);
+			String encryptEmpId = request.getParameter("empId");
+			model.addObject("encryptEmpId", encryptEmpId);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("claimId", claimId);
@@ -487,6 +492,16 @@ public class ClaimApplicationController {
 			List<ClaimStructureDetail> claimTypeList = new ArrayList<ClaimStructureDetail>(
 					Arrays.asList(claimStructureDetail));
 			model.addObject("claimTypeList", claimTypeList);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("claimId", claimId);
+			ClaimProof[] claimprf = Constants.getRestTemplate().postForObject(Constants.url + "/getClaimProofByClaimId",
+					map, ClaimProof[].class);
+
+			List<ClaimProof> claimprfList = new ArrayList<ClaimProof>(Arrays.asList(claimprf));
+
+			model.addObject("claimprfList", claimprfList);
+			model.addObject("fileUrl", Constants.imageShowUrl);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -564,6 +579,8 @@ public class ClaimApplicationController {
 	@RequestMapping(value = "/approveClaimByAuth1", method = RequestMethod.POST)
 	public String insertLeave(HttpServletRequest request, HttpServletResponse response) {
 
+		String ret = "redirect:/showClaimApprovalByAuthority";
+
 		try {
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -574,7 +591,7 @@ public class ClaimApplicationController {
 			// System.err.println("emp data :::" + request.getParameter("empId"));
 			int empId = Integer.parseInt((request.getParameter("empId")));
 			int claimId = Integer.parseInt((request.getParameter("claimId")));
-			String stat = request.getParameter("stat");
+			String stat = request.getParameter("selectedSts");
 			String month = null;
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			int stat1 = Integer.parseInt(stat);
@@ -596,6 +613,7 @@ public class ClaimApplicationController {
 				msg = "Rejected";
 			} else if (stat1 == 7) {
 				msg = "Cancelled";
+				ret = "redirect:/showClaimList?empId=" + FormValidation.Encrypt(String.valueOf(empId));
 			}
 
 			String remark = null;
@@ -642,9 +660,9 @@ public class ClaimApplicationController {
 							Info.class);
 
 					if (info1.isError() == false) {
-						session.setAttribute("successMsg", "Record " + msg + " Successfully");
+						session.setAttribute("successMsg", "Claim " + msg + " Successfully");
 					} else {
-						session.setAttribute("errorMsg", "Failed to " + msg + " Record");
+						session.setAttribute("errorMsg", "Failed to " + msg + " Claim");
 					}
 
 				}
@@ -658,7 +676,7 @@ public class ClaimApplicationController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/showClaimApprovalByAuthority";
+		return ret;
 
 	}
 
@@ -691,6 +709,7 @@ public class ClaimApplicationController {
 			}
 
 			model.addObject("claimList1", claimList1);
+			model.addObject("empId", request.getParameter("empId"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -994,8 +1013,10 @@ public class ClaimApplicationController {
 	@RequestMapping(value = "/uploadClaimProof", method = RequestMethod.POST)
 	public String uploadClaimProof(HttpServletRequest request, HttpServletResponse response) {
 
+		HttpSession session = request.getSession();
+		
 		try {
-			HttpSession session = request.getSession();
+			
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			Date date = new Date();
@@ -1162,9 +1183,12 @@ public class ClaimApplicationController {
 						proofList, List.class);
 			}
 
+			session.setAttribute("successMsg", "Claim Apply Successfully");
+
 			// System.err.println("res1 claim is" + res1.toString());
 
 		} catch (Exception e) {
+			session.setAttribute("errorMsg", "Failed to Apply Claim");
 			e.printStackTrace();
 		}
 
@@ -1354,7 +1378,17 @@ public class ClaimApplicationController {
 			List<ClaimStructureDetail> claimTypeList = new ArrayList<ClaimStructureDetail>(
 					Arrays.asList(claimStructureDetail));
 			model.addObject("claimTypeList", claimTypeList);
+			model.addObject("empId", request.getParameter("empId"));
+			 
+			map = new LinkedMultiValueMap<>();
+			map.add("claimId", claimId);
+			ClaimProof[] claimprf = Constants.getRestTemplate().postForObject(Constants.url + "/getClaimProofByClaimId",
+					map, ClaimProof[].class);
 
+			List<ClaimProof> claimprfList = new ArrayList<ClaimProof>(Arrays.asList(claimprf));
+
+			model.addObject("claimprfList", claimprfList);
+			model.addObject("fileUrl", Constants.imageShowUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

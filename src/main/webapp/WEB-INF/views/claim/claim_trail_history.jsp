@@ -70,26 +70,15 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Claim Trail
-										History</h5></td>
-								<td width="40%" align="right"><c:choose>
-										<c:when test="${retun==0}">
-											<a
-												href="${pageContext.request.contextPath}/showClaimApprovalByAdmin"
-												class="breadcrumb-elements-item">
-												<button type="button" class="btn btn-primary">Employee
-													Claim History</button>
-											</a>
-										</c:when>
-										<c:otherwise>
-											<a
-												href="${pageContext.request.contextPath}/showClaimApprovalByAuthority"
-												class="breadcrumb-elements-item">
-												<button type="button" class="btn btn-primary">Employee
-													Claim History</button>
-											</a>
-										</c:otherwise>
-									</c:choose></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Claim Details
+									</h5></td>
+								<td width="40%" align="right"><a
+									href="${pageContext.request.contextPath}/showClaimList?empId=${empId}"
+									class="breadcrumb-elements-item">
+										<button type="button" class="btn btn-primary">Employee
+											Claim History</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
@@ -132,70 +121,65 @@
 							}
 						%>
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Employee
-								Code : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control" Value="${lvEmp.empCode}"
-									name="compName" autocomplete="off" readonly>
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Employee
+									Code : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.empCode}" name="compName" autocomplete="off"
+										readonly>
 
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Employee
-								Name : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.empFname} ${lvEmp.empSname}" name="compName"
-									autocomplete="off" readonly>
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Employee
+									Name : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.empFname} ${lvEmp.empSname}" name="compName"
+										autocomplete="off" readonly>
 
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Claim
-								Title : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.claimTitle}" name="compName" autocomplete="off"
-									readonly>
-
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Claim
-								Date : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.caFromDt} to ${lvEmp.caToDt} " name="compName"
-									autocomplete="off" readonly>
-
-							</div>
-						</div>
-
-
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Claim
-								Amount : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.claimAmount}" name="compName" autocomplete="off"
-									readonly>
-
+								</div>
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2" for="compName">Project
-								Title : </label>
-							<div class="col-lg-6">
-								<input type="text" class="form-control"
-									Value="${lvEmp.projectTitle}" name="compName"
-									autocomplete="off" readonly>
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Claim
+									Title : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.claimTitle}" name="compName" autocomplete="off"
+										readonly>
 
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Claim
+									Date : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.caFromDt} to ${lvEmp.caToDt} " name="compName"
+										autocomplete="off" readonly>
+
+								</div>
 							</div>
 						</div>
 
-						<h6 class="card-title">Claim Detail</h6>
+						<div class="form-group row">
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Claim
+									Amount : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.claimAmount}" name="compName"
+										autocomplete="off" readonly>
+
+								</div>
+							</div>
+						</div>
+
+						<h6 class="card-title">Details</h6>
 						<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 							id="printtable1">
@@ -205,7 +189,8 @@
 									<th>Claim Type</th>
 									<th>Amount</th>
 									<th>Remark</th>
-
+									<th>Limit</th>
+									<th>Files</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -218,7 +203,25 @@
 										<td>${lvTypeList.claimTypeTitle}</td>
 										<td>${lvTypeList.claimAmount}</td>
 										<td>${lvTypeList.claimRemarks}</td>
-
+										<td><c:forEach items="${claimTypeList}"
+												var="claimTypeList">
+												<c:if
+													test="${claimTypeList.clmTypeId==lvTypeList.claimTypeId}">
+														${claimTypeList.clmAmt}
+													</c:if>
+											</c:forEach></td>
+										<td><c:set value="0" var="find"></c:set> <c:forEach
+												items="${claimprfList}" var="claimprfList">
+												<c:if test="${claimprfList.exInt1==lvTypeList.claimId}">
+													<c:set value="1" var="find"></c:set>
+													<a href="${fileUrl}${claimprfList.cpDocPath}"
+														target="_blank" class="action_btn" style="color: black"
+														title="${claimprfList.cpDocPath}"><i
+														class="fa fa-file"></i></a>
+												</c:if>
+											</c:forEach> <c:choose>
+												<c:when test="${find==0}">-</c:when>
+											</c:choose></td>
 
 									</tr>
 								</c:forEach>

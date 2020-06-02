@@ -42,49 +42,52 @@
 
 
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Claim List</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Claim List
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
 							</div>
 						</div> -->
 					</div>
-					<%
-						if (session.getAttribute("errorMsg") != null) {
-					%>
-					<div
-						class="alert bg-danger text-white alert-styled-left alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert">
-							<span>×</span>
-						</button>
-						<span class="font-weight-semibold">Oh snap!</span>
-						<%
-							out.println(session.getAttribute("errorMsg"));
-						%>
-					</div>
 
-					<%
-						session.removeAttribute("errorMsg");
-						}
-					%>
-					<%
-						if (session.getAttribute("successMsg") != null) {
-					%>
-					<div
-						class="alert bg-success text-white alert-styled-left alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert">
-							<span>×</span>
-						</button>
-						<span class="font-weight-semibold">Well done!</span>
-						<%
-							out.println(session.getAttribute("successMsg"));
-						%>
-					</div>
-					<%
-						session.removeAttribute("successMsg");
-						}
-					%>
 					<div class="card-body">
+						<%
+							if (session.getAttribute("errorMsg") != null) {
+						%>
+						<div
+							class="alert bg-danger text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Oh snap!</span>
+							<%
+								out.println(session.getAttribute("errorMsg"));
+							%>
+						</div>
+
+						<%
+							session.removeAttribute("errorMsg");
+							}
+						%>
+						<%
+							if (session.getAttribute("successMsg") != null) {
+						%>
+						<div
+							class="alert bg-success text-white alert-styled-left alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<span class="font-weight-semibold">Well done!</span>
+							<%
+								out.println(session.getAttribute("successMsg"));
+							%>
+						</div>
+						<%
+							session.removeAttribute("successMsg");
+							}
+						%>
 						<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
 							<li class="nav-item"><a href="#highlighted-justified-tab1"
 								class="nav-link active" data-toggle="tab">Pending
@@ -126,7 +129,7 @@
 												<td>${claimList.empCode}</td>
 												<td>${claimList.empName}</td>
 												<td>${claimList.projectTitle}</td>
-												<td>${claimList.caFromDt}to ${claimList.caToDt}</td>
+												<td>${claimList.caFromDt}to${claimList.caToDt}</td>
 												<td>${claimList.claimAmount}</td>
 
 
@@ -145,7 +148,7 @@
 												<td class="text-center"><c:choose>
 														<c:when test="${claimList.caFinAuthEmpId==empIdOrig}">
 
-															<a
+															<%-- <a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=3"
 																title="Approve"><i class="icon-checkmark4 "
 																style="color: black;"></i></a>
@@ -153,20 +156,17 @@
 															<a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=9"
 																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
+
+															<a
+																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=3&rejctsts=9"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
-
-															<c:if test="${leaveList.empId==empIdOrig}">
-																<a
-																	href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=7"
-																	title="Cancel"><i class="icon-cancel-squareed65"
-																	style="color: black;"></i></a>
-															</c:if>
-
 														</c:when>
 
 														<c:when test="${claimList.caIniAuthEmpId==empIdOrig}">
 
-															<a
+															<%-- <a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=2"
 																title="Approve"><i class="icon-checkmark4 "
 																style="color: black;"></i></a>
@@ -174,14 +174,11 @@
 															<a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=8"
 																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
+															<a
+																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=2&rejctsts=8"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
-															<c:if test="${leaveList.empId==empIdOrig}">
-
-																<a
-																	href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList.exVar1}&claimId=${claimList.circulatedTo}&stat=7"
-																	title="Cancel"><i class="icon-cancel-squareed65"
-																	style="color: black;"></i></a>
-															</c:if>
 														</c:when>
 
 													</c:choose> <a
@@ -222,7 +219,7 @@
 												<td>${claimList1.empCode}</td>
 												<td>${claimList1.empName}</td>
 												<td>${claimList1.projectTitle}</td>
-												<td>${claimList1.caFromDt}to ${claimList1.caToDt}</td>
+												<td>${claimList1.caFromDt}to${claimList1.caToDt}</td>
 												<td>${claimList1.claimAmount}</td>
 												<c:if test="${claimList1.claimStatus==1}">
 													<td><span class="badge badge-info">Initial
@@ -251,7 +248,7 @@
 												<td class="text-center"><c:choose>
 														<c:when test="${claimList1.caFinAuthEmpId==empIdOrig}">
 
-															<a
+															<%-- <a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=3"
 																title="Approve"><i class="icon-checkmark4 "
 																style="color: black;"></i></a>
@@ -259,6 +256,10 @@
 															<a
 																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=9"
 																title="Reject"><i class="icon-x"
+																style="color: black;"></i></a> --%>
+															<a
+																href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=3&rejctsts=9"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
 														</c:when>
 
@@ -281,12 +282,15 @@
 														</c:otherwise>
 													</c:choose> <c:if test="${claimList1.empId==empIdOrig}">
 
-														<a
+														<%-- <a
 															href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=7"
 															title="Cancel"><i class="icon-cancel-square"
-															style="color: black;"></i></a>
+															style="color: black;"></i></a> --%>
 
-
+														<a
+															href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=7&rejctsts=0"
+															title="Approve or Reject"><i
+															class="icon-cancel-square" style="color: black;"></i></a>
 													</c:if> <a
 													href="${pageContext.request.contextPath}/claimDetailHistory?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}"
 													style="color: black"><i class="icon-list-unordered"></i></a></td>

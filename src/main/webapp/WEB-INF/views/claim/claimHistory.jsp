@@ -38,21 +38,23 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 
+
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Employee Claim
-										List</h5></td>
-								<td width="40%" align="right"><a
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Claim List
+									</h5></td>
+								<td width="40%" align="right">
+									<%--  <a
 									href="${pageContext.request.contextPath}/showApplyForClaim"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Employee
-											List</button>
-								</a></td>
+										<button type="button" class="btn btn-primary"> Employee List </button>
+								</a> --%>
+								</td>
 							</tr>
 						</table>
 					</div>
-
 					<div class="card-body">
 
 						<%
@@ -65,7 +67,7 @@
 							</button>
 							<span class="font-weight-semibold">Oh snap!</span>
 							<%
-								session.removeAttribute("errorMsg");
+								out.println(session.getAttribute("errorMsg"));
 							%>
 						</div>
 
@@ -83,7 +85,7 @@
 							</button>
 							<span class="font-weight-semibold">Well done!</span>
 							<%
-								session.removeAttribute("successMsg");
+								out.println(session.getAttribute("successMsg"));
 							%>
 						</div>
 						<%
@@ -149,7 +151,7 @@
 											title="History"><i class="icon-history"
 												style="color: black;"></i></a>
 												 --%> <a
-											href="${pageContext.request.contextPath}/showClaimDetailList?claimId=${lvTypeList.exVar1}"
+											href="${pageContext.request.contextPath}/claimDetailHistory?empId=${empId}&claimId=${lvTypeList.exVar1}"
 											title="Claim Detail"><i class="icon-history"
 												style="color: black;"></i></a></td>
 									</tr>

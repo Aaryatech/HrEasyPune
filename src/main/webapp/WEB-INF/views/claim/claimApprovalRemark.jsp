@@ -50,12 +50,20 @@
 
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h6 class="card-title"></h6>
-								<!-- 	<div class="header-elements">
-									<div class="list-icons">
-										<a class="list-icons-item" data-action="collapse"></a>
-									</div>
-								</div> -->
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Claim Details
+											</h5></td>
+										<td width="40%" align="right">
+											<%--  <a
+									href="${pageContext.request.contextPath}/showApplyForClaim"
+									class="breadcrumb-elements-item">
+										<button type="button" class="btn btn-primary"> Employee List </button>
+								</a> --%>
+										</td>
+									</tr>
+								</table>
 							</div>
 
 							<div class="card-body">
@@ -96,62 +104,68 @@
 									}
 								%>
 								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="compName">Employee
-										Code : </label>
-									<div class="col-lg-6">
-										<input type="text" class="form-control"
-											Value="${lvEmp.empCode}" id="empCode" name="compName"
-											autocomplete="off" readonly>
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="empCode">Employee
+											Code : </label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												Value="${lvEmp.empCode}" id="empCode" name="empCode"
+												autocomplete="off" readonly>
 
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="empName">Employee
+											Name : </label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												Value="${lvEmp.empFname} ${lvEmp.empSname}" id="empName"
+												name="empName" autocomplete="off" readonly>
+
+										</div>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="compName">Employee
-										Name : </label>
-									<div class="col-lg-6">
-										<input type="text" class="form-control"
-											Value="${lvEmp.empFname} ${lvEmp.empSname}" id="empName"
-											name="compName" autocomplete="off" readonly>
-
-									</div>
-								</div>
-
-								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="compName">Claim
-										Title : </label>
-									<div class="col-lg-6">
-										<input type="text" class="form-control"
-											Value="${lvEmp.claimTitle}" id="clName" name="compName"
-											autocomplete="off" readonly>
-
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="compName">Claim
-										Date : </label>
-									<div class="col-lg-6">
-										<input type="text" class="form-control"
-											Value="${lvEmp.caFromDt} to ${lvEmp.caToDt} " id="cldate"
-											name="compName" autocomplete="off" readonly>
-
-									</div>
-								</div>
-
 
 								<div class="form-group row">
-									<label class="col-form-label col-lg-2" for="compName">Claim
-										Amount : </label>
-									<div class="col-lg-6">
-										<input type="text" class="form-control"
-											Value="${lvEmp.claimAmount}" id="claimAmt" name="compName"
-											autocomplete="off" readonly>
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="clName">Claim
+											Title : </label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												Value="${lvEmp.claimTitle}" id="clName" name="clName"
+												autocomplete="off" readonly>
 
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="cldate">Claim
+											Date : </label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												Value="${lvEmp.caFromDt}" id="cldate" name="cldate"
+												autocomplete="off" readonly>
+
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group row">
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="claimAmt">Claim
+											Amount : </label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												Value="${lvEmp.claimAmount}" id="claimAmt" name="claimAmt"
+												autocomplete="off" readonly>
+
+										</div>
 									</div>
 								</div>
 
 
 
-								<h6 class="card-title">Claim Detail</h6>
+								<h6 class="card-title">Details</h6>
 								<table
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 									id="printtable1">
@@ -161,7 +175,8 @@
 											<th>Claim Type</th>
 											<th>Amount</th>
 											<th>Remark</th>
-
+											<th>Limit</th>
+											<th>Files</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -174,12 +189,25 @@
 												<td>${lvTypeList.claimTypeTitle}</td>
 												<td>${lvTypeList.claimAmount}</td>
 												<td>${lvTypeList.claimRemarks}</td>
-												<c:forEach items="${claimTypeList}" var="claimTypeList">
-													<c:if
-														test="${claimTypeList.clmTypeId==lvTypeList.claimTypeId}">
-
+												<td><c:forEach items="${claimTypeList}"
+														var="claimTypeList">
+														<c:if
+															test="${claimTypeList.clmTypeId==lvTypeList.claimTypeId}">
+														${claimTypeList.clmAmt}
 													</c:if>
-												</c:forEach>
+													</c:forEach></td>
+												<td><c:set value="0" var="find"></c:set> <c:forEach
+														items="${claimprfList}" var="claimprfList">
+														<c:if test="${claimprfList.exInt1==lvTypeList.claimId}">
+															<c:set value="1" var="find"></c:set>
+															<a href="${fileUrl}${claimprfList.cpDocPath}"
+																target="_blank" class="action_btn" style="color: black"
+																title="${claimprfList.cpDocPath}"><i
+																class="fa fa-file"></i></a>
+														</c:if>
+													</c:forEach> <c:choose>
+														<c:when test="${find==0}">-</c:when>
+													</c:choose></td>
 											</tr>
 										</c:forEach>
 
@@ -253,6 +281,7 @@
 
 									</tbody>
 								</table>
+								<br>
 
 								<form
 									action="${pageContext.request.contextPath}/approveClaimByAuth1"
@@ -289,13 +318,16 @@
 									<input type="hidden" id="empId" name="empId" value="${empId}">
 									<input type="hidden" id="leaveId" name="claimId"
 										value="${claimId}"> <input type="hidden" id="stat"
-										name="stat" value="${stat}">
+										name="stat" value="${stat}"><input type="hidden"
+										id="stat2" name="stat2" value="${stat2}"> <input
+										type="hidden" id="selectedSts" name="selectedSts"
+										value="${stat}">
 
 									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+										<div style="margin: 0 auto;">
 											<!-- 											<button type="reset" class="btn btn-light legitRipple">Reset</button>
  -->
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											<%-- <button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
@@ -304,23 +336,45 @@
 													<a
 														href="${pageContext.request.contextPath}/showClaimApprovalByAdmin"><button
 															type="button" class="btn bg-blue ml-3 legitRipple"
-															id="cancel">
-															Cancel<i class="icon-paperplane ml-2"></i>
-														</button></a>
+															id="cancel">Cancel</button></a>
 												</c:when>
 												<c:otherwise>
 													<a
 														href="${pageContext.request.contextPath}/showClaimApprovalByAuthority"><button
 															type="button" class="btn bg-blue ml-3 legitRipple"
-															id="cancel">
-															Cancel<i class="icon-paperplane ml-2"></i>
+															id="cancel">Cancel</button></a>
+												</c:otherwise>
+											</c:choose> --%>
+
+											<c:choose>
+												<c:when test="${stat==7}">
+													<button type="submit" class="btn blue_btn" id="submtbtn"
+														onclick="changeOrinalSts(${stat})">Cancel Leave</button>
+													<a
+														href="${pageContext.request.contextPath}/showClaimList?empId=${encryptEmpId}"><button
+															type="button" class="btn btn-light">
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
+															Back
+														</button></a>
+
+												</c:when>
+												<c:otherwise>
+													<button type="submit" class="btn blue_btn" id="submtbtn"
+														onclick="changeOrinalSts(${stat})">Approve Leave</button>
+													<button type="submit" class="btn blue_btn" id="submtbtn"
+														onclick="changeOrinalSts(${stat2})">Reject Leave</button>
+													<a
+														href="${pageContext.request.contextPath}/showClaimApprovalByAuthority"><button
+															type="button" class="btn btn-light">
+															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
+															Back
 														</button></a>
 												</c:otherwise>
 											</c:choose>
-
-
 										</div>
 									</div>
+
+
 								</form>
 							</div>
 						</div>
@@ -344,6 +398,10 @@
 	<!-- /page content -->
 
 	<script>
+	function changeOrinalSts(sts) {
+		document
+		.getElementById("selectedSts").value=sts;
+	}
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -383,9 +441,11 @@
 							$("#submitInsertCompany")
 									.submit(
 											function(e) {
+
+												
 												var isError = false;
 												var errMsg = "";
-												if ($("#stat").val() == 7
+												/* if ($("#stat").val() == 7
 														|| $("#stat").val() == 8
 														|| $("#stat").val() == 9) {
 													if (!$("#remark").val()) {
@@ -400,9 +460,12 @@
 																.hide()
 													}
 
-												}
+												} */
 
-												if ($("#stat").val() == 3) {
+												if ($("#selectedSts").val() == 3) {
+													
+													$("#error_month")
+													.hide()
 													if (!$("#datepicker").val()) {
 
 														isError = true;
@@ -410,13 +473,31 @@
 														$("#error_month")
 																.show()
 
-													} else {
-														$("#error_month")
-																.hide()
-													}
+													}  
 												}
 
 												if (!isError) {
+													
+													var sts =document
+													.getElementById("selectedSts").value;
+													 
+													if(sts==8 ||sts==9 ){
+														$('#headingpoup')
+														.html('Reject Claim');
+														 
+													}else if(sts==2 ||sts==3){
+														$('#headingpoup')
+														.html('Approve Claim');
+														 
+													}else if(sts==7){
+														$('#headingpoup')
+														.html('Cancel Claim');
+														 
+													}else{
+														
+														$('#headingpoup')
+														.html('Claim Detail'); 
+													}
 
 													$('#clTitle1')
 															.html(
@@ -435,10 +516,6 @@
 															.html(
 																	document
 																			.getElementById("empName").value);
-													$('#proName')
-															.html(
-																	document
-																			.getElementById("proTitle").value);
 
 													$('#claimDate1')
 															.html(
@@ -507,7 +584,9 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Claim Details</h5>
+					<h5 class="modal-title">
+						<label id="headingpoup"> </label>
+					</h5>
 					<br>
 					<div class="form-group row">
 						<label class="col-form-label col-lg-3" for="empCode1">
@@ -525,12 +604,6 @@
 						<label class="col-form-label col-lg-3" for="clType"> Claim
 							Title : </label> <label class="col-form-label col-lg-6" id="clTitle1"
 							for="clTitle1"> </label>
-
-					</div>
-					<div class="form-group row">
-						<label class="col-form-label col-lg-3" for="proName">
-							Project Name : </label> <label class="col-form-label col-lg-6"
-							id="proName" for="proName"> </label>
 
 					</div>
 
@@ -559,6 +632,5 @@
 		</div>
 	</div>
 	<!-- /scrollable modal -->
-
 </body>
 </html>
