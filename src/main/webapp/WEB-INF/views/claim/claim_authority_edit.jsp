@@ -29,7 +29,7 @@
 			<!-- Page header -->
 			<div class="page-header page-header-light">
 
-<%-- 
+				<%-- 
 				<div
 					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
@@ -63,22 +63,24 @@
 
 				<!-- Highlighting rows and columns -->
 				<div class="card">
-					
-					
+
+
 					<div class="card-header header-elements-inline">
- 						<table width="100%">
+						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Claim Authority</h5></td>
-								<td width="40%" align="right">
-								 <a
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Edit Claim Authority
+									</h5></td>
+								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/addClaimAuthority"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">Add Claim Authority </button>
-								</a> </td>
+										<button type="button" class="btn blue_btn">Add Claim
+											Authority</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
-					
+
 
 					<div class="card-body">
 
@@ -124,41 +126,42 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="table-responsive">
-									<table
+										<!-- <table
 							class="table  table-bordered table-hover datatable-highlight  "
-							id="printtable1">	
-									<!-- <table class="table datatable-scroll-y" width="100%"
-										id="printtable1"> -->
-										<thead>
-											<tr class="bg-blue">
-												<th class="check" style="text-align: center; width: 5%;"><input
-													type="checkbox" name="selAll" id="selAll" /></th>
+							id="printtable1">	 -->
+										<table class="table datatable-scroll-y" width="100%"
+											id="printtable1">
+											<thead>
+												<tr class="bg-blue">
+													<th class="check" style="text-align: center; width: 5%;"><input
+														type="checkbox" name="selAll" id="selAll" /></th>
 
 
-												<th>Employee Code</th>
-												<th>Employee Name</th>
-												<th>Department</th>
-												<!-- <th>Designation</th> -->
+													<th>Employee Code</th>
+													<th>Employee Name</th>
+													<th>Department</th>
+													<!-- <th>Designation</th> -->
 
-											</tr>
-										</thead>
-										<tbody>
+												</tr>
+											</thead>
+											<tbody>
 
 
-											<c:forEach items="${empListAuth}" var="emp" varStatus="count">
-												<tr>
-													<td style="text-align: center;"><input type="checkbox"
-														class="chk1" name="empIds" id="empIds${count.index+1}"
-														checked value="${emp.empId}" /></td>
+												<c:forEach items="${empListAuth}" var="emp"
+													varStatus="count">
+													<tr>
+														<td style="text-align: center;"><input
+															type="checkbox" class="chk1" name="empIds"
+															id="empIds${count.index+1}" checked value="${emp.empId}" /></td>
 
-													<td width="10%">${emp.empCode}</td>
-													<td>${emp.empSname}&nbsp;${emp.empFname}</td>
-													<td width="10%">${emp.empDept}</td>
- 												</tr>
-											</c:forEach>
+														<td width="10%">${emp.empCode}</td>
+														<td>${emp.empSname}&nbsp;${emp.empFname}</td>
+														<td width="10%">${emp.empDept}</td>
+													</tr>
+												</c:forEach>
 
-										</tbody>
-									</table>
+											</tbody>
+										</table>
 									</div>
 									<span class="validation-invalid-label" id="error_table1"
 										style="display: none;">Please select one employee.</span>
@@ -166,81 +169,82 @@
 
 								<div class="col-md-6">
 									<div class="table-responsive">
-									<table
+										<!-- <table
 							class="table  table-bordered table-hover datatable-highlight  "
-							id="printtable1">
-									<!-- <table class="table datatable-scroll-y" width="100%"
-										id="printtable2"> -->
-										<thead>
-											<tr class="bg-blue">
-												<th class="check" style="text-align: center;">Select
-													Authority</th>
+							id="printtable1"> -->
+										<table class="table datatable-scroll-y" width="100%"
+											id="printtable2">
+											<thead>
+												<tr class="bg-blue">
+													<th class="check" style="text-align: center;">Select
+														Authority</th>
 
-												<!-- <th width="10%">Sr. No.</th> -->
-												<th>Employee Code</th>
-												<th>Employee Name</th>
-												<th>Department</th>
-												<!-- <th width="10%">Desgn</th> -->
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${empList}" var="emp" varStatus="count">
-												<tr>
-													<td><c:choose>
-															<c:when
-																test="${claimAuthority.caIniAuthEmpId==emp.empId}">
-																<input type="radio" name="iniAuthEmpId"
-																	id="iniAuthEmpId${count.index+1}" value="${emp.empId}"
-																	checked />Initial</c:when>
-															<c:otherwise>
-																<input type="radio" name="iniAuthEmpId"
-																	id="iniAuthEmpId${count.index+1}" value="${emp.empId}" />Initial
+													<!-- <th width="10%">Sr. No.</th> -->
+													<th>Employee Code</th>
+													<th>Employee Name</th>
+													<th>Department</th>
+													<!-- <th width="10%">Desgn</th> -->
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${empList}" var="emp" varStatus="count">
+													<tr>
+														<td><c:choose>
+																<c:when
+																	test="${claimAuthority.caIniAuthEmpId==emp.empId}">
+																	<input type="radio" name="iniAuthEmpId"
+																		id="iniAuthEmpId${count.index+1}" value="${emp.empId}"
+																		checked />Initial</c:when>
+																<c:otherwise>
+																	<input type="radio" name="iniAuthEmpId"
+																		id="iniAuthEmpId${count.index+1}" value="${emp.empId}" />Initial
 																</c:otherwise>
-														</c:choose> <c:choose>
-															<c:when
-																test="${claimAuthority.caFinAuthEmpId==emp.empId}">
-																<input type="radio" name="finAuthEmpId"
-																	id="finAuthEmpId${count.index+1}" value="${emp.empId}"
-																	checked />Final
+															</c:choose> <c:choose>
+																<c:when
+																	test="${claimAuthority.caFinAuthEmpId==emp.empId}">
+																	<input type="radio" name="finAuthEmpId"
+																		id="finAuthEmpId${count.index+1}" value="${emp.empId}"
+																		checked />Final
 														</c:when>
-															<c:otherwise>
-																<input type="radio" name="finAuthEmpId"
-																	id="finAuthEmpId${count.index+1}" value="${emp.empId}" />Final
+																<c:otherwise>
+																	<input type="radio" name="finAuthEmpId"
+																		id="finAuthEmpId${count.index+1}" value="${emp.empId}" />Final
 																</c:otherwise>
-														</c:choose> <c:set var="countOf" value="0"></c:set> <c:forEach
-															items="${reportingIdList}" var="reportId"
-															varStatus="count">
-															<c:if test="${emp.empId==reportId}">
-																<c:set var="countOf" value="1"></c:set>
-															</c:if>
+															</c:choose> <c:set var="countOf" value="0"></c:set> <c:forEach
+																items="${reportingIdList}" var="reportId"
+																varStatus="count">
+																<c:if test="${emp.empId==reportId}">
+																	<c:set var="countOf" value="1"></c:set>
+																</c:if>
 
 
-														</c:forEach> <c:choose>
-															<c:when test="${countOf==1}">
+															</c:forEach> <c:choose>
+																<c:when test="${countOf==1}">
 
-																<input type="checkbox" class="chk" name="repToEmpIds"
-																	id="repToEmpIds${count.index+1}" value="${emp.empId}"
-																	checked />Reporting 
+																	<input type="checkbox" class="chk" name="repToEmpIds"
+																		id="repToEmpIds${count.index+1}" value="${emp.empId}"
+																		checked />Reporting 
 															 
 																</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="chk" name="repToEmpIds"
-																	id="repToEmpIds${count.index+1}" value="${emp.empId}" />Reporting </c:otherwise>
-														</c:choose></td>
-													<td width="10%">${emp.empCode}</td>
-													<td>${emp.empSname}&nbsp;${emp.empFname}</td>
-													<td width="10%">${emp.empDept}</td>
-													<%-- <td width="10%">${emp.empCategory}</td> --%>
-												</tr>
-											 
-											</c:forEach>
+																<c:otherwise>
+																	<input type="checkbox" class="chk" name="repToEmpIds"
+																		id="repToEmpIds${count.index+1}" value="${emp.empId}" />Reporting </c:otherwise>
+															</c:choose></td>
+														<td width="10%">${emp.empCode}</td>
+														<td>${emp.empSname}&nbsp;${emp.empFname}</td>
+														<td width="10%">${emp.empDept}</td>
+														<%-- <td width="10%">${emp.empCategory}</td> --%>
+													</tr>
 
-										</tbody>
-									</table>
+												</c:forEach>
+
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-12" style="text-align: center; margin: 20px 0 0 0;">
+							<div class="col-md-12"
+								style="text-align: center; margin: 20px 0 0 0;">
 
 								<input type="submit" class="btn blue_btn" value="Add"
 									id="submtbtn"> <a
@@ -370,9 +374,9 @@
 												}
 
 												//return false; //yaad rakhna to  remove it
-												if (!isError) {
+												/* if (!isError) {
 
-													var x = confirm("Do you really want to submit the form?");
+													var x = confirm("Do you really want to Assign Authority?");
 													if (x == true) {
 
 														document
@@ -380,6 +384,14 @@
 														return true;
 													}
 													//end ajax send this to php page
+												} */
+
+												if (!isError) {
+
+													$('#modal_scrollable')
+															.modal('show');
+
+													return false;
 												}
 												return false;
 											});
@@ -387,6 +399,36 @@
 						});
 	</script>
 
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("submtbtn").disabled = true;
+			document.getElementById("frmAddLeaveAuthority").submit();
 
+		}
+	</script>
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
+
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Do you really want to Assign
+						Authority?</h5>
+					<br>
+
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

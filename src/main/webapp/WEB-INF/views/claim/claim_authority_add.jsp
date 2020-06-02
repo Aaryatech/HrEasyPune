@@ -29,7 +29,7 @@
 			<!-- Page header -->
 			<div class="page-header page-header-light">
 
-<%-- 
+				<%-- 
 				<div
 					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
@@ -63,21 +63,23 @@
 
 				<!-- Highlighting rows and columns -->
 				<div class="card">
-					 
-					
+
 					<div class="card-header header-elements-inline">
- 						<table width="100%">
+						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="card-title">Add Claim Authority</h5></td>
-								<td width="40%" align="right">
-								 <a
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Claim Authority List
+									</h5></td>
+								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/claimAuthorityList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">Claim Authority List  </button>
-								</a> </td>
+										<button type="button" class="btn blue_btn">Claim
+											Authority List</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
+
 
 					<div class="card-body">
 
@@ -172,7 +174,7 @@
 
 												<!-- <th width="10%">Sr. No.</th> -->
 												<th width="10%">Employee Code</th>
-												<th  >Employee Name</th>
+												<th>Employee Name</th>
 												<th width="10%">Department</th>
 												<!-- <th width="10%">Desgn</th> -->
 											</tr>
@@ -331,7 +333,7 @@
 												//return false; //yaad rakhna to  remove it
 												if (!isError) {
 
-													var x = confirm("Do you really want to submit the form?");
+													var x = confirm("Do you really want to Assign Authority?");
 													if (x == true) {
 
 														document

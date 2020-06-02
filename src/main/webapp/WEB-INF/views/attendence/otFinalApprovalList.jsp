@@ -185,11 +185,12 @@
 												<td class="text-right"
 													title="In Time : ${dailyrecordList.inTime},Out Time : ${dailyrecordList.outTime}">${dailyrecordList.workingHrs}</td>
 
-												<td class="text-right"><input type="time"
+												<td class="text-right">
+													<%-- <input type="time"
 													class="form-control" placeholder="OT Hours"
 													id="otHours${dailyrecordList.id}"
 													name="otHours${dailyrecordList.id}" autocomplete="off"
-													value="${dailyrecordList.otHr}"></td>
+													value="${dailyrecordList.otHr}"> --%>${dailyrecordList.otHr}</td>
 
 												<td>${dailyrecordList.currentShiftname}</td>
 												<!-- <td class="text-center"></td> -->

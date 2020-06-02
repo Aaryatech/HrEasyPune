@@ -463,7 +463,8 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Do you really want to submit the form?</h5>
+					<h5 class="modal-title">Do you really want to Assign
+						Authority?</h5>
 					<br>
 
 				</div>
