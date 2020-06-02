@@ -180,7 +180,7 @@
 
 															<a
 																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&apprsts=3&rejctsts=9"
-																title="Reject"><i class="icon-checkmark4"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
 
 														</c:when>
@@ -199,7 +199,7 @@
 
 															<a
 																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList.leaveTypeName}&leaveId=${leaveList.circulatedTo}&apprsts=2&rejctsts=8"
-																title="Reject"><i class="icon-checkmark4"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
 
 														</c:when>
@@ -321,7 +321,7 @@
 
 															<a
 																href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${leaveList1.leaveTypeName}&leaveId=${leaveList1.circulatedTo}&apprsts=3&rejctsts=9"
-																title="Reject"><i class="icon-checkmark4"
+																title="Approve or Reject"><i class="icon-checkmark4"
 																style="color: black;"></i></a>
 														</c:when>
 

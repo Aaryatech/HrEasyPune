@@ -199,7 +199,17 @@
 
 									<c:forEach items="${lvStructureList}" var="structure"
 										varStatus="count">
-										<tr>
+										
+										<c:set var="sty_color" value="orange"></c:set>
+											<c:choose>
+												<c:when test="${structure.clmsName eq null}">
+													<c:set var="sty_color" value="orange"></c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="sty_color" value=""></c:set>
+												</c:otherwise>
+											</c:choose>
+										<tr style="background: ${sty_color};">
 
 
 											<td><input type="checkbox" class="chk" name="empIds"

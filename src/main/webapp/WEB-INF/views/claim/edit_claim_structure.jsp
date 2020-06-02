@@ -76,8 +76,10 @@
 
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h6 class="pageTitle"><i class="icon-list-unordered"></i> Edit Claim Structure</h6>
-							<!-- 	<div class="header-elements">
+								<h6 class="pageTitle">
+									<i class="icon-list-unordered"></i> Edit Claim Structure
+								</h6>
+								<!-- 	<div class="header-elements">
 									<div class="list-icons">
 										<a class="list-icons-item" data-action="collapse"></a>
 									</div>
@@ -125,25 +127,27 @@
 									action="${pageContext.request.contextPath}/insertEditedClaimSummary"
 									id=insertClaimStructure method="post">
 									<div class="form-group row">
-										
-											<label class="col-form-label col-lg-3" for="lvsName">Claim
-											Structure Name <span style="color:red">* </span>:</label>
-									  
+
+										<label class="col-form-label col-lg-3" for="lvsName">Claim
+											Structure Name <span style="color: red">* </span>:
+										</label>
+
 										<div class="col-lg-3">
 											<input type="text" class="form-control"
-												placeholder="Enter Claim Structure Name" id="clmsName" value="${editStructure.claimStructName}" 
-												name="clmsName" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_clmsName"
+												placeholder="Enter Claim Structure Name" id="clmsName"
+												value="${editStructure.claimStructName}" name="clmsName"
+												autocomplete="off" onchange="trim(this)"> <span
+												class="validation-invalid-label" id="error_clmsName"
 												style="display: none;">This field is required.</span>
 										</div>
-										
-										
-									
-										
+
+
+
+
 									</div>
 									<hr>
 									<div class="form-group row">
-										<strong> Claim Type <span style="color:red">* </span>:</strong>
+										<strong> Claim Types (Per Day): </strong>
 									</div>
 
 									<c:forEach items="${claimTypeList}" var="clmType">
@@ -158,39 +162,43 @@
 										</c:forEach>
 
 										<div class="form-group row">
-										
-											<label class="col-md-3 " for="prsnName">${clmType.claimTypeTitle}:
-												: *</label>
-											 
+
+											<label class="col-md-3 " for="prsnName">${clmType.claimTypeTitle}
+												<span style="color: red">* </span> :
+											</label>
+
 											<div class="col-md-3">
 												<input type="text" class="form-control"
-													placeholder="Claim Amount"
-													id="amt${clmType.claimTypeId}" value="${amt}"
-													name="amt${clmType.claimTypeId}" autocomplete="off"
-													onchange="trim(this)"> <span
+													placeholder="Claim Amount" id="amt${clmType.claimTypeId}"
+													value="${amt}" name="amt${clmType.claimTypeId}"
+													autocomplete="off" onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_prsnName"
 													style="display: none;">This field is required.</span>
 											</div>
-										
-										
-											
+
+
+
 										</div>
 
 
 									</c:forEach>
 
 
-									
-									
-									<div style="text-align: center;" >
-										<div ><!-- class="col-lg-10 ml-lg-auto" -->
+
+
+									<div style="text-align: center;">
+										<div>
+											<!-- class="col-lg-10 ml-lg-auto" -->
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/showClaimStructureList"><button
-										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>Cancel</button></a>
+											<a
+												href="${pageContext.request.contextPath}/showClaimStructureList"><button
+													type="button" class="btn btn-light">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>Cancel
+												</button></a>
 										</div>
 									</div>
 								</form>
@@ -234,28 +242,27 @@
 					isError = true;
 
 					$("#error_clmsName").show()
-					 
+
 				} else {
 					$("#error_clmsName").hide()
 				}
- 
-				
+
 				if (!isError) {
 
-					var x = true ;
+					var x = true;
 					if (x == true) {
 
 						document.getElementById("submtbtn").disabled = true;
 						return true;
 					}
-					 
+
 				}
 				return false;
 			});
 		});
 		//
 	</script>
- 
+
 
 </body>
 </html>

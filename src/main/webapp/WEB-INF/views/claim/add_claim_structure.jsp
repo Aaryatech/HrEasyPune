@@ -31,10 +31,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
-
- 
-			</div>
+			<div class="page-header page-header-light"></div>
 			<!-- /page header -->
 
 
@@ -44,15 +41,18 @@
 				<!-- Form validation -->
 				<div class="row">
 					<div class="col-md-12">
-					 
+
 						<div class="card">
+
 							<div class="card-header header-elements-inline">
-								<h6 class="card-title">Add Claim Structure</h6>
-								<!-- <div class="header-elements">
-									<div class="list-icons">
-										<a class="list-icons-item" data-action="collapse"></a>
-									</div>
-								</div> -->
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Claim Structure
+											</h5></td>
+										<td width="40%" align="right"></td>
+									</tr>
+								</table>
 							</div>
 
 							<div class="card-body">
@@ -97,7 +97,8 @@
 									id="insertClaimStructure" method="post">
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="lvsName">Claim
-											Structure Name <span style="color:red">* </span>: </label>
+											Structure Name <span style="color: red">* </span>:
+										</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control"
 												placeholder="Enter Claim Structure Name" id="clmsName"
@@ -108,20 +109,21 @@
 									</div>
 									<hr>
 									<div class="form-group row">
-										<strong> Claim Types :</strong>
+										<strong> Claim Types (Per Day):</strong>
 									</div>
 
 
 									<c:forEach items="${claimTypeList}" var="clmType">
 
 										<div class="form-group row">
-											<label class="col-md-2" for="prsnName">${clmType.claimTypeTitle} <span style="color:red">* </span>: </label>
+											<label class="col-md-2" for="prsnName">${clmType.claimTypeTitle}
+												<span style="color: red">* </span>:
+											</label>
 											<div class="col-md-6">
 												<input type="text" class="form-control"
-													placeholder="Claim Amount"
-													id="amt${clmType.claimTypeId}" value="0"
-													name="amt${clmType.claimTypeId}" autocomplete="off"
-													onchange="trim(this)"> <span
+													placeholder="Claim Amount" id="amt${clmType.claimTypeId}"
+													value="0" name="amt${clmType.claimTypeId}"
+													autocomplete="off" onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_prsnName"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -130,15 +132,19 @@
 									</c:forEach>
 
 
-									<div class="form-group row mb-0">
-										<div class="col-lg-10 ml-lg-auto">
+									<div style="text-align: center;">
+										<div>
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/showClaimStructureList"><button
-										type="button" class="btn btn-primary"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Cancel</button></a>
+											<a
+												href="${pageContext.request.contextPath}/showClaimStructureList"><button
+													type="button" class="btn btn-light">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
+													Cancel
+												</button></a>
 										</div>
 									</div>
 								</form>
@@ -182,28 +188,26 @@
 					isError = true;
 
 					$("#error_clmsName").show()
-					 
+
 				} else {
 					$("#error_clmsName").hide()
 				}
- 
-				
+
 				if (!isError) {
 
-					var x = true ;
+					var x = true;
 					if (x == true) {
 
 						document.getElementById("submtbtn").disabled = true;
 						return true;
 					}
-					 
+
 				}
 				return false;
 			});
 		});
-	 
 	</script>
 
- 
+
 </body>
 </html>

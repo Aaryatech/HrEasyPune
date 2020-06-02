@@ -521,9 +521,9 @@ public class ClaimStructureAndAllotController {
 			Info res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveAllotmet", map, Info.class);
 
 			if (res1 != null) {
-				session.setAttribute("successMsg", "Record Inserted Successfully");
+				session.setAttribute("successMsg", "Structure Assign Successfully");
 			} else {
-				session.setAttribute("errorMsg", "Failed to Insert Record");
+				session.setAttribute("errorMsg", "Failed to Assign Structure");
 			}
 
 		}
