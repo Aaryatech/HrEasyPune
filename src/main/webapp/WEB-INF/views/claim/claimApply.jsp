@@ -38,7 +38,7 @@
 			<!-- Page header -->
 			<div class="page-header page-header-light">
 
-<%-- 
+				<%-- 
 				<div
 					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
@@ -79,22 +79,25 @@
 
 
 						<div class="card">
-							 
-							
-								
-					<div class="card-header header-elements-inline">
- 						<table width="100%">
-							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Claim</h5></td>
-								<td width="40%" align="right">
-								<%--  <a
+
+
+
+							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Claim
+											</h5></td>
+										<td width="40%" align="right">
+											<%--  <a
 									href="${pageContext.request.contextPath}/showApplyForClaim"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary"> Employee List </button>
-								</a> --%> </td>
-							</tr>
-						</table>
-					</div>
+								</a> --%>
+										</td>
+									</tr>
+								</table>
+							</div>
 
 							<div class="card-body">
 								<%
@@ -138,37 +141,37 @@
 
 
 								<div class="form-group row">
-								
+
 									<div class="col-md-6">
 										<label class="col-form-label col-lg-5 float" for="lvsName">
-										Employee Code <span style="color: red">* </span>:
-									</label>
-									<div class="col-lg-7 float">
-										<input type="text" class="form-control"
-											placeholder="Enter Leave Structure Name" id="empCode"
-											value="${editEmp.empCode}" name="lvsName" autocomplete="off"
-											onchange="trim(this)" readonly>
+											Employee Code <span style="color: red">* </span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												placeholder="Enter Leave Structure Name" id="empCode"
+												value="${editEmp.empCode}" name="lvsName" autocomplete="off"
+												onchange="trim(this)" readonly>
 
+										</div>
 									</div>
-									</div>
-									
+
 									<div class="col-md-6">
 										<label class="col-form-label col-lg-5 float" for="lvsName">
-										Employee Name <span style="color: red">* </span>:
-									</label>
-									<div class="col-lg-7 float">
-										<input type="text" class="form-control"
-											placeholder="Enter Leave Structure Name" id="empName"
-											value="${editEmp.firstName} ${editEmp.middleName} ${editEmp.surname}   "
-											name="lvsName" autocomplete="off" onchange="trim(this)"
-											readonly>
+											Employee Name <span style="color: red">* </span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control"
+												placeholder="Enter Leave Structure Name" id="empName"
+												value="${editEmp.firstName} ${editEmp.middleName} ${editEmp.surname}   "
+												name="lvsName" autocomplete="off" onchange="trim(this)"
+												readonly>
 
+										</div>
 									</div>
-									</div>
-								
-									
+
+
 								</div>
-								
+
 
 
 
@@ -176,7 +179,7 @@
 								<form action="${pageContext.request.contextPath}/showClaimProof"
 									id="submitInsertLeave" method="post">
 
-<%-- 
+									<%-- 
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="projectTypeId">Select
 											Project <span style="color: red">* </span>:
@@ -201,106 +204,125 @@
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="lvsName">
-											Claim Remark <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" placeholder="Remark"
-												id="claim_title" name="claim_title" autocomplete="off"
-												onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_claim_title"
-												style="display: none;">This field is required.</span>
-										</div>
+												Claim Remark <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" placeholder="Remark"
+													id="claim_title" name="claim_title" autocomplete="off"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_claim_title"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float">Date Range<span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control daterange-basic_new "
-												name="claimDate" data-placeholder="Select Date"
-												id="claimDate"> <span
-												class="validation-invalid-label" id="error_Range"
-												style="display: none;">This field is required.</span>
+											<label class="col-form-label col-lg-5 float">Date
+												Range<span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass "
+													name="claimDate" data-placeholder="Select Date"
+													id="claimDate"> <span
+													class="validation-invalid-label" id="error_Range"
+													style="display: none;">This field is required.</span>
 
+											</div>
 										</div>
-										</div>
-									
-										
+
+
 									</div>
 
-									
+
 
 									<hr>
 									<div class="form-group row">
-										
+
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="claimTypeId">Select
-											Claim Type <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="claimTypeId"
-												data-placeholder="Select Claim Type" id="claimTypeId"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												data-fouc="" aria-hidden="true" onchange="setAmt()">
-												<option></option>
-												<c:forEach items="${claimTypeList}" var="claimTypeList">
+											<label class="col-form-label col-lg-5 float"
+												for="claimTypeId">Select Claim Type <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="claimTypeId"
+													data-placeholder="Select Claim Type" id="claimTypeId"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													data-fouc="" aria-hidden="true" onchange="setAmt()">
+													<option></option>
+													<c:forEach items="${claimTypeList}" var="claimTypeList">
 
-													<option value="${claimTypeList.clmTypeId}"
-														data-clstrname="${claimTypeList.claimTypeTitle}">${claimTypeList.claimTypeTitle}</option>
+														<option value="${claimTypeList.clmTypeId}"
+															data-clstrname="${claimTypeList.claimTypeTitle}">${claimTypeList.claimTypeTitle}</option>
 
-												</c:forEach>
-											</select> <span class="validation-invalid-label"
-												id="error_claimTypeId" style="display: none;">This
-												field is required.</span>
-										</div>
+													</c:forEach>
+												</select> <span class="validation-invalid-label"
+													id="error_claimTypeId" style="display: none;">This
+													field is required.</span>
+											</div>
 										</div>
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="claimAmt">
-											Claim Amount <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												 placeholder="Amount of Claim in Rs. "
-												id="claimAmt" name="claimAmt" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_claim_amt"
-												style="display: none;">This field is required.</span>
+												Claim Amount <span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Amount of Claim in Rs. " id="claimAmt"
+													name="claimAmt" autocomplete="off"> <span
+													class="validation-invalid-label" id="error_claim_amt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>
-									
-										
+
+
 									</div>
 
 
 									<div class="form-group row">
-									
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="lvngReson">Remark
-											<span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Remark" onchange="trim(this)" id="claimRemark"
-												name="claimRemark"> </textarea>
-											<span class="validation-invalid-label" id="error_claimRemark"
-												style="display: none;">This field is required.</span>
-										</div>
-									</div>
-										
-									</div>
 
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="lvngReson">Remark
+												<span style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Remark" onchange="trim(this)" id="claimRemark"
+													name="claimRemark"> </textarea>
+												<span class="validation-invalid-label"
+													id="error_claimRemark" style="display: none;">This
+													field is required.</span>
+											</div>
+										</div>
+
+									</div>
 
 									<div class="form-group row">
-										
 
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="doc">Attach
+												File:</label>
+											<div class="col-lg-7 float">
+												<input type="file" class="form-control"
+													placeholder="Enter Location Name" id="doc" name="doc"
+													autocomplete="off"
+													accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.pdf"
+													multiple="multiple"> <span
+													class="form-text text-muted">Accepted formats:
+													.gif,.jpg,.jpeg,.png,.doc,.docx,.pdf </span>
+											</div>
+										</div>
 									</div>
+
+
+									<div class="form-group row"></div>
 									<input type="hidden" id="isDelete" name="isDelete" value="0">
 									<input type="hidden" name="isEdit" id="isEdit" value="0">
 									<input type="hidden" name="index" id="index" value="0">
 									<input type="hidden" name="tempAmt" id="tempAmt" value="0">
 									<input type="hidden" name="tempAmtX" id="tempAmtX" value="0">
-
+									<input type="hidden" name="imageShowUrl" id="imageShowUrl"
+										value="${imageShowUrl}">
 									<div class="form-group row mb-0">
-										<div style="display: inline-block; width: 100%; text-align: center;">
+										<div
+											style="display: inline-block; width: 100%; text-align: center;">
 											<input type="button" value="Add" class="btn blue_btn"
 												style="align-content: center; width: 113px;" onclick="add()" />
 
@@ -317,6 +339,7 @@
 												<th>Claim Type</th>
 												<th>Amount</th>
 												<th>Remark</th>
+												<th>Files</th>
 												<th class="text-center" width="10%">Actions</th>
 											</tr>
 										</thead>
@@ -342,7 +365,9 @@
 
 
 									<div class="form-group row mb-0">
-										<div style="display: inline-block; width: 100%; text-align: center;"><!--  class="col-lg-10 ml-lg-auto" -->
+										<div
+											style="display: inline-block; width: 100%; text-align: center;">
+											<!--  class="col-lg-10 ml-lg-auto" -->
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -382,9 +407,8 @@
 	<script type="text/javascript">
 		function setAmt() {
 
-			
 			var claimTypeId = document.getElementById("claimTypeId").value;
-			
+
 			var empId = document.getElementById("empId").value;
 			//alert("hii"+claimTypeId+empId);
 
@@ -401,10 +425,11 @@
 			});
 
 		}
-	</script>http://localhost:8088/hradmin/showClaimApply?empId=MQ==
+	</script>
+	http://localhost:8088/hradmin/showClaimApply?empId=MQ==
 
 
-	
+
 
 	<script type="text/javascript">
 		function add() {
@@ -414,32 +439,28 @@
 
 			var claimAmt = document.getElementById("claimAmt").value;
 			var claimRemark = document.getElementById("claimRemark").value;
-		//	alert("hii" + claimTypeId + claimAmt);
+			//	alert("hii" + claimTypeId + claimAmt);
 
-		//	alert("final amt::" + y);
+			//	alert("final amt::" + y);
+
+			$("#error_claimTypeId").hide();
+			$("#error_claim_amt").hide();
+			$("#error_claimRemark").hide();
 
 			if (claimTypeId == "") {
 
 				$("#error_claimTypeId").show()
-
-			} else {
-				$("#error_claimTypeId").hide()
 
 			}
 			if (claimAmt == 0) {
 
 				$("#error_claim_amt").show()
 
-			} else {
-				$("#error_claim_amt").hide()
-
 			}
 			if (claimRemark == "") {
 
 				$("#error_claimRemark").show()
 
-			} else {
-				$("#error_claimRemark").hide()
 			}
 
 			if (claimTypeId == "" || claimAmt == 0 || claimRemark == "") {
@@ -451,193 +472,202 @@
 				var x = document.getElementById("tempAmt").value;
 				var y = parseInt(x) + parseInt(claimAmt);
 				document.getElementById("tempAmt").value = y;
-				
-				
-				
+
 				var tempAmt = document.getElementById("tempAmtX").value;
 				var claimAmt = document.getElementById("claimAmt").value;
-			 
-				
-				$('#lmAmtNew')
-				.html(
-						document
-								.getElementById("tempAmtX").value);
- 				if (parseFloat(claimAmt) > parseFloat(tempAmt)) {
 
-				//	alert("Amonut Entered Exceeds the Limit Amount");
-					$('#modal_scrollable1')
-					.modal('show');
+				$('#lmAmtNew').html(document.getElementById("tempAmtX").value);
+				if (parseFloat(claimAmt) > parseFloat(tempAmt)) {
+
+					//	alert("Amonut Entered Exceeds the Limit Amount");
+					$('#modal_scrollable1').modal('show');
 				}
- 				
- 				else{
- 					
- 					var valid = true;
- 					
- 				 
- 					
- 					var el = document.getElementById('claimTypeId');
- 					var lvTypeName = el.options[el.selectedIndex].innerHTML;
- 				//	alert("lvTypeName  " + lvTypeName);
 
- 					var daterange = document.getElementById("claimDate").value;
- 					var res = daterange.split(" to ");
+				else {
+					var imageShowUrl = document.getElementById('imageShowUrl').value;
+					var valid = true;
+					var files = $('#doc')[0].files[0];
+					var el = document.getElementById('claimTypeId');
+					var lvTypeName = el.options[el.selectedIndex].innerHTML;
+					//	alert("lvTypeName  " + lvTypeName);
 
- 					var isEdit = document.getElementById("isEdit").value;
- 					var isDelete = document.getElementById("isDelete").value;
- 					var index = document.getElementById("index").value;
- 					 if (valid == true) {
- 						 
- 						// alert("hii");
+					var daterange = document.getElementById("claimDate").value;
+					var res = daterange.split(" to ");
 
- 						$
- 								.getJSON(
- 										'${addClaimDetailProcess}',
- 										{
+					var isEdit = document.getElementById("isEdit").value;
+					var isDelete = document.getElementById("isDelete").value;
+					var index = document.getElementById("index").value;
+					if (valid == true) {
 
- 											isDelete : isDelete,
- 											isEdit : isEdit,
- 											index : index,
- 											claimAmt : claimAmt,
- 											claimRemark : claimRemark,
- 											lvTypeName : lvTypeName,
- 											claimTypeId : claimTypeId,
- 											ajax : 'true',
+						// alert("hii");
+						var fd = new FormData();
 
- 										},
+						fd.append('file', files);
+						fd.append('isDelete', isDelete);
+						fd.append('isEdit', isEdit);
+						fd.append('index', index);
+						fd.append('claimAmt', claimAmt);
+						fd.append('claimRemark', claimRemark);
+						fd.append('lvTypeName', lvTypeName);
+						fd.append('claimTypeId', claimTypeId);
 
- 										function(data) {
- 											//alert(data.length);
- 											document.getElementById("dataLen").value = data.length;
+						$
+								.ajax({
+									url : '${pageContext.request.contextPath}/addClaimDetailProcess',
+									type : 'post',
+									dataType : 'json',
+									data : fd,
+									contentType : false,
+									processData : false,
+									success : function(data) {
 
- 											$("#printtable1 tbody").empty();
- 											$("#loader").hide();
+										document.getElementById("dataLen").value = data.length;
 
- 											for (var i = 0; i < data.length; i++) {
+										$("#printtable1 tbody").empty();
+										$("#loader").hide();
 
- 												var str = '<a href="#" class="action_btn" onclick="callDelete('
- 														+ data[i].claimDetailId
- 														+ ','
- 														+ i
- 														+ ')" style="color:black"><i class="fa fa-trash"></i></a>'
- 												var tr_data = '<tr>' + '<td>' + (i + 1)
- 														+ '</td>' + '<td>'
- 														+ data[i].lvTypeName + '</td>'
- 														+ '<td>' + data[i].claimAmount
- 														+ '</td>' + '<td>'
- 														+ data[i].remark
- 														+ '</td><td>' + str + '</td>'
- 														+ '</tr>';
- 												$('#printtable1' + ' tbody').append(
- 														tr_data);
+										for (var i = 0; i < data.length; i++) {
 
- 											}
- 											$('#modal_scrollable1').modal('hide');
- 											
- 											
- 										
+											var filespath = "";
 
- 											
- 										});
+											if (data[i].proofList.length == 0) {
+												filespath = "-"
+											} else {
 
- 						
- 						document.getElementById("claimRemark").value = "";
- 						document.getElementById("claimAmt").value = 0;
+												for (var j = 0; j < data[i].proofList.length; j++) {
+													filespath = filespath
+															+ '<a href="'+imageShowUrl+data[i].proofList[j].cpDocPath+'" target="_blank" class="action_btn"  style="color:black" title="'+data[i].proofList[j].cpDocPath+'" ><i class="fa fa-file"></i></a>'
+												}
+											}
+											var str = '<a href="#" class="action_btn" onclick="callDelete('
+													+ data[i].claimDetailId
+													+ ','
+													+ i
+													+ ')" style="color:black"><i class="fa fa-trash"></i></a>'
+											var tr_data = '<tr>' + '<td>'
+													+ (i + 1) + '</td>'
+													+ '<td>'
+													+ data[i].lvTypeName
+													+ '</td>' + '<td>'
+													+ data[i].claimAmount
+													+ '</td>' + '<td>'
+													+ data[i].remark
+													+ '</td><td>' + filespath
+													+ '</td><td>' + str
+													+ '</td>' + '</tr>';
+											$('#printtable1' + ' tbody')
+													.append(tr_data);
 
- 						document.getElementById("isDelete").value = 0;
- 						document.getElementById("isEdit").value = 0;
- 						document.getElementById("index").value = 0;
- 					} 
- 					
- 					 
- 					
- 				}
+										}
+										$('#modal_scrollable1').modal('hide');
+									},
+								});
+						document.getElementById("doc").value="";
+						document.getElementById("claimRemark").value = "";
+						document.getElementById("claimAmt").value = 0;
+
+						document.getElementById("isDelete").value = 0;
+						document.getElementById("isEdit").value = 0;
+						document.getElementById("index").value = 0;
+					}
+
+				}
 			}
- 
+
 		}
-		
-		
+
 		function finalAdd() {
 			var valid = true;
-			
+
 			var claimTypeId = document.getElementById("claimTypeId").value;
 
 			var claimAmt = document.getElementById("claimAmt").value;
 			var claimRemark = document.getElementById("claimRemark").value;
-			
+
 			var el = document.getElementById('claimTypeId');
 			var lvTypeName = el.options[el.selectedIndex].innerHTML;
-		//	alert("lvTypeName  " + lvTypeName);
+			//	alert("lvTypeName  " + lvTypeName);
 
 			var daterange = document.getElementById("claimDate").value;
 			var res = daterange.split(" to ");
-
+			var files = $('#doc')[0].files[0];
 			var isEdit = document.getElementById("isEdit").value;
 			var isDelete = document.getElementById("isDelete").value;
 			var index = document.getElementById("index").value;
-			 if (valid == true) {
-				 
+			if (valid == true) {
+
 				// alert("hii");
 
+				var fd = new FormData();
+
+				fd.append('file', files);
+				fd.append('isDelete', isDelete);
+				fd.append('isEdit', isEdit);
+				fd.append('index', index);
+				fd.append('claimAmt', claimAmt);
+				fd.append('claimRemark', claimRemark);
+				fd.append('lvTypeName', lvTypeName);
+				fd.append('claimTypeId', claimTypeId);
+
 				$
-						.getJSON(
-								'${addClaimDetailProcess}',
-								{
+						.ajax({
+							url : '${pageContext.request.contextPath}/addClaimDetailProcess',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(data) {
 
-									isDelete : isDelete,
-									isEdit : isEdit,
-									index : index,
-									claimAmt : claimAmt,
-									claimRemark : claimRemark,
-									lvTypeName : lvTypeName,
-									claimTypeId : claimTypeId,
-									ajax : 'true',
+								document.getElementById("dataLen").value = data.length;
+								var imageShowUrl = document
+										.getElementById('imageShowUrl').value;
+								$("#printtable1 tbody").empty();
+								$("#loader").hide();
 
-								},
+								for (var i = 0; i < data.length; i++) {
 
-								function(data) {
-									//alert(data.length);
-									document.getElementById("dataLen").value = data.length;
+									var filespath = "";
 
-									$("#printtable1 tbody").empty();
-									$("#loader").hide();
+									if (data[i].proofList.length == 0) {
+										filespath = "-"
+									} else {
 
-									for (var i = 0; i < data.length; i++) {
-
-										var str = '<a href="#" class="action_btn" onclick="callDelete('
-												+ data[i].claimDetailId
-												+ ','
-												+ i
-												+ ')" style="color:black"><i class="fa fa-trash"></i></a>'
-										var tr_data = '<tr>' + '<td>' + (i + 1)
-												+ '</td>' + '<td>'
-												+ data[i].lvTypeName + '</td>'
-												+ '<td>' + data[i].claimAmount
-												+ '</td>' + '<td>'
-												+ data[i].remark
-												+ '</td><td>' + str + '</td>'
-												+ '</tr>';
-										$('#printtable1' + ' tbody').append(
-												tr_data);
-
+										for (var j = 0; j < data[i].proofList.length; j++) {
+											filespath = filespath
+													+ '<a href="'+imageShowUrl+data[i].proofList[j].cpDocPath+'" target="_blank" class="action_btn"  style="color:black" title="'+data[i].proofList[j].cpDocPath+'" ><i class="fa fa-file"></i></a>'
+										}
 									}
-									$('#modal_scrollable1').modal('hide');
-									
-									
-								
 
-									
-								});
+									var str = '<a href="#" class="action_btn" onclick="callDelete('
+											+ data[i].claimDetailId
+											+ ','
+											+ i
+											+ ')" style="color:black"><i class="fa fa-trash"></i></a>'
+									var tr_data = '<tr>' + '<td>' + (i + 1)
+											+ '</td>' + '<td>'
+											+ data[i].lvTypeName + '</td>'
+											+ '<td>' + data[i].claimAmount
+											+ '</td>' + '<td>' + data[i].remark
+											+ '</td><td>' + filespath
+											+ '</td><td>' + str + '</td>'
+											+ '</tr>';
+									$('#printtable1' + ' tbody')
+											.append(tr_data);
 
-				
+								}
+								$('#modal_scrollable1').modal('hide');
+							},
+						});
+				document.getElementById("doc").value="";
 				document.getElementById("claimRemark").value = "";
 				document.getElementById("claimAmt").value = 0;
 
 				document.getElementById("isDelete").value = 0;
 				document.getElementById("isEdit").value = 0;
 				document.getElementById("index").value = 0;
-			} 
+			}
 		}
-		
 	</script>
 
 	<script type="text/javascript">
@@ -668,7 +698,60 @@
 			//alert("hii");
 			//document.getElementById("isEdit").value = 0;
 			//alert("index" + index);
+			var files = $('#doc')[0].files[0];
+			var fd = new FormData();
+
+			fd.append('file', files);
+			fd.append('isDelete', 1);
+			fd.append('isEdit', 0);
+			fd.append('key', index);
+
 			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/addClaimDetailProcess',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							var imageShowUrl = document
+									.getElementById('imageShowUrl').value;
+							$("#printtable1 tbody").empty();
+							$("#loader").hide();
+
+							for (var i = 0; i < data.length; i++) {
+
+								var filespath = "";
+
+								if (data[i].proofList.length == 0) {
+									filespath = "-"
+								} else {
+
+									for (var j = 0; j < data[i].proofList.length; j++) {
+										filespath = filespath
+												+ '<a href="'+imageShowUrl+data[i].proofList[j].cpDocPath+'" target="_blank" class="action_btn"  style="color:black" title="'+data[i].proofList[j].cpDocPath+'" ><i class="fa fa-file"></i></a>'
+									}
+								}
+								var str = '<a href="#" class="action_btn" onclick="callDelete('
+										+ data[i].claimDetailId
+										+ ','
+										+ i
+										+ ')" style="color:black"><i class="fa fa-trash"></i></a>'
+								var tr_data = '<tr><td>' + (i + 1)
+										+ '</td><td>' + data[i].lvTypeName
+										+ '</td><td>' + data[i].claimAmount
+										+ '</td><td>' + data[i].remark
+										+ '</td><td>' + filespath + '</td><td>'
+										+ str + '</td>' + '</tr>';
+								$('#printtable1' + ' tbody').append(tr_data);
+
+							}
+						},
+					});
+
+			/* $
 					.getJSON(
 							'${addClaimDetailProcess}',
 							{
@@ -679,9 +762,7 @@
 
 							},
 
-
 							function(data) {
-								 
 
 								$("#printtable1 tbody").empty();
 								$("#loader").hide();
@@ -697,19 +778,16 @@
 											+ '</td>' + '<td>'
 											+ data[i].lvTypeName + '</td>'
 											+ '<td>' + data[i].claimAmount
-											+ '</td>' + '<td>'
-											+ data[i].remark
+											+ '</td>' + '<td>' + data[i].remark
 											+ '</td><td>' + str + '</td>'
 											+ '</tr>';
-									$('#printtable1' + ' tbody').append(
-											tr_data);
+									$('#printtable1' + ' tbody')
+											.append(tr_data);
 
 								}
-								
 
-								
-							});
- 
+							}); */
+
 		}
 	</script>
 
@@ -778,7 +856,7 @@
 													$("#error_projectTypeId")
 															.hide()
 												}
- */
+												 */
 												if (!$("#claimDate").val()) {
 
 													isError = true;
@@ -809,12 +887,12 @@
 												}
 												if (!isError) {
 
-												/* 	var option1 = $(
-															"#projectTypeId option:selected")
-															.attr(
-																	"data-prostrname");
+													/* 	var option1 = $(
+																"#projectTypeId option:selected")
+																.attr(
+																		"data-prostrname");
 
-													$('#proName').html(option1) */
+														$('#proName').html(option1) */
 
 													$('#claimAmt1')
 															.html(
@@ -873,34 +951,35 @@
 		function checkAmt() {
 
 			//alert("hii");
-			
+
 		}
 	</script>
-	
+
 	<div id="modal_scrollable1" class="modal fade" data-backdrop="false"
 		tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header pb-3">
- 					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
- 				<div class="modal-body py-0">
-					<h5 class="modal-title">Amount Entered Exceeds the Limit Amount </h5>
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Amount Entered Exceeds the Limit
+						Amount</h5>
 					<div class="form-group row">
-						<label class="col-form-label col-lg-3" for="asd">
-						Limit Amount : </label> <label class="col-form-label col-lg-2"
-							id="lmAmtNew" for="lmAmt"> </label>
+						<label class="col-form-label col-lg-3" for="asd"> Limit
+							Amount : </label> <label class="col-form-label col-lg-2" id="lmAmtNew"
+							for="lmAmt"> </label>
 
 					</div>
- 				</div>
- 				<div class="modal-footer pt-3">
+				</div>
+				<div class="modal-footer pt-3">
 					<button type="button" class="btn btn-link" onclick="finalAdd()">Ok</button>
- 				</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- Scrollable modal -->
 	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">
@@ -928,7 +1007,7 @@
 
 					</div>
 
-				<!-- 	<div class="form-group row">
+					<!-- 	<div class="form-group row">
 						<label class="col-form-label col-lg-3" for="proName">
 							Project Name : </label> <label class="col-form-label col-lg-6"
 							id="proName" for="proName"> </label>

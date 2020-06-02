@@ -204,7 +204,9 @@ public class ClaimApplicationController {
 			AuthorityInformation authorityInformation = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAuthorityInfoByEmpId", map, AuthorityInformation.class);
 			model.addObject("authorityInformation", authorityInformation);
-
+			model.addObject("imageShowUrl", Constants.imageShowUrl);
+			
+			
 			// System.err.println("authorityInformation is " +
 			// authorityInformation.toString());
 
@@ -383,11 +385,10 @@ public class ClaimApplicationController {
 							.setCirculatedTo(FormValidation.Encrypt(String.valueOf(claimList.get(i).getCaHeadId())));
 					claimList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(claimList.get(i).getEmpId())));
 					// claimList.get(i).setClaimDate(DateConvertor.convertToDMY(claimList.get(i).getClaimDate()));
-					
+
 					claimList.get(i).setCaFromDt(DateConvertor.convertToDMY(claimList.get(i).getCaFromDt()));
 					claimList.get(i).setCaToDt(DateConvertor.convertToDMY(claimList.get(i).getCaToDt()));
-					
-				 
+
 				}
 
 				// for Info
@@ -407,12 +408,10 @@ public class ClaimApplicationController {
 							.setCirculatedTo(FormValidation.Encrypt(String.valueOf(claimList1.get(i).getCaHeadId())));
 					claimList1.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(claimList1.get(i).getEmpId())));
 					// claimList1.get(i).setClaimDate(DateConvertor.convertToDMY(claimList.get(i).getClaimDate()));
-					
+
 					claimList1.get(i).setCaFromDt(DateConvertor.convertToDMY(claimList1.get(i).getCaFromDt()));
 					claimList1.get(i).setCaToDt(DateConvertor.convertToDMY(claimList1.get(i).getCaToDt()));
-					
-					
-			 
+
 				}
 
 				model.addObject("list2Count", claimList1.size());
@@ -753,11 +752,14 @@ public class ClaimApplicationController {
 	// ************************************claim new
 	// process************************************
 
-	@RequestMapping(value = "/addClaimDetailProcess", method = RequestMethod.GET)
-	public @ResponseBody List<TempClaimDetail> addClaimDetail(HttpServletRequest request,
-			HttpServletResponse response) {
+	@RequestMapping(value = "/addClaimDetailProcess", method = RequestMethod.POST)
+	public @ResponseBody List<TempClaimDetail> addClaimDetail(@RequestParam("file") List<MultipartFile> file,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			int isDelete = Integer.parseInt(request.getParameter("isDelete"));
 
@@ -794,6 +796,43 @@ public class ClaimApplicationController {
 				tempDoc.setRemark(claimRemark);
 				tempDoc.setTypeId(claimTypeId);
 				tempDoc.setLvTypeName(lvTypeName);
+
+				List<ClaimProof> proofList = new ArrayList<ClaimProof>();
+
+				try {
+					VpsImageUpload upload = new VpsImageUpload();
+
+					SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+					Date date = new Date();
+					String imageName = new String();
+					imageName = dateTimeInGMT.format(date) + "_" + file.get(0).getOriginalFilename();
+					System.out.println(file.size() + "imageName" + imageName);
+
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+					ClaimProof company = new ClaimProof();
+
+					company.setIsActive(1);
+					company.setDelStatus(1);
+					company.setMakerUserId(userObj.getUserId());
+					company.setMakerEnterDatetime(sf.format(date));
+					company.setExInt1(tempDocList.size());
+
+					try {
+						upload.saveUploadedImge(file.get(0), Constants.imageSaveUrl, imageName, Constants.allextension,
+								0, 0, 0, 0, 0);
+						company.setCpDocPath(imageName);
+						proofList.add(company);
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+
+				}catch(Exception e) {
+					
+				}
+
+				tempDoc.setProofList(proofList);
 				tempDocList.add(tempDoc);
 			}
 
@@ -1418,7 +1457,8 @@ public class ClaimApplicationController {
 		String mav = new String();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 1, 0, 0, 0, newModuleList);
+		Info view = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 1, 0, 0, 0,
+				newModuleList);
 
 		if (view.isError() == true) {
 
@@ -1438,20 +1478,20 @@ public class ClaimApplicationController {
 
 					claimList1.get(i)
 							.setExVar2(FormValidation.Encrypt(String.valueOf(claimList1.get(i).getCaHeadId())));
-					
+
 					claimList1.get(i).setCafromDt(DateConvertor.convertToDMY(claimList1.get(i).getCafromDt()));
 					claimList1.get(i).setCaToDt(DateConvertor.convertToDMY(claimList1.get(i).getCaToDt()));
 
 				}
 
 				model.addAttribute("claimList1", claimList1);
-				
-				Info add = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0, 1, 0, 0,
-						newModuleList);
-				Info edit = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0, 0, 1, 0,
-						newModuleList);
-				Info delete = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0, 0, 0, 1,
-						newModuleList);
+
+				Info add = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0, 1,
+						0, 0, newModuleList);
+				Info edit = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0, 0,
+						1, 0, newModuleList);
+				Info delete = AcessController.checkAccess("showClaimListToChangeDate", "showClaimListToChangeDate", 0,
+						0, 0, 1, newModuleList);
 
 				if (add.isError() == false) {
 					System.out.println(" add   Accessable ");
@@ -1467,7 +1507,6 @@ public class ClaimApplicationController {
 					model.addAttribute("deleteAccess", 0);
 
 				}
-
 
 			} catch (Exception e) {
 				e.printStackTrace();

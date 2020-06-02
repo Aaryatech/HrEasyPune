@@ -1,5 +1,7 @@
 package com.ats.hreasy.model.claim;
 
+import java.util.List;
+
 public class TempClaimDetail {
 
 	private int claimDetailId;
@@ -11,6 +13,8 @@ public class TempClaimDetail {
 	private int typeId;
 
 	private float claimAmount;
+	
+	List<ClaimProof> proofList;
 
 	public int getClaimDetailId() {
 		return claimDetailId;
@@ -51,6 +55,20 @@ public class TempClaimDetail {
 
 	public void setLvTypeName(String lvTypeName) {
 		this.lvTypeName = lvTypeName;
+	}
+
+	public List<ClaimProof> getProofList() {
+		return proofList;
+	}
+
+	public void setProofList(List<ClaimProof> proofList) {
+		this.proofList = proofList;
+	}
+
+	@Override
+	public String toString() {
+		return "TempClaimDetail [claimDetailId=" + claimDetailId + ", remark=" + remark + ", lvTypeName=" + lvTypeName
+				+ ", typeId=" + typeId + ", claimAmount=" + claimAmount + ", proofList=" + proofList + "]";
 	}
 
 	 
