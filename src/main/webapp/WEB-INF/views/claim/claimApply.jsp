@@ -144,8 +144,7 @@
 
 									<div class="col-md-6">
 										<label class="col-form-label col-lg-5 float" for="lvsName">
-											Employee Code <span style="color: red">* </span>:
-										</label>
+											Employee Code : </label>
 										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Leave Structure Name" id="empCode"
@@ -157,8 +156,7 @@
 
 									<div class="col-md-6">
 										<label class="col-form-label col-lg-5 float" for="lvsName">
-											Employee Name <span style="color: red">* </span>:
-										</label>
+											Employee Name : </label>
 										<div class="col-lg-7 float">
 											<input type="text" class="form-control"
 												placeholder="Enter Leave Structure Name" id="empName"
@@ -176,7 +174,10 @@
 
 
 
-								<form action="${pageContext.request.contextPath}/showClaimProof"
+								<%-- <form action="${pageContext.request.contextPath}/showClaimProof"
+									id="submitInsertLeave" method="post"> --%>
+								<form
+									action="${pageContext.request.contextPath}/uploadClaimProof"
 									id="submitInsertLeave" method="post">
 
 									<%-- 
@@ -469,10 +470,6 @@
 			} else {
 				valid = true;
 
-				var x = document.getElementById("tempAmt").value;
-				var y = parseInt(x) + parseInt(claimAmt);
-				document.getElementById("tempAmt").value = y;
-
 				var tempAmt = document.getElementById("tempAmtX").value;
 				var claimAmt = document.getElementById("claimAmt").value;
 
@@ -521,6 +518,8 @@
 									processData : false,
 									success : function(data) {
 
+										var tempAmt = 0;
+
 										document.getElementById("dataLen").value = data.length;
 
 										$("#printtable1 tbody").empty();
@@ -557,12 +556,15 @@
 													+ '</td>' + '</tr>';
 											$('#printtable1' + ' tbody')
 													.append(tr_data);
+											tempAmt = tempAmt
+													+ data[i].claimAmount;
 
 										}
 										$('#modal_scrollable1').modal('hide');
+										document.getElementById("tempAmt").value = tempAmt;
 									},
 								});
-						document.getElementById("doc").value="";
+						document.getElementById("doc").value = "";
 						document.getElementById("claimRemark").value = "";
 						document.getElementById("claimAmt").value = 0;
 
@@ -619,6 +621,8 @@
 							processData : false,
 							success : function(data) {
 
+								var tempAmt = 0;
+
 								document.getElementById("dataLen").value = data.length;
 								var imageShowUrl = document
 										.getElementById('imageShowUrl').value;
@@ -654,12 +658,14 @@
 											+ '</tr>';
 									$('#printtable1' + ' tbody')
 											.append(tr_data);
+									tempAmt = tempAmt + data[i].claimAmount;
 
 								}
 								$('#modal_scrollable1').modal('hide');
+								document.getElementById("tempAmt").value = tempAmt;
 							},
 						});
-				document.getElementById("doc").value="";
+				document.getElementById("doc").value = "";
 				document.getElementById("claimRemark").value = "";
 				document.getElementById("claimAmt").value = 0;
 
@@ -720,6 +726,7 @@
 									.getElementById('imageShowUrl').value;
 							$("#printtable1 tbody").empty();
 							$("#loader").hide();
+							var tempAmt = 0;
 
 							for (var i = 0; i < data.length; i++) {
 
@@ -746,8 +753,10 @@
 										+ '</td><td>' + filespath + '</td><td>'
 										+ str + '</td>' + '</tr>';
 								$('#printtable1' + ' tbody').append(tr_data);
+								tempAmt = tempAmt + data[i].claimAmount;
 
 							}
+							document.getElementById("tempAmt").value = tempAmt;
 						},
 					});
 

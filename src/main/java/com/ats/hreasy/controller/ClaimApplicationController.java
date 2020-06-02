@@ -76,6 +76,7 @@ public class ClaimApplicationController {
 
 		} else {
 			model = new ModelAndView("claim/applyForClaim");
+			docHead = new ClaimApplyHeader();
 
 			try {
 				GetEmployeeInfo temp = new GetEmployeeInfo();
@@ -160,7 +161,7 @@ public class ClaimApplicationController {
 	public ModelAndView showClaimApply(HttpServletRequest request, HttpServletResponse response) {
 		tempDocList = new ArrayList<TempClaimDetail>();
 		ModelAndView model = new ModelAndView("claim/claimApply");
-
+		proofList = new ArrayList<ClaimProof>();
 		try {
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -205,8 +206,7 @@ public class ClaimApplicationController {
 					.postForObject(Constants.url + "/getAuthorityInfoByEmpId", map, AuthorityInformation.class);
 			model.addObject("authorityInformation", authorityInformation);
 			model.addObject("imageShowUrl", Constants.imageShowUrl);
-			
-			
+
 			// System.err.println("authorityInformation is " +
 			// authorityInformation.toString());
 
@@ -796,7 +796,7 @@ public class ClaimApplicationController {
 				tempDoc.setRemark(claimRemark);
 				tempDoc.setTypeId(claimTypeId);
 				tempDoc.setLvTypeName(lvTypeName);
-
+				tempDoc.setExtra1(tempDocList.size());
 				List<ClaimProof> proofList = new ArrayList<ClaimProof>();
 
 				try {
@@ -828,8 +828,8 @@ public class ClaimApplicationController {
 						e.printStackTrace();
 					}
 
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+
 				}
 
 				tempDoc.setProofList(proofList);
@@ -999,16 +999,71 @@ public class ClaimApplicationController {
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			Date date = new Date();
-			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-			VpsImageUpload upload = new VpsImageUpload();
+			int empId = Integer.parseInt(request.getParameter("empId"));
+			String claim_title = request.getParameter("claim_title");
+			String leaveDateRange = request.getParameter("claimDate");
 
-			// int claimId = Integer.parseInt(request.getParameter("claimId"));
+			// String[] arrOfStr = leaveDateRange.split("to", 2);
+			// System.err.println("date1 is " + arrOfStr[0].toString().trim());
+			// System.err.println("date2 is " + arrOfStr[1].toString().trim());
 
-			String remark = request.getParameter("remark");
+			docHead.setCirculatedTo("1");
+			docHead.setCafromDt(DateConvertor.convertToYMD(leaveDateRange));
+			docHead.setCaToDt(DateConvertor.convertToYMD(leaveDateRange));
+			docHead.setClaimTitle(claim_title);
+			docHead.setDelStatus(1);
+			docHead.setIsActive(1);
+			docHead.setEmpId(empId);
+			docHead.setProjId(1);
+			docHead.setExInt1(1);
+			docHead.setExInt2(1);
+			docHead.setExInt3(1);
+			docHead.setExVar1("NA");
+			docHead.setExVar2("NA");
+			docHead.setExVar3("NA");
+			docHead.setMakerUserId(userObj.getUserId());
+			docHead.setMakerEnterDatetime(sf.format(date));
 
-			int empId = ct.getEmpId();
+			List<ClaimApply> docDetailList = new ArrayList<>();
+
+			for (int i = 0; i < tempDocList.size(); i++) {
+
+				ClaimApply dDetail = new ClaimApply();
+
+				dDetail.setIsActive(1);
+				dDetail.setDelStatus(1);
+				dDetail.setExInt1(0);
+				dDetail.setExInt2(0);
+				dDetail.setExInt3(0);
+				dDetail.setExVar1("NA");
+				dDetail.setExVar2("NA");
+				dDetail.setExVar3("NA");
+				dDetail.setMakerUserId(userObj.getUserId());
+				dDetail.setMakerEnterDatetime(sf.format(date));
+				dDetail.setClaimAmount(tempDocList.get(i).getClaimAmount());
+				dDetail.setClaimRemarks(tempDocList.get(i).getRemark());
+				dDetail.setClaimTypeId(tempDocList.get(i).getTypeId());
+				dDetail.setMakerUserId(userObj.getUserId());
+				dDetail.setMakerEnterDatetime(sf.format(date));
+				dDetail.setExInt1(tempDocList.get(i).getExtra1());
+				docDetailList.add(dDetail);
+
+				tot_amt = tot_amt + tempDocList.get(i).getClaimAmount();
+
+			}
+
+			docHead.setDetailList(docDetailList);
+
+			float amt = 0;
+
+			for (int i = 0; i < docHead.getDetailList().size(); i++) {
+
+				amt = amt + docHead.getDetailList().get(i).getClaimAmount();
+
+			}
+			docHead.setClaimAmount((float) amt);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", docHead.getEmpId());
@@ -1084,13 +1139,28 @@ public class ClaimApplicationController {
 
 			///////////////// proof image
 			// System.err.println("img list final ::" + imgList.toString());
-			for (int i = 0; i < proofList.size(); i++) {
+			for (int i = 0; i < tempDocList.size(); i++) {
 
-				proofList.get(i).setClaimId(res.getCaHeadId());
+				for (int j = 0; j < res.getDetailList().size(); j++) {
+
+					if (tempDocList.get(i).getExtra1() == res.getDetailList().get(j).getExInt1()) {
+
+						for (int k = 0; k < tempDocList.get(i).getProofList().size(); k++) {
+							tempDocList.get(i).getProofList().get(k).setClaimId(res.getCaHeadId());
+							tempDocList.get(i).getProofList().get(k).setExInt1(res.getDetailList().get(j).getClaimId());
+							proofList.add(tempDocList.get(i).getProofList().get(k));
+						}
+
+					}
+
+				}
 
 			}
-			List<ClaimProof> res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveClaimProof",
-					proofList, List.class);
+
+			if (proofList.size() > 0) {
+				List<ClaimProof> res1 = Constants.getRestTemplate().postForObject(Constants.url + "/saveClaimProof",
+						proofList, List.class);
+			}
 
 			// System.err.println("res1 claim is" + res1.toString());
 

@@ -14,6 +14,8 @@ public class TempClaimDetail {
 
 	private float claimAmount;
 	
+	private int extra1;
+	
 	List<ClaimProof> proofList;
 
 	public int getClaimDetailId() {
@@ -65,10 +67,19 @@ public class TempClaimDetail {
 		this.proofList = proofList;
 	}
 
+	public int getExtra1() {
+		return extra1;
+	}
+
+	public void setExtra1(int extra1) {
+		this.extra1 = extra1;
+	}
+
 	@Override
 	public String toString() {
 		return "TempClaimDetail [claimDetailId=" + claimDetailId + ", remark=" + remark + ", lvTypeName=" + lvTypeName
-				+ ", typeId=" + typeId + ", claimAmount=" + claimAmount + ", proofList=" + proofList + "]";
+				+ ", typeId=" + typeId + ", claimAmount=" + claimAmount + ", extra1=" + extra1 + ", proofList="
+				+ proofList + "]";
 	}
 
 	 
