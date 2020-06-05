@@ -164,6 +164,7 @@ class LoanAdminController {
 			map.add("startDate", DateConvertor.convertToYMD(startDate));
 
 			loan = Constants.getRestTemplate().postForObject(Constants.url + "/calLoan", map, LoanCalculation.class);
+			System.err.println("Loan "+ loan.toString());
 			loan.setCalDate(DateConvertor.convertToDMY(loan.getCalDate()));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1105,6 +1106,188 @@ class LoanAdminController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	//Sachin 05-06-2020 
+	//New Interface for Loan
+	
+	@RequestMapping(value = "/empsForAddLoan", method = RequestMethod.GET)
+	public ModelAndView empsForAddLoanNew(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showEmpListToAddLoan", "showEmpListToAddLoan", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+			model = new ModelAndView("Loan/addEmpLoanNew");
+			Info edit = AcessController.checkAccess("showEmpListToAddLoan", "showEmpListToAddLoan", 0, 0, 1, 0,
+					newModuleList);
+			if (edit.isError() == false) {
+				System.out.println(" edit   Accessable ");
+				model.addObject("editAccess", 0);
+			}
+			try {
+				String linkType = new String();
+				Setting getSettingByKey = Constants.getRestTemplate().getForObject(Constants.url + "/getAddLoanType", Setting.class);
+				linkType = getSettingByKey.getValue();
+				model.addObject("linkType", linkType);
+				
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getEmpsForLoanOrGuarantor", GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				model.addObject("empdetList", empdetList);
+				model.addObject("empIdForLoan", 0);
+
+				// System.err.println("sh list"+shiftList.toString());
+
+				for (int i = 0; i < empdetList.size(); i++) {
+
+					empdetList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(empdetList.get(i).getEmpId())));
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return model;
+	}
+	
+	//Sachin 05-06-2020 
+	//New Interface for Loan to show Guaranters
+	@RequestMapping(value = "/showGuaranters", method = RequestMethod.GET)
+	public ModelAndView showGuaranters(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showEmpListToAddLoan", "showEmpListToAddLoan", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+			model = new ModelAndView("Loan/addEmpLoanNew");
+			Info edit = AcessController.checkAccess("showEmpListToAddLoan", "showEmpListToAddLoan", 0, 0, 1, 0,
+					newModuleList);
+			if (edit.isError() == false) {
+				System.out.println(" edit   Accessable ");
+				model.addObject("editAccess", 0);
+			}
+			try {
+				String linkType = new String();
+				Setting getSettingByKey = Constants.getRestTemplate().getForObject(Constants.url + "/getAddLoanType", Setting.class);
+				linkType = getSettingByKey.getValue();
+				model.addObject("linkType", linkType);
+				
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getEmpsForLoanOrGuarantor", GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				
+				String base64encodedString = request.getParameter("empId");
+				String empTypeId = FormValidation.DecodeKey(base64encodedString);
+				
+				int empId=Integer.parseInt(empTypeId);
+				
+				model.addObject("empdetList", empdetList);
+				
+				// System.err.println("sh list"+shiftList.toString());
+
+				for (int i = 0; i < empdetList.size(); i++) {
+
+					empdetList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(empdetList.get(i).getEmpId())));
+				}
+				model.addObject("empIdForLoan", empId);
+				model.addObject("empKey", base64encodedString);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return model;
+	}
+	
+	//
+	//Sachin 05-06-2020 
+		//New Interface for Loan to show proceedLoanGuarantar 
+	//ie showCalLoan mapping page (old Loan/calLoan)
+	@RequestMapping(value = "/proceedLoanGuarantar", method = RequestMethod.POST)
+	public ModelAndView proceedLoanGuarantar(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showCalLoan", "showEmpListToAddLoan", 0, 0, 1, 0, newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+			model = new ModelAndView("Loan/calLoanNew");
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+			try {
+
+				String[] empId = request.getParameterValues("empIds");
+
+				StringBuilder sb = new StringBuilder();
+
+				List<Integer> empIdList = new ArrayList<>();
+
+				for (int i = 0; i < empId.length; i++) {
+					sb = sb.append(empId[i] + ",");
+					empIdList.add(Integer.parseInt(empId[i]));
+
+					// System.out.println("empId id are**" + empId[i]);
+
+				}
+
+				String empS = sb.toString();
+				empS = empS.substring(0, empS.length() - 1);
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("limitKey", "loan_number");
+				Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+
+				model.addObject("appNo", getSettingByKey.getValue());
+
+				String base64encodedString = request.getParameter("empId");
+				String empTypeId = FormValidation.DecodeKey(base64encodedString);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empTypeId);
+				GetEmployeeDetails empPersInfo = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllEmployeeDetailByEmpId", map, GetEmployeeDetails.class);
+				// System.out.println("Edit EmpPersonal Info-------"+ empPersInfo.toString());
+
+				String empPersInfoString = empPersInfo.getEmpCode().concat(" ").concat(empPersInfo.getFirstName())
+						.concat(" ").concat(empPersInfo.getSurname()).concat(" [").concat(empPersInfo.getEmpDesgn())
+						.concat("]");
+				model.addObject("empPersInfo", empPersInfo);
+				model.addObject("empPersInfoString", empPersInfoString);
+				model.addObject("todaysDate", sf.format(date));
+
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empTypeId);
+				LoanMain empPersInfo1 = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpLoanHistory",
+						map, LoanMain.class);
+
+				model.addObject("prevLoan", empPersInfo1);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return model;
 	}
