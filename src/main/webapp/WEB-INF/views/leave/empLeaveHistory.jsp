@@ -160,7 +160,7 @@
 										<td class="text-center"><a
 											href="${pageContext.request.contextPath}/showLeaveHistDetailList?leaveId=${holiday.exVar1}"><i
 												class="icon-history" style="color: black;"></i></a> <c:if
-												test="${empId==loginEmpId && holiday.exInt1!=7 && holiday.exInt1!=8 && holiday.exInt1!=9 && holiday.empDeptName==0}">
+												test="${(empId==loginEmpId || loginEmpId==authority.finAuthEmpId) && holiday.exInt1!=7 && holiday.exInt1!=8 && holiday.exInt1!=9 && holiday.empDeptName==0}">
 
 												<a
 													href="${pageContext.request.contextPath}/approveLeaveByInitialAuth?empId=${encryptEmpId}&leaveId=${holiday.exVar1}&&apprsts=7&rejctsts=0"

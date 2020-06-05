@@ -613,6 +613,10 @@ public class LeaveController {
 
 			model.addObject("loginEmpId", userObj.getEmpId());
 			model.addObject("encryptEmpId", FormValidation.Encrypt(String.valueOf(empId)));
+			 
+			GetAuthorityIds authority = Constants.getRestTemplate().postForObject(Constants.url + "/getAuthIdByEmpId",
+					map, GetAuthorityIds.class);
+			model.addObject("authority", authority);
 
 		} catch (Exception e) {
 			e.printStackTrace();
