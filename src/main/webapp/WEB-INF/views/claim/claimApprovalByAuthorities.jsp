@@ -129,7 +129,7 @@
 												<td>${claimList.empCode}</td>
 												<td>${claimList.empName}</td>
 												<td>${claimList.projectTitle}</td>
-												<td>${claimList.caFromDt}to${claimList.caToDt}</td>
+												<td>${claimList.caFromDt}</td>
 												<td>${claimList.claimAmount}</td>
 
 
@@ -219,7 +219,7 @@
 												<td>${claimList1.empCode}</td>
 												<td>${claimList1.empName}</td>
 												<td>${claimList1.projectTitle}</td>
-												<td>${claimList1.caFromDt}to${claimList1.caToDt}</td>
+												<td>${claimList1.caFromDt}</td>
 												<td>${claimList1.claimAmount}</td>
 												<c:if test="${claimList1.claimStatus==1}">
 													<td><span class="badge badge-info">Initial
@@ -289,8 +289,8 @@
 
 														<a
 															href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}&stat=7&rejctsts=0"
-															title="Approve or Reject"><i
-															class="icon-cancel-square" style="color: black;"></i></a>
+															title="Cancle Claim"><i class="icon-cancel-square"
+															style="color: black;"></i></a>
 													</c:if> <a
 													href="${pageContext.request.contextPath}/claimDetailHistory?empId=${claimList1.exVar1}&claimId=${claimList1.circulatedTo}"
 													style="color: black"><i class="icon-list-unordered"></i></a></td>

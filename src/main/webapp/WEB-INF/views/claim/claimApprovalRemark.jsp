@@ -349,7 +349,7 @@
 											<c:choose>
 												<c:when test="${stat==7}">
 													<button type="submit" class="btn blue_btn" id="submtbtn"
-														onclick="changeOrinalSts(${stat})">Cancel Leave</button>
+														onclick="changeOrinalSts(${stat})">Cancel Claim</button>
 													<a
 														href="${pageContext.request.contextPath}/showClaimList?empId=${encryptEmpId}"><button
 															type="button" class="btn btn-light">
@@ -360,9 +360,9 @@
 												</c:when>
 												<c:otherwise>
 													<button type="submit" class="btn blue_btn" id="submtbtn"
-														onclick="changeOrinalSts(${stat})">Approve Leave</button>
+														onclick="changeOrinalSts(${stat})">Approve Claim</button>
 													<button type="submit" class="btn blue_btn" id="submtbtn"
-														onclick="changeOrinalSts(${stat2})">Reject Leave</button>
+														onclick="changeOrinalSts(${stat2})">Reject Claim</button>
 													<a
 														href="${pageContext.request.contextPath}/showClaimApprovalByAuthority"><button
 															type="button" class="btn btn-light">

@@ -100,7 +100,7 @@
 									<th width="10%">Sr.no</th>
 									<th>Claim Title</th>
 									<th>From Date</th>
-									<th>To Date</th>
+									<!-- <th>To Date</th> -->
 									<th>Total Amount</th>
 									<th>Status</th>
 
@@ -117,7 +117,7 @@
 										<td>${count.index+1}</td>
 										<td>${lvTypeList.claimTitle}</td>
 										<td>${lvTypeList.claimFromDate}</td>
-										<td>${lvTypeList.claimToDate}</td>
+										<%-- <td>${lvTypeList.claimToDate}</td> --%>
 										<td>${lvTypeList.claimAmount}</td>
 										<c:if test="${lvTypeList.claimFinalStatus==1}">
 											<td><span class="badge badge-info">Initial
@@ -143,17 +143,27 @@
 										</c:if>
 
 
-										<td class="text-center"><a
+										<td class="text-center">
+											<%-- <a
 											href="${pageContext.request.contextPath}/showClaimProofAgain?claimId=${lvTypeList.exVar1}"
 											title="Upload Document"><i class="icon-file-upload"
-												style="color: black;"></i></a> <%-- <a
+												style="color: black;"></i></a>  --%> <%-- <a
 											href="${pageContext.request.contextPath}/showClaimHistDetailList?claimId=${lvTypeList.exVar1}"
 											title="History"><i class="icon-history"
 												style="color: black;"></i></a>
-												 --%> <a
+												 --%> <c:if
+												test="${orignalEmpId==loginEmpId && (lvTypeList.claimFinalStatus==1 || lvTypeList.claimFinalStatus==2)}">
+
+
+												<a
+													href="${pageContext.request.contextPath}/approveClaimByAuth?empId=${empId}&claimId=${lvTypeList.exVar1}&stat=7&rejctsts=0"
+													title="Cancle Claim"><i class="icon-cancel-square"
+													style="color: black;"></i></a>
+											</c:if> <a
 											href="${pageContext.request.contextPath}/claimDetailHistory?empId=${empId}&claimId=${lvTypeList.exVar1}"
 											title="Claim Detail"><i class="icon-history"
-												style="color: black;"></i></a></td>
+												style="color: black;"></i></a>
+										</td>
 									</tr>
 								</c:forEach>
 

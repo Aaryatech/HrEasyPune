@@ -689,6 +689,9 @@ public class ClaimApplicationController {
 		ModelAndView model = new ModelAndView("claim/claimHistory");
 		try {
 
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			
 			int empId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("empId")));
 			// System.err.println("emp idis " + empId);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -710,6 +713,14 @@ public class ClaimApplicationController {
 
 			model.addObject("claimList1", claimList1);
 			model.addObject("empId", request.getParameter("empId"));
+			
+			/*map = new LinkedMultiValueMap<String, Object>();
+			map.add("empId", empId);
+
+			AuthorityInformation authorityInformation = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getAuthorityInfoByEmpId", map, AuthorityInformation.class);*/
+			model.addObject("orignalEmpId", empId);
+			model.addObject("loginEmpId", userObj.getEmpId());
 
 		} catch (Exception e) {
 			e.printStackTrace();

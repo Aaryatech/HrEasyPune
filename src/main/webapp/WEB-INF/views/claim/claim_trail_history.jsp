@@ -159,8 +159,8 @@
 									Date : </label>
 								<div class="col-lg-7 float">
 									<input type="text" class="form-control"
-										Value="${lvEmp.caFromDt} to ${lvEmp.caToDt} " name="compName"
-										autocomplete="off" readonly>
+										Value="${lvEmp.caFromDt}" name="compName" autocomplete="off"
+										readonly>
 
 								</div>
 							</div>
