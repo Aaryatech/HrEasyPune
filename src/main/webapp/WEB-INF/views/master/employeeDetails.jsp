@@ -497,7 +497,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel
@@ -799,7 +800,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel
@@ -1165,7 +1167,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel
@@ -1241,7 +1244,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel
@@ -1465,6 +1469,8 @@
 															${empAllowanceId.salBasis=='monthly' ? 'selected' : ''}>Monthly</option>
 														<option value="daily"
 															${empAllowanceId.salBasis=='daily' ? 'selected' : ''}>Daily</option>
+														<option value="hour"
+															${empAllowanceId.salBasis=='hour' ? 'selected' : ''}>Hour</option>
 													</select>
 												</div>
 											</div>
@@ -1546,7 +1552,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel
@@ -1636,7 +1643,8 @@
 														id="submtbtn">
 														Submit <i class="icon-paperplane ml-2"></i>
 													</button>
-													<a href="${pageContext.request.contextPath}/showEmployeeList"><button
+													<a
+														href="${pageContext.request.contextPath}/showEmployeeList"><button
 															type="button" class="btn btn-primary">
 															<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 															Cancel

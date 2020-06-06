@@ -1,4 +1,5 @@
 package com.ats.hreasy.model;
+ 
 
 public class EmpSalaryInfo {
 
@@ -38,6 +39,13 @@ public class EmpSalaryInfo {
 	private int exInt2;
 	private String exVar1;
 	private String exVar2;	
+	 
+	private String dailyHr; 
+	private String monthlyHrTarget; 
+	private String monthlyMinimumTarget; 
+	private String monthlyOtHr;
+	
+	
 	
 	public int getSalaryInfoId() {
 		return salaryInfoId;
@@ -320,6 +328,38 @@ public class EmpSalaryInfo {
 		this.exVar2 = exVar2;
 	}
 
+	public String getDailyHr() {
+		return dailyHr;
+	}
+
+	public void setDailyHr(String dailyHr) {
+		this.dailyHr = dailyHr;
+	}
+
+	public String getMonthlyHrTarget() {
+		return monthlyHrTarget;
+	}
+
+	public void setMonthlyHrTarget(String monthlyHrTarget) {
+		this.monthlyHrTarget = monthlyHrTarget;
+	}
+
+	public String getMonthlyMinimumTarget() {
+		return monthlyMinimumTarget;
+	}
+
+	public void setMonthlyMinimumTarget(String monthlyMinimumTarget) {
+		this.monthlyMinimumTarget = monthlyMinimumTarget;
+	}
+
+	public String getMonthlyOtHr() {
+		return monthlyOtHr;
+	}
+
+	public void setMonthlyOtHr(String monthlyOtHr) {
+		this.monthlyOtHr = monthlyOtHr;
+	}
+
 	@Override
 	public String toString() {
 		return "EmpSalaryInfo [salaryInfoId=" + salaryInfoId + ", empId=" + empId + ", salaryTypeId=" + salaryTypeId
@@ -334,7 +374,8 @@ public class EmpSalaryInfo {
 				+ basicCompany + ", hraCompany=" + hraCompany + ", daCompany=" + daCompany + ", employeeEsicPercentage="
 				+ employeeEsicPercentage + ", employerEsicPercentage=" + employerEsicPercentage + ", delStatus="
 				+ delStatus + ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2
-				+ "]";
+				+ ", dailyHr=" + dailyHr + ", monthlyHrTarget=" + monthlyHrTarget + ", monthlyMinimumTarget="
+				+ monthlyMinimumTarget + ", monthlyOtHr=" + monthlyOtHr + "]";
 	}
 
 	

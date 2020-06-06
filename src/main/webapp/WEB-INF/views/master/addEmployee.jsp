@@ -1693,6 +1693,100 @@
 														style="display: none;" id="error_basiallowtotal">Gross
 														Salary and total not matched.</span>
 												</div>
+
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="salBasis">Salary Basis <span
+													class="text-danger">*</span>:
+												</label>
+												<div class="col-lg-4">
+													<select name="salBasis" data-placeholder="Select "
+														id="salBasis"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														onchange="opnclsworkingHrsDiv()">
+														<option value="0"
+															${empAllowanceId.salBasis == '0' ? 'selected' : ''}>Please
+															Select</option>
+														<option value="monthly"
+															${empAllowanceId.salBasis=='monthly' ? 'selected' : ''}>Monthly</option>
+														<option value="daily"
+															${empAllowanceId.salBasis=='daily' ? 'selected' : ''}>Daily</option>
+														<option value="hour"
+															${empAllowanceId.salBasis=='hour' ? 'selected' : ''}>Hour</option>
+													</select> <span class="hidedefault  validation-invalid-label"
+														style="display: none;" id="error_salBasis1">This
+														field is required.</span>
+												</div>
+											</div>
+
+
+											<div id="workingHrsDiv" style="display: none;">
+												<div class="form-group row">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="dlyhr">Daily Hour <span class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<input type="text" class="form-control numbersOnly"
+															value="${empAllowanceId.dailyHr}"
+															placeholder="Daily Hour" id="dlyhr" name="dlyhr"
+															autocomplete="off" onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															style="display: none;" id="error_dlyhr">This field
+															is required.</span>
+													</div>
+
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="monthlyTarget">Monthly Hour Target<span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<input type="text" class="form-control numbersOnly"
+															value="${empAllowanceId.monthlyHrTarget}"
+															placeholder="Monthly Hour Target" id="monthlyTarget"
+															name="monthlyTarget" autocomplete="off"
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															style="display: none;" id="error_monthlyTarget">This
+															field is required.</span>
+													</div>
+
+												</div>
+												<div class="form-group row">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="minMonthlyHrs">Minimum Monthly Hour <span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<input type="text" class="form-control numbersOnly"
+															value="${empAllowanceId.monthlyMinimumTarget}"
+															placeholder="Minimum Monthly Hour" id="minMonthlyHrs"
+															name="minMonthlyHrs" autocomplete="off"
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															style="display: none;" id="error_minMonthlyHrs">This
+															field is required.</span>
+													</div>
+
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="otHoursLimit">OT Hour <span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<input type="text" class="form-control numbersOnly"
+															value="${empAllowanceId.monthlyOtHr}"
+															placeholder="OT Hour" id="otHoursLimit"
+															name="otHoursLimit" autocomplete="off"
+															onchange="trim(this)"> <span
+															class="hidedefault  validation-invalid-label"
+															style="display: none;" id="error_otHoursLimit">This
+															field is required.</span>
+													</div>
+
+												</div>
 											</div>
 
 											<div class="form-group row">
@@ -1896,29 +1990,6 @@
 
 													</select> <span class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_ptApplicable">This
-														field is required.</span>
-												</div>
-
-
-
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-2"
-													for="salBasis">Salary Basis <span
-													class="text-danger">*</span>:
-												</label>
-												<div class="col-lg-4">
-													<select name="salBasis" data-placeholder="Select "
-														id="salBasis"
-														class="form-control form-control-select2 select2-hidden-accessible">
-														<option value="0"
-															${empAllowanceId.salBasis == '0' ? 'selected' : ''}>Please
-															Select</option>
-														<option value="monthly"
-															${empAllowanceId.salBasis=='monthly' ? 'selected' : ''}>Monthly</option>
-														<option value="daily"
-															${empAllowanceId.salBasis=='daily' ? 'selected' : ''}>Daily</option>
-													</select> <span class="hidedefault  validation-invalid-label"
-														style="display: none;" id="error_salBasis1">This
 														field is required.</span>
 												</div>
 
@@ -2396,6 +2467,20 @@
 			} else {
 
 				$("#esic_block").hide()
+			}
+
+		}
+
+		function opnclsworkingHrsDiv() {
+
+			var value = document.getElementById("salBasis").value;
+
+			if (value == 'hour') {
+
+				$("#workingHrsDiv").show()
+			} else {
+
+				$("#workingHrsDiv").hide()
 			}
 
 		}
@@ -3125,8 +3210,50 @@
 															.show()
 													//return false;
 												} else {
+
 													$("#error_salBasis1")
-															.hide()
+															.hide();
+													$("#error_dlyhr").hide();
+													$("#error_monthlyTarget")
+															.hide();
+													$("#error_minMonthlyHrs")
+															.hide();
+													$("#error_otHoursLimit")
+															.hide();
+													if (j == "hour") {
+
+														if (!$("#dlyhr").val()) {
+															isError = true;
+															$("#error_dlyhr")
+																	.show()
+														}
+
+														if (!$("#monthlyTarget")
+																.val()) {
+															isError = true;
+															$(
+																	"#error_monthlyTarget")
+																	.show()
+														}
+
+														if (!$("#minMonthlyHrs")
+																.val()) {
+															isError = true;
+															$(
+																	"#error_minMonthlyHrs")
+																	.show()
+														}
+
+														if (!$("#otHoursLimit")
+																.val()) {
+															isError = true;
+															$(
+																	"#error_otHoursLimit")
+																	.show()
+														}
+
+													}
+
 												}
 
 												if (!$("#joinDate").val()) {

@@ -960,7 +960,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/submitEmpOtherInfo", method = RequestMethod.POST)
-	public String submitEmpOtherInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam("doc") MultipartFile doc) {
+	public String submitEmpOtherInfo(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") MultipartFile doc) {
 		HttpSession session = request.getSession();
 		session.setAttribute("empTab", 2);
 		try {
@@ -976,15 +977,14 @@ public class EmployeeController {
 			}
 
 			String img = doc.getOriginalFilename();
-			String imageName = empId + "_" + doc.getOriginalFilename() + "_"
-					+ dateTimeInGMT.format(date);
+			String imageName = empId + "_" + doc.getOriginalFilename() + "_" + dateTimeInGMT.format(date);
 
-			System.out.println("Profile Image------------"+img);
-			
+			System.out.println("Profile Image------------" + img);
+
 			VpsImageUpload upload = new VpsImageUpload();
-			Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, imageName,
-					Constants.values, 0, 0, 0, 0, 0);
-			
+			Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, imageName, Constants.values, 0, 0, 0, 0,
+					0);
+
 			TblEmpInfo empInfo = new TblEmpInfo();
 			// if(empIdInfo!=null) {
 
@@ -1016,7 +1016,7 @@ public class EmployeeController {
 			empInfo.setDelStatus(1);
 			empInfo.setExInt1(0);
 			empInfo.setExInt2(0);
-			empInfo.setExVar1(imageName);  /// Profile Image
+			empInfo.setExVar1(imageName); /// Profile Image
 			empInfo.setExVar2("NA");
 
 			// System.out.println("TblEmpInfo----" + empInfo);
@@ -1038,12 +1038,12 @@ public class EmployeeController {
 			/*
 			 * }else { redirect = "redirect:/employeeAdd"; }
 			 */
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMsg", "Failed to Update Record");
 		}
-		
+
 		return redirect;
 	}
 
@@ -1241,12 +1241,13 @@ public class EmployeeController {
 	@RequestMapping(value = "/insertEmployeeAllowancesInfo", method = RequestMethod.POST)
 	public String insertEmployeeBasicInfo(HttpServletRequest request, HttpServletResponse response) {
 
+		int empId = 0;
+
 		try {
 			HttpSession session = request.getSession();
 			EmpSalaryInfo empSal = new EmpSalaryInfo();
 			session.setAttribute("empTab", 5);
 
-			int empId = 0;
 			int empSalInfoId = 0;
 
 			double basic = 0;
@@ -1370,6 +1371,45 @@ public class EmployeeController {
 			empSal.setExVar2("NA");
 			empSal.setSalaryTypeId(1);
 
+			if (empSal.getSalBasis().equals("hour")) {
+
+				String dalyHrs1 = request.getParameter("dlyhr");
+				String monthlyTarget1 = request.getParameter("monthlyTarget");
+				String minMonthlyHrs1 = request.getParameter("minMonthlyHrs");
+				String otHoursLimit1 = request.getParameter("otHoursLimit");
+
+				/*
+				 * String[] dalyHrsarr = dalyHrs1.split("\\."); String[] monthlyTargetarr =
+				 * monthlyTarget1.split("\\."); String[] minMonthlyHrsarr =
+				 * minMonthlyHrs1.split("\\."); String[] otHoursLimitarr =
+				 * otHoursLimit1.split("\\.");
+				 * 
+				 * float dalyHrs = (Integer.parseInt(dalyHrsarr[0]) * 60) +
+				 * Integer.parseInt(dalyHrsarr[1]); float monthlyTarget =
+				 * (Integer.parseInt(monthlyTargetarr[0]) * 60) +
+				 * Integer.parseInt(monthlyTargetarr[1]); float minMonthlyHrs =
+				 * (Integer.parseInt(minMonthlyHrsarr[0]) * 60) +
+				 * Integer.parseInt(minMonthlyHrsarr[1]); float otHoursLimit =
+				 * (Integer.parseInt(otHoursLimitarr[0]) * 60) +
+				 * Integer.parseInt(otHoursLimitarr[1]);
+				 * 
+				 * empSal.setDailyHr(dalyHrs); empSal.setMonthlyHrTarget(monthlyTarget);
+				 * empSal.setMonthlyMinimumTarget(minMonthlyHrs);
+				 * empSal.setMonthlyOtHr(otHoursLimit);
+				 */
+
+				empSal.setDailyHr(dalyHrs1);
+				empSal.setMonthlyHrTarget(monthlyTarget1);
+				empSal.setMonthlyMinimumTarget(minMonthlyHrs1);
+				empSal.setMonthlyOtHr(otHoursLimit1);
+
+			} else {
+				empSal.setDailyHr("0");
+				empSal.setMonthlyHrTarget("0");
+				empSal.setMonthlyMinimumTarget("0");
+				empSal.setMonthlyOtHr("0");
+			}
+
 			int allwnSalId = 0;
 			List<EmpSalAllowance> allowncList = new ArrayList<EmpSalAllowance>();
 
@@ -1450,8 +1490,9 @@ public class EmployeeController {
 			 * }else { redirect = "redirect:/employeeAdd"; }
 			 */
 		} catch (Exception e) {
+			String empEncryptId = FormValidation.Encrypt(String.valueOf(empId));
 			e.printStackTrace();
-
+			redirect = "redirect:/employeeEdit?empId=" + empEncryptId;
 		}
 		return redirect;
 
@@ -1644,8 +1685,8 @@ public class EmployeeController {
 
 		try {
 
-			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllEmployeeDetailassignHolidayCategory", GetEmployeeDetails[].class);
+			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+					Constants.url + "/getAllEmployeeDetailassignHolidayCategory", GetEmployeeDetails[].class);
 
 			List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 			model.addAttribute("empdetList", empdetList);
