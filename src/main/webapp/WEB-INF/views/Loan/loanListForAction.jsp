@@ -102,7 +102,7 @@
 								style="color: red;"> ${empDeatil.empCode}</label> <label
 								class="col-form-label col-lg-2" for="locId"> Emp Name: </label>
 							<label class="col-form-label col-lg-2" for="locId"
-								style="color: red;">${empDeatil.surname}&nbsp;${empDeatil.middleName}&nbsp;${empDeatil.firstName}
+								style="color: red;">${empDeatil.surname}&nbsp;${empDeatil.firstName}
 							</label> <label class="col-form-label col-lg-2" for="locId"> Emp
 								Designation: </label> <label class="col-form-label col-lg-2" for="locId"
 								style="color: red;"> ${empDeatil.designation} </label>
@@ -122,6 +122,23 @@
 							</label> <label class="col-form-label col-lg-2" for="locId"
 								style="color: red;"> ${empDeatil.loanEmi} </label>
 
+						</div>
+						
+						<div class="form-group row">
+
+							<label class="col-form-label col-lg-2" for="locId"> Loan
+								Guarantor 1: </label> <label class="col-form-label col-lg-2" for="locId"
+								style="color: red;">${empdetList[0].empCode}-${empdetList[0].firstName} ${empdetList[0].surname}</label> <label
+								class="col-form-label col-lg-2" for="locId">Loan
+								Guarantor 2: </label> <label class="col-form-label col-lg-2" for="locId"
+								style="color: red;">${empdetList[1].empCode}-${empdetList[1].firstName} ${empdetList[1].surname}</label> 
+											
+											
+											<label class="col-form-label col-lg-2" for="locId"> Loan
+								Document: </label> <label class="col-form-label col-lg-2" for="locId"
+								style="color: red;"><a class="icon-file-pdf icon-1x text-danger  text-danger" href="${docUrl}" >&nbsp;Loan Document</a></label>
+											
+												
 						</div>
 
 
@@ -175,7 +192,13 @@ e9a9"></i></a> <a
 											href="${pageContext.request.contextPath}/showRepayLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Repay Schedule"><i
-												class="icon-sort-time-desc"></i></a></td>
+												class="icon-sort-time-desc"></i></a>
+												&nbsp;<a
+											href="${pageContext.request.contextPath}/showChangeGuarantor?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
+											class="list-icons-item text-primary-200" data-popup="tooltip"
+											title="" data-original-title="Change Guarantor"><i
+												class="icon-sort-time-desc"></i></a>
+												</td>
 
 
 									</tr>

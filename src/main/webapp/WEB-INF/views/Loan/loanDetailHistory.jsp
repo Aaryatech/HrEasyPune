@@ -101,7 +101,7 @@
 								style="color: red;"> ${empDeatil.empCode}</label> <label
 								class="col-form-label col-lg-2" for="locId"> Emp Name: </label>
 							<label class="col-form-label col-lg-2" for="locId"
-								style="color: red;">${empDeatil.surname}&nbsp;${empDeatil.middleName}&nbsp;${empDeatil.firstName}
+								style="color: red;">${empDeatil.surname}&nbsp;${empDeatil.firstName}
 							</label> <label class="col-form-label col-lg-2" for="locId"> Emp
 								Designation: </label> <label class="col-form-label col-lg-2" for="locId"
 								style="color: red;"> ${empDeatil.designation} </label>

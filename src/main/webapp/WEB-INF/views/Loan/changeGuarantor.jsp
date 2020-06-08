@@ -51,7 +51,7 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee List For Loan/Guarantor
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee List For Changing Guarantor
 									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -59,8 +59,11 @@
 					</div>
 
 					<div class="card-body">
-<form action="proceedLoanGuarantar" id="submitInsertEmp" method="post">
-<input type="hidden" readonly="readonly" id="empId" name="empId" value="${empKey}"> 
+<form action="${pageContext.request.contextPath}/submitChangeGuarantor" id="submitInsertEmp" method="post">
+<input type="hidden" readonly="readonly" id="loanId" name="loanId" value="${advList.id}">
+<input type="hidden" readonly="readonly" id="g1" name="g1" value="${advList.exIn1}"> 
+<input type="hidden" readonly="readonly" id="g2" name="g2" value="${advList.exIn2}"> 
+ 
 						<%
 							if (session.getAttribute("errorMsg") != null) {
 						%>
@@ -96,7 +99,31 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						
+												<div class="form-group row">
+									<label class="col-form-label col-lg-2" for="locId">
+										Replace Guarantor <span class="text-danger">* </span>:
+									</label>
+									<div class="col-lg-3 ">
+										<select name="oldGur" data-placeholder="Select Guarantor"
+											id="oldGur"
+											class="form-control form-control-select2 select2-hidden-accessible"
+											data-fouc="" aria-hidden="true">
+											<option value="">Replace Guarantor</option>
+											<c:forEach items="${empGuraList}" var="empGuraList">
+												<option value="${empGuraList.empId}">${empGuraList.empCode}[${empGuraList.firstName}-${empGuraList.surname}]</option>
+											</c:forEach>
+										</select> <span class="validation-invalid-label" id="error_shiftId"
+											style="display: none;">This field is required.</span>
+									</div>
+									
+<div class="col-lg-7">
+									<h5>${empPersInfoString}</h5>
+									<h5>Loan Application No.
+									${advList.loanApplNo}</h5>
+									</div>
+
+
+							</div>
 							<table
 								class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 								id="printtable1">
@@ -104,17 +131,13 @@
 									<tr class="bg-blue">
 
 										<th width="10%">Sr.No</th>
-										<c:if test="${empIdForLoan!=0}">
-													 <th>Select Guarantor</th>
-													 </c:if>
+										<th>Select Guarantor</th>
  										<th>Employee Code</th>
 										<th>Employee Name</th>
 										<th>Emp Type</th>
 										<th>Department</th>
 										<th>Designation</th>
 										<th>Location</th>
-										<th>Action</th>
-
 
 									</tr>
 								</thead>
@@ -126,59 +149,30 @@
 										
 										<tr>
 											<td>${count.index+1}</td>
-											<c:if test="${empIdForLoan!=0}">
 													 <td><input type="checkbox"
 													id="empIds${empdetList.empId}" value="${empdetList.empId}"
 													name="empIds" class="select_all"> </td>
-													 </c:if>
  											<td>${empdetList.empCode}</td>
-											<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+											<td>${empdetList.surname}&nbsp;${empdetList.firstName}</td>
 											<td>${empdetList.empTypeName}</td>
 											<td>${empdetList.deptName}</td>
 											<td>${empdetList.empDesgn}</td>
-
 											<td>${empdetList.locName}</td>
-											<td><c:if test="${editAccess == 0}">
-											<c:choose>
-												<c:when test="${linkType=='ByEMI'}">
-													<%-- <a
-													href="${pageContext.request.contextPath}/showCalLoan?empId=${empdetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="Calculate Loan" data-original-title="Calculate Loan"><i class="icon-enlarge5 "
-													 ></i></a> --%>
-													 <c:if test="${empIdForLoan==0}">
-													  <a
-													href="${pageContext.request.contextPath}/showGuaranters?empId=${empdetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="Calculate Loan" data-original-title="Calculate Loan"><i class="icon-enlarge5 "
-													 ></i></a>
-													 </c:if>
-													  
-													
-											</c:when>
-											<c:otherwise>
 											
-											<a
-													href="${pageContext.request.contextPath}/showAddLoan?empId=${empdetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" title="Add Loan" data-original-title="Edit"><i class="icon-enlarge5 "
-													 ></i></a>
-											</c:otherwise>
-											</c:choose>
-											 </c:if></td>
 
 										</tr>
 									</c:forEach>
 
 								</tbody>
 							</table>
-<c:if test="${empIdForLoan!=0}">
 						 <div style="text-align: center;">
-								<input type="submit" class="btn blue_btn" value="Proceed For Loan"
+								<input type="submit" class="btn blue_btn" value="Change Guarantar"
 									id="deleteId"
-									style="align-content: center; width: 160px; margin-left: 30px;">
+									style="align-content: center; width: 170px; margin-left: 30px;">
 									
 							</div>
 							<span class="validation-invalid-label" id="error_chk"
-								style="display: none;">Please select two guarantar from employee list .</span>
-								</c:if>
+								style="display: none;">Please select one guarantar from employee list .</span>
 					 </form>
 
 					</div>
@@ -204,13 +198,19 @@
 	<script type="text/javascript">
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
-
+				var compId = $("#oldGur").val();
 				var isError = false;
 				var errMsg = "";
+				if (compId == null || compId == "") {
+					isError = true;
+					$("#error_shiftId").show()
+				} else {
+					$("#error_shiftId").hide()
+				}
 
 				var checked = $("#submitInsertEmp input:checked").length > 0;
 				var tot=$("#submitInsertEmp input:checked").length
-				if (parseInt(tot)==2) {
+				if (parseInt(tot)==1) {
 					$("#error_chk").hide()
 					isError = false;
 				} else {

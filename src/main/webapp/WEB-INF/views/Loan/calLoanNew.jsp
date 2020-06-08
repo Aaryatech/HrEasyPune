@@ -99,10 +99,20 @@
 								%>
 
 								<form
-									action="${pageContext.request.contextPath}/submitInsertLoan"
-									id="submitInsertLocaion" method="post">
+									action="${pageContext.request.contextPath}/submitInsertLoanNew"
+									id="submitInsertLocaion" method="post"  enctype="multipart/form-data">
 									<input type="hidden" value="${empPersInfo.empId}" id="empId"
 										name="empId">
+										<input type="hidden" value="0" id="repayAmt1"
+										name="repayAmt1">
+										<input type="hidden" value="0" id="emi1"
+										name="emi1">
+										
+										<input type="hidden" value="${empdetList[0].empId}" id="g11"
+										name="g11">
+										<input type="hidden" value="${empdetList[1].empId}" id="g22"
+										name="g22">
+										
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="empName">Employee
 											Name : </label>
@@ -144,22 +154,22 @@
 											1 : </label>
 										<div class="col-lg-4">
 											<input type="text" class="form-control"
-												value="${empPersInfoString}" id="g1"
+												value="${empdetList[0].empCode}-${empdetList[0].firstName} ${empdetList[0].surname}" id="g1"
 												readonly="readonly" name="g1" autocomplete="off"
 												onchange="trim(this)">
-
 										</div>
-											
 										<label class="col-form-label col-lg-2" for="empName">Guarantor
 											2 : </label>
 										<div class="col-lg-4">
 											<input type="text" class="form-control"
-												value="${empPersInfoString}" id="g2"
+												value="${empdetList[1].empCode}-${empdetList[1].firstName} ${empdetList[1].surname}" id="g2"
 												readonly="readonly" name="g2" autocomplete="off"
 												onchange="trim(this)">
-
 										</div>
-									
+										
+										
+										
+										
 									</div>
 
 									<%-- <div class="form-group row">
@@ -274,7 +284,7 @@
 										</label>
 										<div class="col-lg-4">
 											<input type="text" class="form-control datepickerclass1 "
-												name="endDate" id="endDate" placeholder="Joining Date"
+												name="endDate" id="endDate" placeholder="Cutting End Date"
 												readonly="readonly">
 										</div>
 										</div>
@@ -309,6 +319,15 @@
 											<span class="validation-invalid-label" id="error_remark"
 												style="display: none;">This field is required.</span>
 										</div>
+										
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-3 float"
+											for="remark">Attach Agreement Document
+										</label>
+										<div class="col-lg-3 float">
+											<input type="file" id="ag_doc" name="doc" value="0">
+										</div>
+										
 									</div>
 
 
@@ -353,6 +372,9 @@
 
 	<script type="text/javascript">
 		function calAmt() {
+			document.getElementById("repayAmt1").value=0;
+			document.getElementById("emi1").value=0;
+
 			var tenure = 0
 			var loanAmt = 0;
 			var emi = 0;
@@ -378,16 +400,25 @@
 			},
 
 			function(data) {
-
+				
 				document.getElementById("repayAmt").innerHTML= data.repayAmt;
+				document.getElementById("repayAmt1").value= data.repayAmt;
+				document.getElementById("emi1").value=data.emiAmt;
 
-				document.getElementById("tenure").innerHTML = tenure;
+				//document.getElementById("tenure").innerHTML = tenure;
 
 				document.getElementById("endDate").value = data.calDate;
 				document.getElementById("emi").innerHTML=data.emiAmt;
+
 			});
 
 		}
+		$('#tenure').on('input', function() {
+			 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+			});
+		$('#loanAmt').on('input', function() {
+			 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+			});
 	</script>
 
 
@@ -407,7 +438,7 @@
 				var isError = false;
 				var errMsg = "";
 
-				if (!$("#emi").val()) {
+			/* 	if (!$("#emi").val()) {
 
 					isError = true;
 
@@ -415,9 +446,9 @@
 					//return false;
 				} else {
 					$("#error_emi").hide()
-				}
+				} */
 
-				if (!$("#repayAmt").val()) {
+				/* if (!$("#repayAmt").val()) {
 
 					isError = true;
 
@@ -425,7 +456,7 @@
 
 				} else {
 					$("#error_repayAmt").hide()
-				}
+				} */
 				if (!$("#remark").val()) {
 
 					isError = true;
@@ -497,6 +528,7 @@
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,
+			
 			locale : {
 				format : 'DD-MM-YYYY'
 			}
