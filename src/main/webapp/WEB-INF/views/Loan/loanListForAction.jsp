@@ -197,7 +197,7 @@ e9a9"></i></a> <a
 											href="${pageContext.request.contextPath}/showChangeGuarantor?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-200" data-popup="tooltip"
 											title="" data-original-title="Change Guarantor"><i
-												class="icon-sort-time-desc"></i></a>
+												class="icon-pencil7"></i></a>
 												</td>
 
 

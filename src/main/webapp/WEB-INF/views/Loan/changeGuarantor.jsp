@@ -61,8 +61,9 @@
 					<div class="card-body">
 <form action="${pageContext.request.contextPath}/submitChangeGuarantor" id="submitInsertEmp" method="post">
 <input type="hidden" readonly="readonly" id="loanId" name="loanId" value="${advList.id}">
-<input type="hidden" readonly="readonly" id="g1" name="g1" value="${advList.exIn1}"> 
-<input type="hidden" readonly="readonly" id="g2" name="g2" value="${advList.exIn2}"> 
+<input type="hidden" readonly="readonly" id="g1" name="g1" value="${advList.exInt1}"> 
+<input type="hidden" readonly="readonly" id="g2" name="g2" value="${advList.exInt2}"> 
+ <input type="hidden" readonly="readonly" id="loanEmpId" name="loanEmpId" value="${advList.empId}"> 
  
 						<%
 							if (session.getAttribute("errorMsg") != null) {
