@@ -366,6 +366,12 @@ public class ShiftAssignController {
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/autoshiftAllocation", map,
 					Info.class);
 
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Monthly shift allocation completed successfully.");
+			} else {
+				session.setAttribute("errorMsg", "failed to Allocate Monthly shift ");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -435,16 +441,15 @@ public class ShiftAssignController {
 
 				int year = temp.get(Calendar.YEAR);
 				int month = temp.get(Calendar.MONTH);
-				
-				Date firstDayOfMonth = new GregorianCalendar(year,
-						month, 1).getTime();
+
+				Date firstDayOfMonth = new GregorianCalendar(year, month, 1).getTime();
 
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDate", sf.format(firstDayOfMonth));
 				map.add("toDate", sf.format(lastDay));
 				map.add("locId", locId);
 				map.add("userId", userObj.getUserId());
-				
+
 				Info info = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/checkRemainingEmployeeForProjection", map, Info.class);
 
