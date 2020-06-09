@@ -40,6 +40,8 @@ import com.ats.hreasy.model.TempFistDayAssignList;
 @Controller
 @Scope("session")
 public class ShiftAssignController {
+	
+	
 
 	@RequestMapping(value = "/shiftUploadSelectMonth", method = RequestMethod.GET)
 	public String attendanceSelectMonth(HttpServletRequest request, HttpServletResponse response, Model model) {
