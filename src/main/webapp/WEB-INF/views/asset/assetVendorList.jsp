@@ -103,7 +103,7 @@
 									<th>Vendor Email</th>		
 									<th>Website</th>		
 									<th>Contact No</th>		
-									<th>Address</th>	
+									<th>City</th>	
 									<th>GSTIN</th>	
 									<th>Contact Person Name</th>	
 									<th>Contact Person No.</th>
@@ -122,7 +122,7 @@
 										<td>${vendorList.vendorEmail}</td>
 										<td>${vendorList.website}</td>
 										<td>${vendorList.contactNo1}/${vendorList.contactNo2}</td>
-										<td>${vendorList.vendorCity}, ${vendorList.compAddress}</td>									
+										<td>${vendorList.vendorCity}</td>									
 										<td>${vendorList.gstin}</td>
 										<td>${vendorList.conatctPersonName}</td>
 										<td>${vendorList.contactPersonNo}</td>
