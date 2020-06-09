@@ -20,14 +20,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.AssetVendor;
+import com.ats.hreasy.model.Assets;
+import com.ats.hreasy.model.AssetsDetailsList;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.Setting;
 
 @Controller
 @Scope("session")
@@ -144,7 +148,13 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-				int assetCatId = Integer.parseInt(request.getParameter("assetCatId"));
+				int assetCatId = 0;
+				try {
+					assetCatId = Integer.parseInt(request.getParameter("assetCatId"));
+				}catch (Exception e) {
+					assetCatId = 0;
+					e.printStackTrace();
+				}
 			
 				AssetCategory asset = new AssetCategory();
 
@@ -398,7 +408,13 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-				int assetCatId = Integer.parseInt(request.getParameter("vendorId"));
+				int assetCatId = 0;
+				try {
+					assetCatId = Integer.parseInt(request.getParameter("vendorId"));
+				}catch (Exception e) {
+					 assetCatId = 0;
+					e.printStackTrace();
+				}
 			
 				AssetVendor assetVendor = new AssetVendor();
 				assetVendor.setVendorId(assetCatId);
@@ -427,7 +443,7 @@ public class AssetMgmtController {
 						AssetVendor.class);
 
 					if (res.getVendorId()>0) {
-						if(res.getVendorId()>0) {
+						if(assetCatId>0) {
 							session.setAttribute("successMsg", "Asset Vendor Updated Successfully");
 						}else {
 							session.setAttribute("successMsg", "Asset Vendor Inserted Successfully");
@@ -530,5 +546,296 @@ public class AssetMgmtController {
 		}
 		return a;
 	}
+/****************************************************************************/
+	@RequestMapping(value = "/showAllAssets", method = RequestMethod.GET)
+	public ModelAndView showAllAssets(HttpServletRequest request, HttpServletResponse responser) {
 
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showAllAssets", "showAllAssets", 1, 0, 0, 0, newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+
+			try {
+				model = new ModelAndView("asset/assetsList");
+
+				//MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				//map.add("companyId", 1);
+
+				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssets"
+						, AssetsDetailsList[].class);
+				List<AssetsDetailsList> assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+
+				for (int i = 0; i < assetsList.size(); i++) {
+
+					assetsList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(assetsList.get(i).getAssetId())));
+				}
+
+				Info edit = AcessController.checkAccess("showAllAssets", "showAllAssets", 0, 0, 1, 0,
+						newModuleList);
+				Info delete = AcessController.checkAccess("showAllAssets", "showAllAssets", 0, 0, 0, 1,
+						newModuleList);
+				Info add = AcessController.checkAccess("showAllAssets", "showAllAssets", 0, 1, 0, 0,
+						newModuleList);
+				
+				if (add.isError() == false) {
+					System.out.println(" add   Accessable ");
+					model.addObject("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");
+					model.addObject("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");
+					model.addObject("deleteAccess", 0);
+
+				}
+				model.addObject("assetsList", assetsList);
+
+			} catch (Exception e) {
+				System.out.println("Exception in showAllAssets : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		return model;
+
+	}
+	
+	
+	@RequestMapping(value = "/addAsset", method = RequestMethod.GET)
+	public ModelAndView addAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		String invoiceNo = new String();
+		MultiValueMap<String, Object> map = null;
+		try {
+			Assets asset = new Assets();
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("addAsset", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/addAsset");
+				
+				AssetCategory[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetCategory"
+						, AssetCategory[].class);
+				List<AssetCategory> assetCatList = new ArrayList<AssetCategory>(Arrays.asList(assetArr));
+				model.addObject("assetCatList",  assetCatList);
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "assetCodeValue");
+				
+				Setting settingValue = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "assetCodeLength");
+				
+				Setting strLength = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "assetCodeStr");
+				Setting astCodeStr = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				try {
+				System.out.println("Code Str -----------------"+settingValue.getValue()+"//"+astCodeStr.getValue()+"//"+strLength.getValue());
+				invoiceNo =astCodeStr.getValue()+"_"+String.format("%8d" , Integer.parseInt(settingValue.getValue()));
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				asset.setAssetCode(invoiceNo);
+				model.addObject("asset", asset);
+				model.addObject("title",  "Add Asset");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/submitInsertAsset", method = RequestMethod.POST)
+	public String submitInsertAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("submitInsertAsset", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		String a = new String();
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showAllAssets";
+			try {
+				
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				int assetId = 0;
+				try {
+					assetId = Integer.parseInt(request.getParameter("assetId"));
+				}catch (Exception e) {
+					assetId = 0;
+					e.printStackTrace();					
+				}
+				
+				Assets assets = new Assets();
+				assets.setAssetCatId(Integer.parseInt(request.getParameter("assetCatId")));
+				assets.setAssetCode(request.getParameter("assetCode"));
+				assets.setAssetDesc(request.getParameter("assetDesc"));
+				assets.setAssetId(assetId);
+				assets.setAssetMake(request.getParameter("assetMake"));
+				assets.setAssetModel(request.getParameter("assetModel"));
+				assets.setAssetName(request.getParameter("assetName"));
+				assets.setAssetPurDate(DateConvertor.convertToYMD(request.getParameter("assetPurDate")));
+				assets.setAssetRemark(request.getParameter("remark"));
+				assets.setAssetSrno(request.getParameter("assetSrno"));
+				assets.setVendorId(Integer.parseInt(request.getParameter("assetVendorId")));
+				assets.setDelStatus(1);				
+				assets.setExInt1(0);
+				assets.setExVar1("NA");
+				assets.setExInt2(0);
+				assets.setExVar2("NA");
+				assets.setMakerUserId(userObj.getUserId());
+				assets.setUpdateDatetime(sf.format(date));
+				
+
+				Assets res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssets", assets,
+						Assets.class);
+
+					if (res.getAssetId()>0) {
+						if(assetId>0) {
+							session.setAttribute("successMsg", "Asset Updated Successfully");
+						}else {
+							session.setAttribute("successMsg", "Asset Inserted Successfully");
+						}
+					}
+					else {
+					
+						session.setAttribute("errorMsg", "Failed to Insert Asset");
+					}
+
+				
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Insert Asset");
+			}
+		}
+
+		return a;
+	}
+	
+	@RequestMapping(value = "/editAsset", method = RequestMethod.GET)
+	public ModelAndView editAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editAssetVendor", "showAssetVendor", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+
+				model = new ModelAndView("asset/addAsset");
+				String base64encodedString = request.getParameter("assetId");
+				String assetId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);
+				Assets editAsset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetById", map,
+						Assets.class);
+				editAsset.setAssetPurDate(DateConvertor.convertToDMY(editAsset.getAssetPurDate()));
+				model.addObject("asset", editAsset);
+				
+				AssetCategory[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetCategory"
+						, AssetCategory[].class);
+				List<AssetCategory> assetCatList = new ArrayList<AssetCategory>(Arrays.asList(assetArr));
+				model.addObject("assetCatList",  assetCatList);
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
+				
+				
+				model.addObject("title",  "Edit Asset");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/deleteAsset", method = RequestMethod.GET)
+	public String deleteAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		String a = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("deleteAssetVendor", "showAssetVendor", 0, 0, 0, 1, newModuleList);
+			if (view.isError() == true) {
+
+				a = "redirect:/accessDenied";
+
+			}
+
+			else {
+
+				a = "redirect:/showAllAssets";
+
+				String base64encodedString = request.getParameter("assetId");
+				String assetId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteAssetById", map,
+						Info.class);
+
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", info.getMsg());
+				} else {
+					session.setAttribute("errorMsg", info.getMsg());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Delete Asset");
+		}
+		return a;
+	}
 }
