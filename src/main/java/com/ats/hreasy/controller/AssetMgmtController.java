@@ -169,7 +169,7 @@ public class AssetMgmtController {
 						}
 					} 
 					else if(res.getAssetCatId()<0){
-						session.setAttribute("errorMsg", "Failed to Insert Asset Category, Duplicate Record Found");
+						session.setAttribute("errorMsg", "Failed to Insert Asset Category, Record Already Exist");
 					}
 					else {
 					
@@ -434,7 +434,7 @@ public class AssetMgmtController {
 						}
 					} 
 					else if(res.getVendorId()<0){
-						session.setAttribute("errorMsg", "Failed to Insert Asset Vendor, Duplicate Record Found");
+						session.setAttribute("errorMsg", "Failed to Insert Asset Vendor, Record Already Exist");
 					}
 					else {
 					

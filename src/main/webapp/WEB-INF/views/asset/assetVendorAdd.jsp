@@ -107,9 +107,7 @@
 										<div class="col-md-6">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="vendorId"
-														name="vendorId" value="${assetVendor.vendorId}">
-													<span class="validation-invalid-label" id="error_compName"
-														style="display: none;">This field is required.</span>
+														name="vendorId" value="${assetVendor.vendorId}">													
 												</div>
 											</div>
 										</div>
@@ -130,8 +128,8 @@
 											<div class="col-md-6">
 												<label class="col-form-label col-lg-5 float" for="gstin">GSTIN <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<input type="text" class="form-control"
-													placeholder="Enter GSTIN" id="gstin"
+												<input type="text" class="form-control" maxlength="15"
+													placeholder="Enter GSTIN" id="gstin" style="text-transform: uppercase;"
 													name="gstin" autocomplete="off" onchange="trim(this)" value="${assetVendor.gstin}">
 												<span class="validation-invalid-label" id="error_email"
 													style="display: none;">This field is required.</span>
@@ -170,10 +168,10 @@
 									<div class="form-group row">
 										<div class="col-md-6">	
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="contact1">Contact
-												No.1 <span class="text-danger">* </span>:</label>
+												No. <span class="text-danger">* </span>:</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control" maxlength="10"
-													placeholder="Enter Contact No.1" id="contact1" value="${assetVendor.contactNo1}"
+													placeholder="Enter Contact No." id="contact1" value="${assetVendor.contactNo1}"
 													name="contact1" autocomplete="off" onchange="trim(this)">
 												<span class="validation-invalid-label" id="error_contact1"
 													style="display: none;">This field is required.</span>
@@ -181,11 +179,11 @@
 										</div>
 									
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="contactNo2">Contact
-												No.2 <span class="text-danger"></span>:</label>
+											<label class="col-form-label col-lg-5 float" for="contactNo2">Other Contact
+												No. <span class="text-danger"></span>:</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control" value="${assetVendor.contactNo2}"
-													placeholder="Enter Contact No.2" id="contact2"
+													placeholder="Enter Other Contact No." id="contact2"
 													name="contact2" autocomplete="off" onchange="trim(this)"
 													  maxlength="10"> <span
 													class="validation-invalid-label" id="error_contact2"
@@ -255,7 +253,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="contactPersonEmail">Contact Person
 												Email <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
-												<input type="email" class="form-control" value="${assetVendor.contactPersonEmail}"
+												<input type="text" class="form-control" value="${assetVendor.contactPersonEmail}"
 													placeholder="Enter Contact Person Email" id="contactPersonEmail"
 													name="contactPersonEmail" autocomplete="off" onchange="trim(this)">
 												<span class="validation-invalid-label" id="error_contactPersonEmail"
@@ -519,6 +517,25 @@
 												} else {
 													$("#error_contactPersonEmail").hide()
 												}
+												if (!$("#contactPersonEmail").val()
+														|| !validateEmail($(
+																"#contactPersonEmail").val())) {
+
+													isError = true;
+
+													if (!$("#contactPersonEmail").val()) {
+														document
+																.getElementById("error_contactPersonEmail").innerHTML = "This field is required.";
+													} else {
+														document
+																.getElementById("error_contactPersonEmail").innerHTML = "Enter valid email.";
+													}
+
+													$("#error_contactPersonEmail").show()
+
+												} else {
+													$("#error_contactPersonEmail").hide()
+												}
 												
 												if (!isError) {
 
@@ -540,7 +557,17 @@
 						});
 		//
 	</script>
-	
+	<script type="text/javascript">
+	$('#contactPersonNo').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	$('#contact1').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	$('#contact2').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	</script>
 	<!-- <script type="text/javascript">
 	$('#submtbtn').on('click', function() {
         swalInit({
