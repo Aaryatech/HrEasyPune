@@ -155,7 +155,7 @@ public class ShiftController {
 				model.addAttribute("locationList", locationList);
 				model.addAttribute("locationAccess", userObj.getLocationIds().split(","));
 
-				SelfGroup[] selfGroup = Constants.getRestTemplate().getForObject(Constants.url + "/getSelftGroupList",
+				SelfGroup[] selfGroup = Constants.getRestTemplate().getForObject(Constants.url + "/getSelftGroupListForAddShift",
 						SelfGroup[].class);
 
 				List<SelfGroup> selfGroupList = new ArrayList<SelfGroup>(Arrays.asList(selfGroup));

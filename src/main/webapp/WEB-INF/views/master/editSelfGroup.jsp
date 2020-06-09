@@ -129,8 +129,8 @@
 													class="form-control form-control-select2 select2-hidden-accessible"
 													data-fouc="" aria-hidden="true"> 
 													<option value="0" ${editSelf.exInt1==0 ? 'selected' : ''}>Dynamic Allocation</option>
-													<option value="1" ${editSelf.exInt1==1 ? 'selected' : ''}>Manual Allocation</option>
-													<option value="2" ${editSelf.exInt1==2 ? 'selected' : ''}>Flexible Allocation</option> 
+													<%-- <option value="1" ${editSelf.exInt1==1 ? 'selected' : ''}>Manual Allocation</option> --%>
+													<%-- <option value="2" ${editSelf.exInt1==2 ? 'selected' : ''}>Flexible Allocation</option>  --%>
 													 
 												</select> <span class="validation-invalid-label" id="error_groupType"
 													style="display: none;">This field is required.</span>

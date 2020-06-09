@@ -118,13 +118,14 @@
 												<c:otherwise>Dynamic Allocation</c:otherwise>
 											</c:choose></td>
 
-										<td class="text-center"><c:if test="${editAccess == 0}">
+										<td class="text-center"><c:if
+												test="${editAccess == 0 && groupList.exInt1==0}">
 												<a
 													href="${pageContext.request.contextPath}/editSelfGrp?grpId=${groupList.exVar1}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
+											</c:if> <c:if test="${deleteAccess == 0 && groupList.exInt1==0}">
 												<%-- <a
 													href="${pageContext.request.contextPath}/deleteLocation?locId=${locationList.exVar1}"
 													onClick="return confirm('Are you sure want to delete this record');"

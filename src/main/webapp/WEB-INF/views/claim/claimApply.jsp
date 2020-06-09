@@ -208,7 +208,7 @@
 												Claim Title <span style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="text" class="form-control" placeholder="Remark"
+												<input type="text" class="form-control" placeholder="Claim Title"
 													id="claim_title" name="claim_title" autocomplete="off"
 													onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_claim_title"

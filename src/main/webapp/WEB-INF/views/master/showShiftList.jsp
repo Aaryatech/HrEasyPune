@@ -42,13 +42,13 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Shift Timing
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Shift Timing List
+									</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/addShift"
 											class="breadcrumb-elements-item">
-											<button type="button" class="btn blue_btn">Add
-												Shift</button>
+											<button type="button" class="btn blue_btn">Add Shift</button>
 										</a>
 									</c:if></td>
 							</tr>
@@ -116,11 +116,23 @@
 									<tr>
 										<td>${count.index+1}</td>
 										<td>${list.shiftname}</td>
-										<td class="text-center">${list.fromtime}</td>
-										<td class="text-center">${list.totime}</td>
-										<td class="text-right">${list.shiftHr}</td>
-										<td class="text-right">${list.shiftHalfdayHr}</td>
-										<td class="text-right">${list.maxLateTimeAllowed}</td>
+										<c:choose>
+											<c:when test="${list.locationId==0}">
+												<td class="text-center">${list.fromtime}</td>
+												<td class="text-center">${list.totime}</td>
+												<td class="text-right">${list.shiftHr}</td>
+												<td class="text-right">${list.shiftHalfdayHr}</td>
+												<td class="text-right">${list.maxLateTimeAllowed}</td>
+											</c:when>
+											<c:otherwise>
+												<td class="text-center">-</td>
+												<td class="text-center">-</td>
+												<td class="text-center">-</td>
+												<td class="text-center">-</td>
+												<td class="text-center">-</td>
+											</c:otherwise>
+										</c:choose>
+
 										<td class="text-center"><c:choose>
 												<c:when test="${list.departmentId==1}">Yes</c:when>
 												<c:otherwise>No</c:otherwise>
@@ -132,7 +144,8 @@
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
-											</c:if> --%> <c:if test="${deleteAccess == 0}">
+											</c:if> --%> <c:if
+												test="${deleteAccess == 0 and list.locationId==0}">
 												<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
 													data-uuid="${list.id}" data-popup="tooltip" title=""

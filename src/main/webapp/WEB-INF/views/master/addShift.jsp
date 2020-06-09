@@ -171,9 +171,8 @@
 												style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="time" class="form-control timehour24"
-													id="hfdayhour" data-mask="23:59" name="hfdayhour"
-													autocomplete="off"> <span
+												<input type="time" class="form-control  " id="hfdayhour"
+													name="hfdayhour" autocomplete="off"> <span
 													class="validation-invalid-label" id="error_hfdayhour"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -186,9 +185,8 @@
 											</span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="time" class="form-control timehour24"
-													id="othour" data-mask="23:59" name="othour"
-													autocomplete="off"> <span
+												<input type="time" class="form-control  " id="othour"
+													name="othour" autocomplete="off"> <span
 													class="validation-invalid-label" id="error_othour"
 													style="display: none;">This field is required.</span>
 											</div>

@@ -132,8 +132,8 @@
 													data-fouc="" aria-hidden="true">
 													<option value="">Select Group Type</option>
 													<option value="0">Dynamic Allocation</option>
-													<option value="1">Manual Allocation</option>
-													<option value="2">Flexible Allocation</option>
+													<!-- <option value="1">Manual Allocation</option> -->
+													<!-- <option value="2">Flexible Allocation</option> -->
 
 												</select> <span class="validation-invalid-label" id="error_groupType"
 													style="display: none;">This field is required.</span>
