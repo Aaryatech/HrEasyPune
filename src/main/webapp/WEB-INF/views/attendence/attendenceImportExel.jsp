@@ -47,22 +47,31 @@
 
 						<div class="card">
 
-							<div class="card-header header-elements-inline">
+							<%-- <div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
 										<td width="60%"><h5 class="card-title">Import
 												Attendance</h5></td>
 										<td width="40%" align="right">
-											<%-- <a
+											<a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">KRA List </button>
-								</a>  --%>
+								</a> 
 										</td>
 									</tr>
 								</table>
+							</div> --%>
+							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Import Attendance
+											</h5></td>
+										<td width="40%" align="right"></td>
+									</tr>
+								</table>
 							</div>
-
 
 							<div class="card-body">
 
