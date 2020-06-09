@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,7 @@
 </head>
 
 <body>
+<c:url value="/getAssetCategoryInfo" var="getAssetCategoryInfo"></c:url>
 
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
@@ -114,7 +118,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="locName">Asset 
 													Category <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control" maxlength="20"
+													<input type="text" class="form-control"
 														placeholder="Enter Asset Category" id="assetCat" value="${asset.catName}"
 														name="assetCat" autocomplete="off" onchange="trim(this)">
 													<span class="validation-invalid-label" id="error_assetCat"
@@ -172,6 +176,31 @@
 	</div>
 	<!-- /page content -->
 
+<!-- <script>
+	$("#assetCat").change(function(){  
+    var cat = $("#assetCat").val();
+    alert(cat)
+    
+
+			$
+					.getJSON(
+							'${getAssetCategoryInfo}',
+							{
+								cat : cat,
+								ajax : 'true',
+
+							},
+							function(data) {
+								//alert("data" + data);
+
+								alert("Data  " +JSON.stringify(data));
+								if (data.facultyId > 0) {
+									
+								} else {} 
+
+							});
+	});
+</script> -->
 	<script>
 	
 	function checkSame(){
