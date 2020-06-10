@@ -182,13 +182,13 @@
 							<br /> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span> <input
 								type="hidden" id="stsaprv" value="1" name="stsaprv">
-							<div style="text-align: center;">
+							<!-- <div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Approve"
 									id="aprvbtn" style="align-content: center;"
 									onclick="changeValue(1)"> <input type="submit"
 									class="btn blue_btn" value="Reject" id="rejectbtn"
 									style="align-content: center;" onclick="changeValue(2)">
-							</div>
+							</div> -->
 						</form>
 
 					</div>

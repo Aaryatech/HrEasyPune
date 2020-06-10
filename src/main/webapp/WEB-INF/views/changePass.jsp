@@ -3,8 +3,7 @@
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.UUID"%>
 <%@ page import="java.security.MessageDigest"%>
-<%@ page import="java.math.BigInteger"%>
-s
+<%@ page import="java.math.BigInteger"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
