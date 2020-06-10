@@ -135,12 +135,12 @@
 
 												<c:choose>
 													<c:when test="${claimList.claimStatus==1}">
-														<td><span class="badge badge-info">Initial
-																Pending </span></td>
+														<td><span class="badge badge-info">Initial &
+																Final Approve Pending </span></td>
 													</c:when>
 													<c:when test="${claimList.claimStatus==2}">
 														<td><span class="badge badge-secondary">Final
-																Pending </span></td>
+																Approve Pending </span></td>
 													</c:when>
 
 												</c:choose>
@@ -222,20 +222,20 @@
 												<td>${claimList1.caFromDt}</td>
 												<td>${claimList1.claimAmount}</td>
 												<c:if test="${claimList1.claimStatus==1}">
-													<td><span class="badge badge-info">Initial
-															Pending & Final Pending </span></td>
+													<td><span class="badge badge-info">Initial &
+															Final Approve Pending </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==2}">
 													<td><span class="badge badge-secondary">Final
-															Pending </span></td>
+															Approve Pending </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==3}">
 													<td><span class="badge badge-success">Final
 															Approved </span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==7}">
-													<td><span class="badge badge-danger">Leave
-															Cancelled </span></td>
+													<td><span class="badge badge-danger"> Cancelled
+													</span></td>
 												</c:if>
 												<c:if test="${claimList1.claimStatus==8}">
 													<td><span class="badge badge-danger">Initial

@@ -252,8 +252,7 @@
 												<td>${empTrailList.makerEnterDatetime}</td>
 
 												<c:if test="${empTrailList.claimStatus==1}">
-													<td><span class="badge badge-info">Initial
-															Applied</span></td>
+													<td><span class="badge badge-info"> Applied</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==2}">
 													<td><span class="badge badge-secondary">Initial
@@ -271,8 +270,8 @@
 															Rejected</span></td>
 												</c:if>
 												<c:if test="${empTrailList.claimStatus==9}">
-													<td><span class="badge badge-danger">
-															FinalRejected</span></td>
+													<td><span class="badge badge-danger"> Final
+															Rejected</span></td>
 												</c:if>
 
 

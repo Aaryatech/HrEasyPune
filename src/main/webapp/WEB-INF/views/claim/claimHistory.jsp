@@ -120,12 +120,12 @@
 										<%-- <td>${lvTypeList.claimToDate}</td> --%>
 										<td>${lvTypeList.claimAmount}</td>
 										<c:if test="${lvTypeList.claimFinalStatus==1}">
-											<td><span class="badge badge-info">Initial
-													Pending</span></td>
+											<td><span class="badge badge-info">Initial &
+													Final Approve Pending</span></td>
 										</c:if>
 										<c:if test="${lvTypeList.claimFinalStatus==2}">
 											<td><span class="badge badge-secondary">Final
-													Pending</span></td>
+													Approve Pending</span></td>
 										</c:if>
 										<c:if test="${lvTypeList.claimFinalStatus==3}">
 											<td><span class="badge badge-success">Final
@@ -139,7 +139,8 @@
 													Rejected</span></td>
 										</c:if>
 										<c:if test="${lvTypeList.claimFinalStatus==9}">
-											<td><span class="badge badge-danger">Final Reject</span></td>
+											<td><span class="badge badge-danger">Final
+													Rejected</span></td>
 										</c:if>
 
 

@@ -269,19 +269,23 @@
 											<td><span class="badge badge-info"> Applied</span></td>
 										</c:if>
 										<c:if test="${empTrailList.claimStatus==2}">
-											<td><span class="badge badge-secondary"> Applied</span></td>
+											<td><span class="badge badge-secondary"> Initial
+													Approved</span></td>
 										</c:if>
 										<c:if test="${empTrailList.claimStatus==3}">
-											<td><span class="badge badge-success"> Approved</span></td>
+											<td><span class="badge badge-success"> Final
+													Approved</span></td>
 										</c:if>
 										<c:if test="${empTrailList.claimStatus==7}">
 											<td><span class="badge badge-danger"> Cancelled</span></td>
 										</c:if>
 										<c:if test="${empTrailList.claimStatus==8}">
-											<td><span class="badge badge-danger"> Rejected</span></td>
+											<td><span class="badge badge-danger"> Initial
+													Rejected</span></td>
 										</c:if>
 										<c:if test="${empTrailList.claimStatus==9}">
-											<td><span class="badge badge-danger"> Rejected</span></td>
+											<td><span class="badge badge-danger"> Final
+													Rejected</span></td>
 										</c:if>
 
 
