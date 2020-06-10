@@ -123,7 +123,7 @@
 													Code <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"
-														placeholder="Enter Asset Code" id="assetCode"
+														placeholder="Enter Asset Code" id="assetCode" readonly="readonly"
 														name="assetCode" autocomplete="off" onchange="trim(this)" value="${asset.assetCode}">
 													<span class="validation-invalid-label" id="error_assetCode"
 														style="display: none;">This field is required.</span>
@@ -190,7 +190,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetMake">Asset 
 												Make <span class="text-danger">* </span>:</label>
 											<div class="col-lg-7 float">
-												<input type="text" class="form-control" maxlength="10"
+												<input type="text" class="form-control"
 													placeholder="Enter Asset Make" id="assetMake" value="${asset.assetMake}"
 													name="assetMake" autocomplete="off" onchange="trim(this)">
 												<span class="validation-invalid-label" id="error_assetMake"
@@ -318,6 +318,10 @@
 <script
 		src="${pageContext.request.contextPath}/resources/global_assets/js/footercommonjs.js"></script>
  <script type="text/javascript">
+ $('#assetPurDate').on('input', function() {
+	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+ });
+ 
  $(document)
 	.ready(
 			function($) {
@@ -437,15 +441,12 @@
 </script>
 	<script type="text/javascript">
 	$('.datepickerclass').daterangepicker({
-		"autoUpdateInput" : false,
 		singleDatePicker : true,
 		selectMonths : true,
 		selectYears : true,
 		locale : {
 			format : 'DD-MM-YYYY'
 		}
-	}, function(start_date) {
-		$(this.element).val(start_date.format('DD-MM-YYYY'));
 	});
 
 	//daterange-basic_new

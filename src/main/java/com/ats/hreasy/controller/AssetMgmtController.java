@@ -658,8 +658,12 @@ public class AssetMgmtController {
 				Setting astCodeStr = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
 						Setting.class);
 				try {
-				System.out.println("Code Str -----------------"+settingValue.getValue()+"//"+astCodeStr.getValue()+"//"+strLength.getValue());
-				invoiceNo =astCodeStr.getValue()+"_"+String.format("%8d" , Integer.parseInt(settingValue.getValue()));
+					
+					int strLnth = Integer.parseInt(strLength.getValue());
+					int strVal = Integer.parseInt(settingValue.getValue());
+					
+					invoiceNo =astCodeStr.getValue()+"_"+String.format("%0"+strLnth+"d" , strVal);
+					//System.out.println("------------------"+invoiceNo);
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -684,6 +688,7 @@ public class AssetMgmtController {
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 		Info view = AcessController.checkAccess("submitInsertAsset", "showAllAssets", 0, 1, 0, 0, newModuleList);
 		String a = new String();
+		MultiValueMap<String, Object> map  = null;
 		if (view.isError() == true) {
 
 			a = "redirect:/accessDenied";
@@ -731,8 +736,23 @@ public class AssetMgmtController {
 						if(assetId>0) {
 							session.setAttribute("successMsg", "Asset Updated Successfully");
 						}else {
+							
+							map  = new LinkedMultiValueMap<>();
+							map.add("limitKey", "assetCodeValue");
+							
+							Setting settingValue = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+									Setting.class);
+							int strValue = Integer.parseInt(settingValue.getValue())+1;
+							
+							map.add("settingId", settingValue.getSettingId());
+							map.add("val", strValue);
+							Info inf = Constants.getRestTemplate().postForObject(Constants.url + "/updateSetting", map,
+									Info.class);
+							
 							session.setAttribute("successMsg", "Asset Inserted Successfully");
 						}
+						
+						
 					}
 					else {
 					
