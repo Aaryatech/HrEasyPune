@@ -347,8 +347,8 @@
 										</div>
 									</div>
 								</form>
-									<p class="desc text-danger fontsize11">Note : * Fields are
-									mandatory.</p>
+									<!-- <p class="desc text-danger fontsize11">Note : * Fields are
+									mandatory.</p> -->
 
 					</div>
 
