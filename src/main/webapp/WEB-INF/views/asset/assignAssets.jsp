@@ -179,8 +179,10 @@
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
-									<td><input type="file" class="form-control" 
-										autocomplete="off" onchange="trim(this)"></td>			
+									<td>
+										<img id="output1" width="150"/>
+										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile1(event)"> 
+									</td>			
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
 										autocomplete="off" onchange="trim(this)"></td>									
 									
@@ -196,8 +198,10 @@
 									<td>Mobile</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
-									<td><input type="file" class="form-control" 
-										autocomplete="off" onchange="trim(this)"></td>	
+									<td>
+										<img id="output2" width="150"/>
+										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile2(event)"> 
+									</td>	
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
 										autocomplete="off" onchange="trim(this)"></td>									
 									
@@ -213,8 +217,10 @@
 									<td>Stationary</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
-									<td><input type="file" class="form-control" 
-										autocomplete="off" onchange="trim(this)"></td>	
+									<td>
+										<img id="output3" width="150"/>
+										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile3(event)"> 
+									</td>	
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
 										autocomplete="off" onchange="trim(this)"></td>									
 									
@@ -230,8 +236,10 @@
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
-									<td><input type="file" class="form-control" 
-										autocomplete="off" onchange="trim(this)"></td>	
+									<td>
+										<img id="output4" width="150"/>
+										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile4(event)"> 
+									</td>	
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
 										autocomplete="off" onchange="trim(this)"></td>									
 									
@@ -247,8 +255,10 @@
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
-									<td><input type="file" class="form-control" 
-										autocomplete="off" onchange="trim(this)"></td>	
+									<td>
+										<img id="output5" width="150"/>
+										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile5(event)"> 
+									</td>	
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
 										autocomplete="off" onchange="trim(this)"></td>									
 									
@@ -497,6 +507,34 @@
 					</div>
 				</div>
 				<!-- /large modal -->
+<script type="text/javascript">
+var loadFile1 = function(event) {
+	var image1 = document.getElementById('output1');
+	image1.src = URL.createObjectURL(event.target.files[0]);
+	
+	
+};
+
+var loadFile2 = function(event) {
+	var image2 = document.getElementById('output2');
+	image2.src = URL.createObjectURL(event.target.files[0]);
+};
+
+var loadFile3 = function(event) {
+	var image3 = document.getElementById('output3');
+	image3.src = URL.createObjectURL(event.target.files[0]);
+};
+
+var loadFile4 = function(event) {
+	var image4 = document.getElementById('output4');
+	image4.src = URL.createObjectURL(event.target.files[0]);
+};
+
+var loadFile5 = function(event) {
+	var image5 = document.getElementById('output5');
+	image5.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
 	
 <script>
 		// Custom bootbox dialog
