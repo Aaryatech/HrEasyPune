@@ -177,7 +177,7 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center" width="5%">Sr. No.</th>
 									<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>
 									<th class="text-center">Asset Code</th>
 									<th class="text-center">Asset Name</th>

@@ -169,7 +169,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td width="5%">1</td>
+									<td>1</td>
 									<td><input type="checkbox" class="select_all">
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
