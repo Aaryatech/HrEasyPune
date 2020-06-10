@@ -858,4 +858,111 @@ public class AssetMgmtController {
 		}
 		return a;
 	}
+	
+	/*****************************************************************************/
+	
+	@RequestMapping(value = "/manageAssets", method = RequestMethod.GET)
+	public ModelAndView manageAssets(HttpServletRequest request, HttpServletResponse responser) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("manageAssets", "manageAssets", 1, 0, 0, 0, newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+
+			try {
+				model = new ModelAndView("asset/manageAssets");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
+
+				Info edit = AcessController.checkAccess("manageAssets", "manageAssets", 0, 0, 1, 0,
+						newModuleList);
+				Info delete = AcessController.checkAccess("manageAssets", "manageAssets", 0, 0, 0, 1,
+						newModuleList);
+				Info add = AcessController.checkAccess("manageAssets", "manageAssets", 0, 1, 0, 0,
+						newModuleList);
+				
+				if (add.isError() == false) {
+					System.out.println(" add   Accessable ");
+					model.addObject("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");
+					model.addObject("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");
+					model.addObject("deleteAccess", 0);
+
+				}
+
+			} catch (Exception e) {
+				System.out.println("Exception in 	 : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		return model;
+
+	}
+	
+	
+	@RequestMapping(value = "/assignAssets", method = RequestMethod.GET)
+	public ModelAndView assignAssets(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		try {
+
+//			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+//			Info view = AcessController.checkAccess("assignAssets", "manageAssets", 0, 0, 1, 0, newModuleList);
+//
+//			if (view.isError() == true) {
+//
+//				model = new ModelAndView("accessDenied");
+//
+//			} else {
+//
+//				model = new ModelAndView("asset/assignAssets");
+//				
+//			}
+			model = new ModelAndView("asset/assignAssets");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	
+	
+	@RequestMapping(value = "/returnAssets", method = RequestMethod.GET)
+	public ModelAndView returnAssets(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		try {
+			model = new ModelAndView("asset/returnAssets");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 }
