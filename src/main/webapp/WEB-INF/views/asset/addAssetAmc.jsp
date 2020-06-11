@@ -265,7 +265,7 @@
 												Conditions <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Terms & Conditions"id="terms"
+													placeholder="Enter Terms & Conditions"id="terms"
 													name="terms"></textarea>
 												<span class="validation-invalid-label" id="error_terms"
 													style="display: none;">This field is required.</span>
@@ -279,7 +279,7 @@
 												Remark<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Terms & Conditions" id="positiveremark"
+													placeholder="Enter Positive Remark" id="positiveremark"
 													name="positiveremark"></textarea>
 												<span class="validation-invalid-label" id="error_positiveremark"
 													style="display: none;">This field is required.</span>
@@ -291,7 +291,7 @@
 												Remark <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Terms & Conditions" id="negtiveremark"
+													placeholder="Enter Negative Remark" id="negtiveremark"
 													name="negtiveremark"></textarea>
 												<span class="validation-invalid-label" id="error_negtiveremark"
 													style="display: none;">This field is required.</span>
