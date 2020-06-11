@@ -212,7 +212,7 @@
 															<td>Live</td>
 															<td class="text-center">
 																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetCatId="
+																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
 																		 												 
@@ -222,8 +222,8 @@
 																		title="" data-original-title="Terminate"><i
 																		class="icon-trash"></i></a>
 																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetCatId="
-																		class="list-icons-item text-primary-600 bootbox_custom"
+																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>
@@ -238,7 +238,7 @@
 															<td>Pending</td>
 															<td class="text-center">
 																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetCatId="
+																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
 																		 												 
@@ -248,8 +248,8 @@
 																		title="" data-original-title="Terminate"><i
 																		class="icon-trash"></i></a>
 																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetCatId="
-																		class="list-icons-item text-primary-600 bootbox_custom"
+																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>
@@ -264,7 +264,7 @@
 															<td>Renewed</td>
 															<td class="text-center">
 																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetCatId="
+																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
 																		 												 
@@ -274,8 +274,8 @@
 																		title="" data-original-title="Terminate"><i
 																		class="icon-trash"></i></a>
 																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetCatId="
-																		class="list-icons-item text-primary-600 bootbox_custom"
+																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>

@@ -236,7 +236,7 @@
 											
 											<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
-												 <span class="text-danger"></span>:</label>
+												 <span class="text-danger">*</span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control daterange-basic_new"
 													placeholder="Enter AMC Period" id="amcperiod"
