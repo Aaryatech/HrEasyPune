@@ -324,7 +324,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<!-- <h5 class="modal-title">Assets Details</h5> -->
-								<h5 class="pageTitle"><i class="icon-list-unordered"></i>Assets Assign to   
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i>Current Assets Assigned to   
 								Employee </h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>

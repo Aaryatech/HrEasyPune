@@ -421,45 +421,41 @@
 
 									<th class="text-center" width="10%">Sr. No.</th>
 									<th class="text-center">AMC Vendor Name</th>
-									<th class="text-center" colspan="2">AMC Period</th>
+									<th class="text-center">AMC Period</th>
+									<th class="text-center">AMC Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>1</td>
 									<td>Vendor 1</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>
+									<td>Live</td>
 									
 								</tr>
 <tr>
 									<td>2</td>
 									<td>Vendor 2</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>
+									<td>Pending</td>
 								</tr>
 								<tr>
 									<td>3</td>
 									<td>Vendor 3</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>
+									<td>Renewed</td>
 								</tr>
 								<tr>
 									<td>4</td>
 									<td>Vendor 4</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-								
+									<td>20-05-2020 to 01-06-2020</td>
+									<td>Terminated</td>
 								</tr>
 								<tr>
 									<td>5</td>
 									<td>Vendor 5</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>
+									<td>Live</td>
 								</tr>
 							</tbody>
 							<%-- <tbody>

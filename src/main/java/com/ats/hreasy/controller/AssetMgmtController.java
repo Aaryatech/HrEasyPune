@@ -789,7 +789,7 @@ public class AssetMgmtController {
 		try {
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("editAssetVendor", "showAssetVendor", 0, 0, 1, 0, newModuleList);
+			Info view = AcessController.checkAccess("editAsset", "showAssetVendor", 0, 0, 1, 0, newModuleList);
 
 			if (view.isError() == true) {
 
@@ -923,7 +923,7 @@ public class AssetMgmtController {
 				}
 
 			} catch (Exception e) {
-				System.out.println("Exception in 	 : " + e.getMessage());
+				System.out.println("Exception in manageAssets : " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -974,5 +974,201 @@ public class AssetMgmtController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	@RequestMapping(value = "/assetAmc", method = RequestMethod.GET)
+	public ModelAndView assetAmc(HttpServletRequest request, HttpServletResponse responser) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("assetAmc", "showAllAssets", 1, 0, 0, 0, newModuleList);
+
+		if (view.isError() == true) {
+
+			model = new ModelAndView("accessDenied");
+
+		} else {
+
+			try {
+				model = new ModelAndView("asset/assetAmc");
+
+				
+				Info edit = AcessController.checkAccess("assetAmc", "showAllAssets", 0, 0, 1, 0,
+						newModuleList);
+				Info delete = AcessController.checkAccess("assetAmc", "showAllAssets", 0, 0, 0, 1,
+						newModuleList);
+				Info add = AcessController.checkAccess("assetAmc", "showAllAssets", 0, 1, 0, 0,
+						newModuleList);
+				
+				if (add.isError() == false) {
+					System.out.println(" add   Accessable ");
+					model.addObject("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+					System.out.println(" edit   Accessable ");
+					model.addObject("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+					System.out.println(" delete   Accessable ");
+					model.addObject("deleteAccess", 0);
+
+				}
+
+			} catch (Exception e) {
+				System.out.println("Exception in assetAmc : " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		return model;
+
+	}
+	
+	
+
+	@RequestMapping(value = "/addAssetAmc", method = RequestMethod.GET)
+	public ModelAndView addAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		
+		try {
+			
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("addAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/addAssetAmc");
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
+				
+				model.addObject("title",  "Add Asset AMC");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/submitInsertAssetAmc", method = RequestMethod.POST)
+	public String submitInsertAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("submitInsertAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		String a = new String();
+		MultiValueMap<String, Object> map  = null;
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showAllAssets";
+			try {
+				
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				
+
+//				Assets res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssets", assets,
+//						Assets.class);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Insert Asset");
+			}
+		}
+
+		return a;
+	}
+	
+	@RequestMapping(value = "/editAssetAmc", method = RequestMethod.GET)
+	public ModelAndView editAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		
+		try {
+			
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/addAssetAmc");
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
+				
+				model.addObject("title",  "Edit Asset AMC");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/terminateAsset", method = RequestMethod.GET)
+	public String terminateAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		String a = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("terminateAsset", "showAllAssets", 0, 0, 0, 1, newModuleList);
+			if (view.isError() == true) {
+
+				a = "redirect:/accessDenied";
+
+			}
+
+			else {
+
+				a = "redirect:/assetAmc";
+
+//				String base64encodedString = request.getParameter("assetId");
+//				String assetId = FormValidation.DecodeKey(base64encodedString);
+//
+//				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+//				map.add("assetId", assetId);
+//				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteAssetById", map,
+//						Info.class);
+//
+//				if (info.isError() == false) {
+//					session.setAttribute("successMsg", info.getMsg());
+//				} else {
+//					session.setAttribute("errorMsg", info.getMsg());
+//				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Terminate Asset");
+		}
+		return a;
 	}
 }
