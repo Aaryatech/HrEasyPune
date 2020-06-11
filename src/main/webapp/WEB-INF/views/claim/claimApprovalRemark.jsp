@@ -285,13 +285,13 @@
 								<form
 									action="${pageContext.request.contextPath}/approveClaimByAuth1"
 									id="submitInsertCompany" method="post">
-									<c:if test="${stat==3}">
+									<c:if test="${stat==3 && payroll_claim_show==1}">
 
 										<div class="form-group row">
 											<label class="col-form-label col-lg-2" for="date">Select
 												Date <span style="color: red">* </span> :
 											</label>
-											<div class="col-md-10">
+											<div class="col-md-2">
 												<input type="text" class="form-control "
 													placeholder="Select Date " id="datepicker" name="date"
 													value="${date}" autocomplete="off"> <span
@@ -320,30 +320,12 @@
 										name="stat" value="${stat}"><input type="hidden"
 										id="stat2" name="stat2" value="${stat2}"> <input
 										type="hidden" id="selectedSts" name="selectedSts"
-										value="${stat}">
-
+										value="${stat}"> <input type="hidden"
+										id="payroll_claim_show" name="payroll_claim_show"
+										value="${payroll_claim_show}">
 									<div class="form-group row mb-0">
 										<div style="margin: 0 auto;">
-											<!-- 											<button type="reset" class="btn btn-light legitRipple">Reset</button>
- -->
-											<%-- <button type="submit" class="btn bg-blue ml-3 legitRipple"
-												id="submtbtn">
-												Submit <i class="icon-paperplane ml-2"></i>
-											</button>
-											<c:choose>
-												<c:when test="${retun==0}">
-													<a
-														href="${pageContext.request.contextPath}/showClaimApprovalByAdmin"><button
-															type="button" class="btn bg-blue ml-3 legitRipple"
-															id="cancel">Cancel</button></a>
-												</c:when>
-												<c:otherwise>
-													<a
-														href="${pageContext.request.contextPath}/showClaimApprovalByAuthority"><button
-															type="button" class="btn bg-blue ml-3 legitRipple"
-															id="cancel">Cancel</button></a>
-												</c:otherwise>
-											</c:choose> --%>
+
 
 											<c:choose>
 												<c:when test="${stat==7}">
@@ -461,7 +443,7 @@
 
 												} */
 
-												if ($("#selectedSts").val() == 3) {
+												if ($("#selectedSts").val() == 3 && $("#payroll_claim_show").val() == 1) {
 													
 													$("#error_month")
 													.hide()

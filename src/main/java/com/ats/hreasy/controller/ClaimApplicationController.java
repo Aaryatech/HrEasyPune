@@ -34,6 +34,7 @@ import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetAuthorityIds;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.Advance.Advance;
 import com.ats.hreasy.model.claim.ClaimApply;
 import com.ats.hreasy.model.claim.ClaimApplyHeader;
@@ -503,6 +504,13 @@ public class ClaimApplicationController {
 			model.addObject("claimprfList", claimprfList);
 			model.addObject("fileUrl", Constants.imageShowUrl);
 
+			MultiValueMap<String, Object> map1 = new LinkedMultiValueMap<String, Object>();
+			map1.add("limitKey", "payroll_claim_show");
+			Setting payrollClaimShow = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+					map1, Setting.class);
+			int payroll_claim_show = Integer.parseInt(payrollClaimShow.getValue());
+			model.addObject("payroll_claim_show", payroll_claim_show);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -596,10 +604,22 @@ public class ClaimApplicationController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			int stat1 = Integer.parseInt(stat);
 			if (stat1 == 3) {
-				month = request.getParameter("date");
-				String temp[] = month.split("-");
-				map.add("month", temp[0]);
-				map.add("year", temp[1]);
+
+				MultiValueMap<String, Object> map1 = new LinkedMultiValueMap<String, Object>();
+				map1.add("limitKey", "payroll_claim_show");
+				Setting payrollClaimShow = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map1, Setting.class);
+				int payroll_claim_show = Integer.parseInt(payrollClaimShow.getValue());
+
+				if (payroll_claim_show == 1) {
+					month = request.getParameter("date");
+					String temp[] = month.split("-");
+					map.add("month", temp[0]);
+					map.add("year", temp[1]);
+				} else {
+					map.add("month", 0);
+					map.add("year", 0);
+				}
 
 			} else {
 				map.add("month", 0);
@@ -691,7 +711,7 @@ public class ClaimApplicationController {
 
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-			
+
 			int empId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("empId")));
 			// System.err.println("emp idis " + empId);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -713,12 +733,14 @@ public class ClaimApplicationController {
 
 			model.addObject("claimList1", claimList1);
 			model.addObject("empId", request.getParameter("empId"));
-			
-			/*map = new LinkedMultiValueMap<String, Object>();
-			map.add("empId", empId);
 
-			AuthorityInformation authorityInformation = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getAuthorityInfoByEmpId", map, AuthorityInformation.class);*/
+			/*
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("empId", empId);
+			 * 
+			 * AuthorityInformation authorityInformation = Constants.getRestTemplate()
+			 * .postForObject(Constants.url + "/getAuthorityInfoByEmpId", map,
+			 * AuthorityInformation.class);
+			 */
 			model.addObject("orignalEmpId", empId);
 			model.addObject("loginEmpId", userObj.getEmpId());
 
@@ -1025,9 +1047,9 @@ public class ClaimApplicationController {
 	public String uploadClaimProof(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
-		
+
 		try {
-			
+
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			Date date = new Date();
@@ -1121,9 +1143,23 @@ public class ClaimApplicationController {
 			String temp[] = dt.split("-");
 
 			if (stat == 3) {
-				docHead.setMonth(Integer.parseInt(temp[1]));
-				docHead.setYear(Integer.parseInt(temp[0]));
-				docHead.setIsPaid(0);
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("limitKey", "payroll_claim_show");
+				Setting payrollClaimShow = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+				int payroll_claim_show = Integer.parseInt(payrollClaimShow.getValue());
+
+				if (payroll_claim_show == 1) {
+					docHead.setMonth(Integer.parseInt(temp[1]));
+					docHead.setYear(Integer.parseInt(temp[0]));
+					docHead.setIsPaid(0);
+				} else {
+					docHead.setMonth(0);
+					docHead.setYear(0);
+					docHead.setIsPaid(0);
+				}
+
 			} else {
 				docHead.setMonth(0);
 				docHead.setYear(0);
@@ -1390,7 +1426,7 @@ public class ClaimApplicationController {
 					Arrays.asList(claimStructureDetail));
 			model.addObject("claimTypeList", claimTypeList);
 			model.addObject("empId", request.getParameter("empId"));
-			 
+
 			map = new LinkedMultiValueMap<>();
 			map.add("claimId", claimId);
 			ClaimProof[] claimprf = Constants.getRestTemplate().postForObject(Constants.url + "/getClaimProofByClaimId",
