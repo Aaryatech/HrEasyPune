@@ -71,25 +71,26 @@
 							</div>
 
 							<div class="form-group row">
-								<label class="col-form-label col-lg-2" for="itAmt"> IT
-									Ammount : </label>
+								<label class="col-form-label col-lg-2" for="itAmt">TDS
+									AMT: </label>
 								<div class="col-lg-2">
 									<input type="text" class="form-control numbersOnly"
 										placeholder="IT Ammount" id="itAmt" name="itAmt"
-										autocomplete="off"> <input type="hidden"
+										autocomplete="off">
+									<!-- <input type="hidden"
 										class="form-control numbersOnly" placeholder="Status"
-										id="perBonus" name="perBonus" autocomplete="off">
+										id="perBonus" name="perBonus" autocomplete="off"> -->
 
 								</div>
 								<div class="col-lg-1"></div>
-								<!-- <label class="col-form-label col-lg-2" for="perBonus">
-									Performance Bonus : </label>
+								<label class="col-form-label col-lg-2" for="perBonus">
+									Performance Bonus AMT: </label>
 								<div class="col-lg-2">
 									<input type="text" class="form-control numbersOnly"
 										placeholder="Status" id="perBonus" name="perBonus"
 										autocomplete="off">
 
-								</div> -->
+								</div>
 							</div>
 
 							<!-- <div class="form-group row">
@@ -143,6 +144,41 @@
 								<table
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 									id="bootstrap-data-table1">
+
+									<c:set value="0" var="payroll_claim_show"></c:set>
+									<c:set value="0" var="payroll_advance_show"></c:set>
+									<c:set value="0" var="payroll_loan_show"></c:set>
+									<c:set value="0" var="payroll_payded_show"></c:set>
+									<c:set value="0" var="payroll_reward_show"></c:set>
+									<%-- <c:set value="0" var="payroll_tds_show"></c:set>
+									<c:set value="0" var="payroll_performancebonus_show"></c:set> --%>
+
+									<c:forEach items="${settingList}" var="settingList">
+
+										<c:choose>
+											<c:when
+												test="${settingList.key eq 'payroll_claim_show' and settingList.value==1}">
+												<c:set value="1" var="payroll_claim_show"></c:set>
+											</c:when>
+											<c:when
+												test="${settingList.key eq 'payroll_advance_show' and settingList.value==1}">
+												<c:set value="1" var="payroll_advance_show"></c:set>
+											</c:when>
+											<c:when
+												test="${settingList.key eq 'payroll_loan_show' and settingList.value==1}">
+												<c:set value="1" var="payroll_loan_show"></c:set>
+											</c:when>
+											<c:when
+												test="${settingList.key eq 'payroll_payded_show' and settingList.value==1}">
+												<c:set value="1" var="payroll_payded_show"></c:set>
+											</c:when>
+											<c:when
+												test="${settingList.key eq 'payroll_reward_show' and settingList.value==1}">
+												<c:set value="1" var="payroll_reward_show"></c:set>
+											</c:when>
+										</c:choose>
+
+									</c:forEach>
 									<thead>
 										<tr class="bg-blue">
 											<th width="5%" class="text-center">Sr.no</th>
@@ -150,14 +186,24 @@
 											<th width="20%" class="text-center">EMP Name</th>
 											<th class="text-center">Salary STR.</th>
 											<th class="text-center">Designation</th>
-											<!-- <th class="text-center">Misc/Claim Add</th> -->
-											<th class="text-center">Advance</th>
-											<th class="text-center">Loan EMI</th>
-											<!-- <th class="text-center">Pay Ded</th> -->
+											<c:if test="${payroll_claim_show==1}">
+												<th class="text-center">Misc/Claim Add</th>
+											</c:if>
+											<c:if test="${payroll_advance_show==1}">
+												<th class="text-center">Advance</th>
+											</c:if>
+											<c:if test="${payroll_loan_show==1}">
+												<th class="text-center">Loan EMI</th>
+											</c:if>
+											<c:if test="${payroll_payded_show==1}">
+												<th class="text-center">Pay Ded</th>
+											</c:if>
 											<th class="text-center">TDS</th>
-											<!-- <th class="text-center">Performance Bonus</th> -->
-											<!-- <th class="text-center">Reward</th> -->
-											<th class="text-center">Edit</th>
+											<th class="text-center">Performance Bonus</th>
+											<c:if test="${payroll_reward_show==1}">
+												<th class="text-center">Reward</th>
+											</c:if>
+											<!-- <th class="text-center">Edit</th> -->
 										</tr>
 
 									</thead>
@@ -170,17 +216,39 @@
 												<td>${empList.empName}</td>
 												<td>${empList.salTypeName}</td>
 												<td>${empList.designation}</td>
-												<%-- <td class="text-right">${empList.miscExpAdd}</td> --%>
-												<td class="text-right">${empList.advanceDed}</td>
-												<td class="text-right">${empList.loanDed}</td>
-												<%-- <td class="text-right">${empList.payDed}</td> --%>
-												<td class="text-right">${empList.itded}</td>
-												<%-- <td class="text-right">${empList.performanceBonus}</td> --%>
-												<%-- <td class="text-right">${empList.reward}</td> --%>
-												<td class="text-center"><a href="#"
+												<c:if test="${payroll_claim_show==1}">
+													<td class="text-right">${empList.miscExpAdd}</td>
+												</c:if>
+												<c:if test="${payroll_advance_show==1}">
+													<td class="text-right">${empList.advanceDed}</td>
+												</c:if>
+												<c:if test="${payroll_loan_show==1}">
+													<td class="text-right">${empList.loanDed}</td>
+												</c:if>
+												<c:if test="${payroll_payded_show==1}">
+													<td class="text-right">${empList.payDed}</td>
+												</c:if>
+												<td class="text-right"><input type="text"
+													class="form-control numbersOnly" value="${empList.itded}"
+													placeholder="TDS AMT" id="itAmt${empList.id}"
+													name="itAmt${empList.id}" autocomplete="off"
+													data-itamt="${empList.itded}" style="text-align: right;"
+													onchange="saveBonusDetail(${empList.id})"></td>
+												<td class="text-right"><input type="text"
+													class="form-control numbersOnly"
+													value="${empList.performanceBonus}"
+													placeholder="Performance Bonus" id="perBonus${empList.id}"
+													name="perBonus${empList.id}" autocomplete="off"
+													data-performancebonus="${empList.performanceBonus}"
+													style="text-align: right;"
+													onchange="saveBonusDetail(${empList.id})"></td>
+												<c:if test="${payroll_reward_show==1}">
+													<td class="text-right">${empList.reward}</td>
+												</c:if>
+												<%-- <td class="text-center"><a href="#"
 													onclick="editBonus(${empList.id})"
 													data-original-title="Edit" title="Edit"><i
-														class="icon-pencil7"></i></a></td>
+														class="icon-pencil7"></i></a></td> --%>
 											</tr>
 										</c:forEach>
 
@@ -273,44 +341,82 @@
 				separator : ' to '
 			}
 		});
- 
 	</script>
 
 	<script type="text/javascript">
-		 
 		function editBonus(tempSalDaynamicId) {
- 
-			
-			
+
 			var fd = new FormData();
 			fd.append('tempSalDaynamicId', tempSalDaynamicId);
-			
+
 			$
-			.ajax({
-				url : '${pageContext.request.contextPath}/editBonus',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(response) {
+					.ajax({
+						url : '${pageContext.request.contextPath}/editBonus',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
 
-					document.getElementById("editBonusDiv").style.display = 'block';   
-					document.getElementById("tempSalDaynamicId").value = response.id; 
-					document.getElementById("empName").value = response.empName; 
-					document.getElementById("empCode").value = response.empCode; 
-					document.getElementById("itAmt").value = response.itded; 
-					document.getElementById("perBonus").value = response.performanceBonus; 
-				},
-			});
+							document.getElementById("editBonusDiv").style.display = 'block';
+							document.getElementById("tempSalDaynamicId").value = response.id;
+							document.getElementById("empName").value = response.empName;
+							document.getElementById("empCode").value = response.empCode;
+							document.getElementById("itAmt").value = response.itded;
+							document.getElementById("perBonus").value = response.performanceBonus;
+						},
+					});
 
-		} 
+		}
 		function closeEditDetailTab() {
 
 			document.getElementById("editBonusDiv").style.display = 'none';
 		}
-		
-		function saveBonusDetail() {
+		function saveBonusDetail(tempSalDaynamicId) {
+
+			 
+			var itAmt = document.getElementById("itAmt"+tempSalDaynamicId).value;
+			var perBonus = document.getElementById("perBonus"+tempSalDaynamicId).value;
+			
+			var itAmtDefault = $("#itAmt"+tempSalDaynamicId).data("itamt")
+			var perBonusDefault = $("#perBonus"+tempSalDaynamicId).data("performancebonus")
+			
+			 
+			if (itAmt == "") {
+				 
+				document.getElementById("itAmt"+tempSalDaynamicId).value=0;
+				itAmt=0;
+			}  
+			if (perBonus == "") {
+			 
+				document.getElementById("perBonus"+tempSalDaynamicId).value=0;
+				perBonus=0;
+			}
+
+			 
+
+				//$('#modal_step1').modal('show');
+				var fd = new FormData();
+				fd.append('tempSalDaynamicId', tempSalDaynamicId);
+				fd.append('itAmt', itAmt);
+				fd.append('perBonus', perBonus);
+
+				$.ajax({
+					url : '${pageContext.request.contextPath}/saveBonusDetail',
+					type : 'post',
+					dataType : 'json',
+					data : fd,
+					contentType : false,
+					processData : false,
+					success : function(response) {
+
+						//location.reload(true);
+					},
+				});
+			 
+		}
+		/* function saveBonusDetail() {
 			  
 			var tempSalDaynamicId = document.getElementById("tempSalDaynamicId").value;  
 			var itAmt = document.getElementById("itAmt").value;  
@@ -346,7 +452,7 @@
 					},
 				}); 
 			}
-			}
+			} */
 	</script>
 </body>
 </html>

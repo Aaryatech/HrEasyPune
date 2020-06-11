@@ -62,7 +62,9 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> List Of Generated Payroll</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> List Of Generated Payroll
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -169,7 +171,60 @@
 									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 									id="bootstrap-data-table1">
 									<thead>
+										<%
+											session = request.getSession();
+											String mnth = (String) request.getAttribute("month");
+											List<Allowances> allowancelist = new ArrayList<Allowances>();
+											List<GetPayrollGeneratedList> list = new ArrayList<GetPayrollGeneratedList>();
+											int amount_round = 0;
 
+											MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("limitKey", "ammount_format_show");
+											Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+													Setting.class);
+											amount_round = Integer.parseInt(getSettingByKey.getValue());
+
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("limitKey", "ab_deduction");
+											Setting abDeduction = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+													Setting.class);
+											int ab_deduction = Integer.parseInt(abDeduction.getValue());
+
+											session.setAttribute("amount_round", amount_round);
+											session.setAttribute("ab_deduction", ab_deduction);
+
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("group", "PAYROLLHIDESHOW");
+											Setting[] setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingListByGroup", map,
+													Setting[].class);
+											List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
+
+											int payroll_claim_show = 0;
+											int payroll_advance_show = 0;
+											int payroll_loan_show = 0;
+											int payroll_payded_show = 0;
+											int payroll_reward_show = 0;
+
+											for (int k = 0; k < settingList.size(); k++) {
+												if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
+													payroll_claim_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_advance_show")) {
+													payroll_advance_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_loan_show")) {
+													payroll_loan_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_payded_show")) {
+													payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
+													payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+												}
+											}
+											session.setAttribute("payroll_claim_show", payroll_claim_show);
+											session.setAttribute("payroll_advance_show", payroll_advance_show);
+											session.setAttribute("payroll_loan_show", payroll_loan_show);
+											session.setAttribute("payroll_payded_show", payroll_payded_show);
+											session.setAttribute("payroll_reward_show", payroll_reward_show);
+										%>
 										<tr class="bg-blue">
 
 											<th width="5%" class="text-center">Sr.no</th>
@@ -181,22 +236,11 @@
 											<th class="text-center">Department</th>
 											<th class="text-center">Designation</th>
 											<th class="text-center">Payable Days</th>
-											<!-- <th class="text-center">Salary Basis</th>
-											<th class="text-center">PT</th>
-											<th class="text-center">PF</th>
-											<th class="text-center">ESIC</th>
-											<th class="text-center">MLWF</th> -->
 											<th class="text-center">Gross Salary</th>
 											<th class="text-center">Basic</th>
 											<%
-												session = request.getSession();
-												String mnth = (String) request.getAttribute("month");
-												List<Allowances> allowancelist = new ArrayList<Allowances>();
-												List<GetPayrollGeneratedList> list = new ArrayList<GetPayrollGeneratedList>();
-												int amount_round = 0;
-
 												if (mnth != "" && mnth != null) {
-													MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+													map = new LinkedMultiValueMap<String, Object>();
 													map.add("month", request.getAttribute("month"));
 													map.add("year", request.getAttribute("year"));
 													map.add("companyId", request.getAttribute("companyId"));
@@ -205,14 +249,8 @@
 															.postForObject(Constants.url + "/getPayrollGenratedList", map, PayRollDataForProcessing.class);
 													list = payRollDataForProcessing.getPayrollGeneratedList();
 
-													map = new LinkedMultiValueMap<String, Object>();
-													map.add("limitKey", "ammount_format_show");
-													Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
-															map, Setting.class);
-													amount_round = Integer.parseInt(getSettingByKey.getValue());
-													session = request.getSession();
 													session.setAttribute("payRollDataForProcessing", payRollDataForProcessing);
-													session.setAttribute("amount_round", amount_round);
+
 													session.setAttribute("monthAndYear",
 															request.getAttribute("month") + "-" + request.getAttribute("year"));
 													allowancelist = payRollDataForProcessing.getAllowancelist();
@@ -236,18 +274,52 @@
 											<%
 												}
 											%>
-											<!-- <th class="text-center">Absent Deduction</th> -->
+											<%
+												if (ab_deduction == 1) {
+											%><th class="text-center">Absent Deduction</th>
+											<%
+												}
+											%>
+
+											<th class="text-center">Gross Earning</th>
+											<%
+												if (payroll_claim_show == 1) {
+											%><th class="text-center">Claim ADD</th>
+											<%
+												}
+											%>
 											<th class="text-center">Production Incentive</th>
 											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Night Allowance</th>
-											<th class="text-center">Gross Earning</th>
-											<!-- <th class="text-center">Claim ADD</th> -->
-											<!-- <th class="text-center">Performance Bonus</th> -->
-											<!-- <th class="text-center">Reward</th> -->
-											<th class="text-center">Adv</th>
-											<th class="text-center">Loan</th>
+											<th class="text-center">Performance Bonus</th>
+
+											<%
+												if (payroll_reward_show == 1) {
+											%><th class="text-center">Reward</th>
+											<%
+												}
+											%>
+											<%
+												if (payroll_advance_show == 1) {
+											%><th class="text-center">Adv</th>
+											<%
+												}
+											%>
+											<%
+												if (payroll_loan_show == 1) {
+											%><th class="text-center">Loan</th>
+											<%
+												}
+											%>
+
 											<th class="text-center">TDS</th>
-											<!-- <th class="text-center">Pay Ded</th> -->
+											<%
+												if (payroll_payded_show == 1) {
+											%><th class="text-center">Pay Ded</th>
+											<%
+												}
+											%>
+
 											<th class="text-center">PT</th>
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
@@ -301,39 +373,7 @@
 													out.println(list.get(i).getDesignName());
 												%>
 											</td>
-											<%-- <td>
-												<%
-													out.println(list.get(i).getEmpCategory());
-												%>
-											</td>
-											<td>
-												<%
-													out.println(list.get(i).getPtApplicable());
-												%>
-											</td>
-											<td>
-												<%
-													if (list.get(i).getPfStatus() == 1) {
-																	out.println("Yes");
-																} else {
-																	out.println("No");
-																}
-												%>
-											</td>
-											<td>
-												<%
-													if (list.get(i).getEsicStatus() == 1) {
-																	out.println("Yes");
-																} else {
-																	out.println("No");
-																}
-												%>
-											</td>
-											<td>
-												<%
-													out.println(list.get(i).getMlwfApplicable());
-												%>
-											</td>--%>
+
 											<td class="text-right">
 												<%
 													out.println(list.get(i).getPayableDays());
@@ -378,12 +418,37 @@
 											<%
 												}
 											%>
-											<%-- <td class="text-right">
+
+											<%
+												if (ab_deduction == 1) {
+											%><td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
+																			ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
 												%>
-											</td> --%>
+											</td>
+											<%
+												}
+											%>
+
+											<td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
+												%>
+											</td>
+
+											<%
+												if (payroll_claim_show == 1) {
+											%><td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																			ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+												%>
+											</td>
+											<%
+												}
+											%>
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
@@ -405,53 +470,65 @@
 											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
-												%>
-											</td>
-											<%-- <td class="text-right">
-												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-												%>
-											</td> --%>
-											<%-- <td class="text-right">
-												<%
-													out.println(String.format("%.2f",
 																		ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
-											</td> --%>
+											</td>
 
-											<%-- <td class="text-right">
+											<%
+												if (payroll_reward_show == 1) {
+											%><td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
-												%>
-											</td> --%>
-
-											<td class="text-right">
-												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
+																			ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
 												%>
 											</td>
-											<td class="text-right">
+											<%
+												}
+											%>
+
+											<%
+												if (payroll_advance_show == 1) {
+											%><td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
+																			ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
 												%>
 											</td>
+											<%
+												}
+											%>
+
+											<%
+												if (payroll_loan_show == 1) {
+											%><td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																			ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
+												%>
+											</td>
+											<%
+												}
+											%>
+
 											<td class="text-right">
 												<%
 													out.println(
 																		String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
 												%>
 											</td>
-											<%-- <td class="text-right">
+
+											<%
+												if (payroll_payded_show == 1) {
+											%><td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+																			ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
 												%>
-											</td> --%>
+											</td>
+											<%
+												}
+											%>
+
 											<td class="text-right">
 												<%
 													out.println(
@@ -522,7 +599,7 @@
 
 									<button type="button" class="btn blue_btn ml-3 legitRipple"
 										id="excel" onclick="commonPdf()">PDF</button>
-										
+
 									<button type="button" class="btn blue_btn ml-3 legitRipple"
 										id="excel"
 										onclick="getProgReport(0,'excelForGeneratedPayroll')">

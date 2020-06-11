@@ -242,17 +242,21 @@ hr {
 
 							</tr>
 						</c:forEach>
+
+						<c:if test="${payroll_claim_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Claim ADD</td>
+
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.miscExpAdd}</td>
+
+							</tr>
+						</c:if>
+
 						<tr>
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Claim ADD</td>
-
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.miscExpAdd}</td>
-
-						</tr>
-						<%-- <tr>
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 								align="left">Performance Bonus</td>
@@ -261,7 +265,7 @@ hr {
 								style="color: #000; font-size: 12px; padding-right: 5px;"
 								align="right">${list.performanceBonus}</td>
 
-						</tr> --%>
+						</tr>
 
 						<tr>
 							<td width="50%" valign="top"
@@ -283,16 +287,19 @@ hr {
 								align="right">${list.productionInsentive}</td>
 
 						</tr>
-						<tr>
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Reward</td>
 
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.reward}</td>
+						<c:if test="${payroll_reward_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Reward</td>
 
-						</tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.reward}</td>
+
+							</tr>
+						</c:if>
 
 						<tr>
 							<td width="50%" valign="top"
@@ -355,18 +362,18 @@ hr {
 								align="right">${list.esic}</td>
 
 						</tr>
+						<c:if test="${payroll_advance_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">ADVANCE</td>
 
-						<tr>
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">ADVANCE</td>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.advanceDed}</td>
 
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.advanceDed}</td>
-
-						</tr>
-
+							</tr>
+						</c:if>
 						<tr>
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
@@ -378,7 +385,7 @@ hr {
 
 						</tr>
 
-						<tr>
+						<%-- <tr>
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 								align="left">SOCIETY CONTR</td>
@@ -387,19 +394,31 @@ hr {
 								style="color: #000; font-size: 12px; padding-right: 5px;"
 								align="right">${list.societyContribution}</td>
 
-						</tr>
+						</tr> --%>
+						<c:if test="${payroll_loan_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">LOAN</td>
 
-						<tr>
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">LOAN</td>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.loanDed}</td>
 
-							<td width="50%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.loanDed}</td>
+							</tr>
+						</c:if>
+						<c:if test="${payroll_payded_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">PAY DED</td>
 
-						</tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.payDed}</td>
 
+							</tr>
+						</c:if>
 					</table>
 				</td>
 			</tr>
