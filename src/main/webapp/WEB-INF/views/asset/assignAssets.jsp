@@ -152,9 +152,8 @@
 										</div>											
 									</div>										
 					
-						<table
-							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+						<div class="table-responsive">
+								<table class="table datatable-scroll-y" id="printtable1">
 							<thead>
 								<tr class="bg-blue">
 
@@ -170,12 +169,12 @@
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td><input type="checkbox" class="select_all">
+									<td><input type="checkbox" class="select_all"></td>									
+									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										<i class="icon-enlarge5"></i></a>
-									</td>									
-									<td>ASST001-Laptop</td>
+										ASST001-Laptop</a>
+									</td>
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
@@ -189,12 +188,12 @@
 								</tr>
 								<tr>
 									<td>2</td>
-									<td><input type="checkbox" class="select_all">
+									<td><input type="checkbox" class="select_all"></td>									
+									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										<i class="icon-enlarge5"></i></a>
-									</td>									
-									<td>ASST002-Cell Phone</td>
+										ASST002-Cell Phone</a>
+									</td>
 									<td>Mobile</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
@@ -208,12 +207,12 @@
 								</tr>
 								<tr>
 									<td>3</td>
-									<td><input type="checkbox" class="select_all">
+									<td><input type="checkbox" class="select_all"></td>
+									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										<i class="icon-enlarge5"></i></a>
+										ASST003-Papers</a>
 									</td>
-									<td>ASST003-Papers</td>
 									<td>Stationary</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
@@ -227,12 +226,12 @@
 								</tr>
 								<tr>
 									<td>4</td>
-									<td><input type="checkbox" class="select_all">
+									<td><input type="checkbox" class="select_all"></td>
+									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										<i class="icon-enlarge5"></i></a>
+										ASST004-Printer</a>
 									</td>
-									<td>ASST004-Printer</td>
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
@@ -246,12 +245,12 @@
 								</tr>
 								<tr>
 									<td>5</td>
-									<td><input type="checkbox" class="select_all">
+									<td><input type="checkbox" class="select_all"></td>
+									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										<i class="icon-enlarge5"></i></a>
+										ASST005-Laptop</a>
 									</td>
-									<td>ASST005-Laptop</td>
 									<td>Computer</td>
 									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
 										autocomplete="off"></td>
@@ -260,9 +259,8 @@
 										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile5(event)"> 
 									</td>	
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>									
-									
-								</tr>
+										autocomplete="off" onchange="trim(this)"></td>	
+								</tr>								
 							</tbody>
 							<%-- <tbody>
 
@@ -299,6 +297,7 @@
 
 							</tbody> --%>
 						</table>
+						</div>
 						<div class="form-group row mb-0">
 									<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 										
@@ -338,7 +337,8 @@
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title">Assets Details</h5>
+								<!-- <h5 class="modal-title">Assets Details</h5> -->
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i>Assets Details</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 
@@ -415,12 +415,12 @@
 									</div>	
 							<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+							id="modal_printtable1">
 							<thead>
 								<tr class="bg-blue">
 
 									<th class="text-center" width="10%">Sr. No.</th>
-									<th class="text-center">Vendor Name</th>
+									<th class="text-center">AMC Vendor Name</th>
 									<th class="text-center" colspan="2">AMC Period</th>
 								</tr>
 							</thead>
@@ -508,6 +508,7 @@
 				</div>
 				<!-- /large modal -->
 <script type="text/javascript">
+//show uploaded img
 var loadFile1 = function(event) {
 	var image1 = document.getElementById('output1');
 	image1.src = URL.createObjectURL(event.target.files[0]);
@@ -537,6 +538,14 @@ var loadFile5 = function(event) {
 </script>
 	
 <script>
+//Inner table scroll
+/* $('#printtable1').DataTable( {
+    scrollResize: true,
+    scrollY: 500,
+    scrollCollapse: true,
+    paging: false
+} ); */
+
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(
@@ -587,6 +596,8 @@ var loadFile5 = function(event) {
 										.prop('checked', this.checked);
 							});
 				});
+		
+		
 	</script>
 	<script>
 	<script type="text/javascript">

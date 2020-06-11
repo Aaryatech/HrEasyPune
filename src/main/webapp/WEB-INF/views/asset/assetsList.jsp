@@ -92,6 +92,36 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
+						<div class="form-group row">									
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
+											Location<span class="text-danger"></span>:</label>
+												<div class="col-lg-6 float">
+													<select name="locId_list" data-placeholder="Select Location" id="locId_list" 
+														class="form-control form-control-select2 select2-hidden-accessible">
+
+														<!-- <option value="">Select Location</option> -->
+														<c:forEach items="${locationList}" var="locationList">
+															<c:set value="0" var="find"></c:set>
+															<c:forEach items="${locationIds}" var="locationIds">
+																<c:if test="${locationList.locId==locationIds}">
+																	<option selected="selected"
+																		value="${locationList.locId}">${locationList.locName}</option>
+																	<c:set value="1" var="find"></c:set>
+																</c:if>
+															</c:forEach>
+															<c:if test="${find==0}">
+																<option value="${locationList.locId}">${locationList.locName}</option>
+															</c:if>
+														</c:forEach>
+													</select>
+													 <span
+														class="validation-invalid-label" id="error_assetCatId"
+														style="display: none;">This field is required.</span>
+																										
+												</div>
+											</div>		
+									</div>
 						<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 							id="printtable1">

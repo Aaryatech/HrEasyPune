@@ -96,7 +96,7 @@
 									<div class="form-group row">									
 											<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
-											Location<span class="text-danger">* </span>:</label>
+											Location<span class="text-danger"></span>:</label>
 												<div class="col-lg-6 float">
 													<select name="locId_list" data-placeholder="Select Location" id="locId_list" 
 														class="form-control form-control-select2 select2-hidden-accessible">
@@ -143,7 +143,10 @@
 								<tr>
 									<td>1</td>
 									<td>AD001</td>
-									<td>BYASPRASAD S GAUD</td>
+									<td>
+									<a href="${pageContext.request.contextPath}/assignAssets" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
+										BYASPRASAD S GAUD</a></td>
 									<td>WORKER</td>
 									<td>SBU1</td>
 									<td>EXE</td>
@@ -166,7 +169,10 @@
 <tr>
 									<td>2</td>
 									<td>AD002</td>
-									<td>SUNIL T MOSAMKAR</td>
+									<td>
+									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
+										SUNIL T MOSAMKAR</a></td>									
 									<td>WORKER</td>
 									<td>SBU1</td>
 									<td>EXE</td>
@@ -188,7 +194,9 @@
 								<tr>
 									<td>3</td>
 									<td>AD003</td>
-									<td>PURUSHOTTAM G AMBRE</td>
+									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
+										SUNIL T MOSAMKAR</a></td>	
 									<td>WORKER</td>
 									<td>SBU1</td>
 									<td>EXE</td>
@@ -210,7 +218,9 @@
 								<tr>
 									<td>4</td>
 									<td>AD004</td>
-									<td>MAHENDRA A GHAG</td>
+									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
+										PURUSHOTTAM G AMBRE</a></td>	
 									<td>WORKER</td>
 									<td>SBU1</td>
 									<td>EXE</td>
@@ -232,7 +242,9 @@
 								<tr>
 									<td>5</td>
 									<td>AD005</td>
-									<td>NAGESH G SAWANT</td>
+									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
+										NAGESH G SAWANT</a></td>	
 									<td>WORKER</td>
 									<td>SBU1</td>
 									<td>EXE</td>
@@ -305,6 +317,159 @@
 
 	</div>
 	<!-- /page content -->
+	
+	<!-- Large modal -->
+				<div id="modal_large" class="modal fade" tabindex="-1">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!-- <h5 class="modal-title">Assets Details</h5> -->
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i>Assets Assign to   
+								Employee </h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+							<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empName">Employee
+													Name <span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly"  
+													 value="AD001-BYASPRASAD S GAUD">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empDept">Department
+												 <span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control"  readonly="readonly" 
+												value="SBU1-WORKER">
+												<span class="validation-invalid-label" id="error_assetName"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>											
+									</div>	
+									
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Designation
+													Type <span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly" 
+													 value="EXE">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Location
+												<span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control"  readonly="readonly" 
+												value="KHL">
+												<span class="validation-invalid-label" id="error_assetName"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>											
+									</div>	
+							<table
+							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+							id="printtable1">
+							<thead>
+								<tr class="bg-blue">
+
+									<th class="text-center" width="5%">Sr. No.</th>
+									<th class="text-center">Asset Name</th>
+									<th class="text-center">Category</th>
+									<th class="text-center">Model</th>
+									<th class="text-center">Assign Period</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>ASST001-Laptop</td>
+									<td>Computer</td>
+									<td>Dell Inspiron</td>
+									<td>20-05-2020 to 01-06-2020</td>
+									
+									
+								</tr>
+<tr>
+									<td>2</td>
+									<td>ASST002-Sim</td>
+									<td>Phone</td>
+									<td>Vodefone</td>
+									<td>20-05-2020 to 01-06-2020</td>
+									
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>ASST003-Papers</td>
+									<td>Stationary</td>
+									<td>A4</td>
+									<td>20-05-2020 to 01-06-2020</td>
+									
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>ASST004-Cell Phone</td>
+									<td>Phone</td>
+									<td>One Plus T</td>
+									<td>20-05-2020 to 01-06-2020</td>
+								
+								</tr>								
+							</tbody>
+							<%-- <tbody>
+
+
+								<c:forEach items="${assetsList}" var="assetList"
+									varStatus="count">
+									<tr>
+										 <td>${count.index+1}</td>
+										<td>${assetList.assetCode}</td>
+										<td>${assetList.assetName}</td>
+										<td>${assetList.assetDesc}</td>
+										<td>${assetList.catName}</td>
+										<td>${assetList.assetMake}</td>
+										<td>${assetList.assetModel}</td>										
+										<td>${assetList.assetSrno}</td>
+										<td>${assetList.assetPurDate}</td>
+										<td>${assetList.vendor}</td>
+										<td class="text-center"><c:if test="${editAccess == 0}">
+												<a
+													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
+													 ></i></a>
+											</c:if> <c:if test="${deleteAccess == 0}">
+												 
+												 
+											<a href="javascript:void(0)"
+													class="list-icons-item text-danger-600 bootbox_custom"
+													data-uuid="${assetList.exVar1}" data-popup="tooltip"
+													title="" data-original-title="Delete"><i
+													class="icon-trash"></i></a>
+											</c:if></td>
+									</tr>
+								</c:forEach>
+
+							</tbody> --%>
+						</table>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+								<!-- <button type="button" class="btn bg-primary">Save changes</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /large modal -->
 <script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')

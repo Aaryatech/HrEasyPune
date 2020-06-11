@@ -569,8 +569,15 @@ public class AssetMgmtController {
 			try {
 				model = new ModelAndView("asset/assetsList");
 
-				//MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				//map.add("companyId", 1);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
 
 				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssets"
 						, AssetsDetailsList[].class);

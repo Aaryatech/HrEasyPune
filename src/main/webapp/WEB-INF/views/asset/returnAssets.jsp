@@ -146,20 +146,18 @@
 										</div>											
 									</div>										
 					
-						<table
-							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+						<div class="table-responsive">
+								<table class="table datatable-scroll-y" id="printtable1">
 							<thead>
 								<tr class="bg-blue">
 
 									<th class="text-center" width="5%">Sr. No.</th>
 									<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>
-									<th class="text-center">Asset Code</th>
 									<th class="text-center">Asset Name</th>
 									<th class="text-center">Category</th>
-									<th class="text-center" colspan="2">AMC Period</th>
+									<th class="text-center">Assigned Period</th>
 									<th class="text-center">Remark</th>	
-									<th class="text-center">Asset Img</th>	
+									<th class="text-center">Return Asset Img</th>	
 									<th class="text-center">Return Remark</th>	
 								</tr>
 							</thead>
@@ -169,14 +167,9 @@
 									<td><input type="checkbox" class="select_all"></td>
 								<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST001</a></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										Laptop</a></td>
+										ASST001-Laptop</a></td>									
 									<td>Computer</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
+									<td>20-05-2020 to 01-06-2020</td>
 									<td>Good Work</td>
 									<td>
 										<img id="output1" width="150"/>
@@ -191,14 +184,9 @@
 									<td><input type="checkbox" class="select_all"></td>
 									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST002</a></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										Sim</a></td>
+										ASST002-Sim</a></td>									
 									<td>Phone</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
+									<td>20-05-2020 to 01-06-2020</td>
 									<td>Good Work</td>
 									<td>
 										<img id="output2" width="150"/>
@@ -213,14 +201,9 @@
 									<td><input type="checkbox" class="select_all"></td>
 									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST003</a></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										Printer</a></td>
+										ASST003-Printer</a></td>									
 									<td>Computer</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
+									<td>20-05-2020 to 01-06-2020</td>
 									<td>Good Work</td>
 									<td>
 										<img id="output3" width="150"/>
@@ -235,14 +218,9 @@
 									<td><input type="checkbox" class="select_all"></td>
 									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST004</a></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										Cell Phone</a></td>
+										ASST004-Cell Phone</a></td>								
 									<td>Phone</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
+									<td>20-05-2020 to 01-06-2020</td>
 									<td>Good Work</td>
 									<td>
 										<img id="output4" width="150"/>
@@ -257,14 +235,9 @@
 									<td><input type="checkbox" class="select_all"></td>
 								<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST005</a></td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										Papers</a></td>
+										ASST005-Papers</a></td>									
 									<td>Stationary</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
+									<td>20-05-2020 to 01-06-2020</td>
 									<td>Good Work</td>
 									<td>
 										<img id="output5" width="150"/>
@@ -310,6 +283,7 @@
 
 							</tbody> --%>
 						</table>
+						</div>
 						<div class="form-group row mb-0">
 									<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 										
@@ -349,11 +323,14 @@
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title">Asset Assign History</h5>
+								<!-- <h5 class="modal-title">Asset Assign History</h5> -->
+								<h5 class="pageTitle"><i class="icon-list-unordered"></i>Asset Assign History</h5>
+								
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 
 							<div class="modal-body">
+							<img src="/ext/ext-web/tmp/WEB-INF/smile.jpg">
 							<div class="form-group row">									
 										<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
@@ -403,7 +380,7 @@
 									</div>		
 							<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+							id="modal_printtable1">
 							<thead>
 								<tr class="bg-blue">
 
@@ -412,7 +389,7 @@
 									<th class="text-center">Emp Name</th>
 									<th class="text-center">Department</th>
 									<th class="text-center">Location</th>
-									<th class="text-center" colspan="2">AMC Period</th>
+									<th class="text-center" colspan="2">Assign Period</th>
 								</tr>
 							</thead>
 							<tbody>
