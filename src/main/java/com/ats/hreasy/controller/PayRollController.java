@@ -547,7 +547,7 @@ public class PayRollController {
 		try {
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("selectMonthForPayRoll", "selectMonthForPayRoll", 1, 0, 0, 0,
+			Info view = AcessController.checkAccess("listOfGeneratedPayroll", "listOfGeneratedPayroll", 1, 0, 0, 0,
 					newModuleList);
 			if (view.isError() == false) {
 
@@ -1047,6 +1047,57 @@ public class PayRollController {
 			pd4ml.render(urlstring, fos);
 
 		}
+	}
+
+	@RequestMapping(value = "/listOfGeneratedPayrollByAuthrity", method = RequestMethod.GET)
+	public String listOfGeneratedPayrollByAuthrity(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = "redirect:/accessDenied";
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("listOfGeneratedPayrollByAuthrity",
+					"listOfGeneratedPayrollByAuthrity", 1, 0, 0, 0, newModuleList);
+			if (view.isError() == false) {
+
+				mav = "payroll/listOfGeneratedPayrollByAuthrity";
+				String date = request.getParameter("selectMonth");
+
+				if (date != null) {
+					String[] monthyear = date.split("-");
+					model.addAttribute("date", date);
+
+					request.setAttribute("month", monthyear[0]);
+					request.setAttribute("year", monthyear[1]);
+
+					/*
+					 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+					 * Object>(); map.add("month", monthyear[0]); map.add("year", monthyear[1]);
+					 * PayRollDataForProcessing payRollDataForProcessing =
+					 * Constants.getRestTemplate().postForObject( Constants.url +
+					 * "/getPayrollGenratedList", map, PayRollDataForProcessing.class);
+					 * List<GetPayrollGeneratedList> list =
+					 * payRollDataForProcessing.getPayrollGeneratedList();
+					 * 
+					 * model.addAttribute("empList", list); model.addAttribute("allownceList",
+					 * payRollDataForProcessing.getAllowancelist());
+					 */
+					// System.out.println(payRollDataForProcessing.getList());
+				} else {
+
+					request.removeAttribute("month");
+					request.removeAttribute("year");
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 	}
 
 }

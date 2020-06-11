@@ -30,7 +30,7 @@
 			<div class="page-header page-header-light">
 
 
-			<%-- 	<div
+				<%-- 	<div
 					class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
 						<div class="breadcrumb">
@@ -66,7 +66,9 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee List</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Employee List
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -121,7 +123,7 @@
 									<th>Department</th>
 									<th>Designation</th>
 
- 									<th>Mobile</th>
+									<th>Mobile</th>
 
 									<!-- <th>Rate Per Hour</th> -->
 
@@ -132,51 +134,45 @@
 							<tbody>
 
 								<tr>
-								<td>1</td>
-										<td>${tempList.empSname}&nbsp;${tempList.empFname}</td>
+									<td>1</td>
+									<td>${tempList.empSname}&nbsp;${tempList.empFname}</td>
 									<td>${tempList.empDept}</td>
 
-									<td>${tempList.empCategory}
-											 </td>
+									<td>${tempList.empCategory}</td>
 
- 										<td>${tempList.empMobile1}</td>
-										<%-- <td>${tempList.empRatePerhr}</td> --%>
-										
-										
-										<td class="text-center">
-											 <a
-											href="${pageContext.request.contextPath}/showClaimApply?empId=${tempList.exVar1}"
-											title="Add Claim"><i class="icon-diff-added"
-												></i></a> <a
-											href="${pageContext.request.contextPath}/showClaimList?empId=${tempList.exVar1}"
-											title="Claim History" style="color: black;"><i class="icon-history" ></i></a>
+									<td>${tempList.empMobile1}</td>
+									<%-- <td>${tempList.empRatePerhr}</td> --%>
 
-										</td>
-								
+
+									<td class="text-center"><a
+										href="${pageContext.request.contextPath}/showClaimApply?empId=${tempList.exVar1}"
+										title="Add Claim"><i class="icon-diff-added"></i></a>
+										<a
+										href="${pageContext.request.contextPath}/showClaimList?empId=${tempList.exVar1}"
+										title="Claim History" style="color: black;"><i
+											class="icon-history"></i></a></td>
+
 								</tr>
 								<c:set var="index" value="2"></c:set>
-								<c:forEach items="${empList}" var="lvTypeList"  >
+								<c:forEach items="${empList}" var="lvTypeList">
 									<tr>
 										<td>${index}</td>
 										<c:set var="index" value="${index+1}"></c:set>
-										
-<td>${lvTypeList.empSname}&nbsp;${lvTypeList.empFname}</td>
+
+										<td>${lvTypeList.empSname}&nbsp;${lvTypeList.empFname}</td>
 										<td>${tempList.empDept}</td>
 
-									<td>${tempList.empCategory}
-											 </td>
+										<td>${tempList.empCategory}</td>
 										<td>${lvTypeList.empMobile1}</td>
 										<%-- <td>${lvTypeList.empRatePerhr}</td> --%>
-										
 
-										<td class="text-center">
-											 <a
+
+										<td class="text-center"><a
 											href="${pageContext.request.contextPath}/showClaimApply?empId=${lvTypeList.exVar1}"
-											title="Add Claim"><i class="icon-diff-added" ></i></a> <a
+											title="Add Claim"><i class="icon-diff-added"></i></a> <a
 											href="${pageContext.request.contextPath}/showClaimList?empId=${lvTypeList.exVar1}"
-											title="Claim History" style="color: black;"><i class="icon-history" ></i></a>
-
-										</td>
+											title="Claim History" style="color: black;"><i
+												class="icon-history"></i></a></td>
 									</tr>
 								</c:forEach>
 
