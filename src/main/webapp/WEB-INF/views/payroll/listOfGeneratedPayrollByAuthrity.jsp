@@ -209,6 +209,7 @@
 											<th width="5%" class="text-center">Sr.no</th>
 											<th width="5%" class="text-center">All <input
 												type="checkbox" name="selectAll" id="selectAll"></th>
+											<th width="5%" class="text-center">Send Mail</th>
 											<th class="text-center">EMP Code</th>
 											<th class="text-center">EMP Name</th>
 											<th class="text-center">EMP Type</th>
@@ -324,9 +325,14 @@
 													out.println(i + 1);
 												%>
 											</td>
+
 											<td><input type="checkbox" name="selectEmp"
 												id="selectEmp<%out.println(list.get(i).getEmpId());%>"
 												value="<%out.println(list.get(i).getEmpId());%>"></td>
+											<td><a
+												href="${pageContext.request.contextPath}/sendPaysliponMail?empId=<%out.println(list.get(i).getEmpId());%>&selectMonth=${date}&email=<%out.println(list.get(i).getEmail());%>"
+												title="Send Payslip on Mail"><i
+													class="icon-mail5 mr-3 icon-2x" style="color: red;"></i></a></td>
 											<td>
 												<%
 													out.println(list.get(i).getEmpCode());

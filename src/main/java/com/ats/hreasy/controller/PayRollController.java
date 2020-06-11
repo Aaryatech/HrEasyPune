@@ -7,13 +7,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1098,6 +1116,142 @@ public class PayRollController {
 			e.printStackTrace();
 		}
 		return mav;
+	}
+
+	@RequestMapping(value = "/sendPaysliponMail", method = RequestMethod.GET)
+	public String sendPaysliponMail(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession httpsession = request.getSession();
+		String mav = "redirect:/accessDenied";
+
+		try {
+
+			String date = request.getParameter("selectMonth");
+			mav = "redirect:/listOfGeneratedPayrollByAuthrity?selectMonth=" + date;
+			int empId = Integer.parseInt(request.getParameter("empId"));
+			String email = request.getParameter("email");
+
+			if (email.contains("@")) {
+
+				String url = Constants.ReportURL + "pdf/generatedPayrollPdf/" + empId + "/" + date;
+				doConversion(url, Constants.REPORT_SAVE);
+
+				final String emailSMTPserver = "smtp.gmail.com";
+				final String emailSMTPPort = "587";
+				final String mailStoreType = "imaps";
+				final String username = "atsinfosoft@gmail.com";
+				final String password = "atsinfosoft@123";
+
+				/*
+				 * final String username = "akshaykasar72@gmail.com"; final String password =
+				 * "mh151772@123";
+				 */
+
+				System.out.println("username" + username);
+				System.out.println("password" + password);
+
+				Properties props = new Properties();
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.socketFactory.port", "465");
+				props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+				props.put("mail.smtp.auth", "true");
+				props.put("mail.smtp.port", "587");
+				props.put("mail.smtp.starttls.enable", "true");
+
+				Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+				});
+
+				try {
+					Store mailStore = session.getStore(mailStoreType);
+					mailStore.connect(emailSMTPserver, username, password);
+
+					String subject = "Payslip for " + date;
+
+					Message mimeMessage = new MimeMessage(session);
+					mimeMessage.setFrom(new InternetAddress(username));
+					mimeMessage.setRecipients(Message.RecipientType.TO,
+							InternetAddress.parse("akshaykasar72@gmail.com"));
+					mimeMessage.setSubject(subject);
+					mimeMessage.setFileName("Payslip");
+					BodyPart mbodypart = new MimeBodyPart();
+					Multipart multipart = new MimeMultipart();
+					DataSource source = new FileDataSource(Constants.REPORT_SAVE);
+					mbodypart.setDataHandler(new DataHandler(source));
+					mbodypart.setFileName(new File(Constants.REPORT_SAVE).getName());
+					// mbodypart.setFileName(Constants.REPORT_SAVE);
+					multipart.addBodyPart(mbodypart);
+					mimeMessage.setContent(multipart);
+
+					MimeBodyPart messageBodyPart = new MimeBodyPart();
+					messageBodyPart = new MimeBodyPart();
+					StringBuilder sb = new StringBuilder();
+					sb.append("<html><body style='color : blue;'>");
+					sb.append("Dear Sir, <br>" + "We have attached payslip pdf . please check.");
+
+					sb.append("</body></html>");
+					messageBodyPart.setContent("" + sb, "text/html; charset=utf-8");
+					multipart.addBodyPart(messageBodyPart);
+					mimeMessage.setContent(multipart);
+
+					Transport.send(mimeMessage);
+
+					httpsession.setAttribute("successMsg", "Payslip send successfully on mail.");
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				httpsession.setAttribute("errorMsg", "Invalid Email Id.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	public void doConversion(String url, String outputPath)
+			throws InvalidParameterException, MalformedURLException, IOException {
+		File output = new File(outputPath);
+		java.io.FileOutputStream fos = new java.io.FileOutputStream(output);
+
+		PD4ML pd4ml = new PD4ML();
+
+		try {
+
+			PD4PageMark footer = new PD4PageMark();
+			footer.setPageNumberTemplate("page $[page] of $[total]");
+			footer.setTitleAlignment(PD4PageMark.LEFT_ALIGN);
+			footer.setPageNumberAlignment(PD4PageMark.RIGHT_ALIGN);
+			footer.setInitialPageNumber(1);
+			footer.setFontSize(8);
+			footer.setAreaHeight(15);
+
+			pd4ml.setPageFooter(footer);
+
+		} catch (Exception e) {
+			System.out.println("Pdf conversion method excep " + e.getMessage());
+		}
+		try {
+			pd4ml.setPageSize(landscapeValue ? pd4ml.changePageOrientation(format) : format);
+		} catch (Exception e) {
+			System.out.println("Pdf conversion ethod excep " + e.getMessage());
+		}
+
+		if (unitsValue.equals("mm")) {
+			pd4ml.setPageInsetsMM(new Insets(topValue, leftValue, bottomValue, rightValue));
+		} else {
+			pd4ml.setPageInsets(new Insets(topValue, leftValue, bottomValue, rightValue));
+		}
+
+		pd4ml.setHtmlWidth(userSpaceWidth);
+
+		pd4ml.render(new URL(url), fos);
+		fos.close();
+
+		System.out.println(outputPath + "\ndone.");
 	}
 
 }
