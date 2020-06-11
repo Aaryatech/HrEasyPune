@@ -1125,86 +1125,91 @@ public class PayRollController {
 		String mav = "redirect:/accessDenied";
 
 		try {
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) httpsession
+					.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("listOfGeneratedPayrollByAuthrity",
+					"listOfGeneratedPayrollByAuthrity", 1, 0, 0, 0, newModuleList);
+			if (view.isError() == false) {
+				String date = request.getParameter("selectMonth");
+				mav = "redirect:/listOfGeneratedPayrollByAuthrity?selectMonth=" + date;
+				int empId = Integer.parseInt(request.getParameter("empId"));
+				String email = request.getParameter("email");
 
-			String date = request.getParameter("selectMonth");
-			mav = "redirect:/listOfGeneratedPayrollByAuthrity?selectMonth=" + date;
-			int empId = Integer.parseInt(request.getParameter("empId"));
-			String email = request.getParameter("email");
+				if (email.contains("@")) {
 
-			if (email.contains("@")) {
+					String url = Constants.ReportURL + "pdf/generatedPayrollPdf/" + empId + "/" + date;
+					doConversion(url, Constants.REPORT_SAVE);
 
-				String url = Constants.ReportURL + "pdf/generatedPayrollPdf/" + empId + "/" + date;
-				doConversion(url, Constants.REPORT_SAVE);
+					final String emailSMTPserver = "smtp.gmail.com";
+					final String emailSMTPPort = "587";
+					final String mailStoreType = "imaps";
+					final String username = "atsinfosoft@gmail.com";
+					final String password = "atsinfosoft@123";
 
-				final String emailSMTPserver = "smtp.gmail.com";
-				final String emailSMTPPort = "587";
-				final String mailStoreType = "imaps";
-				final String username = "atsinfosoft@gmail.com";
-				final String password = "atsinfosoft@123";
+					/*
+					 * final String username = "akshaykasar72@gmail.com"; final String password =
+					 * "mh151772@123";
+					 */
 
-				/*
-				 * final String username = "akshaykasar72@gmail.com"; final String password =
-				 * "mh151772@123";
-				 */
+					System.out.println("username" + username);
+					System.out.println("password" + password);
 
-				System.out.println("username" + username);
-				System.out.println("password" + password);
+					Properties props = new Properties();
+					props.put("mail.smtp.host", "smtp.gmail.com");
+					props.put("mail.smtp.socketFactory.port", "465");
+					props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+					props.put("mail.smtp.auth", "true");
+					props.put("mail.smtp.port", "587");
+					props.put("mail.smtp.starttls.enable", "true");
 
-				Properties props = new Properties();
-				props.put("mail.smtp.host", "smtp.gmail.com");
-				props.put("mail.smtp.socketFactory.port", "465");
-				props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-				props.put("mail.smtp.auth", "true");
-				props.put("mail.smtp.port", "587");
-				props.put("mail.smtp.starttls.enable", "true");
+					Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(username, password);
+						}
+					});
 
-				Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
+					try {
+						Store mailStore = session.getStore(mailStoreType);
+						mailStore.connect(emailSMTPserver, username, password);
+
+						String subject = "Payslip for " + date;
+
+						Message mimeMessage = new MimeMessage(session);
+						mimeMessage.setFrom(new InternetAddress(username));
+						mimeMessage.setRecipients(Message.RecipientType.TO,
+								InternetAddress.parse("akshaykasar72@gmail.com"));
+						mimeMessage.setSubject(subject);
+						mimeMessage.setFileName("Payslip");
+						BodyPart mbodypart = new MimeBodyPart();
+						Multipart multipart = new MimeMultipart();
+						DataSource source = new FileDataSource(Constants.REPORT_SAVE);
+						mbodypart.setDataHandler(new DataHandler(source));
+						mbodypart.setFileName(new File(Constants.REPORT_SAVE).getName());
+						// mbodypart.setFileName(Constants.REPORT_SAVE);
+						multipart.addBodyPart(mbodypart);
+						mimeMessage.setContent(multipart);
+
+						MimeBodyPart messageBodyPart = new MimeBodyPart();
+						messageBodyPart = new MimeBodyPart();
+						StringBuilder sb = new StringBuilder();
+						sb.append("<html><body style='color : blue;'>");
+						sb.append("Dear Sir, <br>" + "We have attached payslip pdf . please check.");
+
+						sb.append("</body></html>");
+						messageBodyPart.setContent("" + sb, "text/html; charset=utf-8");
+						multipart.addBodyPart(messageBodyPart);
+						mimeMessage.setContent(multipart);
+
+						Transport.send(mimeMessage);
+
+						httpsession.setAttribute("successMsg", "Payslip send successfully on mail.");
+
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				});
-
-				try {
-					Store mailStore = session.getStore(mailStoreType);
-					mailStore.connect(emailSMTPserver, username, password);
-
-					String subject = "Payslip for " + date;
-
-					Message mimeMessage = new MimeMessage(session);
-					mimeMessage.setFrom(new InternetAddress(username));
-					mimeMessage.setRecipients(Message.RecipientType.TO,
-							InternetAddress.parse("akshaykasar72@gmail.com"));
-					mimeMessage.setSubject(subject);
-					mimeMessage.setFileName("Payslip");
-					BodyPart mbodypart = new MimeBodyPart();
-					Multipart multipart = new MimeMultipart();
-					DataSource source = new FileDataSource(Constants.REPORT_SAVE);
-					mbodypart.setDataHandler(new DataHandler(source));
-					mbodypart.setFileName(new File(Constants.REPORT_SAVE).getName());
-					// mbodypart.setFileName(Constants.REPORT_SAVE);
-					multipart.addBodyPart(mbodypart);
-					mimeMessage.setContent(multipart);
-
-					MimeBodyPart messageBodyPart = new MimeBodyPart();
-					messageBodyPart = new MimeBodyPart();
-					StringBuilder sb = new StringBuilder();
-					sb.append("<html><body style='color : blue;'>");
-					sb.append("Dear Sir, <br>" + "We have attached payslip pdf . please check.");
-
-					sb.append("</body></html>");
-					messageBodyPart.setContent("" + sb, "text/html; charset=utf-8");
-					multipart.addBodyPart(messageBodyPart);
-					mimeMessage.setContent(multipart);
-
-					Transport.send(mimeMessage);
-
-					httpsession.setAttribute("successMsg", "Payslip send successfully on mail.");
-
-				} catch (Exception e) {
-					e.printStackTrace();
+				} else {
+					httpsession.setAttribute("errorMsg", "Invalid Email Id.");
 				}
-			} else {
-				httpsession.setAttribute("errorMsg", "Invalid Email Id.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
