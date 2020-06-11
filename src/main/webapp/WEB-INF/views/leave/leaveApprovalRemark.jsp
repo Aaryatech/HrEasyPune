@@ -249,8 +249,7 @@
 												<td>${empTrailList.makerEnterDatetime}</td>
 
 												<c:if test="${empTrailList.leaveStatus==1}">
-													<td><span class="badge badge-info">Initial
-															Applied</span></td>
+													<td><span class="badge badge-info"> Applied</span></td>
 												</c:if>
 												<c:if test="${empTrailList.leaveStatus==2}">
 													<td><span class="badge badge-secondary">Initial
@@ -261,8 +260,7 @@
 															Approved</span></td>
 												</c:if>
 												<c:if test="${empTrailList.leaveStatus==7}">
-													<td><span class="badge badge-danger">Leave
-															Cancelled</span></td>
+													<td><span class="badge badge-danger"> Cancelled</span></td>
 												</c:if>
 												<c:if test="${empTrailList.leaveStatus==8}">
 													<td><span class="badge badge-danger">Initial

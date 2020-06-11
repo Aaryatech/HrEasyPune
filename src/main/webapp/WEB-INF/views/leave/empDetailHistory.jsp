@@ -41,8 +41,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Trail
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Leave Trail List
+									</h5></td>
 								<td width="40%" align="right">
 									<%--  <a
 									href="${pageContext.request.contextPath}/empInfoHistory"
@@ -93,27 +94,29 @@
 						%>
 
 						<div class="form-group row">
-						<div class="col-md-6">
-							<label class="col-form-label col-lg-5 float" for="compName">Employee
-								Code : </label>
-							<div class="col-lg-7 float">
-								<input type="text" class="form-control" Value="${lvEmp.empCode}"
-									name="compName" autocomplete="off" readonly>
-
-							</div>
-						</div>
-							
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">Employee
-								Name : </label>
-							<div class="col-lg-7 float">
-								<input type="text" class="form-control" Value="${lvEmp.empName}"
-									name="compName" autocomplete="off" readonly>
+									Code : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.empCode}" name="compName" autocomplete="off"
+										readonly>
 
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label class="col-form-label col-lg-5 float" for="compName">Employee
+									Name : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.empName}" name="compName" autocomplete="off"
+										readonly>
+
+								</div>
 							</div>
 						</div>
-						</div>
-					
+
 						<div class="form-group row">
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">Leave
@@ -124,25 +127,25 @@
 										readonly>
 								</div>
 							</div>
-							
+
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">Type
-								: </label>
-							<div class="col-lg-7 float">
-								<c:set var="type" value="-"></c:set>
-								<c:if test="${lvEmp.leaveDuration==1}">
-									<c:set var="type" value="Full Day"></c:set>
-								</c:if>
-								<c:if test="${lvEmp.leaveDuration==2}">
-									<c:set var="type" value="1st Half"></c:set>
-								</c:if>
-								<c:if test="${lvEmp.leaveDuration==3}">
-									<c:set var="type" value="2nd Half"></c:set>
-								</c:if>
-								<input type="text" class="form-control" Value="${type}"
-									name="compName" autocomplete="off" readonly>
+									: </label>
+								<div class="col-lg-7 float">
+									<c:set var="type" value="-"></c:set>
+									<c:if test="${lvEmp.leaveDuration==1}">
+										<c:set var="type" value="Full Day"></c:set>
+									</c:if>
+									<c:if test="${lvEmp.leaveDuration==2}">
+										<c:set var="type" value="1st Half"></c:set>
+									</c:if>
+									<c:if test="${lvEmp.leaveDuration==3}">
+										<c:set var="type" value="2nd Half"></c:set>
+									</c:if>
+									<input type="text" class="form-control" Value="${type}"
+										name="compName" autocomplete="off" readonly>
 
-							</div>
+								</div>
 							</div>
 						</div>
 
@@ -152,24 +155,24 @@
 									date : </label>
 								<div class="col-lg-7 float">
 									<input type="text" class="form-control"
-										Value="${lvEmp.leaveFromdt}" name="compName" autocomplete="off"
-										readonly>	
+										Value="${lvEmp.leaveFromdt}" name="compName"
+										autocomplete="off" readonly>
 								</div>
 							</div>
-							
+
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">To
-								Date : </label>
+									Date : </label>
 								<div class="col-lg-7 float">
 									<input type="text" class="form-control"
 										Value="${lvEmp.leaveTodt}" name="compName" autocomplete="off"
 										readonly>
-	
+
 								</div>
 							</div>
 						</div>
-						
-						
+
+
 						<div class="form-group row">
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">No.
@@ -178,7 +181,7 @@
 									<input type="text" class="form-control"
 										Value="${lvEmp.leaveNumDays}" name="compName"
 										autocomplete="off" readonly>
-	
+
 								</div>
 							</div>
 						</div>
@@ -229,8 +232,7 @@
 										<td>${empTrailList.makerEnterDatetime}</td>
 
 										<c:if test="${empTrailList.leaveStatus==1}">
-											<td><span class="badge badge-info">Initial
-													Applied</span></td>
+											<td><span class="badge badge-info">Applied</span></td>
 										</c:if>
 										<c:if test="${empTrailList.leaveStatus==2}">
 											<td><span class="badge badge-secondary">Initial
@@ -241,8 +243,7 @@
 													Approved</span></td>
 										</c:if>
 										<c:if test="${empTrailList.leaveStatus==7}">
-											<td><span class="badge badge-danger">Leave
-													Cancelled</span></td>
+											<td><span class="badge badge-danger"> Cancelled</span></td>
 										</c:if>
 										<c:if test="${empTrailList.leaveStatus==8}">
 											<td><span class="badge badge-danger">Initial

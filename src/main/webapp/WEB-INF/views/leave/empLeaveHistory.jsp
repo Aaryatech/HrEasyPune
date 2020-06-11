@@ -135,27 +135,27 @@
 
 										<td>${holiday.leaveEmpReason}</td>
 										<c:if test="${holiday.exInt1==1}">
-											<td><span class="badge badge-info">Initial
-													Pending</span></td>
+											<td><span class="badge badge-info">Initial &
+													Final Approve Pending</span></td>
 										</c:if>
 										<c:if test="${holiday.exInt1==2}">
 											<td><span class="badge badge-secondary">Final
-													Pending</span></td>
+													Approve Pending</span></td>
 										</c:if>
 										<c:if test="${holiday.exInt1==3}">
 											<td><span class="badge badge-success">Final
 													Approved</span></td>
 										</c:if>
 										<c:if test="${holiday.exInt1==7}">
-											<td><span class="badge badge-danger"> Leave
-													Cancelled</span></td>
+											<td><span class="badge badge-danger"> Cancelled</span></td>
 										</c:if>
 										<c:if test="${holiday.exInt1==8}">
 											<td><span class="badge badge-danger">Initial
 													Rejected</span></td>
 										</c:if>
 										<c:if test="${holiday.exInt1==9}">
-											<td><span class="badge badge-danger">Final Reject</span></td>
+											<td><span class="badge badge-danger">Final
+													Rejected</span></td>
 										</c:if>
 										<td class="text-center"><a
 											href="${pageContext.request.contextPath}/showLeaveHistDetailList?leaveId=${holiday.exVar1}"><i

@@ -42,8 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Trail
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Leave Trail List
+									</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showLeaveHistList?empId=${empId1}"
 									class="breadcrumb-elements-item">
@@ -97,33 +98,35 @@
 								<label class="col-form-label col-lg-5 float" for="compName">Employee
 									Code : </label>
 								<div class="col-lg-7 float">
-									<input type="text" class="form-control" Value="${lvEmp.empCode}"
-										name="compName" autocomplete="off" readonly>
-	
+									<input type="text" class="form-control"
+										Value="${lvEmp.empCode}" name="compName" autocomplete="off"
+										readonly>
+
 								</div>
 							</div>
-							
+
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">Employee
-								Name : </label>
-							<div class="col-lg-7 float">
-								<input type="text" class="form-control" Value="${lvEmp.empName}"
-									name="compName" autocomplete="off" readonly>
+									Name : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.empName}" name="compName" autocomplete="off"
+										readonly>
 
-							</div>
+								</div>
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">From
-								date : </label>
-							<div class="col-lg-7 float">
-								<input type="text" class="form-control"
-									Value="${lvEmp.leaveFromdt}" name="compName" autocomplete="off"
-									readonly>
+									date : </label>
+								<div class="col-lg-7 float">
+									<input type="text" class="form-control"
+										Value="${lvEmp.leaveFromdt}" name="compName"
+										autocomplete="off" readonly>
 
-							</div>
+								</div>
 							</div>
 							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">To
@@ -132,37 +135,37 @@
 									<input type="text" class="form-control"
 										Value="${lvEmp.leaveTodt}" name="compName" autocomplete="off"
 										readonly>
-	
+
 								</div>
 							</div>
 						</div>
 
-						
+
 						<div class="form-group row">
-						<div class="col-md-6">		
-						
-						<label class="col-form-label col-lg-5 float" for="compName">Leave
+							<div class="col-md-6">
+
+								<label class="col-form-label col-lg-5 float" for="compName">Leave
 									Type : </label>
 								<div class="col-lg-7 float">
 									<input type="text" class="form-control"
 										Value="${lvEmp.leaveTitle}" name="compName" autocomplete="off"
 										readonly>
-								</div>	
+								</div>
 							</div>
-							
-							<div class="col-md-6">		
+
+							<div class="col-md-6">
 								<label class="col-form-label col-lg-5 float" for="compName">No.
 									of Days : </label>
 								<div class="col-lg-7 float">
 									<input type="text" class="form-control"
 										Value="${lvEmp.leaveNumDays}" name="compName"
 										autocomplete="off" readonly>
-	
-								</div>	
+
+								</div>
 							</div>
 						</div>
 
-					
+
 						<c:if test="${lvEmp.empPhoto != '-'}">
 							<div class="form-group row">
 								<label class="col-form-label col-lg-2" for="certificate">Fitness
@@ -220,8 +223,7 @@
 													Approved</span></td>
 										</c:if>
 										<c:if test="${empTrailList.leaveStatus==7}">
-											<td><span class="badge badge-danger">Leave
-													Cancelled</span></td>
+											<td><span class="badge badge-danger"> Cancelled</span></td>
 										</c:if>
 										<c:if test="${empTrailList.leaveStatus==8}">
 											<td><span class="badge badge-danger">Initial
