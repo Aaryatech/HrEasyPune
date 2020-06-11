@@ -129,12 +129,12 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th class="text-center" width="10%">Sr. No.</th>
+									<th class="text-center" width="5%">Sr. No.</th>
 									<th class="text-center">Emp Code</th>
 									<th class="text-center">Name</th>
 									<th class="text-center">Emp Type</th>
-									<th class="text-center">Dept.</th>
-									<th class="text-center">Desig</th>
+									<th class="text-center">Department.</th>
+									<th class="text-center">Designation</th>
 									<th class="text-center">Location</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
@@ -157,7 +157,7 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/assignAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>
@@ -176,11 +176,11 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
 										<i class="icon-enlarge5"></i></a>
 											
-									<a href="${pageContext.request.contextPath}/"
+									<a href="${pageContext.request.contextPath}/returnAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/assignAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>
@@ -202,7 +202,7 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/assignAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>
@@ -224,7 +224,7 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/assignAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>
@@ -246,7 +246,7 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="#"
+									<a href="${pageContext.request.contextPath}/assignAssets"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>

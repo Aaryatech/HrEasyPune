@@ -98,54 +98,29 @@
 									action="${pageContext.request.contextPath}/"
 									id="submitInsertAsset" method="post">	
 									
-								<div class="form-group row">									
+							<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Employee
-													Code <span class="text-danger"></span>:</label>
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empName">Employee
+													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="AD001">
+													autocomplete="off" onchange="trim(this)" value="AD001-BYASPRASAD S GAUD">
 													<span class="validation-invalid-label" id="error_assetCode"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>
 											
 											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Employee
-												Name <span class="text-danger"></span>:</label>
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empDept">Department
+												 <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="BYASPRASAD S GAUD">
+												autocomplete="off" onchange="trim(this)" value="SBU1-WORKER">
 												<span class="validation-invalid-label" id="error_assetName"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>											
 									</div>	
-									
-										
-								<div class="form-group row">									
-										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Employee
-													Type <span class="text-danger"></span>:</label>
-												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="WORKER">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
-												</div>
-											</div>
-											
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Department
-												<span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="SBU1">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>											
-									</div>		
 									
 									<div class="form-group row">									
 										<div class="col-md-6">										

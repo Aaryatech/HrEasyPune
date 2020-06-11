@@ -37,6 +37,7 @@ import com.ats.hreasy.model.Setting;
 @Scope("session")
 public class AssetMgmtController {
 
+	/************************Assets Category***********************/
 	@RequestMapping(value = "/showAssetCategory", method = RequestMethod.GET)
 	public ModelAndView showAssetCategory(HttpServletRequest request, HttpServletResponse responser) {
 
@@ -180,6 +181,7 @@ public class AssetMgmtController {
 					} 
 					else if(res.getAssetCatId()<0){
 						session.setAttribute("errorMsg", "Failed to Insert Asset Category, Record Already Exist");
+						a = "redirect:/addAssetCategory";
 					}
 					else {
 					
@@ -295,7 +297,7 @@ public class AssetMgmtController {
 		
 	}
 	
-	/****************************************************************************/
+	/**************************AssetVendor*****************************/
 	@RequestMapping(value = "/showAssetVendor", method = RequestMethod.GET)
 	public ModelAndView showAssetVendor(HttpServletRequest request, HttpServletResponse responser) {
 
@@ -451,6 +453,7 @@ public class AssetMgmtController {
 					} 
 					else if(res.getVendorId()<0){
 						session.setAttribute("errorMsg", "Failed to Insert Asset Vendor, Record Already Exist");
+						a = "redirect:/addAssetVendor";
 					}
 					else {
 					
@@ -546,7 +549,7 @@ public class AssetMgmtController {
 		}
 		return a;
 	}
-/****************************************************************************/
+		/****************************Assets********************************/
 	@RequestMapping(value = "/showAllAssets", method = RequestMethod.GET)
 	public ModelAndView showAllAssets(HttpServletRequest request, HttpServletResponse responser) {
 
