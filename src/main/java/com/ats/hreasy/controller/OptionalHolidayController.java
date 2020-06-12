@@ -67,7 +67,7 @@ public class OptionalHolidayController {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 			map = new LinkedMultiValueMap<>();
-			map.add("date", sf.format(dt));
+			map.add("date", "2020-05-01");
 			map.add("yearId", calculateYear.getCalYrId());
 			map.add("catId", empDetail.getHolidayCategory());
 			map.add("empId", userObj.getEmpId());
