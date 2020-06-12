@@ -40,7 +40,10 @@
 
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Employee List For Full And Final</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i>Employee List For Full And
+							Final
+						</h5>
 					</div>
 
 					<div class="card-body">

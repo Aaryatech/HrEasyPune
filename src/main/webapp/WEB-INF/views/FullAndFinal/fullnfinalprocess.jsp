@@ -56,7 +56,9 @@
 						<div class="card">
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Profile</h5>
+								<h5 class="pageTitle">
+									<i class="icon-list-unordered"></i>Profile
+								</h5>
 							</div>
 
 							<div class="card-body fixed_height">
