@@ -208,18 +208,18 @@
 																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
-																		 												 
-																<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="icon-trash"></i></a>
-																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		 
+																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>
+																	
+																	<a href="javascript:void(0)"
+																		class="list-icons-item text-danger-600 bootbox_custom"
+																		data-uuid="" data-popup="tooltip"
+																		title="" data-original-title="Terminate"><i
+																		class="fa fa-ban"></i></a>
 															</td>														
 														</tr>
 														
@@ -234,18 +234,18 @@
 																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
-																		 												 
-																<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="icon-trash"></i></a>
-																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		 
+																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>
+																	
+																	<a href="javascript:void(0)"
+																		class="list-icons-item text-danger-600 bootbox_custom"
+																		data-uuid="" data-popup="tooltip"
+																		title="" data-original-title="Terminate"><i
+																		class="fa fa-ban"></i></a>
 															</td>														
 														</tr>
 														
@@ -260,18 +260,18 @@
 																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 																		 ></i></a>
-																		 												 
-																<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="icon-trash"></i></a>
-																		
-																<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																		 
+																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
 																		class="list-icons-item text-primary-600"
 																		data-uuid="" data-popup="tooltip"
 																		title="" data-original-title="Renew"><i
 																		class="icon-history"></i></a>
+																	
+																	<a href="javascript:void(0)"
+																		class="list-icons-item text-danger-600 bootbox_custom"
+																		data-uuid="" data-popup="tooltip"
+																		title="" data-original-title="Terminate"><i
+																		class="fa fa-ban"></i></a>
 															</td>															
 														</tr>
 														</table>

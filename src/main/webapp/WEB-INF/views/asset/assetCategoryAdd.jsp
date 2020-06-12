@@ -128,10 +128,10 @@
 											
 												<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnNotifctnDate">Asset Return
-													Notification Date <span class="text-danger">* </span>:</label>
+													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"
-														placeholder="Enter Return Notification Date" id="returnNotifctnDate" value="${asset.returnNotifctnDate}"
+													<input type="text" class="form-control" title = "No of days for alert prior to asset return date expiration"
+														placeholder="Enter Return Notification Days" id="returnNotifctnDate" value="${asset.returnNotifctnDate}"
 														name="returnNotifctnDate" autocomplete="off" onchange="trim(this)">
 													<span class="validation-invalid-label" id="error_returnNotifctnDate"
 														style="display: none;">This field is required.</span>
@@ -140,16 +140,41 @@
 									</div>
 
 
-									<div class="form-group row">
-									
-									<div class="col-md-6">										
+									<div class="form-group row">									
+										<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcNotifctnDate">Asset AMC
-													Notification Date <span class="text-danger">* </span>:</label>
+													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"
-														placeholder="Enter AMC Notification Date" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
+													<input type="text" class="form-control" title = "No of days for alert prior to AMC expiration"
+														placeholder="Enter AMC Notification Days" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
 														name="amcNotifctnDate" autocomplete="off" onchange="trim(this)">
 													<span class="validation-invalid-label" id="error_amcNotifctnDate"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>	
+									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serviceNotifctonDays">Service
+													Notification Days <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control" title = "No of days for alert prior to service expiration"														placeholder="Enter AMC Notification Date" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
+														name="serviceNotifctonDays" id="serviceNotifctonDays" placeholder="Enter Service Notification Days"
+														autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_serviceNotifctonDays"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>	
+									</div>
+									
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serviceCycleNotifctnDate">Service Cycle
+													Notification Days <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control" title = "No of days after servicing and next servicing will initiated."
+														placeholder="Enter Service Cycle Notification Days" id="serviceCycleNotifctnDate"
+														name="serviceCycleNotifctnDate" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_serviceCycleNotifctnDate"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>	
@@ -314,6 +339,25 @@
 													
 												} else {
 													$("#error_amcNotifctnDate").hide()
+												}
+												if (!$("#serviceNotifctonDays").val()) {
+
+													isError = true;
+
+													$("#error_serviceNotifctonDays").show()
+													
+												} else {
+													$("#error_serviceNotifctonDays").hide()
+												}
+												
+												if (!$("#serviceCycleNotifctnDate").val()) {
+
+													isError = true;
+
+													$("#error_serviceCycleNotifctnDate").show()
+													
+												} else {
+													$("#error_serviceCycleNotifctnDate").hide()
 												}
 
 												if (!isError) {

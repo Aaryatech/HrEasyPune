@@ -381,6 +381,14 @@ public class AssetMgmtController {
 
 			} else {
 				model = new ModelAndView("asset/assetVendorAdd");
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
+				
 				model.addObject("assetVendor", assetVendor);
 				model.addObject("title",  "Add Asset Vendor");
 			}
@@ -430,7 +438,7 @@ public class AssetMgmtController {
 				assetVendor.setContactPersonEmail(request.getParameter("contactPersonEmail"));
 				assetVendor.setContactPersonNo(request.getParameter("contactPersonNo"));
 				assetVendor.setGstin(request.getParameter("gstin"));
-				assetVendor.setVendorCity(request.getParameter("vendorCity"));
+				assetVendor.setVendorCity(request.getParameter("vendorCity"));//vendorloc//need save Multiple Location
 				assetVendor.setVendorEmail(request.getParameter("vendorEmail"));
 				assetVendor.setWebsite(request.getParameter("website"));								
 				assetVendor.setRemark(request.getParameter("remark"));					

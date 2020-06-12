@@ -55,7 +55,7 @@
 					<div class="card-header header-elements-inline">
  						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>${title}</h5></td>
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>Assets Details</h5></td>
 								<td width="40%" align="right">
 							  
 								 <%-- <a
@@ -102,15 +102,102 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
+								
+								<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
+													Name <span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly" 
+													value="ASST001-Laptop">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Purchase
+												Vendor <span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control"  readonly="readonly" 
+												value="Dells Gallery">
+												<span class="validation-invalid-label" id="error_assetName"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>											
+									</div>	
+									
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Category
+													<span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly" 
+													value="Computer">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
+													Purchase Date<span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly" 
+													value="10-04-2020">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>						
+									</div>	
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Model
+													<span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"  readonly="readonly" 
+													value="Dell Inspiron">
+													<span class="validation-invalid-label" id="error_assetCode"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Serial
+												No. <span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control"  readonly="readonly" 
+												value="D32A145">
+												<span class="validation-invalid-label" id="error_assetName"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>											
+									</div>	
+									<hr>
+									<!-- ************************************************************ -->
+									<div class="card-header header-elements-inline">
+ 						<table width="100%">
+							<tr width="100%">
+								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>${title}</h5></td>
+								<td width="40%" align="right">
+							  
+								 <%-- <a
+									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
+									class="breadcrumb-elements-item">
+										<button type="button" class="btn btn-primary">KRA List </button>
+								</a>  --%></td>
+							</tr>
+						</table>
+					</div>
 
 								<form
-									action="${pageContext.request.contextPath}/submitInsertAssetCat"
-									id="submitInsertLocaion" method="post">
+									action="${pageContext.request.contextPath}/submitScrapAsset"
+									id="submitScrapAsset" method="post">
 									
 									<div class="form-group row">									
 										<div class="col-md-6">
-											<input type="hidden" class="form-control" placeholder="Enter Asset Category" id="assetCatId"
-											name="assetCatId" autocomplete="off" onchange="trim(this)">
+											<input type="hidden" class="form-control" id="scrapAssetId"
+											name="scrapAssetId">
 										</div>
 									</div>				
 									<div class="form-group row">									
@@ -120,7 +207,7 @@
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control datepickerclass"
 														placeholder="Enter Asset Scrap Date" id="scrapDate"
-														name="scrapDate" autocomplete="off" onchange="trim(this)">
+														name="scrapDate" autocomplete="off">
 													<span class="validation-invalid-label" id="error_scrapDate"
 														style="display: none;">This field is required.</span>
 												</div>
@@ -132,7 +219,7 @@
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"
 														placeholder="Enter Scrap Authority Details" id="scrapAuthority"
-														name="scrapAuthority" autocomplete="off" onchange="trim(this)">
+														name="scrapAuthority" autocomplete="off">
 													<span class="validation-invalid-label" id="error_scrapAuthority"
 														style="display: none;">This field is required.</span>
 												</div>
@@ -227,7 +314,6 @@
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-			checkSame();
 			return;
 		}
 
@@ -260,7 +346,7 @@
 				.ready(
 						function($) {
 
-							$("#submitInsertLocaion")
+							$("#submitScrapAsset")
 									.submit(
 											function(e) {
 												var isError = false;

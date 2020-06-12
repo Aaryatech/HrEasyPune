@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,17 +140,36 @@
 									
 
 									<div class="form-group row">
-										<div class="col-md-6">		
-											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendorCity">Vendor
-												City<span class="text-danger">* </span>:</label>
-											<div class="col-lg-7 float">
-												<input type="text" class="form-control"
-													placeholder="Enter Vendor City" onchange="trim(this)"
-													id="vendorCity" name="vendorCity" value="${assetVendor.vendorCity}">
-												<span class="validation-invalid-label" id="error_vendorCity"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
+										<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendorloc">Accessible 
+											Location<span class="text-danger">*</span>:</label>
+												<div class="col-lg-7 float">
+													<select name="vendorloc"
+														data-placeholder="Select Location" id="vendorloc"
+														multiple="multiple"
+														class="form-control form-control-sm select"
+														data-container-css-class="select-sm" data-fouc>
+
+														<c:forEach items="${locationList}" var="locationList">
+															<c:set value="0" var="find"></c:set>
+															<c:forEach items="${locationIds}" var="locationIds">
+																<c:if test="${locationList.locId==locationIds}">
+																	<option selected="selected"
+																		value="${locationList.locId}">${locationList.locName}</option>
+																	<c:set value="1" var="find"></c:set>
+																</c:if>
+															</c:forEach>
+															<c:if test="${find==0}">
+																<option value="${locationList.locId}">${locationList.locName}</option>
+															</c:if>
+														</c:forEach>
+													</select>
+													 <span
+														class="validation-invalid-label" id="error_vendorloc"
+														style="display: none;">This field is required.</span>
+																										
+												</div>
+											</div>		
 										
 										<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="compAddress">Company 
@@ -183,7 +203,7 @@
 												No. <span class="text-danger"></span>:</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control" value="${assetVendor.contactNo2}"
-													placeholder="Enter Other Contact No." id="contact2"
+													placeholder="Enter Other Contact No." id="contact2" autocomplete="off"
 													name="contact2" autocomplete="off" onchange="trim(this)"
 													  maxlength="10"> <span
 													class="validation-invalid-label" id="error_contact2"
@@ -310,27 +330,10 @@
 
 	<script>
 	
-	function checkSame(){
-		x=document.getElementById("locName").value;
-		y=document.getElementById("locShortName").value;
-		//alert(x);
-		
-		if(x!== '' && y!== ''){
-			if(x==y){
-				$("#error_sameName").show()
-				document.getElementById("locShortName").value="";
-			}
-			else{
-				$("#error_sameName").hide()
-			}
-	}
-		
-	}
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-			checkSame();
 			return;
 		}
 
@@ -391,14 +394,14 @@
 															.hide()
 												}
 
-												if (!$("#vendorCity").val()) {
+												if (!$("#vendorloc").val()) {
 
 													isError = true;
 
-													$("#error_vendorCity").show()
+													$("#error_vendorloc").show()
 
 												} else {
-													$("#error_vendorCity").hide()
+													$("#error_vendorloc").hide()
 												}
 
 												if (!$("#contact1").val()) {
