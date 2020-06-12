@@ -190,7 +190,7 @@
 									<c:forEach items="${holList}" var="holList" varStatus="count">
 										<tr class="accordion-toggle collapsed"
 											id="accordion${count.index+1}" data-toggle="collapse"
-											data-parent="#accordion${count.index+1}" href="#collapseOne">
+											data-parent="#accordion${count.index+1}" href="#collapseOne${count.index+1}">
 											<td><span class="expand-button"></span></td>
 											<td>${holList.yearDate}</td>
 											<td>${holList.hoCatName}</td>
@@ -206,7 +206,7 @@
 										</tr>
 										<tr class="hide-table-padding">
 											<!-- <td></td> -->
-											<td colspan="8"><div id="collapseOne"
+											<td colspan="8"><div id="collapseOne${count.index+1}"
 													class="collapse in p-3">
 													<c:forEach items="${holList.holidaylist}" var="holidaylist">
 

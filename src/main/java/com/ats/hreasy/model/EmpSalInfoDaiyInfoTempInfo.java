@@ -170,6 +170,11 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		private int skillId; 
 		private double rate;
 		
+		private String dailyHr;
+		private String monthlyHrTarget;
+		private String monthlyMinimumTarget;
+		private String monthlyOtHr;
+		
 		private List<SalAllownceTemp> getAllowanceTempList;
 		public String getUuid() {
 			return uuid;
@@ -1125,6 +1130,30 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		public void setOtRate(double otRate) {
 			this.otRate = otRate;
 		}
+		public String getDailyHr() {
+			return dailyHr;
+		}
+		public void setDailyHr(String dailyHr) {
+			this.dailyHr = dailyHr;
+		}
+		public String getMonthlyHrTarget() {
+			return monthlyHrTarget;
+		}
+		public void setMonthlyHrTarget(String monthlyHrTarget) {
+			this.monthlyHrTarget = monthlyHrTarget;
+		}
+		public String getMonthlyMinimumTarget() {
+			return monthlyMinimumTarget;
+		}
+		public void setMonthlyMinimumTarget(String monthlyMinimumTarget) {
+			this.monthlyMinimumTarget = monthlyMinimumTarget;
+		}
+		public String getMonthlyOtHr() {
+			return monthlyOtHr;
+		}
+		public void setMonthlyOtHr(String monthlyOtHr) {
+			this.monthlyOtHr = monthlyOtHr;
+		}
 		@Override
 		public String toString() {
 			return "EmpSalInfoDaiyInfoTempInfo [uuid=" + uuid + ", id=" + id + ", cmpId=" + cmpId + ", empId=" + empId
@@ -1185,8 +1214,9 @@ public class EmpSalInfoDaiyInfoTempInfo {
 					+ weeklyOffHolidayOffPresent + ", weeklyOffHolidayOffPresentHalfday="
 					+ weeklyOffHolidayOffPresentHalfday + ", hdpresentHdleave=" + hdpresentHdleave + ", totEarlyGoing="
 					+ totEarlyGoing + ", atsummUid=" + atsummUid + ", calculationDone=" + calculationDone + ", dob="
-					+ dob + ", skillId=" + skillId + ", rate=" + rate + ", getAllowanceTempList=" + getAllowanceTempList
-					+ "]";
+					+ dob + ", skillId=" + skillId + ", rate=" + rate + ", dailyHr=" + dailyHr + ", monthlyHrTarget="
+					+ monthlyHrTarget + ", monthlyMinimumTarget=" + monthlyMinimumTarget + ", monthlyOtHr="
+					+ monthlyOtHr + ", getAllowanceTempList=" + getAllowanceTempList + "]";
 		}
 		
 		
