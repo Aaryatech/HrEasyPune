@@ -8,11 +8,11 @@
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 </head>
 
-<style type="text/css">
+<!-- <style type="text/css">
 .daterangepicker{width: 100%;}
 .daterangepicker.show-calendar .calendar{display: inline--block;}
 .daterangepicker .calendar, .daterangepicker .ranges{float: right;}
-</style>
+</style> -->
 
 <body>
 
