@@ -144,17 +144,7 @@
 									
 
 									<div class="form-group row">
-										<div class="col-md-6">		
-											<label class="col-form-label col-lg-5 float" for="assetDesc">Description
-												<span class="text-danger"></span>:</label>
-											<div class="col-lg-7 float">
-												<input type="text" class="form-control"
-													placeholder="Enter Description" onchange="trim(this)"
-													id="assetDesc" name="assetDesc" value="${asset.assetDesc}">
-												<!-- <span class="validation-invalid-label" id="error_assetDesc"
-													style="display: none;">This field is required.</span> -->
-											</div>
-										</div>
+										
 										
 										<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Category 
@@ -183,6 +173,32 @@
 																										
 												</div>
 											</div>	
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendor">Purchase Vendor
+												Name <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7 float">
+												<select name="assetVendorId" data-placeholder="Select Asset Purchase Vendor"
+														id="assetVendorId"
+														class="form-control form-control-select2 select2-hidden-accessible">
+
+														<option value="">Select Asset Vendor</option>
+														<c:forEach items="${assetVendorList}" var="assetVendorList">
+															<c:choose>
+																<c:when test="${assetVendorList.vendorId==asset.vendorId}">
+																	<option selected="selected"
+																		value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select>
+												<span class="validation-invalid-label" id="error_assetVendorId"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
 									</div>
 									
 									<div class="form-group row">
@@ -243,31 +259,58 @@
 									
 									<div class="form-group row">
 										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendor">Vendor
-												Name <span class="text-danger">* </span>:</label>
-												<div class="col-lg-7 float">
-												<select name="assetVendorId" data-placeholder="Select Asset Vendor"
-														id="assetVendorId"
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
+											Location<span class="text-danger">*</span>:</label>
+												<div class="col-lg-6 float">
+													<select name="locIdist" data-placeholder="Select Location" id="locIdist" 
 														class="form-control form-control-select2 select2-hidden-accessible">
 
-														<option value="">Select Asset Vendor</option>
-														<c:forEach items="${assetVendorList}" var="assetVendorList">
-															<c:choose>
-																<c:when test="${assetVendorList.vendorId==asset.vendorId}">
+														<option value="">Select Location</option>
+														<c:forEach items="${locationList}" var="locationList">
+															<c:set value="0" var="find"></c:set>
+															<c:forEach items="${locationIds}" var="locationIds">
+																<c:if test="${locationList.locId==locationIds}">
 																	<option selected="selected"
-																		value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-																</c:otherwise>
-															</c:choose>
+																		value="${locationList.locId}">${locationList.locName}</option>
+																	<c:set value="1" var="find"></c:set>
+																</c:if>
+															</c:forEach>
+															<c:if test="${find==0}">
+																<option value="${locationList.locId}">${locationList.locName}</option>
+															</c:if>
 														</c:forEach>
 													</select>
-												<span class="validation-invalid-label" id="error_assetVendorId"
-													style="display: none;">This field is required.</span>
+													 <span
+														class="validation-invalid-label" id="error_locIdist"
+														style="display: none;">This field is required.</span>
+																										
+												</div>
+											</div>	
+									
+										<div class="col-md-6">		
+											<label class="col-form-label col-lg-5 float" for="assetDesc">Description
+												<span class="text-danger"></span>:</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Description" onchange="trim(this)"
+													id="assetDesc" name="assetDesc" value="${asset.assetDesc}">
+												<!-- <span class="validation-invalid-label" id="error_assetDesc"
+													style="display: none;">This field is required.</span> -->
 											</div>
 										</div>
-										
+									</div>
+									
+									<div class="form-group row">
+										<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold  col-lg-5 float" for="remark">Asset Image
+														<span class="text-danger">* </span>:</label>
+														<div class="col-lg-7 float">
+												<img id="output" width="150"/>
+												<input type="file" accept="image/*" name="image" id="assetfile" onchange="loadFile(event)">
+												<span class="validation-invalid-label" id="error_assetfile"
+													style="display: none;">This field is required.</span>
+												</div>	
+										</div>
 										
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
@@ -278,9 +321,9 @@
 													name="remark">${asset.assetRemark}</textarea>
 	
 											</div>
-										</div>
+										</div>										
 									</div>
-
+									
 									<div class="form-group row mb-0">
 									<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
 										
@@ -318,6 +361,15 @@
 <script
 		src="${pageContext.request.contextPath}/resources/global_assets/js/footercommonjs.js"></script>
  <script type="text/javascript">
+ var loadFile = function(event) {
+	 try {
+		var image = document.getElementById('output');
+		image.src = URL.createObjectURL(event.target.files[0]);
+	 } catch(err) {
+		 console.log(err);
+		}
+	};
+	
  $('#assetPurDate').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
  });
@@ -363,15 +415,25 @@
 										$("#error_assetCatId").hide()
 									}
 								
-									/* if (!$("#assetDesc").val()) {
+									/* if (!$("#assetfile").val()) {
 
 										isError = true;
 
-										$("#error_assetDesc").show()
+										$("#error_assetfile").show()
 
 									} else {
-										$("#error_assetDesc").hide()
-									} */
+										$("#error_assetfile").hide()
+									} 
+									
+									if (!$("#locIdist").val()) {
+
+										isError = true;
+
+										$("#error_locIdist").show()
+
+									} else {
+										$("#error_locIdist").hide()
+									}  */
 									
 									if (!$("#assetMake").val()) {
 

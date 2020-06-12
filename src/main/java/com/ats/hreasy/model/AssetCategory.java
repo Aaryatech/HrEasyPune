@@ -5,6 +5,8 @@ public class AssetCategory {
 	private int assetCatId;
 	private String catName;
 	private String catRemark;
+	private int returnNotifctnDate;
+	private int amcNotifctnDate;
 	private int delStatus;
 	private int makerUserId;
 	private String updateDatetime;
@@ -27,6 +29,18 @@ public class AssetCategory {
 	}
 	public void setCatRemark(String catRemark) {
 		this.catRemark = catRemark;
+	}
+	public int getReturnNotifctnDate() {
+		return returnNotifctnDate;
+	}
+	public void setReturnNotifctnDate(int returnNotifctnDate) {
+		this.returnNotifctnDate = returnNotifctnDate;
+	}
+	public int getAmcNotifctnDate() {
+		return amcNotifctnDate;
+	}
+	public void setAmcNotifctnDate(int amcNotifctnDate) {
+		this.amcNotifctnDate = amcNotifctnDate;
 	}
 	public int getDelStatus() {
 		return delStatus;
@@ -61,10 +75,10 @@ public class AssetCategory {
 	}
 	@Override
 	public String toString() {
-		return "AssetCat [assetCatId=" + assetCatId + ", catName=" + catName + ", catRemark=" + catRemark
-				+ ", delStatus=" + delStatus + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime
-				+ ", exInt1=" + exInt1 + ", exVar1=" + exVar1 + "]";
+		return "AssetCategory [assetCatId=" + assetCatId + ", catName=" + catName + ", catRemark=" + catRemark
+				+ ", returnNotifctnDate=" + returnNotifctnDate + ", amcNotifctnDate=" + amcNotifctnDate + ", delStatus="
+				+ delStatus + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime + ", exInt1="
+				+ exInt1 + ", exVar1=" + exVar1 + "]";
 	}
-	
 	
 }

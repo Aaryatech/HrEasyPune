@@ -99,7 +99,9 @@
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Asset Category</th>									
+									<th>Asset Category</th>		
+									<th>Return Notification Date</th>		
+									<th>AMC Notification Date</th>									
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -111,6 +113,8 @@
 									<tr>
 										 <td>${count.index+1}</td>
 										<td>${assetList.catName}</td>
+										<td>${assetList.returnNotifctnDate}</td>
+										<td>${assetList.amcNotifctnDate}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editAssetCategory?assetCatId=${assetList.exVar1}"

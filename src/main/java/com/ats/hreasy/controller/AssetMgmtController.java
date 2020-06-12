@@ -162,7 +162,9 @@ public class AssetMgmtController {
 					
 					asset.setAssetCatId(assetCatId);
 					asset.setCatName(request.getParameter("assetCat"));					
-					asset.setCatRemark(request.getParameter("remark"));					
+					asset.setCatRemark(request.getParameter("remark"));	
+					asset.setReturnNotifctnDate(Integer.parseInt(request.getParameter("returnNotifctnDate")));
+					asset.setAmcNotifctnDate(Integer.parseInt(request.getParameter("amcNotifctnDate")));
 					asset.setDelStatus(1);
 					asset.setMakerUserId(userObj.getUserId());					
 					asset.setUpdateDatetime(sf.format(date));
@@ -650,6 +652,13 @@ public class AssetMgmtController {
 						, AssetVendor[].class);
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
+								
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
 				
 				map = new LinkedMultiValueMap<>();
 				map.add("limitKey", "assetCodeValue");

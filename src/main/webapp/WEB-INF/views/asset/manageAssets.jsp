@@ -388,6 +388,7 @@
 									<th class="text-center">Category</th>
 									<th class="text-center">Model</th>
 									<th class="text-center">Assign Period</th>
+									<th class="text-center">Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -397,8 +398,7 @@
 									<td>Computer</td>
 									<td>Dell Inspiron</td>
 									<td>20-05-2020 to 01-06-2020</td>
-									
-									
+									<td>Live</td>	
 								</tr>
 <tr>
 									<td>2</td>
@@ -406,7 +406,7 @@
 									<td>Phone</td>
 									<td>Vodefone</td>
 									<td>20-05-2020 to 01-06-2020</td>
-									
+									<td>Live</td>
 								</tr>
 								<tr>
 									<td>3</td>
@@ -414,7 +414,7 @@
 									<td>Stationary</td>
 									<td>A4</td>
 									<td>20-05-2020 to 01-06-2020</td>
-									
+									<td>Pending</td>
 								</tr>
 								<tr>
 									<td>4</td>
@@ -422,7 +422,7 @@
 									<td>Phone</td>
 									<td>One Plus T</td>
 									<td>20-05-2020 to 01-06-2020</td>
-								
+									<td>Scrap</td>
 								</tr>								
 							</tbody>
 							<%-- <tbody>

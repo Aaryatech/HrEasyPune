@@ -124,11 +124,36 @@
 													<span class="validation-invalid-label" id="error_assetCat"
 														style="display: none;">This field is required.</span>
 												</div>
+											</div>	
+											
+												<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnNotifctnDate">Asset Return
+													Notification Date <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"
+														placeholder="Enter Return Notification Date" id="returnNotifctnDate" value="${asset.returnNotifctnDate}"
+														name="returnNotifctnDate" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_returnNotifctnDate"
+														style="display: none;">This field is required.</span>
+												</div>
 											</div>										
 									</div>
 
 
 									<div class="form-group row">
+									
+									<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcNotifctnDate">Asset AMC
+													Notification Date <span class="text-danger">* </span>:</label>
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control"
+														placeholder="Enter AMC Notification Date" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
+														name="amcNotifctnDate" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_amcNotifctnDate"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>	
+									
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
 												: </label>
@@ -270,6 +295,25 @@
 													//return false;
 												} else {
 													$("#error_assetCat").hide()
+												}
+												
+												if (!$("#returnNotifctnDate").val() && $("#returnNotifctnDate").val()==0) {
+
+													isError = true;
+
+													$("#error_returnNotifctnDate").show()
+													//return false;
+												} else {
+													$("#error_returnNotifctnDate").hide()
+												}
+												if (!$("#amcNotifctnDate").val()) {
+
+													isError = true;
+
+													$("#error_amcNotifctnDate").show()
+													
+												} else {
+													$("#error_amcNotifctnDate").hide()
 												}
 
 												if (!isError) {

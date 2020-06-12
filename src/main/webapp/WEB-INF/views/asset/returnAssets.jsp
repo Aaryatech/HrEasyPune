@@ -110,20 +110,7 @@
 												</div>
 											</div>
 											
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empDept">Department
-												 <span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="SBU1-WORKER">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>											
-									</div>	
-									
-									<div class="form-group row">									
-										<div class="col-md-6">										
+											<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Designation
 													Type <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
@@ -132,19 +119,8 @@
 													<span class="validation-invalid-label" id="error_assetCode"
 														style="display: none;">This field is required.</span>
 												</div>
-											</div>
-											
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Location
-												<span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="KHL">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>											
-									</div>										
+											</div>									
+									</div>							
 					
 						<div class="table-responsive">
 								<table class="table datatable-scroll-y" id="printtable1">
@@ -330,7 +306,27 @@
 							</div>
 
 							<div class="modal-body">
-							<img src="/ext/ext-web/tmp/WEB-INF/smile.jpg">
+							<div class="form-group row">									
+								<div class="col-md-4">
+									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Assign Image
+															Name <span class="text-danger"></span>:</label>
+									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKI7IY-cNuEyZmw-eC4fjyoxaW8oauU5gbVlp13Bi--fVYOCbb3mACK1PZso0&usqp=CAc">
+								</div>
+								
+								<div class="col-md-4">
+									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Purchase Image
+															Name <span class="text-danger"></span>:</label>
+									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKI7IY-cNuEyZmw-eC4fjyoxaW8oauU5gbVlp13Bi--fVYOCbb3mACK1PZso0&usqp=CAc">
+								</div>
+								
+								<div class="col-md-4">
+									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Remark
+									<span class="text-danger"></span>:</label>
+									<input type="text" class="form-control"  readonly="readonly" 
+									value="Battery Problem" style="width: 50%;">
+								</div>
+							</div>
+							
 							<div class="form-group row">									
 										<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
@@ -385,54 +381,40 @@
 								<tr class="bg-blue">
 
 									<th class="text-center" width="10%">Sr. No.</th>
-									<th class="text-center">Emp Code</th>
 									<th class="text-center">Emp Name</th>
 									<th class="text-center">Department</th>
 									<th class="text-center">Location</th>
-									<th class="text-center" colspan="2">Assign Period</th>
+									<th class="text-center">Assign Period</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>AD001</td>
-									<td>BYASPRASAD S GAUD</td>
+									<td>AD001-BYASPRASAD S GAUD</td>
 									<td>SBU1</td>
 									<td>KHL</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
-									
+									<td>20-05-2020 to 01-06-2020</td>
 								</tr>
-<tr>
+								<tr>
 									<td>2</td>
-									<td>AD002</td>
-									<td>MAHENDRA A GHAG</td>
+									<td>AD002-MAHENDRA A GHAG</td>
 									<td>SBU1</td>
 									<td>KHL</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>									
 								</tr>
 								<tr>
 									<td>3</td>
-									<td>AD003</td>
-									<td>PURUSHOTTAM G AMBRE</td>
+									<td>AD003-PURUSHOTTAM G AMBRE</td>
 									<td>SBU1</td>
 									<td>KHL</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-									
+									<td>20-05-2020 to 01-06-2020</td>									
 								</tr>
 								<tr>
 									<td>4</td>
-									<td>AD004</td>
-									<td>BYASPRASAD S GAUD</td>
+									<td>AD00-BYASPRASAD S GAUD</td>
 									<td>SBU1</td>
 									<td>KHL</td>
-									<td>20-05-2020</td>
-									<td>01-06-2020</td>
-								
+									<td>20-05-2020 to 01-06-2020</td>								
 								</tr>
 								
 							</tbody>
