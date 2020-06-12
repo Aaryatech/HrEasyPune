@@ -105,7 +105,7 @@
 
 								<form
 									action="${pageContext.request.contextPath}/submitInsertAssetCat"
-									id="submitInsertLocaion" method="post">
+									id="submitInsertAssetCat" method="post">
 									
 									<div class="form-group row">									
 										<div class="col-md-6">
@@ -127,13 +127,13 @@
 											</div>	
 											
 												<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnNotifctnDate">Asset Return
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnNotifctnDate">Return
 													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control" title = "No of days for alert prior to asset return date expiration"
-														placeholder="Enter Return Notification Days" id="returnNotifctnDate" value="${asset.returnNotifctnDate}"
-														name="returnNotifctnDate" autocomplete="off" onchange="trim(this)">
-													<span class="validation-invalid-label" id="error_returnNotifctnDate"
+													<input type="text" class="form-control" title = "No. of days for alert prior to asset return date expiration"
+														placeholder="Enter Return Notification Days" id="returnNotifctnDays" value="${asset.returnNotifctnDays}"
+														name="returnNotifctnDays" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_returnNotifctnDays"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>										
@@ -142,25 +142,26 @@
 
 									<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcNotifctnDate">Asset AMC
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amc">AMC
 													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control" title = "No of days for alert prior to AMC expiration"
-														placeholder="Enter AMC Notification Days" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
-														name="amcNotifctnDate" autocomplete="off" onchange="trim(this)">
-													<span class="validation-invalid-label" id="error_amcNotifctnDate"
+													<input type="text" class="form-control" title = "No. of days for alert prior to AMC expiration"
+														placeholder="Enter AMC Notification Days" id="amc" value="${asset.amcNotifctnDays}"
+														name="amcNotifctnDays" autocomplete="off" onchange="trim(this)">
+													<span class="validation-invalid-label" id="error_amc"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>	
 									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serviceNotifctonDays">Service
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="service">Service
 													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control" title = "No of days for alert prior to service expiration"														placeholder="Enter AMC Notification Date" id="amcNotifctnDate" value="${asset.amcNotifctnDate}"
-														name="serviceNotifctonDays" id="serviceNotifctonDays" placeholder="Enter Service Notification Days"
+													<input type="text" class="form-control" title = "No. of days for alert prior to service expiration"  
+														value="${asset.serviceNotifctnDays}"
+														name="serviceNotifctonDays" id="service" placeholder="Enter Service Notification Days"
 														autocomplete="off" onchange="trim(this)">
-													<span class="validation-invalid-label" id="error_serviceNotifctonDays"
+													<span class="validation-invalid-label" id="error_service"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>	
@@ -168,13 +169,13 @@
 									
 									<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serviceCycleNotifctnDate">Service Cycle
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serviceCycle">Service Cycle
 													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control" title = "No of days after servicing and next servicing will initiated."
-														placeholder="Enter Service Cycle Notification Days" id="serviceCycleNotifctnDate"
-														name="serviceCycleNotifctnDate" autocomplete="off" onchange="trim(this)">
-													<span class="validation-invalid-label" id="error_serviceCycleNotifctnDate"
+													<input type="text" class="form-control" title = "No. of days after servicing and next servicing will initiated."
+														placeholder="Enter Service Cycle Notification Days" id="serviceCycle"
+														name="serviceCycleNotifctnDays" autocomplete="off" onchange="trim(this)" value="${asset.serviceCycleDays}">
+													<span class="validation-invalid-label" id="error_serviceCycle"
 														style="display: none;">This field is required.</span>
 												</div>
 											</div>	
@@ -251,29 +252,13 @@
 							});
 	});
 </script> -->
+
+
 	<script>
-	
-	function checkSame(){
-		x=document.getElementById("locName").value;
-		y=document.getElementById("locShortName").value;
-		//alert(x);
-		
-		if(x!== '' && y!== ''){
-			if(x==y){
-				$("#error_sameName").show()
-				document.getElementById("locShortName").value="";
-			}
-			else{
-				$("#error_sameName").hide()
-			}
-	}
-		
-	}
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-			checkSame();
 			return;
 		}
 
@@ -306,7 +291,7 @@
 				.ready(
 						function($) {
 
-							$("#submitInsertLocaion")
+							$("#submitInsertAssetCat")
 									.submit(
 											function(e) {
 												var isError = false;
@@ -317,47 +302,49 @@
 													isError = true;
 
 													$("#error_assetCat").show()
-													//return false;
+													
 												} else {
 													$("#error_assetCat").hide()
 												}
 												
-												if (!$("#returnNotifctnDate").val() && $("#returnNotifctnDate").val()==0) {
+												if (!$("#returnNotifctnDays").val()) {
 
 													isError = true;
 
-													$("#error_returnNotifctnDate").show()
-													//return false;
-												} else {
-													$("#error_returnNotifctnDate").hide()
-												}
-												if (!$("#amcNotifctnDate").val()) {
-
-													isError = true;
-
-													$("#error_amcNotifctnDate").show()
+													$("#error_returnNotifctnDays").show()
 													
 												} else {
-													$("#error_amcNotifctnDate").hide()
-												}
-												if (!$("#serviceNotifctonDays").val()) {
-
-													isError = true;
-
-													$("#error_serviceNotifctonDays").show()
-													
-												} else {
-													$("#error_serviceNotifctonDays").hide()
+													$("#error_returnNotifctnDays").hide()
 												}
 												
-												if (!$("#serviceCycleNotifctnDate").val()) {
+												if (!$("#amc").val()) {
 
 													isError = true;
 
-													$("#error_serviceCycleNotifctnDate").show()
+													$("#error_amc").show()
 													
 												} else {
-													$("#error_serviceCycleNotifctnDate").hide()
+													$("#error_amc").hide()
+												}
+												
+												if (!$("#service").val()) {
+
+													isError = true;
+
+													$("#error_service").show()
+													
+												} else {
+													$("#error_service").hide()
+												}
+												
+												if (!$("#serviceCycle").val()) {
+
+													isError = true;
+
+													$("#error_serviceCycle").show()
+													
+												} else {
+													$("#error_serviceCycle").hide()
 												}
 
 												if (!isError) {
@@ -379,38 +366,20 @@
 						});
 		//
 	</script>
-	
-	<!-- <script type="text/javascript">
-	$('#submtbtn').on('click', function() {
-        swalInit({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false
-        }).then(function(result) {
-            if(result.value) {
-                swalInit(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                );
-            }
-            else if(result.dismiss === swal.DismissReason.cancel) {
-                swalInit(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
-                    'error'
-                );
-            }
-        });
-    });
-	
-	</script> -->
+	<script>
+$('#returnNotifctnDays').on('input', function() {
+	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+	});
+	$('#amc').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+	});
+	$('#service').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+		});
+	$('#serviceCycle').on('input', function() {
+		 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+	});
+</script>
 
 </body>
 </html>

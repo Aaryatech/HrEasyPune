@@ -5,8 +5,10 @@ public class AssetCategory {
 	private int assetCatId;
 	private String catName;
 	private String catRemark;
-	private int returnNotifctnDate;
-	private int amcNotifctnDate;
+	private int returnNotifctnDays;
+	private int amcNotifctnDays;
+	private int serviceNotifctnDays;
+	private int serviceCycleDays;
 	private int delStatus;
 	private int makerUserId;
 	private String updateDatetime;
@@ -30,17 +32,29 @@ public class AssetCategory {
 	public void setCatRemark(String catRemark) {
 		this.catRemark = catRemark;
 	}
-	public int getReturnNotifctnDate() {
-		return returnNotifctnDate;
+	public int getReturnNotifctnDays() {
+		return returnNotifctnDays;
 	}
-	public void setReturnNotifctnDate(int returnNotifctnDate) {
-		this.returnNotifctnDate = returnNotifctnDate;
+	public void setReturnNotifctnDays(int returnNotifctnDays) {
+		this.returnNotifctnDays = returnNotifctnDays;
 	}
-	public int getAmcNotifctnDate() {
-		return amcNotifctnDate;
+	public int getAmcNotifctnDays() {
+		return amcNotifctnDays;
 	}
-	public void setAmcNotifctnDate(int amcNotifctnDate) {
-		this.amcNotifctnDate = amcNotifctnDate;
+	public void setAmcNotifctnDays(int amcNotifctnDays) {
+		this.amcNotifctnDays = amcNotifctnDays;
+	}
+	public int getServiceNotifctnDays() {
+		return serviceNotifctnDays;
+	}
+	public void setServiceNotifctnDays(int serviceNotifctnDays) {
+		this.serviceNotifctnDays = serviceNotifctnDays;
+	}
+	public int getServiceCycleDays() {
+		return serviceCycleDays;
+	}
+	public void setServiceCycleDays(int serviceCycleDays) {
+		this.serviceCycleDays = serviceCycleDays;
 	}
 	public int getDelStatus() {
 		return delStatus;
@@ -51,7 +65,6 @@ public class AssetCategory {
 	public int getMakerUserId() {
 		return makerUserId;
 	}
-	
 	public String getUpdateDatetime() {
 		return updateDatetime;
 	}
@@ -76,9 +89,10 @@ public class AssetCategory {
 	@Override
 	public String toString() {
 		return "AssetCategory [assetCatId=" + assetCatId + ", catName=" + catName + ", catRemark=" + catRemark
-				+ ", returnNotifctnDate=" + returnNotifctnDate + ", amcNotifctnDate=" + amcNotifctnDate + ", delStatus="
-				+ delStatus + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime + ", exInt1="
-				+ exInt1 + ", exVar1=" + exVar1 + "]";
+				+ ", returnNotifctnDays=" + returnNotifctnDays + ", amcNotifctnDays=" + amcNotifctnDays
+				+ ", serviceNotifctnDays=" + serviceNotifctnDays + ", serviceCycleDays=" + serviceCycleDays
+				+ ", delStatus=" + delStatus + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime
+				+ ", exInt1=" + exInt1 + ", exVar1=" + exVar1 + "]";
 	}
 	
 }

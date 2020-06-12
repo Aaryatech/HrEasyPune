@@ -163,8 +163,10 @@ public class AssetMgmtController {
 					asset.setAssetCatId(assetCatId);
 					asset.setCatName(request.getParameter("assetCat"));					
 					asset.setCatRemark(request.getParameter("remark"));	
-					asset.setReturnNotifctnDate(Integer.parseInt(request.getParameter("returnNotifctnDate")));
-					asset.setAmcNotifctnDate(Integer.parseInt(request.getParameter("amcNotifctnDate")));
+					asset.setReturnNotifctnDays(Integer.parseInt(request.getParameter("returnNotifctnDays")));
+					asset.setAmcNotifctnDays(Integer.parseInt(request.getParameter("amcNotifctnDays")));
+					asset.setServiceNotifctnDays(Integer.parseInt(request.getParameter("serviceNotifctonDays")));
+					asset.setServiceCycleDays(Integer.parseInt(request.getParameter("serviceCycleNotifctnDays")));					
 					asset.setDelStatus(1);
 					asset.setMakerUserId(userObj.getUserId());					
 					asset.setUpdateDatetime(sf.format(date));
