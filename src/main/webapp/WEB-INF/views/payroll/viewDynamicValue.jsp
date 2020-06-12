@@ -117,12 +117,10 @@
 						<hr>
 					</div>
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Enter Dynamic Amount ${date}</h5>
-						<!-- <div class="header-elements">
-							<div class="list-icons">
-								<a class="list-icons-item" data-action="collapse"></a>
-							</div> 
-						</div>-->
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i>Enter Dynamic Amount ${date}
+						</h5>
+
 					</div>
 
 					<div class="card-body">

@@ -56,12 +56,10 @@
 				<div class="card">
 
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Generate Payroll ${date}</h5>
-						<!-- <div class="header-elements">
-							<div class="list-icons">
-								<a class="list-icons-item" data-action="collapse"></a>
-							</div> 
-						</div>-->
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i>Generate Payroll ${date}
+						</h5>
+
 					</div>
 
 					<div class="card-body">

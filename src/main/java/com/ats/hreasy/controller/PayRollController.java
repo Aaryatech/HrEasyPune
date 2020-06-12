@@ -1177,7 +1177,7 @@ public class PayRollController {
 						Message mimeMessage = new MimeMessage(session);
 						mimeMessage.setFrom(new InternetAddress(username));
 						mimeMessage.setRecipients(Message.RecipientType.TO,
-								InternetAddress.parse("akshaykasar72@gmail.com"));
+								InternetAddress.parse(email));
 						mimeMessage.setSubject(subject);
 						mimeMessage.setFileName("Payslip");
 						BodyPart mbodypart = new MimeBodyPart();
