@@ -40,8 +40,6 @@ import com.ats.hreasy.model.TempFistDayAssignList;
 @Controller
 @Scope("session")
 public class ShiftAssignController {
-	
-	
 
 	@RequestMapping(value = "/shiftUploadSelectMonth", method = RequestMethod.GET)
 	public String attendanceSelectMonth(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -233,10 +231,8 @@ public class ShiftAssignController {
 
 		try {
 
-			/*
-			 * int sm = Integer.parseInt(request.getParameter("sm")); int sy =
-			 * Integer.parseInt(request.getParameter("sy"));
-			 */
+			HttpSession session = request.getSession();
+
 			int shiftId = Integer.parseInt(request.getParameter("shiftId"));
 			String daterange = request.getParameter("daterange");
 			String[] empId = request.getParameterValues("empId");
@@ -256,14 +252,29 @@ public class ShiftAssignController {
 
 			String[] daterangear = daterange.split("to");
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("empIdList", items);
-			map.add("shiftId", shiftId);
-			map.add("fromDate", DateConvertor.convertToYMD(daterangear[0]));
-			map.add("toDate", DateConvertor.convertToYMD(daterangear[1]));
-			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
-					Info.class);
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+			Date d1 = sf.parse(daterangear[0]);
+			Date d2 = sf.parse(daterangear[1]);
+			Date ct = new Date();
+			String date = sf.format(ct);
 
+			System.out.println(d1);
+			System.out.println(d2);
+			System.out.println(sf.parse(date));
+
+			if (d1.compareTo(sf.parse(date)) >= 0 && d2.compareTo(sf.parse(date)) >= 0) {
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("empIdList", items);
+				map.add("shiftId", shiftId);
+				map.add("fromDate", DateConvertor.convertToYMD(daterangear[0]));
+				map.add("toDate", DateConvertor.convertToYMD(daterangear[1]));
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAssignShiftByDate", map,
+						Info.class);
+				session.setAttribute("successMsg", "Assign shift Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "You have select previous date.");
+			}
 			redirect = "redirect:/showShiftProjectionAllocation?locId=" + locId;
 
 		} catch (Exception e) {
