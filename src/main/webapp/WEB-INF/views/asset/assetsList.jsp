@@ -123,8 +123,7 @@
 											</div>		
 									</div>
 						<table
-							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-							id="printtable1">
+							class="table ">
 							<thead>
 								<tr class="bg-blue">
 
@@ -147,9 +146,10 @@
 								<c:forEach items="${assetsList}" var="assetList"
 									varStatus="count">
 									<tr class="accordion-toggle collapsed"
-											id="accordion${count.index+1}" data-toggle="collapse"
-											data-parent="#accordion${count.index+1}" href="#collapseOne">
-										 <td><span class="expand-button"></span></td>
+											id1="accordion${count.index+1}" data-toggle1="collapse"
+											data-parent1="#accordion${count.index+1}" >
+										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}" data-toggle="collapse"
+											data-parent="#accordion${count.index+1}"><span class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}</td>
 										<td>${assetList.assetName}</td>
 										<td>${assetList.assetDesc}</td>
@@ -174,28 +174,21 @@
 													class="icon-trash"></i></a>
 											</c:if>
 											<a href="${pageContext.request.contextPath}/addAssetAmc"
-											class="list-icons-item text-primary-600"><i
+											class="list-icons-item text-primary-600" data-popup="tooltip"
+													title="" data-original-title="Add Asset AMC"><i
 													class="icon-enlarge5"></i></a>
+											<a href="${pageContext.request.contextPath}/scrapAsset"
+											class="list-icons-item text-primary-600" data-popup="tooltip"
+													title="" data-original-title="Scrap Asset"><i
+													class="fa fa-recycle"></i></a>
 											</td>
 									</tr>
 									
 									<tr class="hide-table-padding">
 											<!-- <td></td> -->
-											<td colspan="12"><div id="collapseOne"
-													class="collapse in p-3">
-														<%-- <div class="row">
-															<div class="col-3 row_padd">AA</div>
-															<div class="col-3 row_padd">BB</div>
-															<div class="col-3 row_padd">
-																<c:choose>
-																	<c:when test="">Fixed</c:when>
-																	<c:when test="">Optional</c:when>
-																	<c:when test="">NA</c:when>
-																</c:choose>
-															</div>														
-														</div> --%>
-														<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-														id="innertabprinttable1">
+											<td colspan="12"><div id="collapseOne${count.index+1}"
+													class="collapse in p-3">														
+														<table class="table ">
 														<tr class="bg-blue">
 															<th>Sr.No.</th>
 															<th>Vendor Name</th>

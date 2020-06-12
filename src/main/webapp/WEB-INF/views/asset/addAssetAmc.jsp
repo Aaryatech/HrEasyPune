@@ -6,11 +6,11 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-<style type="text/css">
+<!-- <style type="text/css">
 .daterangepicker{width: 100%;}
 .daterangepicker.show-calendar .calendar{display: inline--block;}
 .daterangepicker .calendar, .daterangepicker .ranges{float: right;}
-</style>
+</style> -->
 </head>
 
 <body>
@@ -233,21 +233,7 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-											
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
-												 <span class="text-danger">*</span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control daterange-basic_new"
-													placeholder="Enter AMC Period" id="amcperiod"
-													name="amcperiod" autocomplete="off">
-												<span class="validation-invalid-label" id="error_amcperiod"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>											
-									</div>
-									
-									<div class="form-group row">
+										
 										<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcamt">AMC 
 												Amt<span class="text-danger">* </span>:</label>
@@ -258,19 +244,35 @@
 												<span class="validation-invalid-label" id="error_amcamt"
 													style="display: none;">This field is required.</span>
 											</div>
-										</div>
+										</div>								
+									</div>
+									
+									<div class="form-group row">
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
+												 From<span class="text-danger">*</span>:</label>
+												<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass"
+													placeholder="Enter AMC Period From" id="amcperiodfrom"
+													name="amcperiodfrom" autocomplete="off">
+												<span class="validation-invalid-label" id="error_amcperiodfrom"
+													style="display: none;">This field is required.</span>
+												<span class="validation-invalid-label" id="error_fromDate"	style="display: none;">From Date must be smaller than To Date </span>
+											</div>
+										</div>		
 										
 										<div class="col-md-6">
-												<label class="col-form-label col-lg-5  float" for="terms">Terms &
-												Conditions <span class="text-danger"></span>:</label>
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
+												 To<span class="text-danger">*</span>:</label>
 												<div class="col-lg-7 float">
-												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Enter Terms & Conditions"id="terms"
-													name="terms"></textarea>
-												<span class="validation-invalid-label" id="error_terms"
+												<input type="text" class="form-control datepickerclass"
+													placeholder="Enter AMC Period To" id="amcperiodto"
+													name="amcperiod" autocomplete="off">
+												<span class="validation-invalid-label" id="error_amcperiod"
 													style="display: none;">This field is required.</span>
+												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
 											</div>
-										</div>
+										</div>		
 									</div>
 									
 									<div class="form-group row">
@@ -307,6 +309,18 @@
 												<img id="output" width="150"/>
 												<input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"> 
 												<span class="validation-invalid-label" id="error_amcdoc"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										
+										<div class="col-md-6">
+												<label class="col-form-label col-lg-5  float" for="terms">Terms &
+												Conditions <span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Enter Terms & Conditions"id="terms"
+													name="terms"></textarea>
+												<span class="validation-invalid-label" id="error_terms"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -362,14 +376,24 @@ $(document)
 									var errMsg = "";
 									
 									
-									if (!$("#amcperiod").val()) {
+									if (!$("#amcperiodfrom").val()) {
 
 										isError = true;
 
-										$("#error_amcperiod").show()
+										$("#error_amcperiodfrom").show()
 
 									} else {
-										$("#error_amcperiod").hide()
+										$("#error_amcperiodfrom").hide()
+									}
+									
+									if (!$("#amcperiodto").val()) {
+
+										isError = true;
+
+										$("#error_amcperiodto").show()
+
+									} else {
+										$("#error_amcperiodto").hide()
 									}
 
 									if (!$("#amcamt").val()) {
@@ -391,6 +415,29 @@ $(document)
 									} else {
 										$("#error_assetVendorId").hide()
 									}
+									
+									var from_date = document.getElementById("amcperiodfrom").value;
+				      				var to_date = document.getElementById("amcperiodto").value;
+				      				
+				      				var fromdate = from_date.split('-');
+			         		        from_date = new Date();
+			         		        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+			         		        var todate = to_date.split('-');
+			         		        to_date = new Date();
+			         		        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+			         		        if (from_date > to_date ) 
+			         		        {
+			         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+										$("#error_fromDate").show();
+			    					 	$("#error_toDate").show();
+			    					 	
+			         		            return false;
+			         		           
+			         		        }else {
+			         					$("#error_fromDate").hide();
+			         					$("#error_toDate").hide();
+			         				}
+			         		        
 									if (!isError) {
 
 										var x = true;
@@ -417,6 +464,14 @@ var loadFile = function(event) {
 		}
 	
 };
+$('.datepickerclass').daterangepicker({
+	singleDatePicker : true,
+	selectMonths : true,
+	selectYears : true,
+	locale : {
+		format : 'DD-MM-YYYY'
+	}
+});
 $('.daterange-basic_new').daterangepicker({
 	applyClass : 'bg-slate-600',
 

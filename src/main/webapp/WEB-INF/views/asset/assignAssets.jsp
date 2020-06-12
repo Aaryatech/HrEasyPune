@@ -161,7 +161,7 @@
 									<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>									
 									<th class="text-center">Asset Name</th>
 									<th class="text-center">Category</th>
-									<th class="text-center">Period</th>
+									<th class="text-center" colspan="2">Period</th>
 									<th class="text-center">Asset Img</th>	
 									<th class="text-center">Remark</th>	
 								</tr>
@@ -176,7 +176,9 @@
 										ASST001-Laptop</a>
 									</td>
 									<td>Computer</td>
-									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
+									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										autocomplete="off"></td>
+										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										autocomplete="off"></td>
 									<td>
 										<img id="output1" width="150"/>
@@ -195,7 +197,9 @@
 										ASST002-Cell Phone</a>
 									</td>
 									<td>Mobile</td>
-									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
+									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										autocomplete="off"></td>
+										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										autocomplete="off"></td>
 									<td>
 										<img id="output2" width="150"/>
@@ -214,7 +218,9 @@
 										ASST003-Papers</a>
 									</td>
 									<td>Stationary</td>
-									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
+								<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										autocomplete="off"></td>
+										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										autocomplete="off"></td>
 									<td>
 										<img id="output3" width="150"/>
@@ -233,7 +239,9 @@
 										ASST004-Printer</a>
 									</td>
 									<td>Computer</td>
-									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
+									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										autocomplete="off"></td>
+										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										autocomplete="off"></td>
 									<td>
 										<img id="output4" width="150"/>
@@ -252,7 +260,9 @@
 										ASST005-Laptop</a>
 									</td>
 									<td>Computer</td>
-									<td><input type="text" class="form-control daterange-basic_new" placeholder="Enter Period" 
+									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										autocomplete="off"></td>
+										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										autocomplete="off"></td>
 									<td>
 										<img id="output5" width="150"/>
@@ -579,6 +589,15 @@ var loadFile5 = function(event) {
 			locale : {
 				format : 'DD-MM-YYYY',
 				separator : ' to '
+			}
+		});
+		
+		$('.datepickerclass').daterangepicker({
+			singleDatePicker : true,
+			selectMonths : true,
+			selectYears : true,
+			locale : {
+				format : 'DD-MM-YYYY'
 			}
 		});
 		

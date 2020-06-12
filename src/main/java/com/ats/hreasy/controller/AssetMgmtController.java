@@ -1180,4 +1180,32 @@ public class AssetMgmtController {
 		}
 		return a;
 	}
+	
+	
+	
+	@RequestMapping(value = "/scrapAsset", method = RequestMethod.GET)
+	public ModelAndView scrapAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		
+		try {
+			
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("addAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/addScrapAsset");
+				model.addObject("title",  "Scrap Asset");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 }
