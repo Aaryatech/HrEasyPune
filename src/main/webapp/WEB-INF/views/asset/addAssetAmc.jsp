@@ -112,9 +112,7 @@
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetName}">													
 												</div>
 											</div>
 											
@@ -123,9 +121,7 @@
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.vendor}">
 											</div>
 										</div>											
 									</div>	
@@ -136,9 +132,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.catName}">
 												</div>
 											</div>
 											
@@ -147,9 +141,7 @@
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetPurDate}">
 												</div>
 											</div>						
 									</div>	
@@ -159,9 +151,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Dell Inspiron">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetModel}">
 												</div>
 											</div>
 											
@@ -170,9 +160,7 @@
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="D32A145">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.assetSrno}">
 											</div>
 										</div>											
 									</div>	
@@ -194,13 +182,21 @@
 					</div>
 								<form
 									action="${pageContext.request.contextPath}/submitInsertAssetAmc"
-									id="submitInsertAssetAmc" method="post">
+									id="submitInsertAssetAmc" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group row">									
 										<div class="col-md-6">	
 												<div class="col-lg-7  float">
-													<input type="hidden" class="form-control" id="vendorId"
-														name="vendorId">													
+													<input type="hidden" class="form-control" id="amcId"
+														name="amcId">													
+												</div>
+											</div>
+											
+											
+											<div class="col-md-6">	
+												<div class="col-lg-7  float">
+													<input type="hidden" class="form-control" id="assetId"
+														name="assetId" value="${asset.assetId}">													
 												</div>
 											</div>
 										</div>
@@ -211,8 +207,8 @@
 												Name <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
 												
-												<select name="assetVendorId" data-placeholder="Select Asset Vendor"
-														id="assetVendorId"
+												<select name="amcVendorId" data-placeholder="Select Asset Vendor"
+														id="amcVendorId"
 														class="form-control form-control-select2 select2-hidden-accessible">
 
 														<option value="">Select Asset Vendor</option>
@@ -229,7 +225,7 @@
 															</c:choose> --%>
 														</c:forEach>
 													</select>
-												<span class="validation-invalid-label" id="error_assetVendorId"
+												<span class="validation-invalid-label" id="error_amcVendorId"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -267,7 +263,7 @@
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter AMC Period To" id="amcperiodto"
-													name="amcperiod" autocomplete="off">
+													name="amcperiodto" autocomplete="off">
 												<span class="validation-invalid-label" id="error_amcperiod"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
@@ -307,7 +303,10 @@
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"> 
+												<input type="file" accept="image/*" name="doc" id="doc" 
+												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
+													class="form-text text-muted">Only
+													.jpg,.png,.gif,.doc,.xls,.pdf</span> 
 												<span class="validation-invalid-label" id="error_amcdoc"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -406,14 +405,14 @@ $(document)
 										$("#error_amcamt").hide()
 									}
 																		
-									if (!$("#assetVendorId").val()) {
+									if (!$("#amcVendorId").val()) {
 
 										isError = true;
 
-										$("#error_assetVendorId").show()
+										$("#error_amcVendorId").show()
 
 									} else {
-										$("#error_assetVendorId").hide()
+										$("#error_amcVendorId").hide()
 									}
 									
 									var from_date = document.getElementById("amcperiodfrom").value;

@@ -106,7 +106,7 @@
 
 								<form
 									action="${pageContext.request.contextPath}/submitInsertAsset"
-									id="submitInsertAsset" method="post">
+									id="submitInsertAsset" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group row">									
 										<div class="col-md-6">	
@@ -225,10 +225,7 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
-										
 									</div>
-
 
 									<div class="form-group row">
 										<div class="col-md-6">
@@ -268,13 +265,12 @@
 														<option value="">Select Location</option>
 														<c:forEach items="${locationList}" var="locationList">
 															<c:set value="0" var="find"></c:set>
-															<c:forEach items="${locationIds}" var="locationIds">
-																<c:if test="${locationList.locId==locationIds}">
+															
+																<c:if test="${locationList.locId==asset.locId}">
 																	<option selected="selected"
 																		value="${locationList.locId}">${locationList.locName}</option>
 																	<c:set value="1" var="find"></c:set>
-																</c:if>
-															</c:forEach>
+																</c:if>															
 															<c:if test="${find==0}">
 																<option value="${locationList.locId}">${locationList.locName}</option>
 															</c:if>
@@ -302,17 +298,22 @@
 									
 									<div class="form-group row">
 										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold  col-lg-5 float" for="remark">Asset Image
-														<span class="text-danger">* </span>:</label>
-														<div class="col-lg-7 float">
-												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="image" id="assetfile" onchange="loadFile(event)">
-												<span class="validation-invalid-label" id="error_assetfile"
+												<label class="col-form-label text-info font-weight-bold  col-lg-5 float" for="doc">Purchase
+												 Image<span class="text-danger">* </span>:</label>
+													<div class="col-lg-7 float">
+												<img id="output" width="150" src="${imgPath}${asset.assetPurImage}"/>
+												<input type="file" accept="image/*" name="doc" id="doc" value="${asset.assetPurImage}" 
+												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
+													class="form-text text-muted">Only
+													.jpg,.png,.gif,.doc,.xls,.pdf</span>
+												<span class="validation-invalid-label" id="error_doc"
 													style="display: none;">This field is required.</span>
 												</div>	
 										</div>
 										
+										
 										<div class="col-md-6">
+												<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
 												: </label>
 												<div class="col-lg-7 float">
@@ -321,7 +322,8 @@
 													name="remark">${asset.assetRemark}</textarea>
 	
 											</div>
-										</div>										
+										</div>	
+											</div>																		
 									</div>
 									
 									<div class="form-group row mb-0">
@@ -415,14 +417,14 @@
 										$("#error_assetCatId").hide()
 									}
 								
-									/* if (!$("#assetfile").val()) {
+									/* if (!$("#doc").val()) {
 
 										isError = true;
 
-										$("#error_assetfile").show()
+										$("#error_doc").show()
 
 									} else {
-										$("#error_assetfile").hide()
+										$("#error_doc").hide()
 									} 
 									
 									if (!$("#locIdist").val()) {

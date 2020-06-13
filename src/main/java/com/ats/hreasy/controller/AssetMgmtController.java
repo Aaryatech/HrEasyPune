@@ -16,13 +16,18 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.AssetAmc;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.AssetVendor;
 import com.ats.hreasy.model.Assets;
@@ -585,7 +590,7 @@ public class AssetMgmtController {
 
 		HttpSession session = request.getSession();
 		ModelAndView model = null;
-
+		List<AssetsDetailsList> assetsList = new ArrayList<AssetsDetailsList>();
 		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 		Info view = AcessController.checkAccess("showAllAssets", "showAllAssets", 1, 0, 0, 0, newModuleList);
@@ -608,15 +613,61 @@ public class AssetMgmtController {
 						Location[].class);
 				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 				model.addObject("locationList", locationList);
+				int locId = 0;
+				try {
+					locId = Integer.parseInt(request.getParameter("locId"));
+				}catch (Exception e) {
+					 locId = 0;
+					 System.out.println(e.getMessage());
+					e.printStackTrace();
+				}
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);				
 
+				if(locId>0) {
+					
+					AssetsDetailsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetsByLocation", map
+							, AssetsDetailsList[].class);
+					assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+				}else {
+					
 				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssets"
 						, AssetsDetailsList[].class);
-				List<AssetsDetailsList> assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
-
+				assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+				}
 				for (int i = 0; i < assetsList.size(); i++) {
 
 					assetsList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(assetsList.get(i).getAssetId())));
 				}
+				
+				
+				
+//				Assets[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAssetsList"
+//						, Assets[].class);
+//				assetsList =  new ArrayList<Assets>(Arrays.asList(assetArr));
+				
+				// AMC Inner List 
+				int assetId=10;
+				List<AssetAmc> amcList  = new ArrayList<AssetAmc>();
+				AssetAmc assetAmc = new AssetAmc(); 
+				
+				AssetAmc[] assetAmcArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetAMCDetails"
+						, AssetAmc[].class);
+				List<AssetAmc> assetAmcList = new ArrayList<AssetAmc>(Arrays.asList(assetAmcArr));
+				
+				for (int i = 0; i < assetAmcList.size(); i++) {
+					if(assetAmcList.get(i).getAssetId()==assetId) {
+						assetAmc.setAmcId(assetAmcList.get(i).getAmcId());
+						assetAmc.setExVar2(assetAmcList.get(i).getExVar2());
+						assetAmc.setAmcFrDate(assetAmcList.get(i).getAmcFrDate());
+						assetAmc.setAmcToDate(assetAmcList.get(i).getAmcToDate());
+						assetAmc.setAmcAmt(assetAmcList.get(i).getAmcAmt());
+						assetAmc.setAmcStatus(assetAmcList.get(i).getAmcStatus());
+						amcList.add(assetAmc);
+					}
+				}
+				System.err.println("AMC List--------"+amcList);
 
 				Info edit = AcessController.checkAccess("showAllAssets", "showAllAssets", 0, 0, 1, 0,
 						newModuleList);
@@ -717,6 +768,7 @@ public class AssetMgmtController {
 				
 				asset.setAssetCode(invoiceNo);
 				model.addObject("asset", asset);
+				model.addObject("isEdit", 0);
 				model.addObject("title",  "Add Asset");				
 				
 			}
@@ -728,7 +780,8 @@ public class AssetMgmtController {
 	
 	
 	@RequestMapping(value = "/submitInsertAsset", method = RequestMethod.POST)
-	public String submitInsertAsset(HttpServletRequest request, HttpServletResponse response) {
+	public String submitInsertAsset(HttpServletRequest request, HttpServletResponse response,
+		@RequestParam("doc") MultipartFile doc) {
 
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -747,6 +800,7 @@ public class AssetMgmtController {
 				
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
 				int assetId = 0;
 				try {
 					assetId = Integer.parseInt(request.getParameter("assetId"));
@@ -754,6 +808,14 @@ public class AssetMgmtController {
 					assetId = 0;
 					e.printStackTrace();					
 				}
+				
+				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
+
+				System.out.println("Profile Image------------" + assetImage);
+
+				VpsImageUpload upload = new VpsImageUpload();
+				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+						0);
 				
 				Assets assets = new Assets();
 				assets.setAssetCatId(Integer.parseInt(request.getParameter("assetCatId")));
@@ -774,6 +836,16 @@ public class AssetMgmtController {
 				assets.setExVar2("NA");
 				assets.setMakerUserId(userObj.getUserId());
 				assets.setUpdateDatetime(sf.format(date));
+				assets.setAssetPurImage(assetImage);				
+				assets.setAssetStatus(0);
+				assets.setLocId(Integer.parseInt(request.getParameter("locIdist")));
+				
+				assets.setScrapDate("NA");
+				assets.setScrapRemark("NA");
+				assets.setScrapAuthoriyDetails("NA");
+				assets.setScrapLoginUserid(0);
+				//assets.setScrapDatetime("NA");				
+				assets.setAssetScrapImage("NA");				
 				
 
 				Assets res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssets", assets,
@@ -855,6 +927,15 @@ public class AssetMgmtController {
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
 				
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
+				
+				model.addObject("imgPath", Constants.empDocSaveUrl);
+				model.addObject("isEdit", 1);
 				
 				model.addObject("title",  "Edit Asset");
 			}
@@ -1090,6 +1171,16 @@ public class AssetMgmtController {
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
 				
+				String base64encodedString = request.getParameter("assetId");
+				String assetId = FormValidation.DecodeKey(base64encodedString);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);
+				
+				AssetsDetailsList asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+						AssetsDetailsList.class);
+				model.addObject("asset",  asset);
+				
 				model.addObject("title",  "Add Asset AMC");				
 				
 			}
@@ -1101,7 +1192,8 @@ public class AssetMgmtController {
 	
 	
 	@RequestMapping(value = "/submitInsertAssetAmc", method = RequestMethod.POST)
-	public String submitInsertAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+	public String submitInsertAssetAmc(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") MultipartFile doc) {
 
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -1118,17 +1210,63 @@ public class AssetMgmtController {
 			a = "redirect:/showAllAssets";
 			try {
 				
+				
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				
+				AssetAmc assetAmc = new AssetAmc();
+				int amcId = 0;				
+				try {
+					amcId = Integer.parseInt(request.getParameter("amcId"));	
+				}catch (Exception e) {
+					amcId = 0;
+					e.printStackTrace();
+				}				
+				
+				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
+				System.out.println("Profile Image------------" + assetImage);
+
+				VpsImageUpload upload = new VpsImageUpload();
+				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+						0);
+				
+				assetAmc.setAmcId(amcId);
+				assetAmc.setAmcAmt(Float.parseFloat(request.getParameter("amcamt")));
+				assetAmc.setAmcDocFile(assetImage);
+				assetAmc.setAmcFrDate(request.getParameter("amcperiodfrom"));
+				assetAmc.setAmcToDate(request.getParameter("amcperiodto"));
+				assetAmc.setAmcStatus(1);	//Integer.parseInt(request.getParameter("amcId"))	
+				assetAmc.setAssetId(Integer.parseInt(request.getParameter("assetId")));
+				assetAmc.setDelStatus(1);
+				assetAmc.setExInt1(0);
+				assetAmc.setExInt2(0);
+				assetAmc.setExVar1("NA");
+				assetAmc.setExVar2("NA");
+				assetAmc.setMakerUserId(userObj.getEmpId());
+				assetAmc.setNegativeRemark(request.getParameter("negtiveremark"));
+				assetAmc.setPositiveRemark(request.getParameter("positiveremark"));
+				assetAmc.setTermAndCondi(request.getParameter("terms"));
+				assetAmc.setVendorId(Integer.parseInt(request.getParameter("amcVendorId")));
 				
 
-//				Assets res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssets", assets,
-//						Assets.class);
+			AssetAmc res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssetAmc", assetAmc,
+				AssetAmc.class);
 
+			if (res.getAmcId()>0) {
+				if(amcId>0) {
+					session.setAttribute("successMsg", "Asset AMC Updated Successfully");
+				}else {
+					session.setAttribute("successMsg", "Asset AMC Inserted Successfully");
+				}
+			} 			
+			else {
+			
+				session.setAttribute("errorMsg", "Failed to Insert Asset AMC");
+			}
+			
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMsg", "Failed to Insert Asset");
+				session.setAttribute("errorMsg", "Failed to Insert Asset AMC");
 			}
 		}
 
@@ -1231,6 +1369,39 @@ public class AssetMgmtController {
 				model.addObject("title",  "Scrap Asset");				
 				
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	/***********************************************************************/
+	
+	@RequestMapping(value = "/getAssetInfo", method = RequestMethod.GET)
+	public ModelAndView getAssetInfo(HttpServletRequest request, HttpServletResponse response) {
+		List<AssetsDetailsList> assetList = new ArrayList<AssetsDetailsList>();
+		ModelAndView model = null;
+		MultiValueMap<String, Object> map=null;
+		try {
+			model = new ModelAndView("asset/assetsList");
+			int locId = Integer.parseInt(request.getParameter("locId"));
+			map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			AssetsDetailsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetsByLocation", map
+					, AssetsDetailsList[].class);
+			assetList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+			model.addObject("assetList", assetList);
+			
+			System.out.println("Asset List------------"+assetList);
+			
+			map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+
+			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+					Location[].class);
+			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+			model.addObject("locationList", locationList);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+	<c:url var="getAssetInfo" value="/getAssetInfo"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -42,8 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Asset
-								 Master</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Asset Master
+									</h5></td>
 								<td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/addAsset"
 											class="breadcrumb-elements-item">
@@ -92,193 +93,298 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<div class="form-group row">									
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
-											Location<span class="text-danger"></span>:</label>
-												<div class="col-lg-6 float">
-													<select name="locId_list" data-placeholder="Select Location" id="locId_list" 
-														class="form-control form-control-select2 select2-hidden-accessible">
-
-														<!-- <option value="">Select Location</option> -->
-														<c:forEach items="${locationList}" var="locationList">
-															<c:set value="0" var="find"></c:set>
-															<c:forEach items="${locationIds}" var="locationIds">
-																<c:if test="${locationList.locId==locationIds}">
-																	<option selected="selected"
-																		value="${locationList.locId}">${locationList.locName}</option>
-																	<c:set value="1" var="find"></c:set>
-																</c:if>
-															</c:forEach>
-															<c:if test="${find==0}">
-																<option value="${locationList.locId}">${locationList.locName}</option>
-															</c:if>
-														</c:forEach>
-													</select>
-													 <span
-														class="validation-invalid-label" id="error_assetCatId"
-														style="display: none;">This field is required.</span>
-																										
-												</div>
-											</div>		
+						<form action="showAllAssets" id="showAllAssets" method="get">
+							<div class="form-group row">
+								<div class="col-md-6">
+									<label
+										class="col-form-label text-info font-weight-bold col-lg-5 float"
+										for="assetCatId">Accessible Location<span
+										class="text-danger"></span>:
+									</label>
+									<div class="col-lg-6 float">
+										<select name="locId" data-placeholder="Select Location"
+											id="locId"
+											class="form-control form-control-select2 select2-hidden-accessible">
+											<option value="0">All</option>
+											<c:forEach items="${locationList}" var="locationList">
+												<option value="${locationList.locId}">${locationList.locName}</option>
+											</c:forEach>
+										</select>
 									</div>
-						<table
-							class="table ">
+								</div>
+								<button type="submit" class="btn blue_btn" id="submtbtn">
+									Search <i class="icon-paperplane ml-2"></i>
+								</button>
+							</div>
+
+						</form>
+						<table class="table ">
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>	
-									<th>Code</th>	
+									<th width="10%">Sr. No.</th>
+									<th>Code</th>
 									<th>Name</th>
-									<th>Description</th>	
+									<th>Description</th>
 									<th>Category</th>
-									<th>Asset Make</th>	
+									<th>Asset Make</th>
 									<th>Model</th>
 									<th>Serial No.</th>
 									<th>Purchase Date</th>
-									<th>Vendor</th>									
+									<th>Vendor</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
 
 
+
+
 								<c:forEach items="${assetsList}" var="assetList"
 									varStatus="count">
 									<tr class="accordion-toggle collapsed"
-											id1="accordion${count.index+1}" data-toggle1="collapse"
-											data-parent1="#accordion${count.index+1}" >
-										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}" data-toggle="collapse"
-											data-parent="#accordion${count.index+1}"><span class="expand-button"></span></a></td>
+										id1="accordion${count.index+1}" data-toggle1="collapse"
+										data-parent1="#accordion${count.index+1}">
+										<td><a href="#collapseOne${count.index+1}" onclick="getAssetAMCInfo(${assetList.exVar1})"
+											id="accordion${count.index+1}" data-toggle="collapse"
+											data-parent="#accordion${count.index+1}"><span
+											class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}</td>
 										<td>${assetList.assetName}</td>
 										<td>${assetList.assetDesc}</td>
 										<td>${assetList.catName}</td>
 										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
+										<td>${assetList.assetModel}</td>
 										<td>${assetList.assetSrno}</td>
 										<td>${assetList.assetPurDate}</td>
 										<td>${assetList.vendor}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" data-original-title="Edit"><i
+													class="icon-pencil7"></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
-												 
-												 
-											<a href="javascript:void(0)"
+
+
+												<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
 													data-uuid="${assetList.exVar1}" data-popup="tooltip"
 													title="" data-original-title="Delete"><i
 													class="icon-trash"></i></a>
-											</c:if>
-											<a href="${pageContext.request.contextPath}/addAssetAmc"
+											</c:if> <a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
-													title="" data-original-title="Add Asset AMC"><i
-													class="icon-enlarge5"></i></a>
-											<a href="${pageContext.request.contextPath}/scrapAsset"
+											title="" data-original-title="Add Asset AMC"><i
+												class="icon-enlarge5"></i></a> <a
+											href="${pageContext.request.contextPath}/scrapAsset"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
-													title="" data-original-title="Scrap Asset"><i
-													class="fa fa-recycle"></i></a>
-											</td>
+											title="" data-original-title="Scrap Asset"><i
+												class="fa fa-recycle"></i></a></td>
 									</tr>
-									
+
+
 									<tr class="hide-table-padding">
-											<!-- <td></td> -->
-											<td colspan="12"><div id="collapseOne${count.index+1}"
-													class="collapse in p-3">														
-														<table class="table ">
-														<tr class="bg-blue">
-															<th>Sr.No.</th>
-															<th>Vendor Name</th>
-															<th>AMC Period</th>
-															<th>Amt</th>
-															<th>Status</th>	
-															<th>Actions</th>														
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>Vendor1</td>
-															<td>01-03-2020 to 06-03-2020</td>
-															<td>22</td>
-															<td>Live</td>
-															<td class="text-center">
-																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-																		 ></i></a>
-																		 
-																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Renew"><i
-																		class="icon-history"></i></a>
-																	
-																	<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="fa fa-ban"></i></a>
-															</td>														
-														</tr>
-														
-														<tr>
-															<td>2</td>
-															<td>Vendor2</td>
-															<td>01-03-2020 to 06-03-2020</td>
-															<td>2500</td>	
-															<td>Pending</td>
-															<td class="text-center">
-																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-																		 ></i></a>
-																		 
-																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Renew"><i
-																		class="icon-history"></i></a>
-																	
-																	<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="fa fa-ban"></i></a>
-															</td>														
-														</tr>
-														
-														<tr>
-															<td>3</td>
-															<td>Vendor3</td>
-															<td>01-03-2020 to 06-03-2020</td>
-															<td>5000</td>
-															<td>Renewed</td>
-															<td class="text-center">
-																	<a
-																		href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-																		 ></i></a>
-																		 
-																	<a href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																		class="list-icons-item text-primary-600"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Renew"><i
-																		class="icon-history"></i></a>
-																	
-																	<a href="javascript:void(0)"
-																		class="list-icons-item text-danger-600 bootbox_custom"
-																		data-uuid="" data-popup="tooltip"
-																		title="" data-original-title="Terminate"><i
-																		class="fa fa-ban"></i></a>
-															</td>															
-														</tr>
-														</table>
-														
-													
-												</div></td>
-										</tr>
+										<!-- <td></td> -->
+										<td colspan="12"><div id="collapseOne${count.index+1}"
+												class="collapse in p-3">
+
+												<div class="datatable-scroll">
+													<div class="dataTables_scroll">
+														<div class="dataTables_scrollHead">
+															<div class="dataTables_scrollHeadInner">
+																<table
+																	class="table datatable-scroller-buttons dataTable no-footer"
+																	width="100%" role="grid">
+																	<thead>
+																		<tr role="row" class="bg-blue">
+																			<th>Sr.No.</th>
+																			<th>Vendor Name</th>
+																			<th>AMC Period</th>
+																			<th>Amt</th>
+																			<th>Status</th>
+																			<th>Actions</th>
+																		</tr>
+																	</thead>
+																</table>
+															</div>
+														</div>
+														<div class="dataTables_scrollBody"
+															style="position: relative; overflow: auto; min-height: 200px; width: 100%;">
+															<table
+																class="table datatable-scroller-buttons dataTable no-footer"
+																width="100%" id="DataTables_Table_1" role="grid"
+																style="position: absolute; top: 0px; left: 0px; width: 100%;"
+																aria-describedby="DataTables_Table_1_info">
+																<thead>
+																	<tr role="row" style="display: none;">
+																		<th class="sorting_asc">Sr.No.</th>
+																		<th class="sorting">Vendor Name</th>
+																		<th class="sorting">AMC Period</th>
+																		<th class="sorting">Amt</th>
+																		<th class="sorting">Status</th>
+																		<th class="sorting">Actions</th>
+																	</tr>
+																</thead>
+
+																<tbody>
+																	<tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>
+
+																	<tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>
+
+																	<tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>
+
+																	<tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>
+
+																	<tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>
+
+																	<tr>
+																		<td class="sorting_1">1</td>
+																		<td>Armand</td>
+																		<td>Warren</td>
+																		<td>56045</td>
+																		<td>Taiwan, Province of China</td>
+																		<td>Taiwan, Province of China</td>
+																	</tr>
+
+																	<tr>
+																		<td class="sorting_1">1</td>
+																		<td>Armand</td>
+																		<td>Warren</td>
+																		<td>56045</td>
+																		<td>Taiwan, Province of China</td>
+																		<td>Taiwan, Province of China</td>
+																	</tr>
+
+																	<tr>
+																		<td class="sorting_1">1</td>
+																		<td>Armand</td>
+																		<td>Warren</td>
+																		<td>56045</td>
+																		<td>Taiwan, Province of China</td>
+																		<td>Taiwan, Province of China</td>
+																	</tr>
+
+																	<tr>
+																		<td class="sorting_1">1</td>
+																		<td>Armand</td>
+																		<td>Warren</td>
+																		<td>56045</td>
+																		<td>Taiwan, Province of China</td>
+																		<td>Taiwan, Province of China</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+
+											</div></td>
+									</tr>
 								</c:forEach>
 
 							</tbody>
@@ -302,7 +408,27 @@
 
 	</div>
 	<!-- /page content -->
-<script>
+
+	<script>
+function getAssetAMCInfo(assetId){  
+   alert(assetId)
+			$
+					.getJSON(
+							'${getAssetInfo}',
+							{
+								assetId : assetId,
+								ajax : 'true',
+
+							},
+							function(data) {
+								//alert("data" + data);
+
+								//alert("Data  " +JSON.stringify(data));
+								
+							});
+	}
+</script>
+	<script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(
