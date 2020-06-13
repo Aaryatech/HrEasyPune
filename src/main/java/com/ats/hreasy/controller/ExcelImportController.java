@@ -722,122 +722,419 @@ public class ExcelImportController {
 						EmpSalAllowance empSalAllwance = new EmpSalAllowance();
 						try {
 
-							int keyVal1 = 0;
-							int keyVal2 = 0;
-							int keyVal3 = 0;
-							int keyVal4 = 0;
-							int keyVal5 = 0;
-							int keyVal6 = 0;
-							int keyVal7 = 0;
-							int keyVal8 = 0;
-							for (int k = 0; k < empAllowncList.size(); k++) {
+							Row rowHeader = (Row) sheet.getRow(0);
 
-								if (empAllowncList.get(k).getAllowanceId() == 1) {
-									keyVal1 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 5) {
-									keyVal4 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 9) {
-									keyVal2 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 10) {
-									keyVal5 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 11) {
-									keyVal6 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 14) {
-									keyVal3 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 19) {
-									keyVal7 = empAllowncList.get(k).getEmpSalAllowanceId();
-								} else if (empAllowncList.get(k).getAllowanceId() == 173) {
-									keyVal8 = empAllowncList.get(k).getEmpSalAllowanceId();
+							if (rowHeader.getCell(23) != null) {
+								otherAll = row.getCell(23).getNumericCellValue();
+								String name = rowHeader.getCell(23).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
 								}
 
 							}
 
-							empSalAllwance = new EmpSalAllowance();
+							if (rowHeader.getCell(24) != null) {
+								otherAll = row.getCell(24).getNumericCellValue();
+								String name = rowHeader.getCell(24).getStringCellValue();
+								String[] namesplt = name.split(":");
 
-							empSalAllwance.setEmpSalAllowanceId(keyVal1);
-							empSalAllwance.setAllowanceId(1);
-							empSalAllwance.setAllowanceValue(dearnessAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+								for (int m = 0; m < allowanceList.size(); m++) {
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal2);
-							empSalAllwance.setAllowanceId(9);
-							empSalAllwance.setAllowanceValue(houseRentAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal3);
+										int flag = 0;
 
-							empSalAllwance.setAllowanceId(14);
-							empSalAllwance.setAllowanceValue(educationAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+										for (int k = 0; k < empAllowncList.size(); k++) {
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal4);
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
 
-							empSalAllwance.setAllowanceId(5);
-							empSalAllwance.setAllowanceValue(tiffinAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+												empSalAllwance = new EmpSalAllowance();
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal5);
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
 
-							empSalAllwance.setAllowanceId(10);
-							empSalAllwance.setAllowanceValue(leaveTravelAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+										}
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal6);
+										if (flag == 0) {
 
-							empSalAllwance.setAllowanceId(11);
-							empSalAllwance.setAllowanceValue(conveyanceAllwnc);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal7);
+									}
+								}
 
-							empSalAllwance.setAllowanceId(19);
-							empSalAllwance.setAllowanceValue(otherAll);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+							}
 
-							empSalAllwance = new EmpSalAllowance();
-							empSalAllwance.setEmpSalAllowanceId(keyVal8);
+							if (rowHeader.getCell(25) != null) {
 
-							empSalAllwance.setAllowanceId(173);
-							empSalAllwance.setAllowanceValue(mobileAllw);
-							empSalAllwance.setEmpId(empSaveResp.getEmpId());
-							empSalAllwance.setDelStatus(1);
-							empSalAllwance.setExInt1(0);
-							empSalAllwance.setExInt2(0);
-							allowncList.add(empSalAllwance);
+								otherAll = row.getCell(25).getNumericCellValue();
+								String name = rowHeader.getCell(25).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+
+							if (rowHeader.getCell(26) != null) {
+
+								otherAll = row.getCell(26).getNumericCellValue();
+								String name = rowHeader.getCell(26).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+
+							if (rowHeader.getCell(27) != null) {
+								otherAll = row.getCell(27).getNumericCellValue();
+								String name = rowHeader.getCell(27).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+
+							if (rowHeader.getCell(28) != null) {
+
+								otherAll = row.getCell(28).getNumericCellValue();
+								String name = rowHeader.getCell(28).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+
+							if (rowHeader.getCell(29) != null) {
+								otherAll = row.getCell(29).getNumericCellValue();
+								String name = rowHeader.getCell(29).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+
+							if (rowHeader.getCell(30) != null) {
+
+								otherAll = row.getCell(30).getNumericCellValue();
+								String name = rowHeader.getCell(30).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
 
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -878,21 +1175,14 @@ public class ExcelImportController {
 			String imageName = new String();
 			imageName = dateTimeInGMT.format(date) + "_" + fileSal.get(0).getOriginalFilename();
 
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
 			upload.saveUploadedFiles(fileSal.get(0), Constants.docSaveUrl, imageName);
-
-			String fileIn = Constants.docSaveUrl + imageName;
 
 			MultiValueMap<String, Object> map = null;
 
 			List<Allowances> allowanceList = new ArrayList<Allowances>();
-			System.err.println("-------" + imageName);
 
-			// temp.xls2020-02-27_19:30:03_abc.xls
 			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
 
-			// Create Workbook instance holding reference to .xlsx file
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
 
 			HSSFSheet sheet = workbook.getSheetAt(0);
