@@ -100,11 +100,8 @@
 
 									<th width="10%">Sr. No.</th>
 									<th>Company Name</th>		
-									<th>Vendor Email</th>		
-									<th>Website</th>		
-									<th>Contact No</th>		
-									<th>City</th>	
-									<th>GSTIN</th>	
+									<th>Vendor Email</th>	
+									<th>Contact No</th>	
 									<th>Contact Person Name</th>	
 									<th>Contact Person No.</th>
 									<th>Contact Person Email</th>	
@@ -120,10 +117,7 @@
 										 <td>${count.index+1}</td>
 										<td>${vendorList.compName}</td>
 										<td>${vendorList.vendorEmail}</td>
-										<td>${vendorList.website}</td>
-										<td>${vendorList.contactNo1}/${vendorList.contactNo2}</td>
-										<td>${vendorList.vendorCity}</td>									
-										<td>${vendorList.gstin}</td>
+										<td>${vendorList.contactNo1}/${vendorList.contactNo2}</td>										
 										<td>${vendorList.conatctPersonName}</td>
 										<td>${vendorList.contactPersonNo}</td>
 										<td>${vendorList.contactPersonEmail}</td>

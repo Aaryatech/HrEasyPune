@@ -5,7 +5,7 @@ public class AssetVendor {
 	private int vendorId;
 	private String compName;
 	private String compAddress;
-	private String vendorCity;
+	private String vendorCity; //multiple location
 	private String contactNo1;
 	private String contactNo2;
 	private String vendorEmail;

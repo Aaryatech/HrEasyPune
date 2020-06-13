@@ -440,7 +440,16 @@ public class AssetMgmtController {
 				assetVendor.setContactPersonEmail(request.getParameter("contactPersonEmail"));
 				assetVendor.setContactPersonNo(request.getParameter("contactPersonNo"));
 				assetVendor.setGstin(request.getParameter("gstin"));
-				assetVendor.setVendorCity(request.getParameter("vendorCity"));//vendorloc//need save Multiple Location
+				
+				StringBuilder sb = new StringBuilder();
+				String[] locIds = request.getParameterValues("vendorloc");
+				for (int i = 0; i < locIds.length; i++) {
+					sb = sb.append(locIds[i] + ",");
+
+				}
+				String locIdList = sb.toString();
+				locIdList = locIdList.substring(0, locIdList.length() - 1);
+				assetVendor.setVendorCity(locIdList);//Multiple vendor locaction
 				assetVendor.setVendorEmail(request.getParameter("vendorEmail"));
 				assetVendor.setWebsite(request.getParameter("website"));								
 				assetVendor.setRemark(request.getParameter("remark"));					
@@ -486,7 +495,7 @@ public class AssetMgmtController {
 	
 	@RequestMapping(value = "/editAssetVendor", method = RequestMethod.GET)
 	public ModelAndView editAssetVendor(HttpServletRequest request, HttpServletResponse response) {
-
+		MultiValueMap<String, Object> map=null;
 		HttpSession session = request.getSession();
 		ModelAndView model = null;
 
@@ -505,11 +514,20 @@ public class AssetMgmtController {
 				String base64encodedString = request.getParameter("assetVendorId");
 				String assetVendorId = FormValidation.DecodeKey(base64encodedString);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+				model.addObject("locationList", locationList);
+				
+				map = new LinkedMultiValueMap<>();
 				map.add("assetVendorId", assetVendorId);
 				AssetVendor editAsset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetVendorById", map,
 						AssetVendor.class);
+				
 				model.addObject("assetVendor", editAsset);
+				model.addObject("locationIds", editAsset.getVendorCity().split(","));
 				model.addObject("title",  "Edit Asset Vendor");
 			}
 		} catch (Exception e) {
