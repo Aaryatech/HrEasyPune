@@ -389,13 +389,14 @@
 																		class="list-icons-item text-primary-600"
 																		data-popup="tooltip" title="edit"><i
 																		class="icon-pencil7"></i></a>&nbsp;
-																		<%-- onclick="markAsCompOff(${dailyrecordList.id},'${dailyrecordList.attStatus}')" --%>
-																	<a href="#"
-																		class="list-icons-item text-primary-600 bootbox_custom"
-																		data-dailyid="${dailyrecordList.id}"
-																		data-attstatus="${dailyrecordList.attStatus}"
-																		data-popup="tooltip" title="Mark As Compoff">Mark
-																		as Compoff</a>
+																		 <c:if test="${mstEmpType.whWork eq 'Compoff'}">
+																		<a href="#"
+																			class="list-icons-item text-primary-600 bootbox_custom"
+																			data-dailyid="${dailyrecordList.id}"
+																			data-attstatus="${dailyrecordList.attStatus}"
+																			data-popup="tooltip" title="Mark As Compoff">Mark
+																			as Compoff</a>
+																	</c:if>
 																</c:when>
 																<c:otherwise>
 																	<a href="#"
