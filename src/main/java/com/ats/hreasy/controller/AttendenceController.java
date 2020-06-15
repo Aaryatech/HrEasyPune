@@ -577,13 +577,11 @@ public class AttendenceController {
 						map, MstEmpType.class);
 				model.addAttribute("mstEmpType", mstEmpType);
 				model.addAttribute("empId", empId);
-				
-				 
-				ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
-						map, ShiftMaster[].class);
+
+				ShiftMaster[] shiftMaster = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
 				model.addAttribute("shiftMaster", shiftMaster);
-				
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -944,7 +942,7 @@ public class AttendenceController {
 
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("desgType", userObj.getDesignType());
+					map.add("desgType", 2);
 					map.add("departIds", userObj.getHodDeptIds());
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployyeDailyDailyListByDeptIds", map, DailyAttendance[].class);
@@ -1060,6 +1058,5 @@ public class AttendenceController {
 		return info;
 
 	}
- 
 
 }
