@@ -29,9 +29,13 @@ import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AssetAmc;
 import com.ats.hreasy.model.AssetCategory;
+import com.ats.hreasy.model.AssetEmployee;
+import com.ats.hreasy.model.AssetTrans;
 import com.ats.hreasy.model.AssetVendor;
 import com.ats.hreasy.model.Assets;
 import com.ats.hreasy.model.AssetsDetailsList;
+import com.ats.hreasy.model.AssignedAssetsList;
+import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -41,7 +45,7 @@ import com.ats.hreasy.model.Setting;
 @Controller
 @Scope("session")
 public class AssetMgmtController {
-
+	int locId = 0;
 	/************************Assets Category***********************/
 	@RequestMapping(value = "/showAssetCategory", method = RequestMethod.GET)
 	public ModelAndView showAssetCategory(HttpServletRequest request, HttpServletResponse responser) {
@@ -994,7 +998,8 @@ public class AssetMgmtController {
 
 		HttpSession session = request.getSession();
 		ModelAndView model = null;
-
+		MultiValueMap<String, Object> map = null;
+		
 		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 		Info view = AcessController.checkAccess("manageAssets", "manageAssets", 1, 0, 0, 0, newModuleList);
@@ -1007,9 +1012,7 @@ public class AssetMgmtController {
 
 			try {
 				model = new ModelAndView("asset/manageAssets");
-
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				
+	
 				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
@@ -1017,6 +1020,29 @@ public class AssetMgmtController {
 						Location[].class);
 				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 				model.addObject("locationList", locationList);
+				
+				int locId = 0;
+				try {
+					locId = Integer.parseInt(request.getParameter("locId_list"));
+				}catch (NumberFormatException e) {
+					locId = 0;
+					e.printStackTrace();
+				}
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
+				AssetEmployee[] assetEmpArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetEmployees", map,
+						AssetEmployee[].class);
+				List<AssetEmployee> assetEmpList = new ArrayList<AssetEmployee>(Arrays.asList(assetEmpArr));
+				model.addObject("assetEmpList", assetEmpList);
+				
+				for (int i = 0; i < assetEmpList.size(); i++) {
+
+					assetEmpList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(assetEmpList.get(i).getEmpId())));
+				}
+				
+				model.addObject("locationIds", locId);
 
 				Info edit = AcessController.checkAccess("manageAssets", "manageAssets", 0, 0, 1, 0,
 						newModuleList);
@@ -1059,25 +1085,126 @@ public class AssetMgmtController {
 
 		try {
 
-//			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-//			Info view = AcessController.checkAccess("assignAssets", "manageAssets", 0, 0, 1, 0, newModuleList);
-//
-//			if (view.isError() == true) {
-//
-//				model = new ModelAndView("accessDenied");
-//
-//			} else {
-//
-//				model = new ModelAndView("asset/assignAssets");
-//				
-//			}
-			model = new ModelAndView("asset/assignAssets");
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("assignAssets", "manageAssets", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/assignAssets");
+				String base64encodedString = request.getParameter("empId");
+				int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
+				
+				try {
+					locId = Integer.parseInt(request.getParameter("locId"));
+				} catch (Exception e) {
+					locId = 0;
+					e.printStackTrace();
+				}
+			
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("empId", empId); 
+				map.add("locId", locId); 
+				
+				AssetEmployee emp = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmployee", map,
+						AssetEmployee.class);
+				model.addObject("emp", emp);
+				
+				
+				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllUnassignAssets",
+						AssetsDetailsList[].class);
+				List<AssetsDetailsList> assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+				model.addObject("assetsList", assetsList);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return model;
 	}
 	
+	@RequestMapping(value = "/submitAssignAsset", method = RequestMethod.POST)
+	public String submitAssignAsset(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			HttpSession session = request.getSession();
+			
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			List<AssetTrans> assetTransList = new ArrayList<AssetTrans>();
+			
+			String[] asset = request.getParameterValues("chkAssetId");
+			
+			int empId = Integer.parseInt(request.getParameter("empId"));
+			int assetTransId = 0;
+			int assetChkVal = 0;
+			
+			for (int i = 0; i < asset.length; i++) {
+				
+				assetChkVal = Integer.parseInt(asset[i]);
+				
+				System.out.println("Assets id are------------------" + assetChkVal);
+				
+				AssetTrans  assignAsset = new AssetTrans();
+				
+				if(assetChkVal>0) {
+				try {
+					assetTransId = Integer.parseInt(request.getParameter("transIds"));
+				}catch (NumberFormatException e) {
+					assetTransId = 0;
+				}
+				
+				assignAsset.setAssetTransId(assetTransId);				
+				assignAsset.setAssetId(Integer.parseInt(request.getParameter("assetIds" + asset[i])));				
+				assignAsset.setAssetTransStatus(1);
+				assignAsset.setAssignRemark(request.getParameter("remark" + asset[i]));
+				assignAsset.setDelStatus(1);
+				assignAsset.setEmpId(empId);				
+				assignAsset.setMakerUserId(userObj.getEmpId());
+				assignAsset.setUpdateDatetime(sf.format(date));
+				assignAsset.setUseFromDate(DateConvertor.convertToYMD(request.getParameter("fromDate" + asset[i])));
+				assignAsset.setUseToDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
+				assignAsset.setReturnDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
+				assignAsset.setAssignImgFile(request.getParameter("" + asset[i]));
+				assignAsset.setReturnImgFile("NA");
+				assignAsset.setIsLost(0);
+				assignAsset.setLostRemark("NA");
+				assignAsset.setReturnRemark("NA");
+				
+				assignAsset.setExInt1(0);
+				assignAsset.setExInt2(0);
+				assignAsset.setExVar1("NA");
+				assignAsset.setExVar2("NA");
+				
+				assetTransList.add(assignAsset);
+				
+				
+				}
+				
+			}
+			AssetTrans[] saveAssignAsset = Constants.getRestTemplate().postForObject(
+					Constants.url + "/saveAssetsTrans", assetTransList, AssetTrans[].class); 
+			
+			//System.out.println("Assign Assets---------------"+assetTransList);
+			
+			List<AssetTrans> list = Arrays.asList(saveAssignAsset);
+			
+			if(list.get(0).getAssetTransId()>0) {
+				session.setAttribute("successMsg", "Assets Assign Successfully");
+			}else {
+				session.setAttribute("errorMsg", "Failed to Assign Assets");
+			}
+
+		}catch (Exception e) {
+			System.out.println("Exception in submitAssignAsset : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/manageAssets?locId_list="+locId;
+	}
 	
 	
 	@RequestMapping(value = "/returnAssets", method = RequestMethod.GET)
@@ -1088,10 +1215,87 @@ public class AssetMgmtController {
 
 		try {
 			model = new ModelAndView("asset/returnAssets");
+			
+			String base64encodedString = request.getParameter("empId");
+			int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
+			
+			int locId = 0;
+			try {
+				locId = Integer.parseInt(request.getParameter("locId"));
+			} catch (Exception e) {
+				locId = 0;
+				e.printStackTrace();
+			}
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			map.add("locId", locId);
+			
+			AssetEmployee emp = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmployee", map,
+					AssetEmployee.class);
+			model.addObject("emp", emp);
+			
+			map.add("empId", empId);
+			AssignedAssetsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssignedAssets", map,
+					AssignedAssetsList[].class);
+			List<AssignedAssetsList> assignAssetsList = new ArrayList<AssignedAssetsList>(Arrays.asList(assetArr));
+			model.addObject("assignAssetsList", assignAssetsList);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	@RequestMapping(value = "/submitReturnAsset", method = RequestMethod.POST)
+	public String submitReturnAsset(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			HttpSession session = request.getSession();
+			
+			Info info = new Info();
+			
+			Date date = new Date();
+			SimpleDateFormat toDay = new SimpleDateFormat("yyyy-MM-dd");			
+			
+			String[] asset = request.getParameterValues("chkAssetId");
+			
+			int assetTransId = 0;
+			int assetChkVal = 0;
+			
+			MultiValueMap<String, Object> map = null;
+		
+			for (int i = 0; i < asset.length; i++) {
+				
+				assetChkVal = Integer.parseInt(asset[i]);
+				
+				if(assetChkVal>0) {
+				try {
+					assetTransId = Integer.parseInt(request.getParameter("transIds"+ asset[i]));
+				}catch (NumberFormatException e) {
+					assetTransId = 0;
+				}
+				
+				//System.out.println("Values-----"+"transId=="+assetTransId);
+				map = new LinkedMultiValueMap<>();
+				map.add("assetTransId", assetTransId);				
+				map.add("assetTransStatus", 2);
+				map.add("returnDate", DateConvertor.convertToYMD(toDay.format(date)));	
+				map.add("assetId", Integer.parseInt(request.getParameter("assetIds" + asset[i])));
+				map.add("returnRemark", request.getParameter("returRemark" + asset[i]));
+				info = Constants.getRestTemplate().postForObject(Constants.url + "/returnAssetByIds", map,
+						Info.class);
+
+				}				
+			}
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Assets Returned Sucessfully");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Returned Assets");
+			}
+		}catch (Exception e) {
+			System.out.println("Exception in submitAssignAsset : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/manageAssets?locId_list="+locId;
 	}
 	
 	@RequestMapping(value = "/assetAmc", method = RequestMethod.GET)

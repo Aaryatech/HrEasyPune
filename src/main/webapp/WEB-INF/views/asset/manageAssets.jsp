@@ -92,7 +92,7 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-															
+											<form action="manageAssets" id="showAllAssetsEmployee" method="get">				
 									<div class="form-group row">									
 											<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
@@ -103,14 +103,12 @@
 
 														<!-- <option value="">Select Location</option> -->
 														<c:forEach items="${locationList}" var="locationList">
-															<c:set value="0" var="find"></c:set>
-															<c:forEach items="${locationIds}" var="locationIds">
+															<c:set value="0" var="find"></c:set>															
 																<c:if test="${locationList.locId==locationIds}">
 																	<option selected="selected"
 																		value="${locationList.locId}">${locationList.locName}</option>
 																	<c:set value="1" var="find"></c:set>
-																</c:if>
-															</c:forEach>
+																</c:if>															
 															<c:if test="${find==0}">
 																<option value="${locationList.locId}">${locationList.locName}</option>
 															</c:if>
@@ -121,8 +119,13 @@
 														style="display: none;">This field is required.</span>
 																										
 												</div>
-											</div>		
+											</div>	
+											<button type="submit" class="btn blue_btn" id="submtbtn">
+									Search <i class="icon-paperplane ml-2"></i>
+								</button>	
 									</div>
+									
+									</form>
 						<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 							id="printtable1">
@@ -140,164 +143,37 @@
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach items="${assetEmpList}" var="assetEmpList"
+									varStatus="count">
 								<tr>
-									<td>1</td>
-									<td>AD001</td>
+									<td>${count.index+1}</td>
+									<td>${assetEmpList.empCode}</td>
 									<td>
 									<a href="${pageContext.request.contextPath}/assignAssets" data-toggle="modal" data-target="#modal_large"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
-										BYASPRASAD S GAUD</a></td>
-									<td>WORKER</td>
-									<td>SBU1</td>
-									<td>EXE</td>
-									<td>KHL</td>
+										${assetEmpList.firstName} ${assetEmpList.middleName} ${assetEmpList.surname}</a></td>
+									<td>${assetEmpList.empType}</td>
+									<td>${assetEmpList.department}</td>
+									<td>${assetEmpList.designation}</td>									
+									<td>${assetEmpList.location}</td>
 									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets"
+									<a href="${pageContext.request.contextPath}/assignAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
 										<i class="icon-enlarge5"></i></a>
 											
-									<a href="${pageContext.request.contextPath}/returnAssets"
+									<a href="${pageContext.request.contextPath}/returnAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="${pageContext.request.contextPath}/assignAssets"
+									<a href="${pageContext.request.contextPath}/editAssignAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>
 									
 								</tr>
-<tr>
-									<td>2</td>
-									<td>AD002</td>
-									<td>
-									<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
-										SUNIL T MOSAMKAR</a></td>									
-									<td>WORKER</td>
-									<td>SBU1</td>
-									<td>EXE</td>
-									<td>KHL</td>
-									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
-										<i class="icon-enlarge5"></i></a>
-											
-									<a href="${pageContext.request.contextPath}/returnAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
-										<i class="icon-last"></i></a>
-										
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
-										<i class="icon-pencil7"></i></a>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>AD003</td>
-									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
-										SUNIL T MOSAMKAR</a></td>	
-									<td>WORKER</td>
-									<td>SBU1</td>
-									<td>EXE</td>
-									<td>KHL</td>
-									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
-										<i class="icon-enlarge5"></i></a>
-											
-									<a href="${pageContext.request.contextPath}/returnAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
-										<i class="icon-last"></i></a>
-										
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
-										<i class="icon-pencil7"></i></a>
-									</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>AD004</td>
-									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
-										PURUSHOTTAM G AMBRE</a></td>	
-									<td>WORKER</td>
-									<td>SBU1</td>
-									<td>EXE</td>
-									<td>KHL</td>
-									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
-										<i class="icon-enlarge5"></i></a>
-											
-									<a href="${pageContext.request.contextPath}/returnAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
-										<i class="icon-last"></i></a>
-										
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
-										<i class="icon-pencil7"></i></a>
-									</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>AD005</td>
-									<td><a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
-										NAGESH G SAWANT</a></td>	
-									<td>WORKER</td>
-									<td>SBU1</td>
-									<td>EXE</td>
-									<td>KHL</td>
-									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
-										<i class="icon-enlarge5"></i></a>
-											
-									<a href="${pageContext.request.contextPath}/returnAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
-										<i class="icon-last"></i></a>
-										
-									<a href="${pageContext.request.contextPath}/assignAssets"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
-										<i class="icon-pencil7"></i></a>
-									</td>
-								</tr>
-							</tbody>
-							<%-- <tbody>
-
-
-								<c:forEach items="${assetsList}" var="assetList"
-									varStatus="count">
-									<tr>
-										 <td>${count.index+1}</td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
-										<td>${assetList.catName}</td>
-										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
-										<td>${assetList.assetSrno}</td>
-										<td>${assetList.assetPurDate}</td>
-										<td>${assetList.vendor}</td>
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												 
-												 
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${assetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if></td>
-									</tr>
 								</c:forEach>
 
-							</tbody> --%>
+							</tbody>
 						</table>
 					</div>
 

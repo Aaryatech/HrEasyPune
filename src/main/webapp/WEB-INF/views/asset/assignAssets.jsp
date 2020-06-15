@@ -99,20 +99,14 @@
 							}
 						%>
 						
-						
-						<form
-									action="${pageContext.request.contextPath}/"
-									id="submitInsertAsset" method="post">	
-									
 								<div class="form-group row">									
 										<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="empName">Employee
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="AD001-BYASPRASAD S GAUD">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${emp.empCode}-${emp.firstName} ${emp.middleName} ${emp.surname}">
+													
 												</div>
 											</div>
 											
@@ -121,9 +115,8 @@
 												 <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="SBU1-WORKER">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${emp.department}">
+												
 											</div>
 										</div>											
 									</div>	
@@ -134,7 +127,7 @@
 													Type <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="EXE">
+													value="${emp.designation}">
 													<span class="validation-invalid-label" id="error_assetCode"
 														style="display: none;">This field is required.</span>
 												</div>
@@ -145,14 +138,18 @@
 												<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="KHL">
+												 value="${emp.location}">
 												<span class="validation-invalid-label" id="error_assetName"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>											
 									</div>										
 					
-						<div class="table-responsive">
+						<form
+									action="${pageContext.request.contextPath}/submitAssignAsset"
+									id="submitAssignAsset" method="post" >
+									<input type="hidden" id="empId" name="empId" value="${emp.empId}">
+						<div class="table-responsive">						
 								<table class="table datatable-scroll-y" id="printtable1">
 							<thead>
 								<tr class="bg-blue">
@@ -167,146 +164,58 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td><input type="checkbox" class="select_all"></td>									
-									<td>
-										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST001-Laptop</a>
-									</td>
-									<td>Computer</td>
-									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-									<td>
-										<img id="output1" width="150"/>
-										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile1(event)"> 
-									</td>			
-									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>									
-									
-								</tr>
-								<tr>
-									<td>2</td>
-									<td><input type="checkbox" class="select_all"></td>									
-									<td>
-										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST002-Cell Phone</a>
-									</td>
-									<td>Mobile</td>
-									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-									<td>
-										<img id="output2" width="150"/>
-										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile2(event)"> 
-									</td>	
-									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>									
-									
-								</tr>
-								<tr>
-									<td>3</td>
-									<td><input type="checkbox" class="select_all"></td>
-									<td>
-										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST003-Papers</a>
-									</td>
-									<td>Stationary</td>
-								<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-									<td>
-										<img id="output3" width="150"/>
-										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile3(event)"> 
-									</td>	
-									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>									
-									
-								</tr>
-								<tr>
-									<td>4</td>
-									<td><input type="checkbox" class="select_all"></td>
-									<td>
-										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST004-Printer</a>
-									</td>
-									<td>Computer</td>
-									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-									<td>
-										<img id="output4" width="150"/>
-										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile4(event)"> 
-									</td>	
-									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>									
-									
-								</tr>
-								<tr>
-									<td>5</td>
-									<td><input type="checkbox" class="select_all"></td>
-									<td>
-										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
-										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
-										ASST005-Laptop</a>
-									</td>
-									<td>Computer</td>
-									<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-										<td><input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
-										autocomplete="off"></td>
-									<td>
-										<img id="output5" width="150"/>
-										<input type="file" accept="image/*" name="image" id="file"  onchange="loadFile5(event)"> 
-									</td>	
-									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)"></td>	
-								</tr>								
-							</tbody>
-							<%-- <tbody>
-
-
-								<c:forEach items="${assetsList}" var="assetList"
+							
+								<c:forEach items="${assetsList}" var="assetsList"
 									varStatus="count">
 									<tr>
-										 <td>${count.index+1}</td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
-										<td>${assetList.catName}</td>
-										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
-										<td>${assetList.assetSrno}</td>
-										<td>${assetList.assetPurDate}</td>
-										<td>${assetList.vendor}</td>
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												 
-												 
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${assetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if></td>
-									</tr>
-								</c:forEach>
-
-							</tbody> --%>
+										<td>${count.index+1}
+											<input type="hidden" id="transIds" name="transIds">
+										</td>
+									
+									<td>
+										<input type="hidden" class="select_all" id="assetIds${assetsList.assetId}" name="assetIds${assetsList.assetId}"
+										value="${assetsList.assetId}">
+										<input type="checkbox" class="select_all" id="chkAssetId${assetsList.assetId}" name="chkAssetId"
+										value="${assetsList.assetId}">
+									</td>									
+									
+									<td>
+										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
+										${assetsList.assetCode}-${assetsList.assetName}</a>
+									</td>
+									
+									<td>${assetsList.catName}</td>
+									
+									<td>
+										<input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										name="fromDate${assetsList.assetId}" id="fromDate${assetsList.assetId}"
+										autocomplete="off">
+									</td>
+									
+									<td>
+										<input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
+										name="toDate${assetsList.assetId}" id="toDate${assetsList.assetId}" autocomplete="off">
+									</td>
+									
+									<td>
+										<img id="output" width="150"/>
+												<input type="file" accept="image/*" name="doc${assetsList.assetId}" id="doc${assetsList.assetId}" 
+												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
+													class="form-text text-muted">Only
+													.jpg,.png,.gif,.doc,.xls,.pdf</span>
+												<span class="validation-invalid-label" id="error_doc"
+													style="display: none;">This field is required.</span>												
+									</td>	
+											
+									<td><input type="text" class="form-control" placeholder="Any Remark" 
+										autocomplete="off" onchange="trim(this)" name="remark${assetsList.assetId}" id="remark${assetsList.assetId}"></td>									
+									
+								</tr>
+								</c:forEach>																
+							</tbody>							
 						</table>
+					
 						</div>
 						<div class="form-group row mb-0">
 									<div  style="margin: 0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
@@ -320,8 +229,9 @@
 										</div>
 									</div>
 								</form>
-									<!-- <p class="desc text-danger fontsize11">Note : * Fields are
-									mandatory.</p> -->
+										<span
+										class="validation-invalid-label" id="error_chk"
+										style="display: none;">Please Select one or more Asset.</span>
 
 					</div>
 
@@ -341,6 +251,61 @@
 
 	</div>
 	<!-- /page content -->
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("submitAssignAsset").submit();
+
+		}
+		
+		$(document).ready(function($) {
+			$("#submitAssignAsset").submit(function(e) {
+
+				var isError = false;
+				var errMsg = "";
+
+				var checked = $("#submitAssignAsset input:checked").length > 0;
+				if (!checked) {
+					$("#error_chk").show()
+					isError = true;
+				} else {
+					$("#error_chk").hide()
+					isError = false;
+				}
+
+				if (!isError) {
+					 
+					$('#modal_scrollable')
+					.modal('show');
+
+						return false;
+ 				}
+				return false;
+			});
+		});
+	</script>
+		<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
+
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Are You Sure You Want To Assign This Asset</h5>
+					<br>
+				 
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- Large modal -->
 				<div id="modal_large" class="modal fade" tabindex="-1">
