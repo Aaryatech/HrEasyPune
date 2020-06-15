@@ -945,7 +945,7 @@ public class AttendenceController {
 					map.add("desgType", 2);
 					map.add("departIds", userObj.getHodDeptIds());
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getEmployyeDailyDailyListByDeptIds", map, DailyAttendance[].class);
+							Constants.url + "/getEmployyeDailyDailyListforHr", map, DailyAttendance[].class);
 					List<DailyAttendance> dailyDailyList = new ArrayList<DailyAttendance>(
 							Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
@@ -1000,10 +1000,11 @@ public class AttendenceController {
 
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("desgType", userObj.getDesignType());
+					map.add("desgType", 1);
 					map.add("departIds", userObj.getHodDeptIds());
+					System.out.println(map);
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getEmployyeDailyDailyListforHr", map, DailyAttendance[].class);
+							Constants.url + "/getEmployyeDailyDailyListByDeptIds", map, DailyAttendance[].class);
 					List<DailyAttendance> dailyDailyList = new ArrayList<DailyAttendance>(
 							Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);

@@ -56,7 +56,10 @@
 
 
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Employee Attendance Details for HOD</h5>
+								<h5 class="pageTitle">
+									<i class="icon-list-unordered"></i>Employee Attendance Details
+									for Security
+								</h5>
 							</div>
 
 							<div class="card-body">
@@ -114,30 +117,33 @@
 
 									<div id="byStatusDive">
 										<div class="form-group row">
-											<label class="col-form-label col-lg-2" for="selectStatus">
-												Select Status : </label>
-											<div class="col-lg-2">
-												<select name="selectStatus"
-													data-placeholder="Select Leave Type" id="selectStatus"
-													class="form-control ">
-													<option value="0">Select Status</option>
-													<c:forEach items="${lvTypeList}" var="lvTypeList">
-														<%-- data-leavestrname="${leaveHistoryList.lvTitle}" --%>
-														<option value="${lvTypeList.lvSumupId}">${lvTypeList.nameSd}</option>
-
-													</c:forEach>
-												</select>
+											<label class="col-form-label col-lg-1" for="ontime">
+												On Time : </label>
+											<div class="col-lg-1">
+												<input type="checkbox" name="ontime" id="ontime" value="0">
 											</div>
-											<div class="col-lg-1"></div>
-											<label class="col-form-label col-lg-2" for="lateMark">
+											<label class="col-form-label col-lg-1" for="lateMark">
 												Late Mark : </label>
-											<div class="col-lg-2">
+											<div class="col-lg-1">
 												<input type="checkbox" class="chk" name="lateMark"
-													id="lateMark">
+													id="lateMark" onchange="latemindivhideshow()">
 											</div>
+
+
 
 										</div>
+										<div id="lateMinDiv" style="display: block;">
+											<div class="form-group row">
+												<label class="col-form-label col-lg-2" for="lateMin">
+													Late Min : </label>
+												<div class="col-lg-2">
+													<input type="text" class="form-control numbersOnly"
+														placeholder="Late Min" id="lateMin" name="lateMin"
+														autocomplete="off">
 
+												</div>
+											</div>
+										</div>
 									</div>
 									<div id="byIntimeDive" style="display: none;">
 										<div class="form-group row">
@@ -195,13 +201,13 @@
 												<th class="text-center">EMP Code</th>
 												<th class="text-center">EMP Name</th>
 												<th class="text-center">Status</th>
-												<th class="text-center">In Time</th>
-												<th class="text-center">Out Time</th>
+												<!-- <th class="text-center">In Time</th>
+												<th class="text-center">Out Time</th> -->
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late MIN</th>
-												<th class="text-center">WR. Hrs</th>
-												<th class="text-center">OT Hrs</th>
-												<th class="text-center">OShift/Loc</th>
+												<!-- <th class="text-center">WR. Hrs</th> -->
+												<!-- <th class="text-center">OT Hrs</th> -->
+												<!-- <th class="text-center">OShift/Loc</th> -->
 												<th class="text-center">Action</th>
 
 											</tr>
@@ -211,25 +217,33 @@
 												<tr>
 													<td class="text-center">${dailyrecordList.empCode}</td>
 													<td>${dailyrecordList.empName}</td>
-													<td class="text-center">${dailyrecordList.attStatus}</td>
-
 													<c:choose>
+														<c:when
+															test="${dailyrecordList.attStatus eq 'WO' || dailyrecordList.attStatus eq 'PH'}">
+															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.attStatus}</td>
+														</c:when>
+														<c:otherwise>
+															<td class="text-center">${dailyrecordList.attStatus}</td>
+														</c:otherwise>
+													</c:choose>
+
+													<%-- <c:choose>
 														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
 														</c:when>
 														<c:otherwise>
 															<td class="text-center">${dailyrecordList.inTime}</td>
 														</c:otherwise>
-													</c:choose>
+													</c:choose> --%>
 
-													<c:choose>
+													<%-- <c:choose>
 														<c:when test="${dailyrecordList.outTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.outTime}</td>
 														</c:when>
 														<c:otherwise>
 															<td class="text-center">${dailyrecordList.outTime}</td>
 														</c:otherwise>
-													</c:choose>
+													</c:choose> --%>
 
 
 													<c:choose>
@@ -241,17 +255,17 @@
 														</c:otherwise>
 													</c:choose>
 													<td class="text-right">${dailyrecordList.lateMin}</td>
-													<td class="text-right">${dailyrecordList.workingHrs}</td>
-													<td class="text-right">${dailyrecordList.otHr}</td>
-													<td>${dailyrecordList.currentShiftname}</td>
+													<%-- <td class="text-right">${dailyrecordList.workingHrs}</td> --%>
+													<%-- <td class="text-right">${dailyrecordList.otHr}</td> --%>
+													<%-- <td>${dailyrecordList.currentShiftname}</td> --%>
 													<td class="text-center"><c:if
 															test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
-															<%-- <a href="#"
+															<a href="#"
 																onclick="editAttendanceDetail(${dailyrecordList.id})"
 																class="list-icons-item text-primary-600"
 																data-popup="tooltip" title=""><i
-																class="icon-pencil7"></i></a> --%>
-															<c:choose>
+																class="icon-pencil7"></i></a>
+															<%-- <c:choose>
 																<c:when
 																	test="${(dailyrecordList.attStatus eq 'WO-OT' 
 																	|| dailyrecordList.attStatus eq 'PH-OT' 
@@ -261,7 +275,7 @@
 																		class="list-icons-item text-primary-600"
 																		data-popup="tooltip" title="edit"><i
 																		class="icon-pencil7"></i></a>&nbsp;
-																		<%-- onclick="markAsCompOff(${dailyrecordList.id},'${dailyrecordList.attStatus}')" --%>
+																		onclick="markAsCompOff(${dailyrecordList.id},'${dailyrecordList.attStatus}')"
 																	<a href="#"
 																		class="list-icons-item text-primary-600 bootbox_custom"
 																		data-dailyid="${dailyrecordList.id}"
@@ -276,7 +290,7 @@
 																		data-popup="tooltip" title=""><i
 																		class="icon-pencil7"></i></a>
 																</c:otherwise>
-															</c:choose>
+															</c:choose> --%>
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -383,7 +397,18 @@
 				document.getElementById("byStatusDive").style.display = 'none';
 			}
 		}
+		function latemindivhideshow() {
+			 
+			if (document.getElementById("lateMark").checked == true) {
+				 document.getElementById("lateMark").value=1;  
+				document.getElementById("lateMinDiv").style.display = 'block'; 
 
+			} else {
+				document.getElementById("lateMinDiv").style.display = 'none';
+				 document.getElementById("lateMark").value=0; 
+			}
+		}
+		
 		function closeEditDetailTab() {
 
 			document.getElementById("editAttanceDiv").style.display = 'none';
@@ -425,16 +450,38 @@
 		
 	function saveAttendanceDetail() {
   
-		var selectStatus = document.getElementById("selectStatus").value;  
-		var selectStatusText = $("#selectStatus option:selected").text();
-		 
 		var dailyId = document.getElementById("dailyId").value; 
+		var selectStatus = 5;  
+		var selectStatusText = "P";
+		var ontime=0; 
+		if(document.getElementById("ontime").checked==true){
+			ontime=1;
+		}
+		
 		var lateMark=0; 
-		var flag=0;
-		var otHours=0; 
 		if(document.getElementById("lateMark").checked==true){
 			lateMark=1;
 		}
+		var lateMin = document.getElementById("lateMin").value;
+		var isError=0;
+		
+		if(lateMark==1 && lateMin<=0){
+			
+			alert("Enter Late Min");
+			isError=1;
+		}
+		
+		if(ontime==0 && lateMark==0 ){
+			var selectStatus = 22;  
+			var selectStatusText = "AB";
+		}
+		
+		
+		var flag=0;
+		var otHours=0; 
+		
+		 if(isError==0){
+			 
 		 
 			var fd = new FormData();
 			fd.append('dailyId', dailyId); 
@@ -443,6 +490,8 @@
 			fd.append('selectStatusText', selectStatusText); 
 			fd.append('flag', flag); 
 			fd.append('otHours', otHours);
+			$('#modal_step1').modal('show');
+			
 			  $
 			.ajax({
 				url : '${pageContext.request.contextPath}/submitAttendanceDetailByHod',
@@ -456,7 +505,7 @@
 					location.reload(true);
 				},
 			});  
-
+		 }
 		}
 	$('.datepickerclass').daterangepicker({
 		singleDatePicker : true,
