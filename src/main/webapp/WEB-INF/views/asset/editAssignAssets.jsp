@@ -169,7 +169,7 @@
 									varStatus="count">
 									<tr>
 										<td>${count.index+1}
-											<input type="hidden" id="transIds" name="transIds${assetsList.assetId}">
+											<input type="text" id="transIds" name="transIds${assetsList.assetId}" value="${assetsList.assetTransId}">
 										</td>
 									
 									<td>
@@ -190,11 +190,11 @@
 									<td>
 										<input type="text" class="form-control datepickerclass" placeholder="Enter Period" 
 										name="fromDate${assetsList.assetId}" id="fromDate${assetsList.assetId}"
-										autocomplete="off">
+										autocomplete="off" value="${assetsList.useFromDate}">
 									</td>
 									
 									<td>
-										<input type="text" class="form-control datepickerclass" placeholder="Enter Period"
+										<input type="text" class="form-control datepickerclass" placeholder="Enter Period" value="${assetsList.useToDate}"
 										name="toDate${assetsList.assetId}" id="toDate${assetsList.assetId}" autocomplete="off">
 									</td>
 									
@@ -209,7 +209,8 @@
 									</td>	
 											
 									<td><input type="text" class="form-control" placeholder="Any Remark" 
-										autocomplete="off" onchange="trim(this)" name="remark${assetsList.assetId}" id="remark${assetsList.assetId}"></td>									
+										autocomplete="off" onchange="trim(this)" name="remark${assetsList.assetId}" id="remark${assetsList.assetId}"
+										value="${assetsList.assignRemark}"></td>									
 									
 								</tr>
 								</c:forEach>																

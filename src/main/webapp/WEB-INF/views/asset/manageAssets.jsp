@@ -153,19 +153,19 @@
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
 										${assetEmpList.firstName} ${assetEmpList.middleName} ${assetEmpList.surname}</a></td>
 									<td>${assetEmpList.empType}</td>
-									<td>${assetEmpList.department}</td>
-									<td>${assetEmpList.designation}</td>									
-									<td>${assetEmpList.location}</td>
+									<td>${assetEmpList.deptName}</td>
+									<td>${assetEmpList.empDesgn}</td>									
+									<td>${assetEmpList.locName}</td>
 									<td>
-									<a href="${pageContext.request.contextPath}/assignAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
+									<a href="${pageContext.request.contextPath}/assignAssets?locId=${assetEmpList.exVar2}&empId=${assetEmpList.exVar1}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assign Asset">
 										<i class="icon-enlarge5"></i></a>
 											
-									<a href="${pageContext.request.contextPath}/returnAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
+									<a href="${pageContext.request.contextPath}/returnAssets?empId=${assetEmpList.exVar1}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Return Asset">
 										<i class="icon-last"></i></a>
 										
-									<a href="${pageContext.request.contextPath}/editAssignAssets?empId=${assetEmpList.exVar1}&locId=${assetEmpList.locId}"
+									<a href="${pageContext.request.contextPath}/editAssignAssets?empId=${assetEmpList.exVar1}"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit">
 										<i class="icon-pencil7"></i></a>
 									</td>

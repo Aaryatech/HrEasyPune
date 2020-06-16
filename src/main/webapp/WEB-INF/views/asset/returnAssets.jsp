@@ -115,7 +115,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="${emp.designation}">
+													value="${emp.desingnation}">
 												</div>
 											</div>									
 									</div>							
@@ -128,7 +128,7 @@
 									<th class="text-center" width="5%">Sr. No.</th>
 									<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>
 									<th class="text-center">Asset Name</th>
-									<th class="text-center">Category</th>
+									<!-- <th class="text-center">Category</th> -->
 									<th class="text-center">Assigned Period</th>
 									<th class="text-center">Remark</th>	
 									<th class="text-center">Return Asset Img</th>	
@@ -155,7 +155,7 @@
 											class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
 											${assetsList.assetCode}-${assetsList.assetName}</a>
 										</td>
-										<td>${assetsList.catName}</td>
+										<%-- <td>${assetsList.catName}</td> --%>
 										<td>${assetsList.useFromDate} to ${assetsList.useToDate}</td>
 										<td>${assetsList.assignRemark}</td>
 										<td>

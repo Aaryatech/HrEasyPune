@@ -37,10 +37,14 @@ import com.ats.hreasy.model.AssetsDetailsList;
 import com.ats.hreasy.model.AssignedAssetsList;
 import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmployeeMaster;
+import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
+import com.ats.hreasy.model.ViewEmployee;
+import com.ats.hrmgt.model.assets.AssetEmpInfo;
+import com.ats.hrmgt.model.assets.AssetInfo;
 
 @Controller
 @Scope("session")
@@ -1032,14 +1036,19 @@ public class AssetMgmtController {
 				map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
 				
-				AssetEmployee[] assetEmpArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetEmployees", map,
-						AssetEmployee[].class);
-				List<AssetEmployee> assetEmpList = new ArrayList<AssetEmployee>(Arrays.asList(assetEmpArr));
+				GetEmployeeDetails[] assetEmpArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllEmpByLocId", map,
+						GetEmployeeDetails[].class);
+				List<GetEmployeeDetails> assetEmpList = new ArrayList<GetEmployeeDetails>(Arrays.asList(assetEmpArr));
 				model.addObject("assetEmpList", assetEmpList);
 				
 				for (int i = 0; i < assetEmpList.size(); i++) {
 
 					assetEmpList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(assetEmpList.get(i).getEmpId())));
+				}
+				
+				for (int i = 0; i < assetEmpList.size(); i++) {
+
+					assetEmpList.get(i).setExVar2(FormValidation.Encrypt(String.valueOf(assetEmpList.get(i).getLocationId())));
 				}
 				
 				model.addObject("locationIds", locId);
@@ -1094,29 +1103,27 @@ public class AssetMgmtController {
 
 			} else {
 				model = new ModelAndView("asset/assignAssets");
-				String base64encodedString = request.getParameter("empId");
-				int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
 				
-				try {
-					locId = Integer.parseInt(request.getParameter("locId"));
-				} catch (Exception e) {
-					locId = 0;
-					e.printStackTrace();
-				}
-			
+				String base64encodedString = request.getParameter("locId");
+				int locId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
 				
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("empId", empId); 
-				map.add("locId", locId); 
+				String empEncodedString = request.getParameter("empId");
+				int empId = Integer.parseInt(FormValidation.DecodeKey(empEncodedString));
 				
-				AssetEmployee emp = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmployee", map,
-						AssetEmployee.class);
-				model.addObject("emp", emp);
+				MultiValueMap<String, Object> map = null;
 				
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empId); 				
 				
-				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllUnassignAssets",
-						AssetsDetailsList[].class);
-				List<AssetsDetailsList> assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
+				ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+						ViewEmployee.class);				
+				model.addObject("emp", empInfo);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId); 				
+				AssetInfo[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getUnAssignedAssetByLocIdAndStatus",map,
+						AssetInfo[].class);
+				List<AssetInfo> assetsList = new ArrayList<AssetInfo>(Arrays.asList(assetArr));
 				model.addObject("assetsList", assetsList);
 			}
 		} catch (Exception e) {
@@ -1153,7 +1160,8 @@ public class AssetMgmtController {
 				
 				if(assetChkVal>0) {
 				try {
-					assetTransId = Integer.parseInt(request.getParameter("transIds"));
+					assetTransId = Integer.parseInt(request.getParameter("transIds" + asset[i]));
+					System.out.println("Transaction Ids-----------"+assetTransId);
 				}catch (NumberFormatException e) {
 					assetTransId = 0;
 				}
@@ -1207,6 +1215,49 @@ public class AssetMgmtController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/editAssignAssets", method = RequestMethod.GET)
+	public ModelAndView editAssignAssets(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editAssignAssets", "manageAssets", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/editAssignAssets");
+				
+			
+				
+				String empEncodedString = request.getParameter("empId");
+				int empId = Integer.parseInt(FormValidation.DecodeKey(empEncodedString));
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("empId", empId); 				
+				
+				ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+						ViewEmployee.class);				
+				model.addObject("emp", empInfo);			
+				
+				map.add("empId", empId); 
+				AssignedAssetsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssignedAssets",map,
+						AssignedAssetsList[].class);
+				List<AssignedAssetsList> assignAssetsList = new ArrayList<AssignedAssetsList>(Arrays.asList(assetArr));
+				model.addObject("assetsList", assignAssetsList);	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
 	@RequestMapping(value = "/returnAssets", method = RequestMethod.GET)
 	public ModelAndView returnAssets(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1216,29 +1267,21 @@ public class AssetMgmtController {
 		try {
 			model = new ModelAndView("asset/returnAssets");
 			
-			String base64encodedString = request.getParameter("empId");
-			int empId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
+			String empEncodedString = request.getParameter("empId");
+			int empId = Integer.parseInt(FormValidation.DecodeKey(empEncodedString));
 			
-			int locId = 0;
-			try {
-				locId = Integer.parseInt(request.getParameter("locId"));
-			} catch (Exception e) {
-				locId = 0;
-				e.printStackTrace();
-			}
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("empId", empId);
-			map.add("locId", locId);
+			map.add("empId", empId); 				
 			
-			AssetEmployee emp = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmployee", map,
-					AssetEmployee.class);
-			model.addObject("emp", emp);
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);				
+			model.addObject("emp", empInfo);			
 			
-			map.add("empId", empId);
-			AssignedAssetsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssignedAssets", map,
-					AssignedAssetsList[].class);
-			List<AssignedAssetsList> assignAssetsList = new ArrayList<AssignedAssetsList>(Arrays.asList(assetArr));
-			model.addObject("assignAssetsList", assignAssetsList);
+			map.add("empId", empId); 
+			AssetEmpInfo[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedAssetByEmpId",map,
+					AssetEmpInfo[].class);
+			List<AssetEmpInfo> assignAssetsList = new ArrayList<AssetEmpInfo>(Arrays.asList(assetArr));
+			model.addObject("assignAssetsList", assignAssetsList);	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1278,7 +1321,7 @@ public class AssetMgmtController {
 				map = new LinkedMultiValueMap<>();
 				map.add("assetTransId", assetTransId);				
 				map.add("assetTransStatus", 2);
-				map.add("returnDate", DateConvertor.convertToYMD(toDay.format(date)));	
+				map.add("returnDate", toDay.format(date));	
 				map.add("assetId", Integer.parseInt(request.getParameter("assetIds" + asset[i])));
 				map.add("returnRemark", request.getParameter("returRemark" + asset[i]));
 				info = Constants.getRestTemplate().postForObject(Constants.url + "/returnAssetByIds", map,
