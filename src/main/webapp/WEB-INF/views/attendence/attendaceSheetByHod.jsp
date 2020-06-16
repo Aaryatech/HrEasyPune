@@ -869,7 +869,7 @@
 	</script>
 	<script>
 		function submitForm() {
-			$('#modal_scrollable').modal('hide');
+			$('#modal_large1').modal('hide');
 			document.getElementById("btnassignstuct").disabled = true;
 			document.getElementById("approveAttendaceBysecurity").submit();
 

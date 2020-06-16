@@ -17,7 +17,7 @@ import com.ats.hreasy.model.FileUploadedData;
 import com.ats.hreasy.model.Info;
 
 public class UpateAttendaceCommon {
-	
+
 	public Info changeInDailyDailyAfterLeaveTransaction(String fromDate, String toDate, int empId, int userId) {
 
 		Info finalRes = new Info();
@@ -43,8 +43,15 @@ public class UpateAttendaceCommon {
 				fileUploadedData.setEmpCode(dailyAttendanceList.get(i).getEmpCode());
 				fileUploadedData.setEmpName(dailyAttendanceList.get(i).getEmpName());
 				fileUploadedData.setLogDate(DateConvertor.convertToDMY(dailyAttendanceList.get(i).getAttDate()));
-				fileUploadedData.setInTime(dailyAttendanceList.get(i).getInTime().substring(0, 5));
-				fileUploadedData.setOutTime(dailyAttendanceList.get(i).getOutTime().substring(0, 5));
+
+				try {
+					fileUploadedData.setInTime(dailyAttendanceList.get(i).getInTime().substring(0, 5));
+					fileUploadedData.setOutTime(dailyAttendanceList.get(i).getOutTime().substring(0, 5));
+				} catch (Exception e) {
+					fileUploadedData.setInTime("00:00:00");
+					fileUploadedData.setOutTime("00:00:00");
+				}
+
 				fileUploadedDataList.add(fileUploadedData);
 			}
 

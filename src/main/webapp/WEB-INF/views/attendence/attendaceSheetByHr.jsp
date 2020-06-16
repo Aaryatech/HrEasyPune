@@ -260,6 +260,7 @@
 																data-statusshow="${dailyrecordList.attStatus}"
 																data-latemarkshow="${dailyrecordList.lateMark}"
 																data-lateminshow="${dailyrecordList.lateMin}"
+																data-statusidshow="${dailyrecordList.lvSumupId}"
 																class="select_all">&nbsp;${count.index+1}</td>
 															<td class="text-center">${dailyrecordList.empCode}</td>
 															<td>${dailyrecordList.empName}</td>
@@ -614,11 +615,32 @@
 											return false;
 										}
 
+										
 										if (!isError) {
 											
 											$("#table_grid1 tbody")
-													.empty();
+											.empty();
+									$("#table_grid2 tbody")
+									.empty();
+									$("#table_grid3 tbody")
+									.empty();
+									$("#table_grid4 tbody")
+									.empty();
+									$("#table_grid5 tbody")
+									.empty();
+									$("#table_grid6 tbody")
+									.empty();
+									$("#table_grid7 tbody")
+									.empty();
 
+									var onTimeCount=0;
+									var lateMarkCount=0;
+									var absentNaCount=0;
+									var leaveCount=0;
+									var weeklyCount=0;
+									var paidHolidayCount=0;
+									var otherCount=0;
+									
 											$('.chk:checkbox:checked')
 													.each(
 															function(i) {
@@ -627,6 +649,15 @@
 																		.val();
  
 																if (val != 'on') {
+																	
+																	var isOnTime=0;
+																	var isLateMark=0;
+																	var isAbsent=0;
+																	var isLeave=0;
+																	var isWo=0;
+																	var isPh=0;
+																	var isOther=0;
+																	
 																	var name = $(
 																			"#id"
 																					+ val)
@@ -643,45 +674,157 @@
 																					+ val)
 																			.attr(
 																					'data-statusshow');
-																		var latemarkshow = $(
+																	var latemarkshow = $(
 																				"#id"
 																						+ val)
 																				.attr(
 																						'data-latemarkshow');
-																		var lateminshow = $(
+																	var lateminshow = $(
 																				"#id"
 																						+ val)
 																				.attr(
 																						'data-lateminshow');
-
-																	var tr_data = '<tr id="tritem' + val + '">'
+																	
+																	var statusidshow = $(
+																			"#id"
+																					+ val)
+																			.attr(
+																					'data-statusidshow');
+																	
+																	
+																	if(statusshow=="AB" || statusshow=="NA"){
+																		absentNaCount=absentNaCount+1;
+																		isAbsent=1;
+																	}else if(statusshow=="P"){ 
+																		
+																		 
+																		if(latemarkshow==1){
+																			 
+																			lateMarkCount=lateMarkCount+1;
+																			isLateMark=1;
+																		}else{
+																			
+																			onTimeCount=onTimeCount+1;
+																			isOnTime=1;
+																		}
+																		
+																	}else if(statusshow=="WO"){
+																		weeklyCount=weeklyCount+1;
+																		isWo=1;
+																	}else if(statusshow=="PH"){
+																		paidHolidayCount=paidHolidayCount+1;
+																		isPh=1;
+																	}else {
+																		
+																		if(statusidshow==7){
+																			leaveCount=leaveCount+1;
+																			isLeave=1;
+																		}else{
+																			otherCount=otherCount+1;
+																			isOther=1;
+																		}
+																		
+																	}  
+																	
+																	if(isOnTime==1){
+																		 var tr_data = '<tr id="tritem' + val + '">'
+																			+ '<td id="itemCount' + val + '">'
+																			+ empcode
+																			+ '</td>'
+																			+ '<td  >'
+																			+ name
+																			+ '</td> </tr>';
+																			
+																			$(
+																					'#table_grid1'
+																							+ ' tbody')
+																					.append(
+																							tr_data);
+																	 }else if(isLateMark==1){
+																		  
+																		 var tr_data = '<tr id="tritem' + val + '">'
 																			+ '<td id="itemCount' + val + '">'
 																			+ empcode
 																			+ '</td>'
 																			+ '<td  >'
 																			+ name
 																			+ '</td>'
-																			+ '<td >'
-																			+ statusshow
-																			+ '</td>'
-																			+ '<td  >'
-																			+ latemarkshow
-																			+ '</td>'
+																			+ '<td  > Yes </td>'
 																			+ '<td  >'
 																			+ lateminshow
 																			+ '</td> </tr>';
-																	$(
-																			'#table_grid1'
-																					+ ' tbody')
-																			.append(
-																					tr_data);
+																			
+																			$(
+																					'#table_grid2'
+																							+ ' tbody')
+																					.append(
+																							tr_data);
+																	 }else {
+																		 var tr_data = '<tr id="tritem' + val + '">'
+																			+ '<td id="itemCount' + val + '">'
+																			+ empcode
+																			+ '</td>'
+																			+ '<td  >'
+																			+ name
+																			+ '</td>'
+																			+ '<td  >'
+																			+ statusshow
+																			+ '</td>  </tr>';
+																			 
+																			if(isAbsent==1){
+																				$(
+																						'#table_grid6'
+																								+ ' tbody')
+																						.append(
+																								tr_data);
+																			}else if(isWo==1){
+																				$(
+																						'#table_grid4'
+																								+ ' tbody')
+																						.append(
+																								tr_data);
+																			}else if(isPh==1){
+																				$(
+																						'#table_grid5'
+																								+ ' tbody')
+																						.append(
+																								tr_data);
+																			}else if(isLeave==1){
+																				$(
+																						'#table_grid3'
+																								+ ' tbody')
+																						.append(
+																								tr_data);
+																			}else{
+																				$(
+																						'#table_grid7'
+																								+ ' tbody')
+																						.append(
+																								tr_data);
+																			}
+																	 }
 																}
 															});
  
 											var datepicker1 = document.getElementById("datepicker1").value;  
 											$("#dateshow").html(
 													datepicker1);
-											$('#modal_scrollable')
+											$("#ontimecount").html(
+													"("+onTimeCount+")");
+											$("#latemarkcount").html(
+													"("+lateMarkCount+")");
+											$("#absentcount").html(
+													"("+absentNaCount+")");
+											$("#leavecount").html(
+													"("+leaveCount+")");
+											$("#weeklycount").html(
+													"("+weeklyCount+")");
+											$("#phcount").html(
+													"("+paidHolidayCount+")");
+											$("#othercount").html(
+													"("+otherCount+")");
+											
+											$('#modal_large1')
 													.modal('show');
 											return false;
 											 
@@ -724,31 +867,202 @@
 						Approve Attendance of <span id="dateshow"></span>
 					</h5>
 					<br>
-					<table class="table table-bordered table-hover" id="table_grid1">
-						<thead>
-							<tr class="bgpink">
-								<th width="5%">Code</th>
-								<th>Employee Name</th>
-								<th>Status</th>
-								<th>Late Mark</th>
-								<th>Late Min</th>
-							</tr>
-						</thead>
-						<tbody>
 
-						</tbody>
-
-					</table>
 				</div>
 
 				<div class="modal-footer pt-3">
 					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- /scrollable modal -->
+
+	<div id="modal_large1" class="modal fade" tabindex="-1">
+
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						Approve Attendance of <span id="dateshow"></span>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body" id="modalbody">
+					<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
+
+						<li class="nav-item"><a href="#highlighted-justified-tab1"
+							class="nav-link active" data-toggle="tab">Other <span
+								id="othercount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab1"
+							class="nav-link " data-toggle="tab">On time <span
+								id="ontimecount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab2"
+							class="nav-link" data-toggle="tab">Late Mark <span
+								id="latemarkcount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab6"
+							class="nav-link" data-toggle="tab">Absent/NA <span
+								id="absentcount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab3"
+							class="nav-link" data-toggle="tab">Leave <span
+								id="leavecount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab4"
+							class="nav-link" data-toggle="tab">Weekly Off <span
+								id="weeklycount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab5"
+							class="nav-link" data-toggle="tab">Paid Holiday <span
+								id="phcount"></span></a></li>
+
+					</ul>
+
+					<div class="tab-content">
+
+						<div class="tab-pane fade show active"
+							id="highlighted-justified-tab7">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid7">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade show  " id="highlighted-justified-tab1">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid1">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab2">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid2">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Late Mark</th>
+											<th>Late Min</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab6">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid6">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab3">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid3">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab4">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid4">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab5">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid5">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
