@@ -248,7 +248,8 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach items="${dailyDailyList}" var="dailyrecordList">
+													<c:forEach items="${dailyDailyList}" var="dailyrecordList"
+														varStatus="count">
 														<tr>
 															<td><input type="checkbox"
 																id="id${dailyrecordList.id}"
@@ -697,6 +698,16 @@
 			document.getElementById("approveAttendaceBysecurity").submit();
 
 		}
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
+
+					$("#selAll").click(
+							function() {
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
 	</script>
 	<!-- Scrollable modal -->
 	<div id="modal_scrollable" class="modal fade" data-backdrop="false"

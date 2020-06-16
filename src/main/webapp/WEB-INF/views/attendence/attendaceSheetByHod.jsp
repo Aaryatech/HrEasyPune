@@ -159,8 +159,7 @@
 											<label class="col-form-label col-lg-1" for="lateMark">
 												Late Mark : </label>
 											<div class="col-lg-1">
-												<input type="checkbox" name="lateMark" id="lateMark"
-													onchange="latemindivhideshow()">
+												<input type="checkbox" name="lateMark" id="lateMark">
 											</div>
 
 
@@ -246,12 +245,12 @@
 													<th class="text-center">Status</th>
 													<!-- <th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th> -->
+													<th class="text-center">On Time</th>
 													<th class="text-center">Late Mark</th>
-													<th class="text-center">Late MIN</th>
 													<!-- <th class="text-center">WR. Hrs</th> -->
 													<!-- <th class="text-center">OT Hrs</th> -->
 													<!-- <th class="text-center">OShift/Loc</th> -->
-													<th class="text-center">Action</th>
+													<!-- <th class="text-center">Action</th> -->
 
 												</tr>
 											</thead>
@@ -266,6 +265,7 @@
 															data-name="${dailyrecordList.empName}" name="ids"
 															class="chk"
 															data-statusshow="${dailyrecordList.attStatus}"
+															data-statusidshow="${dailyrecordList.lvSumupId}"
 															data-latemarkshow="${dailyrecordList.lateMark}"
 															data-lateminshow="${dailyrecordList.lateMin}"
 															class="select_all">&nbsp;${count.index+1}</td>
@@ -283,71 +283,23 @@
 															</c:otherwise>
 														</c:choose>
 
-														<%-- <c:choose>
-														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
-															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">${dailyrecordList.inTime}</td>
-														</c:otherwise>
-													</c:choose> --%>
+														<td class="text-center"><input type="checkbox"
+															id="ontime${dailyrecordList.id}"
+															name="ontime${dailyrecordList.id}" value="0"></td>
 
-														<%-- <c:choose>
-														<c:when test="${dailyrecordList.outTime eq '00:00:00'}">
-															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.outTime}</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">${dailyrecordList.outTime}</td>
-														</c:otherwise>
-													</c:choose> --%>
+														<td class="text-center"><input type="checkbox"
+															id="lateMark${dailyrecordList.id}"
+															name="lateMark${dailyrecordList.id}"
+															onclick="latemindivhideshow(${dailyrecordList.id})"
+															value="0"><br>
+															<div id="lateMinDiv${dailyrecordList.id}"
+																style="display: none;">
+																<input type="text" class="form-control numbersOnly"
+																	placeholder="Late Min"
+																	id="lateMin${dailyrecordList.id}"
+																	name="lateMin${dailyrecordList.id}" autocomplete="off">
+															</div></td>
 
-
-														<c:choose>
-															<c:when test="${dailyrecordList.lateMark==1}">
-																<td class="text-center" style="background-color: #FF9">Yes</td>
-															</c:when>
-															<c:otherwise>
-																<td class="text-center">No</td>
-															</c:otherwise>
-														</c:choose>
-														<td class="text-right">${dailyrecordList.lateMin}</td>
-														<%-- <td class="text-right">${dailyrecordList.workingHrs}</td> --%>
-														<%-- <td class="text-right">${dailyrecordList.otHr}</td> --%>
-														<%-- <td>${dailyrecordList.currentShiftname}</td> --%>
-														<td class="text-center"><c:if
-																test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
-																<a href="#"
-																	onclick="editAttendanceDetail(${dailyrecordList.id})"
-																	class="list-icons-item text-primary-600"
-																	data-popup="tooltip" title=""><i
-																	class="icon-pencil7"></i></a>
-																<%-- <c:choose>
-																<c:when
-																	test="${(dailyrecordList.attStatus eq 'WO-OT' 
-																	|| dailyrecordList.attStatus eq 'PH-OT' 
-																	|| dailyrecordList.attStatus eq 'PH-WO-P')}">
-																	<a href="#"
-																		onclick="editAttendanceDetail(${dailyrecordList.id})"
-																		class="list-icons-item text-primary-600"
-																		data-popup="tooltip" title="edit"><i
-																		class="icon-pencil7"></i></a>&nbsp;
-																		onclick="markAsCompOff(${dailyrecordList.id},'${dailyrecordList.attStatus}')"
-																	<a href="#"
-																		class="list-icons-item text-primary-600 bootbox_custom"
-																		data-dailyid="${dailyrecordList.id}"
-																		data-attstatus="${dailyrecordList.attStatus}"
-																		data-popup="tooltip" title="Mark As Compoff">Mark
-																		as Compoff</a>
-																</c:when>
-																<c:otherwise>
-																	<a href="#"
-																		onclick="editAttendanceDetail(${dailyrecordList.id})"
-																		class="list-icons-item text-primary-600"
-																		data-popup="tooltip" title=""><i
-																		class="icon-pencil7"></i></a>
-																</c:otherwise>
-															</c:choose> --%>
-															</c:if></td>
 													</tr>
 												</c:forEach>
 
@@ -433,20 +385,17 @@
 				separator : ' to '
 			}
 		});
-		 $(document).ready(function() {
-		        // month selector
-		        $('#datepicker').datepicker({
-		            autoclose: true,
-		            format: "mm-yyyy",
-		            viewMode: "months",
-		            minViewMode: "months"
+		$(document).ready(function() {
+			// month selector
+			$('#datepicker').datepicker({
+				autoclose : true,
+				format : "mm-yyyy",
+				viewMode : "months",
+				minViewMode : "months"
 
-		        });
+			});
 
-
-		    });
-		
-		
+		});
 	</script>
 	<script type="text/javascript">
 		function openHideDiv(value) {
@@ -461,138 +410,142 @@
 				document.getElementById("byStatusDive").style.display = 'none';
 			}
 		}
-		function latemindivhideshow() {
-			 
-			if (document.getElementById("lateMark").checked == true) {
-				 document.getElementById("lateMark").value=1;  
-				document.getElementById("lateMinDiv").style.display = 'block'; 
+		function latemindivhideshow(value) {
+
+			if (document.getElementById("lateMark"+value).checked == true) {
+				document.getElementById("lateMark"+value).value = 1;
+				document.getElementById("lateMinDiv"+value).style.display = 'block';
+				
+				document.getElementById("ontime"+value).checked = false;
+				document.getElementById("ontime"+value).value = 0;
+				document.getElementById("ontime"+value).disabled = true;
 
 			} else {
-				document.getElementById("lateMinDiv").style.display = 'none';
-				 document.getElementById("lateMark").value=0; 
+				document.getElementById("lateMinDiv"+value).style.display = 'none';
+				document.getElementById("lateMark"+value).value = 0;
+				
+				 
+				document.getElementById("ontime"+value).disabled = false;
 			}
 		}
-		
+
 		function closeEditDetailTab() {
 
 			document.getElementById("editAttanceDiv").style.display = 'none';
 		}
 
 		function editAttendanceDetail(dailyId) {
- 
-			
-			
+
 			var fd = new FormData();
 			fd.append('dailyId', dailyId);
-			
+
 			$
-			.ajax({
-				url : '${pageContext.request.contextPath}/editDailyRecord',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(response) {
+					.ajax({
+						url : '${pageContext.request.contextPath}/editDailyRecord',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
 
-					document.getElementById("editAttanceDiv").style.display = 'block';
-					 
-					document.getElementById("attStatus").value = response.attStatus;
-					  
-					document.getElementById("dailyId").value = response.id;
-					
-					if(response.lateMark==1){
-						document.getElementById("lateMark").checked = true;
-						document.getElementById("lateMark").value=1;  
-						document.getElementById("lateMinDiv").style.display = 'block';
-						document.getElementById("lateMin").value=response.lateMin;
-					}else{
-						document.getElementById("lateMark").checked = false;
-						document.getElementById("lateMark").value=0;  
-						document.getElementById("lateMinDiv").style.display = 'none';
-						document.getElementById("lateMin").value=0;
-					}
-					
-					if(response.lateMark==0 && response.attStatus=="P"){
-						document.getElementById("ontime").checked = true;
-					}else{
-						document.getElementById("ontime").checked = false;
-					}
-					 
-				},
-			});
+							document.getElementById("editAttanceDiv").style.display = 'block';
+
+							document.getElementById("attStatus").value = response.attStatus;
+
+							document.getElementById("dailyId").value = response.id;
+
+							if (response.lateMark == 1) {
+								document.getElementById("lateMark").checked = true;
+								document.getElementById("lateMark").value = 1;
+								document.getElementById("lateMinDiv").style.display = 'block';
+								document.getElementById("lateMin").value = response.lateMin;
+							} else {
+								document.getElementById("lateMark").checked = false;
+								document.getElementById("lateMark").value = 0;
+								document.getElementById("lateMinDiv").style.display = 'none';
+								document.getElementById("lateMin").value = 0;
+							}
+
+							if (response.lateMark == 0
+									&& response.attStatus == "P") {
+								document.getElementById("ontime").checked = true;
+							} else {
+								document.getElementById("ontime").checked = false;
+							}
+
+						},
+					});
 
 		}
-		
-	function saveAttendanceDetail() {
-  
-		var dailyId = document.getElementById("dailyId").value; 
-		var selectStatus = 5;  
-		var selectStatusText = "P";
-		var ontime=0; 
-		if(document.getElementById("ontime").checked==true){
-			ontime=1;
-		}
-		
-		var lateMark=0; 
-		if(document.getElementById("lateMark").checked==true){
-			lateMark=1;
-		}
-		var lateMin = document.getElementById("lateMin").value;
-		var isError=0;
-		
-		if(lateMark==1 && lateMin<=0){
-			
-			alert("Enter Late Min");
-			isError=1;
-		}
-		
-		if(ontime==0 && lateMark==0 ){
-			  selectStatus = 22;  
-			  selectStatusText = "AB";
-			  lateMin = 0;
-		} 
-		
-		
-		var flag=0;
-		var otHours=0; 
-		
-		 if(isError==0){
-			 
-		 
-			var fd = new FormData();
-			fd.append('dailyId', dailyId); 
-			fd.append('selectStatus', selectStatus); 
-			fd.append('lateMark', lateMark); 
-			fd.append('selectStatusText', selectStatusText); 
-			fd.append('flag', flag); 
-			fd.append('otHours', otHours);
-			fd.append('lateMin', lateMin);
-			$('#modal_step1').modal('show');
-			
-			  $
-			.ajax({
-				url : '${pageContext.request.contextPath}/submitAttendanceDetailByHod',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(response) {
 
-					location.reload(true);
-				},
-			});  
-		 }
+		function saveAttendanceDetail() {
+
+			var dailyId = document.getElementById("dailyId").value;
+			var selectStatus = 5;
+			var selectStatusText = "P";
+			var ontime = 0;
+			if (document.getElementById("ontime").checked == true) {
+				ontime = 1;
+			}
+
+			var lateMark = 0;
+			if (document.getElementById("lateMark").checked == true) {
+				lateMark = 1;
+			}
+			var lateMin = document.getElementById("lateMin").value;
+			var isError = 0;
+
+			if (lateMark == 1 && lateMin <= 0) {
+
+				alert("Enter Late Min");
+				isError = 1;
+			}
+
+			if (ontime == 0 && lateMark == 0) {
+				selectStatus = 22;
+				selectStatusText = "AB";
+				lateMin = 0;
+			}
+
+			var flag = 0;
+			var otHours = 0;
+
+			if (isError == 0) {
+
+				var fd = new FormData();
+				fd.append('dailyId', dailyId);
+				fd.append('selectStatus', selectStatus);
+				fd.append('lateMark', lateMark);
+				fd.append('selectStatusText', selectStatusText);
+				fd.append('flag', flag);
+				fd.append('otHours', otHours);
+				fd.append('lateMin', lateMin);
+				$('#modal_step1').modal('show');
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/submitAttendanceDetailByHod',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								location.reload(true);
+							},
+						});
+			}
 		}
-	$('.datepickerclass').daterangepicker({
-		singleDatePicker : true,
-		selectMonths : true,
-		selectYears : true,
-		locale : {
-			format : 'DD-MM-YYYY'
-		}
-	});
+		$('.datepickerclass').daterangepicker({
+			singleDatePicker : true,
+			selectMonths : true,
+			selectYears : true,
+			locale : {
+				format : 'DD-MM-YYYY'
+			}
+		});
 	</script>
 
 	<script>
@@ -603,8 +556,9 @@
 						function() {
 							var dailyId = $(this).data("dailyid")
 							var sts = $(this).data("attstatus") // will return the number 123
-							  
-										bootbox.confirm({
+
+							bootbox
+									.confirm({
 										title : 'Confirm ',
 										message : 'Are you sure you want to Mark as Compoff ? you Can not edit attendance again',
 										buttons : {
@@ -623,21 +577,23 @@
 												fd.append('dailyId', dailyId);
 												fd.append('sts', sts);
 												$('#modal_step1').modal('show');
-												
-												   $
-												.ajax({
-													url : '${pageContext.request.contextPath}/markAsCompOff',
-													type : 'post',
-													dataType : 'json',
-													data : fd,
-													contentType : false,
-													processData : false,
-													success : function(response) {
 
-														location.reload(true);
-														 
-													},
-												});  
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/markAsCompOff',
+															type : 'post',
+															dataType : 'json',
+															data : fd,
+															contentType : false,
+															processData : false,
+															success : function(
+																	response) {
+
+																location
+																		.reload(true);
+
+															},
+														});
 
 											}
 										}
@@ -655,110 +611,261 @@
 										.prop('checked', this.checked);
 							});
 				});
-		
+
 		$(document)
-		.ready(
-				function($) {
+				.ready(
+						function($) {
 
-					$("#approveAttendaceBysecurity")
-					
-							.submit(
-									function(e) {
-										 
-										var table = $('#printtable1')
-												.DataTable();
-										table.search("").draw();
-										var isError = false;
-										$("#error_table1").hide();
- 
-										var checkedVals = $(
-												'.chk:checkbox:checked')
-												.map(function() {
-													return this.value;
-												}).get();
-										checkedVals = checkedVals
-												.join(',');
+							$("#approveAttendaceBysecurity")
 
-										if (checkedVals == '') {
-											$("#error_table1").show();
-											return false;
-										}
+									.submit(
+											function(e) {
 
-										if (!isError) {
-											
-											$("#table_grid1 tbody")
-													.empty();
+												var table = $('#printtable1')
+														.DataTable();
+												table.search("").draw();
+												var isError = 0;
+												$("#error_table1").hide();
 
-											$('.chk:checkbox:checked')
-													.each(
-															function(i) {
-																var val = $(
-																		this)
-																		.val();
- 
-																if (val != 'on') {
-																	var name = $(
-																			"#id"
-																					+ val)
-																			.attr(
-																					'data-name');
-																	var empcode = $(
-																			"#id"
-																					+ val)
-																			.attr(
-																					'data-empcode');
-																	 
-																	var statusshow = $(
-																			"#id"
-																					+ val)
-																			.attr(
-																					'data-statusshow');
-																		var latemarkshow = $(
-																				"#id"
-																						+ val)
-																				.attr(
-																						'data-latemarkshow');
-																		var lateminshow = $(
-																				"#id"
-																						+ val)
-																				.attr(
-																						'data-lateminshow');
+												var checkedVals = $(
+														'.chk:checkbox:checked')
+														.map(function() {
+															return this.value;
+														}).get();
+												checkedVals = checkedVals
+														.join(',');
 
-																	var tr_data = '<tr id="tritem' + val + '">'
-																			+ '<td id="itemCount' + val + '">'
-																			+ empcode
-																			+ '</td>'
-																			+ '<td  >'
-																			+ name
-																			+ '</td>'
-																			+ '<td >'
-																			+ statusshow
-																			+ '</td>'
-																			+ '<td  >'
-																			+ latemarkshow
-																			+ '</td>'
-																			+ '<td  >'
-																			+ lateminshow
-																			+ '</td> </tr>';
-																	$(
-																			'#table_grid1'
-																					+ ' tbody')
-																			.append(
-																					tr_data);
-																}
-															});
- 
-											var datepicker1 = document.getElementById("datepicker1").value;  
-											$("#dateshow").html(
-													datepicker1);
-											$('#modal_scrollable')
-													.modal('show');
-											return false;
+												if (checkedVals == '') {
+													$("#error_table1").show();
+													return false;
+												}
+
 											 
-										}
-										return false;
-									});
-				});
+
+													$("#table_grid1 tbody")
+															.empty();
+													$("#table_grid2 tbody")
+													.empty();
+													$("#table_grid3 tbody")
+													.empty();
+													$("#table_grid4 tbody")
+													.empty();
+													$("#table_grid5 tbody")
+													.empty();
+													$("#table_grid6 tbody")
+													.empty();
+													 
+
+													var onTimeCount=0;
+													var lateMarkCount=0;
+													var absentNaCount=0;
+													var leaveCount=0;
+													var weeklyCount=0;
+													var paidHolidayCount=0;
+													
+													$('.chk:checkbox:checked')
+															.each(
+																	function(i) {
+																		var val = $(
+																				this)
+																				.val();
+
+																		if (val != 'on') {
+																			 
+																			var name = $(
+																					"#id"
+																							+ val)
+																					.attr(
+																							'data-name');
+																			var empcode = $(
+																					"#id"
+																							+ val)
+																					.attr(
+																							'data-empcode');
+																			
+																			var selectStatus = 5;
+																			var selectStatusText = "P";
+																			
+																			var ontime = 0;
+																			if (document.getElementById("ontime"+val).checked == true) {
+																				ontime = 1;
+																				document.getElementById("ontime"+val).value = 1;
+																			}else{
+																				document.getElementById("ontime"+val).value = 0;
+																			}
+																			
+																			var lateMark = 0;
+																			var latemarkshow ;
+																			if (document.getElementById("lateMark"+val).checked == true) {
+																				lateMark = 1;
+																				document.getElementById("lateMark"+val).value = 1;
+																				latemarkshow="Yes";
+																			}else{
+																				document.getElementById("lateMark"+val).value = 0;
+																				latemarkshow="No";
+																			}
+																			
+																			var lateMin = document.getElementById("lateMin"+val).value;
+																			
+
+																			if (lateMark == 1 && lateMin <= 0) {
+
+																				alert("Enter Late Min of " + name);
+																				isError = 1;
+																				return false;
+																			}
+
+																			 
+																			var isOnTime=0;
+																			var isLateMark=0;
+																			var isAbsent=0;
+																			var isLeave=0;
+																			var isWo=0;
+																			var isPh=0;
+																			
+																			if (ontime == 0 && lateMark == 0) {
+																				selectStatus = $(
+																						"#id"
+																						+ val)
+																				.attr(
+																						'data-statusidshow');
+																				selectStatusText = $(
+																						"#id"
+																						+ val)
+																				.attr(
+																						'data-statusshow');
+																				lateMin = 0;
+																				
+																				if(selectStatusText=="AB" || selectStatusText=="NA"){
+																					absentNaCount=absentNaCount+1;
+																					isAbsent=1;
+																				}else if(selectStatusText=="WO"){
+																					weeklyCount=weeklyCount+1;
+																					isWo=1;
+																				}else if(selectStatusText=="PH"){
+																					paidHolidayCount=paidHolidayCount+1;
+																					isPh=1;
+																				}else {
+																					leaveCount=leaveCount+1;
+																					isLeave=1;
+																				} 
+																				
+																			}else if(ontime==1 && lateMark == 0){
+																				onTimeCount=onTimeCount+1;
+																				isOnTime=1;
+																			}else if(lateMark==1){
+																				selectStatus = 5;
+																				selectStatusText = "P";
+																				lateMarkCount=lateMarkCount+1;
+																				isLateMark=1;
+																			} 
+																			 
+																			 if(isOnTime==1){
+																				 var tr_data = '<tr id="tritem' + val + '">'
+																					+ '<td id="itemCount' + val + '">'
+																					+ empcode
+																					+ '</td>'
+																					+ '<td  >'
+																					+ name
+																					+ '</td> </tr>';
+																					
+																					$(
+																							'#table_grid1'
+																									+ ' tbody')
+																							.append(
+																									tr_data);
+																			 }else if(lateMark==1){
+																				 var tr_data = '<tr id="tritem' + val + '">'
+																					+ '<td id="itemCount' + val + '">'
+																					+ empcode
+																					+ '</td>'
+																					+ '<td  >'
+																					+ name
+																					+ '</td>'
+																					+ '<td  >'
+																					+ latemarkshow
+																					+ '</td>'
+																					+ '<td  >'
+																					+ lateMin
+																					+ '</td> </tr>';
+																					
+																					$(
+																							'#table_grid2'
+																									+ ' tbody')
+																							.append(
+																									tr_data);
+																			 }else {
+																				 var tr_data = '<tr id="tritem' + val + '">'
+																					+ '<td id="itemCount' + val + '">'
+																					+ empcode
+																					+ '</td>'
+																					+ '<td  >'
+																					+ name
+																					+ '</td>'
+																					+ '<td  >'
+																					+ selectStatusText
+																					+ '</td>  </tr>';
+																					 
+																					if(isAbsent==1){
+																						$(
+																								'#table_grid6'
+																										+ ' tbody')
+																								.append(
+																										tr_data);
+																					}else if(isWo==1){
+																						$(
+																								'#table_grid4'
+																										+ ' tbody')
+																								.append(
+																										tr_data);
+																					}else if(isPh==1){
+																						$(
+																								'#table_grid5'
+																										+ ' tbody')
+																								.append(
+																										tr_data);
+																					}else if(isLeave==1){
+																						$(
+																								'#table_grid3'
+																										+ ' tbody')
+																								.append(
+																										tr_data);
+																					}
+																			 }
+																			
+																		}
+																	});
+
+													var datepicker1 = document
+															.getElementById("datepicker1").value;
+													$("#dateshow").html(
+															datepicker1);
+													 
+													$("#ontimecount").html(
+															"("+onTimeCount+")");
+													$("#latemarkcount").html(
+															"("+lateMarkCount+")");
+													$("#absentcount").html(
+															"("+absentNaCount+")");
+													$("#leavecount").html(
+															"("+leaveCount+")");
+													$("#weeklycount").html(
+															"("+weeklyCount+")");
+													$("#phcount").html(
+															"("+paidHolidayCount+")");
+													
+													     
+													
+													
+													if(isError==0){
+														$('#modal_large1').modal(
+														'show');
+													}
+													
+													return false;
+ 
+											});
+						});
 	</script>
 	<script>
 		function submitForm() {
@@ -778,27 +885,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 
-				<div class="modal-body py-0">
-					<h5 class="modal-title">
-						Approve Attendance of <span id="dateshow"></span>
-					</h5>
-					<br>
-					<table class="table table-bordered table-hover" id="table_grid1">
-						<thead>
-							<tr class="bgpink">
-								<th width="5%">Code</th>
-								<th>Employee Name</th>
-								<th>Status</th>
-								<th>Late Mark</th>
-								<th>Late Min</th>
-							</tr>
-						</thead>
-						<tbody>
 
-						</tbody>
-
-					</table>
-				</div>
 
 				<div class="modal-footer pt-3">
 					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
@@ -808,5 +895,165 @@
 		</div>
 	</div>
 	<!-- /scrollable modal -->
+	<div id="modal_large1" class="modal fade" tabindex="-1">
+
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						Approve Attendance of <span id="dateshow"></span>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body" id="modalbody">
+					<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
+						<li class="nav-item"><a href="#highlighted-justified-tab1"
+							class="nav-link active" data-toggle="tab">On time <span
+								id="ontimecount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab2"
+							class="nav-link" data-toggle="tab">Late Mark <span
+								id="latemarkcount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab6"
+							class="nav-link" data-toggle="tab">Absent/NA <span
+								id="absentcount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab3"
+							class="nav-link" data-toggle="tab">Leave <span
+								id="leavecount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab4"
+							class="nav-link" data-toggle="tab">Weekly Off <span
+								id="weeklycount"></span></a></li>
+						<li class="nav-item"><a href="#highlighted-justified-tab5"
+							class="nav-link" data-toggle="tab">Paid Holiday <span
+								id="phcount"></span></a></li>
+
+					</ul>
+
+					<div class="tab-content">
+						<div class="tab-pane fade show active"
+							id="highlighted-justified-tab1">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid1">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab2">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid2">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Late Mark</th>
+											<th>Late Min</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab6">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid6">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab3">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid3">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab4">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid4">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="highlighted-justified-tab5">
+							<div class="modal-body py-0">
+
+								<br>
+								<table class="table table-bordered table-hover" id="table_grid5">
+									<thead>
+										<tr class="bgpink">
+											<th width="5%">Code</th>
+											<th>Employee Name</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

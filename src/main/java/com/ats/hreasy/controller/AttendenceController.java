@@ -907,6 +907,7 @@ public class AttendenceController {
 	}
 
 	String date;
+	List<DailyAttendance> dailyDailyList = new ArrayList<DailyAttendance>();
 
 	@RequestMapping(value = "/attendaceSheetByHod", method = RequestMethod.GET)
 	public String attendaceSheetByHod(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -948,8 +949,7 @@ public class AttendenceController {
 					map.add("departIds", userObj.getHodDeptIds());
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployyeDailyDailyListforHr", map, DailyAttendance[].class);
-					List<DailyAttendance> dailyDailyList = new ArrayList<DailyAttendance>(
-							Arrays.asList(dailyAttendance));
+					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
 					model.addAttribute("date", date);
 					LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeList",
@@ -1007,8 +1007,7 @@ public class AttendenceController {
 					System.out.println(map);
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployyeDailyDailyListByDeptIds", map, DailyAttendance[].class);
-					List<DailyAttendance> dailyDailyList = new ArrayList<DailyAttendance>(
-							Arrays.asList(dailyAttendance));
+					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
 					model.addAttribute("date", date);
 					LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeList",
@@ -1082,27 +1081,86 @@ public class AttendenceController {
 		} else {
 
 			try {
+
+				 
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
 				String[] ids = request.getParameterValues("ids");
 
-				StringBuilder sb = new StringBuilder();
+				/*
+				 * StringBuilder sb = new StringBuilder();
+				 * 
+				 * for (int i = 0; i < ids.length; i++) { sb = sb.append(ids[i] + ",");
+				 * 
+				 * } String items = sb.toString(); items = items.substring(0, items.length() -
+				 * 1);
+				 * 
+				 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+				 * Object>(); map.add("ids", items); map.add("status", 8); Info info =
+				 * Constants.getRestTemplate().postForObject(Constants.url +
+				 * "/approveAttendanceStatusById", map, Info.class);
+				 */
 
 				for (int i = 0; i < ids.length; i++) {
-					sb = sb.append(ids[i] + ",");
 
-				}
-				String items = sb.toString();
-				items = items.substring(0, items.length() - 1);
+					int id = Integer.parseInt(ids[i]);
+					int ontime = 0;
+					int lateMark = 0;
+					int lateMin = 0;
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				map.add("ids", items);
-				map.add("status", 8);
-				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/approveAttendanceStatusById",
-						map, Info.class);
-				if (info.isError() == false) {
-					session.setAttribute("successMsg", "Attendance Approved Successfully");
-				} else {
-					session.setAttribute("errorMsg", "Failed to Approve Attendance");
+					try {
+						ontime = Integer.parseInt(request.getParameter("ontime" + id));
+					} catch (Exception e) {
+						ontime = 0;
+					}
+					try {
+						lateMark = Integer.parseInt(request.getParameter("lateMark" + id));
+					} catch (Exception e) {
+						lateMark = 0;
+					}
+					try {
+						lateMin = Integer.parseInt(request.getParameter("lateMin" + id));
+					} catch (Exception e) {
+						lateMin = 0;
+					}
+
+					int selectStatus = 5;
+					String selectStatusText = "P";
+
+					if (ontime == 0 && lateMark == 0) {
+
+						for (int k = 0; k < dailyDailyList.size(); k++) {
+
+							if (id == dailyDailyList.get(k).getId()) {
+
+								selectStatus = dailyDailyList.get(k).getLvSumupId();
+								selectStatusText = dailyDailyList.get(k).getAttStatus();
+								break;
+							}
+						}
+
+						// keep status;
+					}
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+					map.add("dailyId", id);
+					map.add("selectStatus", selectStatus);
+					map.add("lateMark", lateMark);
+					map.add("selectStatusText", selectStatusText);
+					map.add("userId", userObj.getUserId());
+					map.add("flag", 0);
+					map.add("otHours", 0);
+					map.add("lateMin", lateMin);
+					// System.out.println(map);
+					Info info = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/updateAttendaceRecordSingleByHod", map, Info.class);
 				}
+
+				/*
+				 * if (info.isError() == false) { session.setAttribute("successMsg",
+				 * "Attendance Approved Successfully"); } else {
+				 * session.setAttribute("errorMsg", "Failed to Approve Attendance"); }
+				 */
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
