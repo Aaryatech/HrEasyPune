@@ -439,8 +439,20 @@
 					
 					if(response.lateMark==1){
 						document.getElementById("lateMark").checked = true;
+						document.getElementById("lateMark").value=1;  
+						document.getElementById("lateMinDiv").style.display = 'block';
+						document.getElementById("lateMin").value=response.lateMin;
 					}else{
 						document.getElementById("lateMark").checked = false;
+						document.getElementById("lateMark").value=0;  
+						document.getElementById("lateMinDiv").style.display = 'none';
+						document.getElementById("lateMin").value=0;
+					}
+					
+					if(response.lateMark==0 && response.attStatus=="P"){
+						document.getElementById("ontime").checked = true;
+					}else{
+						document.getElementById("ontime").checked = false;
 					}
 					 
 				},
@@ -472,9 +484,10 @@
 		}
 		
 		if(ontime==0 && lateMark==0 ){
-			var selectStatus = 22;  
-			var selectStatusText = "AB";
-		}
+			  selectStatus = 22;  
+			  selectStatusText = "AB";
+			  lateMin = 0;
+		} 
 		
 		
 		var flag=0;
@@ -490,6 +503,7 @@
 			fd.append('selectStatusText', selectStatusText); 
 			fd.append('flag', flag); 
 			fd.append('otHours', otHours);
+			fd.append('lateMin', lateMin);
 			$('#modal_step1').modal('show');
 			
 			  $

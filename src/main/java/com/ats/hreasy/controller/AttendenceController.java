@@ -1039,6 +1039,7 @@ public class AttendenceController {
 			int lateMark = Integer.parseInt(request.getParameter("lateMark"));
 			String selectStatusText = request.getParameter("selectStatusText");
 			int flag = Integer.parseInt(request.getParameter("flag"));
+			int lateMin = Integer.parseInt(request.getParameter("lateMin"));
 			String otHours = request.getParameter("otHours");
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -1049,6 +1050,7 @@ public class AttendenceController {
 			map.add("userId", userObj.getUserId());
 			map.add("flag", flag);
 			map.add("otHours", otHours);
+			map.add("lateMin", lateMin);
 			// System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingleByHod", map,
 					Info.class);

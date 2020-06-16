@@ -132,17 +132,8 @@
 													</c:forEach>
 												</select>
 											</div>
+
 											<div class="col-lg-1"></div>
-											<label class="col-form-label col-lg-2" for="lateMark">
-												Late Mark : </label>
-											<div class="col-lg-2">
-												<input type="checkbox" class="chk" name="lateMark"
-													id="lateMark">
-											</div>
-
-										</div>
-
-										<div class="form-group row">
 											<label class="col-form-label col-lg-2" for="otHours">
 												OT Hours : </label>
 											<div class="col-lg-2">
@@ -152,7 +143,27 @@
 
 											</div>
 
+
 										</div>
+
+										<div class="form-group row">
+											<label class="col-form-label col-lg-2" for="lateMark">
+												Late Mark : </label>
+											<div class="col-lg-2">
+												<input type="checkbox" class="chk" name="lateMark"
+													id="lateMark">
+											</div>
+											<div class="col-lg-1"></div>
+											<label class="col-form-label col-lg-2" for="lateMin">
+												Late Min : </label>
+											<div class="col-lg-2">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Late Min" id="lateMin" name="lateMin"
+													autocomplete="off">
+
+											</div>
+										</div>
+										<div class="form-group row"></div>
 									</div>
 
 									<div class="col-md-12 text-center">
@@ -411,6 +422,7 @@
 					}else{
 						document.getElementById("lateMark").checked = false;
 					}
+					document.getElementById("lateMin").value=response.lateMin;
 					document.getElementById("dailyId").value = response.id;
 					 
 					 
@@ -431,7 +443,7 @@
 		if(document.getElementById("lateMark").checked==true){
 			lateMark=1;
 		}
-		
+		var lateMin = document.getElementById("lateMin").value;
 			var fd = new FormData();
 			fd.append('dailyId', dailyId); 
 			fd.append('selectStatus', selectStatus); 
@@ -439,6 +451,7 @@
 			fd.append('selectStatusText', selectStatusText); 
 			fd.append('flag', flag); 
 			fd.append('otHours', otHours);
+			fd.append('lateMin', lateMin);
 			$('#modal_step1').modal('show');
 			  $
 			.ajax({
