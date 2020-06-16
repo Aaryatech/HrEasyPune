@@ -26,14 +26,19 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.AssetAmc;
+import com.ats.hreasy.model.AssetTrans;
 import com.ats.hreasy.model.EmpShiftDetails;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
@@ -892,5 +897,100 @@ public class AdvanceAdminController {
 		return mav;
 
 	}
+	//Multi Image Upload.
+	@RequestMapping(value = "/submitAssignAsset1", method = RequestMethod.POST)
+	public String submitAssignAsset(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") List<MultipartFile> doc) {
+		try {
+			System.err.println("doc size "+doc.size());
+			System.err.println("doc  "+doc.toString() );
+
+			HttpSession session = request.getSession();
+			
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			
+			Date date = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			List<AssetTrans> assetTransList = new ArrayList<AssetTrans>();
+			
+			String[] asset = request.getParameterValues("chkAssetId");
+			
+			int empId = Integer.parseInt(request.getParameter("empId"));
+			int assetTransId = 0;
+			int assetChkVal = 0;
+			
+			for (int i = 0; i < asset.length; i++) {
+				
+				assetChkVal = Integer.parseInt(asset[i]);
+				
+				System.out.println("Assets id are------------------" + assetChkVal);
+				
+				AssetTrans  assignAsset = new AssetTrans();
+				
+				if(assetChkVal>0) {
+				try {
+					assetTransId = Integer.parseInt(request.getParameter("transIds"));
+				}catch (NumberFormatException e) {
+					assetTransId = 0;
+				}
+				
+				String assetImage = sf.format(date)+"_"+doc.get(i).getOriginalFilename();
+
+				System.out.println("Profile Image------------" + assetImage);
+
+				VpsImageUpload upload = new VpsImageUpload();
+				Info info = upload.saveUploadedImge(doc.get(i), Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+						0);
+				
+				
+				assignAsset.setAssetTransId(assetTransId);				
+				assignAsset.setAssetId(Integer.parseInt(request.getParameter("assetIds" + asset[i])));				
+				assignAsset.setAssetTransStatus(1);
+				assignAsset.setAssignRemark(request.getParameter("remark" + asset[i]));
+				assignAsset.setDelStatus(1);
+				assignAsset.setEmpId(empId);				
+				assignAsset.setMakerUserId(userObj.getEmpId());
+				assignAsset.setUpdateDatetime(sf.format(date));
+				assignAsset.setUseFromDate(DateConvertor.convertToYMD(request.getParameter("fromDate" + asset[i])));
+				assignAsset.setUseToDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
+				assignAsset.setReturnDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
+				assignAsset.setAssignImgFile(assetImage);
+				assignAsset.setReturnImgFile("NA");
+				assignAsset.setIsLost(0);
+				assignAsset.setLostRemark("NA");
+				assignAsset.setReturnRemark("NA");
+				
+				assignAsset.setExInt1(0);
+				assignAsset.setExInt2(0);
+				assignAsset.setExVar1("NA");
+				assignAsset.setExVar2("NA");
+				
+				assetTransList.add(assignAsset);
+				
+				
+				}
+				
+			}
+			AssetTrans[] saveAssignAsset = Constants.getRestTemplate().postForObject(
+					Constants.url + "/saveAssetsTrans", assetTransList, AssetTrans[].class); 
+			
+			//System.out.println("Assign Assets---------------"+assetTransList);
+			
+			List<AssetTrans> list = Arrays.asList(saveAssignAsset);
+			
+			if(list.get(0).getAssetTransId()>0) {
+				session.setAttribute("successMsg", "Assets Assign Successfully");
+			}else {
+				session.setAttribute("errorMsg", "Failed to Assign Assets");
+			}
+
+		}catch (Exception e) {
+			System.out.println("Exception in submitAssignAsset : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return "redirect:/manageAssets?locId_list="+1;
+	}
+	
 
 }
