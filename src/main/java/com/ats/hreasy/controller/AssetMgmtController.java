@@ -1176,7 +1176,7 @@ public class AssetMgmtController {
 				assignAsset.setUpdateDatetime(sf.format(date));
 				assignAsset.setUseFromDate(DateConvertor.convertToYMD(request.getParameter("fromDate" + asset[i])));
 				assignAsset.setUseToDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
-				assignAsset.setReturnDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
+				assignAsset.setReturnDate("0000-00-00");
 				assignAsset.setAssignImgFile(request.getParameter("" + asset[i]));
 				assignAsset.setReturnImgFile("NA");
 				assignAsset.setIsLost(0);
@@ -1653,5 +1653,29 @@ public class AssetMgmtController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getAssetEmpInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AssetEmpInfo> getAssetEmpInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam String encodeEmpId) {
+		List<AssetEmpInfo> list =new ArrayList<AssetEmpInfo>();
+		try {
+			int  empId = Integer.parseInt(FormValidation.DecodeKey(encodeEmpId));
+			System.out.println("----------------------"+empId);
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);			
+			
+			AssetEmpInfo[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedAssetByEmpId", map,
+					AssetEmpInfo[].class);
+			list = new ArrayList<AssetEmpInfo>(Arrays.asList(location));
+		}catch (Exception e) {
+			System.err.println("Exception in getAssetEmpInfo : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+		
 	}
 }

@@ -200,7 +200,7 @@
 									
 									<td>
 										<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="doc${assetsList.assetId}" id="doc${assetsList.assetId}" 
+												<input type="file" accept="image/*" name="doc" id="doc${assetsList.assetId}" 
 												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
 													class="form-text text-muted">Only
 													.jpg,.png,.gif,.doc,.xls,.pdf</span>
