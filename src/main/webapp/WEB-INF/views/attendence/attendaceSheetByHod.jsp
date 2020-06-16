@@ -125,8 +125,8 @@
 											<label class="col-form-label col-lg-1" for="lateMark">
 												Late Mark : </label>
 											<div class="col-lg-1">
-												<input type="checkbox" class="chk" name="lateMark"
-													id="lateMark" onchange="latemindivhideshow()">
+												<input type="checkbox" name="lateMark" id="lateMark"
+													onchange="latemindivhideshow()">
 											</div>
 
 
@@ -189,45 +189,67 @@
 								<hr>
 							</div>
 							<div class="card-body">
-								<div class="table-responsive">
-									<table
+								<form
+									action="${pageContext.request.contextPath}/approveAttendaceBysecurity"
+									method="post" id="approveAttendaceBysecurity">
+									<div class="table-responsive">
+
+
+										<table class="table datatable-scroll-y" width="100%"
+											id="printtable1">
+											<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="printtable1">
+										id="printtable1"> -->
 
 
-										<thead>
-											<tr class="bg-blue" style="text-align: center;">
+											<thead>
+												<tr class="bg-blue" style="text-align: center;">
+													<th width="5%"><input type="checkbox" name="selAll"
+														id="selAll" />&nbsp;Sr.no</th>
 
-												<th class="text-center">EMP Code</th>
-												<th class="text-center">EMP Name</th>
-												<th class="text-center">Status</th>
-												<!-- <th class="text-center">In Time</th>
+													<th class="text-center">EMP Code</th>
+													<th class="text-center">EMP Name</th>
+													<th class="text-center">Status</th>
+													<!-- <th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th> -->
-												<th class="text-center">Late Mark</th>
-												<th class="text-center">Late MIN</th>
-												<!-- <th class="text-center">WR. Hrs</th> -->
-												<!-- <th class="text-center">OT Hrs</th> -->
-												<!-- <th class="text-center">OShift/Loc</th> -->
-												<th class="text-center">Action</th>
+													<th class="text-center">Late Mark</th>
+													<th class="text-center">Late MIN</th>
+													<!-- <th class="text-center">WR. Hrs</th> -->
+													<!-- <th class="text-center">OT Hrs</th> -->
+													<!-- <th class="text-center">OShift/Loc</th> -->
+													<th class="text-center">Action</th>
 
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${dailyDailyList}" var="dailyrecordList">
-												<tr>
-													<td class="text-center">${dailyrecordList.empCode}</td>
-													<td>${dailyrecordList.empName}</td>
-													<c:choose>
-														<c:when
-															test="${dailyrecordList.attStatus eq 'WO' || dailyrecordList.attStatus eq 'PH'}">
-															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.attStatus}</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">${dailyrecordList.attStatus}</td>
-														</c:otherwise>
-													</c:choose>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${dailyDailyList}" var="dailyrecordList"
+													varStatus="count">
+													<tr>
+														<td><input type="checkbox"
+															id="id${dailyrecordList.id}"
+															value="${dailyrecordList.id}"
+															data-empcode="${dailyrecordList.empCode}"
+															data-name="${dailyrecordList.empName}" name="ids"
+															class="chk"
+															data-statusshow="${dailyrecordList.attStatus}"
+															data-latemarkshow="${dailyrecordList.lateMark}"
+															data-lateminshow="${dailyrecordList.lateMin}"
+															class="select_all">&nbsp;${count.index+1}</td>
 
-													<%-- <c:choose>
+														<td class="text-center">${dailyrecordList.empCode}</td>
+														<td>${dailyrecordList.empName}</td>
+														<c:choose>
+															<c:when
+																test="${dailyrecordList.attStatus eq 'WO' || dailyrecordList.attStatus eq 'PH'}">
+																<td class="text-center"
+																	style="background-color: #FFA8A8">${dailyrecordList.attStatus}</td>
+															</c:when>
+															<c:otherwise>
+																<td class="text-center">${dailyrecordList.attStatus}</td>
+															</c:otherwise>
+														</c:choose>
+
+														<%-- <c:choose>
 														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
 														</c:when>
@@ -236,7 +258,7 @@
 														</c:otherwise>
 													</c:choose> --%>
 
-													<%-- <c:choose>
+														<%-- <c:choose>
 														<c:when test="${dailyrecordList.outTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.outTime}</td>
 														</c:when>
@@ -246,26 +268,26 @@
 													</c:choose> --%>
 
 
-													<c:choose>
-														<c:when test="${dailyrecordList.lateMark==1}">
-															<td class="text-center" style="background-color: #FF9">Yes</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">No</td>
-														</c:otherwise>
-													</c:choose>
-													<td class="text-right">${dailyrecordList.lateMin}</td>
-													<%-- <td class="text-right">${dailyrecordList.workingHrs}</td> --%>
-													<%-- <td class="text-right">${dailyrecordList.otHr}</td> --%>
-													<%-- <td>${dailyrecordList.currentShiftname}</td> --%>
-													<td class="text-center"><c:if
-															test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
-															<a href="#"
-																onclick="editAttendanceDetail(${dailyrecordList.id})"
-																class="list-icons-item text-primary-600"
-																data-popup="tooltip" title=""><i
-																class="icon-pencil7"></i></a>
-															<%-- <c:choose>
+														<c:choose>
+															<c:when test="${dailyrecordList.lateMark==1}">
+																<td class="text-center" style="background-color: #FF9">Yes</td>
+															</c:when>
+															<c:otherwise>
+																<td class="text-center">No</td>
+															</c:otherwise>
+														</c:choose>
+														<td class="text-right">${dailyrecordList.lateMin}</td>
+														<%-- <td class="text-right">${dailyrecordList.workingHrs}</td> --%>
+														<%-- <td class="text-right">${dailyrecordList.otHr}</td> --%>
+														<%-- <td>${dailyrecordList.currentShiftname}</td> --%>
+														<td class="text-center"><c:if
+																test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
+																<a href="#"
+																	onclick="editAttendanceDetail(${dailyrecordList.id})"
+																	class="list-icons-item text-primary-600"
+																	data-popup="tooltip" title=""><i
+																	class="icon-pencil7"></i></a>
+																<%-- <c:choose>
 																<c:when
 																	test="${(dailyrecordList.attStatus eq 'WO-OT' 
 																	|| dailyrecordList.attStatus eq 'PH-OT' 
@@ -291,19 +313,26 @@
 																		class="icon-pencil7"></i></a>
 																</c:otherwise>
 															</c:choose> --%>
-														</c:if></td>
-												</tr>
-											</c:forEach>
+															</c:if></td>
+													</tr>
+												</c:forEach>
 
 
 
 
-										</tbody>
-									</table>
-								</div>
+											</tbody>
+										</table>
+										<span class="validation-invalid-label" id="error_table1"
+											style="display: none;">Please select one employee.</span> <br>
+									</div>
+									<div class="form-group text-center ">
+										<input type="submit" class="btn blue_btn" value="Approve"
+											id="btnassignstuct">
 
-
+									</div>
+								</form>
 							</div>
+
 						</div>
 
 
@@ -347,6 +376,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
@@ -580,9 +610,169 @@
 									});
 						});
 	</Script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
 
+					$("#selAll").click(
+							function() {
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
+		
+		$(document)
+		.ready(
+				function($) {
+
+					$("#approveAttendaceBysecurity")
+					
+							.submit(
+									function(e) {
+										 
+										var table = $('#printtable1')
+												.DataTable();
+										table.search("").draw();
+										var isError = false;
+										$("#error_table1").hide();
+ 
+										var checkedVals = $(
+												'.chk:checkbox:checked')
+												.map(function() {
+													return this.value;
+												}).get();
+										checkedVals = checkedVals
+												.join(',');
+
+										if (checkedVals == '') {
+											$("#error_table1").show();
+											return false;
+										}
+
+										if (!isError) {
+											
+											$("#table_grid1 tbody")
+													.empty();
+
+											$('.chk:checkbox:checked')
+													.each(
+															function(i) {
+																var val = $(
+																		this)
+																		.val();
+ 
+																if (val != 'on') {
+																	var name = $(
+																			"#id"
+																					+ val)
+																			.attr(
+																					'data-name');
+																	var empcode = $(
+																			"#id"
+																					+ val)
+																			.attr(
+																					'data-empcode');
+																	 
+																	var statusshow = $(
+																			"#id"
+																					+ val)
+																			.attr(
+																					'data-statusshow');
+																		var latemarkshow = $(
+																				"#id"
+																						+ val)
+																				.attr(
+																						'data-latemarkshow');
+																		var lateminshow = $(
+																				"#id"
+																						+ val)
+																				.attr(
+																						'data-lateminshow');
+
+																	var tr_data = '<tr id="tritem' + val + '">'
+																			+ '<td id="itemCount' + val + '">'
+																			+ empcode
+																			+ '</td>'
+																			+ '<td  >'
+																			+ name
+																			+ '</td>'
+																			+ '<td >'
+																			+ statusshow
+																			+ '</td>'
+																			+ '<td  >'
+																			+ latemarkshow
+																			+ '</td>'
+																			+ '<td  >'
+																			+ lateminshow
+																			+ '</td> </tr>';
+																	$(
+																			'#table_grid1'
+																					+ ' tbody')
+																			.append(
+																					tr_data);
+																}
+															});
+ 
+											var datepicker1 = document.getElementById("datepicker1").value;  
+											$("#dateshow").html(
+													datepicker1);
+											$('#modal_scrollable')
+													.modal('show');
+											return false;
+											 
+										}
+										return false;
+									});
+				});
+	</script>
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("btnassignstuct").disabled = true;
+			document.getElementById("approveAttendaceBysecurity").submit();
+
+		}
+	</script>
 	<!-- Scrollable modal -->
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
 
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">
+						Approve Attendance of <span id="dateshow"></span>
+					</h5>
+					<br>
+					<table class="table table-bordered table-hover" id="table_grid1">
+						<thead>
+							<tr class="bgpink">
+								<th width="5%">Code</th>
+								<th>Employee Name</th>
+								<th>Status</th>
+								<th>Late Mark</th>
+								<th>Late Min</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+
+					</table>
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- /scrollable modal -->
 </body>
 </html>
