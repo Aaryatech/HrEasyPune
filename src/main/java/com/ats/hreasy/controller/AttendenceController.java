@@ -906,6 +906,8 @@ public class AttendenceController {
 
 	}
 
+	String date;
+
 	@RequestMapping(value = "/attendaceSheetByHod", method = RequestMethod.GET)
 	public String attendaceSheetByHod(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -934,7 +936,7 @@ public class AttendenceController {
 					model.addAttribute("editAccess", 0);
 				}
 
-				String date = request.getParameter("date");
+				date = request.getParameter("date");
 
 				if (date != null) {
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -992,7 +994,7 @@ public class AttendenceController {
 					model.addAttribute("editAccess", 0);
 				}
 
-				String date = request.getParameter("date");
+				date = request.getParameter("date");
 
 				if (date != null) {
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -1059,6 +1061,100 @@ public class AttendenceController {
 			e.printStackTrace();
 		}
 		return info;
+
+	}
+
+	@RequestMapping(value = "/approveAttendaceBysecurity", method = RequestMethod.POST)
+	public String approveAttendaceBysecurity(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "redirect:/attendaceSheetByHod?date=" + date;
+
+		HttpSession session = request.getSession();
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("attendaceSheetByHod", "attendaceSheetByHod", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+
+			try {
+				String[] ids = request.getParameterValues("ids");
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int i = 0; i < ids.length; i++) {
+					sb = sb.append(ids[i] + ",");
+
+				}
+				String items = sb.toString();
+				items = items.substring(0, items.length() - 1);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("ids", items);
+				map.add("status", 8);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/approveAttendanceStatusById",
+						map, Info.class);
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", "Attendance Approved Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Approve Attendance");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/approveAttendaceByHod", method = RequestMethod.POST)
+	public String approveAttendaceByHod(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "redirect:/attendaceSheetByHr?date=" + date;
+
+		HttpSession session = request.getSession();
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("attendaceSheetByHod", "attendaceSheetByHod", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+
+			try {
+				String[] ids = request.getParameterValues("ids");
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int i = 0; i < ids.length; i++) {
+					sb = sb.append(ids[i] + ",");
+
+				}
+				String items = sb.toString();
+				items = items.substring(0, items.length() - 1);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("ids", items);
+				map.add("status", 9);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/approveAttendanceStatusById",
+						map, Info.class);
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", "Attendance Approved Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Approve Attendance");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
 
 	}
 
