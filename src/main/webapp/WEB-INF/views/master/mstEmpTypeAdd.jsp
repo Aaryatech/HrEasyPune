@@ -52,8 +52,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Employee
-												Type</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Employee Type
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -120,31 +121,31 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="minWorkRule"> Minimum Work Hour Rule Applicable
-											<span class="text-danger"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="minWorkRule" data-placeholder="Please Select"
-												id="minWorkRule"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="Yes">Yes</option>
-												<option value="No">No</option>
-											</select> <span class="validation-invalid-label"
-												id="error_minWorkRule" style="display: none;">This
-												field is required.</span>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="minWorkRule"> Minimum Work Hour Rule Applicable
+												<span class="text-danger"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="minWorkRule" data-placeholder="Please Select"
+													id="minWorkRule"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="Yes">Yes</option>
+													<option value="No">No</option>
+												</select> <span class="validation-invalid-label"
+													id="error_minWorkRule" style="display: none;">This
+													field is required.</span>
+											</div>
 										</div>
-										</div>
-										
+
 									</div>
 
 									<div class="form-group row">
-										<div class="col-md-6">										
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="halfDayDed"> Half Day Deduction <span
@@ -158,97 +159,102 @@
 													<option value="">Please Select</option>
 													<option value="Yes">Yes</option>
 													<option value="No">No</option>
-												</select> <span class="validation-invalid-label" id="error_halfDayDed"
-													style="display: none;">This field is required.</span>
+												</select> <span class="validation-invalid-label"
+													id="error_halfDayDed" style="display: none;">This
+													field is required.</span>
 											</div>
 										</div>
-										
-										<div class="col-md-6">	
-											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="otApplicable"> Production Incentive <span
-											class="text-danger"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="otApplicable" data-placeholder="Please Select"
-												id="otApplicable" onchange1="setDate()"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="Yes">Yes</option>
-												<option value="No">No</option>
 
-											</select> <span class="validation-invalid-label"
-												id="error_otApplicable" style="display: none;">This
-												field is required.</span>
-										</div>	
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="otApplicable"> Production Incentive <span
+												class="text-danger"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="otApplicable" data-placeholder="Please Select"
+													id="otApplicable" onchange1="setDate()"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="Yes">Yes</option>
+													<option value="No">No</option>
+
+												</select> <span class="validation-invalid-label"
+													id="error_otApplicable" style="display: none;">This
+													field is required.</span>
+											</div>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
 
-										<!-- <label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="prodApplicable">Production Incentive
-											Applicable(in Hrs)<span class="text-danger"> *</span>:
-										</label>
-										<div class="col-lg-4">
-											<select name="prodApplicable"
-												data-placeholder="Please Select" id="prodApplicable"
-												onchange="setDate()"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="1">Yes</option>
-												<option value="0">No</option>
 
-
-
-											</select> <span class="validation-invalid-label"
-												id="error_prodApplicable" style="display: none;">This
-												field is required.</span>
-										</div> -->
-										
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="weekOffWork"> Weekly off/Holiday Work <span
-											class="text-danger"> * </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="weekOffWork" data-placeholder="Please Select"
-												id="weekOffWork"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="Compoff">Compoff</option>
-												<option value="OT">Performance Incentive</option>
-												<option value="NA">NA</option>
 
-											</select> <span class="validation-invalid-label"
-												id="error_weekOffWork" style="display: none;">This
-												field is required.</span>
+											<c:choose>
+												<c:when test="${COMPOFFCONDITION.value==0}">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="weekOffWork"> Performance Incentive <span
+														class="text-danger"> * </span>:
+													</label>
+													<div class="col-lg-7 float">
+														<select name="weekOffWork"
+															data-placeholder="Please Select" id="weekOffWork"
+															class="form-control form-control-select2 select2-hidden-accessible"
+															tabindex="-1" aria-hidden="true">
+															<option value="">Please Select</option>
+															<option value="OT">Yes</option>
+															<option value="NA">No</option>
+														</select> <span class="validation-invalid-label"
+															id="error_weekOffWork" style="display: none;">This
+															field is required.</span>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="weekOffWork"> Weekly off/Holiday Work <span
+														class="text-danger"> * </span>:
+													</label>
+													<div class="col-lg-7 float">
+														<select name="weekOffWork"
+															data-placeholder="Please Select" id="weekOffWork"
+															class="form-control form-control-select2 select2-hidden-accessible"
+															tabindex="-1" aria-hidden="true">
+															<option value="">Please Select</option>
+															<option value="Compoff">Compoff</option>
+															<option value="OT">Performance Incentive</option>
+															<option value="NA">NA</option>
+
+														</select> <span class="validation-invalid-label"
+															id="error_weekOffWork" style="display: none;">This
+															field is required.</span>
+													</div>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
-										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="lateMark"> Late Mark Entry<span
-											class="text-danger"> * </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="lateMark" data-placeholder="Please Select"
-												id="lateMark"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												tabindex="-1" aria-hidden="true">
-												<option value="">Please Select</option>
-												<option value="1">Yes</option>
-												<option value="0">No</option>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="lateMark"> Late Mark Entry<span
+												class="text-danger"> * </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="lateMark" data-placeholder="Please Select"
+													id="lateMark"
+													class="form-control form-control-select2 select2-hidden-accessible"
+													tabindex="-1" aria-hidden="true">
+													<option value="">Please Select</option>
+													<option value="1">Yes</option>
+													<option value="0">No</option>
 
-											</select> <span class="validation-invalid-label" id="error_lateMark"
-												style="display: none;">This field is required.</span>
-										</div>
+												</select> <span class="validation-invalid-label" id="error_lateMark"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 
 									</div>
@@ -272,46 +278,46 @@
 										 
 -->
 										<div class="col-md-6">
-										<label class="col-form-label  col-lg-5 float" for="woRemarks">Remark
-											: </label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)"
-												id="woRemarks" name="woRemarks"></textarea>
-											<span class="validation-invalid-label" id="error_woRemarks"
-												style="display: none;">This field is required.</span>
+											<label class="col-form-label  col-lg-5 float" for="woRemarks">Remark
+												: </label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)"
+													id="woRemarks" name="woRemarks"></textarea>
+												<span class="validation-invalid-label" id="error_woRemarks"
+													style="display: none;">This field is required.</span>
 
+											</div>
 										</div>
-										</div>
-										
+
 										<div class="col-md-6">
 											<div id="abc" style="display: none;">
 												<label
-												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="otType"> Performance Incentive Type<span
-												class="text-danger"> * </span>:
-											</label>
-											<div class="col-lg-7 float">
-												<select name="otType" data-placeholder="Please Select"
-													id="otType"
-													class="form-control form-control-select2 select2-hidden-accessible"
-													tabindex="-1" aria-hidden="true">
-													<option value="">Please Select</option>
-													<option value="0">No</option>
-													<option value="1">1 HR of Gross Salary x 1</option>
-													<option value="1.5">1 HR of Gross Salary x 1.5</option>
-													<option value="2">1 HR of Gross Salary x 2</option>
+													class="col-form-label text-info font-weight-bold col-lg-5 float"
+													for="otType"> Performance Incentive Type<span
+													class="text-danger"> * </span>:
+												</label>
+												<div class="col-lg-7 float">
+													<select name="otType" data-placeholder="Please Select"
+														id="otType"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														tabindex="-1" aria-hidden="true">
+														<option value="">Please Select</option>
+														<option value="0">No</option>
+														<option value="1">1 HR of Gross Salary x 1</option>
+														<option value="1.5">1 HR of Gross Salary x 1.5</option>
+														<option value="2">1 HR of Gross Salary x 2</option>
 
-												</select> <span class="validation-invalid-label" id="error_otType"
-													style="display: none;">This field is required.</span>
-											</div>
+													</select> <span class="validation-invalid-label" id="error_otType"
+														style="display: none;">This field is required.</span>
+												</div>
 											</div>
 										</div>
 									</div>
-									
-									
+
+
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn bg-blue ml-3 legitRipple"
 												id="submtbtn">

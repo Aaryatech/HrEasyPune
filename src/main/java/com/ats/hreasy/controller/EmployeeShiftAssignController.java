@@ -41,6 +41,7 @@ import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.SalaryTypesMaster;
 import com.ats.hreasy.model.SelfGroup;
+import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.ShiftMaster;
 import com.ats.hreasy.model.SkillRates;
 import com.ats.hreasy.model.WeekoffCategory;
@@ -91,8 +92,9 @@ public class EmployeeShiftAssignController {
 					 */
 
 					List<ShiftMaster> shiftList = new ArrayList<>();
-					GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-							.getForObject(Constants.url + "/getAllEmployeeDetailshowEmpListToAssignShift", GetEmployeeDetails[].class);
+					GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+							Constants.url + "/getAllEmployeeDetailshowEmpListToAssignShift",
+							GetEmployeeDetails[].class);
 
 					List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 					model.addObject("empdetList", empdetList);
@@ -191,8 +193,9 @@ public class EmployeeShiftAssignController {
 
 			try {
 				List<SalaryTypesMaster> shiftList = new ArrayList<>();
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailshowEmpListToAssignSalStruct", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailshowEmpListToAssignSalStruct",
+						GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -283,6 +286,13 @@ public class EmployeeShiftAssignController {
 			} else {
 
 				model = new ModelAndView("master/mstEmpTypeAdd");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "COMPOFFCONDITION");
+				Setting COMPOFFCONDITION = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+				model.addObject("COMPOFFCONDITION", COMPOFFCONDITION);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -497,7 +507,11 @@ public class EmployeeShiftAssignController {
 					model.addObject("deleteAccess", 0);
 
 				}
-
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "COMPOFFCONDITION");
+				Setting COMPOFFCONDITION = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+				model.addObject("COMPOFFCONDITION", COMPOFFCONDITION);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -574,10 +588,11 @@ public class EmployeeShiftAssignController {
 				editMstType = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeById", map,
 						MstEmpType.class);
 
-				/*
-				 * editMstType.setMinWorkHr(HoursConversion.convertMinToHours(editMstType.
-				 * getMinWorkHr()));
-				 */
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "COMPOFFCONDITION");
+				Setting COMPOFFCONDITION = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
+				model.addObject("COMPOFFCONDITION", COMPOFFCONDITION);
 				model.addObject("employee", editMstType);
 			}
 		} catch (Exception e) {
@@ -752,8 +767,8 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailassignWeekoffCategory", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailassignWeekoffCategory", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
@@ -841,12 +856,11 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailassignSubCompany", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailassignSubCompany", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
-				
 				model.addAttribute("empdetList", empdetList);
 
 				MstCompanySub[] location1 = Constants.getRestTemplate()
@@ -1018,8 +1032,8 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailshowAssignDesignation", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailshowAssignDesignation", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
@@ -1107,8 +1121,8 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailshowAssignLocation", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailshowAssignLocation", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
@@ -1284,8 +1298,8 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailshowAssignEmpType", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
+						Constants.url + "/getAllEmployeeDetailshowAssignEmpType", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);

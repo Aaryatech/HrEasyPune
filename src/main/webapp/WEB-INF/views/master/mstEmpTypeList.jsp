@@ -42,8 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Type
-										List</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Type List
+									</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/mstEmpTypeAdd"
 									class="breadcrumb-elements-item">
@@ -99,10 +100,19 @@
 
 									<th width="5%" style="text-align: center;">Sr. No.</th>
 									<th style="text-align: center;">Name</th>
-									<th style="text-align: center;">Weekly off Holiday Work</th>
+									<c:choose>
+										<c:when test="${COMPOFFCONDITION.value==0}">
+											<th style="text-align: center;">Performance Incentive</th>
+										</c:when>
+										<c:otherwise>
+											<th style="text-align: center;">Weekly off Holiday Work</th>
+										</c:otherwise>
+									</c:choose>
+
 									<!-- <th>Performance Incentive Applicable</th>
 									<th>Performance Incentive Type</th> -->
-									<th style="text-align: center;">Production Incentive Applicable</th>
+									<th style="text-align: center;">Production Incentive
+										Applicable</th>
 
 									<!-- 	<th>Late Mark</th>
 									<th>Half Day Deduction</th> -->
@@ -112,8 +122,7 @@
 									<!-- <th>Remarks</th> -->
 
 
-									<th width="10%" class="text-center" style="text-align: center;"
-									>Actions</th>
+									<th width="10%" class="text-center" style="text-align: center;">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -125,8 +134,18 @@
 										<td>${count.index+1}</td>
 										<td class="text-left">${locationList.name}</td>
 										<td class="text-left"><c:choose>
-												<c:when test="${locationList.whWork eq 'OT'}">Performance Incentive</c:when>
-												<c:otherwise>${locationList.whWork}</c:otherwise>
+												<c:when test="${COMPOFFCONDITION.value==0}">
+													<c:choose>
+														<c:when test="${locationList.whWork eq 'OT'}">Yes</c:when>
+														<c:otherwise>No</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<c:choose>
+														<c:when test="${locationList.whWork eq 'OT'}">Performance Incentive</c:when>
+														<c:otherwise>${locationList.whWork}</c:otherwise>
+													</c:choose>
+												</c:otherwise>
 											</c:choose></td>
 										<%-- <td class="text-left">${locationList.otApplicable=='Yes' ? 'Yes': locationList.otApplicable=='No' ? 'No'  : ''}</td>
 										<td class="text-left">${locationList.otType=='0' ? 'No': locationList.otType=='1' ? '1 HR of Gross Salary x 1'  :locationList.otType=='1.5' ? '1 HR of Gross Salary x 1.5'  :locationList.otType=='2' ? '1 HR of Gross Salary x 2'  : ''}</td> --%>
