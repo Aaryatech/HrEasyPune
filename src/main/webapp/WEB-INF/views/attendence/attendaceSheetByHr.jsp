@@ -256,6 +256,7 @@
 															id="selAll" />&nbsp;Sr.no</th>
 														<th class="text-center">EMP Code</th>
 														<th class="text-center">EMP Name</th>
+														<th class="text-center">Department</th>
 														<th class="text-center">Status</th>
 														<!-- <th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th>-->
@@ -285,7 +286,7 @@
 																class="select_all">&nbsp;${count.index+1}</td>
 															<td class="text-center">${dailyrecordList.empCode}</td>
 															<td>${dailyrecordList.empName}</td>
-
+															<td>${dailyrecordList.empJson}</td>
 															<c:choose>
 																<c:when
 																	test="${dailyrecordList.attStatus eq 'WO' || dailyrecordList.attStatus eq 'PH'}">
