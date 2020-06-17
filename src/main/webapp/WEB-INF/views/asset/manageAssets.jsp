@@ -256,7 +256,7 @@
 									<!-- <th class="text-center">Category</th>
 									<th class="text-center">Model</th> -->
 									<th class="text-center">Assign Period</th>
-									<!-- <th class="text-center">Status</th> -->
+									<th class="text-center">Remark</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -276,6 +276,9 @@
 				<!-- /large modal -->
 <script>
 function getEmpAssetsInfo(encodeEmpId){  
+	document.getElementById("empName").innerHTML = ''; 
+	document.getElementById("empDepart").innerHTML = '';
+	document.getElementById("empDesig").innerHTML = '';
 // alert(encodeEmpId)
 			 $
 					.getJSON(
@@ -286,38 +289,33 @@ function getEmpAssetsInfo(encodeEmpId){
 
 							},
 							function(data) {
-
-							//alert("Data  " +JSON.stringify(data));
+								
+								document.getElementById("empName").innerHTML = data.empInfo.empCode+' - '+data.empInfo.firstName+' '+data.empInfo.surname; 
+								document.getElementById("empDepart").innerHTML = data.empInfo.departName; 
+								document.getElementById("empDesig").innerHTML = data.empInfo.desingnation;
+								
+								//alert("Data  " +JSON.stringify(data.empInfo.empCode));
 
 								var dataTable = $('#modalprinttable1').DataTable();
 								dataTable.clear().draw();
 
 								$
 										.each(
-												data,
+												data.assetEmpList,
 												function(i, v) {
-
-													/* var acButton = '<a href="${pageContext.request.contextPath}/showLoanListForAction?empId='
-															+ v.exVar1
-															+ '&calYrId='
-															+ v.exVar3
-															+ '&status='
-															+ v.exVar2
-															+ '"><i class="icon-pencil7" title="Detail History" style="color: black;">'; */
 
 													dataTable.row
 															.add(
 																	[
 																			i + 1,
-																			v.assetCode+' - '+v.assetName,
-																			v.useFromDate+' to '+v.useToDate
-																			/* acButton */
+																			v.assetCode +' - '+v.assetName,
+																			v.useFromDate+' to '+v.useToDate,
+																			v.assignRemark
+																			
 
 																	]).draw();
-												});
-								document.getElementById("empName").innerHTML = data[0].empCode+' - '+data[0].firstName+' '+data[0].surname; 
-								document.getElementById("empDepart").innerHTML = data[0].deptName; 
-								document.getElementById("empDesig").innerHTML = data[0].empDesgn; 
+												}); 
+								
 							}); 
 	}
 </script>

@@ -15,7 +15,7 @@
 </style> -->
 
 <body>
-
+<c:url var="getAssetAMCInfo" value="/getAssetAMCInfo"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -182,6 +182,7 @@
 									
 									<td>
 										<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+										onclick="getAssetInfo(${assetsList.assetId})"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
 										${assetsList.assetCode}-${assetsList.assetName}</a>
 									</td>
@@ -324,10 +325,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="assetName"></span>
 												</div>
 											</div>
 											
@@ -335,10 +333,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Purchase
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												<span id="purchaseVendor"></span>
 											</div>
 										</div>											
 									</div>	
@@ -348,10 +343,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Category
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="category"></span>
 												</div>
 											</div>
 											
@@ -359,10 +351,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="purchaseDate"></span>
 												</div>
 											</div>						
 									</div>	
@@ -371,10 +360,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Model
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="Dell Inspiron">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="modelNo"></span>
 												</div>
 											</div>
 											
@@ -382,10 +368,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Serial
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="D32A145">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												<span id="serialNo"></span>
 											</div>
 										</div>											
 									</div>	
@@ -402,72 +385,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Vendor 1</td>
-									<td>20-05-2020 to 01-06-2020</td>
-									<td>Live</td>
-									
-								</tr>
-<tr>
-									<td>2</td>
-									<td>Vendor 2</td>
-									<td>20-05-2020 to 01-06-2020</td>
-									<td>Pending</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Vendor 3</td>
-									<td>20-05-2020 to 01-06-2020</td>
-									<td>Renewed</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Vendor 4</td>
-									<td>20-05-2020 to 01-06-2020</td>
-									<td>Terminated</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>Vendor 5</td>
-									<td>20-05-2020 to 01-06-2020</td>
-									<td>Live</td>
-								</tr>
 							</tbody>
-							<%-- <tbody>
-
-
-								<c:forEach items="${assetsList}" var="assetList"
-									varStatus="count">
-									<tr>
-										 <td>${count.index+1}</td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
-										<td>${assetList.catName}</td>
-										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
-										<td>${assetList.assetSrno}</td>
-										<td>${assetList.assetPurDate}</td>
-										<td>${assetList.vendor}</td>
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												 
-												 
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${assetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if></td>
-									</tr>
-								</c:forEach>
-
-							</tbody> --%>
+							
 						</table>
 							</div>
 
@@ -479,6 +398,71 @@
 					</div>
 				</div>
 				<!-- /large modal -->
+<script>
+function getAssetInfo(assetId){  
+	document.getElementById("assetName").innerHTML = ''; 								
+	document.getElementById("purchaseVendor").innerHTML = '';
+	document.getElementById("category").innerHTML = ''; 
+	document.getElementById("purchaseDate").innerHTML = '';
+	document.getElementById("modelNo").innerHTML = '';
+	document.getElementById("serialNo").innerHTML = '';
+	
+	//alert(assetId)
+	
+	var status = null;
+			 $
+					.getJSON(
+							'${getAssetAMCInfo}',
+							{
+								assetId : assetId,
+								ajax : 'true',
+
+							},
+							function(data) {
+								
+								document.getElementById("assetName").innerHTML = data.assetDetails.assetCode+' - '+data.assetDetails.assetName; 								
+								document.getElementById("purchaseVendor").innerHTML = data.assetDetails.vendor; 
+								document.getElementById("category").innerHTML = data.assetDetails.catName; 
+								document.getElementById("purchaseDate").innerHTML = data.assetDetails.assetPurDate;
+								document.getElementById("modelNo").innerHTML = data.assetDetails.assetModel;
+								document.getElementById("serialNo").innerHTML = data.assetDetails.assetSrno;
+								
+								//alert("Data  " +JSON.stringify(data.empInfo.empCode));
+
+								var dataTable = $('#modal_printtable1').DataTable();
+								dataTable.clear().draw();
+								
+								$
+										.each(
+												data.assetAMCList,
+												function(i, v) {
+
+													if(v.amcStatus==11){
+														status='Live';
+													}else if(v.amcStatus==10){
+														status='Pending';
+													}else if(v.amcStatus==12){
+														status='Renewed';
+													}else if(v.amcStatus==13){
+														status='Renewed';
+													}else{
+														status='NA';
+													}
+													dataTable.row
+															.add(
+																	[
+																			i + 1,
+																			v.compName,
+																			v.amcFrDate+' to '+v.amcToDate,											
+																			status
+
+																	]).draw();
+												}); 
+								
+							 }); 
+	}
+</script>
+				
 <script type="text/javascript">
 //show uploaded img
 var loadFile1 = function(event) {

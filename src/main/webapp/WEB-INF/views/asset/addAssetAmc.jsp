@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+<c:url var="validateAssetAMC" value="/validateAssetAMC"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -436,7 +436,8 @@ $(document)
 			         					$("#error_fromDate").hide();
 			         					$("#error_toDate").hide();
 			         				}
-			         		        
+			         		      
+			         		     
 									if (!isError) {
 
 										var x = true;

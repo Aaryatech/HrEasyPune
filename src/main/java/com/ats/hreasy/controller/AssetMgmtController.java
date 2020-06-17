@@ -43,6 +43,9 @@ import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.ViewEmployee;
+import com.ats.hrmgt.model.assets.AMCInfo;
+import com.ats.hrmgt.model.assets.AssetAMCDetails;
+import com.ats.hrmgt.model.assets.AssetAssignedEmp;
 import com.ats.hrmgt.model.assets.AssetEmpInfo;
 import com.ats.hrmgt.model.assets.AssetInfo;
 
@@ -1480,11 +1483,19 @@ public class AssetMgmtController {
 			@RequestParam("doc") MultipartFile doc) {
 
 		HttpSession session = request.getSession();
+		
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		
 		Info view = AcessController.checkAccess("submitInsertAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		
 		String a = new String();
+		
 		MultiValueMap<String, Object> map  = null;
+		
+		Info info = new Info();
+		
 		if (view.isError() == true) {
 
 			a = "redirect:/accessDenied";
@@ -1492,62 +1503,78 @@ public class AssetMgmtController {
 		} else {
 
 			a = "redirect:/showAllAssets";
+			
 			try {
+				int assetId = Integer.parseInt(request.getParameter("assetId"));
+				System.out.println("----------------------"+assetId);
 				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);			
 				
-				Date date = new Date();
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
-				AssetAmc assetAmc = new AssetAmc();
-				int amcId = 0;				
-				try {
-					amcId = Integer.parseInt(request.getParameter("amcId"));	
-				}catch (Exception e) {
-					amcId = 0;
-					e.printStackTrace();
-				}				
-				
-				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
-				System.out.println("Profile Image------------" + assetImage);
-
-				VpsImageUpload upload = new VpsImageUpload();
-				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
-						0);
-				
-				assetAmc.setAmcId(amcId);
-				assetAmc.setAmcAmt(Float.parseFloat(request.getParameter("amcamt")));
-				assetAmc.setAmcDocFile(assetImage);
-				assetAmc.setAmcFrDate(request.getParameter("amcperiodfrom"));
-				assetAmc.setAmcToDate(request.getParameter("amcperiodto"));
-				assetAmc.setAmcStatus(1);	//Integer.parseInt(request.getParameter("amcId"))	
-				assetAmc.setAssetId(Integer.parseInt(request.getParameter("assetId")));
-				assetAmc.setDelStatus(1);
-				assetAmc.setExInt1(0);
-				assetAmc.setExInt2(0);
-				assetAmc.setExVar1("NA");
-				assetAmc.setExVar2("NA");
-				assetAmc.setMakerUserId(userObj.getEmpId());
-				assetAmc.setNegativeRemark(request.getParameter("negtiveremark"));
-				assetAmc.setPositiveRemark(request.getParameter("positiveremark"));
-				assetAmc.setTermAndCondi(request.getParameter("terms"));
-				assetAmc.setVendorId(Integer.parseInt(request.getParameter("amcVendorId")));
-				
-
-			AssetAmc res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssetAmc", assetAmc,
-				AssetAmc.class);
-
-			if (res.getAmcId()>0) {
-				if(amcId>0) {
-					session.setAttribute("successMsg", "Asset AMC Updated Successfully");
+				info= Constants.getRestTemplate().postForObject(Constants.url + "/validateNewAMCAdd", map,
+						Info.class);
+				System.err.println("Info---"+info);
+				if(info.isError()==false) {
+						
+						Date date = new Date();
+						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						
+						AssetAmc assetAmc = new AssetAmc();
+						int amcId = 0;				
+						try {
+							amcId = Integer.parseInt(request.getParameter("amcId"));	
+						}catch (NumberFormatException ex) {
+							ex.printStackTrace();
+							amcId = 0;					
+						}catch (Exception e) {
+							
+							e.printStackTrace();
+						}				
+						
+						String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
+						System.out.println("Profile Image------------" + assetImage);
+		
+						VpsImageUpload upload = new VpsImageUpload();
+						info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+								0);
+						
+						assetAmc.setAmcId(amcId);
+						assetAmc.setAmcAmt(Float.parseFloat(request.getParameter("amcamt")));
+						assetAmc.setAmcDocFile(assetImage);
+						assetAmc.setAmcFrDate(request.getParameter("amcperiodfrom"));
+						assetAmc.setAmcToDate(request.getParameter("amcperiodto"));
+						assetAmc.setAmcStatus(11); //1=Live
+						assetAmc.setAssetId(assetId);
+						assetAmc.setDelStatus(1);
+						assetAmc.setExInt1(0);
+						assetAmc.setExInt2(0);
+						assetAmc.setExVar1("NA");
+						assetAmc.setExVar2("NA");
+						assetAmc.setMakerUserId(userObj.getEmpId());
+						assetAmc.setNegativeRemark(request.getParameter("negtiveremark"));
+						assetAmc.setPositiveRemark(request.getParameter("positiveremark"));
+						assetAmc.setTermAndCondi(request.getParameter("terms"));
+						assetAmc.setVendorId(Integer.parseInt(request.getParameter("amcVendorId")));
+						
+		
+					AssetAmc res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssetAmc", assetAmc,
+						AssetAmc.class);
+		
+					if (res.getAmcId()>0) {
+						if(amcId>0) {
+							session.setAttribute("successMsg", "Asset AMC Updated Successfully");
+						}else {
+							session.setAttribute("successMsg", "Asset AMC Inserted Successfully");
+						}
+					} 			
+					else {
+					
+						session.setAttribute("errorMsg", "Failed to Insert Asset AMC");
+					}
 				}else {
-					session.setAttribute("successMsg", "Asset AMC Inserted Successfully");
+					session.setAttribute("errorMsg", info.getMsg());
 				}
-			} 			
-			else {
-			
-				session.setAttribute("errorMsg", "Failed to Insert Asset AMC");
-			}
-			
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				session.setAttribute("errorMsg", "Failed to Insert Asset AMC");
@@ -1696,7 +1723,9 @@ public class AssetMgmtController {
 	
 	@RequestMapping(value = "/getAssetEmpInfo", method = RequestMethod.GET)
 	@ResponseBody
-	public List<AssetEmpInfo> getAssetEmpInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam String encodeEmpId) {
+	public AssetAssignedEmp getAssetEmpInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam String encodeEmpId) {
+		AssetAssignedEmp assetAssignEmp = new AssetAssignedEmp();
+		
 		List<AssetEmpInfo> list =new ArrayList<AssetEmpInfo>();
 		try {
 			int  empId = Integer.parseInt(FormValidation.DecodeKey(encodeEmpId));
@@ -1705,14 +1734,56 @@ public class AssetMgmtController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);			
 			
-			AssetEmpInfo[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedAssetByEmpId", map,
+			AssetEmpInfo[] assetEmpArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedAssetByEmpId", map,
 					AssetEmpInfo[].class);
-			list = new ArrayList<AssetEmpInfo>(Arrays.asList(location));
+			list = new ArrayList<AssetEmpInfo>(Arrays.asList(assetEmpArr));
+			
+			assetAssignEmp.setAssetEmpList(list);
+			
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);				
+			assetAssignEmp.setEmpInfo(empInfo);
 		}catch (Exception e) {
 			System.err.println("Exception in getAssetEmpInfo : "+e.getMessage());
 			e.printStackTrace();
 		}
-		return list;
+		System.out.println("AssetAssignEmp --------- "+assetAssignEmp);
+		return assetAssignEmp;
 		
 	}
+	
+	@RequestMapping(value = "/getAssetAMCInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public AssetAMCDetails getAssetAMCInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId) {
+		AssetAMCDetails assetAMCInfo = new AssetAMCDetails();
+		
+		List<AMCInfo> list =new ArrayList<AMCInfo>();
+		try {
+			
+			System.out.println("Asset Id ----------------------"+Integer.parseInt(assetId));
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				
+			map.add("assetId", Integer.parseInt(assetId));
+			AMCInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAMCInfoByAssetId", map,
+					AMCInfo[].class);
+			list = new ArrayList<AMCInfo>(Arrays.asList(amcArr));
+			
+			assetAMCInfo.setAssetAMCList(list);
+			
+			map.add("assetId", Integer.parseInt(assetId));
+			AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+					AssetsDetailsList.class);				
+			
+			assetAMCInfo.setAssetDetails(assetInfo);
+		}catch (Exception e) {
+			System.err.println("Exception in getAssetAMCInfo : "+e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("Asset AMC List --------- "+assetAMCInfo);
+		return assetAMCInfo;
+		
+	}
+	
+	
 }
