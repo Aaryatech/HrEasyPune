@@ -208,11 +208,11 @@
 																		<td>2500</td>
 																		<td>Pending</td>
 																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId=17"
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId=18"
 																			class="list-icons-item text-primary-600"
 																			data-popup="tooltip" data-original-title="Edit"><i
 																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId=17"
+																			href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId=18"
 																			class="list-icons-item text-primary-600" data-uuid=""
 																			data-popup="tooltip" title=""
 																			data-original-title="Renew"><i
@@ -375,7 +375,7 @@ function getAssetInfo(assetId){
 							var uuid = $(this).data("uuid") // will return the number 123
 										bootbox.confirm({
 										title : 'Confirm ',
-										message : 'Are you sure you want to delete selected records ?',
+										message : 'Are you sure you want to terminate this Asset AMC ?',
 										buttons : {
 											confirm : {
 												label : 'Yes',
@@ -388,8 +388,8 @@ function getAssetInfo(assetId){
 										},
 										callback : function(result) {
 											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteAsset?assetId="
-														+ uuid;
+												location.href = "${pageContext.request.contextPath}/terminateAsset?assetAMCId="
+														+20; //uuid;
 
 											}
 										}

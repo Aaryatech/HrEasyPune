@@ -1631,10 +1631,165 @@ public class AssetMgmtController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/renewAssetAmc", method = RequestMethod.GET)
+	public ModelAndView renewAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		MultiValueMap<String, Object> map = null;
+		try {
+			
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/renewAssetAmc");
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
+				
+				String assetId = request.getParameter("assetAMCId");
+				
+				map = new LinkedMultiValueMap<>();				
+				map.add("assetAmcId", Integer.parseInt(assetId));
+				AssetAmc assetAmcInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAmcById", map,
+						AssetAmc.class);
+				
+				model.addObject("amc",  assetAmcInfo);		
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId",assetAmcInfo.getAssetId());
+				AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+								AssetsDetailsList.class);			
+				model.addObject("asset",  assetInfo);	
+				
+				model.addObject("title",  "Renew Asset AMC");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/submitRenewAssetAmc", method = RequestMethod.POST)
+	public String submitRenewAssetAmc(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") MultipartFile doc) {
+
+		HttpSession session = request.getSession();
+		
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		
+		Info view = AcessController.checkAccess("submitRenewAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		
+		String a = new String();
+		
+		MultiValueMap<String, Object> map  = null;
+		
+		Info info = new Info();
+		
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showAllAssets";
+			
+			try {
+				int assetId = Integer.parseInt(request.getParameter("assetId"));
+				System.out.println("----------------------"+assetId);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);			
+				
+						
+						Date date = new Date();
+						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						
+						AssetAmc assetAmc = new AssetAmc();
+						int amcId = 0;				
+						try {
+							amcId = Integer.parseInt(request.getParameter("amcId"));	
+						}catch (NumberFormatException ex) {
+							ex.printStackTrace();
+							amcId = 0;					
+						}catch (Exception e) {
+							
+							e.printStackTrace();
+						}				
+						
+						String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
+						System.out.println("Profile Image------------" + assetImage);
+		
+						VpsImageUpload upload = new VpsImageUpload();
+						info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+								0);
+						
+						assetAmc.setAmcId(0);
+						assetAmc.setAmcAmt(Float.parseFloat(request.getParameter("amcamt")));
+						assetAmc.setAmcDocFile(assetImage);
+						assetAmc.setAmcFrDate(request.getParameter("amcperiodfrom"));
+						assetAmc.setAmcToDate(request.getParameter("amcperiodto"));
+						assetAmc.setAmcStatus(11); //1=Live
+						assetAmc.setAssetId(assetId);
+						assetAmc.setDelStatus(1);
+						assetAmc.setExInt1(0);
+						assetAmc.setExInt2(0);
+						assetAmc.setExVar1("NA");
+						assetAmc.setExVar2("NA");
+						assetAmc.setMakerUserId(userObj.getEmpId());
+						assetAmc.setNegativeRemark(request.getParameter("negtiveremark"));
+						assetAmc.setPositiveRemark(request.getParameter("positiveremark"));
+						assetAmc.setTermAndCondi(request.getParameter("terms"));
+						assetAmc.setVendorId(Integer.parseInt(request.getParameter("amcVendorId")));
+						
+		
+					AssetAmc res = Constants.getRestTemplate().postForObject(Constants.url + "/saveRenewAssetAmc", assetAmc,
+						AssetAmc.class);
+		
+					if (res.getAmcId()>0) {
+						map = new LinkedMultiValueMap<>();				
+						map.add("assetAmcId", amcId);
+						map.add("status", 12);
+						info = Constants.getRestTemplate().postForObject(Constants.url + "/updtAssetAMCStatus", map,
+								Info.class);
+
+						if (info.isError() == false) {
+							session.setAttribute("successMsg", "Asset AMC Renewed Successfully");		
+							session.setAttribute("successMsg", info.getMsg());
+						} else {
+							session.setAttribute("errorMsg", "Failed to Renewed Asset AMC");
+							session.setAttribute("errorMsg", info.getMsg());
+						}
+											
+					} 			
+					else {					
+						session.setAttribute("errorMsg", "Failed to Renewed Asset AMC");
+					}				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Renewed Asset AMC");
+			}
+		}
+
+		return a;
+	}
+	
 	@RequestMapping(value = "/terminateAsset", method = RequestMethod.GET)
 	public String terminateAsset(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
+		
 		String a = null;
 
 		try {
@@ -1650,21 +1805,33 @@ public class AssetMgmtController {
 
 			else {
 
-				a = "redirect:/assetAmc";
+				a = "redirect:/showAllAssets";
+				
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo"); 
+				
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				//String base64encodedString = request.getParameter("assetId");
+				//String assetId = FormValidation.DecodeKey(base64encodedString);
+				
+				int amcId = Integer.parseInt(request.getParameter("assetAMCId"));
+				System.out.println("----------------------"+amcId);
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("assetAMCId", amcId);
+				map.add("userUpdateId", userObj.getEmpId());
+				map.add("updateTime", sf.format(date));
+				map.add("status", 13);
+				
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/terminateAssetAMC", map,
+						Info.class);
 
-//				String base64encodedString = request.getParameter("assetId");
-//				String assetId = FormValidation.DecodeKey(base64encodedString);
-//
-//				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-//				map.add("assetId", assetId);
-//				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteAssetById", map,
-//						Info.class);
-//
-//				if (info.isError() == false) {
-//					session.setAttribute("successMsg", info.getMsg());
-//				} else {
-//					session.setAttribute("errorMsg", info.getMsg());
-//				}
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", info.getMsg());
+				} else {
+					session.setAttribute("errorMsg", info.getMsg());
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
