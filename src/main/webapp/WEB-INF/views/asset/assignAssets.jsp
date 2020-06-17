@@ -147,7 +147,8 @@
 					
 						<form
 									action="${pageContext.request.contextPath}/submitAssignAsset"
-									id="submitAssignAsset" method="post" >
+									id="submitAssignAsset" method="post" enctype="multipart/form-data">
+									
 									<input type="hidden" id="empId" name="empId" value="${emp.empId}">
 						<div class="table-responsive">						
 								<table class="table datatable-scroll-y" id="printtable1">

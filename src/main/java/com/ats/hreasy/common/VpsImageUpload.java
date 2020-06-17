@@ -50,7 +50,7 @@ public class VpsImageUpload {
 				
 								//path = Paths.get(uploadPath + imageName);
 				
-								System.out.println("Path= " + path.toString() + "" +file.getSize());
+								System.out.println("Path= " + path.toString() + "  " +file.getSize());
 				
 							 
 				

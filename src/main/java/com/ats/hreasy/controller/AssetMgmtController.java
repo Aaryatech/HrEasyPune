@@ -435,16 +435,16 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-				int assetCatId = 0;
+				int assetVendorId = 0;
 				try {
-					assetCatId = Integer.parseInt(request.getParameter("vendorId"));
+					assetVendorId = Integer.parseInt(request.getParameter("vendorId"));
 				}catch (Exception e) {
-					 assetCatId = 0;
+					assetVendorId = 0;
 					e.printStackTrace();
 				}
 			
 				AssetVendor assetVendor = new AssetVendor();
-				assetVendor.setVendorId(assetCatId);
+				assetVendor.setVendorId(assetVendorId);
 				assetVendor.setCompAddress(request.getParameter("compAddress"));
 				assetVendor.setCompName(request.getParameter("compName"));
 				assetVendor.setConatctPersonName(request.getParameter("contactPersonName"));
@@ -479,7 +479,7 @@ public class AssetMgmtController {
 						AssetVendor.class);
 
 					if (res.getVendorId()>0) {
-						if(assetCatId>0) {
+						if(assetVendorId>0) {
 							session.setAttribute("successMsg", "Asset Vendor Updated Successfully");
 						}else {
 							session.setAttribute("successMsg", "Asset Vendor Inserted Successfully");
@@ -1133,8 +1133,12 @@ public class AssetMgmtController {
 	}
 	
 	@RequestMapping(value = "/submitAssignAsset", method = RequestMethod.POST)
-	public String submitAssignAsset(HttpServletRequest request, HttpServletResponse response) {
+	public String submitAssignAsset(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") List<MultipartFile> doc) {
 		try {
+			//System.err.println("doc size "+doc.size());
+			//System.err.println("doc  "+doc.toString() );
+			
 			HttpSession session = request.getSession();
 			
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -1154,17 +1158,25 @@ public class AssetMgmtController {
 				
 				assetChkVal = Integer.parseInt(asset[i]);
 				
-				System.out.println("Assets id are------------------" + assetChkVal);
+			//	System.out.println("Assets id are------------------" + assetChkVal);
 				
 				AssetTrans  assignAsset = new AssetTrans();
 				
 				if(assetChkVal>0) {
 				try {
 					assetTransId = Integer.parseInt(request.getParameter("transIds" + asset[i]));
-					System.out.println("Transaction Ids-----------"+assetTransId);
+				//	System.out.println("Transaction Ids-----------"+assetTransId);
 				}catch (NumberFormatException e) {
 					assetTransId = 0;
 				}
+				
+				String assetImage = sf.format(date)+"_"+doc.get(i).getOriginalFilename();
+
+				//System.out.println("Profile Image------------" + assetImage);
+
+				VpsImageUpload upload = new VpsImageUpload();
+				Info info = upload.saveUploadedImge(doc.get(i), Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+						0);
 				
 				assignAsset.setAssetTransId(assetTransId);				
 				assignAsset.setAssetId(Integer.parseInt(request.getParameter("assetIds" + asset[i])));				
@@ -1177,7 +1189,7 @@ public class AssetMgmtController {
 				assignAsset.setUseFromDate(DateConvertor.convertToYMD(request.getParameter("fromDate" + asset[i])));
 				assignAsset.setUseToDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
 				assignAsset.setReturnDate("0000-00-00");
-				assignAsset.setAssignImgFile(request.getParameter("" + asset[i]));
+				assignAsset.setAssignImgFile(assetImage);
 				assignAsset.setReturnImgFile("NA");
 				assignAsset.setIsLost(0);
 				assignAsset.setLostRemark("NA");
@@ -1202,7 +1214,11 @@ public class AssetMgmtController {
 			List<AssetTrans> list = Arrays.asList(saveAssignAsset);
 			
 			if(list.get(0).getAssetTransId()>0) {
+				if(assetTransId>0) {
+					session.setAttribute("successMsg", "Assets Assign Updated Successfully");
+				}else {
 				session.setAttribute("successMsg", "Assets Assign Successfully");
+				}
 			}else {
 				session.setAttribute("errorMsg", "Failed to Assign Assets");
 			}
@@ -1282,7 +1298,7 @@ public class AssetMgmtController {
 					AssetEmpInfo[].class);
 			List<AssetEmpInfo> assignAssetsList = new ArrayList<AssetEmpInfo>(Arrays.asList(assetArr));
 			model.addObject("assignAssetsList", assignAssetsList);	
-			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1290,14 +1306,21 @@ public class AssetMgmtController {
 	}
 	
 	@RequestMapping(value = "/submitReturnAsset", method = RequestMethod.POST)
-	public String submitReturnAsset(HttpServletRequest request, HttpServletResponse response) {
+	public String submitReturnAsset(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("doc") List<MultipartFile> doc) {
 		try {
+			
+			//System.err.println("doc size "+doc.size());
+			//System.err.println("doc  "+doc.toString() );
+			
 			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 			
 			Info info = new Info();
 			
 			Date date = new Date();
 			SimpleDateFormat toDay = new SimpleDateFormat("yyyy-MM-dd");			
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			
 			String[] asset = request.getParameterValues("chkAssetId");
 			
@@ -1317,13 +1340,25 @@ public class AssetMgmtController {
 					assetTransId = 0;
 				}
 				
+				String assetImage = sf.format(date)+"_"+doc.get(i).getOriginalFilename();
+
+				//System.out.println("Profile Image------------" + assetImage);
+
+				VpsImageUpload upload = new VpsImageUpload();
+				info = upload.saveUploadedImge(doc.get(i), Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+						0);
+				
 				//System.out.println("Values-----"+"transId=="+assetTransId);
 				map = new LinkedMultiValueMap<>();
+				
 				map.add("assetTransId", assetTransId);				
 				map.add("assetTransStatus", 2);
 				map.add("returnDate", toDay.format(date));	
 				map.add("assetId", Integer.parseInt(request.getParameter("assetIds" + asset[i])));
 				map.add("returnRemark", request.getParameter("returRemark" + asset[i]));
+				map.add("assetReturnImg", assetImage);
+				map.add("updateDateTime", sf.format(date));
+				map.add("updateUserId", userObj.getEmpId());
 				info = Constants.getRestTemplate().postForObject(Constants.url + "/returnAssetByIds", map,
 						Info.class);
 
