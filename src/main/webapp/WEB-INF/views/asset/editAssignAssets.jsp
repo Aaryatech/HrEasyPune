@@ -147,7 +147,7 @@
 					
 						<form
 									action="${pageContext.request.contextPath}/submitAssignAsset"
-									id="submitAssignAsset" method="post" >
+									id="submitAssignAsset" method="post" enctype="multipart/form-data">
 									<input type="hidden" id="empId" name="empId" value="${emp.empId}">
 						<div class="table-responsive">						
 								<table class="table datatable-scroll-y" id="printtable1">
@@ -199,10 +199,10 @@
 									</td>
 									
 									<td>
-										<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="doc${assetsList.assetId}" id="doc${assetsList.assetId}" 
-												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
-													class="form-text text-muted">Only
+										<img id="output" width="150" src="${imgPath}${assetsList.assignImgFile}"/>
+												<input type="file" accept="image/*" name="doc" id="doc${assetsList.assetId}" 
+												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)" value="${assetsList.assignImgFile}"><span
+													class="form-text text-muted" >Only
 													.jpg,.png,.gif,.doc,.xls,.pdf</span>
 												<span class="validation-invalid-label" id="error_doc"
 													style="display: none;">This field is required.</span>												

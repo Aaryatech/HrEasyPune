@@ -1267,6 +1267,8 @@ public class AssetMgmtController {
 						AssignedAssetsList[].class);
 				List<AssignedAssetsList> assignAssetsList = new ArrayList<AssignedAssetsList>(Arrays.asList(assetArr));
 				model.addObject("assetsList", assignAssetsList);	
+				
+				model.addObject("imgPath", Constants.empDocSaveUrl);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

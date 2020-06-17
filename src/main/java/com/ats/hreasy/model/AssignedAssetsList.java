@@ -10,6 +10,8 @@ public class AssignedAssetsList {
 	private String useFromDate;
 	private String useToDate;
 	private String assignRemark;
+	private String assignImgFile;
+	
 	public int getAssetTransId() {
 		return assetTransId;
 	}
@@ -58,11 +60,17 @@ public class AssignedAssetsList {
 	public void setAssignRemark(String assignRemark) {
 		this.assignRemark = assignRemark;
 	}
+	public String getAssignImgFile() {
+		return assignImgFile;
+	}
+	public void setAssignImgFile(String assignImgFile) {
+		this.assignImgFile = assignImgFile;
+	}
 	@Override
 	public String toString() {
 		return "AssignedAssetsList [assetTransId=" + assetTransId + ", assetId=" + assetId + ", assetCode=" + assetCode
 				+ ", assetName=" + assetName + ", catName=" + catName + ", useFromDate=" + useFromDate + ", useToDate="
-				+ useToDate + ", assignRemark=" + assignRemark + "]";
+				+ useToDate + ", assignRemark=" + assignRemark + ", assignImgFile=" + assignImgFile + "]";
 	}
 	
 }

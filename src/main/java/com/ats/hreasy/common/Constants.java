@@ -14,7 +14,7 @@ public class Constants {
 	public static final String docSaveUrl = "/home/maddy/ats-11/"; ///"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 
 	public static final String companyLogoSaveUrl = "/home/maddy/ats-11/";///"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
-	public static final String empDocSaveUrl = "/home/maddy/ats-11/";//"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
+	public static final String empDocSaveUrl = "/home/maddy/ats-12/";//"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String leaveDocSaveUrl = "/home/maddy/ats-11/";///"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String imageSaveUrl = "/home/maddy/ats-11/";//"/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 
