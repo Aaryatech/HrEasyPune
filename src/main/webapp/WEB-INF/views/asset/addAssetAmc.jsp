@@ -188,7 +188,7 @@
 										<div class="col-md-6">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="amcId"
-														name="amcId">													
+														name="amcId" value="${amc.amcId}">													
 												</div>
 											</div>
 											
@@ -196,7 +196,7 @@
 											<div class="col-md-6">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="assetId"
-														name="assetId" value="${asset.assetId}">													
+														name="assetId" value="${amc.assetId}">													
 												</div>
 											</div>
 										</div>
@@ -213,16 +213,16 @@
 
 														<option value="">Select Asset Vendor</option>
 														<c:forEach items="${assetVendorList}" var="assetVendorList">
-														<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-															<%-- <c:choose>
-																<c:when test="${assetVendorList.vendorId==asset.vendorId}">
+														<%-- <option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option> --%>
+															 <c:choose>
+																<c:when test="${assetVendorList.vendorId==amc.vendorId}">
 																	<option selected="selected"
 																		value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
 																</c:when>
 																<c:otherwise>
 																	<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
 																</c:otherwise>
-															</c:choose> --%>
+															</c:choose>
 														</c:forEach>
 													</select>
 												<span class="validation-invalid-label" id="error_amcVendorId"
@@ -234,7 +234,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcamt">AMC 
 												Amt<span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
-												<input type="text" class="form-control"
+												<input type="text" class="form-control" value="${amc.amcAmt}"
 													placeholder="Enter AMC Amt." id="amcamt"
 													name="amcamt" autocomplete="off">
 												<span class="validation-invalid-label" id="error_amcamt"
@@ -250,7 +250,7 @@
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter AMC Period From" id="amcperiodfrom"
-													name="amcperiodfrom" autocomplete="off">
+													name="amcperiodfrom" autocomplete="off" value="${amc.amcFrDate}">
 												<span class="validation-invalid-label" id="error_amcperiodfrom"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_fromDate"	style="display: none;">From Date must be smaller than To Date </span>
@@ -263,7 +263,7 @@
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter AMC Period To" id="amcperiodto"
-													name="amcperiodto" autocomplete="off">
+													name="amcperiodto" autocomplete="off" value="${amc.amcToDate}">
 												<span class="validation-invalid-label" id="error_amcperiod"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
@@ -278,7 +278,7 @@
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Enter Positive Remark" id="positiveremark"
-													name="positiveremark"></textarea>
+													name="positiveremark">${amc.positiveRemark}</textarea>
 												<span class="validation-invalid-label" id="error_positiveremark"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -290,7 +290,7 @@
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Enter Negative Remark" id="negtiveremark"
-													name="negtiveremark"></textarea>
+													name="negtiveremark">${amc.negativeRemark}</textarea>
 												<span class="validation-invalid-label" id="error_negtiveremark"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -303,7 +303,7 @@
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="doc" id="doc" 
+												<input type="file" accept="image/*" name="doc" id="doc" value="${amc.amcDocFile}"
 												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
 													class="form-text text-muted">Only
 													.jpg,.png,.gif,.doc,.xls,.pdf</span> 

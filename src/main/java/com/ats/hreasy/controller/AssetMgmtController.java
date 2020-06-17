@@ -1589,7 +1589,7 @@ public class AssetMgmtController {
 
 		HttpSession session = request.getSession();
 		ModelAndView model = null;
-		
+		MultiValueMap<String, Object> map = null;
 		try {
 			
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
@@ -1606,6 +1606,21 @@ public class AssetMgmtController {
 						, AssetVendor[].class);
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
+				
+				String assetId = request.getParameter("assetAMCId");
+				
+				map = new LinkedMultiValueMap<>();				
+				map.add("assetAmcId", Integer.parseInt(assetId));
+				AssetAmc assetAmcInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAmcById", map,
+						AssetAmc.class);
+				
+				model.addObject("amc",  assetAmcInfo);		
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId",assetAmcInfo.getAssetId());
+				AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+								AssetsDetailsList.class);			
+				model.addObject("asset",  assetInfo);	
 				
 				model.addObject("title",  "Edit Asset AMC");				
 				
@@ -1695,9 +1710,12 @@ public class AssetMgmtController {
 		MultiValueMap<String, Object> map=null;
 		try {
 			model = new ModelAndView("asset/assetsList");
+			
 			int locId = Integer.parseInt(request.getParameter("locId"));
-			map = new LinkedMultiValueMap<>();
+			
+			map = new LinkedMultiValueMap<>();			
 			map.add("locId", locId);
+			
 			AssetsDetailsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetsByLocation", map
 					, AssetsDetailsList[].class);
 			assetList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
@@ -1760,7 +1778,7 @@ public class AssetMgmtController {
 		List<AMCInfo> list =new ArrayList<AMCInfo>();
 		try {
 			
-			System.out.println("Asset Id ----------------------"+Integer.parseInt(assetId));
+			//System.out.println("Asset Id ----------------------"+Integer.parseInt(assetId));
 			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				
@@ -1786,4 +1804,26 @@ public class AssetMgmtController {
 	}
 	
 	
+	@RequestMapping(value = "/getAssetsAMCs", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AMCInfo> getAssetsAMCs(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId) {
+		
+		List<AMCInfo> list =new ArrayList<AMCInfo>();
+		try {
+			int asset = Integer.parseInt(FormValidation.DecodeKey(assetId));
+			System.out.println("Asset Id ----------------------"+asset);
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			
+			map.add("assetId", asset);
+			
+			AMCInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAMCInfoByAssetId", map,
+					AMCInfo[].class);
+			list = new ArrayList<AMCInfo>(Arrays.asList(amcArr));
+		}catch (Exception e) {
+			System.err.println("Exception in getAssets : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+	}
+			
 }

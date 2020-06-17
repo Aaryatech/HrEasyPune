@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<c:url var="getAssetInfo" value="/getAssetInfo"></c:url>
+	<c:url var="getAssetsAMCs" value="/getAssetsAMCs"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -145,7 +145,7 @@
 									<tr class="accordion-toggle collapsed"
 										id1="accordion${count.index+1}" data-toggle1="collapse"
 										data-parent1="#accordion${count.index+1}">
-										<td><a href="#collapseOne${count.index+1}" onclick="getAssetAMCInfo(${assetList.exVar1})"
+										<td><a href="#collapseOne${count.index+1}" onclick="getAssetInfo('${assetList.exVar1}')"
 											id="accordion${count.index+1}" data-toggle="collapse"
 											data-parent="#accordion${count.index+1}"><span
 											class="expand-button"></span></a></td>
@@ -187,12 +187,49 @@
 										<!-- <td></td> -->
 										<td colspan="12"><div id="collapseOne${count.index+1}"
 												class="collapse in p-3">
-
-												<div class="datatable-scroll">
+ 																<table
+																	class="table datatable-scroller-buttons dataTable no-footer"
+																	width="100%" role="grid" id="amcdatatable">
+																	<thead>
+																		<tr role="row" class="bg-blue">
+																			<th>Sr.No.</th>
+																			<th>Vendor Name</th>
+																			<th>AMC Period</th>
+																			<th>Amt</th>
+																			<th>Status</th>
+																			<!-- <th>Actions</th> -->
+																		</tr>
+																	</thead>
+																	<tbody>
+																	 <tr>
+																		<td>1</td>
+																		<td>Vendor2</td>
+																		<td>01-03-2020 to 06-03-2020</td>
+																		<td>2500</td>
+																		<td>Pending</td>
+																		<td class="text-center"><a
+																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId=17"
+																			class="list-icons-item text-primary-600"
+																			data-popup="tooltip" data-original-title="Edit"><i
+																				class="icon-pencil7"></i></a> <a
+																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId=17"
+																			class="list-icons-item text-primary-600" data-uuid=""
+																			data-popup="tooltip" title=""
+																			data-original-title="Renew"><i
+																				class="icon-history"></i></a> <a
+																			href="javascript:void(0)"
+																			class="list-icons-item text-danger-600 bootbox_custom"
+																			data-uuid="" data-popup="tooltip" title=""
+																			data-original-title="Terminate"><i
+																				class="fa fa-ban"></i></a></td>
+																	</tr>  
+																</tbody>
+																</table>
+												<%-- <div class="datatable-scroll">
 													<div class="dataTables_scroll">
 														<div class="dataTables_scrollHead">
 															<div class="dataTables_scrollHeadInner">
-																<table
+																<!-- <table
 																	class="table datatable-scroller-buttons dataTable no-footer"
 																	width="100%" role="grid">
 																	<thead>
@@ -205,7 +242,7 @@
 																			<th>Actions</th>
 																		</tr>
 																	</thead>
-																</table>
+																</table> -->
 															</div>
 														</div>
 														<div class="dataTables_scrollBody"
@@ -216,13 +253,13 @@
 																style="position: absolute; top: 0px; left: 0px; width: 100%;"
 																aria-describedby="DataTables_Table_1_info">
 																<thead>
-																	<tr role="row" style="display: none;">
+																	<tr role="row">
 																		<th class="sorting_asc">Sr.No.</th>
 																		<th class="sorting">Vendor Name</th>
 																		<th class="sorting">AMC Period</th>
 																		<th class="sorting">Amt</th>
 																		<th class="sorting">Status</th>
-																		<th class="sorting">Actions</th>
+																		<!-- <th class="sorting">Actions</th> -->
 																	</tr>
 																</thead>
 
@@ -248,140 +285,15 @@
 																			data-uuid="" data-popup="tooltip" title=""
 																			data-original-title="Terminate"><i
 																				class="fa fa-ban"></i></a></td>
-																	</tr>
+																	</tr> 
 
-																	<tr>
-																		<td>1</td>
-																		<td>Vendor2</td>
-																		<td>01-03-2020 to 06-03-2020</td>
-																		<td>2500</td>
-																		<td>Pending</td>
-																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600"
-																			data-popup="tooltip" data-original-title="Edit"><i
-																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600" data-uuid=""
-																			data-popup="tooltip" title=""
-																			data-original-title="Renew"><i
-																				class="icon-history"></i></a> <a
-																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
-																			data-uuid="" data-popup="tooltip" title=""
-																			data-original-title="Terminate"><i
-																				class="fa fa-ban"></i></a></td>
-																	</tr>
+																	
 
-																	<tr>
-																		<td>1</td>
-																		<td>Vendor2</td>
-																		<td>01-03-2020 to 06-03-2020</td>
-																		<td>2500</td>
-																		<td>Pending</td>
-																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600"
-																			data-popup="tooltip" data-original-title="Edit"><i
-																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600" data-uuid=""
-																			data-popup="tooltip" title=""
-																			data-original-title="Renew"><i
-																				class="icon-history"></i></a> <a
-																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
-																			data-uuid="" data-popup="tooltip" title=""
-																			data-original-title="Terminate"><i
-																				class="fa fa-ban"></i></a></td>
-																	</tr>
-
-																	<tr>
-																		<td>1</td>
-																		<td>Vendor2</td>
-																		<td>01-03-2020 to 06-03-2020</td>
-																		<td>2500</td>
-																		<td>Pending</td>
-																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600"
-																			data-popup="tooltip" data-original-title="Edit"><i
-																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600" data-uuid=""
-																			data-popup="tooltip" title=""
-																			data-original-title="Renew"><i
-																				class="icon-history"></i></a> <a
-																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
-																			data-uuid="" data-popup="tooltip" title=""
-																			data-original-title="Terminate"><i
-																				class="fa fa-ban"></i></a></td>
-																	</tr>
-
-																	<tr>
-																		<td>1</td>
-																		<td>Vendor2</td>
-																		<td>01-03-2020 to 06-03-2020</td>
-																		<td>2500</td>
-																		<td>Pending</td>
-																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600"
-																			data-popup="tooltip" data-original-title="Edit"><i
-																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600" data-uuid=""
-																			data-popup="tooltip" title=""
-																			data-original-title="Renew"><i
-																				class="icon-history"></i></a> <a
-																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
-																			data-uuid="" data-popup="tooltip" title=""
-																			data-original-title="Terminate"><i
-																				class="fa fa-ban"></i></a></td>
-																	</tr>
-
-																	<tr>
-																		<td class="sorting_1">1</td>
-																		<td>Armand</td>
-																		<td>Warren</td>
-																		<td>56045</td>
-																		<td>Taiwan, Province of China</td>
-																		<td>Taiwan, Province of China</td>
-																	</tr>
-
-																	<tr>
-																		<td class="sorting_1">1</td>
-																		<td>Armand</td>
-																		<td>Warren</td>
-																		<td>56045</td>
-																		<td>Taiwan, Province of China</td>
-																		<td>Taiwan, Province of China</td>
-																	</tr>
-
-																	<tr>
-																		<td class="sorting_1">1</td>
-																		<td>Armand</td>
-																		<td>Warren</td>
-																		<td>56045</td>
-																		<td>Taiwan, Province of China</td>
-																		<td>Taiwan, Province of China</td>
-																	</tr>
-
-																	<tr>
-																		<td class="sorting_1">1</td>
-																		<td>Armand</td>
-																		<td>Warren</td>
-																		<td>56045</td>
-																		<td>Taiwan, Province of China</td>
-																		<td>Taiwan, Province of China</td>
-																	</tr>
 																</tbody>
 															</table>
 														</div>
 													</div>
-												</div>
+												</div> --%>
 
 											</div></td>
 									</tr>
@@ -410,20 +322,46 @@
 	<!-- /page content -->
 
 	<script>
-function getAssetAMCInfo(assetId){  
+function getAssetInfo(assetId){  
    alert(assetId)
+   var status = null;
 			$
 					.getJSON(
-							'${getAssetInfo}',
+							'${getAssetsAMCs}',
 							{
 								assetId : assetId,
 								ajax : 'true',
 
 							},
 							function(data) {
-								//alert("data" + data);
-
 								//alert("Data  " +JSON.stringify(data));
+								
+								var dataTable = $('#amcdatatable').DataTable();
+								dataTable.clear().draw();
+								
+								$
+										.each(
+												data,
+												function(i, v) {
+													
+													/* 
+													var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId=' 
+														+ v.amcId+
+														+'class="list-icons-item text-primary-600" data-popup="tooltip" data-original-title="Edit">'
+														+'<i class="icon-pencil7"></i>'; */
+												dataTable.row
+															.add(
+																	[
+																			i + 1,
+																			v.compName,
+																			v.amcFrDate+' to '+v.amcToDate,											
+																			v.amcAmt,
+																			v.statusText
+																			/* acButton */
+																	]).draw();
+												}); 
+								
+							 
 								
 							});
 	}
