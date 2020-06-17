@@ -130,7 +130,7 @@
 								</form>
 
 							</div>
-							<hr>
+						 
 
 							<div id="editAttanceDiv" style="display: none;">
 								<div class="card-header header-elements-inline">
@@ -242,6 +242,7 @@
 
 													<th class="text-center">EMP Code</th>
 													<th class="text-center">EMP Name</th>
+													<th class="text-center">Department</th>
 													<th class="text-center">Status</th>
 													<!-- <th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th> -->
@@ -272,6 +273,7 @@
 
 														<td class="text-center">${dailyrecordList.empCode}</td>
 														<td>${dailyrecordList.empName}</td>
+														<td>${dailyrecordList.empJson}</td>
 														<c:choose>
 															<c:when
 																test="${dailyrecordList.attStatus eq 'WO' || dailyrecordList.attStatus eq 'PH'}">

@@ -137,6 +137,27 @@
 									<h5 class="card-title">Edit Attendance Detail</h5>
 								</div>
 								<div class="card-body">
+
+									<div class="form-group row">
+
+										<label class="col-form-label col-lg-2" for="empCode">
+											Emp Code : </label>
+										<div class="col-lg-2">
+											<input type="text" class="form-control"
+												placeholder="Employee Code" id="empCode" name="empCode"
+												autocomplete="off" disabled>
+
+										</div>
+										<div class="col-lg-1"></div>
+										<label class="col-form-label col-lg-2" for="empName">
+											Emp Name : </label>
+										<div class="col-lg-4">
+											<input type="text" class="form-control"
+												placeholder="Employee Name" id="empName" name="empName"
+												autocomplete="off" disabled>
+
+										</div>
+									</div>
 									<div class="form-group row">
 
 										<label class="col-form-label col-lg-2" for="attStatus">
@@ -469,7 +490,9 @@
 				success : function(response) {
 
 					document.getElementById("editAttanceDiv").style.display = 'block';
-					 
+					document.getElementById("empCode").value = response.empCode;
+					document.getElementById("empName").value = response.empName;
+					
 					document.getElementById("attStatus").value = response.attStatus;
 					 
 					if(response.otHr.length==4){
