@@ -498,7 +498,7 @@
 					document.getElementById("empCode").value = response.empCode;
 					document.getElementById("empName").value = response.empName;
 					
-					document.getElementById("attStatus").value = response.attStatus;
+					document.getElementById("attStatus").value = response.attsSdShow;
 					 
 					if(response.otHr.length==4){
 						document.getElementById("otHours").value = 0+response.otHr;

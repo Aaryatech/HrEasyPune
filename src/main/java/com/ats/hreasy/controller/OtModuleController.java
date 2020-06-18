@@ -18,9 +18,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.EmpListForHolidayApprove;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
@@ -42,20 +45,29 @@ public class OtModuleController {
 		try {
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("otApprovalList", "otApprovalList", 1, 0, 0, 0, newModuleList);
 
-			date = request.getParameter("date");
+			if (view.isError() == true) {
 
-			if (date != null) {
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("date", DateConvertor.convertToYMD(date));
-				map.add("empId", userObj.getEmpId());
-				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getDailyDailyRecordForOtApproval", map, GetDailyDailyRecord[].class);
-				dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
-				model.addAttribute("dailyrecordList", dailyrecordList);
-				model.addAttribute("date", date);
+				mav = "accessDenied";
+
+			} else {
+
+				mav = "attendence/otApprovalList";
+				date = request.getParameter("date");
+
+				if (date != null) {
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("empId", userObj.getEmpId());
+					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getDailyDailyRecordForOtApproval", map, GetDailyDailyRecord[].class);
+					dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
+					model.addAttribute("dailyrecordList", dailyrecordList);
+					model.addAttribute("date", date);
+				}
 			}
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -117,19 +129,28 @@ public class OtModuleController {
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
-			date = request.getParameter("date");
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("otFinalApprovalList", "otFinalApprovalList", 1, 0, 0, 0, newModuleList);
 
-			if (date != null) {
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("date", DateConvertor.convertToYMD(date));
-				map.add("empId", userObj.getEmpId());
-				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getDailyDailyRecordForFinalOtApproval", map, GetDailyDailyRecord[].class);
-				dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
-				model.addAttribute("dailyrecordList", dailyrecordList);
-				model.addAttribute("date", date);
+			if (view.isError() == true) {
+
+				mav = "accessDenied";
+
+			} else {
+
+				date = request.getParameter("date");
+
+				if (date != null) {
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("empId", userObj.getEmpId());
+					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getDailyDailyRecordForFinalOtApproval", map, GetDailyDailyRecord[].class);
+					dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
+					model.addAttribute("dailyrecordList", dailyrecordList);
+					model.addAttribute("date", date);
+				}
 			}
-
 		} catch (Exception e) {
 
 			e.printStackTrace();

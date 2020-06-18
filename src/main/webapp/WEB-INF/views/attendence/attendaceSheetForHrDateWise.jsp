@@ -53,13 +53,12 @@
 
 							<div class="card-header header-elements-inline">
 								<h5 class="pageTitle">
-									<i class="icon-list-unordered"></i> Employee Attendance Details
-									for ${year}-${month}
+									<i class="icon-list-unordered"></i>Employee Attendance Details
+									for HR
 								</h5>
 							</div>
 
 							<div class="card-body">
-
 								<%
 									if (session.getAttribute("errorMsg") != null) {
 								%>
@@ -95,57 +94,36 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
-								<div class="form-group row">
-									<label class="col-form-label col-lg-2"> Employee Code :
-									</label> <label class="col-form-label col-lg-2">
-										${summaryAttendance.empCode}</label> <label
-										class="col-form-label col-lg-2"> Employee Name : </label> <label
-										class="col-form-label col-lg-2">${summaryAttendance.empName}</label>
-								</div>
-
-								<div class="form-group row">
-									<label class="col-form-label col-lg-1"> Total Days : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.totalDaysInmonth}</label>
-									<label class="col-form-label col-lg-1"> Working Days :
-									</label> <label class="col-form-label col-lg-1">${summaryAttendance.workingDays}</label>
-									<label class="col-form-label col-lg-1"> Present : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.presentDays}</label>
-									<label class="col-form-label col-lg-1"> Weekly Off : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.weeklyOff}</label>
-									<label class="col-form-label col-lg-1"> Holiday : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.paidHoliday}</label>
-								</div>
-
-								<div class="form-group row">
-									<label class="col-form-label col-lg-1"> Paid Leave : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.paidLeave}</label>
-									<%-- <label class="col-form-label col-lg-1"> Unpaid Leave :
-									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label> --%>
-									<label class="col-form-label col-lg-1"> Absent Days : </label>
-									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays+summaryAttendance.unpaidLeave}</label>
-									<label class="col-form-label col-lg-1"> Payable Days :
-									</label> <label class="col-form-label col-lg-1">${summaryAttendance.payableDays}</label>
-									<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
-										<label class="col-form-label col-lg-1"> Production
-											Incentive Hrs: </label>
-										<label class="col-form-label col-lg-1">${summaryAttendance.totOthr}</label>
-									</c:if>
-
-									<%-- <label class="col-form-label col-lg-1"> NCP Days : </label> <label
-										class="col-form-label col-lg-1">${summaryAttendance.ncpDays}</label> --%>
-								</div>
-								<div class="form-group row">
-
-									<label class="col-form-label col-lg-1"> Total Late Mark
-										: </label> <label class="col-form-label col-lg-1">${summaryAttendance.totLate}</label>
+								<form
+									action="${pageContext.request.contextPath}/attendaceSheetForHrDateWise"
+									id="submitInsertLeave" method="get">
+									<div class="form-group row">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="date">Select Date <span style="color: red">*
+										</span> :
+										</label>
+										<div class="col-md-2">
+											<input type="text" class="form-control datepickerclass"
+												placeholder="Select Date " id="datepicker1" name="date"
+												value="${date}" autocomplete="off">
+										</div>
 
 
 
-									<label class="col-form-label col-lg-1"> Total Late Mark
-										Deduction : </label> <label class="col-form-label col-lg-1">${summaryAttendance.totlateDays}</label>
+										<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											id="submtbtn">
+											Search <i class="icon-paperplane ml-2"></i>
+										</button>
 
-								</div>
+										<!-- <button type="button" class="btn bg-blue ml-3 legitRipple"
+									id="submtbtn"
+									onclick="getProgReport(0,'exelForEmployeeTypeWiseClaim')">
+									Excel <i class="icon-paperplane ml-2"></i>
+								</button> -->
 
+									</div>
+								</form>
 
 							</div>
 							<hr>
@@ -331,7 +309,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${dailyrecordList}" var="dailyrecordList">
+											<c:forEach items="${dailyDailyList}" var="dailyrecordList">
 												<tr>
 													<td class="text-center">${dailyrecordList.attDate}</td>
 													<td class="text-center">${dailyrecordList.attsSdShow}</td>

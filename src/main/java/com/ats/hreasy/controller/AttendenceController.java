@@ -1222,4 +1222,62 @@ public class AttendenceController {
 
 	}
 
+	@RequestMapping(value = "/attendaceSheetForHrDateWise", method = RequestMethod.GET)
+	public String attendaceSheetForHrDateWise(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = null;
+
+		HttpSession session = request.getSession();
+
+		/*
+		 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
+		 * session.getAttribute("moduleJsonList"); Info view =
+		 * AcessController.checkAccess("attendaceSheetForHrDateWise",
+		 * "attendaceSheetForHrDateWise", 1, 0, 0, 0, newModuleList);
+		 * 
+		 * if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+
+		mav = "attendence/attendaceSheetForHrDateWise";
+
+		try {
+
+			/*
+			 * Info edit = AcessController.checkAccess("attendaceSheetByHod",
+			 * "attendaceSheetByHod", 0, 0, 1, 0, newModuleList);
+			 * 
+			 * if (edit.isError() == false) { model.addAttribute("editAccess", 0); }
+			 */
+			model.addAttribute("editAccess", 0);
+			date = request.getParameter("date");
+
+			if (date != null) {
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("date", DateConvertor.convertToYMD(date));
+				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
+				List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
+						Arrays.asList(getDailyDailyRecord));
+				model.addAttribute("dailyrecordList", dailyrecordList);
+				model.addAttribute("date", date);
+				LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeList",
+						LvType[].class);
+				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
+				model.addAttribute("lvTypeList", lvTypeList);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
+
 }
