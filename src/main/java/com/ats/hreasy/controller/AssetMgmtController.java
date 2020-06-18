@@ -1847,9 +1847,9 @@ public class AssetMgmtController {
 
 		HttpSession session = request.getSession();
 		ModelAndView model = null;
-		
+		MultiValueMap<String, Object> map = null;
 		try {
-			
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 			Info view = AcessController.checkAccess("addAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
 
@@ -1859,6 +1859,18 @@ public class AssetMgmtController {
 
 			} else {
 				model = new ModelAndView("asset/addScrapAsset");
+				
+				String base64encodedString = request.getParameter("assetId");
+				int assetId = Integer.parseInt(FormValidation.DecodeKey(base64encodedString));
+				
+				map = new LinkedMultiValueMap<>();				
+				map.add("assetId",assetId);
+				
+				AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+				AssetsDetailsList.class);	
+				
+				model.addObject("asset",  assetInfo);	
+				
 				model.addObject("title",  "Scrap Asset");				
 				
 			}
@@ -1867,6 +1879,65 @@ public class AssetMgmtController {
 		}
 		return model;
 	}
+	
+	
+	@RequestMapping(value = "/submitScrapAsset", method = RequestMethod.POST)
+	public String submitScrapAsset(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		
+		Info view = AcessController.checkAccess("submitScrapAsset", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		
+		String a = new String();
+		
+		MultiValueMap<String, Object> map  = null;		
+		
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showAllAssets";
+			
+			try {
+						
+					Date date = new Date();
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					
+					map = new LinkedMultiValueMap<>();
+					
+					map.add("assetId",Integer.parseInt(request.getParameter("scrapAssetId")));
+					map.add("scrapDate",DateConvertor.convertToYMD(request.getParameter("scrapDate")));
+					map.add("remark",request.getParameter("remark"));
+					map.add("scrapAuthority",request.getParameter("scrapAuthority"));
+					map.add("scrapUserLogInId",userObj.getEmpId());
+					map.add("scrapDateTime",sf.format(date));
+					map.add("status",9);
+					
+		
+					Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updtAssetToScrap", map,
+							Info.class);
+		
+					if (info.isError() == false) {
+						session.setAttribute("successMsg", info.getMsg());
+					} else {
+						session.setAttribute("errorMsg", info.getMsg());
+					}	
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Update Asset Status");
+			}
+		}
+
+		return a;
+	}
+	
 	
 	/***********************************************************************/
 	
@@ -1986,6 +2057,7 @@ public class AssetMgmtController {
 			AMCInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAMCInfoByAssetId", map,
 					AMCInfo[].class);
 			list = new ArrayList<AMCInfo>(Arrays.asList(amcArr));
+			System.out.println("AMC Data---"+list);
 		}catch (Exception e) {
 			System.err.println("Exception in getAssets : "+e.getMessage());
 			e.printStackTrace();

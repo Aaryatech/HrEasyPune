@@ -109,9 +109,7 @@
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetName}">													
 												</div>
 											</div>
 											
@@ -120,9 +118,7 @@
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.vendor}">
 											</div>
 										</div>											
 									</div>	
@@ -133,9 +129,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.catName}">
 												</div>
 											</div>
 											
@@ -144,9 +138,7 @@
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetPurDate}">
 												</div>
 											</div>						
 									</div>	
@@ -156,9 +148,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Dell Inspiron">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetModel}">
 												</div>
 											</div>
 											
@@ -167,9 +157,7 @@
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="D32A145">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.assetSrno}">
 											</div>
 										</div>											
 									</div>	
@@ -196,14 +184,14 @@
 									
 									<div class="form-group row">									
 										<div class="col-md-6">
-											<input type="hidden" class="form-control" id="scrapAssetId"
-											name="scrapAssetId">
+											<input type="text" class="form-control" id="scrapAssetId"
+											name="scrapAssetId" value="${asset.assetId}">
 										</div>
 									</div>				
 									<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="scrapDate">Scrap Date 
-													Category <span class="text-danger">* </span>:</label>
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="scrapDate">Scrap  
+													Date <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control datepickerclass"
 														placeholder="Enter Asset Scrap Date" id="scrapDate"
@@ -247,7 +235,7 @@
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/showAssetCategory"><button id="cnslbtn"
+											<a href="${pageContext.request.contextPath}/showAllAssets"><button id="cnslbtn"
 										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Back</button></a>
 										</div>
 									</div>

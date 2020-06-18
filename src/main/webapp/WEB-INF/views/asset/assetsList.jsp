@@ -176,7 +176,7 @@
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Add Asset AMC"><i
 												class="icon-enlarge5"></i></a> <a
-											href="${pageContext.request.contextPath}/scrapAsset"
+											href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Scrap Asset"><i
 												class="fa fa-recycle"></i></a></td>
