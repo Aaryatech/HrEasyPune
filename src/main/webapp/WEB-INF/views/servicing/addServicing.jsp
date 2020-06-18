@@ -106,15 +106,13 @@
 									}
 								%>
 
-								<div class="form-group row">									
+									<div class="form-group row">									
 										<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetName}">													
 												</div>
 											</div>
 											
@@ -123,9 +121,7 @@
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.vendor}">
 											</div>
 										</div>											
 									</div>	
@@ -136,9 +132,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.catName}">
 												</div>
 											</div>
 											
@@ -147,9 +141,7 @@
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetPurDate}">
 												</div>
 											</div>						
 									</div>	
@@ -159,9 +151,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Dell Inspiron">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetModel}">
 												</div>
 											</div>
 											
@@ -170,9 +160,7 @@
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="D32A145">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.assetSrno}">
 											</div>
 										</div>											
 									</div>	
@@ -193,14 +181,22 @@
 						</table>
 					</div>
 								<form
-									action="${pageContext.request.contextPath}/submitSaveAssServicing"
-									id="submitInsertAssetAmc" method="post">
+									action="${pageContext.request.contextPath}/submitSaveAssetServicing"
+									id="submitSaveAssetServicing" method="post" enctype="multipart/form-data">
 									
-									<div class="form-group row">									
+									<div class="form-group row">
+									
 										<div class="col-md-6">	
 												<div class="col-lg-7  float">
-													<input type="hidden" class="form-control" id="vendorId"
-														name="vendorId">													
+													<input type="hidden" class="form-control" id="serviceId"
+														name="serviceId" value="0">													
+												</div>
+											</div>
+																		
+										<div class="col-md-6">	
+												<div class="col-lg-7  float">
+													<input type="text" class="form-control" id="assetId"
+														name="assetId" value="${asset.assetId}">													
 												</div>
 											</div>
 										</div>
@@ -211,8 +207,8 @@
 												Name <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
 												
-												<select name="assetVendorId" data-placeholder="Select Service Vendor"
-														id="assetVendorId"
+												<select name="serviceVendorId" data-placeholder="Select Service Vendor"
+														id="serviceVendorId"
 														class="form-control form-control-select2 select2-hidden-accessible">
 
 														<option value="">Select Service Vendor</option>
@@ -229,7 +225,7 @@
 															</c:choose> --%>
 														</c:forEach>
 													</select>
-												<span class="validation-invalid-label" id="error_assetVendorId"
+												<span class="validation-invalid-label" id="error_serviceVendorId"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -243,11 +239,10 @@
 														class="form-control form-control-select2 select2-hidden-accessible">
 
 														<option value="0">Regular</option>
-														<option value="1">Breakdown</option>
-														
+														<option value="1">Breakdown</option>														
 														
 														</select>
-												<span class="validation-invalid-label" id="error_amcamt"
+												<span class="validation-invalid-label" id="error_serv_type"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>				
@@ -263,7 +258,7 @@
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter Servicing Date" id="serv_date"
 													name="serv_date" autocomplete="off">
-												<span class="validation-invalid-label" id="error_amcperiodfrom"
+												<span class="validation-invalid-label" id="error_serv_date"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>		
@@ -275,7 +270,7 @@
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Service Description" id="serv_desc"
 													name="serv_desc"></textarea>
-												<span class="validation-invalid-label" id="error_amcperiod"
+												<span class="validation-invalid-label" id="error_serv_desc"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>		
@@ -288,14 +283,14 @@
 												<input type="text" class="form-control"
 													placeholder="Enter Service Bill Amount" maxlength="8" id="serv_bill_amt"
 													name="serv_bill_amt">
-												<span class="validation-invalid-label" id="error_positiveremark"
+												<span class="validation-invalid-label" id="error_serv_bill_amt"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
 										
 										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5  float" for="serv_remark">Service
-												Remark <span class="text-danger"></span><span class="text-danger">*</span>:</label>
+												<label class="col-form-label col-lg-5  float" for="serv_remark">Service
+												Remark <span class="text-danger"></span><span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Enter Remark" id="serv_remark"
@@ -312,7 +307,7 @@
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="serv_bill_doc" id="serv_bill_doc" onchange="loadFile(event)"> 
+												<input type="file" accept="image/*" name="doc" id="serv_bill_doc" onchange="loadFile(event)"> 
 												<span class="validation-invalid-label" id="error_amcdoc"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -327,7 +322,7 @@
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/showAllAssets"><button id="cnclbtn"
+											<a href="${pageContext.request.contextPath}/showAssetForServicing"><button id="cnclbtn"
 										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Back</button></a>
 										</div>
 									</div>
@@ -366,54 +361,65 @@ $(document)
 	.ready(
 			function($) {
 
-				$("#submitInsertAssetAmc")
+				$("#submitSaveAssetServicing")
 						.submit(
 								function(e) {
 									var isError = false;
 									var errMsg = "";
 									
 									
-									if (!$("#amcperiodfrom").val()) {
+									if (!$("#serv_type").val()) {
 
 										isError = true;
 
-										$("#error_amcperiodfrom").show()
+										$("#error_serv_type").show()
 
 									} else {
-										$("#error_amcperiodfrom").hide()
+										$("#error_serv_type").hide()
 									}
 									
-									if (!$("#amcperiodto").val()) {
+									if (!$("#serv_date").val()) {
 
 										isError = true;
 
-										$("#error_amcperiodto").show()
+										$("#error_serv_date").show()
 
 									} else {
-										$("#error_amcperiodto").hide()
+										$("#error_serv_date").hide()
 									}
 
-									if (!$("#amcamt").val()) {
+									if (!$("#serv_desc").val()) {
 
 										isError = true;
 
-										$("#error_amcamt").show()
+										$("#error_serv_desc").show()
 
 									} else {
-										$("#error_amcamt").hide()
+										$("#error_serv_desc").hide()
 									}
 																		
-									if (!$("#assetVendorId").val()) {
+									if (!$("#serviceVendorId").val()) {
 
 										isError = true;
 
-										$("#error_assetVendorId").show()
+										$("#error_serviceVendorId").show()
 
 									} else {
-										$("#error_assetVendorId").hide()
+										$("#error_serviceVendorId").hide()
 									}
 									
-									var from_date = document.getElementById("amcperiodfrom").value;
+									if (!$("#serv_bill_amt").val()) {
+
+										isError = true;
+
+										$("#error_serv_bill_amt").show()
+
+									} else {
+										$("#error_serv_bill_amt").hide()
+									}
+									
+									
+									/* var from_date = document.getElementById("amcperiodfrom").value;
 				      				var to_date = document.getElementById("amcperiodto").value;
 				      				
 				      				var fromdate = from_date.split('-');
@@ -434,7 +440,7 @@ $(document)
 			         					$("#error_fromDate").hide();
 			         					$("#error_toDate").hide();
 			         				}
-			         		        
+			         		         */
 									if (!isError) {
 
 										var x = true;

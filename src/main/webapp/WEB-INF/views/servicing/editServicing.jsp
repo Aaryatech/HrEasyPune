@@ -112,9 +112,7 @@
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetName}">													
 												</div>
 											</div>
 											
@@ -123,9 +121,7 @@
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.vendor}">
 											</div>
 										</div>											
 									</div>	
@@ -136,9 +132,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.catName}">
 												</div>
 											</div>
 											
@@ -147,9 +141,7 @@
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetPurDate}">
 												</div>
 											</div>						
 									</div>	
@@ -159,9 +151,7 @@
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="Dell Inspiron">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													value="${asset.assetModel}">
 												</div>
 											</div>
 											
@@ -170,12 +160,10 @@
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"  readonly="readonly" 
-												value="D32A145">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												value="${asset.assetSrno}">
 											</div>
 										</div>											
-									</div>	
+									</div>
 									<hr>
 									<!-- ************************************************************ -->
 									<div class="card-header header-elements-inline">
@@ -193,14 +181,21 @@
 						</table>
 					</div>
 								<form
-									action="${pageContext.request.contextPath}/submitSaveAssServicing"
-									id="submitInsertAssetAmc" method="post">
+									action="${pageContext.request.contextPath}/submitSaveAssetServicing"
+									id="submitSaveAssetServicing" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group row">									
 										<div class="col-md-6">	
 												<div class="col-lg-7  float">
-													<input type="hidden" class="form-control" id="vendorId"
-														name="vendorId">													
+													<input type="hidden" class="form-control" id="serviceId"
+														name="serviceId" value="${service.tServicingId}">													
+												</div>
+											</div>
+											
+											<div class="col-md-6">	
+												<div class="col-lg-7  float">
+													<input type="hidden" class="form-control" id="assetId"
+														name="assetId" value="${service.assetId}">													
 												</div>
 											</div>
 										</div>
@@ -211,25 +206,24 @@
 												Name <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
 												
-												<select name="assetVendorId" data-placeholder="Select Service Vendor"
-														id="assetVendorId"
+												<select name="serviceVendorId" data-placeholder="Select Service Vendor"
+														id="serviceVendorId"
 														class="form-control form-control-select2 select2-hidden-accessible">
 
 														<option value="">Select Service Vendor</option>
-														<c:forEach items="${assetVendorList}" var="assetVendorList">
-														<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-															<%-- <c:choose>
-																<c:when test="${assetVendorList.vendorId==asset.vendorId}">
+														<c:forEach items="${assetVendorList}" var="assetVendorList">														
+															<c:choose>
+																<c:when test="${assetVendorList.vendorId==service.vendorId}">
 																	<option selected="selected"
 																		value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
 																</c:when>
 																<c:otherwise>
 																	<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
 																</c:otherwise>
-															</c:choose> --%>
+															</c:choose> 
 														</c:forEach>
 													</select>
-												<span class="validation-invalid-label" id="error_assetVendorId"
+												<span class="validation-invalid-label" id="error_serviceVendorId"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -242,12 +236,12 @@
 														id="serv_type"
 														class="form-control form-control-select2 select2-hidden-accessible">
 
-														<option value="0">Regular</option>
-														<option value="1">Breakdown</option>
+														<option value="0" ${service.serviceType==0 ? 'Selected' : '' }>Regular</option>
+														<option value="1" ${service.serviceType==1 ? 'Selected' : '' }>Breakdown</option>
 														
 														
 														</select>
-												<span class="validation-invalid-label" id="error_amcamt"
+												<span class="validation-invalid-label" id="error_serv_type"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>				
@@ -262,8 +256,8 @@
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter Servicing Date" id="serv_date"
-													name="serv_date" autocomplete="off">
-												<span class="validation-invalid-label" id="error_amcperiodfrom"
+													name="serv_date" autocomplete="off" value="${service.serviceDate}">
+												<span class="validation-invalid-label" id="error_error_serv_date"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>		
@@ -274,8 +268,8 @@
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Service Description" id="serv_desc"
-													name="serv_desc"></textarea>
-												<span class="validation-invalid-label" id="error_amcperiod"
+													name="serv_desc">${service.serviceDesc}</textarea>
+												<span class="validation-invalid-label" id="error_serv_desc"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>		
@@ -287,8 +281,8 @@
 												<div class="col-lg-7 float">
 												<input type="text" class="form-control"
 													placeholder="Enter Service Bill Amount" id="serv_bill_amt"
-													name="serv_bill_amt" maxlength="8">
-												<span class="validation-invalid-label" id="error_positiveremark"
+													name="serv_bill_amt" maxlength="8" value="${service.billAmt}">
+												<span class="validation-invalid-label" id="error_serv_bill_amt"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -299,8 +293,8 @@
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
 													placeholder="Enter Remark" id="serv_remark"
-													name="serv_remark"></textarea>
-												<span class="validation-invalid-label" id="error_negtiveremark"
+													name="serv_remark">${service.serviceRemark}</textarea>
+												<span class="validation-invalid-label" id="error_serv_remark"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -312,8 +306,9 @@
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="serv_bill_doc" id="serv_bill_doc" onchange="loadFile(event)"> 
-												<span class="validation-invalid-label" id="error_amcdoc"
+												<input type="file" accept="image/*" name="doc" id="serv_bill_doc" 
+												onchange="loadFile(event)" value="${service.billDocFile}"> 
+												<span class="validation-invalid-label" id="error_serv_bill_doc"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -327,7 +322,7 @@
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/showAllAssets"><button id="cnclbtn"
+											<a href="${pageContext.request.contextPath}/showAssetForServicing"><button id="cnclbtn"
 										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Back</button></a>
 										</div>
 									</div>
@@ -364,93 +359,104 @@ $('#serv_bill_amt').on('input', function() {
 	});
 
 $(document)
-	.ready(
-			function($) {
+.ready(
+		function($) {
 
-				$("#submitInsertAssetAmc")
-						.submit(
-								function(e) {
-									var isError = false;
-									var errMsg = "";
-									
-									
-									if (!$("#amcperiodfrom").val()) {
+			$("#submitSaveAssetServicing")
+					.submit(
+							function(e) {
+								var isError = false;
+								var errMsg = "";
+								
+								
+								if (!$("#serv_type").val()) {
 
-										isError = true;
+									isError = true;
 
-										$("#error_amcperiodfrom").show()
+									$("#error_serv_type").show()
 
-									} else {
-										$("#error_amcperiodfrom").hide()
-									}
-									
-									if (!$("#amcperiodto").val()) {
+								} else {
+									$("#error_serv_type").hide()
+								}
+								
+								if (!$("#serv_date").val()) {
 
-										isError = true;
+									isError = true;
 
-										$("#error_amcperiodto").show()
+									$("#error_serv_date").show()
 
-									} else {
-										$("#error_amcperiodto").hide()
-									}
+								} else {
+									$("#error_serv_date").hide()
+								}
 
-									if (!$("#amcamt").val()) {
+								if (!$("#serv_desc").val()) {
 
-										isError = true;
+									isError = true;
 
-										$("#error_amcamt").show()
+									$("#error_serv_desc").show()
 
-									} else {
-										$("#error_amcamt").hide()
-									}
-																		
-									if (!$("#assetVendorId").val()) {
+								} else {
+									$("#error_serv_desc").hide()
+								}
+																	
+								if (!$("#serviceVendorId").val()) {
 
-										isError = true;
+									isError = true;
 
-										$("#error_assetVendorId").show()
+									$("#error_serviceVendorId").show()
 
-									} else {
-										$("#error_assetVendorId").hide()
-									}
-									
-									var from_date = document.getElementById("amcperiodfrom").value;
-				      				var to_date = document.getElementById("amcperiodto").value;
-				      				
-				      				var fromdate = from_date.split('-');
-			         		        from_date = new Date();
-			         		        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
-			         		        var todate = to_date.split('-');
-			         		        to_date = new Date();
-			         		        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
-			         		        if (from_date > to_date ) 
-			         		        {
-			         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
-										$("#error_fromDate").show();
-			    					 	$("#error_toDate").show();
-			    					 	
-			         		            return false;
-			         		           
-			         		        }else {
-			         					$("#error_fromDate").hide();
-			         					$("#error_toDate").hide();
-			         				}
-			         		        
-									if (!isError) {
+								} else {
+									$("#error_serviceVendorId").hide()
+								}
+								
+								if (!$("#serv_bill_amt").val()) {
 
-										var x = true;
-										if (x == true) {
+									isError = true;
 
-											document.getElementById("submtbtn").disabled = true;
-											document.getElementById("cnclbtn").disabled = true;
-											
-											return true;
-										}
+									$("#error_serv_bill_amt").show()
+
+								} else {
+									$("#error_serv_bill_amt").hide()
+								}
+								
+								
+								/* var from_date = document.getElementById("amcperiodfrom").value;
+			      				var to_date = document.getElementById("amcperiodto").value;
+			      				
+			      				var fromdate = from_date.split('-');
+		         		        from_date = new Date();
+		         		        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+		         		        var todate = to_date.split('-');
+		         		        to_date = new Date();
+		         		        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+		         		        if (from_date > to_date ) 
+		         		        {
+		         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+									$("#error_fromDate").show();
+		    					 	$("#error_toDate").show();
+		    					 	
+		         		            return false;
+		         		           
+		         		        }else {
+		         					$("#error_fromDate").hide();
+		         					$("#error_toDate").hide();
+		         				}
+		         		         */
+								if (!isError) {
+
+									var x = true;
+									if (x == true) {
+
+										document.getElementById("submtbtn").disabled = true;
+										document.getElementById("cnclbtn").disabled = true;
 										
+										return true;
 									}
-									return false;
-								});
-			});	
+									
+								}
+								return false;
+							});
+		});	
 </script>
 <script type="text/javascript">
 var loadFile = function(event) {

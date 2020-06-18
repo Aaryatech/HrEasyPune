@@ -168,14 +168,15 @@
 
 
 												<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
+													class="list-icons-item text-danger-600 bootbox_custom bootbox_custom2"
 													data-uuid="${assetList.exVar1}" data-popup="tooltip"
 													title="" data-original-title="Delete"><i
 													class="icon-trash"></i></a>
 											</c:if> <a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Add Asset AMC"><i
-												class="icon-enlarge5"></i></a> <a
+												class="icon-enlarge5"></i></a>
+												 <a
 											href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Scrap Asset"><i
@@ -218,7 +219,7 @@
 																			data-original-title="Renew"><i
 																				class="icon-history"></i></a> <a
 																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
+																			class="list-icons-item text-danger-600 bootbox_custom bootbox_custom2"
 																			data-uuid="" data-popup="tooltip" title=""
 																			data-original-title="Terminate"><i
 																				class="fa fa-ban"></i></a></td>
@@ -288,7 +289,7 @@ function getAssetInfo(assetId,countIndex){
 															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/lostAssetAmc?encodeAssetId='
 															+ v.exVar2
 															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="fa fa-question-circle"></i></a>'
-															+'&nbsp; &nbsp; <a href="javascript:void(0)" class="list-icons-item text-danger-600 bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+															+'&nbsp; &nbsp; <a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
 															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
 												dataTable.row
 															.add(
@@ -310,6 +311,31 @@ function getAssetInfo(assetId,countIndex){
 	<script>
 		// Custom bootbox dialog
 		// Terminate Asset
+		function bootbox_ban(uuid){
+			 
+			//alert(uuid);
+			bootbox.confirm({
+				title : 'Confirm ',
+				message : 'Are you sure you want to terminate this Asset AMC ?',
+				buttons : {
+					confirm : {
+						label : 'Yes',
+						className : 'btn-success'
+					},
+					cancel : {
+						label : 'Cancel',
+						className : 'btn-link'
+					}
+				},
+				callback : function(result) {
+					if (result) {
+						location.href = "${pageContext.request.contextPath}/terminateAsset?assetAMCId="
+								+uuid;
+
+					}
+				}
+			});
+		}
 		$('.bootbox_custom1')
 				.on(
 						'click',
@@ -339,7 +365,7 @@ function getAssetInfo(assetId,countIndex){
 						});
 		
 		// Delete Asset
-		$('.bootbox_custom')
+		$('.bootbox_custom2')
 				.on(
 						'click',
 						function() {

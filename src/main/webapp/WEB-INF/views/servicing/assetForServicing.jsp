@@ -91,6 +91,7 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
+						<form action="showAssetForServicing" id="showAssetForServicing" method="get">
 						<div class="form-group row">									
 											<div class="col-md-6">
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
@@ -120,7 +121,11 @@
 																										
 												</div>
 											</div>		
-									</div>
+									<button type="submit" class="btn blue_btn" id="submtbtn">
+									Search <i class="icon-paperplane ml-2"></i>
+								</button>
+							</div>
+							</form>
 						<table
 							class="table ">
 							<thead>
@@ -160,7 +165,7 @@
 										<td>${assetList.vendor}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 											</c:if> 
-											<a href="${pageContext.request.contextPath}/addAssetServicing"
+											<a href="${pageContext.request.contextPath}/addAssetServicing?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 													title="" data-original-title="Add Asset Servicing"><i
 													class="icon-enlarge5"></i></a>
@@ -187,7 +192,7 @@
 															<td>Regular</td>
 <td>01-03-2021</td>															<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
-													href="${pageContext.request.contextPath}/editAssetServicing?servicingId=${10}"
+													href="${pageContext.request.contextPath}/editAssetServicing?servicingId=${1}"
 													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
 													 ></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
@@ -218,7 +223,7 @@
 												 
 											<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${44}" data-popup="tooltip"
+													data-uuid="${1}" data-popup="tooltip"
 													title="" data-original-title="Delete"><i
 													class="icon-trash"></i></a>
 											</c:if></td>					
@@ -275,7 +280,7 @@
 										},
 										callback : function(result) {
 											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteAsset?assetId="
+												location.href = "${pageContext.request.contextPath}/deleteAssetService?serviceId="
 														+ uuid;
 
 											}
