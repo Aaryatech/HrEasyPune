@@ -1866,12 +1866,7 @@ public class AssetMgmtController {
 			} else {
 				model = new ModelAndView("asset/assetLost");
 				
-				String base64encodedString = request.getParameter("assetAMCId");
-				String assetAMCId = FormValidation.DecodeKey(base64encodedString);
-				
-				model.addObject("assetAMCId",  assetAMCId);
-				
-				String encodeAssetId = request.getParameter("encodeAssetId");
+				String encodeAssetId = request.getParameter("assetId");
 				String assetId = FormValidation.DecodeKey(encodeAssetId);
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -1918,7 +1913,7 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				
-//				String encodeAssetId = request.getParameter("encodeAssetId");
+//				String encodeAssetId = request.getParameter("assetId");
 //				int assetId = Integer.parseInt(FormValidation.DecodeKey(encodeAssetId));	
 				int assetId = Integer.parseInt(request.getParameter("assetId"));	
 				
@@ -1953,7 +1948,7 @@ public class AssetMgmtController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMsg", "Failed to Terminate Asset");
+			session.setAttribute("errorMsg", "Failed to Updated Asset Lost");
 		}
 		return a;
 	}

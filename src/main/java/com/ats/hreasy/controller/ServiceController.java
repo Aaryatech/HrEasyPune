@@ -72,7 +72,7 @@ public class ServiceController {
 				model.addObject("locationList", locationList);
 				int locId = 0;
 				try {
-					locId = Integer.parseInt(request.getParameter("locId"));
+					locId = Integer.parseInt(request.getParameter("locId_list"));
 				}catch (Exception e) {
 					 locId = 0;
 					 System.out.println(e.getMessage());

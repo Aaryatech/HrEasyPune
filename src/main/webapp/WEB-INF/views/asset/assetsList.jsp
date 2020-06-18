@@ -171,16 +171,21 @@
 													class="list-icons-item text-danger-600 bootbox_custom bootbox_custom2"
 													data-uuid="${assetList.exVar1}" data-popup="tooltip"
 													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if> <a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="" data-original-title="Add Asset AMC"><i
-												class="icon-enlarge5"></i></a>
-												 <a
-											href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="" data-original-title="Scrap Asset"><i
-												class="fa fa-recycle"></i></a></td>
+													class="icon-trash"></i></a> </c:if> 
+												
+												<a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip"
+													title="" data-original-title="Add Asset AMC"><i
+													class="icon-enlarge5"></i></a>
+												
+												<a href="${pageContext.request.contextPath}/lostAssetAmc?assetId=${assetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip" 
+													title="" data-original-title="Lost"><i class="fa fa-question-circle"></i></a>
+												
+												 <a href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
+													class="list-icons-item text-primary-600" data-popup="tooltip"
+													title="" data-original-title="Scrap Asset"><i
+													class="fa fa-recycle"></i></a></td>
 									</tr>
 
 
@@ -286,10 +291,7 @@ function getAssetInfo(assetId,countIndex){
 															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId='
 															+ v.exVar1
 															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="icon-history"></i></a>'
-															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/lostAssetAmc?encodeAssetId='
-															+ v.exVar2
-															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="fa fa-question-circle"></i></a>'
-															+'&nbsp; &nbsp; <a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+															+'&nbsp; &nbsp;<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
 															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
 												dataTable.row
 															.add(
