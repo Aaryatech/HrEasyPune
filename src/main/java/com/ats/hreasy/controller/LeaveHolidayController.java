@@ -500,7 +500,25 @@ public class LeaveHolidayController {
 					model.addObject("deleteAccess", 0);
 
 				}
-				// System.out.println("HolidayList" + holList.toString());
+
+				SimpleDateFormat month_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+				for (int i = 0; i < holList.size(); i++) {
+					for (int k = 0; k < holList.get(i).getHolidaylist().size(); k++) {
+						try {
+							System.out
+									.println("HolidayList" + holList.get(i).getHolidaylist().get(k).getHolidayFromdt());
+							String actualDate = holList.get(i).getHolidaylist().get(k).getHolidayFromdt();
+							Date date = sdf.parse(actualDate);
+							String month_name = month_date.format(date);
+							holList.get(i).getHolidaylist().get(k).setHolidayFromdt(month_name);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
