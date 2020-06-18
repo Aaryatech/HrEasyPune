@@ -615,7 +615,10 @@ public class EmployeeController {
 						EmpSalaryInfo empSal = new EmpSalaryInfo();
 						empSal.setDelStatus(1);
 						empSal.setEmpId(empSave.getEmpId());
-
+						empSal.setMonthlyHrTarget("0");
+						empSal.setMonthlyMinimumTarget("0");
+						empSal.setMonthlyOtHr("0");
+						empSal.setDailyHr("0");
 						EmpSalaryInfo empIdSal = Constants.getRestTemplate()
 								.postForObject(Constants.url + "/saveEmployeeIdSalary", empSal, EmpSalaryInfo.class);
 
