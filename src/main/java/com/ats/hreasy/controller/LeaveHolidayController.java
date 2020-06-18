@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -150,7 +151,10 @@ public class LeaveHolidayController {
 
 						for (int i = 0; i < holiList.size(); i++) {
 
-							holiList.get(i).setHolidayDate(holiList.get(i).getHolidayDate() + "-" + datearr[2]);
+							if (holiList.get(i).getHolidayDate() != null) {
+								holiList.get(i).setHolidayDate(holiList.get(i).getHolidayDate() + "-" + datearr[2]);
+							}
+
 						}
 
 						model.addObject("holiList", holiList);
@@ -704,22 +708,24 @@ public class LeaveHolidayController {
 					holiday.setDelStatus(1);
 					holiday.setHolidayName(holidayTitle);
 					holiday.setHolidayDate(dateRange);
-MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-					
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
 					map = new LinkedMultiValueMap<>();
-					
+
 					map.add("holidayId", holiday.getHolidayId());
 					map.add("holidaytDate", DateConvertor.convertToYMD(holiday.getHolidayDate()));
-					
-					HolidayMaster res = null;
-					
-					Integer holDayCount = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getHolidayCountsByDate", map, Integer.class);
-					if (holDayCount < 1) {
 
-					 res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
-							holiday, HolidayMaster.class);
-					}
+					HolidayMaster res = null;
+
+					/*
+					 * Integer holDayCount = Constants.getRestTemplate()
+					 * .postForObject(Constants.url + "/getHolidayCountsByDate", map,
+					 * Integer.class); if (holDayCount < 1) {
+					 */
+
+					res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster", holiday,
+							HolidayMaster.class);
+					// }
 					if (res != null) {
 						session.setAttribute("successMsg", "Holiday Inserted Successfully");
 					} else {
@@ -783,6 +789,24 @@ MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				if (delete.isError() == false) {
 					System.out.println(" delete   Accessable ");
 					model.addObject("deleteAccess", 0);
+
+				}
+
+				SimpleDateFormat month_date = new SimpleDateFormat("dd-MMM", Locale.ENGLISH);
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
+
+				for (int i = 0; i < holList.size(); i++) {
+
+					try {
+
+						String actualDate = holList.get(i).getHolidayDate();
+						Date date = sdf.parse(actualDate);
+						String month_name = month_date.format(date);
+						holList.get(i).setHolidayDate(month_name);
+
+					} catch (Exception e) {
+
+					}
 
 				}
 				// System.out.println("HolidayList" + holList.toString());
@@ -918,14 +942,16 @@ MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map.add("holidayId", editHolidayMaster.getHolidayId());
 					map.add("holidaytDate", DateConvertor.convertToYMD(editHolidayMaster.getHolidayDate()));
 					HolidayMaster res = null;
-					
-					Integer holDayCount = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getHolidayCountsByDate", map, Integer.class);
-					if (holDayCount < 1) {
-					 res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
+
+					/*
+					 * Integer holDayCount = Constants.getRestTemplate()
+					 * .postForObject(Constants.url + "/getHolidayCountsByDate", map,
+					 * Integer.class); if (holDayCount < 1) {
+					 */
+					res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayMaster",
 							editHolidayMaster, HolidayMaster.class);
 
-					}
+					// }
 					if (res != null) {
 						session.setAttribute("successMsg", "Holiday Updated Successfully");
 					} else {

@@ -71,7 +71,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Holiday</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Edit Holiday
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 											href="${pageContext.request.contextPath}/showHolidayList"
@@ -127,25 +129,25 @@
 
 
 									<div class="form-group row">
-									<div class="col-md-6">			
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="locShortName">Holiday Title <span
-											class="text-danger">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Enter Holiday Title" id="holidayTitle"
-												value="${editHoliday.holidayName}" name="holidayTitle"
-												autocomplete="off" onchange="trim(this)" maxlength="100">
-											<span class="validation-invalid-label"
-												id="error_holidayTitle" style="display: none;">This
-												field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="locShortName">Holiday Title <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Holiday Title" id="holidayTitle"
+													value="${editHoliday.holidayName}" name="holidayTitle"
+													autocomplete="off" onchange="trim(this)" maxlength="100">
+												<span class="validation-invalid-label"
+													id="error_holidayTitle" style="display: none;">This
+													field is required.</span>
+											</div>
 										</div>
-										</div>
-										</div>
-										<div class="form-group row">
-										<div class="col-md-6">	
+									</div>
+									<div class="form-group row">
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float">Date
 												Range: <span class="text-danger"></span>
@@ -153,17 +155,19 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
 													name="dateRange" value="${editHoliday.holidayDate}"
-													data-placeholder="Select Date" id="dateRange"> 
-	
-											</div>		
-																						<span class="desc text-success fontsize11">Please enter date if holiday is appearing at this specific date every year e.g Independance Day - 15 Aug else keep blank.</span>
-											
+													data-placeholder="Select Date" id="dateRange">
+
+											</div>
+											<span class="desc text-success fontsize11">Please
+												enter date if holiday is appearing at this specific date
+												every year e.g Independance Day - 15 Aug else keep blank.</span>
+
 										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -247,7 +251,6 @@
 
 				}
 
-
 				if (!isError) {
 
 					document.getElementById("submtbtn").disabled = true;
@@ -262,6 +265,7 @@
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
+			"autoUpdateInput" : false,
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,
@@ -269,6 +273,8 @@
 			locale : {
 				format : 'DD-MM-YYYY'
 			}
+		}, function(start_date) {
+			$(this.element).val(start_date.format('DD-MM-YYYY'));
 		});
 
 		//daterange-basic_new

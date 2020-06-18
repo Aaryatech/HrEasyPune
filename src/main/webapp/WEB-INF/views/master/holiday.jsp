@@ -146,7 +146,7 @@
 
 									<div class="form-group row">
 
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="yearId">Select Calendar Year<span
@@ -179,7 +179,7 @@
 										</div>
 
 
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
 												for="hoCatId">Holiday Category <span
@@ -209,13 +209,13 @@
 											</div>
 										</div>
 
-										<div class="col-md-4">
-											<button type="submit" class="btn bg-blue ml-3 legitRipple"
-												id="showbtn">Show</button>
-										</div>
+
 									</div>
 
-
+									<div class="text-center">
+										<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											id="showbtn">Show</button>
+									</div>
 									<br>
 								</form>
 								<%-- <div class="form-group row">

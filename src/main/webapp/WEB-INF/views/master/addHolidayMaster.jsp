@@ -145,8 +145,8 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-</div>
-<div class="form-group row">
+									</div>
+									<div class="form-group row">
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float">Date
@@ -154,10 +154,11 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass"
-													name="dateRange" data-placeholder="Select Date"
-													id="dateRange">
+													name="dateRange" placeholder="Select Date" id="dateRange">
 											</div>
-											<span class="desc text-success fontsize11">Please enter date if holiday is appearing at this specific date every year e.g Independance Day - 15 Aug else keep blank.</span>
+											<span class="desc text-success fontsize11">Please
+												enter date if holiday is appearing at this specific date
+												every year e.g Independance Day - 15 Aug else keep blank.</span>
 										</div>
 									</div>
 
@@ -249,7 +250,6 @@
 
 				}
 
-				
 				if (!isError) {
 
 					document.getElementById("submtbtn").disabled = true;
@@ -265,12 +265,15 @@
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
+			"autoUpdateInput" : false,
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,
 			locale : {
 				format : 'DD-MM-YYYY'
 			}
+		}, function(start_date) {
+			$(this.element).val(start_date.format('DD-MM-YYYY'));
 		});
 		//daterange-basic_new
 		// Basic initialization
