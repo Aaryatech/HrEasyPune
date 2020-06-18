@@ -184,7 +184,7 @@
 									
 									<div class="form-group row">									
 										<div class="col-md-6">
-											<input type="text" class="form-control" id="scrapAssetId"
+											<input type="hidden" class="form-control" id="scrapAssetId"
 											name="scrapAssetId" value="${asset.assetId}">
 										</div>
 									</div>				

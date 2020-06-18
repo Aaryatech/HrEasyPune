@@ -197,11 +197,11 @@
 																			<th>AMC Period</th>
 																			<th>Amt</th>
 																			<th>Status</th>
-																			<!-- <th>Actions</th> -->
+																			<th>Actions</th>
 																		</tr>
 																	</thead>
 																	<tbody>
-																	 <%-- <tr>
+																	<%-- <tr>
 																		<td>1</td>
 																		<td>Vendor2</td>
 																		<td>01-03-2020 to 06-03-2020</td>
@@ -222,80 +222,11 @@
 																			data-uuid="" data-popup="tooltip" title=""
 																			data-original-title="Terminate"><i
 																				class="fa fa-ban"></i></a></td>
-																	</tr>   --%>
+																	</tr>    --%>
 																</tbody>
 																</table>
-												<%-- <div class="datatable-scroll">
-													<div class="dataTables_scroll">
-														<div class="dataTables_scrollHead">
-															<div class="dataTables_scrollHeadInner">
-																<!-- <table
-																	class="table datatable-scroller-buttons dataTable no-footer"
-																	width="100%" role="grid">
-																	<thead>
-																		<tr role="row" class="bg-blue">
-																			<th>Sr.No.</th>
-																			<th>Vendor Name</th>
-																			<th>AMC Period</th>
-																			<th>Amt</th>
-																			<th>Status</th>
-																			<th>Actions</th>
-																		</tr>
-																	</thead>
-																</table> -->
-															</div>
-														</div>
-														<div class="dataTables_scrollBody"
-															style="position: relative; overflow: auto; min-height: 200px; width: 100%;">
-															<table
-																class="table datatable-scroller-buttons dataTable no-footer"
-																width="100%" id="DataTables_Table_1" role="grid"
-																style="position: absolute; top: 0px; left: 0px; width: 100%;"
-																aria-describedby="DataTables_Table_1_info">
-																<thead>
-																	<tr role="row">
-																		<th class="sorting_asc">Sr.No.</th>
-																		<th class="sorting">Vendor Name</th>
-																		<th class="sorting">AMC Period</th>
-																		<th class="sorting">Amt</th>
-																		<th class="sorting">Status</th>
-																		<!-- <th class="sorting">Actions</th> -->
-																	</tr>
-																</thead>
-
-																<tbody>
-																	<tr>
-																		<td>1</td>
-																		<td>Vendor2</td>
-																		<td>01-03-2020 to 06-03-2020</td>
-																		<td>2500</td>
-																		<td>Pending</td>
-																		<td class="text-center"><a
-																			href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600"
-																			data-popup="tooltip" data-original-title="Edit"><i
-																				class="icon-pencil7"></i></a> <a
-																			href="${pageContext.request.contextPath}/addAssetAmc?assetAMCId="
-																			class="list-icons-item text-primary-600" data-uuid=""
-																			data-popup="tooltip" title=""
-																			data-original-title="Renew"><i
-																				class="icon-history"></i></a> <a
-																			href="javascript:void(0)"
-																			class="list-icons-item text-danger-600 bootbox_custom"
-																			data-uuid="" data-popup="tooltip" title=""
-																			data-original-title="Terminate"><i
-																				class="fa fa-ban"></i></a></td>
-																	</tr> 
-
-																	
-
-																</tbody>
-															</table>
-														</div>
 													</div>
-												</div> --%>
-
-											</div></td>
+											</td>
 									</tr>
 								</c:forEach>
 
@@ -323,8 +254,7 @@
 
 	<script>
 function getAssetInfo(assetId,countIndex){  
-   alert(assetId)
-   var status = null;
+ //  alert(assetId)
 			$
 					.getJSON(
 							'${getAssetsAMCs}',
@@ -344,11 +274,22 @@ function getAssetInfo(assetId,countIndex){
 												data,
 												function(i, v) {
 													
-													/* 
-													var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?assetAMCId=' 
-														+ v.amcId+
+													
+													/* var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
+														+ v.exVar1
 														+'class="list-icons-item text-primary-600" data-popup="tooltip" data-original-title="Edit">'
-														+'<i class="icon-pencil7"></i>'; */
+														+'<i class="icon-pencil7"></i></a>';  */
+														var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
+															+ v.exVar1
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>'
+															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId='
+															+ v.exVar1
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="icon-history"></i></a>'
+															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/lostAssetAmc?encodeAssetId='
+															+ v.exVar2
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="fa fa-question-circle"></i></a>'
+															+'&nbsp; &nbsp; <a href="javascript:void(0)" class="list-icons-item text-danger-600 bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
 												dataTable.row
 															.add(
 																	[
@@ -356,8 +297,8 @@ function getAssetInfo(assetId,countIndex){
 																			v.compName,
 																			v.amcFrDate+' to '+v.amcToDate,											
 																			v.amcAmt,
-																			v.statusText
-																			/* acButton */
+																			v.statusText,
+																			acButton 
 																	]).draw();
 												}); 
 								
@@ -368,7 +309,8 @@ function getAssetInfo(assetId,countIndex){
 </script>
 	<script>
 		// Custom bootbox dialog
-		$('.bootbox_custom')
+		// Terminate Asset
+		$('.bootbox_custom1')
 				.on(
 						'click',
 						function() {
@@ -389,7 +331,36 @@ function getAssetInfo(assetId,countIndex){
 										callback : function(result) {
 											if (result) {
 												location.href = "${pageContext.request.contextPath}/terminateAsset?assetAMCId="
-														+20; //uuid;
+														+uuid;
+
+											}
+										}
+									});
+						});
+		
+		// Delete Asset
+		$('.bootbox_custom')
+				.on(
+						'click',
+						function() {
+							var uuid = $(this).data("uuid") // will return the number 123
+										bootbox.confirm({
+										title : 'Confirm ',
+										message : 'Are you sure you want to delete this Asset ?',
+										buttons : {
+											confirm : {
+												label : 'Yes',
+												className : 'btn-success'
+											},
+											cancel : {
+												label : 'Cancel',
+												className : 'btn-link'
+											}
+										},
+										callback : function(result) {
+											if (result) {
+												location.href = "${pageContext.request.contextPath}/deleteAsset?assetId="
+														+uuid;
 
 											}
 										}

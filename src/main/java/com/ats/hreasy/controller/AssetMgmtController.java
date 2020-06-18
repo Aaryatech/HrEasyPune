@@ -1602,15 +1602,14 @@ public class AssetMgmtController {
 			} else {
 				model = new ModelAndView("asset/addAssetAmc");
 				
-				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
-						, AssetVendor[].class);
-				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
-				model.addObject("assetVendorList",  assetVendorList);
+				String amcId = request.getParameter("encodedAMCId");
+				int assetAmcId = Integer.parseInt(FormValidation.DecodeKey(amcId));
 				
-				String assetId = request.getParameter("assetAMCId");
+				System.out.println("editAssetAmc-----"+assetAmcId);
 				
 				map = new LinkedMultiValueMap<>();				
-				map.add("assetAmcId", Integer.parseInt(assetId));
+				map.add("assetAmcId", assetAmcId);
+				
 				AssetAmc assetAmcInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAmcById", map,
 						AssetAmc.class);
 				
@@ -1620,7 +1619,12 @@ public class AssetMgmtController {
 				map.add("assetId",assetAmcInfo.getAssetId());
 				AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
 								AssetsDetailsList.class);			
-				model.addObject("asset",  assetInfo);	
+				model.addObject("asset",  assetInfo);
+				
+				AssetVendor[] assetVendorArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetVendor"
+						, AssetVendor[].class);
+				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
+				model.addObject("assetVendorList",  assetVendorList);
 				
 				model.addObject("title",  "Edit Asset AMC");				
 				
@@ -1655,9 +1659,12 @@ public class AssetMgmtController {
 				model.addObject("assetVendorList",  assetVendorList);
 				
 				String assetId = request.getParameter("assetAMCId");
+				int asset = Integer.parseInt(FormValidation.DecodeKey(assetId));				
+				
+				System.out.println("Asset Id ----------------------"+asset);
 				
 				map = new LinkedMultiValueMap<>();				
-				map.add("assetAmcId", Integer.parseInt(assetId));
+				map.add("assetAmcId", asset);
 				AssetAmc assetAmcInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAmcById", map,
 						AssetAmc.class);
 				
@@ -1665,6 +1672,7 @@ public class AssetMgmtController {
 				
 				map = new LinkedMultiValueMap<>();
 				map.add("assetId",assetAmcInfo.getAssetId());
+				
 				AssetsDetailsList assetInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
 								AssetsDetailsList.class);			
 				model.addObject("asset",  assetInfo);	
@@ -1812,11 +1820,10 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				
-				//String base64encodedString = request.getParameter("assetId");
-				//String assetId = FormValidation.DecodeKey(base64encodedString);
+				String assetId = request.getParameter("assetAMCId");
+				int amcId = Integer.parseInt(FormValidation.DecodeKey(assetId));				
 				
-				int amcId = Integer.parseInt(request.getParameter("assetAMCId"));
-				System.out.println("----------------------"+amcId);
+				System.out.println("terminateAsset Id ----------------------"+amcId);
 				
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("assetAMCId", amcId);
@@ -1840,7 +1847,115 @@ public class AssetMgmtController {
 		return a;
 	}
 	
+	@RequestMapping(value = "/lostAssetAmc", method = RequestMethod.GET)
+	public ModelAndView lostAssetAmc(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		ModelAndView model = null;
+		
+		try {
+			
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("lostAssetAmc", "showAllAssets", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+				model = new ModelAndView("asset/assetLost");
+				
+				String base64encodedString = request.getParameter("assetAMCId");
+				String assetAMCId = FormValidation.DecodeKey(base64encodedString);
+				
+				model.addObject("assetAMCId",  assetAMCId);
+				
+				String encodeAssetId = request.getParameter("encodeAssetId");
+				String assetId = FormValidation.DecodeKey(encodeAssetId);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("assetId", Integer.parseInt(assetId));
+				
+				AssetsDetailsList asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+						AssetsDetailsList.class);
+				model.addObject("asset",  asset);
+				
+				model.addObject("title",  "Asset Lost");				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 	
+	
+	@RequestMapping(value = "/submitLostAssetRemark", method = RequestMethod.POST)
+	public String submitLostAssetRemark(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		MultiValueMap<String, Object> map = null;
+		String a = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("submitLostAssetRemark", "showAllAssets", 0, 0, 0, 1, newModuleList);
+			if (view.isError() == true) {
+
+				a = "redirect:/accessDenied";
+
+			}
+
+			else {
+
+				a = "redirect:/showAllAssets";
+				
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo"); 
+				
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+//				String encodeAssetId = request.getParameter("encodeAssetId");
+//				int assetId = Integer.parseInt(FormValidation.DecodeKey(encodeAssetId));	
+				int assetId = Integer.parseInt(request.getParameter("assetId"));	
+				
+				
+				System.out.println("Transc Asset Id ----------------------"+assetId);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);
+				 
+				AssetTrans transctn = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetTransactnById", map,
+						AssetTrans.class);
+				System.out.println("Transaction---------"+transctn);
+				
+				map = new LinkedMultiValueMap<>();
+				
+				map.add("transactnId", transctn.getAssetTransId());
+				map.add("assetId", assetId);
+				map.add("lostAssetRemark", request.getParameter("lostAssetRemark"));
+				map.add("userUpdateId", userObj.getEmpId());
+				map.add("updateTime", sf.format(date));
+				map.add("status", 1);
+				map.add("assetStatus", 3);
+				
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "updateAssetStatusLost", map,
+				Info.class);
+
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", info.getMsg());
+				} else {
+					session.setAttribute("errorMsg", info.getMsg());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Terminate Asset");
+		}
+		return a;
+	}
 	
 	@RequestMapping(value = "/scrapAsset", method = RequestMethod.GET)
 	public ModelAndView scrapAsset(HttpServletRequest request, HttpServletResponse response) {
@@ -2050,6 +2165,7 @@ public class AssetMgmtController {
 		try {
 			int asset = Integer.parseInt(FormValidation.DecodeKey(assetId));
 			System.out.println("Asset Id ----------------------"+asset);
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			
 			map.add("assetId", asset);
@@ -2057,6 +2173,14 @@ public class AssetMgmtController {
 			AMCInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetAMCInfoByAssetId", map,
 					AMCInfo[].class);
 			list = new ArrayList<AMCInfo>(Arrays.asList(amcArr));
+			
+			for (int i = 0; i < list.size(); i++) {
+
+				list.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(list.get(i).getAmcId())));
+				list.get(i).setExVar2(FormValidation.Encrypt(String.valueOf(list.get(i).getAssetId())));
+			}
+
+			
 			System.out.println("AMC Data---"+list);
 		}catch (Exception e) {
 			System.err.println("Exception in getAssets : "+e.getMessage());

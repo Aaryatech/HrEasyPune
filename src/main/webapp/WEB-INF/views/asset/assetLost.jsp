@@ -181,147 +181,35 @@
 						</table>
 					</div>
 								<form
-									action="${pageContext.request.contextPath}/submitRenewAssetAmc"
-									id="submitInsertAssetAmc" method="post" enctype="multipart/form-data">
+									action="${pageContext.request.contextPath}/submitLostAssetRemark"
+									id="submitLostAssetRemark" method="post">
 									
 									<div class="form-group row">									
-										<div class="col-md-6">	
+										<%-- <div class="col-md-6">	
 												<div class="col-lg-7  float">
-													<input type="hidden" class="form-control" id="amcId"
-														name="amcId" value="${amc.amcId}">													
+													<input type="text" class="form-control" id="amcId"
+														name="amcId" value="${assetAMCId}">													
 												</div>
-											</div>
+											</div> --%>
 											
 											
 											<div class="col-md-6">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="assetId"
-														name="assetId" value="${amc.assetId}">													
+														name="assetId" value="${asset.assetId}">													
 												</div>
 											</div>
 										</div>
 									
-									<div class="form-group row">									
-										<div class="col-md-6">
-										<input type="hidden" class="form-control" value="${amc.vendorId}"  name="amcVendorId">
-										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendor">Vendor
-												Name <span class="text-danger">* </span>:</label>
-												<div class="col-lg-7 float">
-												
-												<select data-placeholder="Select Asset Vendor"
-														id="amcVendorId" disabled="disabled"
-														class="form-control form-control-select2 select2-hidden-accessible">
-
-														<option value="">Select Asset Vendor</option>
-														<c:forEach items="${assetVendorList}" var="assetVendorList">
-														<%-- <option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option> --%>
-															 <c:choose>
-																<c:when test="${assetVendorList.vendorId==amc.vendorId}">
-																	<option selected="selected"
-																		value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-																</c:otherwise>
-															</c:choose>
-														</c:forEach>
-													</select>
-												<span class="validation-invalid-label" id="error_amcVendorId"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
-										
-										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcamt">AMC 
-												Amt<span class="text-danger">* </span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control" value="${amc.amcAmt}"
-													placeholder="Enter AMC Amt." id="amcamt"
-													name="amcamt" autocomplete="off">
-												<span class="validation-invalid-label" id="error_amcamt"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>								
-									</div>
-									
-									<div class="form-group row">
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
-												 From<span class="text-danger">*</span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control datepickerclass"
-													placeholder="Enter AMC Period From" id="amcperiodfrom"
-													name="amcperiodfrom" autocomplete="off" value="${amc.amcFrDate}">
-												<span class="validation-invalid-label" id="error_amcperiodfrom"
-													style="display: none;">This field is required.</span>
-												<span class="validation-invalid-label" id="error_fromDate"	style="display: none;">From Date must be smaller than To Date </span>
-											</div>
-										</div>		
-										
-										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="amcperiod">AMC Period
-												 To<span class="text-danger">*</span>:</label>
-												<div class="col-lg-7 float">
-												<input type="text" class="form-control datepickerclass"
-													placeholder="Enter AMC Period To" id="amcperiodto"
-													name="amcperiodto" autocomplete="off" value="${amc.amcToDate}">
-												<span class="validation-invalid-label" id="error_amcperiod"
-													style="display: none;">This field is required.</span>
-												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
-											</div>
-										</div>		
-									</div>
-									
 									<div class="form-group row">
 										<div class="col-md-6">
-												<label class="col-form-label col-lg-5 float" for="positiveremark">Positive 
-												Remark<span class="text-danger"></span>:</label>
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="lostAssetRemark">Remark 
+												Remark<span class="text-danger">*</span>:</label>
 												<div class="col-lg-7 float">
 												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Enter Positive Remark" id="positiveremark"
-													name="positiveremark">${amc.positiveRemark}</textarea>
-												<span class="validation-invalid-label" id="error_positiveremark"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
-										
-										<div class="col-md-6">
-												<label class="col-form-label col-lg-5  float" for="terms">Negative
-												Remark <span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Enter Negative Remark" id="negtiveremark"
-													name="negtiveremark">${amc.negativeRemark}</textarea>
-												<span class="validation-invalid-label" id="error_negtiveremark"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
-									</div>
-									
-									<div class="form-group row">
-										<div class="col-md-6">
-												<label class="col-form-label col-lg-5 float" for="amcamt">AMC 
-												Document File<span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<img id="output" width="150"/>
-												<input type="file" accept="image/*" name="doc" id="doc" value="${amc.amcDocFile}"
-												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
-													class="form-text text-muted">Only
-													.jpg,.png,.gif,.doc,.xls,.pdf</span> 
-												<span class="validation-invalid-label" id="error_amcdoc"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
-										
-										<div class="col-md-6">
-												<label class="col-form-label col-lg-5  float" for="terms">Terms &
-												Conditions <span class="text-danger"></span>:</label>
-												<div class="col-lg-7 float">
-												<textarea rows="3" cols="3" class="form-control"
-													placeholder="Enter Terms & Conditions"id="terms"
-													name="terms"></textarea>
-												<span class="validation-invalid-label" id="error_terms"
+													placeholder="Enter Lost Asser Remark" id="lostAssetRemark"
+													name="lostAssetRemark"></textarea>
+												<span class="validation-invalid-label" id="error_lostAssetRemark"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -370,75 +258,23 @@ $(document)
 	.ready(
 			function($) {
 
-				$("#submitInsertAssetAmc")
+				$("#submitLostAssetRemark")
 						.submit(
 								function(e) {
 									var isError = false;
 									var errMsg = "";
 									
 									
-									if (!$("#amcperiodfrom").val()) {
+									if (!$("#lostAssetRemark").val()) {
 
 										isError = true;
 
-										$("#error_amcperiodfrom").show()
+										$("#error_lostAssetRemark").show()
 
 									} else {
-										$("#error_amcperiodfrom").hide()
+										$("#error_lostAssetRemark").hide()
 									}
 									
-									if (!$("#amcperiodto").val()) {
-
-										isError = true;
-
-										$("#error_amcperiodto").show()
-
-									} else {
-										$("#error_amcperiodto").hide()
-									}
-
-									if (!$("#amcamt").val()) {
-
-										isError = true;
-
-										$("#error_amcamt").show()
-
-									} else {
-										$("#error_amcamt").hide()
-									}
-																		
-									if (!$("#amcVendorId").val()) {
-
-										isError = true;
-
-										$("#error_amcVendorId").show()
-
-									} else {
-										$("#error_amcVendorId").hide()
-									}
-									
-									var from_date = document.getElementById("amcperiodfrom").value;
-				      				var to_date = document.getElementById("amcperiodto").value;
-				      				
-				      				var fromdate = from_date.split('-');
-			         		        from_date = new Date();
-			         		        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
-			         		        var todate = to_date.split('-');
-			         		        to_date = new Date();
-			         		        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
-			         		        if (from_date > to_date ) 
-			         		        {
-			         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
-										$("#error_fromDate").show();
-			    					 	$("#error_toDate").show();
-			    					 	
-			         		            return false;
-			         		           
-			         		        }else {
-			         					$("#error_fromDate").hide();
-			         					$("#error_toDate").hide();
-			         				}
-			         		      
 			         		     
 									if (!isError) {
 
