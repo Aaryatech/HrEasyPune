@@ -45,6 +45,8 @@ public class GetDailyDailyRecord {
 	private String atsummUid; 
 	private String fileName; 
 	private int rowId;
+	private String attsSdShow;
+	
 	public int getId() {
 		return id;
 	}
@@ -297,6 +299,12 @@ public class GetDailyDailyRecord {
 	public void setRowId(int rowId) {
 		this.rowId = rowId;
 	}
+	public String getAttsSdShow() {
+		return attsSdShow;
+	}
+	public void setAttsSdShow(String attsSdShow) {
+		this.attsSdShow = attsSdShow;
+	}
 	@Override
 	public String toString() {
 		return "GetDailyDailyRecord [id=" + id + ", companyId=" + companyId + ", empCode=" + empCode + ", empName="
@@ -312,7 +320,7 @@ public class GetDailyDailyRecord {
 				+ earlyGoingMark + ", earlyGoingMin=" + earlyGoingMin + ", multipleEntries=" + multipleEntries
 				+ ", casetype=" + casetype + ", isFixed=" + isFixed + ", byFileUpdated=" + byFileUpdated
 				+ ", locationId=" + locationId + ", empType=" + empType + ", empJson=" + empJson + ", atsummUid="
-				+ atsummUid + ", fileName=" + fileName + ", rowId=" + rowId + "]";
+				+ atsummUid + ", fileName=" + fileName + ", rowId=" + rowId + ", attsSdShow=" + attsSdShow + "]";
 	}
 	
 	

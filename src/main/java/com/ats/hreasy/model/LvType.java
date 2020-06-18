@@ -22,6 +22,8 @@ public class LvType {
 	private int primary; 
 	private int companyId; 
 	private int toShowDrowpdown;
+	private String nameSdShow;
+	
 	public int getId() {
 		return id;
 	}
@@ -136,6 +138,12 @@ public class LvType {
 	public void setToShowDrowpdown(int toShowDrowpdown) {
 		this.toShowDrowpdown = toShowDrowpdown;
 	}
+	public String getNameSdShow() {
+		return nameSdShow;
+	}
+	public void setNameSdShow(String nameSdShow) {
+		this.nameSdShow = nameSdShow;
+	}
 	@Override
 	public String toString() {
 		return "LvType [id=" + id + ", name=" + name + ", nameSd=" + nameSd + ", lvSumupId=" + lvSumupId
@@ -143,7 +151,7 @@ public class LvType {
 				+ ", workingHrs=" + workingHrs + ", otHrs=" + otHrs + ", lateMins=" + lateMins + ", outMins=" + outMins
 				+ ", isStructured=" + isStructured + ", lvColour=" + lvColour + ", isUsed=" + isUsed + ", loginName="
 				+ loginName + ", loginTime=" + loginTime + ", primary=" + primary + ", companyId=" + companyId
-				+ ", toShowDrowpdown=" + toShowDrowpdown + "]";
+				+ ", toShowDrowpdown=" + toShowDrowpdown + ", nameSdShow=" + nameSdShow + "]";
 	}
 	
 	

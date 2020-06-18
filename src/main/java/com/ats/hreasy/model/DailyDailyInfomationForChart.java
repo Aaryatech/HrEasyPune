@@ -9,6 +9,8 @@ public class DailyDailyInfomationForChart {
 	private String workingMin;
 	private String otMin;
 	private String status;
+	private String statusShwo;
+	
 	public String getDate() {
 		return date;
 	}
@@ -51,11 +53,17 @@ public class DailyDailyInfomationForChart {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getStatusShwo() {
+		return statusShwo;
+	}
+	public void setStatusShwo(String statusShwo) {
+		this.statusShwo = statusShwo;
+	}
 	@Override
 	public String toString() {
 		return "DailyDailyInfomationForChart [date=" + date + ", inTime=" + inTime + ", outTime=" + outTime
 				+ ", lateMin=" + lateMin + ", workingMin=" + workingMin + ", otMin=" + otMin + ", status=" + status
-				+ "]";
+				+ ", statusShwo=" + statusShwo + "]";
 	}
 	
 	

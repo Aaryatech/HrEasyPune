@@ -215,10 +215,13 @@
 												<select name="selectStatus"
 													data-placeholder="Select Leave Type" id="selectStatus"
 													class="form-control form-control-select2 select2-hidden-accessible">
-													<option value="0">Select Status</option>
+													<option value="0" data-namesd="Select Status" id="newSts0">Select
+														Status</option>
 													<c:forEach items="${lvTypeList}" var="lvTypeList">
-														<%-- data-leavestrname="${leaveHistoryList.lvTitle}" --%>
-														<option value="${lvTypeList.lvSumupId}">${lvTypeList.nameSd}</option>
+
+														<option value="${lvTypeList.lvSumupId}"
+															data-namesd="${lvTypeList.nameSd}"
+															id="newSts${lvTypeList.lvSumupId}">${lvTypeList.nameSdShow}</option>
 
 													</c:forEach>
 												</select>
@@ -331,7 +334,7 @@
 											<c:forEach items="${dailyrecordList}" var="dailyrecordList">
 												<tr>
 													<td class="text-center">${dailyrecordList.attDate}</td>
-													<td class="text-center">${dailyrecordList.attStatus}</td>
+													<td class="text-center">${dailyrecordList.attsSdShow}</td>
 
 													<c:choose>
 														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
@@ -583,8 +586,13 @@
 		
 	function saveAttendanceDetail() {
   
-		var selectStatus = document.getElementById("selectStatus").value;  
-		var selectStatusText = $("#selectStatus option:selected").text();
+	 
+		
+		
+		var selectStatus = document.getElementById("selectStatus").value;
+		var selectStatusText = $("#newSts"+selectStatus).data("namesd");
+		 
+		var namesd = $("#selectStatus option:selected").text();
 		var otHours = document.getElementById("otHours").value;  
 		var dailyId = document.getElementById("dailyId").value;
 		var inTime = document.getElementById("inTime").value;
@@ -618,6 +626,7 @@
 			fd.append('year', year);
 			fd.append('selectShift', selectShift);
 			fd.append('otApproval', otApproval);
+			fd.append('namesd', namesd);
 			
 			  $
 			.ajax({

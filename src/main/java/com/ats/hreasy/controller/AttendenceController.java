@@ -658,6 +658,7 @@ public class AttendenceController {
 			String inTime = request.getParameter("inTime");
 			String outTime = request.getParameter("outTime");
 			String selectStatusText = request.getParameter("selectStatusText");
+			String namesd = request.getParameter("namesd");
 			int year = Integer.parseInt(request.getParameter("year"));
 			int month = Integer.parseInt(request.getParameter("month"));
 			int selectShift = Integer.parseInt(request.getParameter("selectShift"));
@@ -684,6 +685,7 @@ public class AttendenceController {
 			map.add("month", month);
 			map.add("selectShift", selectShift);
 			map.add("otApproval", otApproval);
+			map.add("namesd", namesd);
 			System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingle", map,
 					Info.class);

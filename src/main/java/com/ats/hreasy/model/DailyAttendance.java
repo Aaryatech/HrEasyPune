@@ -46,7 +46,8 @@ public class DailyAttendance {
 	private String atsummUid; 
 	private String fileName; 
 	private int rowId;
-
+	private String attsSdShow;
+	
 	public int getId() {
 		return id;
 	}
@@ -383,6 +384,14 @@ public class DailyAttendance {
 		this.rowId = rowId;
 	}
 
+	public String getAttsSdShow() {
+		return attsSdShow;
+	}
+
+	public void setAttsSdShow(String attsSdShow) {
+		this.attsSdShow = attsSdShow;
+	}
+
 	@Override
 	public String toString() {
 		return "DailyAttendance [id=" + id + ", companyId=" + companyId + ", empCode=" + empCode + ", empName="
@@ -398,7 +407,7 @@ public class DailyAttendance {
 				+ earlyGoingMark + ", earlyGoingMin=" + earlyGoingMin + ", multipleEntries=" + multipleEntries
 				+ ", casetype=" + casetype + ", isFixed=" + isFixed + ", byFileUpdated=" + byFileUpdated
 				+ ", locationId=" + locationId + ", empType=" + empType + ", empJson=" + empJson + ", atsummUid="
-				+ atsummUid + ", fileName=" + fileName + ", rowId=" + rowId + "]";
+				+ atsummUid + ", fileName=" + fileName + ", rowId=" + rowId + ", attsSdShow=" + attsSdShow + "]";
 	}
 	
 

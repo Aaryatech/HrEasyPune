@@ -44,7 +44,9 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Attendance Sheet</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Attendance Sheet
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -70,8 +72,7 @@
 
 
 
-								<button type="submit" class="btn blue_btn"
-									id="submtbtn">
+								<button type="submit" class="btn blue_btn" id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>
 
@@ -132,7 +133,7 @@
 													<c:forEach items="${infomationList.sttsList}"
 														var="sttsList">
 														<td style="text-align: center;"><p
-																title="In Time - ${sttsList.inTime}, Out Time - ${sttsList.outTime}, Wotking Hrs - ${sttsList.workingMin}, OT Min - ${sttsList.otMin}, Late Min - ${sttsList.lateMin}">${sttsList.status}</p></td>
+																title="In Time - ${sttsList.inTime}, Out Time - ${sttsList.outTime}, Wotking Hrs - ${sttsList.workingMin}, Production Incentive Min - ${sttsList.otMin}, Late Min - ${sttsList.lateMin}">${sttsList.statusShwo}</p></td>
 													</c:forEach>
 													<td class="text-center"><c:if
 															test="${editAccess == 0}">
