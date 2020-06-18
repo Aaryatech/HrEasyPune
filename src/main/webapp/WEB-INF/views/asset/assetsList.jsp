@@ -145,7 +145,7 @@
 									<tr class="accordion-toggle collapsed"
 										id1="accordion${count.index+1}" data-toggle1="collapse"
 										data-parent1="#accordion${count.index+1}">
-										<td><a href="#collapseOne${count.index+1}" onclick="getAssetInfo('${assetList.exVar1}')"
+										<td><a href="#collapseOne${count.index+1}" onclick="getAssetInfo('${assetList.exVar1}',${count.index+1})"
 											id="accordion${count.index+1}" data-toggle="collapse"
 											data-parent="#accordion${count.index+1}"><span
 											class="expand-button"></span></a></td>
@@ -189,7 +189,7 @@
 												class="collapse in p-3">
  																<table
 																	class="table datatable-scroller-buttons dataTable no-footer"
-																	width="100%" role="grid" id="amcdatatable">
+																	width="100%" role="grid" id="amcdatatable${count.index+1}">
 																	<thead>
 																		<tr role="row" class="bg-blue">
 																			<th>Sr.No.</th>
@@ -201,7 +201,7 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																	 <tr>
+																	 <%-- <tr>
 																		<td>1</td>
 																		<td>Vendor2</td>
 																		<td>01-03-2020 to 06-03-2020</td>
@@ -222,7 +222,7 @@
 																			data-uuid="" data-popup="tooltip" title=""
 																			data-original-title="Terminate"><i
 																				class="fa fa-ban"></i></a></td>
-																	</tr>  
+																	</tr>   --%>
 																</tbody>
 																</table>
 												<%-- <div class="datatable-scroll">
@@ -322,7 +322,7 @@
 	<!-- /page content -->
 
 	<script>
-function getAssetInfo(assetId){  
+function getAssetInfo(assetId,countIndex){  
    alert(assetId)
    var status = null;
 			$
@@ -336,7 +336,7 @@ function getAssetInfo(assetId){
 							function(data) {
 								//alert("Data  " +JSON.stringify(data));
 								
-								var dataTable = $('#amcdatatable').DataTable();
+								var dataTable = $('#amcdatatable'+countIndex).DataTable();
 								dataTable.clear().draw();
 								
 								$
