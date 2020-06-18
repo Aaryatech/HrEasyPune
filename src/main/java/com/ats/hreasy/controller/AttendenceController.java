@@ -1041,6 +1041,7 @@ public class AttendenceController {
 			int selectStatus = Integer.parseInt(request.getParameter("selectStatus"));
 			int lateMark = Integer.parseInt(request.getParameter("lateMark"));
 			String selectStatusText = request.getParameter("selectStatusText");
+			String nameSd = request.getParameter("namesd");
 			int flag = Integer.parseInt(request.getParameter("flag"));
 			int lateMin = Integer.parseInt(request.getParameter("lateMin"));
 			String otHours = request.getParameter("otHours");
@@ -1054,6 +1055,7 @@ public class AttendenceController {
 			map.add("flag", flag);
 			map.add("otHours", otHours);
 			map.add("lateMin", lateMin);
+			map.add("nameSd", nameSd);
 			// System.out.println(map);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateAttendaceRecordSingleByHod", map,
 					Info.class);
@@ -1084,7 +1086,6 @@ public class AttendenceController {
 
 			try {
 
-				 
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 				String[] ids = request.getParameterValues("ids");
@@ -1128,6 +1129,7 @@ public class AttendenceController {
 
 					int selectStatus = 5;
 					String selectStatusText = "P";
+					String nameSd = "P";
 
 					if (ontime == 0 && lateMark == 0) {
 
@@ -1137,6 +1139,7 @@ public class AttendenceController {
 
 								selectStatus = dailyDailyList.get(k).getLvSumupId();
 								selectStatusText = dailyDailyList.get(k).getAttStatus();
+								nameSd = dailyDailyList.get(k).getAttsSdShow();
 								break;
 							}
 						}
@@ -1153,6 +1156,7 @@ public class AttendenceController {
 					map.add("flag", 0);
 					map.add("otHours", 0);
 					map.add("lateMin", lateMin);
+					map.add("nameSd", nameSd);
 					// System.out.println(map);
 					Info info = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/updateAttendaceRecordSingleByHod", map, Info.class);

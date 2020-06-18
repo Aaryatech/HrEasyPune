@@ -130,7 +130,7 @@
 								</form>
 
 							</div>
-						 
+
 
 							<div id="editAttanceDiv" style="display: none;">
 								<div class="card-header header-elements-inline">
@@ -266,6 +266,7 @@
 															data-name="${dailyrecordList.empName}" name="ids"
 															class="chk"
 															data-statusshow="${dailyrecordList.attStatus}"
+															data-showsd="${dailyrecordList.attsSdShow}"
 															data-statusidshow="${dailyrecordList.lvSumupId}"
 															data-latemarkshow="${dailyrecordList.lateMark}"
 															data-lateminshow="${dailyrecordList.lateMin}"
@@ -281,7 +282,7 @@
 																	style="background-color: #FFA8A8">${dailyrecordList.attStatus}</td>
 															</c:when>
 															<c:otherwise>
-																<td class="text-center">${dailyrecordList.attStatus}</td>
+																<td class="text-center">${dailyrecordList.attsSdShow}</td>
 															</c:otherwise>
 														</c:choose>
 
@@ -687,6 +688,7 @@
 																			
 																			var selectStatus = 5;
 																			var selectStatusText = "P";
+																			var showsd = "P";
 																			
 																			var ontime = 0;
 																			if (document.getElementById("ontime"+val).checked == true) {
@@ -736,6 +738,11 @@
 																						+ val)
 																				.attr(
 																						'data-statusshow');
+																				showsd = $(
+																						"#id"
+																						+ val)
+																				.attr(
+																						'data-showsd');
 																				lateMin = 0;
 																				
 																				if(selectStatusText=="AB" || selectStatusText=="NA"){
@@ -758,6 +765,7 @@
 																			}else if(lateMark==1){
 																				selectStatus = 5;
 																				selectStatusText = "P";
+																				showsd = "P";
 																				lateMarkCount=lateMarkCount+1;
 																				isLateMark=1;
 																			} 
@@ -805,7 +813,7 @@
 																					+ name
 																					+ '</td>'
 																					+ '<td  >'
-																					+ selectStatusText
+																					+ showsd
 																					+ '</td>  </tr>';
 																					 
 																					if(isAbsent==1){

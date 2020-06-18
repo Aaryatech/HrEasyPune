@@ -179,10 +179,13 @@
 												<select name="selectStatus"
 													data-placeholder="Select Leave Type" id="selectStatus"
 													class="form-control ">
-													<option value="0">Select Status</option>
+													<option value="0" data-namesd="Select Status" id="newSts0">Select
+														Status</option>
 													<c:forEach items="${lvTypeList}" var="lvTypeList">
-														<%-- data-leavestrname="${leaveHistoryList.lvTitle}" --%>
-														<option value="${lvTypeList.lvSumupId}">${lvTypeList.nameSd}</option>
+
+														<option value="${lvTypeList.lvSumupId}"
+															data-namesd="${lvTypeList.nameSd}"
+															id="newSts${lvTypeList.lvSumupId}">${lvTypeList.nameSdShow}</option>
 
 													</c:forEach>
 												</select>
@@ -190,7 +193,7 @@
 
 											<div class="col-lg-1"></div>
 											<label class="col-form-label col-lg-2" for="otHours">
-												OT Hours : </label>
+												Production Incentive Hrs : </label>
 											<div class="col-lg-2">
 												<input type="time" class="form-control"
 													placeholder="OT Hours" id="otHours" name="otHours"
@@ -263,7 +266,7 @@
 														<th class="text-center">Late Mark</th>
 														<th class="text-center">Late MIN</th>
 														<!-- <th class="text-center">WR. Hrs</th> -->
-														<th class="text-center">OT Hrs</th>
+														<th class="text-center">Production Incentive Hrs</th>
 														<!-- <th class="text-center">OShift/Loc</th> -->
 														<th class="text-center">Action</th>
 
@@ -280,6 +283,7 @@
 																data-name="${dailyrecordList.empName}" name="ids"
 																class="chk"
 																data-statusshow="${dailyrecordList.attStatus}"
+																data-showsd="${dailyrecordList.attsSdShow}"
 																data-latemarkshow="${dailyrecordList.lateMark}"
 																data-lateminshow="${dailyrecordList.lateMin}"
 																data-statusidshow="${dailyrecordList.lvSumupId}"
@@ -294,7 +298,7 @@
 																		style="background-color: #FFA8A8">${dailyrecordList.attStatus}</td>
 																</c:when>
 																<c:otherwise>
-																	<td class="text-center">${dailyrecordList.attStatus}</td>
+																	<td class="text-center">${dailyrecordList.attsSdShow}</td>
 																</c:otherwise>
 															</c:choose>
 															<%-- <c:choose>
@@ -517,8 +521,9 @@
 		
 	function saveAttendanceDetail() {
   
-		var selectStatus = document.getElementById("selectStatus").value;  
-		var selectStatusText = $("#selectStatus option:selected").text();
+		var selectStatus = document.getElementById("selectStatus").value;
+		var selectStatusText = $("#newSts"+selectStatus).data("namesd"); 
+		var namesd = $("#selectStatus option:selected").text();
 		 
 		var dailyId = document.getElementById("dailyId").value; 
 		var lateMark=0; 
@@ -536,6 +541,7 @@
 			fd.append('flag', flag); 
 			fd.append('otHours', otHours);
 			fd.append('lateMin', lateMin);
+			fd.append('namesd', namesd);
 			$('#modal_step1').modal('show');
 			  $
 			.ajax({
@@ -698,6 +704,11 @@
 																					+ val)
 																			.attr(
 																					'data-statusshow');
+																	var showsd = $(
+																			"#id"
+																			+ val)
+																	.attr(
+																			'data-showsd');
 																	var latemarkshow = $(
 																				"#id"
 																						+ val)
@@ -792,7 +803,7 @@
 																			+ name
 																			+ '</td>'
 																			+ '<td  >'
-																			+ statusshow
+																			+ showsd
 																			+ '</td>  </tr>';
 																			 
 																			if(isAbsent==1){

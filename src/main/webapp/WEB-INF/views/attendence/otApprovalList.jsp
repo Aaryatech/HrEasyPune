@@ -184,7 +184,7 @@
 													id="selectEmp${dailyrecordList.id}"
 													value="${dailyrecordList.id}">&nbsp;${dailyrecordList.attDate}</td>
 												<td class="text-center">${dailyrecordList.empName}</td>
-												<td class="text-center">${dailyrecordList.attStatus}</td>
+												<td class="text-center">${dailyrecordList.attsSdShow}</td>
 
 												<%-- <c:choose>
 													<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
