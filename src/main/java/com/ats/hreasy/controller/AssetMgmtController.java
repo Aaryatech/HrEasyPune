@@ -1123,7 +1123,8 @@ public class AssetMgmtController {
 				model.addObject("emp", empInfo);
 				
 				map = new LinkedMultiValueMap<>();
-				map.add("locId", locId); 				
+				map.add("locId", locId); 
+				
 				AssetInfo[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getUnAssignedAssetByLocIdAndStatus",map,
 						AssetInfo[].class);
 				List<AssetInfo> assetsList = new ArrayList<AssetInfo>(Arrays.asList(assetArr));

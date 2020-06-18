@@ -10,7 +10,7 @@ public class AssetServicing {
 	private int vendorId;
 	private String serviceDesc;
 	private float billAmt;
-	private int billDocFile;
+	private String billDocFile;
 	private String serviceRemark;
 	private int makerUserId;
 	private String updateDatetime;
@@ -67,10 +67,10 @@ public class AssetServicing {
 	public void setBillAmt(float billAmt) {
 		this.billAmt = billAmt;
 	}
-	public int getBillDocFile() {
+	public String getBillDocFile() {
 		return billDocFile;
 	}
-	public void setBillDocFile(int billDocFile) {
+	public void setBillDocFile(String billDocFile) {
 		this.billDocFile = billDocFile;
 	}
 	public String getServiceRemark() {
