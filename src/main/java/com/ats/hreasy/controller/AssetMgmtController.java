@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
+import com.ats.hreasy.common.Commons;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
@@ -795,11 +796,17 @@ public class AssetMgmtController {
 		@RequestParam("doc") MultipartFile doc) {
 
 		HttpSession session = request.getSession();
+		
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		
 		Info view = AcessController.checkAccess("submitInsertAsset", "showAllAssets", 0, 1, 0, 0, newModuleList);
+		
 		String a = new String();
+		
 		MultiValueMap<String, Object> map  = null;
+		
 		if (view.isError() == true) {
 
 			a = "redirect:/accessDenied";
@@ -829,13 +836,17 @@ public class AssetMgmtController {
 						0);
 				
 				Assets assets = new Assets();
+				
+				String assetName = request.getParameter("assetName");
+				String assetCode = request.getParameter("assetCode");
+						
 				assets.setAssetCatId(Integer.parseInt(request.getParameter("assetCatId")));
-				assets.setAssetCode(request.getParameter("assetCode"));
+				assets.setAssetCode(assetCode);
 				assets.setAssetDesc(request.getParameter("assetDesc"));
 				assets.setAssetId(assetId);
 				assets.setAssetMake(request.getParameter("assetMake"));
 				assets.setAssetModel(request.getParameter("assetModel"));
-				assets.setAssetName(request.getParameter("assetName"));
+				assets.setAssetName(assetName);
 				assets.setAssetPurDate(DateConvertor.convertToYMD(request.getParameter("assetPurDate")));
 				assets.setAssetRemark(request.getParameter("remark"));
 				assets.setAssetSrno(request.getParameter("assetSrno"));
@@ -878,11 +889,21 @@ public class AssetMgmtController {
 							map.add("val", strValue);
 							Info inf = Constants.getRestTemplate().postForObject(Constants.url + "/updateSetting", map,
 									Info.class);
-							
 							session.setAttribute("successMsg", "Asset Inserted Successfully");
 						}
 						
+						//Log
+						String assetLogDesc = null;
+						int assetTransId = 0;
+						int loginUserId = userObj.getEmpId(); 
 						
+						if(assetId>0) {
+							 assetLogDesc="Edit asset "+assetCode+" - "+assetName;
+						}else {
+							 assetLogDesc="Insert new asset "+assetCode+" - "+assetName;							
+						}	
+						
+						Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
 					}
 					else {
 					
@@ -963,7 +984,8 @@ public class AssetMgmtController {
 		String a = null;
 
 		try {
-
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 
 			Info view = AcessController.checkAccess("deleteAssetVendor", "showAssetVendor", 0, 0, 0, 1, newModuleList);
@@ -987,6 +1009,15 @@ public class AssetMgmtController {
 
 				if (info.isError() == false) {
 					session.setAttribute("successMsg", info.getMsg());
+					
+					//Log
+					String assetLogDesc = null;
+					int assetTransId = 0;
+					int loginUserId = userObj.getEmpId(); 
+					
+					assetLogDesc="Delete asset Id = "+assetId;
+					
+					Info i = Commons.saveAssetLog(Integer.parseInt(assetId), assetLogDesc, assetTransId, loginUserId);
 				} else {
 					session.setAttribute("errorMsg", info.getMsg());
 				}
@@ -1509,8 +1540,22 @@ public class AssetMgmtController {
 				int assetId = Integer.parseInt(request.getParameter("assetId"));
 				System.out.println("----------------------"+assetId);
 				
+						
+				
+				int amcId = 0;				
+				try {
+					amcId = Integer.parseInt(request.getParameter("amcId"));	
+				}catch (NumberFormatException ex) {
+					ex.printStackTrace();
+					amcId = 0;					
+				}catch (Exception e) {
+					
+					e.printStackTrace();
+				}	
+				
 				map = new LinkedMultiValueMap<>();
-				map.add("assetId", assetId);			
+				map.add("assetId", assetId);	
+				map.add("amcId", amcId);	
 				
 				info= Constants.getRestTemplate().postForObject(Constants.url + "/validateNewAMCAdd", map,
 						Info.class);
@@ -1521,16 +1566,7 @@ public class AssetMgmtController {
 						SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						
 						AssetAmc assetAmc = new AssetAmc();
-						int amcId = 0;				
-						try {
-							amcId = Integer.parseInt(request.getParameter("amcId"));	
-						}catch (NumberFormatException ex) {
-							ex.printStackTrace();
-							amcId = 0;					
-						}catch (Exception e) {
-							
-							e.printStackTrace();
-						}				
+									
 						
 						String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
 						System.out.println("Profile Image------------" + assetImage);
@@ -1567,6 +1603,19 @@ public class AssetMgmtController {
 						}else {
 							session.setAttribute("successMsg", "Asset AMC Inserted Successfully");
 						}
+						
+						//Log
+                        String assetLogDesc = null;
+                        int assetTransId = amcId;
+                        int loginUserId = userObj.getEmpId(); 
+                        
+                        if(amcId>0) {
+                             assetLogDesc="Edit asset AMC Id = "+amcId;
+                        }else {
+                             assetLogDesc="Insert new asset AMC";                            
+                        }   
+                        
+                        Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
 					} 			
 					else {
 					

@@ -312,8 +312,8 @@
 										</div>
 										
 										
+										
 										<div class="col-md-6">
-												<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
 												: </label>
 												<div class="col-lg-7 float">
@@ -323,7 +323,7 @@
 	
 											</div>
 										</div>	
-											</div>																		
+																													
 									</div>
 									
 									<div class="form-group row mb-0">

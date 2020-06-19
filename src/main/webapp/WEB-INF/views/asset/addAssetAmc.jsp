@@ -264,7 +264,7 @@
 												<input type="text" class="form-control datepickerclass"
 													placeholder="Enter AMC Period To" id="amcperiodto"
 													name="amcperiodto" autocomplete="off" value="${amc.amcToDate}">
-												<span class="validation-invalid-label" id="error_amcperiod"
+												<span class="validation-invalid-label" id="error_amcperiodto"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
 											</div>
@@ -360,7 +360,13 @@
 	</div>
 	<!-- /page content -->
 <script>
-$('#amcperiod').on('input', function() {
+$('#amcperiodto').on('input', function() {
+	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+});
+$('#amcperiodfrom').on('input', function() {
+	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+});
+$('#amcamt').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
 
