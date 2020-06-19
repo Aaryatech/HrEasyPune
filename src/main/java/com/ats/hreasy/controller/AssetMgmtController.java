@@ -1032,7 +1032,7 @@ public class AssetMgmtController {
 				try {
 					locId = Integer.parseInt(request.getParameter("locId_list"));
 				}catch (NumberFormatException e) {
-					locId = 0;
+					locId = locationList.get(0).getLocId();
 					e.printStackTrace();
 				}
 				
@@ -1192,7 +1192,7 @@ public class AssetMgmtController {
 				assignAsset.setUpdateDatetime(sf.format(date));
 				assignAsset.setUseFromDate(DateConvertor.convertToYMD(request.getParameter("fromDate" + asset[i])));
 				assignAsset.setUseToDate(DateConvertor.convertToYMD(request.getParameter("toDate" + asset[i])));
-				assignAsset.setReturnDate("0000-00-00");
+				assignAsset.setReturnDate(null);
 				assignAsset.setAssignImgFile(assetImage);
 				assignAsset.setReturnImgFile("NA");
 				assignAsset.setIsLost(0);
