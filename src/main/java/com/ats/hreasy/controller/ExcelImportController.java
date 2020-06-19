@@ -1317,6 +1317,8 @@ public class ExcelImportController {
 						empSalInfo.setPfApplicable(pfApplicable);
 						empSalInfo.setGrossSalary(grossSal);
 						empSalInfo.setSalaryTypeId(1);
+						empSalInfo.setPfType("statutory");
+						empSalInfo.setPfEmpPer(0.12);
 						EmpSalaryInfo empSalInfores = Constants.getRestTemplate().postForObject(
 								Constants.url + "/saveEmployeeIdSalary", empSalInfo, EmpSalaryInfo.class);
 						System.out.println("Emp SalInfo-----------" + empSalInfo);
