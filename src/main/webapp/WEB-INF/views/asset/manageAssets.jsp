@@ -153,7 +153,7 @@
 									 onclick="getEmpAssetsInfo('${assetEmpList.exVar1}')"
 										class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Assigned Assets">
 										${assetEmpList.firstName} ${assetEmpList.middleName} ${assetEmpList.surname}</a></td>
-									<td>${assetEmpList.empType}</td>
+									<td>${assetEmpList.empTypeName}</td>
 									<td>${assetEmpList.deptName}</td>
 									<td>${assetEmpList.empDesgn}</td>									
 									<td>${assetEmpList.locName}</td>
