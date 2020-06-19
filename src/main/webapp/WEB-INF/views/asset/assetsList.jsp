@@ -148,7 +148,7 @@
 											class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}</td>
 										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
+										<td>${assetList.assetStatus}</td>
 										<td>${assetList.catName}</td>
 										<td>${assetList.assetMake}</td>
 										<td>${assetList.assetModel}</td>
@@ -170,19 +170,19 @@
 															class="icon-trash"></i></a>
 														</c:if>
 												 </c:if> 
-												<c:if test="${assetList.assetStatus!=3 && assetList.assetStatus!=4}">
+												<c:if test="${assetList.assetStatus!=3 or assetList.assetStatus!=4}">
 													<a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
 														class="list-icons-item text-primary-600" data-popup="tooltip"
 														title="" data-original-title="Add Asset AMC"><i
 														class="icon-enlarge5"></i></a>
 												</c:if>
 													
-												<c:if test="${assetList.assetStatus==1}">
+												<c:if test="${assetList.assetStatus==0}">
 													<a href="${pageContext.request.contextPath}/lostAssetAmc?assetId=${assetList.exVar1}"
 														class="list-icons-item text-primary-600" data-popup="tooltip" 
 														title="" data-original-title="Lost"><i class="fa fa-question-circle"></i></a>
-												</c:if>
-												<c:if test="${assetList.assetStatus==0}">
+												<%-- </c:if>
+												<c:if test="${assetList.assetStatus==0}"> --%>
 												 <a href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
 													class="list-icons-item text-primary-600" data-popup="tooltip"
 													title="" data-original-title="Scrap Asset"><i
