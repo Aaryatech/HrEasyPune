@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
+import com.ats.hreasy.common.Commons;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
@@ -181,9 +182,13 @@ public class ServiceController {
 		@RequestParam("doc") MultipartFile doc) {
 
 		HttpSession session = request.getSession();
+		
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		
 		Info view = AcessController.checkAccess("submitSaveAssetServicing", "showAssetForServicing", 0, 1, 0, 0, newModuleList);
+		
 		String a = new String();
 		MultiValueMap<String, Object> map  = null;
 		if (view.isError() == true) {
@@ -278,7 +283,22 @@ public class ServiceController {
 						}else {
 							session.setAttribute("successMsg", "Asset Service Inserted Successfully");
 						}
+						//Log
+	                    String assetLogDesc = null;
+	                    int assetTransId = 0;
+	                    int loginUserId = userObj.getEmpId(); 
+	                    
+	                    if(serviceId>0) {
+	                         assetLogDesc="Edit asset servicingId- "+serviceId;
+	                         assetTransId = serviceId;
+	                    }else {
+	                         assetLogDesc="Insert new asset servicing"; 
+	                         assetTransId = serviceId;
+	                    }   
+	                    
+	                    Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
 					}
+										
 					else {
 					
 						session.setAttribute("errorMsg", "Failed to Insert Asset Service");
@@ -352,7 +372,8 @@ public class ServiceController {
 		String a = null;
 
 		try {
-
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 
 			Info view = AcessController.checkAccess("deleteAssetService", "showAssetForServicing", 0, 0, 0, 1, newModuleList);
@@ -377,6 +398,16 @@ public class ServiceController {
 
 				if (info.isError() == false) {
 					session.setAttribute("successMsg", info.getMsg());
+					//Log
+                    String assetLogDesc = null;
+                    int assetTransId = 0;
+                    int loginUserId = userObj.getEmpId(); 
+                    
+                   
+                         assetLogDesc="Delete asset servicingId - "+serviceId;
+                         assetTransId = Integer.parseInt(serviceId);
+                    
+                    Info i = Commons.saveAssetLog(0, assetLogDesc, assetTransId, loginUserId);
 				} else {
 					session.setAttribute("errorMsg", info.getMsg());
 				}

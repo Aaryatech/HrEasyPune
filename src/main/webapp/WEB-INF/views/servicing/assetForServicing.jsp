@@ -322,7 +322,7 @@ function getAssetServiceInfo(assetId,countIndex){
 															+ v.exVar1
 															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>'
 															+'&nbsp; &nbsp;<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
-															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
+															+'data-original-title="Terminate"><i class="icon-trash"></i></a>';
 												
 															if(v.serviceType==0){
 																serviceType = 'Regular'
