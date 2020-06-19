@@ -1,8 +1,10 @@
 package com.ats.hreasy.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +30,8 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.AssetCategory;
+import com.ats.hreasy.model.AssetServiceDetails;
 import com.ats.hreasy.model.AssetServicing;
 import com.ats.hreasy.model.AssetVendor;
 import com.ats.hreasy.model.Assets;
@@ -35,6 +40,7 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
+import com.ats.hrmgt.model.assets.AMCInfo;
 
 @Controller
 @Scope("session")
@@ -191,9 +197,8 @@ public class ServiceController {
 				
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
-
 				System.out.println("Profile Image------------" + assetImage);
 
 				VpsImageUpload upload = new VpsImageUpload();
@@ -201,22 +206,59 @@ public class ServiceController {
 						0);
 				
 				AssetServicing assetService = new AssetServicing();
+				
 				int serviceId  = 0;
+				int assetId = 0;
 				try {
 					serviceId = Integer.parseInt(request.getParameter("serviceId"));
+					assetId = Integer.parseInt(request.getParameter("assetId"));
 				}catch (Exception e) {
 					serviceId  = 0;
 				}
 				
+				String serviceDate = request.getParameter("serv_date");
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetId", assetId);
+				
+				Assets assets = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetById", map,
+						Assets.class);
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("assetCatId", assets.getAssetCatId());
+				
+				AssetCategory catAsset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetCatById", map,
+						AssetCategory.class);
+				int serviceCycledays = catAsset.getServiceCycleDays();
+
+				
+				
+				Calendar c = Calendar.getInstance();
+				try{
+				   //Setting the date to the given date
+					String servDate = DateConvertor.convertToYMD(serviceDate);
+					
+				    c.setTime(sdf.parse(servDate));
+				}catch(ParseException e){
+					e.printStackTrace();
+				 }
+				   
+				//Number of Days to add
+				c.add(Calendar.DAY_OF_MONTH, serviceCycledays);  
+				//Date after adding the days to the given date
+				String nxtServiceDate = sdf.format(c.getTime());  
+				//Displaying the new Date after addition of Days
+				
+				
 				assetService.settServicingId(serviceId);				
-				assetService.setAssetId(Integer.parseInt(request.getParameter("assetId")));
+				assetService.setAssetId(assetId);
 				assetService.setBillAmt(Float.parseFloat(request.getParameter("serv_bill_amt")));
 				assetService.setBillDocFile(assetImage);
-				assetService.setServiceDate(request.getParameter("serv_date"));
+				assetService.setServiceDate(serviceDate);
 				assetService.setServiceDesc(request.getParameter("serv_desc"));
 				assetService.setServiceRemark(request.getParameter("serv_remark"));
 				assetService.setServiceType(Integer.parseInt(request.getParameter("serv_type")));
-				assetService.setNextServiceDate("0000-00-00");
+				assetService.setNextServiceDate(DateConvertor.convertToDMY(nxtServiceDate));
 				assetService.setVendorId(Integer.parseInt(request.getParameter("serviceVendorId")));
 				assetService.setDelStatus(1);				
 				assetService.setExInt1(0);
@@ -230,8 +272,12 @@ public class ServiceController {
 				AssetServicing res = Constants.getRestTemplate().postForObject(Constants.url + "/saveAssetsService", assetService,
 						AssetServicing.class);
 
-					if (res.getAssetId()>0) {						
-						session.setAttribute("successMsg", "Asset Service Inserted Successfully");
+					if (res.getAssetId()>0) {	
+						if(serviceId>0) {
+							session.setAttribute("successMsg", "Asset Service Updated Successfully");
+						}else {
+							session.setAttribute("successMsg", "Asset Service Inserted Successfully");
+						}
 					}
 					else {
 					
@@ -268,11 +314,11 @@ public class ServiceController {
 			} else {
 				model = new ModelAndView("servicing/editServicing");
 				
-			//	String base64encodedString = request.getParameter("servicingId");
-			//	String servicingId = FormValidation.DecodeKey(base64encodedString);
-				int serviceId = Integer.parseInt(request.getParameter("servicingId"));
+				String base64encodedString = request.getParameter("encodeServicingId");
+				String serviceId = FormValidation.DecodeKey(base64encodedString);				
+				
 				map = new LinkedMultiValueMap<>();
-				map.add("serviceId", serviceId);
+				map.add("serviceId", Integer.parseInt(serviceId));
 				
 				AssetServicing service = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetServicingById", map,
 						AssetServicing.class);
@@ -320,12 +366,11 @@ public class ServiceController {
 
 				a = "redirect:/showAssetForServicing";
 
-				//String base64encodedString = request.getParameter("assetVendorId");
-				//String assetVendorId = FormValidation.DecodeKey(base64encodedString);
-				int serviceId = Integer.parseInt(request.getParameter("serviceId"));
+				String base64encodedString = request.getParameter("encodeServicingId");
+				String serviceId = FormValidation.DecodeKey(base64encodedString);				
 				
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("serviceId", serviceId);
+				map.add("serviceId", Integer.parseInt(serviceId));
 				
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteAssetServiceById", map,
 						Info.class);
@@ -343,5 +388,34 @@ public class ServiceController {
 		return a;
 	}
 
-	
+	@RequestMapping(value = "/getAssetsServiceById", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AssetServiceDetails> getAssetServiceList(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId) {
+		
+		List<AssetServiceDetails> list =new ArrayList<AssetServiceDetails>();
+		try {
+			int asset = Integer.parseInt(FormValidation.DecodeKey(assetId));
+			System.out.println("Asset Id ----------------------"+asset);
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			
+			map.add("assetId", asset);
+			
+			AssetServiceDetails[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetServiceList", map,
+					AssetServiceDetails[].class);
+			list = new ArrayList<AssetServiceDetails>(Arrays.asList(amcArr));
+			
+			for (int i = 0; i < list.size(); i++) {
+
+				list.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(list.get(i).gettServicingId())));				
+			}
+
+			
+			System.out.println("getAssetServiceList Data---"+list);
+		}catch (Exception e) {
+			System.err.println("Exception in getAssetServiceList : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

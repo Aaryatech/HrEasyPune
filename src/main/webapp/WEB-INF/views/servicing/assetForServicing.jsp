@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+<c:url value="/getAssetsServiceById" var="getAssetsServiceById"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -152,7 +152,8 @@
 									<tr class="accordion-toggle collapsed"
 											id1="accordion${count.index+1}" data-toggle1="collapse"
 											data-parent1="#accordion${count.index+1}" >
-										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}" data-toggle="collapse"
+										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}"
+										 	 data-toggle="collapse"  onclick="getAssetServiceInfo('${assetList.exVar1}',${count.index+1})"
 											data-parent="#accordion${count.index+1}"><span class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}</td>
 										<td>${assetList.assetName}</td>
@@ -176,34 +177,42 @@
 											<!-- <td></td> -->
 											<td colspan="12"><div id="collapseOne${count.index+1}"
 													class="collapse in p-3">														
-														<table class="table ">
-														<tr class="bg-blue">
-															<th>Sr.No.</th>
-															<th>Vendor Name</th>
-															<th>Service Date</th>
-															<th>Service Type</th>
-															<th>Next Service</th>	
-															<th>Action</th>	
-														</tr>
-														<tr>
+														<table
+																	class="table datatable-scroller-buttons dataTable no-footer"
+																	width="100%" role="grid" id="servicedatatable${count.index+1}">
+															<thead>
+																<tr class="bg-blue">
+																	<th>Sr.No.</th>
+																	<th>Service Vendor</th>
+																	<th>Service Date</th>
+																	<th>Next Service</th>															
+																	<th>Service Type</th>
+																	<th>Action</th>	
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														<%-- <tr>
 															<td>1</td>
 															<td>Intel India</td>
 															<td>01-03-2020</td>
 															<td>Regular</td>
-<td>01-03-2021</td>															<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/editAssetServicing?servicingId=${1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
+															<td>01-03-2021</td>		
+															<td class="text-center">
+															<c:if test="${editAccess == 0}">
+																<a
+																	href="${pageContext.request.contextPath}/editAssetServicing?servicingId=${1}"
+																	class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
+																	 ></i></a>
+															</c:if> <c:if test="${deleteAccess == 0}">
 												 
 												 
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${44}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if></td>
+															<a href="javascript:void(0)"
+																	class="list-icons-item text-danger-600 bootbox_custom"
+																	data-uuid="${44}" data-popup="tooltip"
+																	title="" data-original-title="Delete"><i
+																	class="icon-trash"></i></a>
+															</c:if></td>
 																									
 														</tr>
 														
@@ -227,13 +236,13 @@
 													title="" data-original-title="Delete"><i
 													class="icon-trash"></i></a>
 											</c:if></td>					
-														</tr>
+														</tr> --%>
 														
 															
 														</table>
-														
+													</div>		
 													
-												</div></td>
+											</td>
 										</tr>
 								</c:forEach>
 
@@ -260,33 +269,82 @@
 	<!-- /page content -->
 <script>
 		// Custom bootbox dialog
-		$('.bootbox_custom')
-				.on(
-						'click',
-						function() {
-							var uuid = $(this).data("uuid") // will return the number 123
-										bootbox.confirm({
-										title : 'Confirm ',
-										message : 'Are you sure you want to delete selected records ?',
-										buttons : {
-											confirm : {
-												label : 'Yes',
-												className : 'btn-success'
-											},
-											cancel : {
-												label : 'Cancel',
-												className : 'btn-link'
-											}
-										},
-										callback : function(result) {
-											if (result) {
-												location.href = "${pageContext.request.contextPath}/deleteAssetService?serviceId="
-														+ uuid;
+			function bootbox_ban(uuid){
+			 
+			//alert(uuid);
+			bootbox.confirm({
+				title : 'Confirm ',
+				message : 'Are you sure you want to delete selected record ?',
+				buttons : {
+					confirm : {
+						label : 'Yes',
+						className : 'btn-success'
+					},
+					cancel : {
+						label : 'Cancel',
+						className : 'btn-link'
+					}
+				},
+				callback : function(result) {
+					if (result) {
+						location.href = "${pageContext.request.contextPath}/deleteAssetService?encodeServicingId="
+								+uuid;
 
-											}
-										}
-									});
-						});
+					}
+				}
+			});
+		}
 	</Script>
+		<script>
+function getAssetServiceInfo(assetId,countIndex){  
+  //alert(assetId)
+  var serviceType = null;
+			$
+					.getJSON(
+							'${getAssetsServiceById}',
+							{
+								assetId : assetId,
+								ajax : 'true',
+
+							},
+							function(data) {
+								//alert("Data  " +JSON.stringify(data));
+								
+								var dataTable = $('#servicedatatable'+countIndex).DataTable();
+								dataTable.clear().draw();
+								
+								$
+										.each(
+												data,
+												function(i, v) {
+													
+														var acButton = '<a href="${pageContext.request.contextPath}/editAssetServicing?encodeServicingId='
+															+ v.exVar1
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>'
+															+'&nbsp; &nbsp;<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
+												
+															if(v.serviceType==0){
+																serviceType = 'Regular'
+															}else{
+																serviceType = 'Breakdown'
+															}
+												dataTable.row
+															.add(
+																	[
+																			i + 1,
+																			v.serviceVendor,
+																			v.serviceDate,
+																			v.nextServiceDate,											
+																			serviceType,
+																			acButton 
+																	]).draw();
+												}); 
+								
+							 
+								
+							});
+	}
+</script>
 </body>
 </html>

@@ -851,7 +851,7 @@ public class AssetMgmtController {
 				assets.setAssetStatus(0);
 				assets.setLocId(Integer.parseInt(request.getParameter("locIdist")));
 				
-				assets.setScrapDate("NA");
+				assets.setScrapDate("0000-00-00");
 				assets.setScrapRemark("NA");
 				assets.setScrapAuthoriyDetails("NA");
 				assets.setScrapLoginUserid(0);
