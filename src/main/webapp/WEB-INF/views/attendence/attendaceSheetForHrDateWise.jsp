@@ -619,7 +619,9 @@
 			lateMark=1;
 		}
 		var lateMin = document.getElementById("lateMin").value;
-		
+		if(lateMin==""){
+			lateMin=0;
+		}
 		$('#modal_step1').modal('show');
 		
 			var fd = new FormData();
