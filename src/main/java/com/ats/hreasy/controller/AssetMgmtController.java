@@ -2028,7 +2028,7 @@ public class AssetMgmtController {
 					map.add("scrapAuthority",request.getParameter("scrapAuthority"));
 					map.add("scrapUserLogInId",userObj.getEmpId());
 					map.add("scrapDateTime",sf.format(date));
-					map.add("status",9);
+					map.add("status",4);
 					
 		
 					Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updtAssetToScrap", map,

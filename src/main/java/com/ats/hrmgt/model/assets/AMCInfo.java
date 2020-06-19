@@ -17,6 +17,7 @@ public class AMCInfo {
 	
 	private int amcStatus;
 	private String statusText;
+	private int assetStatus;	
 	
 	private String exVar1;
 	private String exVar2;
@@ -99,14 +100,19 @@ public class AMCInfo {
 	public void setExVar2(String exVar2) {
 		this.exVar2 = exVar2;
 	}
-	
+	public int getAssetStatus() {
+		return assetStatus;
+	}
+	public void setAssetStatus(int assetStatus) {
+		this.assetStatus = assetStatus;
+	}
 	@Override
 	public String toString() {
 		return "AMCInfo [amcId=" + amcId + ", assetId=" + assetId + ", amcFrDate=" + amcFrDate + ", amcToDate="
 				+ amcToDate + ", amcAmt=" + amcAmt + ", positiveRemark=" + positiveRemark + ", negativeRemark="
 				+ negativeRemark + ", vendorId=" + vendorId + ", compName=" + compName + ", amcStatus=" + amcStatus
-				+ ", statusText=" + statusText + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
+				+ ", statusText=" + statusText + ", assetStatus=" + assetStatus + ", exVar1=" + exVar1 + ", exVar2="
+				+ exVar2 + "]";
 	}
 	
-
 }

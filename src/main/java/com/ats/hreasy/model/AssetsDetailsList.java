@@ -13,6 +13,7 @@ public class AssetsDetailsList {
 	private String assetPurDate	;
 	private String vendor;
 	private String assetRemark;
+	private String assetStatus;
 	private String location;
 	private int makerUserId;
 	private String updateDatetime;
@@ -137,14 +138,20 @@ public class AssetsDetailsList {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public String getAssetStatus() {
+		return assetStatus;
+	}
+	public void setAssetStatus(String assetStatus) {
+		this.assetStatus = assetStatus;
+	}
 	@Override
 	public String toString() {
 		return "AssetsDetailsList [assetId=" + assetId + ", assetCode=" + assetCode + ", assetName=" + assetName
 				+ ", assetDesc=" + assetDesc + ", catName=" + catName + ", assetMake=" + assetMake + ", assetModel="
 				+ assetModel + ", assetSrno=" + assetSrno + ", assetPurDate=" + assetPurDate + ", vendor=" + vendor
-				+ ", assetRemark=" + assetRemark + ", location=" + location + ", makerUserId=" + makerUserId
-				+ ", updateDatetime=" + updateDatetime + ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2="
-				+ exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
+				+ ", assetRemark=" + assetRemark + ", assetStatus=" + assetStatus + ", location=" + location
+				+ ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime + ", delStatus=" + delStatus
+				+ ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
 	}
 	
 }

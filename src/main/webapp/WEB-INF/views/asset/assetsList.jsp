@@ -137,9 +137,6 @@
 							</thead>
 							<tbody>
 
-
-
-
 								<c:forEach items="${assetsList}" var="assetList"
 									varStatus="count">
 									<tr class="accordion-toggle collapsed"
@@ -165,27 +162,33 @@
 													data-popup="tooltip" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
 											</c:if> <c:if test="${deleteAccess == 0}">
-
-
-												<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom bootbox_custom2"
-													data-uuid="${assetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a> </c:if> 
-												
-												<a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"
-													title="" data-original-title="Add Asset AMC"><i
-													class="icon-enlarge5"></i></a>
-												
-												<a href="${pageContext.request.contextPath}/lostAssetAmc?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip" 
-													title="" data-original-title="Lost"><i class="fa fa-question-circle"></i></a>
-												
+													<c:if test="${assetList.assetStatus==0}">
+														<a href="javascript:void(0)"
+															class="list-icons-item text-danger-600 bootbox_custom bootbox_custom2"
+															data-uuid="${assetList.exVar1}" data-popup="tooltip"
+															title="" data-original-title="Delete"><i
+															class="icon-trash"></i></a>
+														</c:if>
+												 </c:if> 
+												<c:if test="${assetList.assetStatus!=3 && assetList.assetStatus!=4}">
+													<a href="${pageContext.request.contextPath}/addAssetAmc?assetId=${assetList.exVar1}"
+														class="list-icons-item text-primary-600" data-popup="tooltip"
+														title="" data-original-title="Add Asset AMC"><i
+														class="icon-enlarge5"></i></a>
+												</c:if>
+													
+												<c:if test="${assetList.assetStatus==1}">
+													<a href="${pageContext.request.contextPath}/lostAssetAmc?assetId=${assetList.exVar1}"
+														class="list-icons-item text-primary-600" data-popup="tooltip" 
+														title="" data-original-title="Lost"><i class="fa fa-question-circle"></i></a>
+												</c:if>
+												<c:if test="${assetList.assetStatus==0}">
 												 <a href="${pageContext.request.contextPath}/scrapAsset?assetId=${assetList.exVar1}"
 													class="list-icons-item text-primary-600" data-popup="tooltip"
 													title="" data-original-title="Scrap Asset"><i
-													class="fa fa-recycle"></i></a></td>
+													class="fa fa-recycle"></i></a>
+												</c:if>			
+										</td>
 									</tr>
 
 
@@ -261,6 +264,9 @@
 	<script>
 function getAssetInfo(assetId,countIndex){  
  //  alert(assetId)
+ var btnEdit = null;
+ var btnRenew = null;
+ var btnTerminate = null;
 			$
 					.getJSON(
 							'${getAssetsAMCs}',
@@ -279,20 +285,31 @@ function getAssetInfo(assetId,countIndex){
 										.each(
 												data,
 												function(i, v) {
-													
-													
-													/* var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
-														+ v.exVar1
-														+'class="list-icons-item text-primary-600" data-popup="tooltip" data-original-title="Edit">'
-														+'<i class="icon-pencil7"></i></a>';  */
-														var acButton = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
+													if(v.amcStatus==12 || v.amcStatus==13){
+														btnEdit = '';
+														btnRenew = '';
+														btnTerminate = '';														
+													}else{													
+														
+														btnEdit = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
 															+ v.exVar1
-															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>'
-															+'&nbsp; &nbsp;<a href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId='
-															+ v.exVar1
-															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="icon-history"></i></a>'
-															+'&nbsp; &nbsp;<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
-															+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>&nbsp; &nbsp;';
+															
+														if(v.amcStatus==10 && v.assetStatus!=3 && v.assetStatus!=4){	
+															btnRenew = '<a href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId='
+																+ v.exVar1
+																+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="icon-history"></i></a>&nbsp; &nbsp;';
+														}else{
+															btnRenew = '';
+														}	
+														
+														if(v.amcStatus==10 || v.amcStatus==11){
+															btnTerminate ='<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+																+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
+														}else{
+															btnTerminate = '';
+														}
+													}
 												dataTable.row
 															.add(
 																	[
@@ -301,7 +318,7 @@ function getAssetInfo(assetId,countIndex){
 																			v.amcFrDate+' to '+v.amcToDate,											
 																			v.amcAmt,
 																			v.statusText,
-																			acButton 
+																			btnEdit + btnRenew + btnTerminate 
 																	]).draw();
 												}); 
 								
