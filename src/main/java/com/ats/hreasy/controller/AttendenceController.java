@@ -664,7 +664,7 @@ public class AttendenceController {
 			int selectShift = Integer.parseInt(request.getParameter("selectShift"));
 			int otApproval = Integer.parseInt(request.getParameter("otApproval"));
 			int lateMin = Integer.parseInt(request.getParameter("lateMin"));
-			
+
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
 
@@ -1231,60 +1231,57 @@ public class AttendenceController {
 
 		HttpSession session = request.getSession();
 
-		/*
-		 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
-		 * session.getAttribute("moduleJsonList"); Info view =
-		 * AcessController.checkAccess("attendaceSheetForHrDateWise",
-		 * "attendaceSheetForHrDateWise", 1, 0, 0, 0, newModuleList);
-		 * 
-		 * if (view.isError() == true) {
-		 * 
-		 * mav = "accessDenied";
-		 * 
-		 * } else {
-		 */
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("attendaceSheetForHrDateWise", "attendaceSheetForHrDateWise", 1, 0, 0,
+				0, newModuleList);
 
-		mav = "attendence/attendaceSheetForHrDateWise";
+		if (view.isError() == true) {
 
-		try {
+			mav = "accessDenied";
 
-			/*
-			 * Info edit = AcessController.checkAccess("attendaceSheetByHod",
-			 * "attendaceSheetByHod", 0, 0, 1, 0, newModuleList);
-			 * 
-			 * if (edit.isError() == false) { model.addAttribute("editAccess", 0); }
-			 */
-			model.addAttribute("editAccess", 0);
-			date = request.getParameter("date");
+		} else {
 
-			if (date != null) {
-				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				map.add("date", DateConvertor.convertToYMD(date));
-				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
-						Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
-				List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
-						Arrays.asList(getDailyDailyRecord));
-				model.addAttribute("dailyrecordList", dailyrecordList);
-				model.addAttribute("date", date);
-				LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeList",
-						LvType[].class);
-				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
-				model.addAttribute("lvTypeList", lvTypeList);
+			mav = "attendence/attendaceSheetForHrDateWise";
 
-				ShiftMaster[] shiftMaster = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
-				model.addAttribute("shiftMaster", shiftMaster);
+			try {
 
-				String[] datearr = date.split("-");
-				model.addAttribute("year", datearr[2]);
-				model.addAttribute("month", datearr[1]);
+				Info edit = AcessController.checkAccess("attendaceSheetForHrDateWise", "attendaceSheetForHrDateWise", 0,
+						0, 1, 0, newModuleList);
+
+				if (edit.isError() == false) {
+					model.addAttribute("editAccess", 0);
+				}
+
+				date = request.getParameter("date");
+
+				if (date != null) {
+					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+					map.add("date", DateConvertor.convertToYMD(date));
+					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
+					List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
+							Arrays.asList(getDailyDailyRecord));
+					model.addAttribute("dailyrecordList", dailyrecordList);
+					model.addAttribute("date", date);
+					LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeList",
+							LvType[].class);
+					List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
+					model.addAttribute("lvTypeList", lvTypeList);
+
+					ShiftMaster[] shiftMaster = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
+					model.addAttribute("shiftMaster", shiftMaster);
+
+					String[] datearr = date.split("-");
+					model.addAttribute("year", datearr[2]);
+					model.addAttribute("month", datearr[1]);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		// }
 		return mav;
 
 	}

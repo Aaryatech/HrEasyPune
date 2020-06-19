@@ -51,7 +51,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>  Bulk Salary Data Upload</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Bulk Salary Data Upload
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -102,7 +104,7 @@
 
 								<div class="rows">
 									<div class="col-md-12">
-										 
+
 										<div class="rows">
 
 											<form
@@ -127,12 +129,12 @@
 
 														</div>
 													</div>
-													
+
 
 
 
 												</div>
-												
+
 												<div class="form-group row">
 													<div class="col-md-2 float">&nbsp;</div>
 													<div class="col-md-4">
@@ -140,14 +142,15 @@
 															name="btnUploadSubmit" class="btn blue_btn">
 															Uplaod File <i class="icon-paperplane ml-2"></i>
 														</button>
-														
-														
-															
-															<a href="${pageContext.request.contextPath}/showEmployeeList"><button
-													type="button" class="btn btn-light">
-													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
-													Cancel
-												</button></a>
+
+
+
+														<a
+															href="${pageContext.request.contextPath}/showEmployeeList"><button
+																type="button" class="btn btn-light">
+																<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>
+																Cancel
+															</button></a>
 													</div>
 												</div>
 
@@ -161,8 +164,8 @@
 
 
 
- 
-										 
+
+
 
 
 									</div>
@@ -189,7 +192,7 @@
 	</div>
 	<!-- /page content -->
 
-  
+
 
 	<script>
 		$(document)
@@ -200,7 +203,7 @@
 											function(e) {
 												var isError = false;
 												var errMsg = "";
- 												if ($("#fileSal").val() != "") {
+												if ($("#fileSal").val() != "") {
 													$("#error_fileSal").hide()
 												} else {
 													isError = true;
