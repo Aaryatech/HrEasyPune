@@ -169,7 +169,7 @@
 									varStatus="count">
 									<tr>
 										<td>${count.index+1}
-											<input type="text" id="transIds" name="transIds${assetsList.assetId}" value="${assetsList.assetTransId}">
+											<input type="hidden" id="transIds" name="transIds${assetsList.assetId}" value="${assetsList.assetTransId}">
 										</td>
 									
 									<td>

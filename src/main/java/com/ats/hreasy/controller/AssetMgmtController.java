@@ -1188,7 +1188,8 @@ public class AssetMgmtController {
 			int empId = Integer.parseInt(request.getParameter("empId"));
 			int assetTransId = 0;
 			int assetChkVal = 0;
-			
+			int assetId = 0;
+			int noOfAsset =  asset.length;
 			for (int i = 0; i < asset.length; i++) {
 				
 				assetChkVal = Integer.parseInt(asset[i]);
@@ -1212,9 +1213,9 @@ public class AssetMgmtController {
 				VpsImageUpload upload = new VpsImageUpload();
 				Info info = upload.saveUploadedImge(doc.get(i), Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
 						0);
-				
+				assetId = Integer.parseInt(request.getParameter("assetIds" + asset[i]));
 				assignAsset.setAssetTransId(assetTransId);				
-				assignAsset.setAssetId(Integer.parseInt(request.getParameter("assetIds" + asset[i])));				
+				assignAsset.setAssetId(assetId);				
 				assignAsset.setAssetTransStatus(1);
 				assignAsset.setAssignRemark(request.getParameter("remark" + asset[i]));
 				assignAsset.setDelStatus(1);
@@ -1254,6 +1255,18 @@ public class AssetMgmtController {
 				}else {
 				session.setAttribute("successMsg", "Assets Assign Successfully");
 				}
+				
+				//Log
+                String assetLogDesc = null;
+                
+                int loginUserId = userObj.getEmpId();                 
+                if(assetTransId>0) {
+                	assetLogDesc="Edit "+noOfAsset+" assign assets to Employee empId - "+empId;  
+                }else {
+                	assetLogDesc="Assign "+noOfAsset+" assets to Employee empId - "+empId;  
+                }
+                Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
+                
 			}else {
 				session.setAttribute("errorMsg", "Failed to Assign Assets");
 			}
@@ -1364,6 +1377,9 @@ public class AssetMgmtController {
 			int assetTransId = 0;
 			int assetChkVal = 0;
 			
+			int assetId= 0;
+			int noOfAsset = asset.length;
+			
 			MultiValueMap<String, Object> map = null;
 		
 			for (int i = 0; i < asset.length; i++) {
@@ -1388,10 +1404,12 @@ public class AssetMgmtController {
 				//System.out.println("Values-----"+"transId=="+assetTransId);
 				map = new LinkedMultiValueMap<>();
 				
+				assetId = Integer.parseInt(request.getParameter("assetIds" + asset[i]));
+				
 				map.add("assetTransId", assetTransId);				
 				map.add("assetTransStatus", 2);
 				map.add("returnDate", toDay.format(date));	
-				map.add("assetId", Integer.parseInt(request.getParameter("assetIds" + asset[i])));
+				map.add("assetId", assetId);
 				map.add("returnRemark", request.getParameter("returRemark" + asset[i]));
 				map.add("assetReturnImg", assetImage);
 				map.add("updateDateTime", sf.format(date));
@@ -1403,6 +1421,15 @@ public class AssetMgmtController {
 			}
 			if (info.isError() == false) {
 				session.setAttribute("successMsg", "Assets Returned Sucessfully");
+				//Log
+                String assetLogDesc = null;
+               
+                int loginUserId = userObj.getEmpId();                 
+                    
+                assetLogDesc=noOfAsset+" assets returned"; 
+                
+                Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
+				
 			} else {
 				session.setAttribute("errorMsg", "Failed to Returned Assets");
 			}
@@ -1962,11 +1989,8 @@ public class AssetMgmtController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				
-//				String encodeAssetId = request.getParameter("assetId");
-//				int assetId = Integer.parseInt(FormValidation.DecodeKey(encodeAssetId));	
 				int assetId = Integer.parseInt(request.getParameter("assetId"));	
-				
-				
+					
 				System.out.println("Transc Asset Id ----------------------"+assetId);
 				
 				map = new LinkedMultiValueMap<>();
@@ -1978,7 +2002,13 @@ public class AssetMgmtController {
 				
 				map = new LinkedMultiValueMap<>();
 				
-				map.add("transactnId", transctn.getAssetTransId());
+				int transactnId = 0;
+				if(transctn==null) {
+					transactnId = 0;
+				}else {
+					transactnId=transctn.getAssetTransId();
+				}
+				map.add("transactnId", transactnId);
 				map.add("assetId", assetId);
 				map.add("lostAssetRemark", request.getParameter("lostAssetRemark"));
 				map.add("userUpdateId", userObj.getEmpId());
@@ -1991,6 +2021,15 @@ public class AssetMgmtController {
 
 				if (info.isError() == false) {
 					session.setAttribute("successMsg", info.getMsg());
+					
+					//Log
+                    String assetLogDesc = null;
+                    int assetTransId = transactnId;
+                    int loginUserId = userObj.getEmpId(); 
+                    
+                     assetLogDesc="Make asset lost, asset Id - "+assetId; 
+                    
+                    Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
 				} else {
 					session.setAttribute("errorMsg", info.getMsg());
 				}
@@ -2071,20 +2110,30 @@ public class AssetMgmtController {
 					
 					map = new LinkedMultiValueMap<>();
 					
-					map.add("assetId",Integer.parseInt(request.getParameter("scrapAssetId")));
+					int assetId = Integer.parseInt(request.getParameter("scrapAssetId"));
+					
+					map.add("assetId",assetId);
 					map.add("scrapDate",DateConvertor.convertToYMD(request.getParameter("scrapDate")));
 					map.add("remark",request.getParameter("remark"));
 					map.add("scrapAuthority",request.getParameter("scrapAuthority"));
 					map.add("scrapUserLogInId",userObj.getEmpId());
 					map.add("scrapDateTime",sf.format(date));
-					map.add("status",4);
-					
+					map.add("status",4);					
 		
 					Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updtAssetToScrap", map,
 							Info.class);
 		
 					if (info.isError() == false) {
 						session.setAttribute("successMsg", info.getMsg());
+						
+						//Log
+                        String assetLogDesc = null;
+                        int assetTransId = 0;
+                        int loginUserId = userObj.getEmpId(); 
+                        
+                         assetLogDesc="Make asset scrap, asset Id - "+assetId; 
+                        
+                        Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
 					} else {
 						session.setAttribute("errorMsg", info.getMsg());
 					}	
