@@ -96,7 +96,7 @@
 								%>
 								<form
 									action="${pageContext.request.contextPath}/attendaceSheetForHrDateWise"
-									id="submitInsertLeave" method="get">
+									id="attendaceSheetForHrDateWise" method="get">
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
@@ -112,15 +112,9 @@
 
 
 										<button type="submit" class="btn bg-blue ml-3 legitRipple"
-											id="submtbtn">
+											id="submtbtn1">
 											Search <i class="icon-paperplane ml-2"></i>
 										</button>
-
-										<!-- <button type="button" class="btn bg-blue ml-3 legitRipple"
-									id="submtbtn"
-									onclick="getProgReport(0,'exelForEmployeeTypeWiseClaim')">
-									Excel <i class="icon-paperplane ml-2"></i>
-								</button> -->
 
 									</div>
 								</form>
@@ -133,6 +127,26 @@
 									<h5 class="card-title">Edit Attendance Detail</h5>
 								</div>
 								<div class="card-body">
+									<div class="form-group row">
+
+										<label class="col-form-label col-lg-2" for="empCode">
+											Emp Code : </label>
+										<div class="col-lg-2">
+											<input type="text" class="form-control"
+												placeholder="Employee Code" id="empCode" name="empCode"
+												autocomplete="off" disabled>
+
+										</div>
+										<div class="col-lg-1"></div>
+										<label class="col-form-label col-lg-2" for="empName">
+											Emp Name : </label>
+										<div class="col-lg-4">
+											<input type="text" class="form-control"
+												placeholder="Employee Name" id="empName" name="empName"
+												autocomplete="off" disabled>
+
+										</div>
+									</div>
 									<div class="form-group row">
 										<label class="col-form-label col-lg-2" for="attDate">
 											Date : </label>
@@ -284,34 +298,36 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table
+									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+										id="printtable1"> -->
+									<table class="table datatable-scroll-y" width="100%"
 										id="printtable1">
-
 
 										<thead>
 											<tr class="bg-blue" style="text-align: center;">
 
-												<th class="text-center">Date</th>
+												<th class="text-center">Name</th>
 												<th class="text-center">Status</th>
 												<th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th>
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late MIN</th>
 												<th class="text-center">WR. Hrs</th>
-												<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
-													<th class="text-center">Production Incentive <br>Hrs
-													</th>
-												</c:if>
-												<th class="text-center">OShift/Loc</th>
+												<%-- <c:if test="${mstEmpType.otApplicable eq 'Yes' }"> --%>
+												<th class="text-center">Production Incentive <br>Hrs
+												</th>
+												<%-- </c:if> --%>
+												<th class="text-center">Shift</th>
 												<th class="text-center">Action</th>
 
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${dailyDailyList}" var="dailyrecordList">
+											<c:forEach items="${dailyrecordList}" var="dailyrecordList">
 												<tr>
-													<td class="text-center">${dailyrecordList.attDate}</td>
+													<td>${dailyrecordList.empName}
+														&nbsp;(${dailyrecordList.empCode})</td>
 													<td class="text-center">${dailyrecordList.attsSdShow}</td>
 
 													<c:choose>
@@ -343,19 +359,19 @@
 													</c:choose>
 													<td class="text-right">${dailyrecordList.lateMin}</td>
 													<td class="text-right">${dailyrecordList.workingHrs}</td>
-													<c:if test="${mstEmpType.otApplicable eq 'Yes' }">
+													<%-- <c:if test="${mstEmpType.otApplicable eq 'Yes' }"> --%>
 
-														<c:set value="" var="bgclr"></c:set>
-														<c:choose>
-															<c:when test="${dailyrecordList.freezeBySupervisor==1}">
-																<c:set value="#e4cf12" var="bgclr"></c:set>
-															</c:when>
-															<c:when test="${dailyrecordList.freezeBySupervisor==2}">
-																<c:set value="#a2951e" var="bgclr"></c:set>
-															</c:when>
-														</c:choose>
-														<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
-													</c:if>
+													<c:set value="" var="bgclr"></c:set>
+													<c:choose>
+														<c:when test="${dailyrecordList.freezeBySupervisor==1}">
+															<c:set value="#e4cf12" var="bgclr"></c:set>
+														</c:when>
+														<c:when test="${dailyrecordList.freezeBySupervisor==2}">
+															<c:set value="#a2951e" var="bgclr"></c:set>
+														</c:when>
+													</c:choose>
+													<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
+													<%-- </c:if> --%>
 													<td>${dailyrecordList.currentShiftname}</td>
 													<td class="text-center"><c:if
 															test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">
@@ -370,7 +386,7 @@
 																		class="list-icons-item text-primary-600"
 																		data-popup="tooltip" title="edit"><i
 																		class="icon-pencil7"></i></a>&nbsp;
-																		 <c:if test="${mstEmpType.whWork eq 'Compoff'}">
+																		 <c:if test="${dailyrecordList.empJson eq 'Compoff'}">
 																		<a href="#"
 																			class="list-icons-item text-primary-600 bootbox_custom"
 																			data-dailyid="${dailyrecordList.id}"
@@ -509,6 +525,9 @@
 					document.getElementById("byIntimeDive").style.display = 'none';
 					document.getElementById("byStatusDive").style.display = 'block';
 					document.getElementById("byStatus").checked = true;
+					document.getElementById("empId").value = response.empId;
+					document.getElementById("empCode").value = response.empCode;
+					document.getElementById("empName").value = response.empName;
 					document.getElementById("dailyId").value = response.id;
 					document.getElementById("attDate").value = response.attDate;
 					document.getElementById("attStatus").value = response.attsSdShow;
@@ -670,6 +689,14 @@
 										}
 									});
 						});
+		$('.datepickerclass').daterangepicker({
+			singleDatePicker : true,
+			selectMonths : true,
+			selectYears : true,
+			locale : {
+				format : 'DD-MM-YYYY'
+			}
+		});
 	</Script>
 
 	<script type="text/javascript">
@@ -680,7 +707,7 @@
 		var month = document.getElementById("month").value;
 		var year = document.getElementById("year").value;
 		
-		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate+"&month="+month+"&year="+year;
+		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate+"&month="+month+"&year="+year+"&flag="+1;
 		   $("#modalbody").load(strhref);
 		   $("#modal_large1").modal("show");
 		   $('#modal_large1').on('hidden.bs.modal', function () {

@@ -1259,8 +1259,8 @@ public class AttendenceController {
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 				map.add("date", DateConvertor.convertToYMD(date));
-				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
+				GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
 				List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
 						Arrays.asList(getDailyDailyRecord));
 				model.addAttribute("dailyrecordList", dailyrecordList);
@@ -1270,6 +1270,13 @@ public class AttendenceController {
 				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
 				model.addAttribute("lvTypeList", lvTypeList);
 
+				ShiftMaster[] shiftMaster = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getShiftListByLpad", map, ShiftMaster[].class);
+				model.addAttribute("shiftMaster", shiftMaster);
+
+				String[] datearr = date.split("-");
+				model.addAttribute("year", datearr[2]);
+				model.addAttribute("month", datearr[1]);
 			}
 
 		} catch (Exception e) {

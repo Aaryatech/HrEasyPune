@@ -702,7 +702,7 @@
 		var month = document.getElementById("month").value;
 		var year = document.getElementById("year").value;
 		
-		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate+"&month="+month+"&year="+year;
+		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate+"&month="+month+"&year="+year+"&flag="+0;
 		   $("#modalbody").load(strhref);
 		   $("#modal_large1").modal("show");
 		   $('#modal_large1').on('hidden.bs.modal', function () {

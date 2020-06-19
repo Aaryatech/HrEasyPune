@@ -613,7 +613,7 @@ public class LeaveController {
 
 			model.addObject("loginEmpId", userObj.getEmpId());
 			model.addObject("encryptEmpId", FormValidation.Encrypt(String.valueOf(empId)));
-			 
+
 			GetAuthorityIds authority = Constants.getRestTemplate().postForObject(Constants.url + "/getAuthIdByEmpId",
 					map, GetAuthorityIds.class);
 			model.addObject("authority", authority);
@@ -1593,6 +1593,7 @@ public class LeaveController {
 			String attDate = request.getParameter("attDate");
 			int month = Integer.parseInt(request.getParameter("month"));
 			int year = Integer.parseInt(request.getParameter("year"));
+			int flag = Integer.parseInt(request.getParameter("flag"));
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
@@ -1661,6 +1662,7 @@ public class LeaveController {
 			model.addAttribute("attDate", attDate);
 			model.addAttribute("month", month);
 			model.addAttribute("year", year);
+			model.addAttribute("flag", flag);
 		} catch (Exception e) {
 			e.getMessage();
 		}
@@ -1676,7 +1678,8 @@ public class LeaveController {
 		int empId = Integer.parseInt(request.getParameter("empId"));
 		int month = Integer.parseInt(request.getParameter("month"));
 		int year = Integer.parseInt(request.getParameter("year"));
-
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		String dateret = "";
 		try {
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
@@ -1859,7 +1862,7 @@ public class LeaveController {
 
 					}
 				}
-
+				dateret = arrOfStr[0];
 			} else {
 				session.setAttribute("errorMsg", "Failed to Apply Leave");
 			}
@@ -1869,7 +1872,12 @@ public class LeaveController {
 		}
 
 		// return "redirect:/showApplyForLeave";
-		return "redirect:/attendanceEditEmpMonth?month=" + month + "&year=" + year + "&empId=" + empId;
+
+		if (flag == 1) {
+			return "redirect:/attendaceSheetForHrDateWise?date=" + dateret;
+		} else {
+			return "redirect:/attendanceEditEmpMonth?month=" + month + "&year=" + year + "&empId=" + empId;
+		}
 
 	}
 

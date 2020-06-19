@@ -290,7 +290,9 @@
 							class="form-control numbersOnly" id="month" value="${month}"
 							name="month"><input type="hidden"
 							class="form-control numbersOnly" id="year" value="${year}"
-							name="year">
+							name="year"><input type="hidden"
+							class="form-control numbersOnly" id="flag" value="${flag}"
+							name="flag">
 						<div class="col-md-12" style="text-align: center;">
 
 							<c:choose>
@@ -524,14 +526,14 @@
 </script>
 <script type="text/javascript">
 	// Single picker
-	$('.datepickerclass').daterangepicker({
+	/* $('.datepickerclass').daterangepicker({
 		singleDatePicker : true,
 		selectMonths : true,
 		selectYears : true,
 		locale : {
 			format : 'DD-MM-YYYY'
 		}
-	});
+	}); */
 
 	/* var today = new Date();
 	var last = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
