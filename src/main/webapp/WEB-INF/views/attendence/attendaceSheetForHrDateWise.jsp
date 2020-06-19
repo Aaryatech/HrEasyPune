@@ -219,15 +219,25 @@
 												</select>
 											</div>
 											<div class="col-lg-1"></div>
+
+										</div>
+										<div class="form-group row">
 											<label class="col-form-label col-lg-2" for="lateMark">
 												Late Mark : </label>
 											<div class="col-lg-2">
 												<input type="checkbox" class="chk" name="lateMark"
 													id="lateMark">
 											</div>
+											<div class="col-lg-1"></div>
+											<label class="col-form-label col-lg-2" for="lateMin">
+												Late Min : </label>
+											<div class="col-lg-2">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Late Min" id="lateMin" name="lateMin"
+													autocomplete="off">
 
+											</div>
 										</div>
-
 										<div class="form-group row">
 											<label class="col-form-label col-lg-2" for="otHours">
 												Production Incentive Hrs : </label>
@@ -549,7 +559,7 @@
 					}else{
 						document.getElementById("lateMark").checked = false;
 					}
-					 
+					document.getElementById("lateMin").value=response.lateMin;
 				},
 			});
 
@@ -608,6 +618,8 @@
 		if(document.getElementById("lateMark").checked==true){
 			lateMark=1;
 		}
+		var lateMin = document.getElementById("lateMin").value;
+		
 		$('#modal_step1').modal('show');
 		
 			var fd = new FormData();
@@ -624,7 +636,7 @@
 			fd.append('selectShift', selectShift);
 			fd.append('otApproval', otApproval);
 			fd.append('namesd', namesd);
-			
+			fd.append('lateMin', lateMin);
 			  $
 			.ajax({
 				url : '${pageContext.request.contextPath}/submitAttendanceDetail',

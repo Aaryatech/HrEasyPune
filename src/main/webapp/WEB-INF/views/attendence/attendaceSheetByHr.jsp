@@ -533,6 +533,9 @@
 			lateMark=1;
 		}
 		var lateMin = document.getElementById("lateMin").value;
+		if(lateMin==""){
+			lateMin=0;
+		}
 			var fd = new FormData();
 			fd.append('dailyId', dailyId); 
 			fd.append('selectStatus', selectStatus); 
