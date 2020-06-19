@@ -53,7 +53,7 @@ import com.ats.hrmgt.model.assets.AssetInfo;
 @Controller
 @Scope("session")
 public class AssetMgmtController {
-	int locId = 0;
+
 	/************************Assets Category***********************/
 	@RequestMapping(value = "/showAssetCategory", method = RequestMethod.GET)
 	public ModelAndView showAssetCategory(HttpServletRequest request, HttpServletResponse responser) {
@@ -1030,7 +1030,7 @@ public class AssetMgmtController {
 	}
 	
 	/*****************************************************************************/
-	
+	int locId = 0;
 	@RequestMapping(value = "/manageAssets", method = RequestMethod.GET)
 	public ModelAndView manageAssets(HttpServletRequest request, HttpServletResponse responser) {
 
@@ -1059,7 +1059,7 @@ public class AssetMgmtController {
 				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 				model.addObject("locationList", locationList);
 				
-				int locId = 0;
+				
 				try {
 					locId = Integer.parseInt(request.getParameter("locId_list"));
 				}catch (NumberFormatException e) {
