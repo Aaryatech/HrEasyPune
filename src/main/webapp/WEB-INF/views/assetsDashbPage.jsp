@@ -86,6 +86,7 @@
 								<th class="sorting">Email</th>
 								<th class="sorting">Asset Detail</th>
 								<th class="sorting">Usage Period</th>
+								<th class="sorting">Return Days-Alarm Days</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -96,35 +97,40 @@
 								<td>9885852514</td>
 								<td>rak@gmail.com</td>
 								<td>ASSET_005-Lenovo Laptop</td>	
-								<td>01-03-2020 - 31-03-2021</td>										
+								<td>01-03-2020 - 31-03-2021</td>	
+								<td>1- -7</td>							
 							</tr>
 							<tr role="row" class="odd">
 								<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
 								<td>9785452544</td>
 								<td>pdjadhav75@gmail.com</td>
 								<td>ASSET_009-Toshiba Hard Disk</td>	
-								<td>01-03-2020 - 31-03-2020</td>							
+								<td>01-03-2020 - 31-03-2020</td>	
+								<td>1- -4</td>							
 							</tr>
 							<tr role="row" class="odd">
 							<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
 								<td>9284452642</td>
 								<td>rssharma21@hotmail.com</td>
 								<td>ASSET_015-Intel Wireless Modem</td>	
-								<td>01-03-2020 - 31-03-2020</td>							
+								<td>01-03-2020 - 31-03-2020</td>	
+								<td>1- -4</td>								
 							</tr>
 							<tr role="row" class="odd">
 										<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
 								<td>9785452544</td>
 								<td>pdjadhav75@gmail.com</td>
 								<td>ASSET_019-HP Printer</td>	
-								<td>01-03-2020 - 31-03-2020</td>								
+								<td>01-03-2020 - 31-03-2020</td>	
+								<td>1- -4</td>									
 							</tr>
 							<tr role="row" class="odd">
 								<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
 								<td>9284452642</td>
 								<td>rssharma21@hotmail.com</td>
 								<td>ASSET_305-Dell Desktop PC</td>	
-								<td>01-03-2020 - 31-03-2020</td>									
+								<td>01-03-2020 - 31-03-2020</td>	
+								<td>1- -4</td>										
 							</tr>
 							</tbody>
 						</table></div>
