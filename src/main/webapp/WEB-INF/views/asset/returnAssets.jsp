@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+<c:url value="/getAssignAssetsDetails" var="getAssignAssetsDetails"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -152,7 +152,8 @@
 										</td>								
 									
 										<td>
-											<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large"
+											<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large" 
+											onclick="getEmpAssetAssignData(${assetsList.assetId})"
 											class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
 											${assetsList.assetCode}-${assetsList.assetName}</a>
 										</td>
@@ -282,35 +283,26 @@
 
 							<div class="modal-body">
 							<div class="form-group row">									
-								<div class="col-md-4">
+								<!-- <div class="col-md-6">
 									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Assign Image
 															Name <span class="text-danger"></span>:</label>
 									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKI7IY-cNuEyZmw-eC4fjyoxaW8oauU5gbVlp13Bi--fVYOCbb3mACK1PZso0&usqp=CAc">
-								</div>
+								</div> -->
 								
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Purchase Image
 															Name <span class="text-danger"></span>:</label>
-									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKI7IY-cNuEyZmw-eC4fjyoxaW8oauU5gbVlp13Bi--fVYOCbb3mACK1PZso0&usqp=CAc">
-								</div>
+									<!-- <img src=""> -->
+									<img id="purchaseImg">
+								</div>							
 								
-								<div class="col-md-4">
-									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Remark
-									<span class="text-danger"></span>:</label>
-									<input type="text" class="form-control"  readonly="readonly" 
-									value="Battery Problem" style="width: 50%;">
-								</div>
 							</div>
-							
-							<div class="form-group row">									
-										<div class="col-md-6">										
+						<div class="form-group row">
+						<div class="col-md-6">										
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
 													Name <span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="ASST001-Laptop">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="assetName"></span>
 												</div>
 											</div>
 											
@@ -318,10 +310,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Purchase
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<input type="text" class="form-control"  readonly="readonly" 
-												autocomplete="off" onchange="trim(this)" value="Dells Gallery">
-												<span class="validation-invalid-label" id="error_assetName"
-													style="display: none;">This field is required.</span>
+												<span id="purchaseVendor"></span>
 											</div>
 										</div>											
 									</div>	
@@ -331,10 +320,7 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Category
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="Computer">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="category"></span>
 												</div>
 											</div>
 											
@@ -342,12 +328,26 @@
 												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
-													<input type="text" class="form-control"  readonly="readonly" 
-													autocomplete="off" onchange="trim(this)" value="10-04-2020">
-													<span class="validation-invalid-label" id="error_assetCode"
-														style="display: none;">This field is required.</span>
+													<span id="purchaseDate"></span>
 												</div>
 											</div>						
+									</div>	
+									<div class="form-group row">									
+										<div class="col-md-6">										
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Model
+													<span class="text-danger"></span>:</label>
+												<div class="col-lg-7  float">
+													<span id="modelNo"></span>
+												</div>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Serial
+												No. <span class="text-danger"></span>:</label>
+												<div class="col-lg-7 float">
+												<span id="serialNo"></span>
+											</div>
+										</div>											
 									</div>		
 							<table
 							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
@@ -360,73 +360,20 @@
 									<th class="text-center">Department</th>
 									<th class="text-center">Location</th>
 									<th class="text-center">Assign Period</th>
+									<th class="text-center">Return Remark</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<!-- <tr>
 									<td>1</td>
 									<td>AD001-BYASPRASAD S GAUD</td>
 									<td>SBU1</td>
 									<td>KHL</td>
 									<td>20-05-2020 to 01-06-2020</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>AD002-MAHENDRA A GHAG</td>
-									<td>SBU1</td>
-									<td>KHL</td>
-									<td>20-05-2020 to 01-06-2020</td>									
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>AD003-PURUSHOTTAM G AMBRE</td>
-									<td>SBU1</td>
-									<td>KHL</td>
-									<td>20-05-2020 to 01-06-2020</td>									
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>AD00-BYASPRASAD S GAUD</td>
-									<td>SBU1</td>
-									<td>KHL</td>
-									<td>20-05-2020 to 01-06-2020</td>								
-								</tr>
+								</tr>								 -->
 								
 							</tbody>
-							<%-- <tbody>
-
-
-								<c:forEach items="${assetsList}" var="assetList"
-									varStatus="count">
-									<tr>
-										 <td>${count.index+1}</td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
-										<td>${assetList.catName}</td>
-										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
-										<td>${assetList.assetSrno}</td>
-										<td>${assetList.assetPurDate}</td>
-										<td>${assetList.vendor}</td>
-										<td class="text-center"><c:if test="${editAccess == 0}">
-												<a
-													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
-													class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Edit"><i class="icon-pencil7"
-													 ></i></a>
-											</c:if> <c:if test="${deleteAccess == 0}">
-												 
-												 
-											<a href="javascript:void(0)"
-													class="list-icons-item text-danger-600 bootbox_custom"
-													data-uuid="${assetList.exVar1}" data-popup="tooltip"
-													title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a>
-											</c:if></td>
-									</tr>
-								</c:forEach>
-
-							</tbody> --%>
+							
 						</table>
 							</div>
 
@@ -438,6 +385,60 @@
 					</div>
 				</div>
 				<!-- /large modal -->
+<script>
+function getEmpAssetAssignData(assetId){
+	//alert("assetId-----"+assetId)
+	document.getElementById("assetName").innerHTML = ''; 								
+	document.getElementById("purchaseVendor").innerHTML = '';
+	document.getElementById("category").innerHTML = ''; 
+	document.getElementById("purchaseDate").innerHTML = '';
+	document.getElementById("modelNo").innerHTML = '';
+	document.getElementById("serialNo").innerHTML = '';
+	$
+	.getJSON(
+			'${getAssignAssetsDetails}',
+			{
+				assetId : assetId,
+				ajax : 'true',
+
+			},
+			function(data) {
+				//alert("Data  " +JSON.stringify(data));
+				document.getElementById("assetName").innerHTML = data.assetDetails.assetCode+' - '+data.assetDetails.assetName; 								
+				document.getElementById("purchaseVendor").innerHTML = data.assetDetails.vendor; 
+				document.getElementById("category").innerHTML = data.assetDetails.catName; 
+				document.getElementById("purchaseDate").innerHTML = data.assetDetails.assetPurDate;
+				document.getElementById("modelNo").innerHTML = data.assetDetails.assetModel;
+				document.getElementById("serialNo").innerHTML = data.assetDetails.assetSrno;
+				//document.getElementById("purchaseImg").innerHTML = data.assetDetails.assetPurImage;
+				document.getElementById('purchaseImg').src=data.assetDetails.assetPurImage;
+				
+				var dataTable = $('#modal_printtable1').DataTable();
+				dataTable.clear().draw();
+				
+				 $
+						.each(
+								data.assetHistoryList,
+								function(i, v) {
+									
+								dataTable.row
+											.add(
+													[
+															i + 1,
+															v.empCode+' - '+v.firstName+' '+v.surname,
+															v.deptName,
+															v.locName,
+															v.useFromDate+' to '+v.useToDate,
+															v.returnRemark
+													]).draw();
+								}); 
+				
+			 
+				
+			});
+}
+
+</script>
 <script type="text/javascript">
 	var loadFile1 = function(event) {
 		var image1 = document.getElementById('output1');

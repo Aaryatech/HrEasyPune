@@ -13,6 +13,7 @@ public class AssetsDetailsList {
 	private String assetPurDate	;
 	private String vendor;
 	private String assetRemark;
+	private String assetPurImage;
 	private String assetStatus;
 	private String location;
 	private int makerUserId;
@@ -144,14 +145,21 @@ public class AssetsDetailsList {
 	public void setAssetStatus(String assetStatus) {
 		this.assetStatus = assetStatus;
 	}
+	public String getAssetPurImage() {
+		return assetPurImage;
+	}
+	public void setAssetPurImage(String assetPurImage) {
+		this.assetPurImage = assetPurImage;
+	}
 	@Override
 	public String toString() {
 		return "AssetsDetailsList [assetId=" + assetId + ", assetCode=" + assetCode + ", assetName=" + assetName
 				+ ", assetDesc=" + assetDesc + ", catName=" + catName + ", assetMake=" + assetMake + ", assetModel="
 				+ assetModel + ", assetSrno=" + assetSrno + ", assetPurDate=" + assetPurDate + ", vendor=" + vendor
-				+ ", assetRemark=" + assetRemark + ", assetStatus=" + assetStatus + ", location=" + location
-				+ ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime + ", delStatus=" + delStatus
-				+ ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
+				+ ", assetRemark=" + assetRemark + ", assetPurImage=" + assetPurImage + ", assetStatus=" + assetStatus
+				+ ", location=" + location + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime
+				+ ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1
+				+ ", exVar2=" + exVar2 + "]";
 	}
 	
 }

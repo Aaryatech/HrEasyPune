@@ -47,8 +47,10 @@ import com.ats.hreasy.model.ViewEmployee;
 import com.ats.hrmgt.model.assets.AMCInfo;
 import com.ats.hrmgt.model.assets.AssetAMCDetails;
 import com.ats.hrmgt.model.assets.AssetAssignedEmp;
+import com.ats.hrmgt.model.assets.AssetEmpHistoryInfo;
 import com.ats.hrmgt.model.assets.AssetEmpInfo;
 import com.ats.hrmgt.model.assets.AssetInfo;
+import com.ats.hrmgt.model.assets.AssetReturnDetails;
 
 @Controller
 @Scope("session")
@@ -1348,6 +1350,8 @@ public class AssetMgmtController {
 					AssetEmpInfo[].class);
 			List<AssetEmpInfo> assignAssetsList = new ArrayList<AssetEmpInfo>(Arrays.asList(assetArr));
 			model.addObject("assignAssetsList", assignAssetsList);	
+			
+			model.addObject("imgPath", Constants.empDocSaveUrl);	
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2282,5 +2286,35 @@ public class AssetMgmtController {
 		}
 		return list;
 	}
+	/***************************************************************************/
+	@RequestMapping(value = "/getAssignAssetsDetails", method = RequestMethod.GET)
+	@ResponseBody
+	public AssetReturnDetails getAssignAssetsDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId) {
+		
+		AssetReturnDetails assetHistory =new AssetReturnDetails();
+		try {
 			
+			System.out.println("Asset Id ----------------------"+assetId);
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("assetId", assetId);
+			
+			AssetsDetailsList asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+					AssetsDetailsList.class);
+			asset.setAssetPurImage(Constants.empDocSaveUrl+asset.getAssetPurImage());
+			assetHistory.setAssetDetails(asset);
+			
+			AssetEmpHistoryInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmpHistoryList", map,
+					AssetEmpHistoryInfo[].class);
+			List<AssetEmpHistoryInfo> list = new ArrayList<AssetEmpHistoryInfo>(Arrays.asList(amcArr));
+			assetHistory.setAssetHistoryList(list);
+			
+			System.out.println("Asset Emp Histroy---"+assetHistory);
+		}catch (Exception e) {
+			System.err.println("Exception in getAssignAssetsDetails : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return assetHistory;
+	}
+	
 }
