@@ -254,6 +254,7 @@ public class ServiceController {
 				String nxtServiceDate = sdf.format(c.getTime());  
 				//Displaying the new Date after addition of Days
 				
+				int servcType = Integer.parseInt(request.getParameter("serv_type"));
 				
 				assetService.settServicingId(serviceId);				
 				assetService.setAssetId(assetId);
@@ -262,9 +263,10 @@ public class ServiceController {
 				assetService.setServiceDate(serviceDate);
 				assetService.setServiceDesc(request.getParameter("serv_desc"));
 				assetService.setServiceRemark(request.getParameter("serv_remark"));
-				assetService.setServiceType(Integer.parseInt(request.getParameter("serv_type")));
+				assetService.setServiceType(servcType);
 				assetService.setNextServiceDate(DateConvertor.convertToDMY(nxtServiceDate));
 				assetService.setVendorId(Integer.parseInt(request.getParameter("serviceVendorId")));
+				assetService.setServiceStatus(0);
 				assetService.setDelStatus(1);				
 				assetService.setExInt1(0);
 				assetService.setExVar1("NA");
@@ -281,6 +283,11 @@ public class ServiceController {
 						if(serviceId>0) {
 							session.setAttribute("successMsg", "Asset Service Updated Successfully");
 						}else {
+							map = new LinkedMultiValueMap<>();
+							map.add("serviceId", res.gettServicingId());
+							
+							Info val = Constants.getRestTemplate().postForObject(Constants.url + "/updtRegService", map,
+									Info.class);
 							session.setAttribute("successMsg", "Asset Service Inserted Successfully");
 						}
 						//Log
@@ -356,7 +363,8 @@ public class ServiceController {
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
 				
-				model.addObject("title",  "Edit Asset Servicing");				
+				model.addObject("title",  "Edit Asset Servicing");		
+				model.addObject("imgPath", Constants.empDocShowUrl);		
 				
 			}
 		} catch (Exception e) {

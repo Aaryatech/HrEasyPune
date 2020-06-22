@@ -968,7 +968,7 @@ public class AssetMgmtController {
 				List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 				model.addObject("locationList", locationList);
 				
-				model.addObject("imgPath", Constants.empDocSaveUrl);
+				model.addObject("imgPath", Constants.empDocShowUrl);
 				model.addObject("isEdit", 1);
 				
 				model.addObject("title",  "Edit Asset");
@@ -1351,7 +1351,7 @@ public class AssetMgmtController {
 			List<AssetEmpInfo> assignAssetsList = new ArrayList<AssetEmpInfo>(Arrays.asList(assetArr));
 			model.addObject("assignAssetsList", assignAssetsList);	
 			
-			model.addObject("imgPath", Constants.empDocSaveUrl);	
+			model.addObject("imgPath", Constants.empDocShowUrl);	
 		
 		} catch (Exception e) {
 			e.printStackTrace();

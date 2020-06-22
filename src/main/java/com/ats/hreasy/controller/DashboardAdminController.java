@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.LeaveHistory;
@@ -41,6 +42,8 @@ import com.ats.hreasy.model.dashboard.LoanAdvDashDet;
 import com.ats.hreasy.model.dashboard.PayRewardDedDash;
 import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
+import com.ats.hrmgt.model.assets.AMCExpirationDetail;
+import com.ats.hrmgt.model.assets.AssetNotificatn;
 
 @Controller
 @Scope("session")
@@ -56,6 +59,16 @@ public class DashboardAdminController {
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 		try {
+			
+			AssetNotificatn[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetsForNotifiction"
+					, AssetNotificatn[].class);
+			List<AssetNotificatn> assetRtnPndngList = new ArrayList<AssetNotificatn>(Arrays.asList(assetArr));
+			model.addAttribute("assetRtnPndngList", assetRtnPndngList);
+			
+			AMCExpirationDetail[] assetAMCExpiryArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetsAMCForNotifiction"
+					, AMCExpirationDetail[].class);
+			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(Arrays.asList(assetAMCExpiryArr));			
+			model.addAttribute("assetAMCExpiryList", assetAMCExpiryList);
 			
 		}catch (Exception e) {
 			

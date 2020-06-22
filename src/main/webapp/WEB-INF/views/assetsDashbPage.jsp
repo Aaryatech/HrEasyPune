@@ -91,47 +91,17 @@
 							</thead>
 							<tbody>
 								
-							
+							<c:forEach items="${assetRtnPndngList}" var="assetList"
+									varStatus="count">
 							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">AKSHAY MADHUKAR RAOANDORE</a></td>
-								<td>9885852514</td>
-								<td>rak@gmail.com</td>
-								<td>ASSET_005-Lenovo Laptop</td>	
-								<td>01-03-2020 - 31-03-2021</td>	
-								<td>1- -7</td>							
+								<td><a href="#" data-toggle="modal" data-target="#modal_full">${assetList.firstName} ${assetList.surname}</a></td>
+								<td>${assetList.mobileNo1}</td>
+								<td>${assetList.emailId}</td>
+								<td>${assetList.assetCode} - ${assetList.assetName}</td>	
+								<td>${assetList.useToDate} - ${assetList.useFromDate}</td>	
+								<td>${assetList.returtnInDays} - ${assetList.returnNotifctnDays}</td>							
 							</tr>
-							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
-								<td>9785452544</td>
-								<td>pdjadhav75@gmail.com</td>
-								<td>ASSET_009-Toshiba Hard Disk</td>	
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>1- -4</td>							
-							</tr>
-							<tr role="row" class="odd">
-							<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
-								<td>9284452642</td>
-								<td>rssharma21@hotmail.com</td>
-								<td>ASSET_015-Intel Wireless Modem</td>	
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>1- -4</td>								
-							</tr>
-							<tr role="row" class="odd">
-										<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
-								<td>9785452544</td>
-								<td>pdjadhav75@gmail.com</td>
-								<td>ASSET_019-HP Printer</td>	
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>1- -4</td>									
-							</tr>
-							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
-								<td>9284452642</td>
-								<td>rssharma21@hotmail.com</td>
-								<td>ASSET_305-Dell Desktop PC</td>	
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>1- -4</td>										
-							</tr>
+							</c:forEach>
 							</tbody>
 						</table></div>
 											
@@ -151,52 +121,25 @@
 											<table class="table table-bordered table-hover datatable-highlight1" >
 							<thead>
 								<tr class="bg-blue-400" role="row">
-								<th class="sorting_desc">Employee</th>
 								<th class="sorting">Asset Detail</th>
 								<th class="sorting">AMC Period</th>
 								<th class="sorting">Vendor Name-Contact Person</th>
 								<th class="sorting">Contact Person Mobile/Email</th>
+								<th class="sorting">Return Days-Alarm Days</th>
 								</tr>
 							</thead>
 							<tbody>
 								
-							
+							<c:forEach items="${assetAMCExpiryList}" var="assetList"
+									varStatus="count">
 							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">AKSHAY MADHUKAR RAOANDORE</a></td>
-								<td>ASSET_005-Lenovo Laptop</td>
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>Intel India- Rakesh Verma</td>
-								<td>7485452141-rak@gmail.com</td>
-																		
+								<td><a href="#" data-toggle="modal" data-target="#modal_full">${assetList.assetCode} - ${assetList.assetName}</a></td>
+								<td>${assetList.amcFrDate} - ${assetList.amcToDate}</td>
+								<td>${assetList.compName} - ${assetList.conatctPersonName}</td>	
+								<td>${assetList.contactPersonNo} - ${assetList.contactPersonEmail}</td>	
+								<td>${assetList.amcDueDays} - ${assetList.alarmDays}</td>																		
 							</tr>
-							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
-								<td>ASSET_009-Toshiba Hard Disk</td>
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>Toshiba India- Aanand Singh</td>
-								<td>9485452141-ansingh45@gmail.com</td>								
-							</tr>
-							<tr role="row" class="odd">
-							<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
-								<td>ASSET_009-Toshiba Hard Disk</td>
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>Toshiba India- Aanand Singh</td>
-								<td>9485452141-ansingh45@gmail.com</td>	
-							</tr>
-							<tr role="row" class="odd">
-										<td><a href="#" data-toggle="modal" data-target="#modal_full">PANKAJ D JADHAV</a></td>
-								<td>ASSET_009-Toshiba Hard Disk</td>
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>Toshiba India- Aanand Singh</td>
-								<td>9485452141-ansingh45@gmail.com</td>									
-							</tr>
-							<tr role="row" class="odd">
-								<td><a href="#" data-toggle="modal" data-target="#modal_full">RAMPAL S SHARMA</a></td>
-								<td>ASSET_009-Toshiba Hard Disk</td>
-								<td>01-03-2020 - 31-03-2020</td>	
-								<td>Toshiba India- Aanand Singh</td>
-								<td>9485452141-ansingh45@gmail.com</td>										
-							</tr>
+							</c:forEach>							
 							</tbody>
 						</table></div>
 											

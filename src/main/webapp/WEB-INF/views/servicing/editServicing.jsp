@@ -305,7 +305,7 @@
 												<label class="col-form-label col-lg-5 float" for="serv_bill_doc">Bill 
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<img id="output" width="150"/>
+												<img id="output" width="150" src="${imgPath}${service.billDocFile}"/>
 												<input type="file" accept="image/*" name="doc" id="serv_bill_doc" 
 												onchange="loadFile(event)" value="${service.billDocFile}"> 
 												<span class="validation-invalid-label" id="error_serv_bill_doc"

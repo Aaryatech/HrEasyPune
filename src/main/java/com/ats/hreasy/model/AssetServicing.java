@@ -8,6 +8,7 @@ public class AssetServicing {
 	private String serviceDate;
 	private String nextServiceDate;
 	private int vendorId;
+	private int serviceStatus;
 	private String serviceDesc;
 	private float billAmt;
 	private String billDocFile;
@@ -121,15 +122,20 @@ public class AssetServicing {
 	public void setExVar2(String exVar2) {
 		this.exVar2 = exVar2;
 	}
+	public int getServiceStatus() {
+		return serviceStatus;
+	}
+	public void setServiceStatus(int serviceStatus) {
+		this.serviceStatus = serviceStatus;
+	}
 	@Override
 	public String toString() {
 		return "AssetServicing [tServicingId=" + tServicingId + ", assetId=" + assetId + ", serviceType=" + serviceType
 				+ ", serviceDate=" + serviceDate + ", nextServiceDate=" + nextServiceDate + ", vendorId=" + vendorId
-				+ ", serviceDesc=" + serviceDesc + ", billAmt=" + billAmt + ", billDocFile=" + billDocFile
-				+ ", serviceRemark=" + serviceRemark + ", makerUserId=" + makerUserId + ", updateDatetime="
-				+ updateDatetime + ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2=" + exInt2
-				+ ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
+				+ ", serviceStatus=" + serviceStatus + ", serviceDesc=" + serviceDesc + ", billAmt=" + billAmt
+				+ ", billDocFile=" + billDocFile + ", serviceRemark=" + serviceRemark + ", makerUserId=" + makerUserId
+				+ ", updateDatetime=" + updateDatetime + ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2="
+				+ exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
 	}
-	
 	
 }
