@@ -19,6 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
@@ -44,6 +45,7 @@ import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
+import com.ats.hrmgt.model.assets.CatWiseAssetCount;
 import com.ats.hrmgt.model.assets.ServicingDashDetails;
 
 @Controller
@@ -75,10 +77,29 @@ public class DashboardAdminController {
 					, ServicingDashDetails[].class);
 			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(Arrays.asList(assetServiceArr));			
 			model.addAttribute("assetServiceList", assetServiceList);
+			
+			
+			
+			CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate().getForObject(Constants.url + "/getCateWiseAssetCnt"
+					, CatWiseAssetCount[].class);
+			List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));			
+			model.addAttribute("catAssetList", catAssetList);
+			
+			
 		}catch (Exception e) {
 			
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value = "/getCateAssetCount", method = RequestMethod.GET)
+	public @ResponseBody List<CatWiseAssetCount> cateAssetCount(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate().getForObject(Constants.url + "/getCateWiseAssetCnt"
+				, CatWiseAssetCount[].class);
+		List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));
+	
+		return catAssetList;			
 	}
 	/*
 	 * @RequestMapping(value = "/dashboard", method = RequestMethod.GET) public

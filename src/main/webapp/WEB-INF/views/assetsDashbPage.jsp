@@ -12,8 +12,8 @@
 
 </head>
 
-<body onload="drawChart()">
-	
+<body onload="">
+	<c:url value="/getCateAssetCount" var="CateAssetCount"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -249,18 +249,106 @@
 				});
 			</script>
 			<script type="text/javascript">
-			google.charts.load("current", {packages:["corechart"]});
+			$(function() {
+				"use strict";
+				$.getJSON('${CateAssetCount}', {
+					ajax : 'true',
+				},
+				
+				function(dataList) {
+					google.charts.load('current', {
+						'packages' : [ 'corechart' ]
+					});
+					google.charts.setOnLoadCallback(drawChart);
+				
+				function drawChart(){
+					var dataTable = new google.visualization.DataTable();
+
+					dataTable.addColumn('string', 'Element'); // Implicit domain column.
+					dataTable.addColumn('number', 'Total Assets');
+					$.each(dataList, function(key, dt) {
+
+						dataTable.addRows([
+
+						[ dt.catName, dt.assetCount]
+						]);
+					})
+	var options = {
+				hAxis : {
+					title : "Category",
+					textPosition : 'in',
+					slantedText : true
+				},
+				vAxis : {
+					title : 'Total Assets',
+					minValue : 0,
+					viewWindow : {
+						min : 0
+					},
+					format : '0',
+				},
+				colors : [ 'orange', 'blue' ],
+				theme : 'material'
+
+					}
+			var chart = new google.visualization.ColumnChart(
+					document.getElementById('barchart_values'));
+			chart.draw(dataTable, options);
+				}
+				
+				});
+			});
+			</script>
+			<script>
+			/* 	google.charts.load("current", {packages:["corechart"]});
 		    google.charts.setOnLoadCallback(drawChart);
-		    function drawChart() {
-		      var data = google.visualization.arrayToDataTable([
+		     */
+		    function drawChart11() {
+		    	var dataArr=[];
+		    	$.getJSON('${CateAssetCount}', {
+					ajax : 'true',
+				},
+				
+				function(dataList) {
+					//alert(JSON.stringify(dataList))
+					google.charts.load("current", {packages:["corechart"]});
+		   // google.charts.setOnLoadCallback(drawChart);
+		   
+		   	var dataTable = new google.visualization.DataTable();
+
+						dataTable.addColumn('string', 'Element'); // Implicit domain column.
+						dataTable.addColumn('number', 'Total Assets');
+						dataTable.addColumn('string', '{ role: style }');
+						
+					var datag='';
+					var headTitle=['Element', 'Total Assets', '{ role: style }'];
+					dataArr.push(headTitle);
+					datag=datag + '[';
+					
+					for(var i=0;i<dataList.length;i++){
+						var temp=[];
+						temp.push(dataList[i].catName,dataList[i].assetCount,"gold");
+						dataArr.push(temp);
+						var x="gold"
+						dataTable.addRows([
+							[ dataList[i].catName, dataList[i].assetCount,x]
+							]);
+					}
+					
+					alert(JSON.stringify(dataArr));
+				 // var data = google.visualization.arrayToDataTable(dataArr);
+					//alert(JSON.stringify(data));
+
+			    //  var view = new google.visualization.DataView(data);
+		      /*  var data1 = google.visualization.arrayToDataTable([
 		        ["Element", "Total Assets", { role: "style" } ],
 		        ["Computers", 700, "#b87333"],
 		        ["Hard Disk", 150, "silver"],
 		        ["Laptop", 230, "gold"],
 		        ["Pen Drives", 260, "color: #e5e4e2"]
-		      ]);
+		      ]);  */
 
-		      var view = new google.visualization.DataView(data);
+		    
 		      view.setColumns([0, 1,
 		                       { calc: "stringify",
 		                         sourceColumn: 1,
@@ -276,16 +364,16 @@
 		        legend: { position: "none" },
 		      };
 		      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-		      chart.draw(view, options);
-		      drawChart1();
+		      chart.draw(dataTable, options);
+				});
+		     // drawChart1();
 		  }
     </script>
     <script type="text/javascript">
-    google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-
+   // google.charts.load('current', {'packages':['bar']});
+    //google.charts.setOnLoadCallback(drawChart);
     function drawChart1() {
-	      var data = google.visualization.arrayToDataTable([
+	      var data1 = google.visualization.arrayToDataTable([
 	    	  ['Category', 'Assigned', 'Unassigned', 'Scrapped','Lost'],
 	          ['Computers', 1000, 400, 200,100],
 	          ['Laptop', 1170, 460, 250,20],
@@ -300,7 +388,7 @@
 	              }
 	            };
 	      var chart = new google.charts.Bar(document.getElementById('barchart_values2'));
-	        chart.draw(data, google.charts.Bar.convertOptions(options));
+	        chart.draw(data1, google.charts.Bar.convertOptions(options));
 	  }
     </script>
 			<!-- Footer -->
