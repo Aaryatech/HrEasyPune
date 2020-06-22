@@ -86,7 +86,7 @@
 								<th class="sorting">Email</th>
 								<th class="sorting">Asset Detail</th>
 								<th class="sorting">Usage Period</th>
-								<th class="sorting">Return Days-Alarm Days</th>
+								<th class="sorting" colspan="2">Return Days | Alarm Days</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -99,7 +99,8 @@
 								<td>${assetList.emailId}</td>
 								<td>${assetList.assetCode} - ${assetList.assetName}</td>	
 								<td>${assetList.useToDate} - ${assetList.useFromDate}</td>	
-								<td>${assetList.returtnInDays} - ${assetList.returnNotifctnDays}</td>							
+								<td>${assetList.returtnInDays}</td>				
+								<td>${assetList.returnNotifctnDays}</td>			
 							</tr>
 							</c:forEach>
 							</tbody>
@@ -113,7 +114,7 @@
 								
 								<div class="row">
 									<div class="late_employee">
-										<h3 class="bg-blue-400 employee_title">Asset AMC Expiration (Prior to 30 Days)</h3>
+										<h3 class="bg-blue-400 employee_title">Asset AMC Expiration</h3>
 										
 										<div class="late_one fix_scroll">
 											
@@ -125,7 +126,7 @@
 								<th class="sorting">AMC Period</th>
 								<th class="sorting">Vendor Name-Contact Person</th>
 								<th class="sorting">Contact Person Mobile/Email</th>
-								<th class="sorting">Return Days-Alarm Days</th>
+								<th class="sorting" colspan="2">Remaining Days | Alarm Days</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -137,7 +138,8 @@
 								<td>${assetList.amcFrDate} - ${assetList.amcToDate}</td>
 								<td>${assetList.compName} - ${assetList.conatctPersonName}</td>	
 								<td>${assetList.contactPersonNo} - ${assetList.contactPersonEmail}</td>	
-								<td>${assetList.amcDueDays} - ${assetList.alarmDays}</td>																		
+								<td>${assetList.amcDueDays}</td>
+								<td>${assetList.alarmDays}</td>																		
 							</tr>
 							</c:forEach>							
 							</tbody>
@@ -149,7 +151,43 @@
 								</div>
 				
 				
-				
+				<div class="row">
+									<div class="late_employee">
+										<h3 class="bg-teal-400 employee_title">Asset Servicing Details</h3>
+										
+										<div class="late_one fix_scroll">
+											
+											<div class="datatable-scroll-wrap">
+											<table class="table table-bordered table-hover datatable-highlight1" >
+							<thead>
+								<tr class="bg-teal-400" role="row">
+								<th class="sorting">Asset Detail</th>
+								<th class="sorting">Service Date</th>
+								<th class="sorting">Service Vendor -Contact Person</th>
+								<th class="sorting">Contact Person Mobile/Email</th>
+								<th class="sorting" colspan="2">Due Days | Alarm Days</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							<c:forEach items="${assetServiceList}" var="assetServiceList"
+									varStatus="count">
+							<tr role="row" class="odd">
+								<td><a href="#" data-toggle="modal" data-target="#modal_full">${assetServiceList.assetCode} - ${assetServiceList.assetName}</a></td>
+								<td>${assetServiceList.serviceDate}</td>
+								<td>${assetServiceList.compName} - ${assetServiceList.conatctPersonName}</td>	
+								<td>${assetServiceList.contactPersonNo} - ${assetServiceList.contactPersonEmail}</td>	
+								<td>${assetServiceList.servDueDays}</td>					
+								<td>${assetServiceList.alarmDays}</td>														
+							</tr>
+							</c:forEach>							
+							</tbody>
+						</table></div>
+											
+										</div>
+										
+									</div>
+								</div>
 			
 			
 

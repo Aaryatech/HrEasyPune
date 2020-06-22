@@ -44,6 +44,7 @@ import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
+import com.ats.hrmgt.model.assets.ServicingDashDetails;
 
 @Controller
 @Scope("session")
@@ -69,7 +70,11 @@ public class DashboardAdminController {
 					, AMCExpirationDetail[].class);
 			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(Arrays.asList(assetAMCExpiryArr));			
 			model.addAttribute("assetAMCExpiryList", assetAMCExpiryList);
-			
+						
+			ServicingDashDetails[] assetServiceArr = Constants.getRestTemplate().getForObject(Constants.url + "/getServicingDetails"
+					, ServicingDashDetails[].class);
+			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(Arrays.asList(assetServiceArr));			
+			model.addAttribute("assetServiceList", assetServiceList);
 		}catch (Exception e) {
 			
 		}
