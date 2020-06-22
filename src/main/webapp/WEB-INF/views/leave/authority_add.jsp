@@ -104,12 +104,14 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>Add Leave Authority</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i>Add Leave Authority
+									</h5></td>
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/leaveAuthorityList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">Leave Authority
-											List</button>
+										<button type="button" class="btn blue_btn">Leave
+											Authority List</button>
 								</a></td>
 							</tr>
 						</table>
@@ -163,85 +165,89 @@
 								<div class="col-md-6">
 
 
+									<div class="table-responsive">
+										<table class="table datatable-scroll-y" width="100%"
+											id="printtable1">
+											<thead>
+												<tr class="bg-blue">
+													<th class="check" style="text-align: center; width: 5%;"><input
+														type="checkbox" name="selAll" id="selAll" /></th>
 
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
-										<thead>
-											<tr class="bg-blue">
-												<th class="check" style="text-align: center; width: 5%;"><input
-													type="checkbox" name="selAll" id="selAll" /></th>
-
-												<th>Employee Name</th>
-												<th>Employee Code</th>
-												<th>Department</th>
-												<th>Designation</th>
-
-
-												<!-- <th>Designation</th> -->
-
-											</tr>
-										</thead>
-										<tbody>
+													<th>Employee Name</th>
+													<th>Employee Code</th>
+													<th>Department</th>
+													<th>Designation</th>
 
 
-											<c:forEach items="${empListAuth}" var="emp" varStatus="count">
-												<tr>
-													<td class="text-center"><input type="checkbox"
-														class="chk1" name="empIds" id="empIds${count.index+1}"
-														value="${emp.empId}" /></td>
-													<td>${emp.surname}&nbsp;${emp.firstName}</td>
-													<td>${emp.empCode}</td>
-													<td>${emp.deptName}</td>
- 													<td>${emp.empDesgn}</td>
+													<!-- <th>Designation</th> -->
 
 												</tr>
-											</c:forEach>
+											</thead>
+											<tbody>
 
-										</tbody>
-									</table>
+
+												<c:forEach items="${empListAuth}" var="emp"
+													varStatus="count">
+													<tr>
+														<td class="text-center"><input type="checkbox"
+															class="chk1" name="empIds" id="empIds${count.index+1}"
+															value="${emp.empId}" /></td>
+														<td>${emp.surname}&nbsp;${emp.firstName}</td>
+														<td>${emp.empCode}</td>
+														<td>${emp.deptName}</td>
+														<td>${emp.empDesgn}</td>
+
+													</tr>
+												</c:forEach>
+
+											</tbody>
+										</table>
+									</div>
 									<span class="validation-invalid-label" id="error_table1"
 										style="display: none;">Please select one employee.</span>
 								</div>
 
 								<div class="col-md-6">
 
+									<div class="table-responsive">
+										<table class="table datatable-scroll-y" width="100%"
+											10d="printtable2">
+											<thead>
+												<tr class="bg-blue">
+													<th class="check" style="text-align: center;">Select
+														Authority</th>
 
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable2">
-										<thead>
-											<tr class="bg-blue">
-												<th class="check" style="text-align: center;">Select
-													Authority</th>
+													<!-- <th width="10%">Sr. No.</th> -->
+													<th>Employee Name</th>
+													<th>Employee Code</th>
+													<th>Department</th>
+													<th>Designation</th>
 
-												<!-- <th width="10%">Sr. No.</th> -->
-												<th>Employee Name</th>
-												<th>Employee Code</th>
-												<th>Department</th>
-												<th>Designation</th>
-
-												<!-- <th>Desgn</th> -->
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${empList}" var="emp" varStatus="count">
-												<tr>
-													<td><input type="radio" name="iniAuthEmpId"
-														id="iniAuthEmpId${count.index+1}" value="${emp.empId}" />Initial
-														<input type="radio" name="finAuthEmpId"
-														id="finAuthEmpId${count.index+1}" value="${emp.empId}" />Final
-														<input type="checkbox" class="chk" name="repToEmpIds"
-														id="repToEmpIds${count.index+1}" value="${emp.empId}" />Reporting</td>
-
-													<td>${emp.surname}&nbsp;${emp.firstName}</td>
-													<td>${emp.empCode}</td>
-													<td>${emp.deptName}</td>
-													<td>${emp.empDesgn}</td>
+													<!-- <th>Desgn</th> -->
 												</tr>
-											</c:forEach>
+											</thead>
+											<tbody>
+												<c:forEach items="${empList}" var="emp" varStatus="count">
+													<tr>
+														<td class="text-nowrap"><input type="radio"
+															name="iniAuthEmpId" id="iniAuthEmpId${count.index+1}"
+															value="${emp.empId}" />&nbsp;Initial <br> <input
+															type="radio" name="finAuthEmpId"
+															id="finAuthEmpId${count.index+1}" value="${emp.empId}" />&nbsp;Final
+															<br> <input type="checkbox" class="chk"
+															name="repToEmpIds" id="repToEmpIds${count.index+1}"
+															value="${emp.empId}" />&nbsp;Reporting</td>
 
-										</tbody>
-									</table>
+														<td class="text-nowrap1">${emp.surname}&nbsp;${emp.firstName}</td>
+														<td class="text-nowrap1">${emp.empCode}</td>
+														<td class="text-nowrap1">${emp.deptName}</td>
+														<td class="text-nowrap1">${emp.empDesgn}</td>
+													</tr>
+												</c:forEach>
 
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 							<br>

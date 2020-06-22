@@ -1185,7 +1185,7 @@ public class AttendenceController {
 		HttpSession session = request.getSession();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendaceSheetByHod", "attendaceSheetByHod", 1, 0, 0, 0,
+		Info view = AcessController.checkAccess("attendaceSheetByHr", "attendaceSheetByHr", 1, 0, 0, 0,
 				newModuleList);
 
 		if (view.isError() == true) {

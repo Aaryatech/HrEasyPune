@@ -177,77 +177,79 @@
 								</div>
 
 								<div class="col-md-6">
+									<div class="table-responsive">
+										<table class="table datatable-scroll-y" width="100%"
+											id="printtable2">
+											<thead>
+												<tr class="bg-blue">
+													<th class="check" style="text-align: center;">Select
+														Authority</th>
 
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable2">
-										<thead>
-											<tr class="bg-blue">
-												<th class="check" style="text-align: center;">Select
-													Authority</th>
+													<!-- <th width="10%">Sr. No.</th> -->
+													<th>Employee Name</th>
+													<th>Employee Code</th>
+													<th>Department</th>
+													<th>Designation</th>
 
-												<!-- <th width="10%">Sr. No.</th> -->
-												<th>Employee Name</th>
-												<th>Employee Code</th>
-												<th>Department</th>
-												<th>Designation</th>
-
-												<!-- <th  >Desgn</th> -->
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${empList}" var="emp" varStatus="count">
-												<tr>
-													<td><c:choose>
-															<c:when test="${leaveAuthority.iniAuthEmpId==emp.empId}">
-																<input type="radio" name="iniAuthEmpId"
-																	id="iniAuthEmpId${count.index+1}" value="${emp.empId}"
-																	checked />Initial</c:when>
-															<c:otherwise>
-																<input type="radio" name="iniAuthEmpId"
-																	id="iniAuthEmpId${count.index+1}" value="${emp.empId}" />Initial
-																</c:otherwise>
-														</c:choose> <c:choose>
-															<c:when test="${leaveAuthority.finAuthEmpId==emp.empId}">
-																<input type="radio" name="finAuthEmpId"
-																	id="finAuthEmpId${count.index+1}" value="${emp.empId}"
-																	checked />Final
-														</c:when>
-															<c:otherwise>
-																<input type="radio" name="finAuthEmpId"
-																	id="finAuthEmpId${count.index+1}" value="${emp.empId}" />Final
-																</c:otherwise>
-														</c:choose> <c:set var="countOf" value="0"></c:set> <c:forEach
-															items="${reportingIdList}" var="reportId"
-															varStatus="count">
-															<c:if test="${emp.empId==reportId}">
-																<c:set var="countOf" value="1"></c:set>
-															</c:if>
-
-
-														</c:forEach> <c:choose>
-															<c:when test="${countOf==1}">
-
-																<input type="checkbox" class="chk" name="repToEmpIds"
-																	id="repToEmpIds${count.index+1}" value="${emp.empId}"
-																	checked />Reporting 
-															 
-																</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="chk" name="repToEmpIds"
-																	id="repToEmpIds${count.index+1}" value="${emp.empId}" />Reporting </c:otherwise>
-														</c:choose></td>
-													<td>${emp.surname}&nbsp;${emp.firstName}</td>
-													<td>${emp.empCode}</td>
-													<td>${emp.deptName}</td>
-													<td>${emp.empDesgn}</td>
-
-													<%-- <td  >${emp.empCategory}</td> --%>
+													<!-- <th  >Desgn</th> -->
 												</tr>
-											</c:forEach>
+											</thead>
+											<tbody>
+												<c:forEach items="${empList}" var="emp" varStatus="count">
+													<tr>
+														<td class="text-nowrap"><c:choose>
+																<c:when test="${leaveAuthority.iniAuthEmpId==emp.empId}">
+																	<input type="radio" name="iniAuthEmpId"
+																		id="iniAuthEmpId${count.index+1}" value="${emp.empId}"
+																		checked />&nbsp;Initial<br>
+																</c:when>
+																<c:otherwise>
+																	<input type="radio" name="iniAuthEmpId"
+																		id="iniAuthEmpId${count.index+1}" value="${emp.empId}" />&nbsp;Initial<br>
+																</c:otherwise>
+															</c:choose> <c:choose>
+																<c:when test="${leaveAuthority.finAuthEmpId==emp.empId}">
+																	<input type="radio" name="finAuthEmpId"
+																		id="finAuthEmpId${count.index+1}" value="${emp.empId}"
+																		checked />&nbsp;Final<br>
+																</c:when>
+																<c:otherwise>
+																	<input type="radio" name="finAuthEmpId"
+																		id="finAuthEmpId${count.index+1}" value="${emp.empId}" />&nbsp;Final<br>
+																</c:otherwise>
+															</c:choose> <c:set var="countOf" value="0"></c:set> <c:forEach
+																items="${reportingIdList}" var="reportId"
+																varStatus="count">
+																<c:if test="${emp.empId==reportId}">
+																	<c:set var="countOf" value="1"></c:set>
+																</c:if>
 
-										</tbody>
-									</table>
 
+															</c:forEach> <c:choose>
+																<c:when test="${countOf==1}">
+
+																	<input type="checkbox" class="chk" name="repToEmpIds"
+																		id="repToEmpIds${count.index+1}" value="${emp.empId}"
+																		checked />&nbsp;Reporting 
+
+																</c:when>
+																<c:otherwise>
+																	<input type="checkbox" class="chk" name="repToEmpIds"
+																		id="repToEmpIds${count.index+1}" value="${emp.empId}" />&nbsp;Reporting 
+																</c:otherwise>
+															</c:choose></td>
+														<td>${emp.surname}&nbsp;${emp.firstName}</td>
+														<td>${emp.empCode}</td>
+														<td>${emp.deptName}</td>
+														<td>${emp.empDesgn}</td>
+
+														<%-- <td  >${emp.empCategory}</td> --%>
+													</tr>
+												</c:forEach>
+
+											</tbody>
+										</table>
+									</div>
 
 								</div>
 							</div>
