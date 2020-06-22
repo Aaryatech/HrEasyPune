@@ -6,6 +6,12 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+<script
+	src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_extension_fixed_header.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_extension_scroller.js"></script>
+
+
 <%--  <script src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_advanced.js"></script>
  --%>
 </head>
@@ -121,6 +127,7 @@
 							<div class="table-responsive">
 
 
+								<!-- <table class="table datatable-header-basic"> -->
 								<table class="table datatable-scroll-y" width="100%"
 									id="printtable1">
 									<thead>
@@ -182,8 +189,6 @@
 							</div>
 							<br /> <span class="validation-invalid-label" id="error_chk"
 								style="display: none;">Please Select the Employee.</span>
-
-
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"

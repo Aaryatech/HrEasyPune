@@ -63,7 +63,8 @@
 	<script src="${pageContext.request.contextPath}/resources/global_assets/js/plugins/forms/inputs/formatter.min.js"></script>
 
  <script src="${pageContext.request.contextPath}/resources/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
- 
+ 	<script src="${pageContext.request.contextPath}/resources/global_assets/js/plugins/tables/datatables/extensions/fixed_header.min.js"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/global_assets/js/plugins/tables/datatables/extensions/scroller.min.js"></script> 
 <!-- Theme JS files -->
 
  

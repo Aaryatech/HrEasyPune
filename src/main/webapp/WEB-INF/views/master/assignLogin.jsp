@@ -10,7 +10,7 @@
 
 
 <body>
-<c:url value="/sendUserCredByEmail" var="sendUserCred"></c:url>
+	<c:url value="/sendUserCredByEmail" var="sendUserCred"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -112,19 +112,20 @@
 										required.</span>
 								</div>
 								<div class="col-lg-3">
-								<div id="loader" align="center" style="display: none;">
+									<div id="loader" align="center" style="display: none;">
 
-								<button type="button" class="btn bg-teal-400 ml-2" id="spinner-dark">
-									<i class="icon-spinner spinner mr-2"></i>
-									Sending...
-								</button>
-							</div>
-							</div>
+										<button type="button" class="btn bg-teal-400 ml-2"
+											id="spinner-dark">
+											<i class="icon-spinner spinner mr-2"></i> Sending...
+										</button>
+									</div>
+								</div>
 							</div>
 
 							<div class="table-responsive">
-								<table
-									class="table  table-bordered table-hover datatable-highlight  "
+
+
+								<table class="table datatable-scroll-y" width="100%"
 									id="printtable1">
 
 									<!-- <table class="table datatable-scroll-y" width="100%"
@@ -135,7 +136,7 @@
 											<th width="10%">Sr.no</th>
 
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-										<th>Employee Code</th>
+											<th>Employee Code</th>
 											<th>Employee Detail</th>
 											<!-- <th>Department</th>
 											<th>Designation</th> -->
@@ -151,29 +152,30 @@
 
 										<c:forEach items="${empdetList}" var="empdetList"
 											varStatus="count">
-											
-											<c:set  var="sty_color" value="orange"></c:set>
+
+											<c:set var="sty_color" value="orange"></c:set>
 											<c:choose>
-								<c:when test="${empdetList.shiftname eq '0'}">
-									<c:set  var="sty_color" value="orange"></c:set>
-											</c:when>
-											<c:otherwise>
-											<c:set  var="sty_color" value=""></c:set>
-											</c:otherwise>
+												<c:when test="${empdetList.shiftname eq '0'}">
+													<c:set var="sty_color" value="orange"></c:set>
+												</c:when>
+												<c:otherwise>
+													<c:set var="sty_color" value=""></c:set>
+												</c:otherwise>
 											</c:choose>
-											<tr id="empId${empdetList.empId}" style="background: ${sty_color};">
+											<tr id="empId${empdetList.empId}"
+												style="background: ${sty_color};">
 
 												<td>${count.index+1}</td>
 												<td><input type="checkbox"
 													id="empId${empdetList.empId}" value="${empdetList.empId}"
 													name="empId" class="select_all"></td>
 												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+
 												<td>${empdetList.mobileNo1}</td>
 												<td>${empdetList.woCatName}</td>
-												
+
 												<%-- <td>${empdetList.deptName}</td>
 												<td>${empdetList.empDesgn}</td> --%>
 												<c:set var="loginType" value="NA" />
@@ -189,12 +191,15 @@
 															value="Mobile and Web Application Both" />
 													</c:when>
 													<c:otherwise>
-													<c:set var="loginType" value="NA" />
+														<c:set var="loginType" value="NA" />
 													</c:otherwise>
 												</c:choose>
 												<td>${loginType}</td>
-												
-												<td><a href="#" title="Reset and send Login Credential on Email" onclick="sendUserCred(${empdetList.empId},'${empdetList.woCatName}')" ><i class="icon-mail5 mr-3 icon-2x" style="color:red;"></i></a></td>
+
+												<td><a href="#"
+													title="Reset and send Login Credential on Email"
+													onclick="sendUserCred(${empdetList.empId},'${empdetList.woCatName}')"><i
+														class="icon-mail5 mr-3 icon-2x" style="color: red;"></i></a></td>
 
 											</tr>
 										</c:forEach>
@@ -257,6 +262,8 @@
 		$(document).ready(function($) {
 			$("#submitInsertEmp").submit(function(e) {
 
+				var table = $('#printtable1').DataTable();
+				table.search("").draw();
 				var isError = false;
 				var errMsg = "";
 				var login_type = $("#login_type").val();
