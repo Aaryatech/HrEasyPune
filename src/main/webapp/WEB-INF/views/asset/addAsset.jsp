@@ -372,9 +372,9 @@
 		}
 	};
 	
- $('#assetPurDate').on('input', function() {
+/*  $('#assetPurDate').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
- });
+ }); */
  
  $(document)
 	.ready(
@@ -517,7 +517,6 @@
 	// Basic initialization
 	$('.daterange-basic_new').daterangepicker({
 		applyClass : 'bg-slate-600',
-
 		cancelClass : 'btn-light',
 		locale : {
 			format : 'DD-MM-YYYY',

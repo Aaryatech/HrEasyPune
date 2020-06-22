@@ -849,7 +849,7 @@ public class AssetMgmtController {
 				assets.setAssetMake(request.getParameter("assetMake"));
 				assets.setAssetModel(request.getParameter("assetModel"));
 				assets.setAssetName(assetName);
-				assets.setAssetPurDate(DateConvertor.convertToYMD(request.getParameter("assetPurDate")));
+				assets.setAssetPurDate(request.getParameter("assetPurDate"));
 				assets.setAssetRemark(request.getParameter("remark"));
 				assets.setAssetSrno(request.getParameter("assetSrno"));
 				assets.setVendorId(Integer.parseInt(request.getParameter("assetVendorId")));
