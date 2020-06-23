@@ -140,6 +140,15 @@
 												id="submtbtn" onclick="contractLetter()">Generate</button>
 										</div>
 									</div>
+									<hr>
+									<div class="form-group row">
+										<label class="col-form-label  col-lg-4" for="empTypeName">
+											Address Letter for Back ACC : </label>
+										<div class="col-lg-5">
+											<button type="button" class="btn bg-blue ml-3 legitRipple"
+												id="submtbtn" onclick="addressLetterForAcc()">Generate</button>
+										</div>
+									</div>
 
 								</form>
 							</div>
@@ -589,7 +598,82 @@
 		</div>
 	</div>
 	<!-- /scrollable modal -->
+	<!-- Scrollable modal -->
+	<div id="modal_scrollable5" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
 
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Address Letter</h5>
+					<br>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Code : </label> <label class="col-form-label col-lg-2"
+							id="empCode1" for="empCode1"> ${empDetail.empCode}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Name : </label> <label class="col-form-label col-lg-6"
+							id="empName1" for="empName1">${empDetail.firsName}&nbsp;${empDetail.surname}</label>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="cmpNameForAcc">
+							Company Name : </label> <label class="col-form-label col-lg-6"
+							for="cmpNameForAcc"><input type="text"
+							class="form-control  " placeholder="Company Name"
+							id="cmpNameForAcc" name="cmpNameForAcc" autocomplete="off"
+							onchange="trim(this)" value="${empDetail.subCompName}"></label>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="addJointDate">
+							Join Date : </label> <label class="col-form-label col-lg-6"
+							for="addJointDate"><input type="text"
+							class="form-control datepickerclass" placeholder="Select Date "
+							id="addJointDate" name="addJointDate" autocomplete="off"
+							value="${empDetail.orinalJoining}"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="date5"> Date :
+						</label> <label class="col-form-label col-lg-6" for="date5"><input
+							type="text" class="form-control datepickerclass"
+							placeholder="Select Date " id="date5" name="date5"
+							autocomplete="off"></label>
+
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="address">
+							Address : </label> <label class="col-form-label col-lg-6" for="address"><input
+							type="text" class="form-control  " placeholder="Address"
+							id="address" name="address" autocomplete="off"
+							onchange="trim(this)"></label>
+
+					</div>
+
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary"
+						onclick="submitAddressLetterLetter(${empDetail.empId})">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /scrollable modal -->
 	<script>
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
@@ -627,6 +711,10 @@
 		}
 		function contractLetter() {
 			$('#modal_scrollable4').modal('show');
+
+		}
+		function addressLetterForAcc() {
+			$('#modal_scrollable5').modal('show');
 
 		}
 		function submitFormApologyLetter(empId) {
@@ -679,7 +767,32 @@
 			}
 			
 
-		} 
+		}
+		function submitAddressLetterLetter(empId) {
+			//window.open('pdfForReport?url=/pdf/gernerateApologyletterAbsent/' + empId);
+			  
+			var fromdate = document.getElementById("addJointDate").value; 
+			var cmpName = document.getElementById("cmpNameForAcc").value;
+			var address = document.getElementById("address").value;
+			var date = document.getElementById("date4").value; 
+			
+			var isError=0;
+			
+			if(cmpName==""){
+				alert("Enter Company Name");
+				isError=1;
+			}else if(address==""){
+				alert("Enter Address");
+				isError=1;
+			}
+			
+			if(isError==0){
+				 
+				window.open('${pageContext.request.contextPath}/pdf/gernerateAddressLetter/' + empId +'/'+date+'/'+cmpName+'/'+fromdate+'/'+address);
+			}
+			
+
+		}
 		function submitContractLetterLetter(empId) {
 			          
 			

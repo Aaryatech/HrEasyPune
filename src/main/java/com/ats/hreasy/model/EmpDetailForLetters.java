@@ -1,6 +1,5 @@
 package com.ats.hreasy.model;
  
-
 public class EmpDetailForLetters {
 	 
 	private int empId; 
@@ -16,7 +15,13 @@ public class EmpDetailForLetters {
 	private String mobile;
 	private String subCompName; 
 	private String cmpJoiningDate; 
-	private String cmpLeavingDate;
+	private String cmpLeavingDate;  
+	private String orinalJoining; 
+	private String orinalLeaving;
+	private String address; 
+	private String maritalStatus; 
+	private String gender;
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -101,13 +106,44 @@ public class EmpDetailForLetters {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getOrinalJoining() {
+		return orinalJoining;
+	}
+	public void setOrinalJoining(String orinalJoining) {
+		this.orinalJoining = orinalJoining;
+	}
+	public String getOrinalLeaving() {
+		return orinalLeaving;
+	}
+	public void setOrinalLeaving(String orinalLeaving) {
+		this.orinalLeaving = orinalLeaving;
+	}
 	@Override
 	public String toString() {
 		return "EmpDetailForLetters [empId=" + empId + ", empCode=" + empCode + ", firsName=" + firsName
 				+ ", middleName=" + middleName + ", surname=" + surname + ", deptName=" + deptName + ", empDesgn="
 				+ empDesgn + ", locName=" + locName + ", orgName=" + orgName + ", owner=" + owner + ", mobile=" + mobile
 				+ ", subCompName=" + subCompName + ", cmpJoiningDate=" + cmpJoiningDate + ", cmpLeavingDate="
-				+ cmpLeavingDate + "]";
+				+ cmpLeavingDate + ", orinalJoining=" + orinalJoining + ", orinalLeaving=" + orinalLeaving
+				+ ", address=" + address + ", maritalStatus=" + maritalStatus + ", gender=" + gender + "]";
 	}
 	
 	

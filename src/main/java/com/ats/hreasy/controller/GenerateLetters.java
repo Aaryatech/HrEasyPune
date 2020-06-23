@@ -236,4 +236,37 @@ public class GenerateLetters {
 		return model;
 	}
 
+	@RequestMapping(value = "/pdf/gernerateAddressLetter/{empId}/{date}/{cmpName}/{fromdate}/{address}", method = RequestMethod.GET)
+	public ModelAndView gernerateAddressLetter(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String cmpName, @PathVariable String fromdate, @PathVariable String address,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateAddressLetter");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+			model.addObject("cmpName", cmpName);
+			model.addObject("address", address); 
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			//Date fmdt = sdf.parse(fromdate);
+			model.addObject("fromdate", fromdate);
+
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
 }
