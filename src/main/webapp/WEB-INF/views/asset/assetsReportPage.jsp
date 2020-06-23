@@ -18,7 +18,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
 	type="text/css" />
-	
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 <style type="text/css">
@@ -79,7 +79,9 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="card-header header-elements-inline">
-							<h3 class="pageTitle"><i class="icon-list-unordered"></i>Assets Report</h3>
+							<h3 class="pageTitle">
+								<i class="icon-list-unordered"></i>Assets Report
+							</h3>
 						</div>
 
 
@@ -104,61 +106,62 @@
 								<div class="form-group row">
 									<div class="col-md-6">
 										<label
-													class="col-form-label text-info font-weight-bold col-lg-5 float"
-													for="assetCatId">Accessible Location(F1)<span
-													class="text-danger">*</span>:
-												</label>
-												<div class="col-lg-6 float">
-													<select name="locId" data-placeholder="Select Location"
-														id="locId"
-														class="form-control form-control-select2 select2-hidden-accessible">
-														<!-- <option value="0">All</option> -->
-														<c:forEach items="${locationList}" var="locationList">
-															<option value="${locationList.locId}">${locationList.locName}</option>
-														</c:forEach>
-													</select>
-												</div>	 <span
-											class="validation-invalid-label" id="error_locId"
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="assetCatId">Accessible Location(F1)<span
+											class="text-danger">*</span>:
+										</label>
+										<div class="col-lg-6 float">
+											<select name="locId" data-placeholder="Select Location"
+												id="locId"
+												class="form-control form-control-select2 select2-hidden-accessible">
+												<!-- <option value="0">All</option> -->
+												<c:forEach items="${locationList}" var="locationList">
+													<option value="${locationList.locId}">${locationList.locName}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<span class="validation-invalid-label" id="error_locId"
 											style="display: none;">Please Select Location. </span>
-																				
+
 									</div>
 									<div class="col-md-6">
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-5 float"
-													for="vendors">Vendor(F2)<span
-													class="text-danger">*</span>:
-												</label>
-												<div class="col-lg-6 float">
-													<select name="vendorsId" id="vendorsId"
-														class="form-control form-control-select2 select2-hidden-accessible">
-														<option value="0">All</option>
-														<c:forEach items="${assetVendorList}" var="assetVendorList">
-															<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
-														</c:forEach>
-													</select>
-												</div><span
-											class="validation-invalid-label" id="error_vendor"
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="vendors">Vendor(F2)<span class="text-danger">*</span>:
+										</label>
+										<div class="col-lg-6 float">
+											<select name="vendorsId" id="vendorsId"
+												class="form-control form-control-select2 select2-hidden-accessible">
+												<option value="0">All</option>
+												<c:forEach items="${assetVendorList}" var="assetVendorList">
+													<option value="${assetVendorList.vendorId}">${assetVendorList.compName}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<span class="validation-invalid-label" id="error_vendor"
 											style="display: none;">Please Select Date. </span>
-											</div>
+									</div>
 								</div>
-								
-								
+
+
 								<div class="form-group row">
 									<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5  float" for="purchaseDate">Purchase
-												 Date(F3)
-												 <span class="text-danger">*</span>:</label>
-												<div class="col-lg-7 float">
-										<input type="text" class="form-control daterange-basic_new "
-											name="dateRange" data-placeholder="Select Date"
-											id="dateRange"> <span
-											class="validation-invalid-label" id="error_DateRange"
-											style="display: none;">Please Select Date.</span>
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5  float"
+											for="purchaseDate">Purchase Date(F3) <span
+											class="text-danger">*</span>:
+										</label>
+										<div class="col-lg-7 float">
+											<input type="text" class="form-control daterange-basic_new "
+												name="dateRange" data-placeholder="Select Date"
+												id="dateRange"> <span
+												class="validation-invalid-label" id="error_DateRange"
+												style="display: none;">Please Select Date.</span>
+										</div>
 									</div>
-								</div>									
 								</div>
-								
-								
+
+
 
 								<div class="row">
 
@@ -166,39 +169,37 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin:0;">Advance Reports</h6>
+												<h6 class="box_title" style="margin: 0;">Advance
+													Reports</h6>
 												<div class="header-elements"></div>
 											</div>
-											
-		<div class="advance_bx">
-			<ul>
-				<li>Assets(F1, F2, F3)
-				<span>
-				<a href="#"
-				onclick="getProgReport('f3',0,'getAllAssetsDetails')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f3',1,'getAllAssetsDetails')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger  text-danger    "
-				style="color: black;"></i></a>
-				</span></li>
-				<!-- <li>
-				Yearly Advance Amount(F1)
-				<span>
-				<a href="#" onclick="getProgReport('f1',0,'showAdvancePaymentYearlyRep')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a>
-				<a href="#" onclick="getProgReport('f1',1,'showAdvancePaymentYearlyRep')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger  text-danger   "
-				style="color: black;"></i></a>
-				</span>	
-				</li> 
-				
-				<li>
+
+											<div class="advance_bx">
+												<ul>
+													<li>Assets(F1, F2, F3) <span> <a href="#"
+															onclick="getProgReport('f3',0,'getAllAssetsDetails')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f3',1,'getAllAssetsDetails')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger    "
+																style="color: black;"></i></a>
+													</span></li>
+													<li>AMC Expired Asset's Report(F1) <span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getAssetsAMCExpiryReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getAssetsAMCExpiryReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+
+													<!-- <li>
 				Employee Advance Skip Report (F1)
 				<span>
 				<a href="#" onclick="getProgReport('f1',0,'showAdvanceSkipRep')"
@@ -209,12 +210,12 @@
 				title="PDF"><i
 				class="icon-file-pdf icon-1x text-danger  text-danger  "
 				style="color: black;"></i></a>
-				</span></li>-->
-				
-			</ul>
-		</div>
+				</span></li> -->
 
-											
+												</ul>
+											</div>
+
+
 										</div>
 									</div>
 
@@ -316,7 +317,7 @@
 										</div>
 									</div> -->
 
-									
+
 
 								</div>
 								<input type="hidden" id="cal_yr" name="cal_yr" value="0">
