@@ -250,41 +250,36 @@
 
 					<div class="form-group row">
 						<label class="col-form-label col-lg-3" for="fromdate1">
-							From Date : </label> <label class="col-form-label col-lg-6"
-							for="fromdate1"><input type="text"
+							Misbehaviour Date : </label> <label class="col-form-label col-lg-6"
+							for="fromdate2"><input type="text"
 							class="form-control datepickerclass" placeholder="Select Date "
-							id="fromdate1" name="fromdate1" autocomplete="off"></label>
+							id="fromdate2" name="fromdate2" autocomplete="off"></label>
 
 					</div>
 					<div class="form-group row">
-						<label class="col-form-label col-lg-3" for="todate1"> To
-							Date : </label> <label class="col-form-label col-lg-6" for="toDate1"><input
-							type="text" class="form-control datepickerclass"
-							placeholder="Select Date " id="toDate1" name="toDate1"
-							autocomplete="off"></label>
+						<label class="col-form-label col-lg-3" for="reason">
+							Reason : </label> <label class="col-form-label col-lg-6" for="reason"><input
+							type="text" class="form-control  " placeholder="Reason"
+							id="reason" name="reason" autocomplete="off"
+							onchange="trim(this)"></label>
 
 					</div>
+
 					<div class="form-group row">
 						<label class="col-form-label col-lg-3" for="date1"> Date :
-						</label> <label class="col-form-label col-lg-6" for="date1"><input
+						</label> <label class="col-form-label col-lg-6" for="date2"><input
 							type="text" class="form-control datepickerclass"
-							placeholder="Select Date " id="date1" name="date1"
+							placeholder="Select Date " id="date2" name="date2"
 							autocomplete="off"></label>
 
 					</div>
-					<div class="form-group row">
-						<label class="col-form-label col-lg-3" for="noOfDays"> No.
-							of Days : </label> <label class="col-form-label col-lg-3" for="noOfDays1"><input
-							type="text" class="form-control" placeholder="No.of Days"
-							id="noOfDays1" name="noOfDays1" autocomplete="off" value="1"></label>
 
-					</div>
 				</div>
 
 				<div class="modal-footer pt-3">
 					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn bg-primary"
-						onclick="submitFormApologyLetter(${empDetail.empId})">Submit</button>
+						onclick="submitMisbehaviourLetter(${empDetail.empId})">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -324,7 +319,27 @@
 			var toDate = document.getElementById("toDate1").value;
 			var noOfDays = document.getElementById("noOfDays1").value;
 			var date1 = document.getElementById("date1").value; 
-			window.open('${pageContext.request.contextPath}/pdf/gernerateApologyletterAbsent/' + empId +'/'+date1+'/'+fromdate+'/'+toDate+'/'+noOfDays);
+			
+			if(noOfDays==""){
+				alert("Enter No. of Days");
+			}else{
+				window.open('${pageContext.request.contextPath}/pdf/gernerateApologyletterAbsent/' + empId +'/'+date1+'/'+fromdate+'/'+toDate+'/'+noOfDays);
+			}
+			
+
+		}
+		function submitMisbehaviourLetter(empId) {
+			//window.open('pdfForReport?url=/pdf/gernerateApologyletterAbsent/' + empId);
+			var fromdate = document.getElementById("fromdate2").value;  
+			var reason = document.getElementById("reason").value;
+			var date = document.getElementById("date2").value; 
+			
+			if(reason==""){
+				alert("Enter Reason");
+			}else{
+				window.open('${pageContext.request.contextPath}/pdf/gernerateApologyletterMisbehaviour/' + empId +'/'+date+'/'+fromdate+'/'+reason);
+			}
+			
 
 		}
 	</script>

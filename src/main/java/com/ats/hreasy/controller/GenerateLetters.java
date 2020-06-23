@@ -67,8 +67,9 @@ public class GenerateLetters {
 	}
 
 	@RequestMapping(value = "/pdf/gernerateApologyletterAbsent/{empId}/{date}/{fromdate}/{toDate}/{noOfDays}", method = RequestMethod.GET)
-	public ModelAndView poPdf(@PathVariable int empId,@PathVariable String date, @PathVariable String fromdate, @PathVariable String toDate,
-			@PathVariable int noOfDays, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView gernerateApologyletterAbsent(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String fromdate, @PathVariable String toDate, @PathVariable int noOfDays,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("letter/gernerateApologyletterAbsent");
 		try {
@@ -78,8 +79,8 @@ public class GenerateLetters {
 			EmpDetailForLetters empDetail = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
 			model.addObject("empDetail", empDetail);
-			model.addObject("noOfDays", noOfDays); 
-			
+			model.addObject("noOfDays", noOfDays);
+
 			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
@@ -90,7 +91,39 @@ public class GenerateLetters {
 
 			Date dt = sdf.parse(date);
 			model.addObject("date", name_date.format(dt));
-			
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gernerateApologyletterMisbehaviour/{empId}/{date}/{fromdate}/{reason}", method = RequestMethod.GET)
+	public ModelAndView gernerateApologyletterMisbehaviour(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String fromdate, @PathVariable String reason, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateApologyletterMisbehaviour");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+			model.addObject("reason", reason);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date fmdt = sdf.parse(fromdate);
+			model.addObject("fromdate", name_date.format(fmdt));
+  
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
 			// System.out.println(list);
 
 		} catch (Exception e) {
