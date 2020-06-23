@@ -73,7 +73,7 @@ var DatatableBasic = function() {
         });*/
         var table = $('.datatable-scroll-y').DataTable({
             autoWidth: true,
-            
+            /*scrollY: 500,*/
             "order": [],
             "bInfo": false,
             "lengthChange": false,

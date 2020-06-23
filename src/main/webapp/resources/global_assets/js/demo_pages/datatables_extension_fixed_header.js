@@ -43,7 +43,9 @@ var DatatableFixedHeader = function() {
 
         // Basic initialization
         var table_basic = $('.datatable-header-basic').DataTable({
-            fixedHeader: true
+            fixedHeader: true,
+             
+            "bPaginate": false
         });
 
 

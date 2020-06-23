@@ -103,9 +103,11 @@
 							<div class="tab-pane fade show active"
 								id="highlighted-justified-tab1">
 								<div class="table-responsive">
-									<table
+									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="bootstrap-data-table">
+										id="bootstrap-data-table"> -->
+									<table class="table datatable-fixed-left_custom" width="100%"
+										id="printtable1">
 										<thead>
 											<tr class="bg-blue">
 												<th width="10%" style="text-align: center;">Sr.no</th>
@@ -619,6 +621,35 @@
 					minViewMode : "months"
 
 				});
+
+			});
+		</script>
+
+		<script type="text/javascript">
+			$('.datatable-fixed-left_custom').DataTable({
+
+				columnDefs : [ {
+
+					orderable : false,
+					targets : [ 2 ]
+				}, {
+					width : "50px",
+					targets : [ 2 ]
+				}, {
+					width : "100px",
+					targets : [ 0 ]
+				}, {
+					width : "700px",
+					targets : [ 1 ]
+				} ],
+				scrollX : true,
+				//scrollY : '600px',
+				scrollCollapse : true,
+				paging : false,
+
+				fixedColumns : {
+					leftColumns : 3
+				}
 
 			});
 		</script>
