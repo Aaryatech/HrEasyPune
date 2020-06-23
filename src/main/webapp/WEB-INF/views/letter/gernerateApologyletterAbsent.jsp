@@ -30,10 +30,10 @@ table {
 p {
 	font-family: arial;
 	padding: 0;
-	margin-left: 30px;
-	margin-right: 30px;
+	margin-left: 60px;
+	margin-right: 0px;
 	text-align: justify;
-	font-size: 26px;
+	font-size: 20px;
 }
 
 .pn {
@@ -110,7 +110,7 @@ hr {
 <body>
 	<!-- border-top: 1px solid #313131; border-right: 1px solid #313131; border-left: 1px solid #313131; -->
 	<table width="100%"
-		style="margin-left: 0px; margin-right: 60px; margin-top: 20px;">
+		style="margin-left: 0px; margin-right: 0px; margin-top: 20px;">
 		<tr>
 			<td colspan="2" align="center"><table width="100%">
 
