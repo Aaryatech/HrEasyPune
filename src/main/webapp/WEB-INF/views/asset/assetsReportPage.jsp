@@ -225,13 +225,39 @@
 													</span>
 													</li>
 													
-													<li>Employee Wise Assets Report<span> <a
+													<li>Employee Wise Assets Report(F1)<span> <a
 															href="#"
 															onclick="getProgReport('f1',0,'getEmpWiseAssetsReport')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport('f1',1,'getEmpWiseAssetsReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+													
+													<li>Asset Return Pending(F1)<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getAssetsReturnPendingReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getAssetsReturnPendingReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+													
+													<li>Scrap Assets Report(F1)<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getScrappedAssetsReprt')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getScrappedAssetsReprt')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger   "
 																style="color: black;"></i></a>
