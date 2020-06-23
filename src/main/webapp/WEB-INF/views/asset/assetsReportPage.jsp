@@ -263,6 +263,19 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
+													
+													<li>Vendor Wise Total Asset Report<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getVendorWiseTotalAssetReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getVendorWiseTotalAssetReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
 												</ul>
 											</div>
 
