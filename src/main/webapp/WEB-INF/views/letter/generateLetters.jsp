@@ -97,10 +97,11 @@
 									id="submitInsertEmpType" method="post">
 									<div class="form-group row">
 										<label class="col-form-label  col-lg-4" for="empTypeName">Generate
-											Apology Letter : </label>
+											Absent Apology Letter : </label>
 										<div class="col-lg-5">
 											<button type="button" class="btn bg-blue ml-3 legitRipple"
-												id="submtbtn">Generate PDF</button>
+												id="submtbtn" onclick="apologyLetter()">Generate
+												PDF</button>
 										</div>
 									</div>
 
@@ -129,7 +130,74 @@
 	</div>
 	<!-- /page content -->
 
+	<!-- Scrollable modal -->
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
 
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Apology Letter - Absent</h5>
+					<br>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Code : </label> <label class="col-form-label col-lg-2"
+							id="empCode1" for="empCode1"> ${empDetail.empCode}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Name : </label> <label class="col-form-label col-lg-6"
+							id="empName1" for="empName1">${empDetail.firsName}&nbsp;${empDetail.surname}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Department : </label> <label class="col-form-label col-lg-6" id="lvType"
+							for="lvType">${empDetail.deptName}</label>
+
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="fromdate1">
+							From Date : </label> <label class="col-form-label col-lg-6"
+							id="fromdate1" for="fromdate1"><input type="text"
+							class="form-control datepickerclass" placeholder="Select Date "
+							id="fromdate1" name="fromdate1" autocomplete="off"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="todate1"> To
+							Date : </label> <label class="col-form-label col-lg-6" id="toDate1"
+							for="toDate1"><input type="text"
+							class="form-control datepickerclass" placeholder="Select Date "
+							id="toDate1" name="toDate1" autocomplete="off"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="noOfDays"> No.
+							of Days : </label> <label class="col-form-label col-lg-3" id="noOfDays1"
+							for="noOfDays1"><input type="text" class="form-control"
+							placeholder="No.of Days" id="noOfDays1" name="noOfDays1"
+							autocomplete="off" value="1"></label>
+
+					</div>
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /scrollable modal -->
 
 	<script>
 		function trim(el) {
@@ -139,9 +207,21 @@
 			checkSame();
 			return;
 		}
-
+		$('.datepickerclass').daterangepicker({
+			singleDatePicker : true,
+			selectMonths : true,
+			selectYears : true,
+			locale : {
+				format : 'DD-MM-YYYY'
+			}
+		});
 		//
 	</script>
+	<script>
+		function apologyLetter() {
+			$('#modal_scrollable').modal('show');
 
+		}
+	</script>
 </body>
 </html>
