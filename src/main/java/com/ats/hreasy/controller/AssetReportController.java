@@ -39,6 +39,7 @@ import com.ats.hreasy.common.ReportCostants;
 import com.ats.hreasy.model.AssetVendor;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.report.GetYearlyAdvanceNew;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
@@ -109,58 +110,20 @@ public class AssetReportController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/getAllAssetsDetails1", method = RequestMethod.GET)
-	@ResponseBody
-	public List<AssetsDashDetails> editAssetVendor(HttpServletRequest request, HttpServletResponse response) {
-		
-		MultiValueMap<String, Object> map=null;
-		
-		HttpSession session = request.getSession();
-		
-		ModelAndView model = null;
-		
-		List<AssetsDashDetails> assetDash = new ArrayList<AssetsDashDetails>();
-		
-		try {
-			String vendorIds = null;			
-			vendorIds = request.getParameter("vendorsId");
-			if(vendorIds == " " || vendorIds==null) {
-				vendorIds=null;
-			}
-			int locId = Integer.parseInt(request.getParameter("locId"));
-			
-			String leaveDateRange = request.getParameter("dateRange");
-			String[] arrOfStr = leaveDateRange.split("to", 2);
-			
-			
-			
-			vendorIds = vendorIds.substring(1, vendorIds.length() - 1);
-			vendorIds = vendorIds.replaceAll("\"", "");
-			
-				map = new LinkedMultiValueMap<>();
-				map.add("locId", locId);
-				map.add("vendorIds", vendorIds);
-				map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
-				map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-				
-				AssetsDashDetails[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetsDashDetails", map,
-						AssetsDashDetails[].class);
-				assetDash = new ArrayList<AssetsDashDetails>(Arrays.asList(assetArr));
-				
-				
-				System.out.println("Asset Dashboard Data-------------"+assetDash);
-				
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return assetDash;
-	}
+
 	
 	@RequestMapping(value = "/getAllAssetsDetails", method = RequestMethod.GET)
 	public void showAdvancePaymentYearlyRep(HttpServletRequest request, HttpServletResponse response) {
 
 		String reportName = "All Assets";
+		
+		String fromDate = null;
+		String toDate = null;
+		String location = null;
+		String vendor = null;
+		
+		
+		MultiValueMap<String, Object> map = null;
 
 		HttpSession session = request.getSession();
 
@@ -169,14 +132,8 @@ public class AssetReportController {
 			List<AssetsDashDetails> assetDash = new ArrayList<AssetsDashDetails>();
 			StringBuilder sb = new StringBuilder();
 			
-			String vendorIds = null;
-			String[] vendors = request.getParameterValues("vendorsId");				
 			
-			for (int i = 0; i < vendors.length; i++) {
-				sb = sb.append(vendors[i] + ",");
-
-			}
-			vendorIds = sb.toString();			
+			int vendorIds = Integer.parseInt(request.getParameter("vendorsId"));
 			
 			int locId = Integer.parseInt(request.getParameter("locId"));
 			
@@ -185,7 +142,33 @@ public class AssetReportController {
 			
 			System.out.println(vendorIds+"  "+locId+"  "+arrOfStr[0]+"-"+arrOfStr[1]);
 			
-				MultiValueMap<String, Object>  map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+
+			if (locId != 0) {
+				map.add("locId", locId);
+				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
+						map, Location.class);
+				location = loc.getLocName();
+			}
+			
+			
+				map.add("assetVendorId", vendorIds);
+				AssetVendor res = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetVendorById",
+						map, AssetVendor.class);
+				
+				
+				if(vendorIds!=0) {
+					vendor = res.getCompName();
+				}else {
+					vendor = "All";
+				}
+			
+			
+			
+			fromDate = arrOfStr[0];
+			toDate = arrOfStr[1];
+			
+				map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
 				map.add("vendorIds", vendorIds);
 				map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
@@ -355,6 +338,11 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
+			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("\n"));
+			document.add(new Paragraph("Vendor: " + vendor));
+			document.add(new Paragraph("\n"));
+			document.add(new Paragraph("Date Range: " + fromDate+" to "+ toDate));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
@@ -438,7 +426,7 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location+"      Vendor : "+vendor+"\n Date : "+fromDate+" to "+toDate, "", 'P');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -458,7 +446,7 @@ public class AssetReportController {
 
 		} catch (Exception e) {
 
-			System.err.println("Exce in showProgReport " + e.getMessage());
+			System.err.println("Exce in getAllAssetsDetails " + e.getMessage());
 			e.printStackTrace();
 
 		}
