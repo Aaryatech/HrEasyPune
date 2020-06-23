@@ -12,6 +12,8 @@ public class EmpDetailForLetters {
 	private String empDesgn; 
 	private String locName; 
 	private String orgName; 
+	private String owner;
+	private String mobile;
 	private String subCompName; 
 	private String cmpJoiningDate; 
 	private String cmpLeavingDate;
@@ -87,12 +89,25 @@ public class EmpDetailForLetters {
 	public void setCmpLeavingDate(String cmpLeavingDate) {
 		this.cmpLeavingDate = cmpLeavingDate;
 	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	@Override
 	public String toString() {
 		return "EmpDetailForLetters [empId=" + empId + ", empCode=" + empCode + ", firsName=" + firsName
 				+ ", middleName=" + middleName + ", surname=" + surname + ", deptName=" + deptName + ", empDesgn="
-				+ empDesgn + ", locName=" + locName + ", orgName=" + orgName + ", subCompName=" + subCompName
-				+ ", cmpJoiningDate=" + cmpJoiningDate + ", cmpLeavingDate=" + cmpLeavingDate + "]";
+				+ empDesgn + ", locName=" + locName + ", orgName=" + orgName + ", owner=" + owner + ", mobile=" + mobile
+				+ ", subCompName=" + subCompName + ", cmpJoiningDate=" + cmpJoiningDate + ", cmpLeavingDate="
+				+ cmpLeavingDate + "]";
 	}
 	
 	

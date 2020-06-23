@@ -33,7 +33,7 @@ p {
 	margin-left: 60px;
 	margin-right: 0px;
 	text-align: justify;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .pn {

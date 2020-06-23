@@ -11,7 +11,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Apology Letter - Absent</title>
+<title>Apology Letter - Late Mark</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -122,8 +122,8 @@ hr {
 					</tr>
 
 					<tr>
-						<td width="100%"><p style="color: #000;">विषय- गैरहजर
-								असल्याबद्दल माफीनामा</p></td>
+						<td width="100%"><p style="color: #000;">विषय- उशिरा
+								आल्याबद्दलचा माफीनामा</p></td>
 
 					</tr>
 
@@ -133,11 +133,11 @@ hr {
 								आदरणीय सर,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; मी
 								${empDetail.firsName}&nbsp;${empDetail.surname} ,<br>
 								${empDetail.deptName} या डिपार्टमेंट मध्ये काम करीत आहे. <br>मी
-								${fromdate} या तारखेपासून तर ${toDate} या तारखेपर्यंत
-								${noOfDays} दिवस न सांगता गैरहजर होतो .हि पूर्णपणे माझी चूक आहे
-								व मला मान्य आहे.यानंतर अशी चूक पुन्हा केल्यास व्यवस्थापन
-								माझ्याबद्दल जो निर्णय घेईल तो मला मान्य असेल. या वेळेस मला माफ
-								करावे हि नम्र विनंती.
+								${fromdate} या तारखेला न सांगता उशिरा आलो होतो. हि पूर्णपणे माझी
+								चूक आहे व मला मान्य आहे.यानंतर अशी चूक पुन्हा केल्यास व्यवस्थापन
+								माझ्याबद्दल जो निर्णय घेईल तो मला मान्य असेल. <br>या वेळेस
+								मला माफ करावे हि नम्र विनंती.
+
 							</p>
 						</td>
 
@@ -146,7 +146,7 @@ hr {
 						<td width="100%">
 							<p style="color: #000;">
 								नाव - ${empDetail.firsName}&nbsp;${empDetail.surname} <br>
-								<br>दिनांक - ${date} <br> <br>सही--
+								<br> दिनांक - ${date} <br> <br>सही--
 							</p>
 						</td>
 

@@ -120,7 +120,110 @@ public class GenerateLetters {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", name_date.format(fmdt));
-  
+
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gernerateApologyletterLateMark/{empId}/{date}/{fromdate}", method = RequestMethod.GET)
+	public ModelAndView gernerateApologyletterLateMark(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String fromdate, HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateApologyletterLateMark");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date fmdt = sdf.parse(fromdate);
+			model.addObject("fromdate", name_date.format(fmdt));
+
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gerneratecashReceivedLetter/{empId}/{date}/{cmpName}/{fromdate}", method = RequestMethod.GET)
+	public ModelAndView gerneratecashReceivedLetter(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String cmpName, @PathVariable String fromdate, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gerneratecashReceivedLetter");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+			model.addObject("cmpName", cmpName);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date fmdt = sdf.parse(fromdate);
+			model.addObject("fromdate", name_date.format(fmdt));
+
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gernerateContractLetter/{empId}/{contJointDate}/{city}/{contractorName}/{ownerName}/{noOfMonth}/{noticeMonth}/{payDate}/{mobileNo}/{date}/{designationAs}", method = RequestMethod.GET)
+	public ModelAndView gernerateContractLetter(@PathVariable int empId, @PathVariable String contJointDate,
+			@PathVariable String city, @PathVariable String contractorName, @PathVariable String ownerName,
+			@PathVariable int noOfMonth, @PathVariable int noticeMonth, @PathVariable String payDate,
+			@PathVariable String mobileNo, @PathVariable String date, @PathVariable String designationAs,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateContractLetter");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+			model.addObject("city", city);
+			model.addObject("contractorName", contractorName);
+			model.addObject("ownerName", ownerName);
+			model.addObject("noOfMonth", noOfMonth);
+			model.addObject("noticeMonth", noticeMonth);
+			model.addObject("payDate", payDate);
+			model.addObject("mobileNo", mobileNo);
+			model.addObject("designationAs", designationAs);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date fmdt = sdf.parse(contJointDate);
+			model.addObject("fromdate", name_date.format(fmdt));
+
 			Date dt = sdf.parse(date);
 			model.addObject("date", name_date.format(dt));
 

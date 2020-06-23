@@ -11,7 +11,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Apology Letter - Absent</title>
+<title>Cash Received Letter</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -114,39 +114,23 @@ hr {
 		<tr>
 			<td colspan="2" align="center"><table width="100%">
 
-					<tr>
-						<td width="100%"><p style="color: #000;">
-								प्रति,<br>एच. आर इन्चार्ज<br> गलधर फूड्स, औरंगाबाद.<br>
-							</p> <br></td>
 
-					</tr>
 
 					<tr>
-						<td width="100%"><p style="color: #000;">विषय- गैरहजर
-								असल्याबद्दल माफीनामा</p></td>
-
-					</tr>
-
-					<tr>
-						<td width="100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<p style="color: #000;">
-								आदरणीय सर,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; मी
-								${empDetail.firsName}&nbsp;${empDetail.surname} ,<br>
-								${empDetail.deptName} या डिपार्टमेंट मध्ये काम करीत आहे. <br>मी
-								${fromdate} या तारखेपासून तर ${toDate} या तारखेपर्यंत
-								${noOfDays} दिवस न सांगता गैरहजर होतो .हि पूर्णपणे माझी चूक आहे
-								व मला मान्य आहे.यानंतर अशी चूक पुन्हा केल्यास व्यवस्थापन
-								माझ्याबद्दल जो निर्णय घेईल तो मला मान्य असेल. या वेळेस मला माफ
-								करावे हि नम्र विनंती.
-							</p>
+						<td width="100%">
+							<p style="color: #000;">मी
+								${empDetail.firsName}&nbsp;${empDetail.surname} , ${cmpName} या
+								कंपनीत काम करीत होतो व मला ${fromdate} या तारखेपर्यंत पूर्ण पगार
+								मिळालेली आहे, व मला कंपनी कडून आता काही येणे बाकी नाही.</p>
 						</td>
 
 					</tr>
 					<tr>
 						<td width="100%">
 							<p style="color: #000;">
-								नाव - ${empDetail.firsName}&nbsp;${empDetail.surname} <br>
-								<br>दिनांक - ${date} <br> <br>सही--
+								आपला विश्वासू<br> <br>सही-- <br> <br>नाव -
+								${empDetail.firsName}&nbsp;${empDetail.surname} <br> <br>डिपार्टमेंट
+								- ${empDetail.deptName}<br> <br> दिनांक - ${date}
 							</p>
 						</td>
 
