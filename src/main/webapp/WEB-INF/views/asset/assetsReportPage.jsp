@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <body>
 
+<c:url value="/getAssetsListofLocation" var="getAssetsListofLocation"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -112,7 +113,7 @@
 										</label>
 										<div class="col-lg-6 float">
 											<select name="locId" data-placeholder="Select Location"
-												id="locId"
+												id="locId" onchange="getAssets(this.value)"
 												class="form-control form-control-select2 select2-hidden-accessible">
 												<option value="0">All</option>
 												<c:forEach items="${locationList}" var="locationList">
@@ -124,6 +125,7 @@
 											style="display: none;">Please Select Location. </span>
 
 									</div>
+									
 									<div class="col-md-6">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-5 float"
@@ -158,6 +160,24 @@
 												class="validation-invalid-label" id="error_DateRange"
 												style="display: none;">Please Select Date.</span>
 										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-5 float"
+											for="assetCatId">Assets(F4)<span
+											class="text-danger">*</span>:
+										</label>
+										<div class="col-lg-6 float">
+											<select name="assetId" data-placeholder="Select Asset"
+												id="assetId" onchange="getAssets(this.value)"
+												class="form-control form-control-select2 select2-hidden-accessible">
+												<!-- <option value="0">All</option> -->												
+											</select>
+										</div>
+										<span class="validation-invalid-label" id="error_locId"
+											style="display: none;">Please Select Location. </span>
+
 									</div>
 								</div>
 
@@ -271,6 +291,32 @@
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="#"
 															onclick="getProgReport('f1',1,'getVendorWiseTotalAssetReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+													
+													<li>Location Wise Total Asset Report(F1)<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getLocationWiseTtlAssetsReprt')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getLocationWiseTtlAssetsReprt')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+													
+													<li>Asset Log Report(F1, F4)<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getAssetLogReprt')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getAssetLogReprt')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger   "
 																style="color: black;"></i></a>
@@ -477,7 +523,30 @@
 
 		}
 	</script>
+<script>
 
+	function getAssets(locId) {
+		//alert("locId " + locId);
+		
+			$.getJSON('${getAssetsListofLocation}', {
+				locId : locId,
+				ajax : 'true'
+			}, function(data) {
+
+				var len = data.length; 
+
+				$('#assetId').find('option').remove().end()
+				$("#assetId").append($("<option value='0'>All</option>"));
+				for (var i = 0; i < len; i++) {
+					$("#assetId").append(
+							$("<option selected ></option>").attr("value",
+									data[i].assetId).text(data[i].assetCode+' - '+data[i].assetName));
+				}
+				$("#assetId").trigger("chosen:updated");
+			});
+		
+	}
+</script>
 	<script type="text/javascript">
 		// Single picker
 		/* $("#datepicker").datepicker({

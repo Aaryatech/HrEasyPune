@@ -2317,4 +2317,30 @@ public class AssetMgmtController {
 		return assetHistory;
 	}
 	
+	
+	@RequestMapping(value = "/getAssetsListofLocation", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Assets> getAssetsListofLocation(HttpServletRequest request, HttpServletResponse response, @RequestParam String locId) {
+		
+		List<Assets> assetList =new ArrayList<Assets>();
+		try {
+			
+			System.out.println("Location Id ----------------------"+locId);
+			
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			
+			Assets[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetsListByLocId", map,
+					Assets[].class);
+			assetList = new ArrayList<Assets>(Arrays.asList(assetArr));
+			
+			
+			System.out.println("Asset Emp Histroy---"+assetList);
+		}catch (Exception e) {
+			System.err.println("Exception in getAssetsListofLocation : "+e.getMessage());
+			e.printStackTrace();
+		}
+		return assetList;
+	}
+	
 }
