@@ -43,8 +43,11 @@ import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.report.GetYearlyAdvanceNew;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetAMCExpiryReport;
+import com.ats.hrmgt.model.assets.AssetCateWiseSummaryReport;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
 import com.ats.hrmgt.model.assets.AssetsDashDetails;
+import com.ats.hrmgt.model.assets.CatWiseTotalAssetsReport;
+import com.ats.hrmgt.model.assets.EmpWiseAssetsReport;
 import com.ats.hrmgt.model.assets.ServicingDashDetails;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -766,6 +769,921 @@ public class AssetReportController {
 		} catch (Exception e) {
 
 			System.err.println("Exce in getAssetsAMCExpiryReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+	
+	@RequestMapping(value = "/getCatWiseTotalAssetsReport", method = RequestMethod.GET)
+	public void getCatWiseTotalAssetsReport(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "Categorywise Total Assets Report";
+		
+		String location = null;	
+		
+		MultiValueMap<String, Object> map = null;
+
+		HttpSession session = request.getSession();
+		
+		try {
+			List<CatWiseTotalAssetsReport> assetAmcDash = new ArrayList<CatWiseTotalAssetsReport>();
+			
+			int locId = Integer.parseInt(request.getParameter("locId"));
+			
+			
+			System.out.println(+locId);
+			
+			map = new LinkedMultiValueMap<>();
+
+			if (locId != 0) {
+				map.add("locId", locId);
+				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
+						map, Location.class);
+				location = loc.getLocName();
+			}else{
+				location = "All";
+			}
+			
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
+				CatWiseTotalAssetsReport[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getCateWiseTotalAssetReport", map,
+						CatWiseTotalAssetsReport[].class);
+				assetAmcDash = new ArrayList<CatWiseTotalAssetsReport>(Arrays.asList(assetArr));
+				
+				
+				System.out.println("Asset Dashboard Data-------------"+assetAmcDash);
+
+			String header = "";
+			String title = "                 ";
+
+			DateFormat DF2 = new SimpleDateFormat("dd-MM-yyyy");
+			String repDate = DF2.format(new Date());
+
+			Document document = new Document(PageSize._11X17);
+			document.setMargins(5, 5, 0, 0);
+			document.setMarginMirroring(false);
+
+			String FILE_PATH = Constants.REPORT_SAVE;
+			File file = new File(FILE_PATH);
+
+			PdfWriter writer = null;
+
+			FileOutputStream out = new FileOutputStream(FILE_PATH);
+			try {
+				writer = PdfWriter.getInstance(document, out);
+			} catch (DocumentException e) {
+
+				e.printStackTrace();
+			}
+
+			ItextPageEvent event = new ItextPageEvent(header, title, "", "");
+
+			writer.setPageEvent(event);
+			// writer.add(new Paragraph("Curricular Aspects"));
+
+			PdfPTable table = new PdfPTable(9);
+
+			table.setHeaderRows(1);
+
+			table.setWidthPercentage(100);
+			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
+			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
+			// BaseColor.BLACK);
+			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
+																	// BaseColor.BLACK);
+			tableHeaderFont.setColor(ReportCostants.tableHeaderFontBaseColor);
+
+			PdfPCell hcell = new PdfPCell();
+			hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+			hcell = new PdfPCell(new Phrase("Sr.No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Category", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("AMC Vendor", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Contact No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Contact Person", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Contact Person No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);		
+			
+			hcell = new PdfPCell(new Phrase("AMC Dates", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Location", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+
+
+			int index = 0;
+			for (int i = 0; i < assetAmcDash.size(); i++) {
+				// System.err.println("I " + i);
+				CatWiseTotalAssetsReport asset = assetAmcDash.get(i);
+
+				index++;
+				PdfPCell cell;
+				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getAssetCode()+" - "+asset.getAssetName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getCatName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+				
+				
+				cell = new PdfPCell(new Phrase("" + asset.getCompName() , headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getContactNo1(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getConatctPersonName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getContactPersonNo(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getAmcFrDate()+" to "+asset.getAmcToDate(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getLocName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+			}
+
+			document.open();
+			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
+
+			Paragraph name = new Paragraph(reportName, hf);
+			name.setAlignment(Element.ALIGN_CENTER);
+			document.add(name);
+			document.add(new Paragraph("\n"));
+			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("\n"));
+			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+
+			document.add(table);
+
+			int totalPages = writer.getPageNumber();
+
+			// System.out.println("Page no " + totalPages);
+
+			document.close();
+			int p = Integer.parseInt(request.getParameter("p"));
+			// System.err.println("p " + p);
+
+			if (p == 1) {
+
+				if (file != null) {
+
+					String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+
+					if (mimeType == null) {
+
+						mimeType = "application/pdf";
+
+					}
+
+					response.setContentType(mimeType);
+
+					response.addHeader("content-disposition", String.format("inline; filename=\"%s\"", file.getName()));
+
+					response.setContentLength((int) file.length());
+
+					InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+					try {
+						FileCopyUtils.copy(inputStream, response.getOutputStream());
+					} catch (IOException e) {
+						// System.out.println("Excep in Opening a Pdf File");
+						e.printStackTrace();
+					}
+				}
+			} else {
+
+				List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+				ExportToExcel expoExcel = new ExportToExcel();
+				List<String> rowData = new ArrayList<String>();
+
+				rowData.add("Sr. No");
+				rowData.add("Asset Detail");
+				rowData.add("Category");
+				rowData.add("AMC Vendor");
+				rowData.add("Contact No.");
+				rowData.add("Contact Person");
+				rowData.add("Contact Person No.");
+				rowData.add("AMC Dates");
+				rowData.add("Location");
+								
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+				int cnt = 1;
+				for (int i = 0; i < assetAmcDash.size(); i++) {
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					cnt = cnt + i;
+
+					rowData.add("" + (i + 1));
+					rowData.add("" + assetAmcDash.get(i).getAssetCode()+" - "+assetAmcDash.get(i).getAssetName());
+					rowData.add("" + assetAmcDash.get(i).getCatName());
+					rowData.add("" + assetAmcDash.get(i).getCompName());
+					rowData.add("" + assetAmcDash.get(i).getContactNo1());
+					rowData.add("" + assetAmcDash.get(i).getConatctPersonName());
+					rowData.add("" + assetAmcDash.get(i).getContactPersonNo());
+					rowData.add("" + assetAmcDash.get(i).getAmcFrDate()+" to "+assetAmcDash.get(i).getAmcToDate());
+					rowData.add("" + assetAmcDash.get(i).getLocName());
+					
+					expoExcel.setRowData(rowData);
+					exportToExcelList.add(expoExcel);
+
+				}
+
+				XSSFWorkbook wb = null;
+				try {
+
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+
+					ExceUtil.autoSizeColumns(wb, 3);
+					response.setContentType("application/vnd.ms-excel");
+					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					response.setHeader("Content-disposition",
+							"attachment; filename=" + reportName + "-" + date + ".xlsx");
+					wb.write(response.getOutputStream());
+
+				} catch (IOException ioe) {
+					throw new RuntimeException("Error writing spreadsheet to output stream");
+				} finally {
+					if (wb != null) {
+						wb.close();
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in getAssetsAMCExpiryReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+	
+	@RequestMapping(value = "/getAssetCateWiseSummaryReport", method = RequestMethod.GET)
+	public void getAssetCateWiseSummaryReport(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "Categorywise Total Assets Report";
+		
+		String location = null;	
+		
+		MultiValueMap<String, Object> map = null;
+
+		HttpSession session = request.getSession();
+		
+		try {
+			List<AssetCateWiseSummaryReport> assetAmcDash = new ArrayList<AssetCateWiseSummaryReport>();
+			
+//			int locId = Integer.parseInt(request.getParameter("locId"));
+//			
+//			
+//			System.out.println(+locId);
+//			
+//			map = new LinkedMultiValueMap<>();
+//
+//			if (locId != 0) {
+//				map.add("locId", locId);
+//				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
+//						map, Location.class);
+//				location = loc.getLocName();
+//			}
+//			
+//				map = new LinkedMultiValueMap<>();
+//				map.add("locId", locId);
+				
+				AssetCateWiseSummaryReport[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAssetCateSummaryReport",
+						AssetCateWiseSummaryReport[].class);
+				assetAmcDash = new ArrayList<AssetCateWiseSummaryReport>(Arrays.asList(assetArr));
+				
+				
+				System.out.println("Asset Dashboard Data-------------"+assetAmcDash);
+
+			String header = "";
+			String title = "                 ";
+
+			DateFormat DF2 = new SimpleDateFormat("dd-MM-yyyy");
+			String repDate = DF2.format(new Date());
+
+			Document document = new Document(PageSize._11X17);
+			document.setMargins(5, 5, 0, 0);
+			document.setMarginMirroring(false);
+
+			String FILE_PATH = Constants.REPORT_SAVE;
+			File file = new File(FILE_PATH);
+
+			PdfWriter writer = null;
+
+			FileOutputStream out = new FileOutputStream(FILE_PATH);
+			try {
+				writer = PdfWriter.getInstance(document, out);
+			} catch (DocumentException e) {
+
+				e.printStackTrace();
+			}
+
+			ItextPageEvent event = new ItextPageEvent(header, title, "", "");
+
+			writer.setPageEvent(event);
+			// writer.add(new Paragraph("Curricular Aspects"));
+
+			PdfPTable table = new PdfPTable(6);
+
+			table.setHeaderRows(1);
+
+			table.setWidthPercentage(100);
+			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f});
+			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
+			// BaseColor.BLACK);
+			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
+																	// BaseColor.BLACK);
+			tableHeaderFont.setColor(ReportCostants.tableHeaderFontBaseColor);
+
+			PdfPCell hcell = new PdfPCell();
+			hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+			hcell = new PdfPCell(new Phrase("Sr.No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Category", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Un-Assigned", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Assigned", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Lost", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Scraped", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+
+			int index = 0;
+			for (int i = 0; i < assetAmcDash.size(); i++) {
+				// System.err.println("I " + i);
+				AssetCateWiseSummaryReport asset = assetAmcDash.get(i);
+
+				index++;
+				PdfPCell cell;
+				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getCatName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getUnAssigned(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+				table.addCell(cell);				
+				
+				cell = new PdfPCell(new Phrase("" + asset.getAssigned(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getLost(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getScrapped(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+				table.addCell(cell);
+
+		}
+
+			document.open();
+			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
+
+			Paragraph name = new Paragraph(reportName, hf);
+			name.setAlignment(Element.ALIGN_CENTER);
+			document.add(name);
+			document.add(new Paragraph("\n"));			
+			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+
+			document.add(table);
+
+			int totalPages = writer.getPageNumber();
+
+			// System.out.println("Page no " + totalPages);
+
+			document.close();
+			int p = Integer.parseInt(request.getParameter("p"));
+			// System.err.println("p " + p);
+
+			if (p == 1) {
+
+				if (file != null) {
+
+					String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+
+					if (mimeType == null) {
+
+						mimeType = "application/pdf";
+
+					}
+
+					response.setContentType(mimeType);
+
+					response.addHeader("content-disposition", String.format("inline; filename=\"%s\"", file.getName()));
+
+					response.setContentLength((int) file.length());
+
+					InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+					try {
+						FileCopyUtils.copy(inputStream, response.getOutputStream());
+					} catch (IOException e) {
+						// System.out.println("Excep in Opening a Pdf File");
+						e.printStackTrace();
+					}
+				}
+			} else {
+
+				List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+				ExportToExcel expoExcel = new ExportToExcel();
+				List<String> rowData = new ArrayList<String>();
+
+				rowData.add("Sr. No");
+				rowData.add("Category");
+				rowData.add("Un-Assigned");
+				rowData.add("Assigned");
+				rowData.add("Lost");
+				rowData.add("Scrapped");
+								
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+				int cnt = 1;
+				for (int i = 0; i < assetAmcDash.size(); i++) {
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					cnt = cnt + i;
+
+					rowData.add("" + (i + 1));
+					rowData.add("" + assetAmcDash.get(i).getCatName());
+					rowData.add("" + assetAmcDash.get(i).getUnAssigned());
+					rowData.add("" + assetAmcDash.get(i).getAssigned());
+					rowData.add("" + assetAmcDash.get(i).getLost());
+					rowData.add("" + assetAmcDash.get(i).getScrapped());
+					
+					expoExcel.setRowData(rowData);
+					exportToExcelList.add(expoExcel);
+
+				}
+
+				XSSFWorkbook wb = null;
+				try {
+
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
+
+					ExceUtil.autoSizeColumns(wb, 3);
+					response.setContentType("application/vnd.ms-excel");
+					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					response.setHeader("Content-disposition",
+							"attachment; filename=" + reportName + "-" + date + ".xlsx");
+					wb.write(response.getOutputStream());
+
+				} catch (IOException ioe) {
+					throw new RuntimeException("Error writing spreadsheet to output stream");
+				} finally {
+					if (wb != null) {
+						wb.close();
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in getAssetCateWiseSummaryReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+	
+	@RequestMapping(value = "/getEmpWiseAssetsReport", method = RequestMethod.GET)
+	public void getEmpWiseAssetsReport(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "Employee Wise Assets Report";
+		
+		String location = null;	
+		
+		MultiValueMap<String, Object> map = null;
+
+		HttpSession session = request.getSession();
+		
+		try {
+			List<EmpWiseAssetsReport> assetAmcDash = new ArrayList<EmpWiseAssetsReport>();
+			
+			int locId = Integer.parseInt(request.getParameter("locId"));
+			
+			
+			System.out.println(+locId);
+			
+			map = new LinkedMultiValueMap<>();
+
+			if (locId != 0) {
+				map.add("locId", locId);
+				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
+						map, Location.class);
+				location = loc.getLocName();
+			}else {
+				location = "All";
+			}
+			
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
+				EmpWiseAssetsReport[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpWiseAssetsReport", map,
+						EmpWiseAssetsReport[].class);
+				assetAmcDash = new ArrayList<EmpWiseAssetsReport>(Arrays.asList(assetArr));
+				
+				
+				System.out.println("Asset Dashboard Data-------------"+assetAmcDash);
+
+			String header = "";
+			String title = "                 ";
+
+			DateFormat DF2 = new SimpleDateFormat("dd-MM-yyyy");
+			String repDate = DF2.format(new Date());
+
+			Document document = new Document(PageSize._11X17);
+			document.setMargins(5, 5, 0, 0);
+			document.setMarginMirroring(false);
+
+			String FILE_PATH = Constants.REPORT_SAVE;
+			File file = new File(FILE_PATH);
+
+			PdfWriter writer = null;
+
+			FileOutputStream out = new FileOutputStream(FILE_PATH);
+			try {
+				writer = PdfWriter.getInstance(document, out);
+			} catch (DocumentException e) {
+
+				e.printStackTrace();
+			}
+
+			ItextPageEvent event = new ItextPageEvent(header, title, "", "");
+
+			writer.setPageEvent(event);
+			// writer.add(new Paragraph("Curricular Aspects"));
+
+			PdfPTable table = new PdfPTable(9);
+
+			table.setHeaderRows(1);
+
+			table.setWidthPercentage(100);
+			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
+			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
+			// BaseColor.BLACK);
+			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
+																	// BaseColor.BLACK);
+			tableHeaderFont.setColor(ReportCostants.tableHeaderFontBaseColor);
+
+			PdfPCell hcell = new PdfPCell();
+			hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+			hcell = new PdfPCell(new Phrase("Sr.No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Date", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Assign Remark", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Return Remark", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("Employee Name", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Department", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);		
+			
+			hcell = new PdfPCell(new Phrase("Designation", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+			hcell = new PdfPCell(new Phrase("Location", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+			
+
+
+			int index = 0;
+			for (int i = 0; i < assetAmcDash.size(); i++) {
+				// System.err.println("I " + i);
+				EmpWiseAssetsReport asset = assetAmcDash.get(i);
+
+				index++;
+				PdfPCell cell;
+				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getAssetCode()+" - "+asset.getAssetName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getUseFromDate()+" to "+asset.getUseToDate(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				
+				cell = new PdfPCell(new Phrase("" + asset.getAssignRemark(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getReturnRemark(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getEmpCode()+" - "+asset.getFirstName()+" "+asset.getSurname(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + asset.getDeptName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getEmpDesgn(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+				table.addCell(cell);
+				
+				cell = new PdfPCell(new Phrase("" + asset.getLocName(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+				table.addCell(cell);
+				
+				
+			}
+
+			document.open();
+			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
+
+			Paragraph name = new Paragraph(reportName, hf);
+			name.setAlignment(Element.ALIGN_CENTER);
+			document.add(name);
+			document.add(new Paragraph("\n"));
+			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("\n"));
+			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+
+			document.add(table);
+
+			int totalPages = writer.getPageNumber();
+
+			// System.out.println("Page no " + totalPages);
+
+			document.close();
+			int p = Integer.parseInt(request.getParameter("p"));
+			// System.err.println("p " + p);
+
+			if (p == 1) {
+
+				if (file != null) {
+
+					String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+
+					if (mimeType == null) {
+
+						mimeType = "application/pdf";
+
+					}
+
+					response.setContentType(mimeType);
+
+					response.addHeader("content-disposition", String.format("inline; filename=\"%s\"", file.getName()));
+
+					response.setContentLength((int) file.length());
+
+					InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+					try {
+						FileCopyUtils.copy(inputStream, response.getOutputStream());
+					} catch (IOException e) {
+						// System.out.println("Excep in Opening a Pdf File");
+						e.printStackTrace();
+					}
+				}
+			} else {
+
+				List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+				ExportToExcel expoExcel = new ExportToExcel();
+				List<String> rowData = new ArrayList<String>();
+
+				rowData.add("Sr. No");
+				rowData.add("Asset Detail");
+				rowData.add("Dates");
+				rowData.add("Assign Remark");
+				rowData.add("Return Remark");
+				rowData.add("Employee Name");
+				rowData.add("Department");
+				rowData.add("Designation");
+				rowData.add("Location");
+								
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+				int cnt = 1;
+				for (int i = 0; i < assetAmcDash.size(); i++) {
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					cnt = cnt + i;
+
+					rowData.add("" + (i + 1));
+					rowData.add("" + assetAmcDash.get(i).getAssetCode()+" - "+assetAmcDash.get(i).getAssetName());
+					rowData.add("" + assetAmcDash.get(i).getUseFromDate()+" to "+assetAmcDash.get(i).getUseToDate());
+					rowData.add("" + assetAmcDash.get(i).getAssignRemark());
+					rowData.add("" + assetAmcDash.get(i).getReturnRemark());
+					rowData.add("" + assetAmcDash.get(i).getEmpCode()+" - "+assetAmcDash.get(i).getFirstName()+" "+assetAmcDash.get(i).getSurname());
+					rowData.add("" + assetAmcDash.get(i).getDeptName());
+					rowData.add("" + assetAmcDash.get(i).getEmpDesgn());
+					rowData.add("" + assetAmcDash.get(i).getLocName());
+					
+					expoExcel.setRowData(rowData);
+					exportToExcelList.add(expoExcel);
+
+				}
+
+				XSSFWorkbook wb = null;
+				try {
+
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+
+					ExceUtil.autoSizeColumns(wb, 3);
+					response.setContentType("application/vnd.ms-excel");
+					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					response.setHeader("Content-disposition",
+							"attachment; filename=" + reportName + "-" + date + ".xlsx");
+					wb.write(response.getOutputStream());
+
+				} catch (IOException ioe) {
+					throw new RuntimeException("Error writing spreadsheet to output stream");
+				} finally {
+					if (wb != null) {
+						wb.close();
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in getEmpWiseAssetsReport " + e.getMessage());
 			e.printStackTrace();
 
 		}

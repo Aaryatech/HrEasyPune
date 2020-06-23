@@ -114,7 +114,7 @@
 											<select name="locId" data-placeholder="Select Location"
 												id="locId"
 												class="form-control form-control-select2 select2-hidden-accessible">
-												<!-- <option value="0">All</option> -->
+												<option value="0">All</option>
 												<c:forEach items="${locationList}" var="locationList">
 													<option value="${locationList.locId}">${locationList.locName}</option>
 												</c:forEach>
@@ -169,7 +169,7 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin: 0;">Advance
+												<h6 class="box_title" style="margin: 0;">Assets Management
 													Reports</h6>
 												<div class="header-elements"></div>
 											</div>
@@ -198,20 +198,45 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-
-													<!-- <li>
-				Employee Advance Skip Report (F1)
-				<span>
-				<a href="#" onclick="getProgReport('f1',0,'showAdvanceSkipRep')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a>
-				<a href="#" onclick="getProgReport('f1',1,'showAdvanceSkipRep')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger  text-danger  "
-				style="color: black;"></i></a>
-				</span></li> -->
-
+													
+													<li>Categorywise Total Assets Report(F1) <span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getCatWiseTotalAssetsReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getCatWiseTotalAssetsReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+																										
+													<li>Asset Categorywise Summary <span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getAssetCateWiseSummaryReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getAssetCateWiseSummaryReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
+													
+													<li>Employee Wise Assets Report<span> <a
+															href="#"
+															onclick="getProgReport('f1',0,'getEmpWiseAssetsReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="#"
+															onclick="getProgReport('f1',1,'getEmpWiseAssetsReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger   "
+																style="color: black;"></i></a>
+													</span>
+													</li>
 												</ul>
 											</div>
 
