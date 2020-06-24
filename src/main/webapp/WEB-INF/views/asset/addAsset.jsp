@@ -115,6 +115,13 @@
 														name="assetId" value="${asset.assetId}">													
 												</div>
 											</div>
+											
+											<div class="col-md-6">	
+												<div class="col-lg-7  float">
+													<input type="hidden" class="form-control" id="editImg"
+														name="editImg" value="${asset.assetPurImage}">													
+												</div>
+											</div>
 										</div>
 									
 									<div class="form-group row">									

@@ -631,9 +631,7 @@ public class AssetMgmtController {
 				try {
 					locId = Integer.parseInt(request.getParameter("locId"));
 				}catch (Exception e) {
-					 locId = 0;
-					 System.out.println(e.getMessage());
-					e.printStackTrace();
+					locationList.get(0).getLocId();
 				}
 				
 				map = new LinkedMultiValueMap<>();
@@ -820,7 +818,7 @@ public class AssetMgmtController {
 				
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
+				String assetImage = null;
 				int assetId = 0;
 				try {
 					assetId = Integer.parseInt(request.getParameter("assetId"));
@@ -829,13 +827,24 @@ public class AssetMgmtController {
 					e.printStackTrace();					
 				}
 				
-				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
+				
+				if (!doc.getOriginalFilename().equalsIgnoreCase("")) {	
+					
+					System.err.println("In If ");
+										
+					assetImage = sf.format(date)+"_"+doc.getOriginalFilename();	
+					
+					VpsImageUpload upload = new VpsImageUpload();
+					Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+							0);
+										 
+				}else {	
+					System.err.println("In else ");
+					 assetImage = request.getParameter("editImg");
 
-				System.out.println("Profile Image------------" + assetImage);
+				}
 
-				VpsImageUpload upload = new VpsImageUpload();
-				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
-						0);
+			
 				
 				Assets assets = new Assets();
 				
@@ -864,7 +873,7 @@ public class AssetMgmtController {
 				assets.setAssetStatus(0);
 				assets.setLocId(Integer.parseInt(request.getParameter("locIdist")));
 				
-				assets.setScrapDate("0000-00-00");
+				assets.setScrapDate(null);
 				assets.setScrapRemark("NA");
 				assets.setScrapAuthoriyDetails("NA");
 				assets.setScrapLoginUserid(0);
@@ -948,7 +957,6 @@ public class AssetMgmtController {
 				map.add("assetId", assetId);
 				Assets editAsset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetById", map,
 						Assets.class);
-				editAsset.setAssetPurDate(DateConvertor.convertToDMY(editAsset.getAssetPurDate()));
 				model.addObject("asset", editAsset);
 				
 				AssetCategory[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetCategory"
@@ -1208,13 +1216,22 @@ public class AssetMgmtController {
 					assetTransId = 0;
 				}
 				
-				String assetImage = sf.format(date)+"_"+doc.get(i).getOriginalFilename();
-
-				//System.out.println("Profile Image------------" + assetImage);
-
+				String assetImage = null;
+				
+				if (!doc.get(i).getOriginalFilename().equalsIgnoreCase("")) {
+					
+				 assetImage = sf.format(date)+"_"+doc.get(i).getOriginalFilename();
+				
 				VpsImageUpload upload = new VpsImageUpload();
 				Info info = upload.saveUploadedImge(doc.get(i), Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
 						0);
+				}else {	
+					System.err.println("In else ");
+					 assetImage = request.getParameter("assignEditImg" + asset[i]);
+
+				}
+
+				
 				assetId = Integer.parseInt(request.getParameter("assetIds" + asset[i]));
 				assignAsset.setAssetTransId(assetTransId);				
 				assignAsset.setAssetId(assetId);				
@@ -1287,8 +1304,6 @@ public class AssetMgmtController {
 
 			} else {
 				model = new ModelAndView("asset/editAssignAssets");
-				
-			
 				
 				String empEncodedString = request.getParameter("empId");
 				int empId = Integer.parseInt(FormValidation.DecodeKey(empEncodedString));
