@@ -313,31 +313,31 @@ public class AssetReportController {
 				
 				cell = new PdfPCell(new Phrase("" + asset.getAssetModel(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + asset.getAssetSrno(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Phrase("" + asset.getAssetPurDate(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + asset.getCompName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
 				
 				cell = new PdfPCell(new Phrase("" + asset.getLocName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
 			}
@@ -349,12 +349,11 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
+			document.add(new Paragraph("Vendor : " + vendor));
+			document.add(new Paragraph("Date Range : " + fromDate+" to "+ toDate));
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Vendor: " + vendor));
-			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Date Range: " + fromDate+" to "+ toDate));
-
+			document.add(new Paragraph("Note :  Scrapped and Lost assets are not included"));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -437,7 +436,7 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location+"      Vendor : "+vendor+"\n Date : "+fromDate+" to "+toDate, "", 'P');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName+" (Note :  Scrapped and Lost assets are not included)", "Location : "+location+"   Vendor : "+vendor+"\n Date : "+fromDate+" to "+toDate, "", 'I');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -670,7 +669,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -990,7 +989,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -1585,7 +1584,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -1907,7 +1906,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -2241,7 +2240,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -2798,7 +2797,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Location: " + location));
+			document.add(new Paragraph("Location : " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
