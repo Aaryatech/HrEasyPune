@@ -185,17 +185,24 @@
 									id="submitSaveAssetServicing" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group row">									
-										<div class="col-md-6">	
+										<div class="col-md-4">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="serviceId"
 														name="serviceId" value="${service.tServicingId}">													
 												</div>
 											</div>
 											
-											<div class="col-md-6">	
+											<div class="col-md-4">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="assetId"
 														name="assetId" value="${service.assetId}">													
+												</div>
+											</div>
+											
+											<div class="col-md-4">	
+												<div class="col-lg-7  float">
+													<input type="hidden" class="form-control" id="editServcImg"
+														name="editServcImg" value="${service.billDocFile}">													
 												</div>
 											</div>
 										</div>

@@ -185,7 +185,7 @@
 									id="submitInsertAssetAmc" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group row">									
-										<div class="col-md-6">	
+										<div class="col-md-4">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="amcId"
 														name="amcId" value="${amc.amcId}">													
@@ -193,10 +193,17 @@
 											</div>
 											
 											
-											<div class="col-md-6">	
+											<div class="col-md-4">	
 												<div class="col-lg-7  float">
 													<input type="hidden" class="form-control" id="assetId"
 														name="assetId" value="${asset.assetId}">													
+												</div>
+											</div>
+											
+											<div class="col-md-4">	
+												<div class="col-lg-7  float">
+													<input type="hidden" class="form-control" id="amcEditImg"
+														name="amcEditImg" value="${amc.amcDocFile}">													
 												</div>
 											</div>
 										</div>
@@ -360,12 +367,12 @@
 	</div>
 	<!-- /page content -->
 <script>
-$('#amcperiodto').on('input', function() {
+/* $('#amcperiodto').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
 $('#amcperiodfrom').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
-});
+}); */
 $('#amcamt').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });

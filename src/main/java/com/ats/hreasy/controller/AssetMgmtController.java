@@ -1584,7 +1584,6 @@ public class AssetMgmtController {
 				
 				info= Constants.getRestTemplate().postForObject(Constants.url + "/validateNewAMCAdd", map,
 						Info.class);
-				System.err.println("Info---"+info);
 				if(info.isError()==false) {
 						
 						Date date = new Date();
@@ -1593,12 +1592,23 @@ public class AssetMgmtController {
 						AssetAmc assetAmc = new AssetAmc();
 									
 						
-						String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
-						System.out.println("Profile Image------------" + assetImage);
-		
-						VpsImageUpload upload = new VpsImageUpload();
-						info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
-								0);
+						String assetImage = null;						
+						
+						if (!doc.getOriginalFilename().equalsIgnoreCase("")) {	
+							
+							System.err.println("In If ");
+												
+							assetImage = sf.format(date)+"_"+doc.getOriginalFilename();	
+							
+							VpsImageUpload upload = new VpsImageUpload();
+							info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+									0);
+												 
+						}else {	
+							System.err.println("In else ");
+							 assetImage = request.getParameter("amcEditImg");
+
+						}
 						
 						assetAmc.setAmcId(amcId);
 						assetAmc.setAmcAmt(Float.parseFloat(request.getParameter("amcamt")));

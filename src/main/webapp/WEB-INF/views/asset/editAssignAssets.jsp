@@ -208,7 +208,7 @@
 												<span class="validation-invalid-label" id="error_doc"
 													style="display: none;">This field is required.</span>	
 													
-										<input type="text" id="assignEditImg${assetsList.assetId}" name="assignEditImg${assetsList.assetId}" value="${assetsList.assignImgFile}">											
+										<input type="hidden" id="assignEditImg${assetsList.assetId}" name="assignEditImg${assetsList.assetId}" value="${assetsList.assignImgFile}">											
 									</td>	
 											
 									<td><input type="text" class="form-control" placeholder="Any Remark" 

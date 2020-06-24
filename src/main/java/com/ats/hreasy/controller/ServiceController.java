@@ -203,9 +203,24 @@ public class ServiceController {
 				Date date = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				String assetImage = sf.format(date)+"_"+doc.getOriginalFilename();
-				System.out.println("Profile Image------------" + assetImage);
+				String assetImage = null;
 
+				if (!doc.getOriginalFilename().equalsIgnoreCase("")) {
+					
+					System.err.println("In If ");
+										
+					assetImage = sf.format(date)+"_"+doc.getOriginalFilename();	
+					
+					VpsImageUpload upload = new VpsImageUpload();
+					Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
+							0);
+										 
+				}else {	
+					System.err.println("In else ");
+					 assetImage = request.getParameter("editServcImg");
+
+				}
+				
 				VpsImageUpload upload = new VpsImageUpload();
 				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
 						0);
