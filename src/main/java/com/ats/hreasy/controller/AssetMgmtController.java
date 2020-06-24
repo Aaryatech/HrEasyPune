@@ -1199,7 +1199,7 @@ public class AssetMgmtController {
 			int assetTransId = 0;
 			int assetChkVal = 0;
 			int assetId = 0;
-			int noOfAsset =  asset.length;
+			
 			for (int i = 0; i < asset.length; i++) {
 				
 				assetChkVal = Integer.parseInt(asset[i]);
@@ -1274,6 +1274,21 @@ public class AssetMgmtController {
 				}else {
 				session.setAttribute("successMsg", "Assets Assign Successfully");
 				}				
+				
+				Info res = new Info(); 
+				
+				int transId = 0;
+				int transAssetId = 0;
+				for (int i = 0; i < assetTransList.size(); i++) {
+					
+					transId = assetTransList.get(i).getAssetTransId();
+					transAssetId = assetTransList.get(i).getAssetId();
+					if(assetTransList.get(i).getAssetTransId()>0) {
+						res = Commons.saveAssetLog(transAssetId, "Assets assign to employee Id : "+empId+" is updated", transId, userObj.getEmpId());
+					}else {
+						res = Commons.saveAssetLog(transAssetId, "Assign assets to employee Id : "+empId, transId, userObj.getEmpId());			
+					}
+				}
 			}else {
 				session.setAttribute("errorMsg", "Failed to Assign Assets");
 			}
