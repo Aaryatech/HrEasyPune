@@ -190,7 +190,7 @@ public class AssetReportController {
 				assetDash = new ArrayList<AssetsDashDetails>(Arrays.asList(assetArr));
 				
 				
-				System.out.println("Asset Dashboard Data-------------"+assetDash);
+			System.out.println("Asset Dashboard Data-------------"+assetDash);
 
 			String header = "";
 			String title = "                 ";
