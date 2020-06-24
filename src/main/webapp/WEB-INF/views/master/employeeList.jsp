@@ -166,8 +166,8 @@
 												class="icon-history" style="color: black;"></i></a> <a
 											href="${pageContext.request.contextPath}/generateLetters?empId=${empList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="" data-original-title="Generate PDF"><i
-												class="icon-history" style="color: black;"></i></a></td>
+											title="" data-original-title="Generate Letters"><i
+												class="fa fa-print" aria-hidden="true"></i> </a></td>
 									</tr>
 								</c:forEach>
 

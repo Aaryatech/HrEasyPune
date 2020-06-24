@@ -149,6 +149,24 @@
 												id="submtbtn" onclick="addressLetterForAcc()">Generate</button>
 										</div>
 									</div>
+									<hr>
+									<div class="form-group row">
+										<label class="col-form-label  col-lg-4" for="empTypeName">
+											Experience Letter : </label>
+										<div class="col-lg-5">
+											<button type="button" class="btn bg-blue ml-3 legitRipple"
+												id="submtbtn" onclick="experienceLetter()">Generate</button>
+										</div>
+									</div>
+									<hr>
+									<div class="form-group row">
+										<label class="col-form-label  col-lg-4" for="empTypeName">
+											Relieving Letter : </label>
+										<div class="col-lg-5">
+											<button type="button" class="btn bg-blue ml-3 legitRipple"
+												id="submtbtn" onclick="relievingLetter()">Generate</button>
+										</div>
+									</div>
 
 								</form>
 							</div>
@@ -674,6 +692,162 @@
 		</div>
 	</div>
 	<!-- /scrollable modal -->
+	<!-- Scrollable modal -->
+	<div id="modal_scrollable6" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
+
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Experience Letter</h5>
+					<br>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Code : </label> <label class="col-form-label col-lg-2"
+							id="empCode1" for="empCode1"> ${empDetail.empCode}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Name : </label> <label class="col-form-label col-lg-6"
+							id="empName1" for="empName1">${empDetail.firsName}&nbsp;${empDetail.surname}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Designation : </label> <label class="col-form-label col-lg-6"
+							id="empName1" for="empName1">${empDetail.empDesgn}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="cmpNameForExp">
+							Company Name : </label> <label class="col-form-label col-lg-6"
+							for="cmpNameForExp"><input type="text"
+							class="form-control  " placeholder="Company Name"
+							id="cmpNameForExp" name="cmpNameForExp" autocomplete="off"
+							onchange="trim(this)" value="${empDetail.subCompName}"></label>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="expJointDate">
+							Join Date : </label> <label class="col-form-label col-lg-6"
+							for="expJointDate"><input type="text"
+							class="form-control datepickerclass" placeholder="Select Date "
+							id="expJointDate" name="expJointDate" autocomplete="off"
+							value="${empDetail.orinalJoining}"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="expYear">
+							Experience Year : </label> <label class="col-form-label col-lg-6"
+							for="expYear"><input type="text"
+							class="form-control numbersOnly" placeholder="Experience Year"
+							id="expYear" name="expYear" autocomplete="off" value="1"
+							onchange="trim(this)"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="leavingDate">
+							Leaving Date : </label> <label class="col-form-label col-lg-6"
+							for="leavingDate"><input type="text"
+							class="form-control datepickerclass"
+							placeholder="Select Leaving Date " id="leavingDate"
+							name="leavingDate" autocomplete="off"
+							value="${empDetail.orinalLeaving}"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="date6"> Date :
+						</label> <label class="col-form-label col-lg-6" for="date6"><input
+							type="text" class="form-control datepickerclass"
+							placeholder="Select Date " id="date6" name="date6"
+							autocomplete="off"></label>
+
+					</div>
+
+
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary"
+						onclick="submitExperienceLetter(${empDetail.empId})">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /scrollable modal -->
+	<!-- Scrollable modal -->
+	<div id="modal_scrollable7" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
+
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Relieving Letter</h5>
+					<br>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Code : </label> <label class="col-form-label col-lg-2"
+							id="empCode1" for="empCode1"> ${empDetail.empCode}</label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="lvType">
+							Employee Name : </label> <label class="col-form-label col-lg-6"
+							id="empName1" for="empName1">${empDetail.firsName}&nbsp;${empDetail.surname}</label>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="relDate1">
+							Date1 : </label> <label class="col-form-label col-lg-6" for="relDate1"><input
+							type="text" class="form-control datepickerclass"
+							placeholder="Select Date " id="relDate1" name="relDate1"
+							autocomplete="off"></label>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="relDate2">
+							Date2 : </label> <label class="col-form-label col-lg-6" for="relDate2"><input
+							type="text" class="form-control datepickerclass"
+							placeholder="Select Leaving Date " id="relDate2" name="relDate2"
+							autocomplete="off"></label>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-form-label col-lg-3" for="relDate3">
+							Date3 : </label> <label class="col-form-label col-lg-6" for="relDate3"><input
+							type="text" class="form-control datepickerclass"
+							placeholder="Select Date " id="relDate3" name="relDate3"
+							autocomplete="off"></label>
+
+					</div>
+
+
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary"
+						onclick="submitRelievingLetter(${empDetail.empId})">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /scrollable modal -->
 	<script>
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
@@ -715,6 +889,14 @@
 		}
 		function addressLetterForAcc() {
 			$('#modal_scrollable5').modal('show');
+
+		}
+		function experienceLetter() {
+			$('#modal_scrollable6').modal('show');
+
+		}
+		function relievingLetter() {
+			$('#modal_scrollable7').modal('show');
 
 		}
 		function submitFormApologyLetter(empId) {
@@ -768,6 +950,17 @@
 			
 
 		}
+		function submitRelievingLetter(empId) {
+			//window.open('pdfForReport?url=/pdf/gernerateApologyletterAbsent/' + empId);
+			var relDate1 = document.getElementById("relDate1").value; 
+			var relDate2 = document.getElementById("relDate2").value;
+			var relDate3 = document.getElementById("relDate3").value; 
+			
+			 
+				window.open('${pageContext.request.contextPath}/pdf/gernerateRelievingLetter/' + empId +'/'+relDate1+'/'+relDate2+'/'+relDate3);
+			 
+
+		}
 		function submitAddressLetterLetter(empId) {
 			//window.open('pdfForReport?url=/pdf/gernerateApologyletterAbsent/' + empId);
 			  
@@ -789,6 +982,32 @@
 			if(isError==0){
 				 
 				window.open('${pageContext.request.contextPath}/pdf/gernerateAddressLetter/' + empId +'/'+date+'/'+cmpName+'/'+fromdate+'/'+address);
+			}
+			
+
+		}
+		function submitExperienceLetter(empId) {
+			//window.open('pdfForReport?url=/pdf/gernerateApologyletterAbsent/' + empId);
+			      
+			var expJointDate = document.getElementById("expJointDate").value; 
+			var cmpName = document.getElementById("cmpNameForExp").value;
+			var expYear = document.getElementById("expYear").value;
+			var leavingDate = document.getElementById("leavingDate").value;
+			var date = document.getElementById("date6").value; 
+			
+			var isError=0;
+			
+			if(cmpName==""){
+				alert("Enter Company Name");
+				isError=1;
+			}else if(expYear==""){
+				alert("Enter Experience Year");
+				isError=1;
+			}
+			
+			if(isError==0){
+				 
+				window.open('${pageContext.request.contextPath}/pdf/gernerateExperienceLetter/' + empId +'/'+date+'/'+cmpName+'/'+expJointDate+'/'+expYear+'/'+leavingDate);
 			}
 			
 
