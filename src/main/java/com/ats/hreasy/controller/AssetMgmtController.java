@@ -1256,19 +1256,7 @@ public class AssetMgmtController {
 					session.setAttribute("successMsg", "Assets Assign Updated Successfully");
 				}else {
 				session.setAttribute("successMsg", "Assets Assign Successfully");
-				}
-				
-				//Log
-                String assetLogDesc = null;
-                
-                int loginUserId = userObj.getEmpId();                 
-                if(assetTransId>0) {
-                	assetLogDesc="Edit "+noOfAsset+" assign assets to Employee empId - "+empId;  
-                }else {
-                	assetLogDesc="Assign "+noOfAsset+" assets to Employee empId - "+empId;  
-                }
-                Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
-                
+				}				
 			}else {
 				session.setAttribute("errorMsg", "Failed to Assign Assets");
 			}
@@ -1424,16 +1412,7 @@ public class AssetMgmtController {
 				}				
 			}
 			if (info.isError() == false) {
-				session.setAttribute("successMsg", "Assets Returned Sucessfully");
-				//Log
-                String assetLogDesc = null;
-               
-                int loginUserId = userObj.getEmpId();                 
-                    
-                assetLogDesc=noOfAsset+" assets returned"; 
-                
-                Info i = Commons.saveAssetLog(assetId, assetLogDesc, assetTransId, loginUserId);
-				
+				session.setAttribute("successMsg", "Assets Returned Sucessfully");	
 			} else {
 				session.setAttribute("errorMsg", "Failed to Returned Assets");
 			}

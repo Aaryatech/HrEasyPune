@@ -5,7 +5,7 @@ public class AssetLog {
 	private int assetLogId;
 	private int assetId;
 	private int assetTransId;
-	private int assetLogDesc;
+	private String assetLogDesc;
 	private String assetLogDate;
 	private int makerUserId;
 	private String updateDateTime;
@@ -32,10 +32,10 @@ public class AssetLog {
 	public void setAssetTransId(int assetTransId) {
 		this.assetTransId = assetTransId;
 	}
-	public int getAssetLogDesc() {
+	public String getAssetLogDesc() {
 		return assetLogDesc;
 	}
-	public void setAssetLogDesc(int assetLogDesc) {
+	public void setAssetLogDesc(String assetLogDesc) {
 		this.assetLogDesc = assetLogDesc;
 	}
 	public String getAssetLogDate() {
