@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <body>
 
-<c:url value="/getAssetsListofLocation" var="getAssetsListofLocation"></c:url>
+	<c:url value="/getAssetsListofLocation" var="getAssetsListofLocation"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -125,7 +125,7 @@
 											style="display: none;">Please Select Location. </span>
 
 									</div>
-									
+
 									<div class="col-md-6">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-5 float"
@@ -161,24 +161,23 @@
 												style="display: none;">Please Select Date.</span>
 										</div>
 									</div>
-									
-									<div class="col-md-6">
+
+									<!-- <div class="col-md-6">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="assetCatId">Assets(F4)<span
-											class="text-danger">*</span>:
+											for="assetCatId">Assets(F4)<span class="text-danger">*</span>:
 										</label>
 										<div class="col-lg-6 float">
 											<select name="assetId" data-placeholder="Select Asset"
 												id="assetId" onchange="getAssets(this.value)"
 												class="form-control form-control-select2 select2-hidden-accessible">
-												<!-- <option value="0">All</option> -->												
+												<option value="0">All</option>
 											</select>
 										</div>
 										<span class="validation-invalid-label" id="error_locId"
 											style="display: none;">Please Select Location. </span>
 
-									</div>
+									</div> -->
 								</div>
 
 
@@ -189,8 +188,8 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin: 0;">Assets Management
-													Reports</h6>
+												<h6 class="box_title" style="margin: 0;">Assets
+													Management Reports</h6>
 												<div class="header-elements"></div>
 											</div>
 
@@ -218,9 +217,9 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
-													<li>Categorywise Total Assets Report(F1) <span> <a
-															href="#"
+
+													<li>Categorywise Total Assets Report(F1) <span>
+															<a href="#"
 															onclick="getProgReport('f1',0,'getCatWiseTotalAssetsReport')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -231,7 +230,7 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-																										
+
 													<li>Asset Categorywise Summary <span> <a
 															href="#"
 															onclick="getProgReport('f1',0,'getAssetCateWiseSummaryReport')"
@@ -244,7 +243,7 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
+
 													<li>Employee Wise Assets Report(F1)<span> <a
 															href="#"
 															onclick="getProgReport('f1',0,'getEmpWiseAssetsReport')"
@@ -257,9 +256,27 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
-													<li>Asset Return Pending(F1)<span> <a
-															href="#"
+
+
+												</ul>
+											</div>
+
+
+										</div>
+									</div>
+
+									<div class="col-sm-12 col-md-6">
+										<div class="card">
+											<div
+												class="card-header bg-primary text-white header-elements-inline">
+												<h6 class="box_title" style="margin: 0;">Assets Management
+													Reports</h6>
+												<div class="header-elements"></div>
+											</div>
+
+											<div class="advance_bx">
+												<ul>
+													<li>Asset Return Pending(F1)<span> <a href="#"
 															onclick="getProgReport('f1',0,'getAssetsReturnPendingReport')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -270,9 +287,8 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
-													<li>Scrap Assets Report(F1)<span> <a
-															href="#"
+
+													<li>Scrap Assets Report(F1)<span> <a href="#"
 															onclick="getProgReport('f1',0,'getScrappedAssetsReprt')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -283,7 +299,7 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
+
 													<li>Vendor Wise Total Asset Report<span> <a
 															href="#"
 															onclick="getProgReport('f1',0,'getVendorWiseTotalAssetReport')"
@@ -296,9 +312,9 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
-													<li>Location Wise Total Asset Report(F1)<span> <a
-															href="#"
+
+													<li>Location Wise Total Asset Report(F1)<span>
+															<a href="#"
 															onclick="getProgReport('f1',0,'getLocationWiseTtlAssetsReprt')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -309,9 +325,8 @@
 																style="color: black;"></i></a>
 													</span>
 													</li>
-													
-													<li>Asset Log Report(F1, F4)<span> <a
-															href="#"
+
+													<!-- <li>Asset Log Report(F1, F4)<span> <a href="#"
 															onclick="getProgReport('f1',0,'getAssetLogReprt')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -321,111 +336,12 @@
 																class="icon-file-pdf icon-1x text-danger  text-danger   "
 																style="color: black;"></i></a>
 													</span>
-													</li>
+													</li> -->
 												</ul>
 											</div>
 
-
 										</div>
 									</div>
-
-									<!-- <div class="col-sm-12 col-md-6">
-										<div class="card">
-											<div
-												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin:0;">Attendance Reports</h6>
-												<div class="header-elements"></div>
-											</div>
-											
-		<div class="advance_bx">
-			<ul>
-				<li>
-				Attendance Register(F1)
-				<span><a href="#" onclick="getProgReport('f1',0,'showEmpAttendRegisterRep')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f1',1,'showEmpAttendRegisterRep')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger  text-danger   "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Monthly Attendance Summary(F2)
-				<span><a href="#" onclick="getProgReport('f2',0,'showMonthlyAttndanceSummary')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f2',1,'showMonthlyAttndanceSummary')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Daily Attendance Summary(F4) 
-				<span><a href="#" onclick="getProgReport('f4',0,'showEmpAttendanceRep')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f4',1,'showEmpAttendanceRep')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger  text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Employee Production Incentive(F2)
-				<span><a href="#" onclick="getProgReport('f2',0,'showEmpOtReg')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f2',1,'showEmpOtReg')" title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Employee Production Incentive Details(F2)
-				<span><a href="#" onclick="getProgReport('f2',0,'showEmpOtRegDetail')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f2',1,'showEmpOtRegDetail')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Employee Late Mark Summary(F2)
-				<span><a href="#" onclick="getProgReport('f2',0,'showEmpLateMark')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f2',1,'showEmpLateMark')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-				
-				<li>
-				Employee Late Mark Detail(F2)
-				<span><a href="#" onclick="getProgReport('f2',0,'showEmpLateMarkDetail')"
-				title="excel"><i
-				class="icon-file-spreadsheet text-success  "
-				style="color: black;"></i></a> <a href="#"
-				onclick="getProgReport('f2',1,'showEmpLateMarkDetail')"
-				title="PDF"><i
-				class="icon-file-pdf icon-1x text-danger    "
-				style="color: black;"></i></a></span>
-				</li>
-			</ul>
-		</div>
-
-										</div>
-									</div> -->
 
 
 
@@ -523,7 +439,7 @@
 
 		}
 	</script>
-<script>
+	<script>
 
 	function getAssets(locId) {
 		//alert("locId " + locId);

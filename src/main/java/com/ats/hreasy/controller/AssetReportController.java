@@ -32,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
-import com.ats.hreasy.common.ExceUtil;
+import com.ats.hreasy.common.AssetsExceUtil;
 import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.ItextPageEvent;
 import com.ats.hreasy.common.ReportCostants;
@@ -241,7 +241,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Detail", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -402,7 +402,7 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Category");
 				rowData.add("Model");
 				rowData.add("Serial No.");
@@ -436,9 +436,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName+" (Note :  Scrapped and Lost assets are not included)", "Location : "+location+"   Vendor : "+vendor+"\n Date : "+fromDate+" to "+toDate, "", 'I');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName+" (Note :  Scrapped and Lost assets are not included)", "Location : "+location+"   Vendor : "+vendor+"   Date : "+fromDate+" to "+toDate, "", 'I');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -549,7 +549,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Detail", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			
@@ -718,7 +718,7 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Category");
 				rowData.add("AMC Vendor");
 				rowData.add("Contact No.");
@@ -754,9 +754,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -869,7 +869,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Detail", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			
@@ -1038,7 +1038,7 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Category");
 				rowData.add("AMC Vendor");
 				rowData.add("Contact No.");
@@ -1074,9 +1074,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -1347,9 +1347,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -1441,12 +1441,12 @@ public class AssetReportController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(9);
+			PdfPTable table = new PdfPTable(8);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
+			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1462,7 +1462,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Detail", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			
@@ -1475,12 +1475,6 @@ public class AssetReportController {
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Assign Remark", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-			
-			hcell = new PdfPCell(new Phrase("Return Remark", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -1539,12 +1533,6 @@ public class AssetReportController {
 				
 				
 				cell = new PdfPCell(new Phrase("" + asset.getAssignRemark(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-				table.addCell(cell);
-
-				cell = new PdfPCell(new Phrase("" + asset.getReturnRemark(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
@@ -1633,10 +1621,9 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Dates");
 				rowData.add("Assign Remark");
-				rowData.add("Return Remark");
 				rowData.add("Employee Name");
 				rowData.add("Department");
 				rowData.add("Designation");
@@ -1655,7 +1642,6 @@ public class AssetReportController {
 					rowData.add("" + assetAmcDash.get(i).getAssetCode()+" - "+assetAmcDash.get(i).getAssetName());
 					rowData.add("" + assetAmcDash.get(i).getUseFromDate()+" to "+assetAmcDash.get(i).getUseToDate());
 					rowData.add("" + assetAmcDash.get(i).getAssignRemark());
-					rowData.add("" + assetAmcDash.get(i).getReturnRemark());
 					rowData.add("" + assetAmcDash.get(i).getEmpCode()+" - "+assetAmcDash.get(i).getFirstName()+" "+assetAmcDash.get(i).getSurname());
 					rowData.add("" + assetAmcDash.get(i).getDeptName());
 					rowData.add("" + assetAmcDash.get(i).getEmpDesgn());
@@ -1669,9 +1655,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -1763,12 +1749,12 @@ public class AssetReportController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(9);
+			PdfPTable table = new PdfPTable(8);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
+			table.setWidths(new float[] { 2.0f, 3.0f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f, 2.2f});
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1802,12 +1788,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 			
-			hcell = new PdfPCell(new Phrase("Return Remark", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-
+			
 			hcell = new PdfPCell(new Phrase("Employee Name", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
@@ -1866,12 +1847,7 @@ public class AssetReportController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + asset.getReturnRemark(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-				table.addCell(cell);
-				
+								
 				cell = new PdfPCell(new Phrase("" + asset.getEmpCode()+" - "+asset.getFirstName()+" "+asset.getSurname(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -1955,10 +1931,9 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Dates");
 				rowData.add("Assign Remark");
-				rowData.add("Return Remark");
 				rowData.add("Employee Name");
 				rowData.add("Department");
 				rowData.add("Designation");
@@ -1977,7 +1952,6 @@ public class AssetReportController {
 					rowData.add("" + assetAmcDash.get(i).getAssetCode()+" - "+assetAmcDash.get(i).getAssetName());
 					rowData.add("" + assetAmcDash.get(i).getUseFromDate()+" to "+assetAmcDash.get(i).getUseToDate());
 					rowData.add("" + assetAmcDash.get(i).getAssignRemark());
-					rowData.add("" + assetAmcDash.get(i).getReturnRemark());
 					rowData.add("" + assetAmcDash.get(i).getEmpCode()+" - "+assetAmcDash.get(i).getFirstName()+" "+assetAmcDash.get(i).getSurname());
 					rowData.add("" + assetAmcDash.get(i).getDeptName());
 					rowData.add("" + assetAmcDash.get(i).getEmpDesgn());
@@ -1991,9 +1965,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -2106,7 +2080,7 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Detail", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Detail", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			
@@ -2289,7 +2263,7 @@ public class AssetReportController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Asset Detail");
+				rowData.add("Assets Detail");
 				rowData.add("Category");
 				rowData.add("Purchase Date");
 				rowData.add("Scrap Date");
@@ -2327,9 +2301,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -2624,9 +2598,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -2872,9 +2846,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
@@ -2905,8 +2879,8 @@ public class AssetReportController {
 	@RequestMapping(value = "/getAssetLogReprt", method = RequestMethod.GET)
 	public void getAssetLogReprt(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Asset Log Reprt";
-		
+		String reportName = "Assets Log Reprt";
+		String location = null;
 		String assetName = null;	
 		
 		MultiValueMap<String, Object> map = null;
@@ -2924,6 +2898,15 @@ public class AssetReportController {
 			System.out.println(+assetId);
 			
 			map = new LinkedMultiValueMap<>();
+			int locId = Integer.parseInt(request.getParameter("locId"));
+			if (locId != 0) {
+				map.add("locId", locId);
+				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
+						map, Location.class);
+				location = loc.getLocName();
+			}else {
+				location = "All";
+			}
 
 			if (assetId != 0) {
 				map.add("assetId", assetId);
@@ -2993,13 +2976,13 @@ public class AssetReportController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Details", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Details", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Asset Log", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Assets Log", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -3087,7 +3070,7 @@ public class AssetReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Assets: " + assetName));
+			document.add(new Paragraph("Location: " + location));
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -3137,7 +3120,7 @@ public class AssetReportController {
 
 				rowData.add("Sr. No");
 				rowData.add("Asset Details");
-				rowData.add("Asset Lod");
+				rowData.add("Assets Log");
 				rowData.add("Log Date");
 				rowData.add("Employee");
 				rowData.add("Department");
@@ -3168,9 +3151,9 @@ public class AssetReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Assets : "+assetName, "", 'P');
+					wb = AssetsExceUtil.createWorkbook(exportToExcelList, "", reportName, "Location : "+location, "", 'P');
 
-					ExceUtil.autoSizeColumns(wb, 3);
+					AssetsExceUtil.autoSizeColumns(wb, 4);
 					response.setContentType("application/vnd.ms-excel");
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 					response.setHeader("Content-disposition",
