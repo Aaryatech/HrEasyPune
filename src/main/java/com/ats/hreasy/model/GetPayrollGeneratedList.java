@@ -1,6 +1,7 @@
 package com.ats.hreasy.model;
 
 import java.util.List;
+ 
   
 public class GetPayrollGeneratedList {
 	
@@ -101,6 +102,23 @@ public class GetPayrollGeneratedList {
 	private String email;
 	
 	List<SalAllownceCal> payrollAllownceList;
+	 
+	List<GetAdvanceList> getAdvanceList; 
+	
+	List<GetAdvanceList> getAbsentDedList;
+ 
+	List<GetClaimList> getClaimList;
+ 
+	List<GetPayDedList> getPayDedList;
+ 
+	List<GetPayDedList> getRewardList;
+ 
+	List<GetPayDedList> getLoanList;
+ 
+	List<ProductionIncentiveList> performance;
+ 
+	List<ProductionIncentiveList> production;
+	
 	private String moneyInword;
 	
 	public int getId() {

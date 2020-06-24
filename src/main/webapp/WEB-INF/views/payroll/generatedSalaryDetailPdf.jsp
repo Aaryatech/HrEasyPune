@@ -142,8 +142,8 @@ hr {
 								<h6 style="font-weight: bold; margin: 0px; font-size: 10px;"
 									align="center">${longAdd1}</h6>
 								<h5 style="font-weight: bold; margin: 0px; font-size: 14px;"
-									align="center">Payment Slip for the month of ${monthName}
-									${year}</h5>
+									align="center">Salary Details for the month of
+									${monthName} ${year}</h5>
 							</td>
 
 							<td width="22.33%" valign="top"
