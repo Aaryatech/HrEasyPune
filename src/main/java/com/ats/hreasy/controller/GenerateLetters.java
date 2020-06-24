@@ -81,7 +81,7 @@ public class GenerateLetters {
 			model.addObject("empDetail", empDetail);
 			model.addObject("noOfDays", noOfDays);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", name_date.format(fmdt));
@@ -116,7 +116,7 @@ public class GenerateLetters {
 			model.addObject("empDetail", empDetail);
 			model.addObject("reason", reason);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", name_date.format(fmdt));
@@ -146,7 +146,7 @@ public class GenerateLetters {
 					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
 			model.addObject("empDetail", empDetail);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", name_date.format(fmdt));
@@ -178,7 +178,7 @@ public class GenerateLetters {
 			model.addObject("empDetail", empDetail);
 			model.addObject("cmpName", cmpName);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", name_date.format(fmdt));
@@ -219,7 +219,7 @@ public class GenerateLetters {
 			model.addObject("mobileNo", mobileNo);
 			model.addObject("designationAs", designationAs);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fmdt = sdf.parse(contJointDate);
 			model.addObject("fromdate", name_date.format(fmdt));
@@ -250,16 +250,83 @@ public class GenerateLetters {
 					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
 			model.addObject("empDetail", empDetail);
 			model.addObject("cmpName", cmpName);
-			model.addObject("address", address); 
+			model.addObject("address", address);
 
-			SimpleDateFormat name_date = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			//Date fmdt = sdf.parse(fromdate);
+			// Date fmdt = sdf.parse(fromdate);
 			model.addObject("fromdate", fromdate);
 
 			Date dt = sdf.parse(date);
 			model.addObject("date", name_date.format(dt));
 
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gernerateExperienceLetter/{empId}/{date}/{cmpName}/{expJointDate}/{expYear}/{leavingDate}", method = RequestMethod.GET)
+	public ModelAndView gernerateExperienceLetter(@PathVariable int empId, @PathVariable String date,
+			@PathVariable String cmpName, @PathVariable String expJointDate, @PathVariable int expYear,
+			@PathVariable String leavingDate, HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateExperienceLetter");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+			model.addObject("cmpName", cmpName);
+			model.addObject("expJointDate", expJointDate);
+			model.addObject("expYear", expYear);
+			model.addObject("leavingDate", leavingDate);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+			Date dt = sdf.parse(date);
+			model.addObject("date", name_date.format(dt));
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/gernerateRelievingLetter/{empId}/{relDate1}/{relDate2}/{relDate3}", method = RequestMethod.GET)
+	public ModelAndView gernerateRelievingLetter(@PathVariable int empId, @PathVariable String relDate1,
+			@PathVariable String relDate2, @PathVariable String relDate3, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("letter/gernerateRelievingLetter");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpDetailForLetters empDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpDetailForGenrateLetters", map, EmpDetailForLetters.class);
+			model.addObject("empDetail", empDetail);
+
+			SimpleDateFormat name_date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+			Date dt1 = sdf.parse(relDate1);
+			model.addObject("relDate1", name_date.format(dt1));
+
+			Date dt2 = sdf.parse(relDate2);
+			model.addObject("relDate2", name_date.format(dt2));
+
+			Date dt3 = sdf.parse(relDate3);
+			model.addObject("relDate3", name_date.format(dt3));
 			// System.out.println(list);
 
 		} catch (Exception e) {
