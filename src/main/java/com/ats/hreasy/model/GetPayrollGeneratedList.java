@@ -881,6 +881,70 @@ public class GetPayrollGeneratedList {
 		this.email = email;
 	}
 
+	public List<GetAdvanceList> getGetAdvanceList() {
+		return getAdvanceList;
+	}
+
+	public void setGetAdvanceList(List<GetAdvanceList> getAdvanceList) {
+		this.getAdvanceList = getAdvanceList;
+	}
+
+	public List<GetAdvanceList> getGetAbsentDedList() {
+		return getAbsentDedList;
+	}
+
+	public void setGetAbsentDedList(List<GetAdvanceList> getAbsentDedList) {
+		this.getAbsentDedList = getAbsentDedList;
+	}
+
+	public List<GetClaimList> getGetClaimList() {
+		return getClaimList;
+	}
+
+	public void setGetClaimList(List<GetClaimList> getClaimList) {
+		this.getClaimList = getClaimList;
+	}
+
+	public List<GetPayDedList> getGetPayDedList() {
+		return getPayDedList;
+	}
+
+	public void setGetPayDedList(List<GetPayDedList> getPayDedList) {
+		this.getPayDedList = getPayDedList;
+	}
+
+	public List<GetPayDedList> getGetRewardList() {
+		return getRewardList;
+	}
+
+	public void setGetRewardList(List<GetPayDedList> getRewardList) {
+		this.getRewardList = getRewardList;
+	}
+
+	public List<GetPayDedList> getGetLoanList() {
+		return getLoanList;
+	}
+
+	public void setGetLoanList(List<GetPayDedList> getLoanList) {
+		this.getLoanList = getLoanList;
+	}
+
+	public List<ProductionIncentiveList> getPerformance() {
+		return performance;
+	}
+
+	public void setPerformance(List<ProductionIncentiveList> performance) {
+		this.performance = performance;
+	}
+
+	public List<ProductionIncentiveList> getProduction() {
+		return production;
+	}
+
+	public void setProduction(List<ProductionIncentiveList> production) {
+		this.production = production;
+	}
+
 	@Override
 	public String toString() {
 		return "GetPayrollGeneratedList [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -915,8 +979,11 @@ public class GetPayrollGeneratedList {
 				+ ", departName=" + departName + ", designName=" + designName + ", payableDays=" + payableDays
 				+ ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff + ", paidHoliday=" + paidHoliday
 				+ ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave + ", absentDays=" + absentDays
-				+ ", email=" + email + ", payrollAllownceList=" + payrollAllownceList + ", moneyInword=" + moneyInword
-				+ "]";
+				+ ", email=" + email + ", payrollAllownceList=" + payrollAllownceList + ", getAdvanceList="
+				+ getAdvanceList + ", getAbsentDedList=" + getAbsentDedList + ", getClaimList=" + getClaimList
+				+ ", getPayDedList=" + getPayDedList + ", getRewardList=" + getRewardList + ", getLoanList="
+				+ getLoanList + ", performance=" + performance + ", production=" + production + ", moneyInword="
+				+ moneyInword + "]";
 	}
 	
 	
