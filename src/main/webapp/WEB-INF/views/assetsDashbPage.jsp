@@ -41,11 +41,11 @@
 			</div>-->
 			<div class="content">
 			  <div class="row">
-			    <div id="barchart_values" class="col-md-6">
+			    <div id="barchart_values" class="col-md-12">
 			   <!--  <div  style="width: 900px; height: 500px;"></div> -->
-			</div>
+		<!-- 	</div>
 			
-			 <div id="barchart_values2" class="col-md-6">
+			 <div id="barchart_values2" class="col-md-6"> -->
 			   <!--  <div  style="width: 900px; height: 500px;"></div> -->
 			</div>
 				<!-- new html start here -->
@@ -287,7 +287,7 @@
 					},
 					format : '0',
 				},
-				colors : [ 'orange', 'blue' ],
+				colors : [ 'blue', 'orange' ],
 				theme : 'material'
 
 					}
@@ -335,7 +335,7 @@
 							]);
 					}
 					
-					alert(JSON.stringify(dataArr));
+					//alert(JSON.stringify(dataArr));
 				 // var data = google.visualization.arrayToDataTable(dataArr);
 					//alert(JSON.stringify(data));
 

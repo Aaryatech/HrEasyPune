@@ -1457,7 +1457,7 @@ class LoanAdminController {
 					adv.setExInt1(g1);
 					adv.setExInt2(g2);
 					String img = doc.getOriginalFilename();
-					String imageName = empId + "_" + doc.getOriginalFilename() + "_" + dateTimeInGMT.format(date);
+					String imageName = empId + "_" +dateTimeInGMT.format(date)+"_"+doc.getOriginalFilename();
 
 					System.out.println("Profile Image------------" + img);
 
