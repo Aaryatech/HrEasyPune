@@ -158,6 +158,8 @@ public class AssetReportController {
 				Location loc = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationById",
 						map, Location.class);
 				location = loc.getLocName();
+			}else {
+				location = "All";
 			}
 			
 			
