@@ -855,10 +855,101 @@ public class PayRollController {
 	}
 
 	@RequestMapping(value = "/pdf/generatedPayrollPdf/{id}/{selectMonth}", method = RequestMethod.GET)
-	public ModelAndView poPdf(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
+	public ModelAndView generatedPayrollPdf(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("payroll/generatedPayrollPdf");
+		try {
+
+			String[] monthyear = selectMonth.split("-");
+
+			String empIds = "0";
+
+			for (int i = 0; i < id.length; i++) {
+				empIds = empIds + "," + id[i];
+			}
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("month", monthyear[0]);
+			map.add("year", monthyear[1]);
+			map.add("empIds", empIds);
+			PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getPayrollGenratedListByEmpIds", map, PayRollDataForProcessing.class);
+			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
+			model.addObject("list", list);
+
+			/*
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("companyId", 1);
+			 * MstCompany companyInfo =
+			 * Constants.getRestTemplate().postForObject(Constants.url + "/getCompanyById",
+			 * map, MstCompany.class); model.addObject("companyInfo", companyInfo);
+			 */
+
+			MstCompanySub[] companyList = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getAllSubCompanies", MstCompanySub[].class);
+			model.addObject("companyList", companyList);
+
+			model.addObject("logoUrl", Constants.companyLogoShowUrl);
+
+			String[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August",
+					"September", "October", "November", "December" };
+			String monthName = monthNames[Integer.parseInt(monthyear[0]) - 1];
+			model.addObject("monthName", monthName);
+			model.addObject("year", monthyear[1]);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("limitKey", "ab_deduction");
+			Setting abDeduction = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			int ab_deduction = Integer.parseInt(abDeduction.getValue());
+			model.addObject("ab_deduction", ab_deduction);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("group", "PAYROLLHIDESHOW");
+			Setting[] setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingListByGroup", map,
+					Setting[].class);
+			List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
+
+			int payroll_claim_show = 0;
+			int payroll_advance_show = 0;
+			int payroll_loan_show = 0;
+			int payroll_payded_show = 0;
+			int payroll_reward_show = 0;
+
+			for (int k = 0; k < settingList.size(); k++) {
+				if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
+					payroll_claim_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_advance_show")) {
+					payroll_advance_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_loan_show")) {
+					payroll_loan_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_payded_show")) {
+					payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
+					payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+				}
+			}
+
+			model.addObject("payroll_claim_show", payroll_claim_show);
+			model.addObject("payroll_advance_show", payroll_advance_show);
+			model.addObject("payroll_loan_show", payroll_loan_show);
+			model.addObject("payroll_payded_show", payroll_payded_show);
+			model.addObject("payroll_reward_show", payroll_reward_show);
+
+			// System.out.println(list);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/pdf/generatedSalaryDetailPdf/{id}/{selectMonth}", method = RequestMethod.GET)
+	public ModelAndView generatedSalaryDetailPdf(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("payroll/generatedSalaryDetailPdf");
 		try {
 
 			String[] monthyear = selectMonth.split("-");
@@ -1176,8 +1267,7 @@ public class PayRollController {
 
 						Message mimeMessage = new MimeMessage(session);
 						mimeMessage.setFrom(new InternetAddress(username));
-						mimeMessage.setRecipients(Message.RecipientType.TO,
-								InternetAddress.parse(email));
+						mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 						mimeMessage.setSubject(subject);
 						mimeMessage.setFileName("Payslip");
 						BodyPart mbodypart = new MimeBodyPart();

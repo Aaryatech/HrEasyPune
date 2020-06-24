@@ -598,8 +598,10 @@
 								<div class="text-center">
 
 									<button type="button" class="btn blue_btn ml-3 legitRipple"
-										id="excel" onclick="commonPdf()">PDF</button>
-
+										id="payslip" onclick="commonPdf()">Pay slip</button>
+									<button type="button" class="btn blue_btn ml-3 legitRipple"
+										id="salarydetail" onclick="salaryDetailPdf()">Salary
+										Detail</button>
 									<button type="button" class="btn blue_btn ml-3 legitRipple"
 										id="excel"
 										onclick="getProgReport(0,'excelForGeneratedPayroll')">
@@ -661,6 +663,23 @@
 			if (list.length > 0) {
 				window.open('pdfForReport?url=/pdf/generatedPayrollPdf/' + list
 						+ '/' + selectMonth);
+			} else {
+				$("#error_emp").show();
+			}
+
+		}
+		function salaryDetailPdf() {
+			$("#error_emp").hide();
+			var selectMonth = document.getElementById("datepicker").value;
+			var list = [];
+
+			$("input:checkbox[name=selectEmp]:checked").each(function() {
+				list.push($(this).val());
+			});
+
+			if (list.length > 0) {
+				window.open('pdfForReport?url=/pdf/generatedSalaryDetailPdf/'
+						+ list + '/' + selectMonth);
 			} else {
 				$("#error_emp").show();
 			}

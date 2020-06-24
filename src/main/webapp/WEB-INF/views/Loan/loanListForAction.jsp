@@ -43,14 +43,15 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Pending Loan
-										List Detail</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Pending Loan List Detail
+									</h5></td>
 
 								<td width="40%" align="right"><a
 									href="${pageContext.request.contextPath}/showCompLoanList"
 									class="breadcrumb-elements-item">
-										<button type="button" class="btn blue_btn">
-											Pending Loan List</button>
+										<button type="button" class="btn blue_btn">Pending
+											Loan List</button>
 								</a></td>
 
 							</tr>
@@ -123,23 +124,23 @@
 								style="color: red;"> ${empDeatil.loanEmi} </label>
 
 						</div>
-						
-						<div class="form-group row">
+
+						<%-- <div class="form-group row">
 
 							<label class="col-form-label col-lg-2" for="locId"> Loan
 								Guarantor 1: </label> <label class="col-form-label col-lg-2" for="locId"
-								style="color: red;">${empdetList[0].empCode}-${empdetList[0].firstName} ${empdetList[0].surname}</label> <label
-								class="col-form-label col-lg-2" for="locId">Loan
-								Guarantor 2: </label> <label class="col-form-label col-lg-2" for="locId"
-								style="color: red;">${empdetList[1].empCode}-${empdetList[1].firstName} ${empdetList[1].surname}</label> 
-											
-											
-											<label class="col-form-label col-lg-2" for="locId"> Loan
-								Document: </label> <label class="col-form-label col-lg-2" for="locId"
-								style="color: red;"><a class="icon-file-pdf icon-1x text-danger  text-danger" href="${docUrl}" >&nbsp;Loan Document</a></label>
-											
-												
-						</div>
+								style="color: red;">${empdetList[0].empCode}-${empdetList[0].firstName}
+								${empdetList[0].surname}</label> <label class="col-form-label col-lg-2"
+								for="locId">Loan Guarantor 2: </label> <label
+								class="col-form-label col-lg-2" for="locId" style="color: red;">${empdetList[1].empCode}-${empdetList[1].firstName}
+								${empdetList[1].surname}</label> <label class="col-form-label col-lg-2"
+								for="locId"> Loan Document: </label> <label
+								class="col-form-label col-lg-2" for="locId" style="color: red;"><a
+								class="icon-file-pdf icon-1x text-danger  text-danger"
+								href="${docUrl}">&nbsp;Loan Document</a></label>
+
+
+						</div> --%>
 
 
 						<table
@@ -173,7 +174,8 @@
 										<td>${empdetList.loanEmi}</td>
 										<td>${empdetList.currentOutstanding}</td>
 										<td>${empdetList.loanStatus}</td>
-										<td class="text-center"><c:if test="${empdetList.skipId==0}">
+										<td class="text-center"><c:if
+												test="${empdetList.skipId==0}">
 												<a
 													href="${pageContext.request.contextPath}/showSkipLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 													class="list-icons-item text-primary-600"
@@ -187,18 +189,15 @@
 											href="${pageContext.request.contextPath}/showPartialPayLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Partial Pay"><i
-												class="icon-comments
-e9a9"></i></a> <a
+												class="icon-comments e9a9"></i></a> <a
 											href="${pageContext.request.contextPath}/showRepayLoan?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
 											title="" data-original-title="Repay Schedule"><i
-												class="icon-sort-time-desc"></i></a>
-												&nbsp;<a
+												class="icon-sort-time-desc"></i></a> &nbsp;<%-- <a
 											href="${pageContext.request.contextPath}/showChangeGuarantor?id=${empdetList.exVar1}&empId=${empdetList.exVar2}"
 											class="list-icons-item text-primary-200" data-popup="tooltip"
 											title="" data-original-title="Change Guarantor"><i
-												class="icon-pencil7"></i></a>
-												</td>
+												class="icon-pencil7"></i></a> --%></td>
 
 
 									</tr>

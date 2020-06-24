@@ -51,8 +51,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Foreclose
-												Loan</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Foreclose Loan
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -113,7 +114,7 @@
 											Emp Name: </label> <label class="col-form-label col-lg-2" for="locId"
 											style="color: red;">${empPersInfoString} </label> <label
 											class="col-form-label col-lg-2" for="locId"> Total
-											Gross Salary:  </label> <label class="col-form-label col-lg-2"
+											Gross Salary: </label> <label class="col-form-label col-lg-2"
 											for="locId" style="color: red;">
 											${empPersInfo.grossSalary} </label>
 
@@ -182,8 +183,8 @@
 									</div>
 
 									<hr>
-									
-									
+
+
 									<div class="col-md-12">
 										<h6 class="card-title">Paid Status</h6>
 										<div class="table-responsive">
@@ -213,61 +214,65 @@
 									</div>
 									<hr>
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="advanceAmt">Foreclose Amount
-											  (Rs) <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" readonly="readonly"
-												placeholder="Enter  Amount" id="foreclose_amt" name="foreclose_amt"
-												value="${advList.currentOutstanding}" autocomplete="off" onchange="calAmt()"> 
-												
-												
-													<span class="validation-invalid-label" id="error_foreclose_amt"
-												style="display: none;">This field is required.</span> 
-										</div>
-									</div>
-										
 										<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="joiningDate"> 
-											Date <span style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control datepickerclass "
-												name="joiningDate" id="joiningDate" disabled="disabled"
-												placeholder="Joining Date"> <span
-												class="validation-invalid-label" id="error_joiningDate"
-												style="display: none;">This field is required.</span>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="advanceAmt">Fore Close Amount (Rs) <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" readonly="readonly"
+													placeholder="Enter  Amount" id="foreclose_amt"
+													name="foreclose_amt" value="${advList.currentOutstanding}"
+													autocomplete="off" onchange="calAmt()"> <span
+													class="validation-invalid-label" id="error_foreclose_amt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="joiningDate"> Date <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass "
+													name="joiningDate" id="joiningDate"
+													placeholder="Joining Date"> <span
+													class="validation-invalid-label" id="error_joiningDate"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										
+
 									</div>
-									
+
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="remark">
-											  Remark <span style="color: red">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="reason"
-												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
-											<span class="validation-invalid-label" id="error_reason"
-												style="display: none;">This field is required.</span>
-										</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="remark"> Remark <span style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="reason"
+													name="remark" autocomplete="off" onchange="trim(this)"></textarea>
+												<span class="validation-invalid-label" id="error_reason"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-										<a
+											<a
 												href="${pageContext.request.contextPath}/showLoanListForAction?empId=${encEmpId}"><button
 													type="button" class="btn btn-light">
 													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
@@ -299,7 +304,7 @@
 	</div>
 	<!-- /page content -->
 
-	 <script>
+	<script>
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -311,42 +316,39 @@
 		$(document).ready(function($) {
 
 			$("#submitData").submit(function(e) {
- 				var isError = false;
+				var isError = false;
 				var errMsg = "";
 
 				if (!$("#reason").val()) {
- 					isError = true;
+					isError = true;
 
 					$("#error_reason").show()
 
 				} else {
- 					$("#error_reason").hide()
+					$("#error_reason").hide()
 				}
-				
-				
 
-				if ($("#foreclose_amt").val()==0) {
- 					isError = true;
+				if ($("#foreclose_amt").val() == 0) {
+					isError = true;
 
 					$("#error_foreclose_amt").show()
 
 				} else {
- 					$("#error_foreclose_amt").hide()
+					$("#error_foreclose_amt").hide()
 				}
 
 				if (!isError) {
 
-					$('#modal_scrollable')
-					.modal('show');
+					$('#modal_scrollable').modal('show');
 
-						return false;
+					return false;
 				}
 				return false;
 			});
 		});
 		//
 	</script>
-<script>
+	<script>
 		function submitForm() {
 			$('#modal_scrollable').modal('hide');
 			document.getElementById("submtbtn").disabled = true;
@@ -354,7 +356,7 @@
 
 		}
 	</script>
-		<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
@@ -364,9 +366,10 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want  To Submit This Record </h5>
+					<h5 class="modal-title">Are You Sure You Want To Submit This
+						Record</h5>
 					<br>
-				 
+
 				</div>
 
 				<div class="modal-footer pt-3">
@@ -377,7 +380,7 @@
 		</div>
 	</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
 			singleDatePicker : true,
@@ -402,6 +405,6 @@
 	</script>
 
 
-	 
+
 </body>
 </html>

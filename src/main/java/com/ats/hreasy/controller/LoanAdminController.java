@@ -733,6 +733,7 @@ class LoanAdminController {
 
 			String remark = request.getParameter("remark");
 			String closeDate = request.getParameter("joiningDate");
+			String[] cldt = closeDate.split("-");
 			String foreclose_amt = request.getParameter("foreclose_amt");
 			int id = Integer.parseInt(request.getParameter("id"));
 
@@ -755,14 +756,14 @@ class LoanAdminController {
 				adv.setLoanMainId(advList.getId());
 				adv.setLoginName(String.valueOf(userObj.getEmpId()));
 				adv.setLoginTime(sf2.format(date2));
-				adv.setMonths(Integer.parseInt(sf1.format(date1)));
+				adv.setMonths(Integer.parseInt(cldt[1]));
 				adv.setPayType("FC");
 				adv.setRemarks(remark);
 				adv.setSkippAmoount(0);
 				adv.setSkippMonthYear("0000-00-00 00:00:00");
 				adv.setSkippRemark("");
 				adv.setDelStatus(1);
-				adv.setYears(Integer.parseInt(sf.format(date)));
+				adv.setYears(Integer.parseInt(cldt[2]));
 
 				LoanDetails res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLoanDetail", adv,
 						LoanDetails.class);
@@ -773,7 +774,7 @@ class LoanAdminController {
 					map.add("dateTimeUpdate", sf2.format(date2));
 					map.add("userId", userObj.getEmpId());
 					map.add("loanId", id);
-					map.add("closeDate", sfNew.format(date));
+					map.add("closeDate", DateConvertor.convertToYMD(closeDate));
 					map.add("currentTotpaid", advList.getCurrentTotpaid() + Integer.parseInt(foreclose_amt));
 					map.add("currentOut", advList.getCurrentOutstanding() - Integer.parseInt(foreclose_amt));
 					map.add("repayAmt", advList.getLoanRepayAmt());
@@ -820,6 +821,7 @@ class LoanAdminController {
 
 			String remark = request.getParameter("remark");
 			String closeDate = request.getParameter("joiningDate");
+			String[] cldt = closeDate.split("-");
 			// System.err.println("closeDate" + closeDate);
 			String partialAmt = request.getParameter("partialAmt");
 			int id = Integer.parseInt(request.getParameter("id"));
@@ -843,7 +845,7 @@ class LoanAdminController {
 				adv.setLoanMainId(advList.getId());
 				adv.setLoginName(String.valueOf(userObj.getEmpId()));
 				adv.setLoginTime(sf2.format(date2));
-				adv.setMonths(Integer.parseInt(sf1.format(date1)));
+				adv.setMonths(Integer.parseInt(cldt[1]));
 				if ((advList.getCurrentOutstanding() - Integer.parseInt(partialAmt)) == 0) {
 					adv.setPayType("FC");
 				} else {
@@ -856,7 +858,7 @@ class LoanAdminController {
 				adv.setSkippRemark("");
 				adv.setDelStatus(1);
 
-				adv.setYears(Integer.parseInt(sf.format(date)));
+				adv.setYears(Integer.parseInt(cldt[2]));
 
 				LoanDetails res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLoanDetail", adv,
 						LoanDetails.class);
