@@ -221,9 +221,6 @@ public class ServiceController {
 
 				}
 				
-				VpsImageUpload upload = new VpsImageUpload();
-				Info info = upload.saveUploadedImge(doc, Constants.empDocSaveUrl, assetImage, Constants.values, 0, 0, 0, 0,
-						0);
 				
 				AssetServicing assetService = new AssetServicing();
 				
@@ -300,6 +297,7 @@ public class ServiceController {
 						}else {
 							map = new LinkedMultiValueMap<>();
 							map.add("serviceId", res.gettServicingId());
+							map.add("assetId", res.getAssetId());
 							
 							Info val = Constants.getRestTemplate().postForObject(Constants.url + "/updtRegService", map,
 									Info.class);

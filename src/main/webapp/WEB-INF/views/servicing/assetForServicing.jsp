@@ -43,13 +43,13 @@
 						<table width="100%">
 							<tr width="100%">
 								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Manage Asset Servicing</h5></td>
-								<td width="40%" align="right"><c:if test="${addAccess==0}">
+								<%-- <td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/addAsset"
 											class="breadcrumb-elements-item">
 											<button type="button" class="btn blue_btn legitRipple">Add
 												Asset</button>
 										</a>
-									</c:if></td>
+									</c:if></td> --%>
 							</tr>
 						</table>
 					</div>
