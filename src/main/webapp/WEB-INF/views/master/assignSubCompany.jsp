@@ -6,10 +6,8 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
- 	 
- 
-<%--  <script src="${pageContext.request.contextPath}/resources/global_assets/js/demo_pages/datatables_advanced.js"></script>
- --%>
+
+
 </head>
 
 
@@ -123,8 +121,10 @@
 							<div class="table-responsive">
 
 
-								 
-								<table class="table datatable-fixed-right" width="100%" >
+
+								<table
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 
@@ -133,9 +133,10 @@
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
 											<th>Employee Code</th>
 											<th>Employee Detail</th>
-											<!-- <th ></th>
-										<th ></th>
-										<th ></th> -->
+											<th>Employee Detail</th>
+											<th>Employee Detail</th>
+											<th>Employee Detail</th>
+
 											<th>Location</th>
 											<th>Company</th>
 
@@ -166,9 +167,12 @@
 												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
 												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
 													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<!-- <td ></td>
-											<td ></td>
-											<td ></td> -->
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
 												<td>${empdetList.locName}</td>
 												<td>${empdetList.subCompName}</td>
 
@@ -254,7 +258,7 @@
 	</script>
 
 	<script type="text/javascript">
-		$(document).ready(
+		/* $(document).ready(
 				function() {
 					//	$('#printtable').DataTable();
 
@@ -263,8 +267,55 @@
 								$('#printtable1 tbody input[type="checkbox"]')
 										.prop('checked', this.checked);
 							});
-				});
+				}); */
 	</script>
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
 
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 1 ]
+			}, {
+				width : "10px",
+				targets : [ 0 ]
+			}, {
+				width : "10px",
+				targets : [ 1 ]
+			}, {
+				width : "200px",
+				targets : [ 3 ]
+			} ],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 1
+			}
+
+		});
+		$(document).ready(
+				function() {
+					//	$('#printtable').DataTable();
+
+					$("#selAll222").click(
+							function() {
+
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
+							});
+				});
+
+		$(document).ready(function() {
+
+			$('body').on('click', '#selAll', function() {
+				//alert("111111");
+				$('body input[type="checkbox"]').prop('checked', this.checked);
+				// $(this).toggleClass('allChecked');
+			})
+		});
+	</script>
 </body>
 </html>
