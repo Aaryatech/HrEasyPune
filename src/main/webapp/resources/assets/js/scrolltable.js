@@ -1,4 +1,4 @@
-		$('.datatable-fixed-left_custom').DataTable({
+$('.datatable-fixed-left_custom').DataTable({
 
 			columnDefs : [ {
 				orderable : false,
