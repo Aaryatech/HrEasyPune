@@ -122,7 +122,7 @@ hr {
 					style="border-left: 1px solid #313131; border-bottom: 1px solid #313131; padding: 8px; color: #000; font-size: 12px;"
 					align="center"><table width="100%">
 
-						<c:set value="" var="logo"></c:set>
+						<%-- <c:set value="" var="logo"></c:set>
 						<c:set value="-" var="companyName"></c:set>
 						<c:set value="-" var="longAdd1"></c:set>
 						<c:forEach items="${companyList}" var="companyList">
@@ -131,16 +131,15 @@ hr {
 								<c:set value="${companyList.companyName}" var="companyName"></c:set>
 								<c:set value="${companyList.longAdd1}" var="longAdd1"></c:set>
 							</c:if>
-						</c:forEach>
+						</c:forEach> --%>
 						<tr>
-							<td width="22.33%"><img src="${logoUrl}${logo}" width="80"
-								height="50" /></td>
+							<td width="22.33%"><%-- <img src="${logoUrl}${logo}" width="80"
+								height="50" /> --%></td>
 
 							<td width="53.33%" valign="top"
-								style="font-weight: bold; margin: 0px;" align="center">
-								<h4 align="center" style="font-size: 16px;">${companyName}</h4>
+								style="font-weight: bold; margin: 0px;" align="center"><%-- <h4 align="center" style="font-size: 16px;">${companyName}</h4>
 								<h6 style="font-weight: bold; margin: 0px; font-size: 10px;"
-									align="center">${longAdd1}</h6>
+									align="center">${longAdd1}</h6> --%>
 								<h5 style="font-weight: bold; margin: 0px; font-size: 14px;"
 									align="center">Salary Details for the month of
 									${monthName} ${year}</h5>
@@ -163,12 +162,14 @@ hr {
 								${list.empCode}</td>
 
 							<td width="53.33%" valign="top"
-								style="color: #000; font-size: 12px;" align="center">Name:
-								${list.name}</td>
+								style="color: #000; font-size: 12px;" align="center"><%-- Name:
+								${list.name} --%></td>
 
 							<td width="22.33%" valign="top"
-								style="color: #000; font-size: 12px;" align="right">Designation
-								:${list.designName}</td>
+								style="color: #000; font-size: 12px;" align="right">
+								<%-- Designation
+								:${list.designName} --%>
+							</td>
 						</tr>
 					</table></td>
 			</tr>
@@ -210,135 +211,226 @@ hr {
 					align="center" valign="top" colspan="2"><table width="100%"
 						style="border-top: 1px solid #313131; border-right: 1px solid #313131; border-left: 1px solid #313131; border-bottom: 1px solid #313131;">
 						<tr>
-							<td width="33.33%" valign="top"
+							<td width="30%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">PAY HEAD</td>
-							<td width="25%" valign="top"
+							<td width="13%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">DATE</td>
-							<td width="40.33%" valign="top"
-								style="color: #000; font-size: 12px; border-bottom: 1px solid #313131;"
+							<td width="20%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">EARNINGS</td>
+							<td width="10%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
+								align="center">QTY</td>
+							<td valign="top"
+								style="color: #000; font-size: 12px; border-bottom: 1px solid #313131;"
+								align="center">Remark</td>
 						</tr>
 
 
 
 						<c:forEach items="${list.production}" var="production">
 							<tr>
-								<td width="33.33%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 									align="left">Production Incentive</td>
-								<td width="25%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="center">${production.attDate}</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="right">${production.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${production.showHrs}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">-</td>
 
 							</tr>
 						</c:forEach>
 						<c:forEach items="${list.performance}" var="performance">
+
 							<tr>
-								<td width="33.33%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 									align="left">Performance Incentive</td>
-								<td width="25%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="center">${performance.attDate}</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="right">${list.productionInsentive}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${performance.hrs}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;"><c:choose>
+										<c:when test="${performance.attStatus eq 'PH-OT'}">Holiday Present</c:when>
+										<c:when test="${performance.attStatus eq 'WO-OT'}">Weekly Off Present</c:when>
+										<c:otherwise>-</c:otherwise>
+									</c:choose></td>
 
 							</tr>
 						</c:forEach>
+						<c:forEach items="${list.getClaimList}" var="getClaimList">
 
+							<tr>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Claim</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="center">${getClaimList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${getClaimList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getClaimList.remark}</td>
+
+							</tr>
+						</c:forEach>
+						<c:forEach items="${list.getRewardList}" var="getRewardList">
+
+							<tr>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Reward</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="center">${getRewardList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${getRewardList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getRewardList.remark}</td>
+
+							</tr>
+						</c:forEach>
 
 					</table> <br>
 					<table width="1000%"
 						style="border-top: 1px solid #313131; border-right: 1px solid #313131; border-left: 1px solid #313131; border-bottom: 1px solid #313131;">
 						<tr>
-							<td width="33.33%" valign="top"
+
+
+							<td width="30%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">DEDUCTION HEAD</td>
-							<td width="25%" valign="top"
+							<td width="13%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">DATE</td>
-							<td width="40.33%" valign="top"
-								style="color: #000; font-size: 12px; border-bottom: 1px solid #313131;"
+							<td width="20%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; border-bottom: 1px solid #313131;"
 								align="center">DEDUTIONS</td>
+							<td valign="top"
+								style="color: #000; font-size: 12px; border-bottom: 1px solid #313131;"
+								align="center">Remark</td>
 
 						</tr>
 
 						<c:forEach items="${list.getAdvanceList}" var="getAdvanceList">
 							<tr>
-								<td width="33.33%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 									align="left">ADVANCE</td>
-								<td width="25%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
-									align="center">-</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
-									align="right">${getAdvanceList.advAmount}</td>
+									align="center">${getAdvanceList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${getAdvanceList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getAdvanceList.remark}</td>
 
 							</tr>
 						</c:forEach>
 
 						<c:forEach items="${list.getLoanList}" var="getLoanList">
 							<tr>
-								<td width="33.33%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 									align="left">LOAN EMI</td>
-								<td width="25%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
-									align="center">-</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="center">${getLoanList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="right">${getLoanList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getLoanList.remark}</td>
 
 							</tr>
 						</c:forEach>
-						<c:forEach items="${list.getAbsentDedList}" var="getAbsentDedList">
-							<tr>
-								<td width="33.33%" valign="top"
-									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-									align="left">Late Entry---Hal Day</td>
-								<td width="25%" valign="top"
-									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
-									align="center">-</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
-									align="right">${getAbsentDedList.advAmount}</td>
 
-							</tr>
-						</c:forEach>
 						<c:forEach items="${list.getPayDedList}" var="getPayDedList">
+
 							<tr>
-								<td width="33.33%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
 									align="left">PAY DEDUCTION</td>
-								<td width="25%" valign="top"
+								<td valign="top"
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
-									align="center">-</td>
-								<td width="40.33%" valign="top"
-									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="center">${getPayDedList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="right">${getPayDedList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getPayDedList.remark}</td>
 
 							</tr>
 						</c:forEach>
+						<c:set value="0" var="startLateMark"></c:set>
+						<c:forEach items="${list.getLateMarkDedList}"
+							var="getLateMarkDedList">
+							<c:set value="${startLateMark+1}" var="startLateMark"></c:set>
 
-						<tr>
-							<td width="33.33%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">ABSENT DEDUCTION</td>
-							<td width="25%" valign="top"
-								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
-								align="center">-</td>
-							<td width="40.33%" valign="top"
-								style="color: #000; font-size: 12px; padding-right: 5px;"
-								align="right">${list.abDeduction}</td>
+							<c:if test="${startLateMark>4}">
+								<tr>
+									<td valign="top"
+										style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+										align="left">Late Mark</td>
+									<td valign="top"
+										style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+										align="center">${getLateMarkDedList.attDate}</td>
+									<td valign="top"
+										style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+										align="right">${list.adjustPlus}</td>
+									<td valign="top"
+										style="color: #000; font-size: 12px; padding-left: 5px;">Late
+										Mark Deduction In Advance</td>
 
-						</tr>
+								</tr>
+							</c:if>
+						</c:forEach>
+
+						<c:forEach items="${list.getAbsentDedList}" var="getAbsentDedList">
+
+
+							<tr>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Absent Deduction</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="center">${getAbsentDedList.attDate}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${list.abDeduction}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">
+									-</td>
+
+							</tr>
+
+						</c:forEach>
+
 					</table></td>
 
 			</tr>
