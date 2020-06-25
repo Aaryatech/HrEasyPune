@@ -133,11 +133,14 @@ hr {
 							</c:if>
 						</c:forEach> --%>
 						<tr>
-							<td width="22.33%"><%-- <img src="${logoUrl}${logo}" width="80"
-								height="50" /> --%></td>
+							<td width="22.33%">
+								<%-- <img src="${logoUrl}${logo}" width="80"
+								height="50" /> --%>
+							</td>
 
 							<td width="53.33%" valign="top"
-								style="font-weight: bold; margin: 0px;" align="center"><%-- <h4 align="center" style="font-size: 16px;">${companyName}</h4>
+								style="font-weight: bold; margin: 0px;" align="center">
+								<%-- <h4 align="center" style="font-size: 16px;">${companyName}</h4>
 								<h6 style="font-weight: bold; margin: 0px; font-size: 10px;"
 									align="center">${longAdd1}</h6> --%>
 								<h5 style="font-weight: bold; margin: 0px; font-size: 14px;"
@@ -162,8 +165,10 @@ hr {
 								${list.empCode}</td>
 
 							<td width="53.33%" valign="top"
-								style="color: #000; font-size: 12px;" align="center"><%-- Name:
-								${list.name} --%></td>
+								style="color: #000; font-size: 12px;" align="center">
+								<%-- Name:
+								${list.name} --%>
+							</td>
 
 							<td width="22.33%" valign="top"
 								style="color: #000; font-size: 12px;" align="right">
@@ -347,7 +352,8 @@ hr {
 									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 									align="right">${getAdvanceList.amt}</td>
 								<td valign="top"
-									style="color: #000; font-size: 12px; padding-left: 5px;">${getAdvanceList.remark}</td>
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getAdvanceList.remark}
+									(Self Deduction)</td>
 
 							</tr>
 						</c:forEach>
@@ -403,8 +409,8 @@ hr {
 										style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
 										align="right">${list.adjustPlus}</td>
 									<td valign="top"
-										style="color: #000; font-size: 12px; padding-left: 5px;">Late
-										Mark Deduction In Advance</td>
+										style="color: #000; font-size: 12px; padding-left: 5px;">
+										In Advance (System HD Deduction)</td>
 
 								</tr>
 							</c:if>
