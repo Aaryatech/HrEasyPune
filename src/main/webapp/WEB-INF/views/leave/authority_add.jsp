@@ -166,8 +166,11 @@
 
 
 									<div class="table-responsive">
-										<table class="table datatable-scroll-y" width="100%"
-											id="printtable1">
+										<!-- <table class="table datatable-scroll-y" width="100%"
+											id="printtable1"> -->
+										<table
+											class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+											width="100%" id="printtable1">
 											<thead>
 												<tr class="bg-blue">
 													<th class="check" style="text-align: center; width: 5%;"><input
@@ -199,6 +202,19 @@
 
 													</tr>
 												</c:forEach>
+												<c:forEach items="${empListAuth}" var="emp"
+													varStatus="count">
+													<tr>
+														<td class="text-center"><input type="checkbox"
+															class="chk1" name="empIds" id="empIds${count.index+1}"
+															value="${emp.empId}" /></td>
+														<td>${emp.surname}&nbsp;${emp.firstName}</td>
+														<td>${emp.empCode}</td>
+														<td>${emp.deptName}</td>
+														<td>${emp.empDesgn}</td>
+
+													</tr>
+												</c:forEach>
 
 											</tbody>
 										</table>
@@ -210,8 +226,11 @@
 								<div class="col-md-6">
 
 									<div class="table-responsive">
-										<table class="table datatable-scroll-y" width="100%"
-											10d="printtable2">
+										<!-- <table class="table datatable-scroll-y" width="100%"
+											id="printtable2"> -->
+										<table
+											class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+											width="100%" id="printtable2">
 											<thead>
 												<tr class="bg-blue">
 													<th class="check" style="text-align: center;">Select
@@ -338,6 +357,26 @@
 				}
 			}
 		}
+	</script>
+
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 0,
+				rightColumns : 0
+			}
+
+		});
 	</script>
 	<script type="text/javascript">
 		$(document).ready(
