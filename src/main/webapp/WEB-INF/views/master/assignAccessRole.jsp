@@ -121,8 +121,9 @@
 								<!-- <table
 									class="table table-bordered table-hover datatable-highlight"
 									id="printtable1"> -->
-								<table class="table datatable-scroll-y" width="100%"
-									id="printtable1">
+								<table
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 
@@ -246,7 +247,7 @@
 	</script>
 
 	<script type="text/javascript">
-		$(document).ready(
+	/* 	$(document).ready(
 				function() {
 					//	$('#printtable').DataTable();
 
@@ -255,8 +256,9 @@
 								$('#printtable1 tbody input[type="checkbox"]')
 										.prop('checked', this.checked);
 							});
-				});
+				}); */
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
 
 </body>
 </html>
