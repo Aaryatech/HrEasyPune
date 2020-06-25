@@ -228,18 +228,20 @@
 									<div class="table-responsive">
 
 
-										<table class="table datatable-scroll-y" width="100%"
-											id="printtable1">
-											<!-- <table
+										<!-- <table class="table datatable-scroll-y" width="100%"
+											id="printtable1"> -->
+										<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="printtable1"> -->
-
+										<table
+											class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+											width="100%" id="printtable1">
 
 											<thead>
 												<tr class="bg-blue" style="text-align: center;">
+													<th width="5%">Sr.no</th>
 													<th width="5%"><input type="checkbox" name="selAll"
-														id="selAll" />&nbsp;Sr.no</th>
-
+														id="selAll" /></th>
 													<th class="text-center">EMP Code</th>
 													<th class="text-center">EMP Name</th>
 													<th class="text-center">Department</th>
@@ -259,8 +261,9 @@
 												<c:forEach items="${dailyDailyList}" var="dailyrecordList"
 													varStatus="count">
 													<tr>
-														<td><input type="checkbox"
-															id="id${dailyrecordList.id}"
+														<td style="text-align: center;">${count.index+1}</td>
+														<td style="text-align: center;"><input
+															type="checkbox" id="id${dailyrecordList.id}"
 															value="${dailyrecordList.id}"
 															data-empcode="${dailyrecordList.empCode}"
 															data-name="${dailyrecordList.empName}" name="ids"
@@ -270,8 +273,7 @@
 															data-statusidshow="${dailyrecordList.lvSumupId}"
 															data-latemarkshow="${dailyrecordList.lateMark}"
 															data-lateminshow="${dailyrecordList.lateMin}"
-															class="select_all">&nbsp;${count.index+1}</td>
-
+															class="select_all"></td>
 														<td class="text-center">${dailyrecordList.empCode}</td>
 														<td>${dailyrecordList.empName}</td>
 														<td>${dailyrecordList.empJson}</td>
@@ -610,8 +612,10 @@
 
 					$("#selAll").click(
 							function() {
-								$('#printtable1 tbody input[type="checkbox"]')
-										.prop('checked', this.checked);
+								  $('#printtable1 tbody input[class="chk"]')
+										.prop('checked', this.checked);  
+								 
+
 							});
 				});
 
@@ -885,6 +889,25 @@
 
 		}
 	</script>
+	<script type="text/javascript">
+			$('.datatable-fixed-left_custom').DataTable({
+
+				columnDefs : [ {
+					orderable : false,
+					targets : [ 1 ]
+				} ],
+				//scrollX : true,
+				scrollX : true,
+				scrollY : '65vh',
+				scrollCollapse : true,
+				paging : false,
+				fixedColumns : {
+					leftColumns : 0,
+					rightColumns : 0
+				}
+
+			});
+		</script>
 	<!-- Scrollable modal -->
 	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
 		tabindex="-1">

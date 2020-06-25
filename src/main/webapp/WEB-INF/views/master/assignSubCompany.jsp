@@ -133,10 +133,6 @@
 											<th><input type="checkbox" name="selAll" id="selAll" /></th>
 											<th>Employee Code</th>
 											<th>Employee Detail</th>
-											<th>Employee Detail</th>
-											<th>Employee Detail</th>
-											<th>Employee Detail</th>
-
 											<th>Location</th>
 											<th>Company</th>
 
@@ -167,12 +163,7 @@
 												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
 												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
 													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+
 												<td>${empdetList.locName}</td>
 												<td>${empdetList.subCompName}</td>
 
@@ -269,6 +260,7 @@
 							});
 				}); */
 	</script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
 </body>
 </html>

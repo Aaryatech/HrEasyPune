@@ -311,8 +311,11 @@
 									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="printtable1"> -->
-									<table class="table datatable-scroll-y" width="100%"
-										id="printtable1">
+									<!-- <table class="table datatable-scroll-y" width="100%"
+										id="printtable1"> -->
+									<table
+										class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+										width="100%" id="printtable1">
 
 										<thead>
 											<tr class="bg-blue" style="text-align: center;">
@@ -735,5 +738,24 @@
 	}
 	
 	</script>
+	<script type="text/javascript">
+			$('.datatable-fixed-left_custom').DataTable({
+
+				columnDefs : [ {
+					orderable : false,
+					targets : [ 0 ]
+				} ],
+				//scrollX : true,
+				scrollX : true,
+				scrollY : '65vh',
+				scrollCollapse : true,
+				paging : false,
+				fixedColumns : {
+					leftColumns : 0,
+					rightColumns : 0
+				}
+
+			});
+		</script>
 </body>
 </html>
