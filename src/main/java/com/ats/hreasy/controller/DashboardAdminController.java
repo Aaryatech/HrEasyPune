@@ -29,6 +29,7 @@ import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
@@ -51,7 +52,7 @@ import com.ats.hrmgt.model.assets.ServicingDashDetails;
 @Controller
 @Scope("session")
 public class DashboardAdminController {
-	
+
 	@RequestMapping(value = "/assetsDashboard", method = RequestMethod.GET)
 	public String assetsDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -62,45 +63,46 @@ public class DashboardAdminController {
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 		try {
-			
-			AssetNotificatn[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetsForNotifiction"
-					, AssetNotificatn[].class);
+
+			AssetNotificatn[] assetArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getAllAssetsForNotifiction", AssetNotificatn[].class);
 			List<AssetNotificatn> assetRtnPndngList = new ArrayList<AssetNotificatn>(Arrays.asList(assetArr));
 			model.addAttribute("assetRtnPndngList", assetRtnPndngList);
-			
-			AMCExpirationDetail[] assetAMCExpiryArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssetsAMCForNotifiction"
-					, AMCExpirationDetail[].class);
-			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(Arrays.asList(assetAMCExpiryArr));			
+
+			AMCExpirationDetail[] assetAMCExpiryArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getAllAssetsAMCForNotifiction", AMCExpirationDetail[].class);
+			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(
+					Arrays.asList(assetAMCExpiryArr));
 			model.addAttribute("assetAMCExpiryList", assetAMCExpiryList);
-						
-			ServicingDashDetails[] assetServiceArr = Constants.getRestTemplate().getForObject(Constants.url + "/getServicingDetails"
-					, ServicingDashDetails[].class);
-			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(Arrays.asList(assetServiceArr));			
+
+			ServicingDashDetails[] assetServiceArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getServicingDetails", ServicingDashDetails[].class);
+			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(
+					Arrays.asList(assetServiceArr));
 			model.addAttribute("assetServiceList", assetServiceList);
-			
-			
-			
-			CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate().getForObject(Constants.url + "/getCateWiseAssetCnt"
-					, CatWiseAssetCount[].class);
-			List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));			
+
+			CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCateWiseAssetCnt", CatWiseAssetCount[].class);
+			List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));
 			model.addAttribute("catAssetList", catAssetList);
-			
-			
-		}catch (Exception e) {
-			
+
+		} catch (Exception e) {
+
 		}
 		return mav;
 	}
-	
-	@RequestMapping(value = "/getCateAssetCount", method = RequestMethod.GET)
-	public @ResponseBody List<CatWiseAssetCount> cateAssetCount(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate().getForObject(Constants.url + "/getCateWiseAssetCnt"
-				, CatWiseAssetCount[].class);
+	@RequestMapping(value = "/getCateAssetCount", method = RequestMethod.GET)
+	public @ResponseBody List<CatWiseAssetCount> cateAssetCount(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+
+		CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate()
+				.getForObject(Constants.url + "/getCateWiseAssetCnt", CatWiseAssetCount[].class);
 		List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));
-	
-		return catAssetList;			
+
+		return catAssetList;
 	}
+
 	/*
 	 * @RequestMapping(value = "/dashboard", method = RequestMethod.GET) public
 	 * String dashboard1(HttpServletRequest request, HttpServletResponse response,
@@ -231,9 +233,7 @@ public class DashboardAdminController {
 	 * Constants.getRestTemplate().postForObject(Constants.url + "/getAdvLoanDash",
 	 * map, LoanAdvDashDet.class); model.addAttribute("loanDet", loanDet);
 	 * 
-	 * // end
-	 * 
-	 * // leave start CalenderYear calculateYear = Constants.getRestTemplate()
+	 * CalenderYear calculateYear = Constants.getRestTemplate()
 	 * .getForObject(Constants.url + "/getCalculateYearListIsCurrent",
 	 * CalenderYear.class); map = new LinkedMultiValueMap<>(); map.add("empId",
 	 * userObj.getEmpId()); map.add("currYrId", calculateYear.getCalYrId());
@@ -332,15 +332,42 @@ public class DashboardAdminController {
 	 * 
 	 * }
 	 */
-	
-	  @RequestMapping(value = "/dashboard", method = RequestMethod.GET) public
-	  String dashboard(HttpServletRequest request, HttpServletResponse response,
-	  Model model) {
-	  
-	  String mav = "welcome1";
-	  
-	  return mav; }
-	 
+
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "welcome1";
+
+		try {
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			model.addAttribute("designType", userObj.getDesignType());
+
+			if (userObj.getDesignType() == 1) {
+
+				Date dt = new Date();
+
+				SimpleDateFormat mm = new SimpleDateFormat("MM");
+				SimpleDateFormat yy = new SimpleDateFormat("yyyy");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+				map.add("deptId", userObj.getHodDeptIds());
+				map.add("month", mm.format(dt));
+				map.add("year", yy.format(dt));
+
+				SummaryAttendance[] summaryAttendance = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getCountofWeeklyOff", map, SummaryAttendance[].class);
+				List<SummaryAttendance> weeklyofcountList = new ArrayList<>(Arrays.asList(summaryAttendance));
+				model.addAttribute("weeklyofcountList", weeklyofcountList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
 
 	@RequestMapping(value = "/dashboardModified", method = RequestMethod.GET)
 	public String dashboardNew(HttpServletRequest request, HttpServletResponse response, Model model) {
