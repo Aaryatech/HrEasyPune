@@ -158,7 +158,27 @@ hr {
 			<tr>
 				<td colspan="2"
 					style="border-left: 1px solid #313131; border-bottom: 1px solid #313131; padding: 8px; color: #000;"
-					align="center"><table width="100%">
+					align="center"><c:set value="-" var="pfNo"></c:set> <c:set
+						value="-" var="esicNo"></c:set> <c:set value="-"
+						var="cmpJoiningDate"></c:set> <c:set value="-" var="uan"></c:set>
+					<c:set value="-" var="remLoanAmt"></c:set> <c:set value="-"
+						var="panCardNo"></c:set> <c:set value="-" var="locName"></c:set> <c:set
+						value="-" var="accNo"></c:set> <c:set value="-" var="bankName"></c:set>
+					<c:forEach items="${empDetailList}" var="empDetailList">
+						<c:if test="${list.empId==empDetailList.empId}">
+							<c:set value="${empDetailList.pfNo}" var="pfNo"></c:set>
+							<c:set value="${empDetailList.esicNo}" var="esicNo"></c:set>
+							<c:set value="${empDetailList.panCardNo}" var="panCardNo"></c:set>
+							<c:set value="${empDetailList.cmpJoiningDate}"
+								var="cmpJoiningDate"></c:set>
+							<c:set value="${empDetailList.uan}" var="uan"></c:set>
+							<c:set value="${empDetailList.remLoanAmt}" var="remLoanAmt"></c:set>
+							<c:set value="${empDetailList.bankName}" var="bankName"></c:set>
+							<c:set value="${empDetailList.accNo}" var="accNo"></c:set>
+							<c:set value="${empDetailList.locName}" var="locName"></c:set>
+						</c:if>
+					</c:forEach>
+					<table width="100%">
 						<tr>
 
 							<td width="5%"></td>
@@ -168,7 +188,8 @@ hr {
 								${list.name}-${list.empCode}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%">Date
 								of Joining</td>
-							<td valign="top" style="color: #000;" align="left">: -</td>
+							<td valign="top" style="color: #000;" align="left">:
+								${cmpJoiningDate}</td>
 						</tr>
 						<tr>
 
@@ -178,7 +199,8 @@ hr {
 								${list.designName}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%">Loan
 								Balance</td>
-							<td valign="top" style="color: #000;" align="left">: -</td>
+							<td valign="top" style="color: #000;" align="left">:
+								${remLoanAmt}</td>
 						</tr>
 
 						<tr>
@@ -200,7 +222,7 @@ hr {
 							<td width="15%" valign="top" style="color: #000;" align="left">PF
 								Number</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${pfNo}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%">Days
 								worked</td>
 							<td valign="top" style="color: #000;" align="left">:
@@ -212,7 +234,7 @@ hr {
 							<td width="15%" valign="top" style="color: #000;" align="left">UAN
 								No.</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${uan}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%">Days
 								Paid</td>
 							<td valign="top" style="color: #000;" align="left">:
@@ -224,35 +246,28 @@ hr {
 							<td width="15%" valign="top" style="color: #000;" align="left">PAN
 								No.</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${panCardNo}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%">Bank
 								A/c No</td>
-							<td valign="top" style="color: #000;" align="left">: -</td>
+							<td valign="top" style="color: #000;" align="left">:
+								${accNo}</td>
 						</tr>
 
 						<tr>
 							<td width="5%"></td>
-							<td width="15%" valign="top" style="color: #000;" align="left">ESI
+							<td width="15%" valign="top" style="color: #000;" align="left">ESIC
 								No</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
-							<td valign="top" style="color: #000;" align="left" width="15%"></td>
-							<td valign="top" style="color: #000;" align="left">:</td>
-						</tr>
-						<tr>
-							<td width="5%"></td>
-							<td width="15%" valign="top" style="color: #000;" align="left">ESI
-								No</td>
-							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${esicNo}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%"></td>
 							<td valign="top" style="color: #000;" align="left"></td>
 						</tr>
+
 						<tr>
 							<td width="5%"></td>
 							<td width="15%" valign="top" style="color: #000;" align="left">Division/Location</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${locName}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%"></td>
 							<td valign="top" style="color: #000;" align="left"></td>
 						</tr>
@@ -261,7 +276,7 @@ hr {
 							<td width="15%" valign="top" style="color: #000;" align="left">Bank
 								Name</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
-								-</td>
+								${bankName}</td>
 							<td valign="top" style="color: #000;" align="left" width="15%"></td>
 							<td valign="top" style="color: #000;" align="left"></td>
 						</tr>
@@ -543,7 +558,7 @@ hr {
 					<p style="color: #000;" align="left">Net Payable :
 						${list.netSalary} (Rupees ${list.moneyInword} Only)</p>
 					<p style="color: #000;" align="left">Transfered into BANK
-						A/c.No. :-</p></td>
+						A/c.No. : ${accNo}</p></td>
 
 			</tr>
 			<tr>

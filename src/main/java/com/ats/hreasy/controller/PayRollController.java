@@ -63,6 +63,7 @@ import com.ats.hreasy.model.Allowances;
 import com.ats.hreasy.model.EmpSalInfoDaiyInfoTempInfo;
 import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
 import com.ats.hreasy.model.GetEmpDetail;
+import com.ats.hreasy.model.GetEmpDetailForFullPayslip;
 import com.ats.hreasy.model.GetPayrollGeneratedList;
 import com.ats.hreasy.model.GetSalDynamicTempRecord;
 import com.ats.hreasy.model.Info;
@@ -855,8 +856,8 @@ public class PayRollController {
 	}
 
 	@RequestMapping(value = "/pdf/generatedPayrollPdf/{id}/{selectMonth}", method = RequestMethod.GET)
-	public ModelAndView generatedPayrollPdf(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView generatedPayrollPdf(@PathVariable int[] id, @PathVariable String selectMonth,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("payroll/generatedPayrollPdf");
 		try {
@@ -946,8 +947,8 @@ public class PayRollController {
 	}
 
 	@RequestMapping(value = "/pdf/generatedSalaryDetailPdf/{id}/{selectMonth}", method = RequestMethod.GET)
-	public ModelAndView generatedSalaryDetailPdf(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView generatedSalaryDetailPdf(@PathVariable int[] id, @PathVariable String selectMonth,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("payroll/generatedSalaryDetailPdf");
 		try {
@@ -964,8 +965,8 @@ public class PayRollController {
 			map.add("month", monthyear[0]);
 			map.add("year", monthyear[1]);
 			map.add("empIds", empIds);
-			PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate().postForObject(
-					Constants.url + "/getSalaryDetailByEmpIds", map, PayRollDataForProcessing.class);
+			PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getSalaryDetailByEmpIds", map, PayRollDataForProcessing.class);
 			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
 			model.addObject("list", list);
 
@@ -988,7 +989,6 @@ public class PayRollController {
 			model.addObject("monthName", monthName);
 			model.addObject("year", monthyear[1]);
 
-			 
 			// System.out.println(list);
 
 		} catch (Exception e) {
@@ -997,10 +997,10 @@ public class PayRollController {
 
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/pdf/generatedFullPayslip/{id}/{selectMonth}", method = RequestMethod.GET)
-	public ModelAndView generatedFullPayslip(@PathVariable int[] id, @PathVariable String selectMonth, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView generatedFullPayslip(@PathVariable int[] id, @PathVariable String selectMonth,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		ModelAndView model = new ModelAndView("payroll/generatedFullPayslip");
 		try {
@@ -1079,6 +1079,13 @@ public class PayRollController {
 			model.addObject("payroll_loan_show", payroll_loan_show);
 			model.addObject("payroll_payded_show", payroll_payded_show);
 			model.addObject("payroll_reward_show", payroll_reward_show);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("empIds", empIds);
+			GetEmpDetailForFullPayslip[] getEmpDetailForFullPayslip = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getEmpDetailForFullSalarySlip", map, GetEmpDetailForFullPayslip[].class);
+			List<GetEmpDetailForFullPayslip> empDetailList = new ArrayList<>(Arrays.asList(getEmpDetailForFullPayslip));
+			model.addObject("empDetailList", empDetailList);
 
 			// System.out.println(list);
 
