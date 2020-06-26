@@ -362,6 +362,16 @@ hr {
 								align="right">${list.esic}</td>
 
 						</tr>
+						<tr>
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+								align="left">MLWF</td>
+
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; padding-right: 5px;"
+								align="right">${list.mlwf}</td>
+
+						</tr>
 						<c:if test="${payroll_advance_show==1}">
 							<tr>
 								<td width="50%" valign="top"

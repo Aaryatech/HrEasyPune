@@ -245,6 +245,7 @@
 													map.add("year", request.getAttribute("year"));
 													map.add("companyId", request.getAttribute("companyId"));
 
+													System.out.println(map);
 													PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate()
 															.postForObject(Constants.url + "/getPayrollGenratedList", map, PayRollDataForProcessing.class);
 													list = payRollDataForProcessing.getPayrollGeneratedList();

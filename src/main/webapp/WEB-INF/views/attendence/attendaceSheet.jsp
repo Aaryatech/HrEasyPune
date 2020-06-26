@@ -275,8 +275,8 @@
 
 				});
 
-				/* var table = $('#printtable2').DataTable();
-				table.search("").draw(); */
+				  var table = $('#printtable2').DataTable();
+				table.search("a").draw();  
 
 			});
 		</script>
