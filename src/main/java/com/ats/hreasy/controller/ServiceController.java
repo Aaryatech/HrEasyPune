@@ -295,13 +295,16 @@ public class ServiceController {
 						if(serviceId>0) {
 							session.setAttribute("successMsg", "Asset Service Updated Successfully");
 						}else {
-							map = new LinkedMultiValueMap<>();
-							map.add("serviceId", res.gettServicingId());
-							map.add("assetId", res.getAssetId());
-							
-							Info val = Constants.getRestTemplate().postForObject(Constants.url + "/updtRegService", map,
-									Info.class);
+								if(res.getServiceType()==0) {
+								map = new LinkedMultiValueMap<>();
+								map.add("serviceId", res.gettServicingId());
+								map.add("assetId", res.getAssetId());
+								
+								Info val = Constants.getRestTemplate().postForObject(Constants.url + "/updtRegService", map,
+										Info.class);
+							}
 							session.setAttribute("successMsg", "Asset Service Inserted Successfully");
+							
 						}
 						//Log
 	                    String assetLogDesc = null;

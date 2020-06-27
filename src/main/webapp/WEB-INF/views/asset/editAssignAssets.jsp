@@ -150,16 +150,17 @@
 									id="submitAssignAsset" method="post" enctype="multipart/form-data">
 									<input type="hidden" id="empId" name="empId" value="${emp.empId}">
 						<div class="table-responsive">						
-								<table class="table datatable-scroll-y" id="printtable1">
+								<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+							 id="printtable1" style="font-size: 13px;">
 							<thead>
 								<tr class="bg-blue">
 
-									<th class="text-center" width="5%">Sr. No.</th>
-									<th class="text-center"><input type="checkbox" name="selAll" id="selAll" /></th>									
+									<th class="text-center" width="2%">Sr. No.</th>
+									<th class="text-center" width="2%"><input type="checkbox" name="selAll" id="selAll" /></th>									
 									<th class="text-center">Asset Name</th>
 									<th class="text-center">Category</th>
-									<th class="text-center" colspan="2">Period</th>
-									<th class="text-center">Asset Img</th>	
+									<th class="text-center" colspan="2" width="20%;">Period</th>
+									<th class="text-center" width="10%;">Asset Img</th>	
 									<th class="text-center">Remark</th>	
 								</tr>
 							</thead>

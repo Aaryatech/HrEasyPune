@@ -92,8 +92,7 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<table
-							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+						<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 							id="printtable1">
 							<thead>
 								<tr class="bg-blue">
@@ -101,9 +100,8 @@
 									<th width="10%">Sr. No.</th>
 									<th>Company Name</th>		
 									<th>Vendor Email</th>	
-									<th>Contact No</th>	
-									<th>Contact Person Name</th>	
-									<th>Contact Person No.</th>
+									<th>Contact No.</th>	
+									<th>Contact Person Details</th>
 									<th>Contact Person Email</th>	
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
@@ -117,9 +115,8 @@
 										 <td>${count.index+1}</td>
 										<td>${vendorList.compName}</td>
 										<td>${vendorList.vendorEmail}</td>
-										<td>${vendorList.contactNo1}/${vendorList.contactNo2}</td>										
-										<td>${vendorList.conatctPersonName}</td>
-										<td>${vendorList.contactPersonNo}</td>
+										<td>${vendorList.contactNo1}</td>										
+										<td>${vendorList.conatctPersonName}-${vendorList.contactPersonNo}</td>
 										<td>${vendorList.contactPersonEmail}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a

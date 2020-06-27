@@ -1539,6 +1539,7 @@ public class AssetMgmtController {
 				AssetsDetailsList asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
 						AssetsDetailsList.class);
 				model.addObject("asset",  asset);
+				model.addObject("imgPath",  Constants.empDocShowUrl);
 				
 				model.addObject("title",  "Add Asset AMC");				
 				

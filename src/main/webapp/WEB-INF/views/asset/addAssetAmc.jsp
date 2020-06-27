@@ -309,7 +309,7 @@
 												<label class="col-form-label col-lg-5 float" for="amcamt">AMC 
 												Document File<span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
-												<img id="output" width="150"/>
+												<img id="output" width="150" src="${imgPath}${amc.amcDocFile}"/>
 												<input type="file" accept="image/*" name="doc" id="doc" value="${amc.amcDocFile}"
 												accept=".jpg,.png,.gif,.doc,.xls,.pdf" onchange="loadFile(event)"><span
 													class="form-text text-muted">Only

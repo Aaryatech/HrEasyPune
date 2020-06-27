@@ -15,6 +15,7 @@ public class AssetsDetailsList {
 	private String assetRemark;
 	private String assetPurImage;
 	private String assetStatus;
+	private String statusText;
 	private String location;
 	private int makerUserId;
 	private String updateDatetime;
@@ -133,6 +134,12 @@ public class AssetsDetailsList {
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
 	}
+	public String getStatusText() {
+		return statusText;
+	}
+	public void setStatusText(String statusText) {
+		this.statusText = statusText;
+	}
 	public String getLocation() {
 		return location;
 	}
@@ -157,9 +164,8 @@ public class AssetsDetailsList {
 				+ ", assetDesc=" + assetDesc + ", catName=" + catName + ", assetMake=" + assetMake + ", assetModel="
 				+ assetModel + ", assetSrno=" + assetSrno + ", assetPurDate=" + assetPurDate + ", vendor=" + vendor
 				+ ", assetRemark=" + assetRemark + ", assetPurImage=" + assetPurImage + ", assetStatus=" + assetStatus
-				+ ", location=" + location + ", makerUserId=" + makerUserId + ", updateDatetime=" + updateDatetime
-				+ ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2=" + exInt2 + ", exVar1=" + exVar1
-				+ ", exVar2=" + exVar2 + "]";
+				+ ", statusText=" + statusText + ", location=" + location + ", makerUserId=" + makerUserId
+				+ ", updateDatetime=" + updateDatetime + ", delStatus=" + delStatus + ", exInt1=" + exInt1 + ", exInt2="
+				+ exInt2 + ", exVar1=" + exVar1 + ", exVar2=" + exVar2 + "]";
 	}
-	
 }

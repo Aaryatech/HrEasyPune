@@ -118,20 +118,19 @@
 							</div>
 
 						</form>
-						<table class="table ">
+						<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+							id="printtable1">
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>
-									<th>Code</th>
-									<th>Name</th>
-									<th>Description</th>
+									<th width="3%">Sr. No.</th>
+									<th>Assets</th>
 									<th>Category</th>
 									<th>Asset Make</th>
-									<th>Model</th>
-									<th>Serial No.</th>
-									<th>Purchase Date</th>
+									<th>Model</th>									
+									<th width="15%">Purchase Date</th>
 									<th>Vendor</th>
+									<th>Status</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -146,15 +145,13 @@
 											id="accordion${count.index+1}" data-toggle="collapse"
 											data-parent="#accordion${count.index+1}"><span
 											class="expand-button"></span></a></td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetStatus}</td>
+										<td>${assetList.assetCode}-${assetList.assetName}</td>										
 										<td>${assetList.catName}</td>
 										<td>${assetList.assetMake}</td>
 										<td>${assetList.assetModel}</td>
-										<td>${assetList.assetSrno}</td>
 										<td>${assetList.assetPurDate}</td>
 										<td>${assetList.vendor}</td>
+										<td>${assetList.statusText}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
 													href="${pageContext.request.contextPath}/editAsset?assetId=${assetList.exVar1}"
@@ -196,9 +193,8 @@
 										<!-- <td></td> -->
 										<td colspan="12"><div id="collapseOne${count.index+1}"
 												class="collapse in p-3">
- 																<table
-																	class="table datatable-scroller-buttons dataTable no-footer"
-																	width="100%" role="grid" id="amcdatatable${count.index+1}">
+ 																<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+							 										id="amcdatatable${count.index+1}">
 																	<thead>
 																		<tr role="row" class="bg-blue">
 																			<th>Sr.No.</th>

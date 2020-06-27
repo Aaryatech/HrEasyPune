@@ -126,15 +126,13 @@
 								</button>
 							</div>
 							</form>
-						<table
-							class="table ">
+						<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+							id="printtable1" style="font-size: 13px;">
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr. No.</th>	
-									<th>Code</th>	
-									<th>Name</th>
-									<th>Description</th>	
+									<th width="10%">Sr. No.</th>
+									<th>Assets</th>	
 									<th>Category</th>
 									<th>Asset Make</th>	
 									<th>Model</th>
@@ -155,9 +153,7 @@
 										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}"
 										 	 data-toggle="collapse"  onclick="getAssetServiceInfo('${assetList.exVar1}',${count.index+1})"
 											data-parent="#accordion${count.index+1}"><span class="expand-button"></span></a></td>
-										<td>${assetList.assetCode}</td>
-										<td>${assetList.assetName}</td>
-										<td>${assetList.assetDesc}</td>
+										<td>${assetList.assetCode}-${assetList.assetName}</td>
 										<td>${assetList.catName}</td>
 										<td>${assetList.assetMake}</td>
 										<td>${assetList.assetModel}</td>										
@@ -177,9 +173,8 @@
 											<!-- <td></td> -->
 											<td colspan="12"><div id="collapseOne${count.index+1}"
 													class="collapse in p-3">														
-														<table
-																	class="table datatable-scroller-buttons dataTable no-footer"
-																	width="100%" role="grid" id="servicedatatable${count.index+1}">
+														<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+															width="100%" role="grid" id="servicedatatable${count.index+1}">
 															<thead>
 																<tr class="bg-blue">
 																	<th>Sr.No.</th>
