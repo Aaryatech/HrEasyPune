@@ -2326,7 +2326,7 @@ public class AssetMgmtController {
 			
 			asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
 					AssetsDetailsList.class);
-			asset.setAssetPurImage(Constants.empDocSaveUrl+asset.getAssetPurImage());
+			asset.setAssetPurImage(Constants.empDocShowUrl+asset.getAssetPurImage());
 			
 			map = new LinkedMultiValueMap<>();
 			
@@ -2335,7 +2335,7 @@ public class AssetMgmtController {
 			
 			String getAssignImg = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedImg",map,
 					String.class);			
-			asset.setExVar2(getAssignImg);
+			asset.setExVar2(Constants.empDocShowUrl+getAssignImg);
 			
 			
 			assetHistory.setAssetDetails(asset);
