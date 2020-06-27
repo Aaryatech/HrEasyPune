@@ -143,7 +143,7 @@
 										data-parent1="#accordion${count.index+1}">
 										<td><a href="#collapseOne${count.index+1}" onclick="getAssetInfo('${assetList.exVar1}',${count.index+1})"
 											id="accordion${count.index+1}" data-toggle="collapse"
-											data-parent="#accordion${count.index+1}"><span
+											data-parent="#accordion${count.index+1}" title="AMC Details"><span
 											class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}-${assetList.assetName}</td>										
 										<td>${assetList.catName}</td>

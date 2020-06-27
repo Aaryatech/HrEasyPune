@@ -1727,7 +1727,9 @@ public class AssetMgmtController {
 				List<AssetVendor> assetVendorList = new ArrayList<AssetVendor>(Arrays.asList(assetVendorArr));
 				model.addObject("assetVendorList",  assetVendorList);
 				
-				model.addObject("title",  "Edit Asset AMC");				
+				model.addObject("title",  "Edit Asset AMC");
+				
+				model.addObject("imgPath", Constants.empDocShowUrl);	
 				
 			}
 		} catch (Exception e) {
@@ -2309,25 +2311,41 @@ public class AssetMgmtController {
 	/***************************************************************************/
 	@RequestMapping(value = "/getAssignAssetsDetails", method = RequestMethod.GET)
 	@ResponseBody
-	public AssetReturnDetails getAssignAssetsDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId) {
+	public AssetReturnDetails getAssignAssetsDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam String assetId,
+			@RequestParam String empId) {
 		
 		AssetReturnDetails assetHistory =new AssetReturnDetails();
+		MultiValueMap<String, Object> map = null;
+		AssetsDetailsList asset = new AssetsDetailsList();
 		try {
 			
-			System.out.println("Asset Id ----------------------"+assetId);
+			System.out.println("Asset Id ----------------------"+assetId+" "+empId);
 			
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
 			map.add("assetId", assetId);
 			
-			AssetsDetailsList asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
+			asset = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetInfoById", map,
 					AssetsDetailsList.class);
 			asset.setAssetPurImage(Constants.empDocSaveUrl+asset.getAssetPurImage());
+			
+			map = new LinkedMultiValueMap<>();
+			
+			map.add("empId", Integer.parseInt(empId));
+			map.add("assetId", Integer.parseInt(assetId));
+			
+			String getAssignImg = Constants.getRestTemplate().postForObject(Constants.url + "/getAssignedImg",map,
+					String.class);			
+			asset.setExVar2(getAssignImg);
+			
+			
 			assetHistory.setAssetDetails(asset);
 			
 			AssetEmpHistoryInfo[] amcArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAssetEmpHistoryList", map,
 					AssetEmpHistoryInfo[].class);
 			List<AssetEmpHistoryInfo> list = new ArrayList<AssetEmpHistoryInfo>(Arrays.asList(amcArr));
 			assetHistory.setAssetHistoryList(list);
+			
+			
 			
 			System.out.println("Asset Emp Histroy---"+assetHistory);
 		}catch (Exception e) {

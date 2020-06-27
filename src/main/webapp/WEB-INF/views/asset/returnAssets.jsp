@@ -154,7 +154,7 @@
 									
 										<td>
 											<a href="${pageContext.request.contextPath}/" data-toggle="modal" data-target="#modal_large" 
-											onclick="getEmpAssetAssignData(${assetsList.assetId})"
+											onclick="getEmpAssetAssignData(${assetsList.assetId}, ${assetsList.empId})"
 											class="list-icons-item text-primary-600" data-popup="tooltip"  data-original-title="Asset Details">
 											${assetsList.assetCode}-${assetsList.assetName}</a>
 										</td>
@@ -284,17 +284,18 @@
 
 							<div class="modal-body">
 							<div class="form-group row">									
-								<!-- <div class="col-md-6">
-									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Assign Image
-															Name <span class="text-danger"></span>:</label>
-									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKI7IY-cNuEyZmw-eC4fjyoxaW8oauU5gbVlp13Bi--fVYOCbb3mACK1PZso0&usqp=CAc">
-								</div> -->
 								
 								<div class="col-md-6">
 									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Purchase Image
 															Name <span class="text-danger"></span>:</label>
 									<!-- <img src=""> -->
 									<img id="purchaseImg">
+								</div>
+								
+								<div class="col-md-6">
+									<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Assign Image
+															Name <span class="text-danger"></span>:</label>
+									<img id="assignImg">
 								</div>							
 								
 							</div>
@@ -308,7 +309,7 @@
 											</div>
 											
 											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Purchase
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="purchaseVendor">Purchase
 												Vendor <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<span id="purchaseVendor"></span>
@@ -318,7 +319,7 @@
 									
 									<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Category
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="category">Category
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<span id="category"></span>
@@ -326,7 +327,7 @@
 											</div>
 											
 											<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Asset
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="purchaseDate">Asset
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<span id="purchaseDate"></span>
@@ -335,7 +336,7 @@
 									</div>	
 									<div class="form-group row">									
 										<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCode">Model
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="modelNo">Model
 													<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<span id="modelNo"></span>
@@ -343,7 +344,7 @@
 											</div>
 											
 											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetName">Serial
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="serialNo">Serial
 												No. <span class="text-danger"></span>:</label>
 												<div class="col-lg-7 float">
 												<span id="serialNo"></span>
@@ -387,7 +388,7 @@
 				</div>
 				<!-- /large modal -->
 <script>
-function getEmpAssetAssignData(assetId){
+function getEmpAssetAssignData(assetId, empId){
 	//alert("assetId-----"+assetId)
 	document.getElementById("assetName").innerHTML = ''; 								
 	document.getElementById("purchaseVendor").innerHTML = '';
@@ -400,6 +401,7 @@ function getEmpAssetAssignData(assetId){
 			'${getAssignAssetsDetails}',
 			{
 				assetId : assetId,
+				empId : empId,
 				ajax : 'true',
 
 			},
@@ -413,6 +415,7 @@ function getEmpAssetAssignData(assetId){
 				document.getElementById("serialNo").innerHTML = data.assetDetails.assetSrno;
 				//document.getElementById("purchaseImg").innerHTML = data.assetDetails.assetPurImage;
 				document.getElementById('purchaseImg').src=data.assetDetails.assetPurImage;
+				document.getElementById('assignImg').src=data.assetDetails.exVar2;
 				
 				var dataTable = $('#modal_printtable1').DataTable();
 				dataTable.clear().draw();
