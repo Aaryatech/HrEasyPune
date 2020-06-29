@@ -129,7 +129,7 @@
 									<th>Asset Make</th>
 									<th>Model</th>									
 									<th width="15%">Purchase Date</th>
-									<th>Vendor</th>
+									<th>Purchase Vendor</th>
 									<th>Status</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
@@ -198,7 +198,7 @@
 																	<thead>
 																		<tr role="row" class="bg-blue">
 																			<th>Sr.No.</th>
-																			<th>Vendor Name</th>
+																			<th>AMC Vendor</th>
 																			<th>AMC Period</th>
 																			<th>Amt</th>
 																			<th>Status</th>
@@ -289,18 +289,18 @@ function getAssetInfo(assetId,countIndex){
 														
 														btnEdit = '<a href="${pageContext.request.contextPath}/editAssetAmc?encodedAMCId='
 															+ v.exVar1
-															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Edit"><i class="icon-pencil7"></i></a>&nbsp; &nbsp;';
+															+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="Edit" data-original-title="Edit"><i class="icon-pencil7"></i></a>&nbsp; &nbsp;';
 															
 														if(v.amcStatus==10 && v.assetStatus!=3 && v.assetStatus!=4){	
 															btnRenew = '<a href="${pageContext.request.contextPath}/renewAssetAmc?assetAMCId='
 																+ v.exVar1
-																+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="" data-original-title="Renew"><i class="icon-history"></i></a>&nbsp; &nbsp;';
+																+ '" class="list-icons-item text-primary-600" data-popup="tooltip" title="Renew" data-original-title="Renew"><i class="icon-history"></i></a>&nbsp; &nbsp;';
 														}else{
 															btnRenew = '';
 														}	
 														
 														if(v.amcStatus==10 || v.amcStatus==11){
-															btnTerminate ='<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title=""' 
+															btnTerminate ='<a href="javascript:void(0)" onClick=\'bootbox_ban("'+v.exVar1+'")\' class="list-icons-item text-danger-600 bootbox_custom bootbox_custom1" data-uuid="'+v.exVar1+'" data-popup="tooltip" title="Terminate"' 
 																+'data-original-title="Terminate"><i class="fa fa-ban"></i></a>';
 														}else{
 															btnTerminate = '';

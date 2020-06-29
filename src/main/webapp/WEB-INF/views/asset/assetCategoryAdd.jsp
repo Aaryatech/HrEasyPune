@@ -127,11 +127,11 @@
 											</div>	
 											
 												<div class="col-md-6">										
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnNotifctnDate">Return
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="returnDays">Return
 													Notification Days <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control" title = "No. of days for alert prior to asset return date expiration"
-														placeholder="Enter Return Notification Days" id="returnNotifctnDays" value="${asset.returnNotifctnDays}"
+														placeholder="Enter Return Notification Days" id="returnDays" value="${asset.returnNotifctnDays}"
 														name="returnNotifctnDays" autocomplete="off" onchange="trim(this)">
 													<span class="validation-invalid-label" id="error_returnNotifctnDays"
 														style="display: none;">This field is required.</span>
@@ -307,7 +307,7 @@
 													$("#error_assetCat").hide()
 												}
 												
-												if (!$("#returnNotifctnDays").val()) {
+												if (!$("#returnDays").val()) {
 
 													isError = true;
 
@@ -367,7 +367,7 @@
 		//
 	</script>
 	<script>
-$('#returnNotifctnDays').on('input', function() {
+$('#returnDays').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 	});
 	$('#amc').on('input', function() {

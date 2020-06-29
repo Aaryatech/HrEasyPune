@@ -400,7 +400,7 @@
 															.hide()
 												}
 
-												if (!$("#vendorloc").val()) {
+												if ($("#vendorloc").val() == "") {
 
 													isError = true;
 

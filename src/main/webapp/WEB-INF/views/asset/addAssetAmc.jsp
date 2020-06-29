@@ -141,7 +141,7 @@
 													Purchase Date<span class="text-danger"></span>:</label>
 												<div class="col-lg-7  float">
 													<input type="text" class="form-control"  readonly="readonly" 
-													value="${asset.assetPurDate}">
+													value="${asset.assetPurDate}" id="purchaseDate">
 												</div>
 											</div>						
 									</div>	
@@ -210,11 +210,11 @@
 									
 									<div class="form-group row">									
 										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendor">Vendor
+												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="vendor">AMC Vendor
 												Name <span class="text-danger">* </span>:</label>
 												<div class="col-lg-7 float">
 												
-												<select name="amcVendorId" data-placeholder="Select Asset Vendor"
+												<select name="amcVendorId" data-placeholder="Select Asset AMC Vendor"
 														id="amcVendorId"
 														class="form-control form-control-select2 select2-hidden-accessible">
 
@@ -261,6 +261,8 @@
 												<span class="validation-invalid-label" id="error_amcperiodfrom"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_fromDate"	style="display: none;">From Date must be smaller than To Date </span>
+												<span class="validation-invalid-label" id="error_dates"	style="display: none;">
+												AMC from date must be smaller than asset purchase date. </span>
 											</div>
 										</div>		
 										
@@ -274,6 +276,8 @@
 												<span class="validation-invalid-label" id="error_amcperiodto"
 													style="display: none;">This field is required.</span>
 												<span class="validation-invalid-label" id="error_toDate" style="display: none;">To Date must be greater than From Date </span>
+											<span class="validation-invalid-label" id="error_todates"	style="display: none;">
+												AMC to date must be smaller than asset purchase date. </span>
 											</div>
 										</div>		
 									</div>
@@ -367,6 +371,7 @@
 	</div>
 	<!-- /page content -->
 <script>
+
 /* $('#amcperiodto').on('input', function() {
 	 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 });
@@ -440,16 +445,38 @@ $(document)
 			         		        if (from_date > to_date ) 
 			         		        {
 			         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+			         		           isError = true;
 										$("#error_fromDate").show();
 			    					 	$("#error_toDate").show();
 			    					 	
-			         		            return false;
+			         		           
 			         		           
 			         		        }else {
 			         					$("#error_fromDate").hide();
 			         					$("#error_toDate").hide();
 			         				}
 			         		      
+			         		       
+			         		  		var from_date = document.getElementById("purchaseDate").value;
+				      				var to_date = document.getElementById("amcperiodfrom").value;
+				      				
+				      				var fromdate = from_date.split('-');
+			         		        from_date = new Date();
+			         		        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+			         		        var todate = to_date.split('-');
+			         		        to_date = new Date();
+			         		        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+			         		        if (from_date >= to_date ) 
+			         		        {
+			         		           /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+			         		           isError = true;
+										$("#error_dates").show();
+			    					 	
+			         		           
+			         		           
+			         		        }else {
+			         					$("#error_dates").hide();
+			         				}
 			         		     
 									if (!isError) {
 
@@ -467,6 +494,55 @@ $(document)
 								});
 			});	
 </script>
+
+<script>
+$("#amcperiodfrom").change(function(){   // 1st
+	var from_date = document.getElementById("purchaseDate").value;
+	var to_date = document.getElementById("amcperiodfrom").value;
+		
+		var fromdate = from_date.split('-');
+     from_date = new Date();
+     from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+     var todate = to_date.split('-');
+     to_date = new Date();
+     to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+     if (from_date >= to_date ) 
+     {
+        /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+		$("#error_dates").show();
+	 	
+         return false;
+        
+     }else {
+			$("#error_dates").hide();
+		}
+   
+});
+
+$("#amcperiodto").change(function(){   // 1st
+	var from_date = document.getElementById("purchaseDate").value;
+		var to_date = document.getElementById("amcperiodto").value;
+		
+		var fromdate = from_date.split('-');
+     from_date = new Date();
+     from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+     var todate = to_date.split('-');
+     to_date = new Date();
+     to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+     if (from_date >= to_date ) 
+     {
+        /// alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+		$("#error_todates").show();
+	 	
+         return false;
+        
+     }else {
+			$("#error_todates").hide();
+		}
+   
+});
+</script>
+
 <script type="text/javascript">
 var loadFile = function(event) {
 	try {

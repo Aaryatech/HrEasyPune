@@ -432,9 +432,9 @@
 
 									} else {
 										$("#error_doc").hide()
-									} 
+									}  */
 									
-									if (!$("#locIdist").val()) {
+									if ($("#locIdist").val() == "") {
 
 										isError = true;
 
@@ -442,7 +442,7 @@
 
 									} else {
 										$("#error_locIdist").hide()
-									}  */
+									}  
 									
 									if (!$("#assetMake").val()) {
 
