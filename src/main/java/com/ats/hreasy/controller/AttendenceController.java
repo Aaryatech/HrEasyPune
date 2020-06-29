@@ -1004,13 +1004,17 @@ public class AttendenceController {
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-					map = new LinkedMultiValueMap<String, Object>();
+					/*map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("desgType", 1);
-					map.add("departIds", userObj.getHodDeptIds());
+					map.add("departIds", userObj.getHodDeptIds());*/
+					
+					map = new LinkedMultiValueMap<String, Object>(); 
+					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("empId", userObj.getEmpId());
 					System.out.println(map);
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getEmployyeDailyDailyListByDeptIds", map, DailyAttendance[].class);
+							Constants.url + "/getEmployyeDailyDailyListByAuthority", map, DailyAttendance[].class);
 					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
 					model.addAttribute("date", date);

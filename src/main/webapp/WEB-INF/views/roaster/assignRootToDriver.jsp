@@ -102,40 +102,40 @@
 									</span> :
 									</label>
 									<div class="col-md-2">
+
 										<input type="text" class="form-control datepickerclass"
 											placeholder="Select Date " id="datepicker1" name="date"
-											value="${date}" autocomplete="off">
-									</div>
+											value="${date}" autocomplete="off"> <span
+											class="validation-invalid-label" id="error_daterange"
+											style="display: none;">This field is required.</span>
 
+
+									</div>
+									<button type="submit" class="btn bg-blue ml-3 legitRipple"
+										id="submtbtn">Search</button>
 								</div>
 								<hr>
 
 								<div class="form-group row">
-									<label class="col-form-label   col-lg-2" for="date">From
+									<label class="col-form-label   col-lg-2" for="date">Select
 										Date : </label>
 									<div class="col-md-2">
-										<input type="text" class="form-control datepickerclass"
-											placeholder="Select Date " id="datepicker1" name="date"
-											value="${date}" autocomplete="off">
-									</div>
-									<label class="col-form-label   col-lg-2" for="date">To
-										Date : </label>
-									<div class="col-md-2">
-										<input type="text" class="form-control datepickerclass"
-											placeholder="Select Date " id="datepicker1" name="date"
-											value="${date}" autocomplete="off">
+										<input type="text" class="form-control daterange-basic_new "
+											name="daterange" data-placeholder="Select Date"
+											id="daterange">
 									</div>
 
 								</div>
 
 								<div class="form-group row">
 									<label class="col-form-label col-lg-2"> Employee Name :
-									</label> <label class="col-form-label col-lg-2">Akshay Kasar</label> <label
+									</label> <label class="col-form-label col-lg-2">Akshay Kasar</label>
+									<!-- <label
 										class="col-form-label col-lg-1"> Long Route : </label> <label
-										class="col-form-label col-lg-1">1</label> <label
-										class="col-form-label col-lg-1"> Short Route : </label> <label
-										class="col-form-label col-lg-1">0</label> <label
-										class="col-form-label col-lg-1"> Off Days : </label> <label
+										class="col-form-label col-lg-1">1</label>-->
+									<label class="col-form-label col-lg-1"> Off Days : </label> <label
+										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1"> FF : </label> <label
 										class="col-form-label col-lg-1">0</label>
 
 								</div>
@@ -161,6 +161,8 @@
 														<th class="text-center">Driver Name</th>
 														<th class="text-center">Select Route</th>
 														<th class="text-center">Off Day</th>
+														<th class="text-center">FF</th>
+														<th class="text-center">Detail</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -178,6 +180,10 @@
 
 														</select></td>
 														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><button type="submit"
+																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button>
+														</td>
 													</tr>
 													<tr>
 														<td>Sachin Handage</td>
@@ -192,6 +198,9 @@
 
 														</select></td>
 														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><button type="submit"
+																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Search</button></td>
 													</tr>
 
 
@@ -213,8 +222,8 @@
 												<thead>
 													<tr class="bg-blue">
 
-														<th class="text-center">Date</th>
-														<th class="text-center">Route</th>
+														<th class="text-center">Route Type</th>
+														<th class="text-center">Count</th>
 														<th class="text-center">KM</th>
 														<th class="text-center">Incentive</th>
 													</tr>
@@ -223,15 +232,15 @@
 
 													<tr>
 
-														<td class="text-center">25-06-2020</td>
-														<td class="text-left">Aurangabad-Nashik</td>
+														<td class="text-center">Short</td>
+														<td class="text-left">0</td>
 														<td class="text-left">200</td>
 														<td class="text-left">1000</td>
 													</tr>
 													<tr>
 
-														<td class="text-center">26-06-2020</td>
-														<td class="text-left">Aurangabad-Nashik</td>
+														<td class="text-center">Long</td>
+														<td class="text-left">1</td>
 														<td class="text-left">200</td>
 														<td class="text-left">1000</td>
 													</tr>
@@ -242,8 +251,8 @@
 									</div>
 								</div>
 								<div class="form-group text-center ">
-									<input type="submit" class="btn blue_btn" value="Submit"
-										id="btnassignstuct">
+									<input type="button" class="btn blue_btn bootbox_custom"
+										value="Confirm" id="btnassignstuct">
 
 								</div>
 							</div>
@@ -316,6 +325,49 @@
 		</div>
 	</div>
 	<!-- /large modal -->
+	<script>
+		// Custom bootbox dialog
+		$('.bootbox_custom').on(
+				'click',
+				function() {
+					//var uuid = $(this).data("uuid") // will return the number 123
+					/* $("#error_emp").hide();
+					var list = [];
+
+					$("input:checkbox[name=selectEmp]:checked").each(
+							function() {
+								list.push($(this).val());
+							}); */
+					/* if (list.length > 0) { */
+
+					bootbox.confirm({
+						title : 'Confirm ',
+						message : 'You Want to confirm Route Allocation? ',
+						buttons : {
+							confirm : {
+								label : 'Yes',
+								className : 'btn-success'
+							},
+							cancel : {
+								label : 'Cancel',
+								className : 'btn-link'
+							}
+						},
+						callback : function(result) {
+							if (result) {
+								document.getElementById(
+										'submitFixAttendaceByDateAndEmp')
+										.submit();
+
+							}
+						}
+					});
+					/* } else {
+						 
+						$("#error_emp").show();
+					} */
+				});
+	</Script>
 	<script type="text/javascript">
 		$('.datepickerclass').daterangepicker({
 			singleDatePicker : true,
@@ -325,7 +377,15 @@
 				format : 'DD-MM-YYYY'
 			}
 		});
+		$('.daterange-basic_new').daterangepicker({
+			applyClass : 'bg-slate-600',
 
+			cancelClass : 'btn-light',
+			locale : {
+				format : 'DD-MM-YYYY',
+				separator : ' to '
+			}
+		});
 		function openHideDiv(value) {
 
 			if (value == 1) {
@@ -477,58 +537,7 @@
 
 		}
 	</script>
-	<script>
-		// Custom bootbox dialog
-		$('.bootbox_custom')
-				.on(
-						'click',
-						function() {
-							var dailyId = $(this).data("dailyid")
-							var sts = $(this).data("attstatus") // will return the number 123
 
-							bootbox
-									.confirm({
-										title : 'Confirm ',
-										message : 'Are you sure you want to Mark as Compoff ? you Can not edit attendance again',
-										buttons : {
-											confirm : {
-												label : 'Yes',
-												className : 'btn-success'
-											},
-											cancel : {
-												label : 'Cancel',
-												className : 'btn-link'
-											}
-										},
-										callback : function(result) {
-											if (result) {
-												var fd = new FormData();
-												fd.append('dailyId', dailyId);
-												fd.append('sts', sts);
-												$('#modal_step1').modal('show');
-
-												$
-														.ajax({
-															url : '${pageContext.request.contextPath}/markAsCompOff',
-															type : 'post',
-															dataType : 'json',
-															data : fd,
-															contentType : false,
-															processData : false,
-															success : function(
-																	response) {
-
-																location
-																		.reload(true);
-
-															},
-														});
-
-											}
-										}
-									});
-						});
-	</Script>
 
 	<script type="text/javascript">
 		function addLeave() {

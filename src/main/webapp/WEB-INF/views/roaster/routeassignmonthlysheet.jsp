@@ -49,7 +49,7 @@
 				<div class="card">
 					<div class="card-header header-elements-inline">
 						<h5 class="pageTitle">
-							<i class="icon-list-unordered"></i> Attendance Sheet
+							<i class="icon-list-unordered"></i> Monthly Roaster Sheet
 						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
@@ -65,7 +65,7 @@
 							<div class="form-group row">
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="date">Select Month <span style="color: red">*
+									for="date">Select Date <span style="color: red">*
 								</span> :
 								</label>
 								<div class="col-md-2">
@@ -96,10 +96,9 @@
 						</div>
 						<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
 							<li class="nav-item"><a href="#highlighted-justified-tab1"
-								class="nav-link active" data-toggle="tab">View Monthly
-									Attendance</a></li>
+								class="nav-link active" data-toggle="tab">View Monthly </a></li>
 							<li class="nav-item"><a href="#highlighted-justified-tab2"
-								class="nav-link" data-toggle="tab">View Summary Attendance </a></li>
+								class="nav-link" data-toggle="tab">View Summary </a></li>
 
 						</ul>
 
@@ -116,10 +115,10 @@
 										class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
 										width="100%" id="printtable1">
 										<thead>
-											<tr class="bg-blue">
+											<%-- <tr class="bg-blue">
 												<!-- <th style="text-align: center;">Sr.no</th> -->
-												<th style="text-align: center;">EMP Code</th>
-												<th style="text-align: center;">EMP Name</th>
+												<th style="text-align: center;">Driver Code</th>
+												<th style="text-align: center;">Driver Name</th>
 												<th style="text-align: center;">Month</th>
 												<th style="text-align: center;">Year</th>
 												<c:forEach items="${attendanceSheetData.dateAndDayList}"
@@ -127,14 +126,112 @@
 													<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
 												</c:forEach>
 												<th style="text-align: center;">Edit</th>
+											</tr> --%>
+											<tr class="bg-blue">
+												<th style="text-align: center;">Driver Code</th>
+												<th style="text-align: center;">Driver Name</th>
+												<th style="text-align: center;">Month</th>
+												<th style="text-align: center;">Year</th>
+
+												<th style="text-align: center;">1<br>Mon
+												</th>
+
+												<th style="text-align: center;">2<br>Tue
+												</th>
+
+												<th style="text-align: center;">3<br>Wed
+												</th>
+
+												<th style="text-align: center;">4<br>Thu
+												</th>
+
+												<th style="text-align: center;">5<br>Fri
+												</th>
+
+												<th style="text-align: center;">6<br>Sat
+												</th>
+
+												<th style="text-align: center;">7<br>Sun
+												</th>
+
+												<th style="text-align: center;">8<br>Mon
+												</th>
+
+												<th style="text-align: center;">9<br>Tue
+												</th>
+
+												<th style="text-align: center;">10<br>Wed
+												</th>
+
+												<th style="text-align: center;">11<br>Thu
+												</th>
+
+												<th style="text-align: center;">12<br>Fri
+												</th>
+
+												<th style="text-align: center;">13<br>Sat
+												</th>
+
+												<th style="text-align: center;">14<br>Sun
+												</th>
+
+												<th style="text-align: center;">15<br>Mon
+												</th>
+
+												<th style="text-align: center;">16<br>Tue
+												</th>
+
+												<th style="text-align: center;">17<br>Wed
+												</th>
+
+												<th style="text-align: center;">18<br>Thu
+												</th>
+
+												<th style="text-align: center;">19<br>Fri
+												</th>
+
+												<th style="text-align: center;">20<br>Sat
+												</th>
+
+												<th style="text-align: center;">21<br>Sun
+												</th>
+
+												<th style="text-align: center;">22<br>Mon
+												</th>
+
+												<th style="text-align: center;">23<br>Tue
+												</th>
+
+												<th style="text-align: center;">24<br>Wed
+												</th>
+
+												<th style="text-align: center;">25<br>Thu
+												</th>
+
+												<th style="text-align: center;">26<br>Fri
+												</th>
+
+												<th style="text-align: center;">27<br>Sat
+												</th>
+
+												<th style="text-align: center;">28<br>Sun
+												</th>
+
+												<th style="text-align: center;">29<br>Mon
+												</th>
+
+												<th style="text-align: center;">30<br>Tue
+												</th>
+
+												<th style="text-align: center;">Edit</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											<c:forEach items="${attendanceSheetData.infomationList}"
+											<%-- <c:forEach items="${attendanceSheetData.infomationList}"
 												var="infomationList" varStatus="count">
 												<tr>
-													<%-- 	<td>${count.index+1}</td> --%>
+														<td>${count.index+1}</td>
 													<td style="text-align: center;">${infomationList.empCode}</td>
 													<td>${infomationList.empName}</td>
 													<td style="text-align: right;">${month}</td>
@@ -153,7 +250,110 @@
 																class="icon-pencil7"></i></a>
 														</c:if></td>
 												</tr>
-											</c:forEach>
+											</c:forEach> --%>
+											<tr>
+
+												<td style="text-align: center;">AD001</td>
+												<td>Akshay Raoandore</td>
+												<td style="text-align: right;">6</td>
+												<td style="text-align: right;">2020</td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">P</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td style="text-align: center;"><p
+														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
+
+												<td class="text-center"><a
+													href="/hreasy/attendanceEditEmpMonth?month=6&year=2020&empId=1"
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="" data-original-title="Edit"><i
+														class="icon-pencil7"></i></a></td>
+											</tr>
 
 										</tbody>
 									</table>
@@ -274,7 +474,7 @@
 					minViewMode : "months"
 
 				});
-  
+
 			});
 		</script>
 
@@ -291,8 +491,8 @@
 				scrollCollapse : true,
 				paging : false,
 				fixedColumns : {
-					leftColumns : 2,
-					rightColumns : 1
+					leftColumns : 0,
+					rightColumns : 0
 				}
 
 			});

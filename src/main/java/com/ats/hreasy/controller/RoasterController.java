@@ -232,5 +232,27 @@ public class RoasterController {
 		return mav;
 
 	}
+	
+	
+	@RequestMapping(value = "/routeassignmonthlysheet", method = RequestMethod.GET)
+	public String routeassignmonthlysheet(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+ 
+		mav = "roaster/routeassignmonthlysheet";
+
+		try {
+ 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
 
 }
