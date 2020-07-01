@@ -239,13 +239,17 @@
 									</div>
 
 									<div class="col-md-6">
+										<br> <br>
+										<br>
 
 										<div class="table-responsive">
 											<!-- <table class="table datatable-scroll-y" width="100%"
 											id="printtable2"> -->
-											<table
+											<!-- <table
 												class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-												width="100%" id="printtable2">
+												width="100%" id="printtable2"> -->
+											<table class="table table-bordered table-hover"
+												id="printtable2">
 												<thead>
 													<tr class="bg-blue">
 
@@ -257,20 +261,7 @@
 												</thead>
 												<tbody>
 
-													<tr>
 
-														<td class="text-center">Short</td>
-														<td class="text-left">0</td>
-														<td class="text-left">200</td>
-														<td class="text-left">1000</td>
-													</tr>
-													<tr>
-
-														<td class="text-center">Long</td>
-														<td class="text-left">1</td>
-														<td class="text-left">200</td>
-														<td class="text-left">1000</td>
-													</tr>
 
 												</tbody>
 											</table>
@@ -485,6 +476,35 @@
 					  document.getElementById("totalincentive").innerHTML = response.incentive.toFixed(2);
 
 
+					   $("#printtable2 tbody").empty();
+					  
+					   for(var i=0 ; i<response.planwisehistoryList.length ;i++){
+						   var tr_data = '<tr  >'
+								+ '<td >'
+								+ response.planwisehistoryList[i].typeName
+								+ '</td>'
+								+ '<td  class="text-right">'
+								+ response.planwisehistoryList[i].count
+								+ '</td><td class="text-right" >'
+								+ response.planwisehistoryList[i].km
+								+ '</td>'
+								+ '<td class="text-right" >'
+								+ response.planwisehistoryList[i].incentive.toFixed(2)
+								+ '</td> </tr>';
+						   $('#printtable2').append(tr_data);
+					   }
+					   
+					  
+
+						/*$(
+						'#printtable2'
+								+ ' tbody')
+						.append(
+								tr_data); */
+								
+					  
+
+					  
 				},
 			});
 

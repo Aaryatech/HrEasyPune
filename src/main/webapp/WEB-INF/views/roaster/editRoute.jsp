@@ -94,15 +94,21 @@
 
 									<div class="form-group row">
 										<div class="col-md-6">
-											<label class="col-form-label  col-lg-5 float" for="add">Start
-												Time : </label>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="add">Start Time <span class="text-danger">*
+											</span>:
+											</label>
 											<div class="col-lg-7  float">
 												<%-- <textarea rows="3" cols="3" class="form-control"
 													placeholder="Location Short Address" onchange="trim(this)"
 													id="add" name="add">  ${editLocation.locShortAddress} </textarea> --%>
-												9 AM <span class="validation-invalid-label"
-													id="error_locadd" style="display: none;">This field
-													is required.</span>
+												<input type="text" class="form-control"
+													placeholder="Contact Person Name" id="prsnName"
+													name="prsnName" autocomplete="off" onchange="trim(this)"
+													value="10:00"> <span
+													class="validation-invalid-label" id="error_locadd"
+													style="display: none;">This field is required.</span>
 											</div>
 										</div>
 
@@ -141,21 +147,34 @@
 											</div>
 										</div>
 
-										<%-- <div class="col-md-6">
+										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="email">Email <span class="text-danger">*
-											</span>:
+												for="email">Select Route Type <span
+												class="text-danger">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="text" class="form-control" placeholder="Email"
-													id="email" name="email" autocomplete="off"
-													onchange="trim(this)"
-													value="${editLocation.locHrContactEmail}"> <span
-													class="validation-invalid-label" id="error_email"
+												<select name="routeId${list.planDetailId}"
+													data-placeholder="Select Route"
+													id="routeId${list.planDetailId}" class="form-control"
+													onchange="updateRouteId(${list.planDetailId})">
+													<option value="0" selected>NA</option>
+
+													<%-- <c:forEach items="${routeList}" var="routeList">
+														<c:choose>
+															<c:when test="${routeList.routeId==list.routeId}">
+																<option value="${routeList.routeId}" selected>${routeList.routeName}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${routeList.routeId}">${routeList.routeName}</option>
+															</c:otherwise>
+														</c:choose>
+
+													</c:forEach> --%>
+												</select> <span class="validation-invalid-label" id="error_email"
 													style="display: none;">This field is required.</span>
 											</div>
-										</div> --%>
+										</div>
 									</div>
 
 
