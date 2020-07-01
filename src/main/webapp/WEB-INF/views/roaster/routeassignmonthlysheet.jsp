@@ -65,13 +65,13 @@
 							<div class="form-group row">
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="date">Select Date <span style="color: red">*
+									for="date">Select Month <span style="color: red">*
 								</span> :
 								</label>
 								<div class="col-md-2">
 									<input type="text" class="form-control "
 										placeholder="Select Date " id="datepicker" name="date"
-										value="${date}" autocomplete="off">
+										value="06-2020" autocomplete="off">
 								</div>
 
 
@@ -259,7 +259,7 @@
 												<td style="text-align: right;">2020</td>
 
 												<td style="text-align: center;"><p
-														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">P</p></td>
+														title="In Time - 00:00:00, Out Time - 00:00:00, Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
 
 												<td style="text-align: center;"><p
 														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
@@ -349,9 +349,7 @@
 														title="In Time - , Out Time - , Wotking Hrs - 0.0, Production Incentive Min - 0.0, Late Min - 0">Aurangabad-nashik</p></td>
 
 												<td class="text-center"><a
-													href="/hreasy/attendanceEditEmpMonth?month=6&year=2020&empId=1"
-													class="list-icons-item text-primary-600"
-													data-popup="tooltip" title="" data-original-title="Edit"><i
+													href="${pageContext.request.contextPath}/showRosterdatewise?month=6&year=2020&empId=1"><i
 														class="icon-pencil7"></i></a></td>
 											</tr>
 
@@ -366,34 +364,35 @@
 									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="bootstrap-data-table1"> -->
-									<table
-										class="table datatable-fixed-left_custom table-bordered  table-hover table-striped"
+									<table class="table  table-bordered  table-hover table-striped"
 										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
 												<th width="5%" class="text-center">Sr.no</th>
-												<th class="text-center">EMP Code</th>
-												<th class="text-center">EMP Name</th>
-												<th class="text-center">Working Days</th>
-												<th class="text-center">Present Days</th>
-												<th class="text-center">Absent Days</th>
-												<th class="text-center">Weekly Off</th>
-												<th class="text-center">Paid Holiday</th>
-												<th class="text-center">Paid Leave</th>
-												<th class="text-center">Unpaid Holiday</th>
-												<!-- <th class="text-center">Unpaid Leave</th> -->
-												<th class="text-center">Late Min</th>
-												<th class="text-center">Late Days</th>
-												<th class="text-center">Payable Days</th>
-												<!-- <th class="text-center">NCP Days</th> -->
-												<th class="text-center">Total Hrs</th>
-												<th class="text-center">Production Incentive <br>Hrs
-												</th>
-												<th class="text-center">Attendance Type</th>
+												<th class="text-center">Driver Code</th>
+												<th class="text-center">Driver Name</th>
+												<th class="text-center">Long Route</th>
+												<th class="text-center">Short Route</th>
+												<th class="text-center">FF/Off Days</th>
+												<th class="text-center">Late Mark</th>
+												<th class="text-center">Late Min</th> 
+												<th class="text-center">Incentive</th>
 											</tr>
 										</thead>
 
 										<tbody>
+
+											<tr>
+												<td>1</td>
+												<td>AD001</td>
+												<td>Akshay Kasar</td>
+												<td class="text-right">1</td>
+												<td class="text-right">0</td>
+												<td class="text-right">1/0</td>
+												<td class="text-right">0</td>
+												<td class="text-right">0</td>
+												<td class="text-right">2000</td>
+											</tr>
 											<c:forEach items="${summrylist}" var="summrylist"
 												varStatus="count">
 												<tr>
@@ -491,8 +490,8 @@
 				scrollCollapse : true,
 				paging : false,
 				fixedColumns : {
-					leftColumns : 0,
-					rightColumns : 0
+					leftColumns : 2,
+					rightColumns : 1
 				}
 
 			});

@@ -94,26 +94,37 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
+								<form id="form-login"
+									action="${pageContext.request.contextPath}/assignRootToDriver"
+									method="get">
+									<div class="form-group row">
+										<label
+											class="col-form-label text-info font-weight-bold col-lg-2"
+											for="date">Planning Date <span style="color: red">*
+										</span> :
+										</label>
+										<div class="col-md-2">
 
-								<div class="form-group row">
-									<label
-										class="col-form-label text-info font-weight-bold col-lg-2"
-										for="date">Planning Date <span style="color: red">*
-									</span> :
-									</label>
-									<div class="col-md-2">
+											<input type="text" class="form-control datepickerclass"
+												placeholder="Select Date " id="datepicker1" name="date"
+												value="${date}" autocomplete="off" required>
 
-										<input type="text" class="form-control datepickerclass"
-											placeholder="Select Date " id="datepicker1" name="date"
-											value="${date}" autocomplete="off"> <span
-											class="validation-invalid-label" id="error_daterange"
-											style="display: none;">This field is required.</span>
+											<%-- <c:choose>
+												<c:when test="${info.isError==false}">
+													<span class="validation-invalid-label" id="error_name"
+														style="display: none;">This field is required.</span>
+												</c:when>
+												<c:otherwise>
+													<span class="validation-invalid-label" id="error_name">${info.msg}</span>
+												</c:otherwise>
+											</c:choose> --%>
 
 
+										</div>
+										<button type="submit" class="btn bg-blue ml-3 legitRipple"
+											id="submtbtn">Search</button>
 									</div>
-									<button type="submit" class="btn bg-blue ml-3 legitRipple"
-										id="submtbtn">Search</button>
-								</div>
+								</form>
 								<hr>
 
 								<div class="form-group row">
@@ -130,13 +141,19 @@
 								<div class="form-group row">
 									<label class="col-form-label col-lg-2"> Employee Name :
 									</label> <label class="col-form-label col-lg-2">Akshay Kasar</label>
-									<!-- <label
-										class="col-form-label col-lg-1"> Long Route : </label> <label
-										class="col-form-label col-lg-1">1</label>-->
+
+
+								</div>
+
+								<div class="form-group row">
 									<label class="col-form-label col-lg-1"> Off Days : </label> <label
 										class="col-form-label col-lg-1">0</label><label
 										class="col-form-label col-lg-1"> FF : </label> <label
-										class="col-form-label col-lg-1">0</label>
+										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1"> KM : </label> <label
+										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1"> Incentive : </label> <label
+										class="col-form-label col-lg-1">2000</label>
 
 								</div>
 
@@ -160,14 +177,47 @@
 													<tr class="bg-blue">
 														<th class="text-center">Driver Name</th>
 														<th class="text-center">Select Route</th>
-														<th class="text-center">Off Day</th>
-														<th class="text-center">FF</th>
+														<th class="text-center">Select</th>
+														<c:if test="${flag==1}">
+															<th class="text-center">Late Mark</th>
+														</c:if>
 														<th class="text-center">Detail</th>
 													</tr>
 												</thead>
 												<tbody>
+													<c:forEach items="${list}" var="list" varStatus="count">
+														<tr>
+															<td>${list.firstName}&nbsp;${list.surname}</td>
+															<td><select name="routeId${list.planDetailId}"
+																data-placeholder="Select Route"
+																id="routeId${list.planDetailId}" class="form-control"
+																onchange="updateRouteId(${list.planDetailId})">
+																	<option value="0" selected>NA</option>
+																	<option value="1">Aurangabad-Nashik</option>
 
-													<tr>
+
+															</select></td>
+															<td class="text-center"><select
+																name="isFF${list.planDetailId}"
+																data-placeholder="Select Route"
+																onchange="updateRouteId(${list.planDetailId})"
+																id="isFF${list.planDetailId}" class="form-control">
+
+																	<option value="0" selected>NA</option>
+																	<option value="1">Off Day</option>
+																	<option value="2">FF</option>
+															</select></td>
+															<c:if test="${flag==1}">
+																<td class="text-center"><input type="checkbox">
+																	<input type="text" class="form-control"
+																	placeholder="Late Min" value="0"></td>
+															</c:if>
+															<td class="text-center"><button type="submit"
+																	class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button>
+															</td>
+														</tr>
+													</c:forEach>
+													<%-- <tr>
 														<td>Akshay Kasar</td>
 														<td><select
 															name="shiftId${tempFistDayAssignListList.id}"
@@ -179,8 +229,21 @@
 
 
 														</select></td>
-														<td class="text-center"><input type="checkbox"></td>
-														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><select
+															name="shiftId${tempFistDayAssignListList.id}"
+															data-placeholder="Select Route"
+															id="shiftId${tempFistDayAssignListList.id}"
+															class="form-control">
+
+																<option value="0" selected>FF</option>
+																<option value="0" selected>Off Day</option>
+
+														</select></td>
+														<c:if test="${flag==1}">
+															<td class="text-center"><input type="checkbox">
+																<input type="text" class="form-control"
+																placeholder="Late Min" value="0"></td>
+														</c:if>
 														<td class="text-center"><button type="submit"
 																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button>
 														</td>
@@ -197,11 +260,25 @@
 
 
 														</select></td>
-														<td class="text-center"><input type="checkbox"></td>
-														<td class="text-center"><input type="checkbox"></td>
+														<td class="text-center"><select
+															name="shiftId${tempFistDayAssignListList.id}"
+															data-placeholder="Select Route"
+															id="shiftId${tempFistDayAssignListList.id}"
+															class="form-control">
+
+																<option value="0" selected>FF</option>
+																<option value="0" selected>Off Day</option>
+
+														</select></td>
+
+														<c:if test="${flag==1}">
+															<td class="text-center"><input type="checkbox">
+																<input type="text" class="form-control"
+																placeholder="Late Min" value="0"></td>
+														</c:if>
 														<td class="text-center"><button type="submit"
-																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Search</button></td>
-													</tr>
+																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button></td>
+													</tr> --%>
 
 
 												</tbody>
@@ -250,11 +327,14 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group text-center ">
-									<input type="button" class="btn blue_btn bootbox_custom"
-										value="Confirm" id="btnassignstuct">
 
-								</div>
+								<c:if test="${flag==1}">
+									<div class="form-group text-center ">
+										<input type="button" class="btn blue_btn bootbox_custom"
+											value="Confirm" id="btnassignstuct">
+
+									</div>
+								</c:if>
 							</div>
 						</div>
 
@@ -386,32 +466,32 @@
 				separator : ' to '
 			}
 		});
-		function openHideDiv(value) {
 
-			if (value == 1) {
+		function updateRouteId(planDetailId) {
 
-				document.getElementById("byIntimeDive").style.display = 'none';
-				document.getElementById("byStatusDive").style.display = 'block';
+			var routeId = document.getElementById("routeId"+planDetailId).value;
+			var isFF = document.getElementById("isFF"+planDetailId).value;
+			//var selectStatusText = $("#newSts" + selectStatus).data("namesd");
 
-			} else {
-				document.getElementById("byIntimeDive").style.display = 'block';
-				document.getElementById("byStatusDive").style.display = 'none';
+			if(routeId==0 && isFF==0){
+				document.getElementById("routeId"+planDetailId).disabled=false;
+				document.getElementById("isFF"+planDetailId).disabled=false;
+			}else{
+				if(routeId>0){
+					document.getElementById("isFF"+planDetailId).disabled=true;
+				}else{
+					document.getElementById("routeId"+planDetailId).disabled=true;
+				}
 			}
-		}
-
-		function closeEditDetailTab() {
-
-			document.getElementById("editAttanceDiv").style.display = 'none';
-		}
-
-		function editAttendanceDetail(dailyId) {
-
+			
 			var fd = new FormData();
-			fd.append('dailyId', dailyId);
-
+			fd.append('planDetailId', planDetailId);
+			fd.append('isFF', isFF);
+			fd.append('routeId', routeId);
+			
 			$
 					.ajax({
-						url : '${pageContext.request.contextPath}/editDailyRecord',
+						url : '${pageContext.request.contextPath}/updateRouteId',
 						type : 'post',
 						dataType : 'json',
 						data : fd,
@@ -419,32 +499,7 @@
 						processData : false,
 						success : function(response) {
 
-							document.getElementById("editAttanceDiv").style.display = 'block';
-							document.getElementById("byIntimeDive").style.display = 'none';
-							document.getElementById("byStatusDive").style.display = 'block';
-							document.getElementById("byStatus").checked = true;
-							document.getElementById("dailyId").value = response.id;
-							document.getElementById("attDate").value = response.attDate;
-							document.getElementById("attStatus").value = response.attsSdShow;
-							document.getElementById("selectShift").value = response.currentShiftid;
-
-							if (response.otHr.length == 4) {
-								document.getElementById("otHours").value = 0 + response.otHr;
-							} else {
-								document.getElementById("otHours").value = response.otHr;
-							}
-
-							document.getElementById("inTime").value = response.inTime
-									.substr(0, 5);
-							document.getElementById("outTime").value = response.outTime
-									.substr(0, 5);
-
-							if (response.lateMark == 1) {
-								document.getElementById("lateMark").checked = true;
-							} else {
-								document.getElementById("lateMark").checked = false;
-							}
-							document.getElementById("lateMin").value = response.lateMin;
+							 
 						},
 					});
 

@@ -202,7 +202,7 @@
 
 													</tr>
 												</c:forEach>
-												<c:forEach items="${empListAuth}" var="emp"
+												<%-- <c:forEach items="${empListAuth}" var="emp"
 													varStatus="count">
 													<tr>
 														<td class="text-center"><input type="checkbox"
@@ -214,7 +214,7 @@
 														<td>${emp.empDesgn}</td>
 
 													</tr>
-												</c:forEach>
+												</c:forEach> --%>
 
 											</tbody>
 										</table>

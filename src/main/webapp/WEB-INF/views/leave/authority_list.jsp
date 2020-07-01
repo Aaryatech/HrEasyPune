@@ -71,14 +71,17 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i>Assign Leave Authority</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i>Assign Leave Authority
+									</h5></td>
 								<td width="40%" align="right"><c:if
 										test="${addAccess == 0}">
 										<a href="${pageContext.request.contextPath}/addLeaveAuthority"
 											class="breadcrumb-elements-item">
 											<button type="button" class="btn blue_btn">Add Leave
 												Authority</button>
-									 </a></c:if></td>
+										</a>
+									</c:if></td>
 							</tr>
 						</table>
 					</div>
@@ -179,7 +182,7 @@
 													href="${pageContext.request.contextPath}/editLeaveAuthority?empId=${leaveAuth.exVar1}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
-													class="icon-pencil7"></i></a>
+													class="icon-pencil7"></i>${leaveAuth.empId}</a>
 											</c:if> <!-- </div>
 												</div>
 											</div> -->
