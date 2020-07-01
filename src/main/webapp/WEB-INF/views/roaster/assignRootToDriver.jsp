@@ -109,18 +109,16 @@
 												placeholder="Select Date " id="datepicker1" name="date"
 												value="${date}" autocomplete="off" required>
 
-											<%-- <c:choose>
-												<c:when test="${info.isError==false}">
-													<span class="validation-invalid-label" id="error_name"
-														style="display: none;">This field is required.</span>
-												</c:when>
-												<c:otherwise>
-													<span class="validation-invalid-label" id="error_name">${info.msg}</span>
-												</c:otherwise>
-											</c:choose> --%>
-
-
 										</div>
+										<c:choose>
+											<c:when test="${info.error==false}">
+												<span class="validation-invalid-label" id="error_name"
+													style="display: none;">This field is required.</span>
+											</c:when>
+											<c:otherwise>
+												<span class="validation-invalid-label" id="error_name">${info.msg}</span>
+											</c:otherwise>
+										</c:choose>
 										<button type="submit" class="btn bg-blue ml-3 legitRipple"
 											id="submtbtn">Search</button>
 									</div>
@@ -140,20 +138,21 @@
 
 								<div class="form-group row">
 									<label class="col-form-label col-lg-2"> Employee Name :
-									</label> <label class="col-form-label col-lg-2">Akshay Kasar</label>
+									</label> <label class="col-form-label col-lg-2" id="driverName">
+										- </label>
 
 
 								</div>
 
 								<div class="form-group row">
 									<label class="col-form-label col-lg-1"> Off Days : </label> <label
-										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1" id="offDays">0</label><label
 										class="col-form-label col-lg-1"> FF : </label> <label
-										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1" id="ffDays">0</label><label
 										class="col-form-label col-lg-1"> KM : </label> <label
-										class="col-form-label col-lg-1">0</label><label
+										class="col-form-label col-lg-1" id="totalKm">0</label><label
 										class="col-form-label col-lg-1"> Incentive : </label> <label
-										class="col-form-label col-lg-1">2000</label>
+										class="col-form-label col-lg-1" id="totalincentive">0</label>
 
 								</div>
 
@@ -193,9 +192,18 @@
 																id="routeId${list.planDetailId}" class="form-control"
 																onchange="updateRouteId(${list.planDetailId})">
 																	<option value="0" selected>NA</option>
-																	<option value="1">Aurangabad-Nashik</option>
 
+																	<c:forEach items="${routeList}" var="routeList">
+																		<c:choose>
+																			<c:when test="${routeList.routeId==list.routeId}">
+																				<option value="${routeList.routeId}" selected>${routeList.routeName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${routeList.routeId}">${routeList.routeName}</option>
+																			</c:otherwise>
+																		</c:choose>
 
+																	</c:forEach>
 															</select></td>
 															<td class="text-center"><select
 																name="isFF${list.planDetailId}"
@@ -204,8 +212,11 @@
 																id="isFF${list.planDetailId}" class="form-control">
 
 																	<option value="0" selected>NA</option>
-																	<option value="1">Off Day</option>
-																	<option value="2">FF</option>
+																	<option value="1"
+																		${list.isoffdayIsff==1 ? 'selected' : ''}>Off
+																		Day</option>
+																	<option value="2"
+																		${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
 															</select></td>
 															<c:if test="${flag==1}">
 																<td class="text-center"><input type="checkbox">
@@ -213,72 +224,11 @@
 																	placeholder="Late Min" value="0"></td>
 															</c:if>
 															<td class="text-center"><button type="submit"
-																	class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button>
+																	class="btn bg-blue ml-3 legitRipple" id="historybtn"
+																	onclick="getPlanHistoryDetailByEmpId(${list.driverId})">Detail</button>
 															</td>
 														</tr>
 													</c:forEach>
-													<%-- <tr>
-														<td>Akshay Kasar</td>
-														<td><select
-															name="shiftId${tempFistDayAssignListList.id}"
-															data-placeholder="Select Shift"
-															id="shiftId${tempFistDayAssignListList.id}"
-															class="form-control">
-
-																<option value="1" selected>Aurangabad-Nashik</option>
-
-
-														</select></td>
-														<td class="text-center"><select
-															name="shiftId${tempFistDayAssignListList.id}"
-															data-placeholder="Select Route"
-															id="shiftId${tempFistDayAssignListList.id}"
-															class="form-control">
-
-																<option value="0" selected>FF</option>
-																<option value="0" selected>Off Day</option>
-
-														</select></td>
-														<c:if test="${flag==1}">
-															<td class="text-center"><input type="checkbox">
-																<input type="text" class="form-control"
-																placeholder="Late Min" value="0"></td>
-														</c:if>
-														<td class="text-center"><button type="submit"
-																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button>
-														</td>
-													</tr>
-													<tr>
-														<td>Sachin Handage</td>
-														<td><select
-															name="shiftId${tempFistDayAssignListList.id}"
-															data-placeholder="Select Route"
-															id="shiftId${tempFistDayAssignListList.id}"
-															class="form-control">
-
-																<option value="0" selected>Select Route</option>
-
-
-														</select></td>
-														<td class="text-center"><select
-															name="shiftId${tempFistDayAssignListList.id}"
-															data-placeholder="Select Route"
-															id="shiftId${tempFistDayAssignListList.id}"
-															class="form-control">
-
-																<option value="0" selected>FF</option>
-																<option value="0" selected>Off Day</option>
-
-														</select></td>
-
-														<c:if test="${flag==1}">
-															<td class="text-center"><input type="checkbox">
-																<input type="text" class="form-control"
-																placeholder="Late Min" value="0"></td>
-														</c:if>
-														<td class="text-center"><button type="submit"
-																class="btn bg-blue ml-3 legitRipple" id="submtbtn">Detail</button></td>
-													</tr> --%>
 
 
 												</tbody>
@@ -505,17 +455,19 @@
 
 		}
 
-		function markAsCompOff(dailyId, sts) {
+		function getPlanHistoryDetailByEmpId(empId) {
 
 			//alert(sts);
-
+			var daterange = document.getElementById("daterange").value;
+			
 			var fd = new FormData();
-			fd.append('dailyId', dailyId);
-			fd.append('sts', sts);
+			fd.append('empId', empId); 
+			fd.append('date', daterange); 
+			
 			$('#modal_step1').modal('show');
 
 			$.ajax({
-				url : '${pageContext.request.contextPath}/markAsCompOff',
+				url : '${pageContext.request.contextPath}/getPlanHistoryDetailByEmpId',
 				type : 'post',
 				dataType : 'json',
 				data : fd,
@@ -523,7 +475,15 @@
 				processData : false,
 				success : function(response) {
 
-					location.reload(true);
+					$('#modal_step1').modal('hide');
+					 // alert(JSON.stringify(response));
+					  
+					  document.getElementById("driverName").innerHTML = response.empName; 
+					  document.getElementById("offDays").innerHTML = response.offdays; 
+					  document.getElementById("ffDays").innerHTML = response.ffdays; 
+					  document.getElementById("totalKm").innerHTML = response.km; 
+					  document.getElementById("totalincentive").innerHTML = response.incentive.toFixed(2);
+
 
 				},
 			});
