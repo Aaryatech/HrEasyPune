@@ -188,8 +188,13 @@
 
 
 							<div class="card-body">
-
+								<c:if test="${flag==1}">
+									<form id="submitConfirmationRoaster"
+										action="${pageContext.request.contextPath}/submitConfirmationRoaster"
+										method="post">
+								</c:if>
 								<div class="row">
+
 									<div class="col-md-6">
 
 
@@ -221,17 +226,18 @@
 																onchange="updateRouteId(${list.planDetailId})"
 																onclick="checkDoubleRoute(${list.planDetailId})">
 																	<option value="0" selected
-																		id="routeId${list.planDetailId}0">NA</option>
+																		id="routeIdDetail${list.planDetailId}0">NA</option>
 
 																	<c:forEach items="${routeList}" var="routeList">
 																		<c:choose>
 																			<c:when test="${routeList.routeId==list.routeId}">
 																				<option value="${routeList.routeId}" selected
-																					id="routeId${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
+																					id="routeIdDetail${list.planDetailId}${routeList.routeId}"
+																					style="background-color: orange;">${routeList.routeName}</option>
 																			</c:when>
 																			<c:otherwise>
 																				<option value="${routeList.routeId}"
-																					id="routeId${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
+																					id="routeIdDetail${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
 																				<!-- style="background-color: orange;" -->
 																			</c:otherwise>
 																		</c:choose>
@@ -253,12 +259,13 @@
 															</select></td>
 															<c:if test="${flag==1}">
 																<td class="text-center"><input type="checkbox"
-																	id="lateMin${list.planDetailId}"
-																	name="lateMin${list.planDetailId}"> <input
-																	type="text" class="form-control numbersOnly"
+																	id="lateMark${list.planDetailId}"
+																	name="lateMark${list.planDetailId}" value="0"
+																	onchange="changeLateMark(${list.planDetailId})">
+																	<input type="text" class="form-control numbersOnly"
 																	placeholder="Late Min" value="0"
 																	name="lateMin${list.planDetailId}"
-																	id="lateMin${list.planDetailId}"></td>
+																	id="lateMin${list.planDetailId}" required></td>
 															</c:if>
 															<td class="text-center"><button type="submit"
 																	class="btn bg-blue ml-3 legitRipple" id="historybtn"
@@ -311,7 +318,9 @@
 											value="Confirm" id="btnassignstuct">
 
 									</div>
+									</form>
 								</c:if>
+
 							</div>
 						</div>
 
@@ -387,15 +396,7 @@
 		$('.bootbox_custom').on(
 				'click',
 				function() {
-					//var uuid = $(this).data("uuid") // will return the number 123
-					/* $("#error_emp").hide();
-					var list = [];
-
-					$("input:checkbox[name=selectEmp]:checked").each(
-							function() {
-								list.push($(this).val());
-							}); */
-					/* if (list.length > 0) { */
+					 
 
 					bootbox.confirm({
 						title : 'Confirm ',
@@ -413,16 +414,13 @@
 						callback : function(result) {
 							if (result) {
 								document.getElementById(
-										'submitFixAttendaceByDateAndEmp')
+										'submitConfirmationRoaster')
 										.submit();
 
 							}
 						}
 					});
-					/* } else {
-						 
-						$("#error_emp").show();
-					} */
+					 
 				});
 	</Script>
 	<script type="text/javascript">
@@ -445,6 +443,15 @@
 		});
 		
 		
+		function changeLateMark(planDetailId) {
+			
+			if(document.getElementById("lateMark"+planDetailId).checked==true){
+				document.getElementById("lateMark"+planDetailId).value = 1;
+			}else{
+				document.getElementById("lateMark"+planDetailId).value = 0;
+			}
+			
+		}
 		function checkDoubleRoute(planDetailId) {
 			
 			var routeId = document.getElementById("routeId"+planDetailId).value;
@@ -570,7 +577,7 @@
 					for(var j=0; j<response.driverPlanList.length ;j++){
 						
 						for(var i=0; i<response.routeList.length ;i++){
-							document.getElementById('routeId'+response.driverPlanList[j].planDetailId+''+response.routeList[i].routeId).style.backgroundColor="white";
+							document.getElementById('routeIdDetail'+response.driverPlanList[j].planDetailId+''+response.routeList[i].routeId).style.backgroundColor="white";
 						}
 						 
 						
@@ -585,7 +592,7 @@
 						for(var j=0; j<response.driverPlanList.length ;j++){
 							
 							 
-								document.getElementById('routeId'+response.driverPlanList[j].planDetailId+''+routeId).style.backgroundColor="orange";
+								document.getElementById('routeIdDetail'+response.driverPlanList[j].planDetailId+''+routeId).style.backgroundColor="orange";
 							 
 							
 						}

@@ -446,61 +446,92 @@ public class RoasterController {
 
 	}
 
+	String date;
+
 	@RequestMapping(value = "/confirmationRouteByDate", method = RequestMethod.GET)
 	public String confirmationRouteByDate(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+		Info view = AcessController.checkAccess("confirmationRouteByDate", "confirmationRouteByDate", 1, 0, 0, 0,
+				newModuleList);
 
-		/*
-		 * if (view.isError() == true) {
-		 * 
-		 * mav = "accessDenied";
-		 * 
-		 * } else {
-		 */
-		mav = "roaster/assignRootToDriver";
+		if (view.isError() == true) {
 
-		try {
+			mav = "accessDenied";
 
-			model.addAttribute("flag", 1);
+		} else {
 
-			String date = request.getParameter("date");
+			mav = "roaster/assignRootToDriver";
 
-			if (date != null) {
+			try {
 
-				model.addAttribute("date", date);
+				model.addAttribute("flag", 1);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map = new LinkedMultiValueMap<>();
-				map.add("date", DateConvertor.convertToYMD(date));
+				date = request.getParameter("date");
 
-				Info info = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/insertInitiallydriverInPlanRoute", map, Info.class);
+				if (date != null) {
 
-				model.addAttribute("info", info);
+					model.addAttribute("date", date);
 
-				if (info.isError() == false) {
-					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
 
-					List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
-					model.addAttribute("list", list);
+					Info info = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/insertInitiallydriverInPlanRoute", map, Info.class);
 
-					RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
-							RouteList[].class);
-					routeList = new ArrayList<>(Arrays.asList(route));
-					model.addAttribute("routeList", routeList);
+					model.addAttribute("info", info);
+
+					if (info.isError() == false) {
+						RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate().postForObject(
+								Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+
+						driverPlanList = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+						model.addAttribute("list", driverPlanList);
+
+						RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
+								RouteList[].class);
+						routeList = new ArrayList<>(Arrays.asList(route));
+						model.addAttribute("routeList", routeList);
+					}
+
 				}
 
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		// }
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/submitConfirmationRoaster", method = RequestMethod.POST)
+	public String submitConfirmationRoaster(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("confirmationRouteByDate", "confirmationRouteByDate", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+
+			mav = "redirect:/confirmationRouteByDate";
+
+			try {
+
+				 
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return mav;
 
 	}
