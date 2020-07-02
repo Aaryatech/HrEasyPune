@@ -158,12 +158,29 @@
 									<label class="col-form-label col-lg-1"> Off Days : </label> <label
 										class="col-form-label col-lg-1" id="offDays">0</label><label
 										class="col-form-label col-lg-1"> FF : </label> <label
-										class="col-form-label col-lg-1" id="ffDays">0</label><label
-										class="col-form-label col-lg-1"> KM : </label> <label
-										class="col-form-label col-lg-1" id="totalKm">0</label><label
-										class="col-form-label col-lg-1"> Incentive : </label> <label
-										class="col-form-label col-lg-1" id="totalincentive">0</label>
+										class="col-form-label col-lg-1" id="ffDays">0</label>
 
+								</div>
+
+								<div class="table-responsive">
+
+									<table class="table table-bordered table-hover"
+										id="printtable2">
+										<thead>
+											<tr class="bg-blue">
+
+												<th class="text-center">Route Type</th>
+												<th class="text-center">Count</th>
+												<th class="text-center">KM</th>
+												<th class="text-center">Incentive</th>
+											</tr>
+										</thead>
+										<tbody>
+
+
+
+										</tbody>
+									</table>
 								</div>
 
 							</div>
@@ -194,22 +211,28 @@
 													</tr>
 												</thead>
 												<tbody>
+
 													<c:forEach items="${list}" var="list" varStatus="count">
 														<tr>
 															<td>${list.firstName}&nbsp;${list.surname}</td>
 															<td><select name="routeId${list.planDetailId}"
 																data-placeholder="Select Route"
 																id="routeId${list.planDetailId}" class="form-control"
-																onchange="updateRouteId(${list.planDetailId})">
-																	<option value="0" selected>NA</option>
+																onchange="updateRouteId(${list.planDetailId})"
+																onclick="checkDoubleRoute(${list.planDetailId})">
+																	<option value="0" selected
+																		id="routeId${list.planDetailId}0">NA</option>
 
 																	<c:forEach items="${routeList}" var="routeList">
 																		<c:choose>
 																			<c:when test="${routeList.routeId==list.routeId}">
-																				<option value="${routeList.routeId}" selected>${routeList.routeName}</option>
+																				<option value="${routeList.routeId}" selected
+																					id="routeId${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
 																			</c:when>
 																			<c:otherwise>
-																				<option value="${routeList.routeId}">${routeList.routeName}</option>
+																				<option value="${routeList.routeId}"
+																					id="routeId${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
+																				<!-- style="background-color: orange;" -->
 																			</c:otherwise>
 																		</c:choose>
 
@@ -262,11 +285,11 @@
 												class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
 												width="100%" id="printtable2"> -->
 											<table class="table table-bordered table-hover"
-												id="printtable2">
+												id="printtable3">
 												<thead>
 													<tr class="bg-blue">
 
-														<th class="text-center">Route Type</th>
+														<th class="text-center">Route Name</th>
 														<th class="text-center">Count</th>
 														<th class="text-center">KM</th>
 														<th class="text-center">Incentive</th>
@@ -420,14 +443,18 @@
 				separator : ' to '
 			}
 		});
-
+		
+		
+		function checkDoubleRoute(planDetailId) {
+			alert(planDetailId)
+		}
 		function updateRouteId(planDetailId) {
 
 			var routeId = document.getElementById("routeId"+planDetailId).value;
 			var isFF = document.getElementById("isFF"+planDetailId).value;
 			//var selectStatusText = $("#newSts" + selectStatus).data("namesd");
 
-			if(routeId==0 && isFF==0){
+			/* if(routeId==0 && isFF==0){
 				document.getElementById("routeId"+planDetailId).disabled=false;
 				document.getElementById("isFF"+planDetailId).disabled=false;
 			}else{
@@ -436,7 +463,21 @@
 				}else{
 					document.getElementById("routeId"+planDetailId).disabled=true;
 				}
-			}
+			} */
+			
+			if(routeId==0 && isFF==0){
+				document.getElementById("routeId"+planDetailId).disabled=false;
+				document.getElementById("isFF"+planDetailId).disabled=false;
+			}else{
+				if(routeId>0){
+					
+					document.getElementById("isFF"+planDetailId).value=0;
+					document.getElementById("isFF"+planDetailId).disabled=true;
+					isFF=0;
+				}else{
+					document.getElementById("routeId"+planDetailId).disabled=false;
+				}
+			} 
 			
 			var fd = new FormData();
 			fd.append('planDetailId', planDetailId);
@@ -453,12 +494,54 @@
 						processData : false,
 						success : function(response) {
 
-							 
+							getDriverPlanList();
 						},
 					});
 
 		}
 
+		function getDriverPlanList() {
+			
+			$
+			.ajax({
+				url : '${pageContext.request.contextPath}/getDriverPlanList',
+				type : 'post',
+				dataType : 'json', 
+				contentType : false,
+				processData : false,
+				success : function(response) {
+
+					//alert(JSON.stringify(response))
+					
+					for(var j=0; j<response.driverPlanList.length ;j++){
+						
+						for(var i=0; i<response.routeList.length ;i++){
+							document.getElementById('routeId'+response.driverPlanList[j].planDetailId+''+response.routeList[i].routeId).style.backgroundColor="white";
+						}
+						 
+						
+					}
+					
+					for(var i=0; i<response.driverPlanList.length ;i++){
+						
+						var routeId = document.getElementById("routeId"+response.driverPlanList[i].planDetailId).value;
+						  
+						   if(routeId!=0){
+							 
+						for(var j=0; j<response.driverPlanList.length ;j++){
+							
+							 
+								document.getElementById('routeId'+response.driverPlanList[j].planDetailId+''+routeId).style.backgroundColor="orange";
+							 
+							
+						}
+						}  
+					}
+					 
+				},
+			});
+			
+		}
 		function getPlanHistoryDetailByEmpId(empId) {
 
 			//alert(sts);
@@ -485,8 +568,8 @@
 					  document.getElementById("driverName").innerHTML = response.empName; 
 					  document.getElementById("offDays").innerHTML = response.offdays; 
 					  document.getElementById("ffDays").innerHTML = response.ffdays; 
-					  document.getElementById("totalKm").innerHTML = response.km; 
-					  document.getElementById("totalincentive").innerHTML = response.incentive.toFixed(2);
+					  /* document.getElementById("totalKm").innerHTML = response.km; 
+					  document.getElementById("totalincentive").innerHTML = response.incentive.toFixed(2); */
 
 
 					   $("#printtable2 tbody").empty();
@@ -508,15 +591,24 @@
 					   }
 					   
 					  
-
-						/*$(
-						'#printtable2'
-								+ ' tbody')
-						.append(
-								tr_data); */
-								
-					  
-
+					   $("#printtable3 tbody").empty();
+						  
+					   for(var i=0 ; i<response.routewisePlanHistory.length ;i++){
+						   var tr_data = '<tr  >'
+								+ '<td >'
+								+ response.routewisePlanHistory[i].routeName
+								+ '</td>'
+								+ '<td  class="text-right">'
+								+ response.routewisePlanHistory[i].count
+								+ '</td><td class="text-right" >'
+								+ response.routewisePlanHistory[i].km
+								+ '</td>'
+								+ '<td class="text-right" >'
+								+ response.routewisePlanHistory[i].incentive.toFixed(2)
+								+ '</td> </tr>';
+						   $('#printtable3').append(tr_data);
+					   }
+						 
 					  
 				},
 			});

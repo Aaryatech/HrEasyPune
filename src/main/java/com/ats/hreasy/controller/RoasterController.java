@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
@@ -31,6 +32,7 @@ import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.RouteList;
 import com.ats.hreasy.model.RouteListFromOps;
+import com.ats.hreasy.model.RoutePlanDetailListWithRouteList;
 import com.ats.hreasy.model.RoutePlanDetailWithName;
 import com.ats.hreasy.model.RouteType;
 import com.ats.hreasy.model.ShiftMaster;
@@ -42,6 +44,7 @@ import com.ats.hrmgt.model.PlanHistoryDetail;
 public class RoasterController {
 
 	List<RouteList> routeList = new ArrayList<>();
+	List<RoutePlanDetailWithName> driverPlanList = new ArrayList<>();
 
 	@RequestMapping(value = "/assignRootToDriver", method = RequestMethod.GET)
 	public String attendanceEditEmpMonth(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -82,8 +85,8 @@ public class RoasterController {
 					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
 
-					List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
-					model.addAttribute("list", list);
+					driverPlanList = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+					model.addAttribute("list", driverPlanList);
 
 					RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
 							RouteList[].class);
@@ -182,39 +185,72 @@ public class RoasterController {
 
 	}
 
+	@RequestMapping(value = "/getDriverPlanList", method = RequestMethod.POST)
+	@ResponseBody
+	public RoutePlanDetailListWithRouteList getDriverPlanList(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		RoutePlanDetailListWithRouteList routePlanDetailListWithRouteList = new RoutePlanDetailListWithRouteList();
+
+		routePlanDetailListWithRouteList.setDriverPlanList(driverPlanList);
+		routePlanDetailListWithRouteList.setRouteList(routeList);
+
+		return routePlanDetailListWithRouteList;
+
+	}
+
 	@RequestMapping(value = "/rouetMasterList", method = RequestMethod.GET)
 	public String rouetMasterList(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+		Info view = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 1, 0, 0, 0, newModuleList);
 
-		/*
-		 * if (view.isError() == true) {
-		 * 
-		 * mav = "accessDenied";
-		 * 
-		 * } else {
-		 */
-		mav = "roaster/rouetMasterList";
+		if (view.isError() == true) {
 
-		try {
+			mav = "accessDenied";
 
-			RouteListFromOps[] routeListFromOps = Constants.getRestTemplate()
-					.getForObject(Constants.opsWebApiUrl + "/getAllRoutesFrDetails", RouteListFromOps[].class);
+		} else {
 
-			List<RouteListFromOps> routeListFromOpsList = new ArrayList<>(Arrays.asList(routeListFromOps));
+			mav = "roaster/rouetMasterList";
 
-			System.out.println(routeListFromOpsList);
+			try {
 
-		} catch (Exception e) {
-			e.printStackTrace();
+				RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
+						RouteList[].class);
+				List<RouteList> routeList = new ArrayList<>(Arrays.asList(route));
+				model.addAttribute("routeList", routeList);
+
+				Info add = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 0, 1, 0, 0, newModuleList);
+				Info edit = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 0, 0, 1, 0,
+						newModuleList);
+				Info delete = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 0, 0, 0, 1,
+						newModuleList);
+
+				if (add.isError() == false) {
+					model.addAttribute("addAccess", 0);
+
+				}
+				if (edit.isError() == false) {
+
+					model.addAttribute("editAccess", 0);
+				}
+				if (delete.isError() == false) {
+
+					model.addAttribute("deleteAccess", 0);
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		// }
 		return mav;
 
 	}
+
+	RouteList route = new RouteList();
 
 	@RequestMapping(value = "/editRoute", method = RequestMethod.GET)
 	public String editRoute(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -222,38 +258,82 @@ public class RoasterController {
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+		Info view = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 0, 0, 1, 0, newModuleList);
 
-		/*
-		 * if (view.isError() == true) {
-		 * 
-		 * mav = "accessDenied";
-		 * 
-		 * } else {
-		 */
-		mav = "roaster/editRoute";
+		if (view.isError() == true) {
 
-		try {
+			mav = "accessDenied";
 
-			/*
-			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-			 * Object>(); map.add("fromDate", sf.format(firstDay)); map.add("toDate",
-			 * sf.format(lastDay)); map.add("year", year); map.add("month", month);
-			 * map.add("empId", empId);
-			 * 
-			 * GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate()
-			 * .postForObject(Constants.url + "/getDailyDailyRecord", map,
-			 * GetDailyDailyRecord[].class); List<GetDailyDailyRecord> dailyrecordList = new
-			 * ArrayList<GetDailyDailyRecord>( Arrays.asList(getDailyDailyRecord));
-			 * model.addAttribute("dailyrecordList", dailyrecordList);
-			 */
+		} else {
 
-		} catch (Exception e) {
-			e.printStackTrace();
+			mav = "roaster/editRoute";
+
+			try {
+
+				int routeId = Integer.parseInt(request.getParameter("routeId"));
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("id", routeId);
+
+				route = Constants.getRestTemplate().postForObject(Constants.url + "/getRouteById", map,
+						RouteList.class);
+
+				model.addAttribute("route", route);
+
+				RouteType[] routeType = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteTypeList",
+						RouteType[].class);
+				List<RouteType> routeTypeList = new ArrayList<RouteType>(Arrays.asList(routeType));
+				model.addAttribute("routeTypeList", routeTypeList);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		// }
 		return mav;
 
+	}
+
+	@RequestMapping(value = "/submitEditRoute", method = RequestMethod.POST)
+	public String submitEditLocation(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("rouetMasterList", "rouetMasterList", 0, 0, 1, 0, newModuleList);
+		String a = new String();
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/rouetMasterList";
+			try {
+
+				String starttime = request.getParameter("starttime");
+				int km = Integer.parseInt(request.getParameter("km"));
+				int typeId = Integer.parseInt(request.getParameter("typeId"));
+				float incetive = Float.parseFloat(request.getParameter("incetive"));
+
+				route.setStartTime(starttime);
+				route.setKm(km);
+				route.setTypeId(typeId);
+				route.setIncentive(incetive);
+
+				List<RouteList> routeList = new ArrayList<>();
+				routeList.add(route);
+				RouteList[] res = Constants.getRestTemplate().postForObject(Constants.url + "/saveRouteList", routeList,
+						RouteList[].class);
+
+				session.setAttribute("successMsg", "Route Updated Successfully");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Update Route");
+			}
+		}
+
+		return a;
 	}
 
 	@RequestMapping(value = "/synchronizeRoute", method = RequestMethod.GET)
@@ -275,12 +355,48 @@ public class RoasterController {
 
 		try {
 
+			RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
+					RouteList[].class);
+			List<RouteList> routeList = new ArrayList<>(Arrays.asList(route));
+
 			RouteListFromOps[] routeListFromOps = Constants.getRestTemplate()
 					.getForObject(Constants.opsWebApiUrl + "/getAllRoutesFrDetails", RouteListFromOps[].class);
 
 			List<RouteListFromOps> routeListFromOpsList = new ArrayList<>(Arrays.asList(routeListFromOps));
 
-			System.out.println(routeListFromOpsList);
+			for (int i = 0; i < routeListFromOpsList.size(); i++) {
+
+				int flag = 0;
+
+				for (int j = 0; j < routeList.size(); j++) {
+
+					if (routeListFromOpsList.get(i).getRouteId() == routeList.get(j).getRouteId()) {
+						routeList.get(j).setFrIds(routeListFromOpsList.get(i).getFr_ids());
+						routeList.get(j).setFrName(routeListFromOpsList.get(i).getFr_names());
+						routeList.get(j).setRouteName(routeListFromOpsList.get(i).getRoute_name());
+						flag = 1;
+
+						break;
+					}
+
+				}
+
+				if (flag == 0) {
+					RouteList routenew = new RouteList();
+					routenew.setRouteId(routeListFromOpsList.get(i).getRouteId());
+					routenew.setFrIds(routeListFromOpsList.get(i).getFr_ids());
+					routenew.setFrName(routeListFromOpsList.get(i).getFr_names());
+					routenew.setRouteName(routeListFromOpsList.get(i).getRoute_name());
+					routenew.setDelStatus(1);
+					routeList.add(routenew);
+				}
+
+			}
+
+			System.out.println(routeList);
+
+			RouteList[] info = Constants.getRestTemplate().postForObject(Constants.url + "/saveRouteList", routeList,
+					RouteList[].class);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -44,11 +44,13 @@
 							<i class="icon-list-unordered"></i>Configure Route Master
 						</h5>
 
-						<a href="${pageContext.request.contextPath}/synchronizeRoute"
-							class="breadcrumb-elements-item">
-							<button type="button" class="btn blue_btn">Synchronize
-								Route</button>
-						</a>
+						<c:if test="${addAccess == 0}">
+							<a href="${pageContext.request.contextPath}/synchronizeRoute"
+								class="breadcrumb-elements-item">
+								<button type="button" class="btn blue_btn">Synchronize
+									Route</button>
+							</a>
+						</c:if>
 					</div>
 
 					<div class="card-body">
@@ -105,33 +107,19 @@
 							</thead>
 							<tbody>
 
-								<tr>
-									<td class="text-left">1</td>
-									<td class="text-left">Aurangabad-Nashik</td>
-									<td class="text-left">200</td>
-									<td>1000</td>
-									<td>9 AM</td>
-									<td class="text-left">xyz,abc</td>
 
-									<td class="text-center"><a
-										href="${pageContext.request.contextPath}/editRoute?routeId=1"
-										class="list-icons-item text-primary-600" data-popup="tooltip"
-										title="" data-original-title="Edit"><i
-											class="icon-pencil7"></i></a></td>
-								</tr>
-								<c:forEach items="${locationList}" var="locationList"
+								<c:forEach items="${routeList}" var="routeList"
 									varStatus="count">
 									<tr>
-										<td class="text-left">${count.index+1}</td>
-										<td class="text-left">${locationList.locName}</td>
-										<td class="text-left">${locationList.locNameShort}</td>
-										<td>${locationList.locHrContactPerson}</td>
-										<td style="text-align: center;">${locationList.locHrContactNumber}</td>
-										<td class="text-left">${locationList.locHrContactEmail}</td>
-
+										<td width="10%" class="text-left">${count.index+1}</td>
+										<td class="text-left">${routeList.routeName}</td>
+										<td class="text-right">${routeList.km}</td>
+										<td class="text-right">${routeList.incentive}</td>
+										<td class="text-center">${routeList.startTime}</td>
+										<td class="text-left">${routeList.frName}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
-													href="${pageContext.request.contextPath}/editLocation?locId=${locationList.exVar1}"
+													href="${pageContext.request.contextPath}/editRoute?routeId=${routeList.id}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>

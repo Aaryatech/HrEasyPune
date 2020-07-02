@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,36 +55,24 @@
 							<div class="card-body">
 
 								<form
-									action="${pageContext.request.contextPath}/submitEditLocation"
+									action="${pageContext.request.contextPath}/submitEditRoute"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
 										<div class="col-md-6">
-											<label class="col-form-label   col-lg-5 float" for="locName">Route
-												Name : </label>
-											<div class="col-lg-7  float">
-												<%-- <input type="text" class="form-control"
-													placeholder="Enter Location Name" id="locName"
-													name="locName" autocomplete="off" onchange="trim(this)"
-													value="${editLocation.locName}" disabled> --%>
-												Aurangabad-Nashik <span class="validation-invalid-label"
-													id="error_locName" style="display: none;">This field
-													is required.</span>
-											</div>
+											<label class="col-form-label   col-lg-5 float"
+												for="routeName">Route Name : </label>
+											<div class="col-lg-7  float">${route.routeName }</div>
 										</div>
 
 										<div class="col-md-6">
-											<label class="col-form-label  col-lg-5 float"
-												for="locShortName">Franchisee Name : </label>
+											<label class="col-form-label  col-lg-5 float" for="frName">Franchisee
+												Name : </label>
 											<div class="col-lg-7  float">
 												<%-- <input type="text" class="form-control"
 													placeholder="Franchisee Name" id="locShortName"
 													value="${editLocation.locNameShort}" name="locShortName"
 													autocomplete="off" onchange="trim(this)" maxlength="5"> --%>
-												xyz,abc <span class="validation-invalid-label"
-													id="error_locShortName" style="display: none;">This
-													field is required.</span> <span class="validation-invalid-label"
-													id="error_sameName" style="display: none;">Location
-													Short Name Can Not be same as Location Name.</span>
+												${route.frName}
 
 
 											</div>
@@ -96,18 +85,18 @@
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="add">Start Time <span class="text-danger">*
+												for="starttime">Start Time <span class="text-danger">*
 											</span>:
 											</label>
 											<div class="col-lg-7  float">
 												<%-- <textarea rows="3" cols="3" class="form-control"
 													placeholder="Location Short Address" onchange="trim(this)"
 													id="add" name="add">  ${editLocation.locShortAddress} </textarea> --%>
-												<input type="text" class="form-control"
-													placeholder="Contact Person Name" id="prsnName"
-													name="prsnName" autocomplete="off" onchange="trim(this)"
-													value="10:00"> <span
-													class="validation-invalid-label" id="error_locadd"
+												<input type="time" class="form-control"
+													placeholder="Start Time" id="starttime" name="starttime"
+													autocomplete="off" onchange="trim(this)"
+													value="${route.startTime}"> <span
+													class="validation-invalid-label" id="error_starttime"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -115,16 +104,14 @@
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="prsnName">KM <span class="text-danger">*
-											</span>:
+												for="km">KM <span class="text-danger">* </span>:
 											</label>
 											<div class="col-lg-7  float">
-												<input type="text" class="form-control"
-													placeholder="Contact Person Name" id="prsnName"
-													name="prsnName" autocomplete="off" onchange="trim(this)"
-													value="200"> <span class="validation-invalid-label"
-													id="error_prsnName" style="display: none;">This
-													field is required.</span>
+												<input type="text" class="form-control numbersOnly"
+													placeholder="KM" id="km" name="km" autocomplete="off"
+													onchange="trim(this)" value="${route.km}"> <span
+													class="validation-invalid-label" id="error_km"
+													style="display: none;">This field is required.</span>
 											</div>
 										</div>
 									</div>
@@ -134,15 +121,15 @@
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="contactNo">Incentive <span class="text-danger">*
+												for="incetive">Incentive <span class="text-danger">*
 											</span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="text" class="form-control"
-													placeholder="Contact No." id="contactNo" name="contactNo"
-													autocomplete="off" onchange="trim(this)" value="1000"
-													maxlength="10"> <span
-													class="validation-invalid-label" id="error_contactNo"
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Incentive" id="incetive" name="incetive"
+													autocomplete="off" onchange="trim(this)"
+													value="${route.incentive}" maxlength="10"> <span
+													class="validation-invalid-label" id="error_incetive"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -150,28 +137,25 @@
 										<div class="col-md-6">
 											<label
 												class="col-form-label text-info font-weight-bold col-lg-5 float"
-												for="email">Select Route Type <span
+												for="typeId">Select Route Type <span
 												class="text-danger">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<select name="routeId${list.planDetailId}"
-													data-placeholder="Select Route"
-													id="routeId${list.planDetailId}" class="form-control"
-													onchange="updateRouteId(${list.planDetailId})">
-													<option value="0" selected>NA</option>
-
-													<%-- <c:forEach items="${routeList}" var="routeList">
+												<select name="typeId" data-placeholder="Select Route"
+													id="typeId" class="form-control">
+													<option value="" selected>Select</option>
+													<c:forEach items="${routeTypeList}" var="routeTypeList">
 														<c:choose>
-															<c:when test="${routeList.routeId==list.routeId}">
-																<option value="${routeList.routeId}" selected>${routeList.routeName}</option>
+															<c:when test="${routeTypeList.typeId==route.typeId}">
+																<option value="${routeTypeList.typeId}" selected>${routeTypeList.typeName}</option>
 															</c:when>
 															<c:otherwise>
-																<option value="${routeList.routeId}">${routeList.routeName}</option>
+																<option value="${routeTypeList.typeId}">${routeTypeList.typeName}</option>
 															</c:otherwise>
 														</c:choose>
 
-													</c:forEach> --%>
-												</select> <span class="validation-invalid-label" id="error_email"
+													</c:forEach>
+												</select> <span class="validation-invalid-label" id="error_typeId"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -278,115 +262,58 @@
 			return true;
 
 		}
-		$(document)
-				.ready(
-						function($) {
+		$(document).ready(function($) {
 
-							$("#submitInsertLocaion")
-									.submit(
-											function(e) {
-												var isError = false;
-												var errMsg = "";
+			$("#submitInsertLocaion").submit(function(e) {
+				var isError = false;
+				var errMsg = "";
 
-												if (!$("#locName").val()) {
+				$("#error_starttime").hide()
+				$("#error_km").hide()
+				$("#error_typeId").hide()
+				$("#error_incetive").hide()
 
-													isError = true;
+				if (!$("#starttime").val()) {
 
-													$("#error_locName").show()
-													//return false;
-												} else {
-													$("#error_locName").hide()
-												}
+					isError = true;
 
-												if (!$("#locShortName").val()) {
+					$("#error_starttime").show()
+					//return false;
+				}
 
-													isError = true;
+				if (!$("#km").val()) {
 
-													$("#error_locShortName")
-															.show()
+					isError = true;
 
-												} else {
-													$("#error_locShortName")
-															.hide()
-												}
+					$("#error_km").show()
 
-												if (!$("#add").val()) {
+				}
 
-													isError = true;
+				if (!$("#typeId").val()) {
 
-													$("#error_locadd").show()
+					isError = true;
 
-												} else {
-													$("#error_locadd").hide()
-												}
+					$("#error_typeId").show()
 
-												if (!$("#prsnName").val()) {
+				}
 
-													isError = true;
+				if (!$("#incetive").val()) {
 
-													$("#error_prsnName").show()
+					isError = true;
 
-												} else {
-													$("#error_prsnName").hide()
-												}
+					$("#error_incetive").show()
 
-												if (!$("#contactNo").val()
-														|| !validateMobile($(
-																"#contactNo")
-																.val())) {
+				}
 
-													isError = true;
+				if (!isError) {
 
-													if (!$("#contactNo").val()) {
-														document
-																.getElementById("error_contactNo").innerHTML = "This field is required.";
-													} else {
-														document
-																.getElementById("error_contactNo").innerHTML = "Enter valid Mobile No.";
-													}
+					document.getElementById("submtbtn").disabled = true;
+					return true;
 
-													$("#error_contactNo")
-															.show()
-
-												} else {
-													$("#error_contactNo")
-															.hide()
-												}
-
-												if (!$("#email").val()
-														|| !validateEmail($(
-																"#email").val())) {
-
-													isError = true;
-
-													if (!$("#email").val()) {
-														document
-																.getElementById("error_email").innerHTML = "This field is required.";
-													} else {
-														document
-																.getElementById("error_email").innerHTML = "Enter valid email.";
-													}
-
-													$("#error_email").show()
-
-												} else {
-													$("#error_email").hide()
-												}
-
-												if (!isError) {
-
-													var x = true;
-													if (x == true) {
-
-														document
-																.getElementById("submtbtn").disabled = true;
-														return true;
-													}
-													//end ajax send this to php page
-												}
-												return false;
-											});
-						});
+				}
+				return false;
+			});
+		});
 		//
 	</script>
 
