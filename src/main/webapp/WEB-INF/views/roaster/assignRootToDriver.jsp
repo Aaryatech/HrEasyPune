@@ -446,7 +446,61 @@
 		
 		
 		function checkDoubleRoute(planDetailId) {
-			alert(planDetailId)
+			
+			var routeId = document.getElementById("routeId"+planDetailId).value;
+			
+			if(routeId!=0){
+				
+			
+			$
+			.ajax({
+				url : '${pageContext.request.contextPath}/getDriverPlanList',
+				type : 'post',
+				dataType : 'json', 
+				contentType : false,
+				processData : false,
+				success : function(response) {
+
+					
+					
+					for(var i=0; i<response.driverPlanList.length ;i++){
+						
+						if(planDetailId!=response.driverPlanList[i].planDetailId){
+							var otherrouteId = document.getElementById("routeId"+response.driverPlanList[i].planDetailId).value;
+							
+							if(routeId==otherrouteId){
+								bootbox.confirm({
+									title : 'Confirm ',
+									message : 'This route already allocate, you want allocate?',
+									buttons : {
+										confirm : {
+											label : 'Yes',
+											className : 'btn-success'
+										},
+										cancel : {
+											label : 'Cancel',
+											className : 'btn-link'
+										}
+									},
+									callback : function(result) {
+										if (result) {
+											 
+
+										}else{
+											document.getElementById("routeId"+planDetailId).value=0;
+											updateRouteId(planDetailId);
+										}
+									}
+								});
+							}
+						}
+						 
+					}
+					 
+				},
+			});
+			}
+			
 		}
 		function updateRouteId(planDetailId) {
 
