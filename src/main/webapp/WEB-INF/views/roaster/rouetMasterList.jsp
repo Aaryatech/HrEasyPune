@@ -44,7 +44,8 @@
 							<i class="icon-list-unordered"></i>Configure Route Master
 						</h5>
 
-						<a href="#" class="breadcrumb-elements-item">
+						<a href="${pageContext.request.contextPath}/synchronizeRoute"
+							class="breadcrumb-elements-item">
 							<button type="button" class="btn blue_btn">Synchronize
 								Route</button>
 						</a>

@@ -256,6 +256,40 @@ public class RoasterController {
 
 	}
 
+	@RequestMapping(value = "/synchronizeRoute", method = RequestMethod.GET)
+	public String synchronizeRoute(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+
+		/*
+		 * if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+		mav = "redirect:/rouetMasterList";
+
+		try {
+
+			RouteListFromOps[] routeListFromOps = Constants.getRestTemplate()
+					.getForObject(Constants.opsWebApiUrl + "/getAllRoutesFrDetails", RouteListFromOps[].class);
+
+			List<RouteListFromOps> routeListFromOpsList = new ArrayList<>(Arrays.asList(routeListFromOps));
+
+			System.out.println(routeListFromOpsList);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
+
 	@RequestMapping(value = "/editAssignRoot", method = RequestMethod.GET)
 	public String editAssignRoot(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
