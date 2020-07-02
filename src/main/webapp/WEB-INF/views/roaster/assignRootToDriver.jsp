@@ -94,34 +94,44 @@
 									session.removeAttribute("successMsg");
 									}
 								%>
-								<form id="form-login"
-									action="${pageContext.request.contextPath}/assignRootToDriver"
-									method="get">
-									<div class="form-group row">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="date">Planning Date <span style="color: red">*
-										</span> :
-										</label>
-										<div class="col-md-2">
+								<c:choose>
+									<c:when test="${flag==1}">
+										<form id="form-login"
+											action="${pageContext.request.contextPath}/confirmationRouteByDate"
+											method="get">
+									</c:when>
+									<c:otherwise>
+										<form id="form-login"
+											action="${pageContext.request.contextPath}/assignRootToDriver"
+											method="get">
+									</c:otherwise>
+								</c:choose>
 
-											<input type="text" class="form-control datepickerclass"
-												placeholder="Select Date " id="datepicker1" name="date"
-												value="${date}" autocomplete="off" required>
+								<div class="form-group row">
+									<label
+										class="col-form-label text-info font-weight-bold col-lg-2"
+										for="date">Planning Date <span style="color: red">*
+									</span> :
+									</label>
+									<div class="col-md-2">
 
-										</div>
-										<c:choose>
-											<c:when test="${info.error==false}">
-												<span class="validation-invalid-label" id="error_name"
-													style="display: none;">This field is required.</span>
-											</c:when>
-											<c:otherwise>
-												<span class="validation-invalid-label" id="error_name">${info.msg}</span>
-											</c:otherwise>
-										</c:choose>
-										<button type="submit" class="btn bg-blue ml-3 legitRipple"
-											id="submtbtn">Search</button>
+										<input type="text" class="form-control datepickerclass"
+											placeholder="Select Date " id="datepicker1" name="date"
+											value="${date}" autocomplete="off" required>
+
 									</div>
+									<c:choose>
+										<c:when test="${info.error==false}">
+											<span class="validation-invalid-label" id="error_name"
+												style="display: none;">This field is required.</span>
+										</c:when>
+										<c:otherwise>
+											<span class="validation-invalid-label" id="error_name">${info.msg}</span>
+										</c:otherwise>
+									</c:choose>
+									<button type="submit" class="btn bg-blue ml-3 legitRipple"
+										id="submtbtn">Search</button>
+								</div>
 								</form>
 								<hr>
 
@@ -219,9 +229,13 @@
 																		${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
 															</select></td>
 															<c:if test="${flag==1}">
-																<td class="text-center"><input type="checkbox">
-																	<input type="text" class="form-control"
-																	placeholder="Late Min" value="0"></td>
+																<td class="text-center"><input type="checkbox"
+																	id="lateMin${list.planDetailId}"
+																	name="lateMin${list.planDetailId}"> <input
+																	type="text" class="form-control numbersOnly"
+																	placeholder="Late Min" value="0"
+																	name="lateMin${list.planDetailId}"
+																	id="lateMin${list.planDetailId}"></td>
 															</c:if>
 															<td class="text-center"><button type="submit"
 																	class="btn bg-blue ml-3 legitRipple" id="historybtn"
@@ -239,8 +253,7 @@
 									</div>
 
 									<div class="col-md-6">
-										<br> <br>
-										<br>
+										<br> <br> <br>
 
 										<div class="table-responsive">
 											<!-- <table class="table datatable-scroll-y" width="100%"

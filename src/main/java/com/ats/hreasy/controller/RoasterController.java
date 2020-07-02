@@ -30,6 +30,7 @@ import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.RouteList;
+import com.ats.hreasy.model.RouteListFromOps;
 import com.ats.hreasy.model.RoutePlanDetailWithName;
 import com.ats.hreasy.model.RouteType;
 import com.ats.hreasy.model.ShiftMaster;
@@ -200,18 +201,12 @@ public class RoasterController {
 
 		try {
 
-			/*
-			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-			 * Object>(); map.add("fromDate", sf.format(firstDay)); map.add("toDate",
-			 * sf.format(lastDay)); map.add("year", year); map.add("month", month);
-			 * map.add("empId", empId);
-			 * 
-			 * GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate()
-			 * .postForObject(Constants.url + "/getDailyDailyRecord", map,
-			 * GetDailyDailyRecord[].class); List<GetDailyDailyRecord> dailyrecordList = new
-			 * ArrayList<GetDailyDailyRecord>( Arrays.asList(getDailyDailyRecord));
-			 * model.addAttribute("dailyrecordList", dailyrecordList);
-			 */
+			RouteListFromOps[] routeListFromOps = Constants.getRestTemplate()
+					.getForObject(Constants.opsWebApiUrl + "/getAllRoutesFrDetails", RouteListFromOps[].class);
+
+			List<RouteListFromOps> routeListFromOpsList = new ArrayList<>(Arrays.asList(routeListFromOps));
+
+			System.out.println(routeListFromOpsList);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -320,19 +315,37 @@ public class RoasterController {
 
 		try {
 
-			/*
-			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-			 * Object>(); map.add("fromDate", sf.format(firstDay)); map.add("toDate",
-			 * sf.format(lastDay)); map.add("year", year); map.add("month", month);
-			 * map.add("empId", empId);
-			 * 
-			 * GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate()
-			 * .postForObject(Constants.url + "/getDailyDailyRecord", map,
-			 * GetDailyDailyRecord[].class); List<GetDailyDailyRecord> dailyrecordList = new
-			 * ArrayList<GetDailyDailyRecord>( Arrays.asList(getDailyDailyRecord));
-			 * model.addAttribute("dailyrecordList", dailyrecordList);
-			 */
 			model.addAttribute("flag", 1);
+
+			String date = request.getParameter("date");
+
+			if (date != null) {
+
+				model.addAttribute("date", date);
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("date", DateConvertor.convertToYMD(date));
+
+				Info info = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/insertInitiallydriverInPlanRoute", map, Info.class);
+
+				model.addAttribute("info", info);
+
+				if (info.isError() == false) {
+					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+
+					List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+					model.addAttribute("list", list);
+
+					RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
+							RouteList[].class);
+					routeList = new ArrayList<>(Arrays.asList(route));
+					model.addAttribute("routeList", routeList);
+				}
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
