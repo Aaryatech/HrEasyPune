@@ -28,6 +28,7 @@ import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
+import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.RouteList;
@@ -507,9 +508,55 @@ public class RoasterController {
 
 	}
 
+	@RequestMapping(value = "/changeLateMarkInRoaster", method = RequestMethod.POST)
+	@ResponseBody
+	public Info changeLateMarkInRoaster(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+			int planDetailId = Integer.parseInt(request.getParameter("planDetailId"));
+			int lateMark = Integer.parseInt(request.getParameter("lateMark"));
+			int lateMin = Integer.parseInt(request.getParameter("lateMin"));
+			int routeId = Integer.parseInt(request.getParameter("routeId"));
+
+			String startTime = "00:00";
+
+			for (int i = 0; i < routeList.size(); i++) {
+
+				if (routeList.get(i).getRouteId() == routeId) {
+
+					startTime = routeList.get(i).getStartTime();
+
+					if (startTime == null) {
+						startTime = "00:00";
+					}
+					break;
+				}
+
+			}
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("planDetailId", planDetailId);
+			map.add("lateMark", lateMark);
+			map.add("lateMin", lateMin);
+			map.add("startTime", startTime);
+			System.out.println(map);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/changeLateMarkInRoaster", map,
+					Info.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+
+	}
+
 	@RequestMapping(value = "/submitConfirmationRoaster", method = RequestMethod.POST)
 	public String submitConfirmationRoaster(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
@@ -526,10 +573,116 @@ public class RoasterController {
 
 			try {
 
-				 
+				LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeListAll",
+						LvType[].class);
+				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
+
+				int wo = 5;
+				String wosts = "WO";
+				String woText = "WO";
+
+				int p = 12;
+				String psts = "P";
+				String pText = "P";
+
+				for (int k = 0; k < lvTypeList.size(); k++) {
+
+					if (lvTypeList.get(k).getNameSd().equalsIgnoreCase("P")) {
+						pText = lvTypeList.get(k).getNameSdShow();
+					} else if (lvTypeList.get(k).getNameSd().equalsIgnoreCase("WO")) {
+						woText = lvTypeList.get(k).getNameSdShow();
+					}
+
+				}
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("date", DateConvertor.convertToYMD(date));
+				Info info = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/updateAndSubmitConfirmDateRoster", map, Info.class);
+
+				if (info.isError()) {
+					session.setAttribute("errorMsg", "Failed to Confirmation");
+				} else {
+
+					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+
+					List<RoutePlanDetailWithName> driverPlanList = new ArrayList<>(
+							Arrays.asList(routePlanDetailWithName));
+
+					String empIds = "0";
+
+					for (int i = 0; i < driverPlanList.size(); i++) {
+
+						empIds = empIds + "," + driverPlanList.get(i).getDriverId();
+
+					}
+
+					map = new LinkedMultiValueMap<>();
+					map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("empIds", empIds);
+					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getDailyDailyRecordForRoaster", map, GetDailyDailyRecord[].class);
+
+					/*
+					 * List<Integer> dailyIds = new ArrayList<>();
+					 * 
+					 * for (int i = 0; i < getDailyDailyRecord.length; i++) {
+					 * 
+					 * dailyIds.add(getDailyDailyRecord[i].getId());
+					 * 
+					 * }
+					 */
+
+					for (int j = 0; j < driverPlanList.size(); j++) {
+
+						for (int i = 0; i < getDailyDailyRecord.length; i++) {
+
+							if (driverPlanList.get(j).getDriverId() == getDailyDailyRecord[i].getEmpId()) {
+								map = new LinkedMultiValueMap<String, Object>();
+								map.add("dailyId", getDailyDailyRecord[i].getId());
+
+								if (driverPlanList.get(j).getRouteId() != 0) {
+
+									map.add("selectStatus", p);
+									map.add("selectStatusText", psts);
+									map.add("nameSd", pText);
+								} else {
+
+									if (driverPlanList.get(j).getIsoffdayIsff() == 2) {
+										map.add("selectStatus", p);
+										map.add("selectStatusText", psts);
+										map.add("nameSd", pText);
+									} else {
+										map.add("selectStatus", wo);
+										map.add("selectStatusText", wosts);
+										map.add("nameSd", woText);
+									}
+								}
+
+								map.add("lateMark", driverPlanList.get(j).getLateMark());
+								map.add("userId", userObj.getUserId());
+								map.add("flag", 1);
+								map.add("otHours", "00:00");
+								map.add("lateMin", driverPlanList.get(j).getLateMin());
+
+								Info infores = Constants.getRestTemplate().postForObject(
+										Constants.url + "/updateAttendaceRecordSingleByHod", map, Info.class);
+								break;
+							}
+
+						}
+
+					}
+
+					session.setAttribute("successMsg", "Confirmation Successfully");
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Confirmation");
 			}
 		}
 		return mav;

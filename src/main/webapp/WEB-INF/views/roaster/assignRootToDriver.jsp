@@ -258,16 +258,28 @@
 																		${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
 															</select></td>
 															<c:if test="${flag==1}">
-																<td class="text-center"><input type="checkbox"
-																	id="lateMark${list.planDetailId}"
-																	name="lateMark${list.planDetailId}" value="0"
-																	onchange="changeLateMark(${list.planDetailId})">
-																	<input type="text" class="form-control numbersOnly"
-																	placeholder="Late Min" value="0"
+																<td class="text-center"><c:choose>
+																		<c:when test="${list.lateMark==1}">
+																			<input type="checkbox"
+																				id="lateMark${list.planDetailId}"
+																				name="lateMark${list.planDetailId}" value="1"
+																				onchange="changeLateMark(${list.planDetailId})"
+																				checked>
+																		</c:when>
+																		<c:otherwise>
+																			<input type="checkbox"
+																				id="lateMark${list.planDetailId}"
+																				name="lateMark${list.planDetailId}" value="0"
+																				onchange="changeLateMark(${list.planDetailId})">
+																		</c:otherwise>
+																	</c:choose> <input type="text" class="form-control numbersOnly"
+																	placeholder="Late Min" value="${list.lateMin}"
 																	name="lateMin${list.planDetailId}"
-																	id="lateMin${list.planDetailId}" required></td>
+																	id="lateMin${list.planDetailId}"
+																	onchange="trim(this);changeLateMark(${list.planDetailId})"
+																	required></td>
 															</c:if>
-															<td class="text-center"><button type="submit"
+															<td class="text-center"><button type="button"
 																	class="btn bg-blue ml-3 legitRipple" id="historybtn"
 																	onclick="getPlanHistoryDetailByEmpId(${list.driverId})">Detail</button>
 															</td>
@@ -313,6 +325,7 @@
 								</div>
 
 								<c:if test="${flag==1}">
+									<br>
 									<div class="form-group text-center ">
 										<input type="button" class="btn blue_btn bootbox_custom"
 											value="Confirm" id="btnassignstuct">
@@ -392,6 +405,12 @@
 	</div>
 	<!-- /large modal -->
 	<script>
+	function trim(el) {
+		el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+		replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+		replace(/\n +/, "\n"); // Removes spaces after newlines
+		return;
+	}
 		// Custom bootbox dialog
 		$('.bootbox_custom').on(
 				'click',
@@ -445,12 +464,45 @@
 		
 		function changeLateMark(planDetailId) {
 			
-			if(document.getElementById("lateMark"+planDetailId).checked==true){
-				document.getElementById("lateMark"+planDetailId).value = 1;
-			}else{
-				document.getElementById("lateMark"+planDetailId).value = 0;
+			var lateMark = 0;
+			var lateMin = 0;
+			var routeId = document.getElementById("routeId"+planDetailId).value;
+			
+			lateMin = document.getElementById("lateMin"+planDetailId).value;
+			
+			if(lateMin==""){
+				lateMin = document.getElementById("lateMin"+planDetailId).value=0;
+				lateMin=0
 			}
 			
+			if(document.getElementById("lateMark"+planDetailId).checked==true){
+				 
+				document.getElementById("lateMark"+planDetailId).value = 1;
+				lateMark=1;
+			}else{
+				 
+				document.getElementById("lateMark"+planDetailId).value = 0;
+				lateMark=0;
+			}
+			
+			var fd = new FormData();
+			fd.append('planDetailId', planDetailId);
+			fd.append('lateMark', lateMark);
+			fd.append('lateMin', lateMin);
+			fd.append('routeId', routeId);
+			
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/changeLateMarkInRoaster',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+ 
+						},
+					});
 		}
 		function checkDoubleRoute(planDetailId) {
 			
