@@ -577,11 +577,11 @@ public class RoasterController {
 						LvType[].class);
 				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
 
-				int wo = 5;
+				int wo = 12;
 				String wosts = "WO";
 				String woText = "WO";
 
-				int p = 12;
+				int p = 5;
 				String psts = "P";
 				String pText = "P";
 
