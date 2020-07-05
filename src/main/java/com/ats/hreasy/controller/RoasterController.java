@@ -3,6 +3,7 @@ package com.ats.hreasy.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -31,6 +32,7 @@ import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.RoasterSheetData;
 import com.ats.hreasy.model.RouteList;
 import com.ats.hreasy.model.RouteListFromOps;
 import com.ats.hreasy.model.RoutePlanDetailListWithRouteList;
@@ -695,16 +697,45 @@ public class RoasterController {
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+		Info view = AcessController.checkAccess("routeassignmonthlysheet", "routeassignmonthlysheet", 1, 0, 0, 0,
+				newModuleList);
 
 		mav = "roaster/routeassignmonthlysheet";
 
 		try {
 
+			String date = request.getParameter("date");
+
+			if (date != null) {
+				SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+				Date dt = dd.parse("01-" + date);
+				Calendar temp = Calendar.getInstance();
+				temp.setTime(dt);
+				int year = temp.get(Calendar.YEAR);
+				int month = temp.get(Calendar.MONTH) + 1;
+
+				Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
+				Date lastDay = new GregorianCalendar(year, month, 0).getTime();
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("fromDate", sf.format(firstDay));
+				map.add("toDate", sf.format(lastDay));
+				RoasterSheetData roasterSheetData = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getMonthlyRoasterSheet", map, RoasterSheetData.class);
+
+				model.addAttribute("roasterSheetData", roasterSheetData);
+				model.addAttribute("date", date);
+				model.addAttribute("year", year);
+				model.addAttribute("month", month);
+
+				System.out.println(roasterSheetData.getInfomationList());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// }
+
 		return mav;
 
 	}

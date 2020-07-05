@@ -110,11 +110,11 @@
 									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="bootstrap-data-table"> -->
-									<!-- <table class="table datatable-fixed-left_custom" width="100%"
-										id="printtable1"> -->
-									<table
+									<table class="table datatable-fixed-left_custom" width="100%"
+										id="printtable1">
+										<!-- <table
 										class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-										width="100%" id="printtable1">
+										width="100%" id="printtable1"> -->
 										<thead>
 											<tr class="bg-blue">
 												<!-- <th style="text-align: center;">Sr.no</th> -->
@@ -135,19 +135,15 @@
 											<c:forEach items="${roasterSheetData.infomationList}"
 												var="infomationList" varStatus="count">
 												<tr>
-
+													<td>${count.index+1}</td>
 													<td style="text-align: center;">${infomationList.empCode}</td>
 													<td>${infomationList.empName}</td>
 													<td style="text-align: right;">${month}</td>
 													<td style="text-align: right;">${year}</td>
 													<c:forEach items="${infomationList.sttsList}"
 														var="sttsList">
-														<td style="text-align: center;"><c:choose>
-																<c:when test="${sttsList.routeId!=0}">${sttsList.routeName}</c:when>
-																<c:when test="${sttsList.isoffdayIsff==1}">Off Day</c:when>
-																<c:when test="${sttsList.isoffdayIsff==2}">FF</c:when>
-																<c:otherwise>NA</c:otherwise>
-															</c:choose></td>
+														<td style="text-align: center;">
+															${sttsList.routeName}</td>
 													</c:forEach>
 													<td class="text-center"><c:if
 															test="${editAccess == 0}">
@@ -172,7 +168,7 @@
 									<table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="bootstrap-data-table1">
-										<!-- <table class="table  table-bordered  table-hover table-striped"
+									<!-- <table class="table  table-bordered  table-hover table-striped"
 										width="100%" id="printtable2"> -->
 										<thead>
 											<tr class="bg-blue">
