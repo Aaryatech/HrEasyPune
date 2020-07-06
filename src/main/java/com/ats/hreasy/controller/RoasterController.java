@@ -1,5 +1,6 @@
 package com.ats.hreasy.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,32 +13,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.ExceUtil;
+import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.common.ReportCostants;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.GetDailyDailyRecord;
+import com.ats.hreasy.model.GetEmpDetailForFullPayslip;
+import com.ats.hreasy.model.GetPayrollGeneratedList;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.LvType;
+import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.PayRollDataForProcessing;
 import com.ats.hreasy.model.RoasterSheetData;
 import com.ats.hreasy.model.RouteList;
 import com.ats.hreasy.model.RouteListFromOps;
 import com.ats.hreasy.model.RoutePlanDetailListWithRouteList;
 import com.ats.hreasy.model.RoutePlanDetailWithName;
 import com.ats.hreasy.model.RouteType;
+import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.ShiftMaster;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hrmgt.model.PlanHistoryDetail;
@@ -934,6 +946,332 @@ public class RoasterController {
 		}
 		// }
 		return mav;
+
+	}
+
+	@RequestMapping(value = "/getRoasterPlanList", method = RequestMethod.GET)
+	public String getRoasterPlanList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("getRoasterPlanList", "getRoasterPlanList", 1, 0, 0, 0, newModuleList);
+
+		/*
+		 * if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+
+		mav = "roaster/roasterPlanList";
+
+		try {
+
+			/*
+			 * RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url +
+			 * "/getRouteList", RouteList[].class); List<RouteList> routeList = new
+			 * ArrayList<>(Arrays.asList(route)); model.addAttribute("routeList",
+			 * routeList);
+			 */
+			String date = request.getParameter("date");
+
+			if (date != null) {
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("date", DateConvertor.convertToYMD(date));
+
+				RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+				List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+
+				model.addAttribute("list", list);
+				model.addAttribute("date", date);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/pdf/generatedRoutePlanPdf/{date}", method = RequestMethod.GET)
+	public ModelAndView generatedFullPayslip(@PathVariable String date, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("roaster/generatedRoutePlanPdf");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("date", DateConvertor.convertToYMD(date));
+
+			RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+			List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+
+			model.addObject("list", list);
+			model.addObject("date", date);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/excelForRoutePlanList/{date}", method = RequestMethod.GET)
+	public void excelForGeneratedPayroll(@PathVariable("date") String date1, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("date", DateConvertor.convertToYMD(date1));
+
+			RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+			List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+
+			String reportName = "Route Plan List ";
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("Sr. No");
+			rowData.add("Date");
+			rowData.add("Driver Name");
+			rowData.add("Duty");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			int cnt = 1;
+			float empTotal = 0;
+
+			for (int i = 0; i < list.size(); i++) {
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("" + (i + 1));
+				rowData.add("" + date1);
+				rowData.add("" + list.get(i).getFirstName() + " " + list.get(i).getSurname());
+
+				if (list.get(i).getRouteId() != 0) {
+					rowData.add("" + list.get(i).getRouteName());
+				} else if (list.get(i).getIsoffdayIsff() == 1) {
+					rowData.add("Off Day");
+				} else if (list.get(i).getIsoffdayIsff() == 2) {
+					rowData.add("FF");
+				} else {
+					rowData.add("NA");
+				}
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+			}
+
+			XSSFWorkbook wb = null;
+			try {
+				// System.out.println("exportToExcelList" + exportToExcelList.toString());
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " ", "", 'D');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+
+	}
+
+	@RequestMapping(value = "/routeConfirmList", method = RequestMethod.GET)
+	public String routeConfirmList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("getRoasterPlanList", "getRoasterPlanList", 1, 0, 0, 0, newModuleList);
+
+		/*
+		 * if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+
+		mav = "roaster/routeConfirmList";
+
+		try {
+
+			/*
+			 * RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url +
+			 * "/getRouteList", RouteList[].class); List<RouteList> routeList = new
+			 * ArrayList<>(Arrays.asList(route)); model.addAttribute("routeList",
+			 * routeList);
+			 */
+			String date = request.getParameter("date");
+
+			if (date != null) {
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("date", DateConvertor.convertToYMD(date));
+
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/checkRouteDateIsConfirm", map,
+						Info.class);
+
+				if (info.isError() == false) {
+					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+					List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+					model.addAttribute("list", list);
+				} else {
+					session.setAttribute("errorMsg", info.getMsg());
+				}
+
+				model.addAttribute("date", date);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/pdf/generatedRouteConfirmPdf/{date}", method = RequestMethod.GET)
+	public ModelAndView generatedRouteConfirmPdf(@PathVariable String date, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("roaster/generatedRouteConfirmPdf");
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("date", DateConvertor.convertToYMD(date));
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/checkRouteDateIsConfirm", map,
+					Info.class);
+
+			if (info.isError() == false) {
+				RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+				List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+				model.addObject("list", list);
+				model.addObject("date", date);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/excelForRouteConfirmList/{date}", method = RequestMethod.GET)
+	public void excelForRouteConfirmList(@PathVariable("date") String date1, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("date", DateConvertor.convertToYMD(date1));
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/checkRouteDateIsConfirm", map,
+					Info.class);
+
+			if (info.isError() == false) {
+				RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+				List<RoutePlanDetailWithName> list = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+
+				String reportName = "Route Confirmation List ";
+
+				List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+				ExportToExcel expoExcel = new ExportToExcel();
+				List<String> rowData = new ArrayList<String>();
+
+				rowData.add("Sr. No");
+				rowData.add("Date");
+				rowData.add("Driver Name");
+				rowData.add("Duty");
+				rowData.add("KM");
+				rowData.add("Incentive");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				for (int i = 0; i < list.size(); i++) {
+
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					rowData.add("" + (i + 1));
+					rowData.add("" + date1);
+					rowData.add("" + list.get(i).getFirstName() + " " + list.get(i).getSurname());
+
+					if (list.get(i).getRouteId() != 0) {
+						rowData.add("" + list.get(i).getRouteName());
+					} else if (list.get(i).getIsoffdayIsff() == 1) {
+						rowData.add("Off Day");
+					} else if (list.get(i).getIsoffdayIsff() == 2) {
+						rowData.add("FF");
+					} else {
+						rowData.add("NA");
+					}
+					rowData.add("" + list.get(i).getKm());
+					rowData.add("" + list.get(i).getIncentive());
+					expoExcel.setRowData(rowData);
+					exportToExcelList.add(expoExcel);
+				}
+
+				XSSFWorkbook wb = null;
+				try {
+					// System.out.println("exportToExcelList" + exportToExcelList.toString());
+
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " ", "", 'F');
+
+					ExceUtil.autoSizeColumns(wb, 3);
+					response.setContentType("application/vnd.ms-excel");
+					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					response.setHeader("Content-disposition",
+							"attachment; filename=" + reportName + "-" + date + ".xlsx");
+					wb.write(response.getOutputStream());
+
+				} catch (IOException ioe) {
+					throw new RuntimeException("Error writing spreadsheet to output stream");
+				} finally {
+					if (wb != null) {
+						wb.close();
+					}
+				}
+			}
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
 
 	}
 
