@@ -730,7 +730,7 @@ public class RoasterController {
 				model.addAttribute("year", year);
 				model.addAttribute("month", month);
 
-				System.out.println(roasterSheetData.getInfomationList());
+				// System.out.println(roasterSheetData.getInfomationList());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -746,12 +746,37 @@ public class RoasterController {
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceEditEmpMonth", "attendaceSheet", 0, 0, 1, 0, newModuleList);
+		Info view = AcessController.checkAccess("routeassignmonthlysheet", "routeassignmonthlysheet", 1, 0, 0, 0,
+				newModuleList);
 
 		mav = "roaster/showRosterdatewise";
 
 		try {
 
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			int year = Integer.parseInt(request.getParameter("year"));
+			int month = Integer.parseInt(request.getParameter("month"));
+			int empId = Integer.parseInt(request.getParameter("empId"));
+
+			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
+			Date lastDay = new GregorianCalendar(year, month, 0).getTime();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("fromDate", sf.format(firstDay));
+			map.add("toDate", sf.format(lastDay));
+			map.add("empId", empId);
+			RoasterSheetData roasterSheetData = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getMonthlyRoasterSheetByEmpId", map, RoasterSheetData.class);
+
+			for (int i = 0; i < roasterSheetData.getRoutePlanDetailWithNamelist().size(); i++) {
+				roasterSheetData.getRoutePlanDetailWithNamelist().get(i).setSurname(DateConvertor
+						.convertToDMY(roasterSheetData.getRoutePlanDetailWithNamelist().get(i).getSurname()));
+			}
+
+			model.addAttribute("roasterSheetData", roasterSheetData);
+			model.addAttribute("headData", roasterSheetData.getRoasterSummeryDetailList().get(0));
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

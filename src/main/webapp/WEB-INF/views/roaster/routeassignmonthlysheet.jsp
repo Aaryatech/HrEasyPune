@@ -72,7 +72,7 @@
 								<div class="col-md-2">
 									<input type="text" class="form-control "
 										placeholder="Select Date " id="datepicker" name="date"
-										value="06-2020" autocomplete="off">
+										value="${date}" autocomplete="off">
 								</div>
 
 
@@ -126,7 +126,7 @@
 													var="dates" varStatus="count">
 													<th style="text-align: center;">${count.index+1}<br>${dates.day}</th>
 												</c:forEach>
-												<th style="text-align: center;">Edit</th>
+												<th style="text-align: center;">View</th>
 											</tr>
 
 										</thead>
@@ -149,14 +149,11 @@
 																<c:otherwise>NA</c:otherwise>
 															</c:choose></td>
 													</c:forEach>
-													<td class="text-center"><c:if
-															test="${editAccess == 0}">
-															<a
-																href="${pageContext.request.contextPath}/attendanceEditEmpMonth?month=${month}&year=${year}&empId=${infomationList.driverId}"
-																class="list-icons-item text-primary-600"
-																data-popup="tooltip" title="" data-original-title="Edit"><i
-																class="icon-pencil7"></i></a>
-														</c:if></td>
+													<td class="text-center"><a
+														href="${pageContext.request.contextPath}/showRosterdatewise?month=${month}&year=${year}&empId=${infomationList.empId}"
+														class="list-icons-item text-primary-600"
+														data-popup="tooltip" title="" data-original-title="View"><i
+															class="icon-list"></i></a></td>
 												</tr>
 											</c:forEach>
 
@@ -169,18 +166,20 @@
 
 
 								<div class="table-responsive">
-									<table
+									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="bootstrap-data-table1">
-										<!-- <table class="table  table-bordered  table-hover table-striped"
-										width="100%" id="printtable2"> -->
+										id="bootstrap-data-table1"> -->
+									<table class="table  table-bordered  table-hover table-striped"
+										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
-												<th width="5%" class="text-center">Sr.no</th>
+
 												<th class="text-center">Driver Code</th>
 												<th class="text-center">Driver Name</th>
-												<th class="text-center">Long Route</th>
-												<th class="text-center">Short Route</th>
+												<c:forEach items="${roasterSheetData.routeTypelist}"
+													var="routeTypelist">
+													<th style="text-align: center;">${routeTypelist.typeName}</th>
+												</c:forEach>
 												<th class="text-center">FF/Off Days</th>
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late Min</th>
@@ -190,7 +189,7 @@
 
 										<tbody>
 
-											<tr>
+											<!-- <tr>
 												<td>1</td>
 												<td>AD001</td>
 												<td>Akshay Kasar</td>
@@ -200,28 +199,36 @@
 												<td class="text-right">0</td>
 												<td class="text-right">0</td>
 												<td class="text-right">2000</td>
-											</tr>
-											<c:forEach items="${summrylist}" var="summrylist"
-												varStatus="count">
+											</tr> -->
+											<c:forEach
+												items="${roasterSheetData.roasterSummeryDetailList}"
+												var="roasterSummeryDetailList" varStatus="count">
 												<tr>
-													<td>${count.index+1}</td>
-													<td>${summrylist.empCode}</td>
-													<td>${summrylist.empName}</td>
-													<td class="text-right">${summrylist.workingDays}</td>
-													<td class="text-right">${summrylist.presentDays}</td>
-													<td class="text-right">${summrylist.absentDays+summrylist.unpaidLeave}</td>
-													<td class="text-right">${summrylist.weeklyOff}</td>
-													<td class="text-right">${summrylist.paidHoliday}</td>
-													<td class="text-right">${summrylist.paidLeave}</td>
-													<td class="text-right">${summrylist.unpaidHoliday}</td>
-													<%-- <td class="text-right">${summrylist.unpaidLeave}</td> --%>
-													<td class="text-right">${summrylist.totlateMins}</td>
-													<td class="text-right">${summrylist.totLate}</td>
-													<td class="text-right">${summrylist.payableDays}</td>
-													<%-- <td class="text-right">${summrylist.ncpDays}</td> --%>
-													<td class="text-right">${summrylist.totworkingHrs}</td>
-													<td class="text-right">${summrylist.totOthr}</td>
-													<td class="text-center">${summrylist.salBasis}</td>
+
+
+													<td>${roasterSummeryDetailList.empCode}</td>
+													<td>${roasterSummeryDetailList.firstName}&nbsp;${roasterSummeryDetailList.surname}</td>
+													<c:forEach items="${roasterSheetData.routeTypelist}"
+														var="routeTypelist">
+														<c:set value="0" var="typeCount"></c:set>
+														<c:forEach items="${roasterSheetData.typeWiseRoasterList}"
+															var="typeWiseRoasterList">
+
+
+															<c:if
+																test="${routeTypelist.typeId==typeWiseRoasterList.typeId && roasterSummeryDetailList.empId==typeWiseRoasterList.driverId}">
+																<c:set value="${typeWiseRoasterList.typeCount}"
+																	var="typeCount"></c:set>
+															</c:if>
+
+														</c:forEach>
+														<td class="text-right">${typeCount}</td>
+													</c:forEach>
+
+													<td class="text-right">${roasterSummeryDetailList.ffCount}/${roasterSummeryDetailList.offDayCount}</td>
+													<td class="text-right">${roasterSummeryDetailList.lateMark}</td>
+													<td class="text-right">${roasterSummeryDetailList.lateMin}</td>
+													<td class="text-right">${roasterSummeryDetailList.incentive}</td>
 												</tr>
 											</c:forEach>
 
