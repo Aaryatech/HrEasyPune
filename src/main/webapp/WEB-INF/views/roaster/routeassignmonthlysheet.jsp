@@ -142,7 +142,15 @@
 													<td style="text-align: right;">${year}</td>
 													<c:forEach items="${infomationList.sttsList}"
 														var="sttsList">
-														<td style="text-align: center;"><c:choose>
+
+														<c:set value="white" var="bgcolour"></c:set>
+
+														<c:if test="${sttsList.extraInt2==1}">
+															<c:set value="#0dbf0d" var="bgcolour"></c:set>
+														</c:if>
+
+														<td
+															style="text-align: center;background-color:${bgcolour};"><c:choose>
 																<c:when test="${sttsList.routeId!=0}">${sttsList.routeName}</c:when>
 																<c:when test="${sttsList.isoffdayIsff==1}">Off Day</c:when>
 																<c:when test="${sttsList.isoffdayIsff==2}">FF</c:when>

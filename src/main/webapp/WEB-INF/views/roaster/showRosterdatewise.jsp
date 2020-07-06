@@ -167,7 +167,17 @@
 												items="${roasterSheetData.routePlanDetailWithNamelist}"
 												var="routePlanDetailWithNamelist">
 												<tr>
-													<td class="text-center">${routePlanDetailWithNamelist.surname}</td>
+
+													<c:choose>
+														<c:when test="${routePlanDetailWithNamelist.extraInt2==1}">
+															<td class="text-center"
+																style="background-color: #0dbf0d;">${routePlanDetailWithNamelist.surname}</td>
+														</c:when>
+														<c:otherwise>
+															<td class="text-center">${routePlanDetailWithNamelist.surname}</td>
+														</c:otherwise>
+													</c:choose>
+
 													<td><c:choose>
 															<c:when test="${routePlanDetailWithNamelist.routeId!=0}">${routePlanDetailWithNamelist.routeName}</c:when>
 															<c:when
