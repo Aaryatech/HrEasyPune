@@ -417,28 +417,59 @@
 				function() {
 					 
 
-					bootbox.confirm({
-						title : 'Confirm ',
-						message : 'You Want to confirm Route Allocation? ',
-						buttons : {
-							confirm : {
-								label : 'Yes',
-								className : 'btn-success'
-							},
-							cancel : {
-								label : 'Cancel',
-								className : 'btn-link'
-							}
-						},
-						callback : function(result) {
-							if (result) {
-								document.getElementById(
-										'submitConfirmationRoaster')
-										.submit();
+					$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getDriverPlanList',
+						type : 'post',
+						dataType : 'json', 
+						contentType : false,
+						processData : false,
+						success : function(response) {
 
+							var flag=0;
+							
+							for(var i=0; i<response.driverPlanList.length ;i++){
+								
+								var otherrouteId = document.getElementById("routeId"+response.driverPlanList[i].planDetailId).value;
+								var isFF = document.getElementById("isFF"+response.driverPlanList[i].planDetailId).value;
+								
+								if(otherrouteId==0 && isFF==0){
+									flag=1;
+									alert("Select Route or Off day,FF For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
+									break;
+								}
+								 
 							}
-						}
+							
+							if(flag==0){
+								bootbox.confirm({
+									title : 'Confirm ',
+									message : 'You Want to confirm Route Allocation? ',
+									buttons : {
+										confirm : {
+											label : 'Yes',
+											className : 'btn-success'
+										},
+										cancel : {
+											label : 'Cancel',
+											className : 'btn-link'
+										}
+									},
+									callback : function(result) {
+										if (result) {
+											document.getElementById(
+													'submitConfirmationRoaster')
+													.submit();
+
+										}
+									}
+								});
+							}
+							 
+						},
 					});
+					
+					
 					 
 				});
 	</Script>
