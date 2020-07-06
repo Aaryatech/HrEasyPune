@@ -1275,4 +1275,60 @@ public class RoasterController {
 
 	}
 
+	@RequestMapping(value = "/sendNotificationBetweenDate", method = RequestMethod.GET)
+	public String sendNotificationBetweenDate(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("getRoasterPlanList", "getRoasterPlanList", 1, 0, 0, 0, newModuleList);
+
+		/*
+		 * if (view.isError() == true) {
+		 * 
+		 * mav = "accessDenied";
+		 * 
+		 * } else {
+		 */
+
+		mav = "roaster/sendNotificationBetweenDate";
+
+		try {
+
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// }
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/submitSendNotification", method = RequestMethod.POST)
+	public String submitSendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+
+		String date = request.getParameter("daterange");
+		try {
+
+			String[] dt = date.split("to");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("fromDate", DateConvertor.convertToYMD(dt[0]));
+			map.add("toDate", DateConvertor.convertToYMD(dt[1]));
+			Info info = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/sendNotificatinBetweenDateForPlanRoute", map, Info.class);
+
+			System.out.println(date);
+
+			session.setAttribute("successMsg", "Notification Send Successfully");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("date", date);
+		return "redirect:/sendNotificationBetweenDate";
+
+	}
+
 }
