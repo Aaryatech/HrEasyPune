@@ -350,6 +350,7 @@ public class PayRollController {
 			int payroll_loan_show = (int) session.getAttribute("amount_round");
 			int payroll_payded_show = (int) session.getAttribute("amount_round");
 			int payroll_reward_show = (int) session.getAttribute("amount_round");
+			int payroll_bhatta_show = (int) session.getAttribute("payroll_bhatta_show");
 
 			String monthAndYear = (String) session.getAttribute("monthAndYear");
 			List<EmpSalInfoDaiyInfoTempInfo> list = new ArrayList<>(Arrays.asList(getSalDynamicTempRecord));
@@ -386,6 +387,9 @@ public class PayRollController {
 			rowData.add("Night Allowance");
 			rowData.add("Performance Bonus");
 
+			if (payroll_bhatta_show == 1) {
+				rowData.add("Bhatta");
+			}
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -478,6 +482,12 @@ public class PayRollController {
 				rowData.add("" + String.format("%.2f",
 						ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 
+				if (payroll_bhatta_show == 1) {
+
+					rowData.add(""
+							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+
+				}
 				if (payroll_reward_show == 1) {
 
 					rowData.add(""
@@ -630,6 +640,7 @@ public class PayRollController {
 			int payroll_loan_show = (int) session.getAttribute("payroll_loan_show");
 			int payroll_payded_show = (int) session.getAttribute("payroll_payded_show");
 			int payroll_reward_show = (int) session.getAttribute("payroll_reward_show");
+			int payroll_bhatta_show = (int) session.getAttribute("payroll_bhatta_show");
 
 			String monthAndYear = (String) session.getAttribute("monthAndYear");
 			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
@@ -675,6 +686,9 @@ public class PayRollController {
 			rowData.add("Night Allowance");
 			rowData.add("Performance Bonus");
 
+			if (payroll_bhatta_show == 1) {
+				rowData.add("Bhatta");
+			}
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -769,6 +783,11 @@ public class PayRollController {
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+
+						if (payroll_bhatta_show == 1) {
+							rowData.add("" + String.format("%.2f",
+									ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+						}
 						if (payroll_reward_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
@@ -916,6 +935,7 @@ public class PayRollController {
 			int payroll_loan_show = 0;
 			int payroll_payded_show = 0;
 			int payroll_reward_show = 0;
+			int payroll_bhatta_show = 0;
 
 			for (int k = 0; k < settingList.size(); k++) {
 				if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
@@ -928,6 +948,8 @@ public class PayRollController {
 					payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
 				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
 					payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+					payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
 				}
 			}
 
@@ -936,7 +958,7 @@ public class PayRollController {
 			model.addObject("payroll_loan_show", payroll_loan_show);
 			model.addObject("payroll_payded_show", payroll_payded_show);
 			model.addObject("payroll_reward_show", payroll_reward_show);
-
+			model.addObject("payroll_bhatta_show", payroll_bhatta_show);
 			// System.out.println(list);
 
 		} catch (Exception e) {
@@ -1059,6 +1081,7 @@ public class PayRollController {
 			int payroll_loan_show = 0;
 			int payroll_payded_show = 0;
 			int payroll_reward_show = 0;
+			int payroll_bhatta_show = 0;
 
 			for (int k = 0; k < settingList.size(); k++) {
 				if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
@@ -1071,6 +1094,8 @@ public class PayRollController {
 					payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
 				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
 					payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+					payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
 				}
 			}
 
@@ -1079,7 +1104,8 @@ public class PayRollController {
 			model.addObject("payroll_loan_show", payroll_loan_show);
 			model.addObject("payroll_payded_show", payroll_payded_show);
 			model.addObject("payroll_reward_show", payroll_reward_show);
-
+			model.addObject("payroll_bhatta_show", payroll_bhatta_show);
+			
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("empIds", empIds);
 			GetEmpDetailForFullPayslip[] getEmpDetailForFullPayslip = Constants.getRestTemplate().postForObject(

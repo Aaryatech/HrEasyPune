@@ -116,6 +116,7 @@
 												int payroll_loan_show = 0;
 												int payroll_payded_show = 0;
 												int payroll_reward_show = 0;
+												int payroll_bhatta_show = 0;
 
 												for (int k = 0; k < settingList.size(); k++) {
 													if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
@@ -128,6 +129,8 @@
 														payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
 													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
 														payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+														payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
 													}
 												}
 												session.setAttribute("payroll_claim_show", payroll_claim_show);
@@ -135,6 +138,7 @@
 												session.setAttribute("payroll_loan_show", payroll_loan_show);
 												session.setAttribute("payroll_payded_show", payroll_payded_show);
 												session.setAttribute("payroll_reward_show", payroll_reward_show);
+												session.setAttribute("payroll_bhatta_show", payroll_bhatta_show);
 										%>
 										<tr class="bg-blue">
 											<th width="5%" class="text-center">Sr.no</th>
@@ -166,6 +170,13 @@
 											<th class="text-center">Performance Incentive</th>
 											<th class="text-center">Night Allowance</th>
 											<th class="text-center">Performance Bonus</th>
+											<%
+												if (payroll_bhatta_show == 1) {
+											%>
+											<th class="text-center">BHATTA</th>
+											<%
+												}
+											%>
 											<%
 												if (payroll_reward_show == 1) {
 											%>
@@ -383,7 +394,17 @@
 																	ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
 											</td>
-
+											<%
+												if (payroll_bhatta_show == 1) {
+											%><td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																		ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+												%>
+											</td>
+											<%
+												}
+											%>
 											<%
 												if (payroll_reward_show == 1) {
 											%><td class="text-right">

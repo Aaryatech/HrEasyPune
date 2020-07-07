@@ -87,6 +87,7 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		private double reward;
 		private double nightRate;
 		private double otRate;
+		private double bhatta;
 		
 		// tbl_emp_salary_info
 		private int salaryInfoId; 
@@ -1154,6 +1155,12 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		public void setMonthlyOtHr(String monthlyOtHr) {
 			this.monthlyOtHr = monthlyOtHr;
 		}
+		public double getBhatta() {
+			return bhatta;
+		}
+		public void setBhatta(double bhatta) {
+			this.bhatta = bhatta;
+		}
 		@Override
 		public String toString() {
 			return "EmpSalInfoDaiyInfoTempInfo [uuid=" + uuid + ", id=" + id + ", cmpId=" + cmpId + ", empId=" + empId
@@ -1185,38 +1192,39 @@ public class EmpSalInfoDaiyInfoTempInfo {
 					+ edliAdminPercentage + ", employerEsicPercentageSal=" + employerEsicPercentageSal
 					+ ", employeeEsicPercentageSal=" + employeeEsicPercentageSal + ", employerMlwf=" + employerMlwf
 					+ ", adjustMinus=" + adjustMinus + ", adjustPlus=" + adjustPlus + ", reward=" + reward
-					+ ", nightRate=" + nightRate + ", otRate=" + otRate + ", salaryInfoId=" + salaryInfoId
-					+ ", salaryTypeId=" + salaryTypeId + ", basic=" + basic + ", da=" + da + ", hra=" + hra + ", spa="
-					+ spa + ", pfApplicable=" + pfApplicable + ", pfType=" + pfType + ", pfEmpPer=" + pfEmpPer
-					+ ", pfEmplrPer=" + pfEmplrPer + ", esicApplicable=" + esicApplicable + ", cmpJoiningDate="
-					+ cmpJoiningDate + ", cmpLeavingDate=" + cmpLeavingDate + ", epfJoiningDate=" + epfJoiningDate
-					+ ", leavingReason=" + leavingReason + ", salBasis=" + salBasis + ", ceilingLimitEmpApplicable="
-					+ ceilingLimitEmpApplicable + ", ceilingLimitEmployerApplicable=" + ceilingLimitEmployerApplicable
-					+ ", leavingReasonEsic=" + leavingReasonEsic + ", leavingReasonPf=" + leavingReasonPf
-					+ ", mlwfApplicable=" + mlwfApplicable + ", ptApplicable=" + ptApplicable + ", grossSalary="
-					+ grossSalary + ", societyContribution=" + societyContribution + ", basicCompany=" + basicCompany
-					+ ", hraCompany=" + hraCompany + ", daCompany=" + daCompany + ", employeeEsicPercentage="
-					+ employeeEsicPercentage + ", employerEsicPercentage=" + employerEsicPercentage + ", delStatus="
-					+ delStatus + ", sumDailyId=" + sumDailyId + ", companyId=" + companyId + ", empName=" + empName
-					+ ", month=" + month + ", year=" + year + ", workingDays=" + workingDays + ", presentDays="
-					+ presentDays + ", weeklyOff=" + weeklyOff + ", paidHoliday=" + paidHoliday + ", paidLeave="
-					+ paidLeave + ", legalStrike=" + legalStrike + ", layOff=" + layOff + ", unpaidHoliday="
-					+ unpaidHoliday + ", unpaidLeave=" + unpaidLeave + ", absentDays=" + absentDays + ", payableDays="
-					+ payableDays + ", ncpDays=" + ncpDays + ", totlateMins=" + totlateMins + ", totlateDays="
-					+ totlateDays + ", totoutMins=" + totoutMins + ", totworkingHrs=" + totworkingHrs + ", tototHrs="
-					+ tototHrs + ", totOthr=" + totOthr + ", totLate=" + totLate + ", recStatus=" + recStatus
-					+ ", loginName=" + loginName + ", loginTime=" + loginTime + ", status=" + status + ", importDate="
-					+ importDate + ", recStatusPaid=" + recStatusPaid + ", totalDaysInmonth=" + totalDaysInmonth
-					+ ", lateDedLeavePaid=" + lateDedLeavePaid + ", holidayPresent=" + holidayPresent
-					+ ", weeklyOffPresent=" + weeklyOffPresent + ", fullNight=" + fullNight + ", halfNight=" + halfNight
-					+ ", holidayPresentHalf=" + holidayPresentHalf + ", weeklyOffPresentHalf=" + weeklyOffPresentHalf
-					+ ", weeklyOffHolidayOff=" + weeklyOffHolidayOff + ", weeklyOffHolidayOffPresent="
-					+ weeklyOffHolidayOffPresent + ", weeklyOffHolidayOffPresentHalfday="
-					+ weeklyOffHolidayOffPresentHalfday + ", hdpresentHdleave=" + hdpresentHdleave + ", totEarlyGoing="
-					+ totEarlyGoing + ", atsummUid=" + atsummUid + ", calculationDone=" + calculationDone + ", dob="
-					+ dob + ", skillId=" + skillId + ", rate=" + rate + ", dailyHr=" + dailyHr + ", monthlyHrTarget="
-					+ monthlyHrTarget + ", monthlyMinimumTarget=" + monthlyMinimumTarget + ", monthlyOtHr="
-					+ monthlyOtHr + ", getAllowanceTempList=" + getAllowanceTempList + "]";
+					+ ", nightRate=" + nightRate + ", otRate=" + otRate + ", bhatta=" + bhatta + ", salaryInfoId="
+					+ salaryInfoId + ", salaryTypeId=" + salaryTypeId + ", basic=" + basic + ", da=" + da + ", hra="
+					+ hra + ", spa=" + spa + ", pfApplicable=" + pfApplicable + ", pfType=" + pfType + ", pfEmpPer="
+					+ pfEmpPer + ", pfEmplrPer=" + pfEmplrPer + ", esicApplicable=" + esicApplicable
+					+ ", cmpJoiningDate=" + cmpJoiningDate + ", cmpLeavingDate=" + cmpLeavingDate + ", epfJoiningDate="
+					+ epfJoiningDate + ", leavingReason=" + leavingReason + ", salBasis=" + salBasis
+					+ ", ceilingLimitEmpApplicable=" + ceilingLimitEmpApplicable + ", ceilingLimitEmployerApplicable="
+					+ ceilingLimitEmployerApplicable + ", leavingReasonEsic=" + leavingReasonEsic + ", leavingReasonPf="
+					+ leavingReasonPf + ", mlwfApplicable=" + mlwfApplicable + ", ptApplicable=" + ptApplicable
+					+ ", grossSalary=" + grossSalary + ", societyContribution=" + societyContribution
+					+ ", basicCompany=" + basicCompany + ", hraCompany=" + hraCompany + ", daCompany=" + daCompany
+					+ ", employeeEsicPercentage=" + employeeEsicPercentage + ", employerEsicPercentage="
+					+ employerEsicPercentage + ", delStatus=" + delStatus + ", sumDailyId=" + sumDailyId
+					+ ", companyId=" + companyId + ", empName=" + empName + ", month=" + month + ", year=" + year
+					+ ", workingDays=" + workingDays + ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff
+					+ ", paidHoliday=" + paidHoliday + ", paidLeave=" + paidLeave + ", legalStrike=" + legalStrike
+					+ ", layOff=" + layOff + ", unpaidHoliday=" + unpaidHoliday + ", unpaidLeave=" + unpaidLeave
+					+ ", absentDays=" + absentDays + ", payableDays=" + payableDays + ", ncpDays=" + ncpDays
+					+ ", totlateMins=" + totlateMins + ", totlateDays=" + totlateDays + ", totoutMins=" + totoutMins
+					+ ", totworkingHrs=" + totworkingHrs + ", tototHrs=" + tototHrs + ", totOthr=" + totOthr
+					+ ", totLate=" + totLate + ", recStatus=" + recStatus + ", loginName=" + loginName + ", loginTime="
+					+ loginTime + ", status=" + status + ", importDate=" + importDate + ", recStatusPaid="
+					+ recStatusPaid + ", totalDaysInmonth=" + totalDaysInmonth + ", lateDedLeavePaid="
+					+ lateDedLeavePaid + ", holidayPresent=" + holidayPresent + ", weeklyOffPresent=" + weeklyOffPresent
+					+ ", fullNight=" + fullNight + ", halfNight=" + halfNight + ", holidayPresentHalf="
+					+ holidayPresentHalf + ", weeklyOffPresentHalf=" + weeklyOffPresentHalf + ", weeklyOffHolidayOff="
+					+ weeklyOffHolidayOff + ", weeklyOffHolidayOffPresent=" + weeklyOffHolidayOffPresent
+					+ ", weeklyOffHolidayOffPresentHalfday=" + weeklyOffHolidayOffPresentHalfday + ", hdpresentHdleave="
+					+ hdpresentHdleave + ", totEarlyGoing=" + totEarlyGoing + ", atsummUid=" + atsummUid
+					+ ", calculationDone=" + calculationDone + ", dob=" + dob + ", skillId=" + skillId + ", rate="
+					+ rate + ", dailyHr=" + dailyHr + ", monthlyHrTarget=" + monthlyHrTarget + ", monthlyMinimumTarget="
+					+ monthlyMinimumTarget + ", monthlyOtHr=" + monthlyOtHr + ", getAllowanceTempList="
+					+ getAllowanceTempList + "]";
 		}
 		
 		

@@ -287,7 +287,18 @@ hr {
 								align="right">${list.productionInsentive}</td>
 
 						</tr>
+						<c:if test="${payroll_bhatta_show==1}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">BHATTA</td>
 
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.bhatta}</td>
+
+							</tr>
+						</c:if>
 						<c:if test="${payroll_reward_show==1}">
 							<tr>
 								<td width="50%" valign="top"

@@ -205,6 +205,7 @@
 											int payroll_loan_show = 0;
 											int payroll_payded_show = 0;
 											int payroll_reward_show = 0;
+											int payroll_bhatta_show = 0;
 
 											for (int k = 0; k < settingList.size(); k++) {
 												if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
@@ -217,6 +218,8 @@
 													payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
 												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
 													payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+													payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
 												}
 											}
 											session.setAttribute("payroll_claim_show", payroll_claim_show);
@@ -224,12 +227,14 @@
 											session.setAttribute("payroll_loan_show", payroll_loan_show);
 											session.setAttribute("payroll_payded_show", payroll_payded_show);
 											session.setAttribute("payroll_reward_show", payroll_reward_show);
+											session.setAttribute("payroll_bhatta_show", payroll_bhatta_show);
 										%>
 										<tr class="bg-blue">
 
 											<th width="5%" class="text-center">Sr.no</th>
 											<th width="5%" class="text-center">All <input
 												type="checkbox" name="selectAll" id="selectAll"></th>
+											<th class="text-center">Full Salary Slip</th>
 											<th class="text-center">EMP Code</th>
 											<th class="text-center">EMP Name</th>
 											<th class="text-center">EMP Type</th>
@@ -293,7 +298,13 @@
 											<th class="text-center">Performance Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Night Allowance</th>
 											<th class="text-center">Performance Bonus</th>
-
+											<%
+												if (payroll_bhatta_show == 1) {
+											%>
+											<th class="text-center">BHATTA</th>
+											<%
+												}
+											%>
 											<%
 												if (payroll_reward_show == 1) {
 											%><th class="text-center">Reward</th>
@@ -349,6 +360,12 @@
 											<td><input type="checkbox" name="selectEmp"
 												id="selectEmp<%out.println(list.get(i).getEmpId());%>"
 												value="<%out.println(list.get(i).getEmpId());%>"></td>
+											<td class="text-center"><a target="_blank"
+												href="${pageContext.request.contextPath}/pdfForReport?url=/pdf/generatedFullPayslip/<%out.println(list.get(i).getEmpId());%>/${date}"
+												class="list-icons-item text-primary-600"
+												data-popup="tooltip" title=""
+												data-original-title="Full Slip PDF"><i
+													class="fa fa-file"></i></a></td>
 											<td>
 												<%
 													out.println(list.get(i).getEmpCode());
@@ -474,7 +491,17 @@
 																		ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
 											</td>
-
+											<%
+												if (payroll_bhatta_show == 1) {
+											%><td class="text-right">
+												<%
+													out.println(String.format("%.2f",
+																			ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+												%>
+											</td>
+											<%
+												}
+											%>
 											<%
 												if (payroll_reward_show == 1) {
 											%><td class="text-right">
