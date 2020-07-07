@@ -124,8 +124,8 @@
 								</div>
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="datepicker"> Select Company <span
-									style="color: red">* </span> :
+									for="subCmpId"> Select Company <span style="color: red">*
+								</span> :
 								</label>
 								<div class="col-lg-2">
 									<select name="subCmpId" data-placeholder="Select Company"
