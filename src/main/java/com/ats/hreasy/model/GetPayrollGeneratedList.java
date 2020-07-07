@@ -1,6 +1,7 @@
 package com.ats.hreasy.model;
 
 import java.util.List;
+ 
   
 public class GetPayrollGeneratedList {
 	
@@ -111,6 +112,7 @@ public class GetPayrollGeneratedList {
 	List<GetAdvanceDetails> getLoanList; 
 	List<ProductionIncentiveList> performance; 
 	List<ProductionIncentiveList> production;
+	List<GetAdvanceDetails> getBhattaList;
 	
 	private String moneyInword;
 	
@@ -954,6 +956,14 @@ public class GetPayrollGeneratedList {
 		this.bhatta = bhatta;
 	}
 
+	public List<GetAdvanceDetails> getGetBhattaList() {
+		return getBhattaList;
+	}
+
+	public void setGetBhattaList(List<GetAdvanceDetails> getBhattaList) {
+		this.getBhattaList = getBhattaList;
+	}
+
 	@Override
 	public String toString() {
 		return "GetPayrollGeneratedList [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -992,7 +1002,8 @@ public class GetPayrollGeneratedList {
 				+ ", getAdvanceList=" + getAdvanceList + ", getAbsentDedList=" + getAbsentDedList
 				+ ", getLateMarkDedList=" + getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList="
 				+ getPayDedList + ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance="
-				+ performance + ", production=" + production + ", moneyInword=" + moneyInword + "]";
+				+ performance + ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword="
+				+ moneyInword + "]";
 	}
 	
 	

@@ -298,6 +298,26 @@ hr {
 
 							</tr>
 						</c:forEach>
+						<c:forEach items="${list.getBhattaList}" var="getBhattaList">
+
+							<tr>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Driver Bhatta</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="center">${getBhattaList.date}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">${getBhattaList.amt}</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">1</td>
+								<td valign="top"
+									style="color: #000; font-size: 12px; padding-left: 5px;">${getBhattaList.remark}</td>
+
+							</tr>
+						</c:forEach>
 						<c:forEach items="${list.getRewardList}" var="getRewardList">
 
 							<tr>
@@ -447,8 +467,8 @@ hr {
 		<br>
 
 		<%-- <c:if test="${index==2}"> --%>
-			<c:set value="0" var="index"></c:set>
-			<div style="page-break-after: always;"></div>
+		<c:set value="0" var="index"></c:set>
+		<div style="page-break-after: always;"></div>
 		<%-- </c:if> --%>
 
 	</c:forEach>
