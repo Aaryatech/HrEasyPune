@@ -295,16 +295,15 @@
 									</div>
 
 									<div class="col-md-6">
-										<br> <br> <br>
 
 										<div class="table-responsive">
 											<!-- <table class="table datatable-scroll-y" width="100%"
 											id="printtable2"> -->
-											<!-- <table
+											<table
 												class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-												width="100%" id="printtable2"> -->
-											<table class="table table-bordered table-hover"
-												id="printtable3">
+												width="100%" id="printtable3">
+												<!-- <table class="table table-bordered table-hover"
+												id="printtable3"> -->
 												<thead>
 													<tr class="bg-blue">
 
@@ -734,11 +733,17 @@
 						   $('#printtable2').append(tr_data);
 					   }
 					   
-					  
-					   $("#printtable3 tbody").empty();
-						  
+					   
+					   
+					   //$("#printtable3 tbody").empty();
+					   var table = $('#printtable3').DataTable();
+					   var rows = table
+					    .rows()
+					    .remove()
+					    .draw();
+					   
 					   for(var i=0 ; i<response.routewisePlanHistory.length ;i++){
-						   var tr_data = '<tr  >'
+						  /*  var tr_data = '<tr  >'
 								+ '<td >'
 								+ response.routewisePlanHistory[i].routeName
 								+ '</td>'
@@ -750,9 +755,16 @@
 								+ '<td class="text-right" >'
 								+ response.routewisePlanHistory[i].incentive.toFixed(2)
 								+ '</td> </tr>';
-						   $('#printtable3').append(tr_data);
+						   $('#printtable3').append(tr_data); */
+						   
+						   $('#printtable3').DataTable().row.add([
+							   response.routewisePlanHistory[i].routeName, response.routewisePlanHistory[i].count, response.routewisePlanHistory[i].km, response.routewisePlanHistory[i].incentive.toFixed(2)
+						    	]).draw();
 					   }
-						 
+					   
+					   
+					  /*  $("#printtable3").bootstrapTable('refresh') */
+
 					  
 				},
 			});
