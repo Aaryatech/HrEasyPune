@@ -756,7 +756,7 @@
 								+ response.routewisePlanHistory[i].incentive.toFixed(2)
 								+ '</td> </tr>';
 						   $('#printtable3').append(tr_data); */
-						   
+						   $('#printtable3 td').css('white-space','initial');
 						   $('#printtable3').DataTable().row.add([
 							   response.routewisePlanHistory[i].routeName, response.routewisePlanHistory[i].count, response.routewisePlanHistory[i].km, response.routewisePlanHistory[i].incentive.toFixed(2)
 						    	]).draw();
