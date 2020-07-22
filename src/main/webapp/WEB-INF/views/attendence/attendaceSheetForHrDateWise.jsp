@@ -322,6 +322,7 @@
 
 												<th class="text-center">Name</th>
 												<th class="text-center">Status</th>
+												<th class="text-center">Approve Status</th>
 												<th class="text-center">In Time</th>
 												<th class="text-center">Out Time</th>
 												<th class="text-center">Late Mark</th>
@@ -342,7 +343,12 @@
 													<td>${dailyrecordList.empName}
 														&nbsp;(${dailyrecordList.empCode})</td>
 													<td class="text-center">${dailyrecordList.attsSdShow}</td>
-
+													<td class="text-center"><c:choose>
+															<c:when test="${dailyrecordList.commentsSupervisor==0}">Security Pending</c:when>
+															<c:when test="${dailyrecordList.commentsSupervisor==8}">HOD Pending (${dailyrecordList.fileName})</c:when>
+															<c:when test="${dailyrecordList.commentsSupervisor==9}">HOD Approved</c:when>
+															<c:otherwise>-</c:otherwise>
+														</c:choose></td>
 													<c:choose>
 														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
