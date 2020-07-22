@@ -343,12 +343,23 @@
 													<td>${dailyrecordList.empName}
 														&nbsp;(${dailyrecordList.empCode})</td>
 													<td class="text-center">${dailyrecordList.attsSdShow}</td>
-													<td class="text-center"><c:choose>
-															<c:when test="${dailyrecordList.commentsSupervisor==0}">Security Pending</c:when>
-															<c:when test="${dailyrecordList.commentsSupervisor==8}">HOD Pending (${dailyrecordList.fileName})</c:when>
-															<c:when test="${dailyrecordList.commentsSupervisor==9}">HOD Approved</c:when>
-															<c:otherwise>-</c:otherwise>
-														</c:choose></td>
+													<c:choose>
+														<c:when test="${dailyrecordList.commentsSupervisor==0}">
+															<td class="text-center"
+																style="background-color: #f51c1c;">Security Pending</td>
+														</c:when>
+														<c:when test="${dailyrecordList.commentsSupervisor==8}">
+															<td class="text-center"
+																style="background-color: #f51c1c;">HOD Pending
+																(${dailyrecordList.fileName})</td>
+														</c:when>
+														<c:when test="${dailyrecordList.commentsSupervisor==9}">
+															<td class="text-center">HOD Approved</td>
+														</c:when>
+														<c:otherwise>
+															<td class="text-center">-</td>
+														</c:otherwise>
+													</c:choose>
 													<c:choose>
 														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
 															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
@@ -509,89 +520,115 @@
 
 			if (value == 1) {
 
-				document.getElementById("byIntimeDive").style.display = 'none';
-				document.getElementById("byStatusDive").style.display = 'block';
+				document.getElementById("
+																byIntimeDive").style.display='none'
+																;
+				document.getElementById("byStatusDive").style.display='block'
+																;
 
 			} else {
-				document.getElementById("byIntimeDive").style.display = 'block';
-				document.getElementById("byStatusDive").style.display = 'none';
+				document.getElementById("byIntimeDive").style.display='block'
+																;
+				document.getElementById("byStatusDive").style.display='none'
+																;
 			}
 		}
 
-		function closeEditDetailTab() {
+		function
+																closeEditDetailTab() {
 
-			document.getElementById("editAttanceDiv").style.display = 'none';
+			document.getElementById("editAttanceDiv").style.display='none'
+																;
 		}
 
-		function editAttendanceDetail(dailyId) {
+		function
+																editAttendanceDetail(dailyId) {
  
 			
 			
-			var fd = new FormData();
+			var fd=new
+																FormData();
 			fd.append('dailyId', dailyId);
 			
 			$
 			.ajax({
-				url : '${pageContext.request.contextPath}/editDailyRecord',
-				type : 'post',
+				url
+																: '${pageContext.request.contextPath}/editDailyRecord',
+				type
+																: 'post',
 				dataType : 'json',
-				data : fd,
+				data :
+																fd,
 				contentType : false,
-				processData : false,
-				success : function(response) {
+				processData :
+																false,
+				success :
+																function(response) {
 
-					document.getElementById("editAttanceDiv").style.display = 'block';
-					document.getElementById("byIntimeDive").style.display = 'none';
-					document.getElementById("byStatusDive").style.display = 'block';
-					document.getElementById("byStatus").checked = true;
-					document.getElementById("empId").value = response.empId;
-					document.getElementById("empCode").value = response.empCode;
-					document.getElementById("empName").value = response.empName;
-					document.getElementById("dailyId").value = response.id;
-					document.getElementById("attDate").value = response.attDate;
-					document.getElementById("attStatus").value = response.attsSdShow;
-					document.getElementById("selectShift").value = response.currentShiftid;
-					
-					if(response.otHr.length==4){
-						document.getElementById("otHours").value = 0+response.otHr;
-					}else{
-						document.getElementById("otHours").value = response.otHr;
-					}
+					document.getElementById("editAttanceDiv").style.display='block'
+																;
+					document.getElementById("byIntimeDive").style.display='none'
+																;
+					document.getElementById("byStatusDive").style.display='block'
+																;
+					document.getElementById("byStatus").checked=true;
+																document.getElementById("empId").value=response.empId;
+																document.getElementById("empCode").value=response.empCode;
+																document.getElementById("empName").value=response.empName;
+																document.getElementById("dailyId").value=response.id;
+																document.getElementById("attDate").value=response.attDate;
+																document.getElementById("attStatus").value=response.attsSdShow;
+																document.getElementById("selectShift").value=response.currentShiftid;
+																if(response.otHr.length==4){
+																document.getElementById("otHours").value=0+response.otHr;
+																}else{
+						document.getElementById("otHours").value=response.otHr;
+																}
 					
 
-					document.getElementById("inTime").value = response.inTime.substr(0, 5);
-					document.getElementById("outTime").value = response.outTime.substr(0, 5);
+					document.getElementById("inTime").value=response.inTime.substr(0,
+																5);
+					document.getElementById("outTime").value=response.outTime.substr(0,
+																5);
 					
 					
 					if(response.lateMark==1){
-						document.getElementById("lateMark").checked = true;
-					}else{
-						document.getElementById("lateMark").checked = false;
-					}
+																document.getElementById("lateMark").checked=true;
+																}else{
+						document.getElementById("lateMark").checked=false;
+																}
 					document.getElementById("lateMin").value=response.lateMin;
-				},
+																},
 			});
 
 		}
 		
-	function markAsCompOff(dailyId,sts) {
+	function
+																markAsCompOff(dailyId,sts) {
  
 			//alert(sts);
 			
-			var fd = new FormData();
+			var
+																fd=new
+																FormData();
 			fd.append('dailyId', dailyId);
 			fd.append('sts', sts);
 			$('#modal_step1').modal('show');
 			
 			  $
 			.ajax({
-				url : '${pageContext.request.contextPath}/markAsCompOff',
-				type : 'post',
+				url
+																: '${pageContext.request.contextPath}/markAsCompOff',
+				type
+																: 'post',
 				dataType : 'json',
-				data : fd,
+				data :
+																fd,
 				contentType : false,
-				processData : false,
-				success : function(response) {
+				processData :
+																false,
+				success :
+																function(response) {
 
 					location.reload(true);
 					 
@@ -600,40 +637,55 @@
 
 		}
 		
-	function saveAttendanceDetail() {
+	function
+																saveAttendanceDetail() {
   
 	 
 		
 		
-		var selectStatus = document.getElementById("selectStatus").value;
-		var selectStatusText = $("#newSts"+selectStatus).data("namesd");
+		var
+																selectStatus=document.getElementById(
+																"selectStatus").value;
+		var selectStatusText=$(
+																"#newSts"+selectStatus).data("namesd");
 		 
-		var namesd = $("#selectStatus option:selected").text();
-		var otHours = document.getElementById("otHours").value;  
-		var dailyId = document.getElementById("dailyId").value;
-		var inTime = document.getElementById("inTime").value;
-		var outTime = document.getElementById("outTime").value;
-		var selectShift = document.getElementById("selectShift").value;
+		var
+																namesd=$( "#selectStatus option:selected").text();
+		var
+																otHours=document.getElementById(
+																"otHours").value;  
+		var
+																dailyId=document.getElementById( "dailyId").value;
+		var
+																inTime=document.getElementById( "inTime").value;
+		var
+																outTime=document.getElementById( "outTime").value;
+		var
+																selectShift=document.getElementById(
+																"selectShift").value;
 		
-		var byStatus=1;
-		var lateMark=0;
-		var month = document.getElementById("month").value;
-		var year = document.getElementById("year").value;
-		var otApproval = document.getElementById("otApproval").value;
+		var byStatus=1; var
+																lateMark=0; var month=document.getElementById(
+																"month").value;
+		var year=document.getElementById(
+																"year").value;
+		var otApproval=document.getElementById(
+																"otApproval").value;
 		
 		if(document.getElementById("byIntime").checked==true){
-			byStatus=2;
-		}
+																byStatus=2;
+																}
 		if(document.getElementById("lateMark").checked==true){
-			lateMark=1;
-		}
-		var lateMin = document.getElementById("lateMin").value;
-		if(lateMin==""){
+																lateMark=1; }
+		var lateMin=document.getElementById(
+																"lateMin").value;
+		if(lateMin== ""){
 			lateMin=0;
-		}
+																}
 		$('#modal_step1').modal('show');
 		
-			var fd = new FormData();
+			var fd=new
+																FormData();
 			fd.append('dailyId', dailyId);
 			fd.append('otHours', otHours);
 			fd.append('selectStatus', selectStatus);
@@ -650,13 +702,17 @@
 			fd.append('lateMin', lateMin);
 			  $
 			.ajax({
-				url : '${pageContext.request.contextPath}/submitAttendanceDetail',
-				type : 'post',
+				url
+																: '${pageContext.request.contextPath}/submitAttendanceDetail',
+				type
+																: 'post',
 				dataType : 'json',
-				data : fd,
+				data :
+																fd,
 				contentType : false,
-				processData : false,
-				success : function(response) {
+				processData :
+																false,
+				success :function(response) {
 
 					location.reload(true);
 				},
@@ -665,103 +721,129 @@
 		}
 	</script>
 	<script>
-		// Custom bootbox dialog
-		$('.bootbox_custom')
-				.on(
-						'click',
-						function() {
-							var dailyId = $(this).data("dailyid")
-							var sts = $(this).data("attstatus") // will return the number 123
-							  
-										bootbox.confirm({
-										title : 'Confirm ',
-										message : 'Are you sure you want to Mark as Compoff ? you Can not edit attendance again',
-										buttons : {
-											confirm : {
-												label : 'Yes',
-												className : 'btn-success'
-											},
-											cancel : {
-												label : 'Cancel',
-												className : 'btn-link'
-											}
-										},
-										callback : function(result) {
-											if (result) {
-												var fd = new FormData();
-												fd.append('dailyId', dailyId);
-												fd.append('sts', sts);
-												$('#modal_step1').modal('show');
-												
-												   $
-												.ajax({
-													url : '${pageContext.request.contextPath}/markAsCompOff',
-													type : 'post',
-													dataType : 'json',
-													data : fd,
-													contentType : false,
-													processData : false,
-													success : function(response) {
+																	// Custom bootbox dialog
+																	$(
+																			'.bootbox_custom')
+																			.on(
+																					'click',
+																					function() {
+																						var dailyId = $(
+																								this)
+																								.data(
+																										"dailyid")
+																						var sts = $(
+																								this)
+																								.data(
+																										"attstatus") // will return the number 123
 
-														location.reload(true);
-														 
-													},
-												});  
+																						bootbox
+																								.confirm({
+																									title : 'Confirm ',
+																									message : 'Are you sure you want to Mark as Compoff ? you Can not edit attendance again',
+																									buttons : {
+																										confirm : {
+																											label : 'Yes',
+																											className : 'btn-success'
+																										},
+																										cancel : {
+																											label : 'Cancel',
+																											className : 'btn-link'
+																										}
+																									},
+																									callback : function(
+																											result) {
+																										if (result) {
+																											var fd = new FormData();
+																											fd
+																													.append(
+																															'dailyId',
+																															dailyId);
+																											fd
+																													.append(
+																															'sts',
+																															sts);
+																											$(
+																													'#modal_step1')
+																													.modal(
+																															'show');
 
-											}
-										}
-									});
-						});
-		$('.datepickerclass').daterangepicker({
-			singleDatePicker : true,
-			selectMonths : true,
-			selectYears : true,
-			locale : {
-				format : 'DD-MM-YYYY'
-			}
-		});
-	</Script>
+																											$
+																													.ajax({
+																														url : '${pageContext.request.contextPath}/markAsCompOff',
+																														type : 'post',
+																														dataType : 'json',
+																														data : fd,
+																														contentType : false,
+																														processData : false,
+																														success : function(
+																																response) {
 
+																															location
+																																	.reload(true);
+
+																														},
+																													});
+
+																										}
+																									}
+																								});
+																					});
+																	$(
+																			'.datepickerclass')
+																			.daterangepicker(
+																					{
+																						singleDatePicker : true,
+																						selectMonths : true,
+																						selectYears : true,
+																						locale : {
+																							format : 'DD-MM-YYYY'
+																						}
+																					});
+																</Script>
 	<script type="text/javascript">
-	function addLeave() {
-		
-		var empId = document.getElementById("empId").value;  
-		var attDate = document.getElementById("attDate").value;  
-		var month = document.getElementById("month").value;
-		var year = document.getElementById("year").value;
-		
-		   var strhref ="${pageContext.request.contextPath}/addleaveFromAttendance?empId="+empId+"&attDate="+attDate+"&month="+month+"&year="+year+"&flag="+1;
-		   $("#modalbody").load(strhref);
-		   $("#modal_large1").modal("show");
-		   $('#modal_large1').on('hidden.bs.modal', function () {
-			 $("#modalbody").html("");
-		   }); 
-		   
-		$(document).ready(function(){
- 
-		 
+		function addLeave() {
+
+			var empId = document.getElementById("empId").value;
+			var attDate = document.getElementById("attDate").value;
+			var month = document.getElementById("month").value;
+			var year = document.getElementById("year").value;
+
+			var strhref = "${pageContext.request.contextPath}/addleaveFromAttendance?empId="
+					+ empId
+					+ "&attDate="
+					+ attDate
+					+ "&month="
+					+ month
+					+ "&year=" + year + "&flag=" + 1;
+			$("#modalbody").load(strhref);
+			$("#modal_large1").modal("show");
+			$('#modal_large1').on('hidden.bs.modal', function() {
+				$("#modalbody").html("");
 			});
-	}
-	
+
+			$(document).ready(function() {
+
+			});
+		}
 	</script>
 	<script type="text/javascript">
-			$('.datatable-fixed-left_custom').DataTable({
+		$('.datatable-fixed-left_custom').DataTable({
 
-				columnDefs : [ {
-					orderable : false,
-					targets : [ 0 ]
-				} ],
-				//scrollX : true,
-				scrollX : true,
-				scrollY : '65vh',
-				scrollCollapse : true,
-				paging : false,
-				fixedColumns : {
-					leftColumns : 0,
-					rightColumns : 0
-				}
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 0,
+				rightColumns : 0
+			}
 
-			});
-		</script>
+		});
+	</script>
 </body>
 </html>
