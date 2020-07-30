@@ -1295,7 +1295,6 @@ public class RoasterController {
 
 		try {
 
-			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1328,6 +1327,91 @@ public class RoasterController {
 		}
 		model.addAttribute("date", date);
 		return "redirect:/sendNotificationBetweenDate";
+
+	}
+
+	@RequestMapping(value = "/confirmationRouteByDateAndChangeDetail", method = RequestMethod.GET)
+	public String confirmationRouteByDateAndChangeDetail(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+		HttpSession session = request.getSession();
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("confirmationRouteByDate", "confirmationRouteByDate", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+
+			mav = "roaster/confirmationRouteByDateAndChangeDetail";
+
+			try {
+
+				model.addAttribute("flag", 1);
+
+				date = request.getParameter("date");
+
+				if (date != null) {
+
+					model.addAttribute("date", date);
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
+
+					Info info = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/insertInitiallydriverInPlanRoute", map, Info.class);
+
+					model.addAttribute("info", info);
+
+					if (info.isError() == false) {
+						RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate().postForObject(
+								Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+
+						driverPlanList = new ArrayList<>(Arrays.asList(routePlanDetailWithName));
+						model.addAttribute("list", driverPlanList);
+
+						RouteList[] route = Constants.getRestTemplate().getForObject(Constants.url + "/getRouteList",
+								RouteList[].class);
+						routeList = new ArrayList<>(Arrays.asList(route));
+						model.addAttribute("routeList", routeList);
+					}
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
+
+	}
+	
+	@RequestMapping(value = "/updateRouteName", method = RequestMethod.POST)
+	@ResponseBody
+	public Info updateRouteName(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+			int planDetailId = Integer.parseInt(request.getParameter("planDetailId"));
+			String routeName =  request.getParameter("routeName") ;
+			float routeBhattaChange = Float.parseFloat(request.getParameter("routeBhattaChange"));
+ 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("planDetailId", planDetailId);
+			map.add("routeName", routeName);
+			map.add("incentive", routeBhattaChange); 
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateRouteName", map, Info.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
 
 	}
 
