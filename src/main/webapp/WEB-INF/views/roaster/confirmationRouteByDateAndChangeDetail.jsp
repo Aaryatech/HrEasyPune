@@ -102,7 +102,7 @@
 									<div class="form-group row">
 										<label
 											class="col-form-label text-info font-weight-bold col-lg-2"
-											for="date">Planning Date <span style="color: red">*
+											for="date">Select Date <span style="color: red">*
 										</span> :
 										</label>
 										<div class="col-md-2">
@@ -125,7 +125,7 @@
 											id="submtbtn">Search</button>
 									</div>
 								</form>
-								<hr>
+								<!-- <hr>
 
 								<div class="form-group row">
 									<label class="col-form-label   col-lg-2" for="date">Select
@@ -173,7 +173,7 @@
 
 										</tbody>
 									</table>
-								</div>
+								</div> -->
 
 							</div>
 							<hr>
@@ -187,129 +187,149 @@
 
 									<div class="row">
 
-										<div class="col-md-6">
+										<!-- <div class="col-md-6"> -->
 
 
-											<div class="table-responsive">
-												<!-- <table class="table datatable-scroll-y" width="100%"
+										<div class="table-responsive">
+											<!-- <table class="table datatable-scroll-y" width="100%"
 											id="printtable1"> -->
-												<table
-													class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-													width="100%" id="printtable1">
-													<thead>
-														<tr class="bg-blue">
-															<th class="text-center">Driver Name</th>
-															<th class="text-center">Select Route</th>
-															<th class="text-center">Route Name</th>
-															<th class="text-center">Bhatta</th>
-															<th class="text-center">Select</th>
-															<th class="text-center">Late Mark</th>
-															<th class="text-center">Detail</th>
-														</tr>
-													</thead>
-													<tbody>
+											<table
+												class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+												width="100%" id="printtable1">
+												<thead>
+													<tr class="bg-blue">
+														<th class="text-center">Driver Name</th>
+														<th class="text-center">Select Route</th>
+														<th class="text-center">Route Name</th>
+														<th class="text-center">KM</th>
+														<th class="text-center">Bhatta</th>
+														<th class="text-center">Franchisee Name</th>
+														<th class="text-center">Select</th>
+														<th class="text-center">Late Mark</th>
+														<!-- <th class="text-center">Detail</th> -->
+													</tr>
+												</thead>
+												<tbody>
 
-														<c:forEach items="${list}" var="list" varStatus="count">
-															<tr>
-																<td>${list.firstName}&nbsp;${list.surname}</td>
-																<td><select name="routeId${list.planDetailId}"
-																	data-placeholder="Select Route"
-																	id="routeId${list.planDetailId}" class="form-control"
-																	onchange="updateRouteId(${list.planDetailId})"
-																	onclick="checkDoubleRoute(${list.planDetailId})">
-																		<option value="0" selected
-																			id="routeIdDetail${list.planDetailId}0">NA</option>
+													<c:forEach items="${list}" var="list" varStatus="count">
+														<tr>
+															<td>${list.firstName}&nbsp;${list.surname}</td>
+															<td><select name="routeId${list.planDetailId}"
+																data-placeholder="Select Route"
+																id="routeId${list.planDetailId}" class="form-control"
+																onchange="updateRouteId(${list.planDetailId})"
+																onclick="checkDoubleRoute(${list.planDetailId})">
+																	<option value="0" selected
+																		id="routeIdDetail${list.planDetailId}0"
+																		data-frname="-" data-bhatta="0" data-routekm="0">NA</option>
 
-																		<c:forEach items="${routeList}" var="routeList">
-																			<c:choose>
-																				<c:when test="${routeList.routeId==list.routeId}">
-																					<option value="${routeList.routeId}" selected
-																						id="routeIdDetail${list.planDetailId}${routeList.routeId}"
-																						style="background-color: orange;">${routeList.routeName}</option>
-																				</c:when>
-																				<c:otherwise>
-																					<option value="${routeList.routeId}"
-																						id="routeIdDetail${list.planDetailId}${routeList.routeId}">${routeList.routeName}</option>
-																					<!-- style="background-color: orange;" -->
-																				</c:otherwise>
-																			</c:choose>
+																	<c:forEach items="${routeList}" var="routeList">
+																		<c:choose>
+																			<c:when test="${routeList.routeId==list.routeId}">
+																				<option value="${routeList.routeId}" selected
+																					id="routeIdDetail${list.planDetailId}${routeList.routeId}"
+																					style="background-color: orange;"
+																					data-frname="${routeList.frName}"
+																					data-routekm="${routeList.km}"
+																					data-bhatta="${routeList.incentive}">${routeList.routeName}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${routeList.routeId}"
+																					id="routeIdDetail${list.planDetailId}${routeList.routeId}"
+																					data-frname="${routeList.frName}"
+																					data-routekm="${routeList.km}"
+																					data-bhatta="${routeList.incentive}">${routeList.routeName}</option>
+																				<!-- style="background-color: orange;" -->
+																			</c:otherwise>
+																		</c:choose>
 
-																		</c:forEach>
-																</select></td>
-																<td class="text-center"><input type="text"
-																	class="form-control" placeholder="Route Name"
-																	value="${list.routeName}"
-																	name="routeNameChange${list.planDetailId}"
-																	id="routeNameChange${list.planDetailId}"
+																	</c:forEach>
+															</select></td>
+															<td class="text-center"><input type="text"
+																class="form-control" placeholder="Route Name"
+																value="${list.routeName}"
+																name="routeNameChange${list.planDetailId}"
+																id="routeNameChange${list.planDetailId}"
+																onchange="trim(this);updateRouteName(${list.planDetailId})"
+																required></td>
+															<td class="text-center"><input type="text"
+																class="form-control numbersOnly" placeholder="KM"
+																value="${list.km}" name="kmChange${list.planDetailId}"
+																id="kmChange${list.planDetailId}"
+																onchange="trim(this);updateRouteName(${list.planDetailId})"
+																required></td>
+															<td class="text-center"><input type="text"
+																class="form-control numbersOnly"
+																placeholder="Route Name" value="${list.incentive}"
+																name="routeBhattaChange${list.planDetailId}"
+																id="routeBhattaChange${list.planDetailId}"
+																onchange="trim(this);updateRouteName(${list.planDetailId})"
+																required></td>
+															<td class="text-center"><textarea cols="6" rows="6"
+																	class="form-control" placeholder="Franchisee Name"
+																	name="frNameChange${list.planDetailId}"
+																	id="frNameChange${list.planDetailId}"
 																	onchange="trim(this);updateRouteName(${list.planDetailId})"
-																	required></td>
-																<td class="text-center"><input type="text"
-																	class="form-control numbersOnly"
-																	placeholder="Route Name" value="${list.incentive}"
-																	name="routeBhattaChange${list.planDetailId}"
-																	id="routeBhattaChange${list.planDetailId}"
-																	onchange="trim(this);updateRouteName(${list.planDetailId})"
-																	required></td>
-																<td class="text-center"><select
-																	name="isFF${list.planDetailId}"
-																	data-placeholder="Select Route"
-																	onchange="updateRouteId(${list.planDetailId})"
-																	id="isFF${list.planDetailId}" class="form-control">
+																	required>${list.frName}</textarea></td>
+															<td class="text-center"><select
+																name="isFF${list.planDetailId}"
+																data-placeholder="Select Route"
+																onchange="updateRouteId(${list.planDetailId})"
+																id="isFF${list.planDetailId}" class="form-control">
 
-																		<option value="0" selected>NA</option>
-																		<option value="1"
-																			${list.isoffdayIsff==1 ? 'selected' : ''}>Off
-																			Day</option>
-																		<option value="2"
-																			${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
-																</select></td>
+																	<option value="0" selected>NA</option>
+																	<option value="1"
+																		${list.isoffdayIsff==1 ? 'selected' : ''}>Off
+																		Day</option>
+																	<option value="2"
+																		${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
+															</select></td>
 
-																<td class="text-center"><c:choose>
-																		<c:when test="${list.lateMark==1}">
-																			<input type="checkbox"
-																				id="lateMark${list.planDetailId}"
-																				name="lateMark${list.planDetailId}" value="1"
-																				onchange="changeLateMark(${list.planDetailId})"
-																				checked>
-																		</c:when>
-																		<c:otherwise>
-																			<input type="checkbox"
-																				id="lateMark${list.planDetailId}"
-																				name="lateMark${list.planDetailId}" value="0"
-																				onchange="changeLateMark(${list.planDetailId})">
-																		</c:otherwise>
-																	</c:choose> <input type="text" class="form-control numbersOnly"
-																	placeholder="Late Min" value="${list.lateMin}"
-																	name="lateMin${list.planDetailId}"
-																	id="lateMin${list.planDetailId}"
-																	onchange="trim(this);changeLateMark(${list.planDetailId})"
-																	required></td>
+															<td class="text-center"><c:choose>
+																	<c:when test="${list.lateMark==1}">
+																		<input type="checkbox"
+																			id="lateMark${list.planDetailId}"
+																			name="lateMark${list.planDetailId}" value="1"
+																			onchange="changeLateMark(${list.planDetailId})"
+																			checked>
+																	</c:when>
+																	<c:otherwise>
+																		<input type="checkbox"
+																			id="lateMark${list.planDetailId}"
+																			name="lateMark${list.planDetailId}" value="0"
+																			onchange="changeLateMark(${list.planDetailId})">
+																	</c:otherwise>
+																</c:choose> <input type="text" class="form-control numbersOnly"
+																placeholder="Late Min" value="${list.lateMin}"
+																name="lateMin${list.planDetailId}"
+																id="lateMin${list.planDetailId}"
+																onchange="trim(this);changeLateMark(${list.planDetailId})"
+																required></td>
 
-																<td class="text-center"><button type="button"
+															<%-- <td class="text-center"><button type="button"
 																		class="btn bg-blue ml-3 legitRipple" id="historybtn"
 																		onclick="getPlanHistoryDetailByEmpId(${list.driverId})">Detail</button>
-																</td>
-															</tr>
-														</c:forEach>
+																</td> --%>
+														</tr>
+													</c:forEach>
 
 
-													</tbody>
-												</table>
-											</div>
-											<span class="validation-invalid-label" id="error_table1"
-												style="display: none;">Please select one employee.</span>
+												</tbody>
+											</table>
 										</div>
+										<span class="validation-invalid-label" id="error_table1"
+											style="display: none;">Please select one employee.</span>
+										<!-- </div> -->
 
-										<div class="col-md-6">
+										<!-- <div class="col-md-6">
 
 											<div class="table-responsive">
-												<!-- <table class="table datatable-scroll-y" width="100%"
-											id="printtable2"> -->
+											 
 												<table
-													class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+													class="table datatable-fixed-left_custom1 table-bordered  table-hover   table-striped"
 													width="100%" id="printtable3">
-													<!-- <table class="table table-bordered table-hover"
-												id="printtable3"> -->
+													<table class="table table-bordered table-hover"
+												id="printtable3">
 													<thead>
 														<tr class="bg-blue">
 
@@ -326,18 +346,18 @@
 													</tbody>
 												</table>
 											</div>
-										</div>
+										</div> -->
 									</div>
 
-									<c:if test="${flag==1}">
-										<br>
-										<div class="form-group text-center ">
-											<input type="button" class="btn blue_btn bootbox_custom"
-												value="Confirm" id="btnassignstuct">
 
-										</div>
+									<br>
+									<div class="form-group text-center ">
+										<input type="button" class="btn blue_btn bootbox_custom"
+											value="Confirm" id="btnassignstuct">
+
+									</div>
 								</form>
-								</c:if>
+
 
 							</div>
 						</div>
@@ -354,7 +374,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header bg-info">
-							<h6 class="modal-title">Updating Attendance</h6>
+							<h6 class="modal-title">Fetching Data</h6>
 							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
 						</div>
 
@@ -438,9 +458,30 @@
 								var otherrouteId = document.getElementById("routeId"+response.driverPlanList[i].planDetailId).value;
 								var isFF = document.getElementById("isFF"+response.driverPlanList[i].planDetailId).value;
 								
+								var routeNameChange = document.getElementById("routeNameChange"+response.driverPlanList[i].planDetailId).value;
+								var frNameChange = document.getElementById("frNameChange"+response.driverPlanList[i].planDetailId).value;
+								var routeBhattaChange =  document.getElementById("routeBhattaChange"+response.driverPlanList[i].planDetailId).value ;
+								var kmChange =  document.getElementById("kmChange"+response.driverPlanList[i].planDetailId).value ;
+								 
 								if(otherrouteId==0 && isFF==0){
 									flag=1;
 									alert("Select Route or Off day,FF For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
+									break;
+								}else if(routeNameChange==""){
+									flag=1;
+									alert("Enter Route Name For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
+									break;
+								}else if(kmChange==""){
+									flag=1;
+									alert("Enter KM For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
+									break;
+								}else if(frNameChange==""){
+									flag=1;
+									alert("Enter Franchisee Name For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
+									break;
+								}else if(routeBhattaChange==""){
+									flag=1;
+									alert("Enter Bhatta For "+ response.driverPlanList[i].firstName+" "+response.driverPlanList[i].surname);
 									break;
 								}
 								 
@@ -601,8 +642,16 @@
 
 			var routeId = document.getElementById("routeId"+planDetailId).value;
 			var routeName = $("#routeId"+planDetailId+" option:selected").text();
-			document.getElementById("routeNameChange"+planDetailId).value=routeName; 
+			document.getElementById("routeNameChange"+planDetailId).value=routeName;  
 			
+			var routeBhattaChange =  $("#routeIdDetail"+planDetailId+routeId).data("bhatta")
+			var frname =  $("#routeIdDetail"+planDetailId+routeId).data("frname")
+			var kmChange =  $("#routeIdDetail"+planDetailId+routeId).data("routekm")
+			
+			document.getElementById("routeBhattaChange"+planDetailId).value =routeBhattaChange;
+			document.getElementById("frNameChange"+planDetailId).value=frname;
+			document.getElementById("kmChange"+planDetailId).value=kmChange;
+				
 			var isFF = document.getElementById("isFF"+planDetailId).value;
 			//var selectStatusText = $("#newSts" + selectStatus).data("namesd");
 
@@ -655,12 +704,19 @@
 		function updateRouteName(planDetailId) {
 
 			var routeName = document.getElementById("routeNameChange"+planDetailId).value; 
-			var routeBhattaChange = parseFloat(document.getElementById("routeBhattaChange"+planDetailId).value); 
+			var frNameChange = document.getElementById("frNameChange"+planDetailId).value; 
 			
+			var routeBhattaChange = parseFloat(document.getElementById("routeBhattaChange"+planDetailId).value); 
+			var kmChange =  document.getElementById("kmChange"+planDetailId).value ; 
+			
+			//alert(routeName)
 			var fd = new FormData();
 			fd.append('planDetailId', planDetailId);
 			fd.append('routeName', routeName); 
 			fd.append('routeBhattaChange', routeBhattaChange); 
+			fd.append('frNameChange', frNameChange); 
+			fd.append('kmChange', kmChange); 
+			
 			$
 					.ajax({
 						url : '${pageContext.request.contextPath}/updateRouteName',
@@ -908,11 +964,29 @@
 			scrollCollapse : true,
 			paging : false,
 			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 0
+			}
+
+		});
+		$('.datatable-fixed-left_custom1').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
 				leftColumns : 0,
 				rightColumns : 0
 			}
 
 		});
+		
 	</script>
 </body>
 </html>

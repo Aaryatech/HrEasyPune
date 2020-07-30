@@ -1337,7 +1337,7 @@ public class RoasterController {
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("confirmationRouteByDate", "confirmationRouteByDate", 1, 0, 0, 0,
+		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail", "confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0,
 				newModuleList);
 
 		if (view.isError() == true) {
@@ -1401,11 +1401,16 @@ public class RoasterController {
 			int planDetailId = Integer.parseInt(request.getParameter("planDetailId"));
 			String routeName =  request.getParameter("routeName") ;
 			float routeBhattaChange = Float.parseFloat(request.getParameter("routeBhattaChange"));
- 
+			String frNameChange =  request.getParameter("frNameChange") ;
+			int kmChange = Integer.parseInt(request.getParameter("kmChange"));
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("planDetailId", planDetailId);
 			map.add("routeName", routeName);
 			map.add("incentive", routeBhattaChange); 
+			map.add("frNameChange", frNameChange); 
+			map.add("kmChange", kmChange); 
+			
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateRouteName", map, Info.class);
 
 		} catch (Exception e) {
@@ -1415,4 +1420,141 @@ public class RoasterController {
 
 	}
 
+	
+	@RequestMapping(value = "/submitConfirmationRoasterChange", method = RequestMethod.POST)
+	public String submitConfirmationRoasterChange(HttpServletRequest request, HttpServletResponse response, Model model) {
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+		String mav = null;
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail", "confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		} else {
+
+			mav = "redirect:/confirmationRouteByDateAndChangeDetail";
+
+			try {
+
+				LvType[] lvType = Constants.getRestTemplate().getForObject(Constants.url + "/getLvTypeListAll",
+						LvType[].class);
+				List<LvType> lvTypeList = new ArrayList<LvType>(Arrays.asList(lvType));
+
+				int wo = 12;
+				String wosts = "WO";
+				String woText = "WO";
+
+				int p = 5;
+				String psts = "P";
+				String pText = "P";
+
+				for (int k = 0; k < lvTypeList.size(); k++) {
+
+					if (lvTypeList.get(k).getNameSd().equalsIgnoreCase("P")) {
+						pText = lvTypeList.get(k).getNameSdShow();
+					} else if (lvTypeList.get(k).getNameSd().equalsIgnoreCase("WO")) {
+						woText = lvTypeList.get(k).getNameSdShow();
+					}
+
+				}
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("date", DateConvertor.convertToYMD(date));
+				Info info = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/updateAndSubmitConfirmDateRoster", map, Info.class);
+
+				if (info.isError()) {
+					session.setAttribute("errorMsg", "Failed to Confirmation");
+				} else {
+
+					RoutePlanDetailWithName[] routePlanDetailWithName = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getDriverPlanList", map, RoutePlanDetailWithName[].class);
+
+					List<RoutePlanDetailWithName> driverPlanList = new ArrayList<>(
+							Arrays.asList(routePlanDetailWithName));
+
+					String empIds = "0";
+
+					for (int i = 0; i < driverPlanList.size(); i++) {
+
+						empIds = empIds + "," + driverPlanList.get(i).getDriverId();
+
+					}
+
+					map = new LinkedMultiValueMap<>();
+					map = new LinkedMultiValueMap<>();
+					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("empIds", empIds);
+					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getDailyDailyRecordForRoaster", map, GetDailyDailyRecord[].class);
+
+					/*
+					 * List<Integer> dailyIds = new ArrayList<>();
+					 * 
+					 * for (int i = 0; i < getDailyDailyRecord.length; i++) {
+					 * 
+					 * dailyIds.add(getDailyDailyRecord[i].getId());
+					 * 
+					 * }
+					 */
+
+					for (int j = 0; j < driverPlanList.size(); j++) {
+
+						for (int i = 0; i < getDailyDailyRecord.length; i++) {
+
+							if (driverPlanList.get(j).getDriverId() == getDailyDailyRecord[i].getEmpId()) {
+								map = new LinkedMultiValueMap<String, Object>();
+								map.add("dailyId", getDailyDailyRecord[i].getId());
+
+								if (driverPlanList.get(j).getRouteId() != 0) {
+
+									map.add("selectStatus", p);
+									map.add("selectStatusText", psts);
+									map.add("nameSd", pText);
+								} else {
+
+									if (driverPlanList.get(j).getIsoffdayIsff() == 2) {
+										map.add("selectStatus", p);
+										map.add("selectStatusText", psts);
+										map.add("nameSd", pText);
+									} else {
+										map.add("selectStatus", wo);
+										map.add("selectStatusText", wosts);
+										map.add("nameSd", woText);
+									}
+								}
+
+								map.add("lateMark", driverPlanList.get(j).getLateMark());
+								map.add("userId", userObj.getUserId());
+								map.add("flag", 1);
+								map.add("otHours", "00:00");
+								map.add("lateMin", driverPlanList.get(j).getLateMin());
+
+								Info infores = Constants.getRestTemplate().postForObject(
+										Constants.url + "/updateAttendaceRecordSingleByHod", map, Info.class);
+								break;
+							}
+
+						}
+
+					}
+
+					session.setAttribute("successMsg", "Confirmation Successfully");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Confirmation");
+			}
+		}
+		return mav;
+
+	}
+	
 }
