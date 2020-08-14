@@ -68,7 +68,7 @@ public class Constants {
 
 	// atsserver
 
-	public static final String url = "http://107.180.88.121:8080/HrEsayWebApi/";
+	/*public static final String url = "http://107.180.88.121:8080/HrEsayWebApi/";
 	public static String REPORT_SAVE = "/opt/apache-tomcat-8.5.47/webapps/hrdocument/Report.pdf";
 	public static final String ReportURL = "http://107.180.88.121:8080/HrEasy/";
 	public static final String attsDocSaveUrl = "/opt/apache-tomcat-8.5.47/webapps/hrdocument/attendancedoc/";
@@ -83,7 +83,7 @@ public class Constants {
 	public static final String empDocShowUrl = "http://107.180.88.121:8080/hrdocument/empdoc/";
 	public static final String leaveDocShowUrl = "http://107.180.88.121:8080/hrdocument/leavedoc/";
 	public static final String imageShowUrl = "http://107.180.88.121:8080/hrdocument/mixDoc/";
-	public static final String templateShowUrl = "http://107.180.88.121:8080/hrdocument/templatedoc/";
+	public static final String templateShowUrl = "http://107.180.88.121:8080/hrdocument/templatedoc/";*/
 
 	// Mumbai hr
 
@@ -117,7 +117,7 @@ public class Constants {
 
 	// Aurangabad Hr
 
-	/*public static final String url = "http://107.180.95.11:8080/HrEsayWebApi/";
+	public static final String url = "http://107.180.95.11:8080/HrEsayWebApi/";
 	public static String REPORT_SAVE = "/opt/tomcat-latest/webapps/hrdocument/Report.pdf";
 	public static final String ReportURL = "http://107.180.95.11:8080/HrEasy/";// gfpl public public
 	public static final String attsDocSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/attendancedoc/";
@@ -132,7 +132,7 @@ public class Constants {
 	public static final String empDocShowUrl = "http://107.180.95.11:8080/hrdocument/empdoc/";
 	public static final String leaveDocShowUrl = "http://107.180.95.11:8080/hrdocument/leavedoc/";
 	public static final String imageShowUrl = "http://107.180.95.11:8080/hrdocument/mixDoc/";
-	public static final String templateShowUrl = "http://107.180.95.11:8080/hrdocument/templatedoc/";*/
+	public static final String templateShowUrl = "http://107.180.95.11:8080/hrdocument/templatedoc/";
 
 	public static RestTemplate rest = new RestTemplate();
 	public static String[] allextension = { "txt", "doc", "pdf", "xls", "jpg", "jpeg", "gif", "png" };
