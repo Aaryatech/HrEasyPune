@@ -444,18 +444,18 @@ public class ExcelImportController {
 							permamnentAddress = row.getCell(14).getStringCellValue();
 
 						String email = null;
-						if (row.getCell(35) != null)
-							email = row.getCell(35).getStringCellValue();
+						if (row.getCell(38) != null)
+							email = row.getCell(38).getStringCellValue();
 
 						String emerNam = null;
-						if (row.getCell(36) != null)
-							emerNam = row.getCell(36).getStringCellValue();
+						if (row.getCell(39) != null)
+							emerNam = row.getCell(39).getStringCellValue();
 						String emerCon = null;
 
 						formatter = new DataFormatter();
 
-						if (row.getCell(37) != null)
-							emerCon = formatter.formatCellValue(row.getCell(37));
+						if (row.getCell(40) != null)
+							emerCon = formatter.formatCellValue(row.getCell(40));
 						System.err.println("--" + emerCon);
 
 						TblEmpInfo empInfo = new TblEmpInfo();
@@ -632,20 +632,20 @@ public class ExcelImportController {
 							basic = row.getCell(22).getNumericCellValue();
 
 						String pfApplicable = null;
-						if (row.getCell(31) != null)
-							pfApplicable = row.getCell(31).getStringCellValue();
+						if (row.getCell(34) != null)
+							pfApplicable = row.getCell(34).getStringCellValue();
 
 						String esicApplicable = null;
-						if (row.getCell(32) != null)
-							esicApplicable = row.getCell(32).getStringCellValue();
+						if (row.getCell(35) != null)
+							esicApplicable = row.getCell(35).getStringCellValue();
 
 						String isMlwfApplicable = null;
-						if (row.getCell(33) != null)
-							isMlwfApplicable = row.getCell(33).getStringCellValue();
+						if (row.getCell(36) != null)
+							isMlwfApplicable = row.getCell(36).getStringCellValue();
 
 						String isPtApplicable = null;
-						if (row.getCell(34) != null)
-							isPtApplicable = row.getCell(34).getStringCellValue();
+						if (row.getCell(37) != null)
+							isPtApplicable = row.getCell(37).getStringCellValue();
 
 						// Employee Allowances
 						double dearnessAllwnc = 0;
@@ -1135,6 +1135,162 @@ public class ExcelImportController {
 								}
 
 							}
+							
+							if (rowHeader.getCell(31) != null) {
+
+								otherAll = row.getCell(31).getNumericCellValue();
+								String name = rowHeader.getCell(31).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+							
+							if (rowHeader.getCell(33) != null) {
+
+								otherAll = row.getCell(33).getNumericCellValue();
+								String name = rowHeader.getCell(33).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+							
+							if (rowHeader.getCell(33) != null) {
+
+								otherAll = row.getCell(32).getNumericCellValue();
+								String name = rowHeader.getCell(32).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(empSaveResp.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(empSaveResp.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
 
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -1271,20 +1427,20 @@ public class ExcelImportController {
 							otherAll = row.getCell(14).getNumericCellValue();
 
 						String pfApplicable = null;
-						if (row.getCell(15) != null)
-							pfApplicable = row.getCell(15).getStringCellValue();
+						if (row.getCell(18) != null)
+							pfApplicable = row.getCell(18).getStringCellValue();
 
 						String esicApplicable = null;
-						if (row.getCell(16) != null)
-							esicApplicable = row.getCell(16).getStringCellValue();
+						if (row.getCell(19) != null)
+							esicApplicable = row.getCell(19).getStringCellValue();
 
 						String isMlwfApplicable = null;
-						if (row.getCell(17) != null)
-							isMlwfApplicable = row.getCell(17).getStringCellValue();
+						if (row.getCell(20) != null)
+							isMlwfApplicable = row.getCell(20).getStringCellValue();
 
 						String isPtApplicable = null;
-						if (row.getCell(18) != null)
-							isPtApplicable = row.getCell(18).getStringCellValue();
+						if (row.getCell(21) != null)
+							isPtApplicable = row.getCell(21).getStringCellValue();
 
 						MultiValueMap<String, Object> mapEmp = new LinkedMultiValueMap<>();
 						mapEmp.add("empCode", empCode);
@@ -1804,6 +1960,162 @@ public class ExcelImportController {
 
 								otherAll = row.getCell(14).getNumericCellValue();
 								String name = rowHeader.getCell(14).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+							
+							if (rowHeader.getCell(15) != null) {
+
+								otherAll = row.getCell(15).getNumericCellValue();
+								String name = rowHeader.getCell(15).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+							
+							if (rowHeader.getCell(16) != null) {
+
+								otherAll = row.getCell(16).getNumericCellValue();
+								String name = rowHeader.getCell(16).getStringCellValue();
+								String[] namesplt = name.split(":");
+
+								for (int m = 0; m < allowanceList.size(); m++) {
+
+									if (allowanceList.get(m).getShortName().equalsIgnoreCase(namesplt[1])) {
+
+										int flag = 0;
+
+										for (int k = 0; k < empAllowncList.size(); k++) {
+
+											if (empAllowncList.get(k).getAllowanceId() == allowanceList.get(m)
+													.getAllowanceId()) {
+
+												empSalAllwance = new EmpSalAllowance();
+
+												empSalAllwance.setEmpSalAllowanceId(
+														empAllowncList.get(k).getEmpSalAllowanceId());
+												empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+												empSalAllwance.setAllowanceValue(otherAll);
+												empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+												empSalAllwance.setDelStatus(1);
+												empSalAllwance.setExInt1(0);
+												empSalAllwance.setExInt2(0);
+												allowncList.add(empSalAllwance);
+												flag = 1;
+												break;
+											}
+
+										}
+
+										if (flag == 0) {
+
+											empSalAllwance = new EmpSalAllowance();
+											empSalAllwance.setEmpSalAllowanceId(0);
+											empSalAllwance.setAllowanceId(allowanceList.get(m).getAllowanceId());
+											empSalAllwance.setAllowanceValue(otherAll);
+											empSalAllwance.setEmpId(checkEmpCode.getEmpId());
+											empSalAllwance.setDelStatus(1);
+											empSalAllwance.setExInt1(0);
+											empSalAllwance.setExInt2(0);
+											allowncList.add(empSalAllwance);
+										}
+
+									}
+								}
+
+							}
+							
+							if (rowHeader.getCell(17) != null) {
+
+								otherAll = row.getCell(17).getNumericCellValue();
+								String name = rowHeader.getCell(17).getStringCellValue();
 								String[] namesplt = name.split(":");
 
 								for (int m = 0; m < allowanceList.size(); m++) {
