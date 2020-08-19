@@ -482,6 +482,8 @@ public class AttendenceController {
 
 				if (date != null) {
 
+					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
 					Date dt = dd.parse("01-" + date);
 					Calendar temp = Calendar.getInstance();
 					temp.setTime(dt);
@@ -494,6 +496,8 @@ public class AttendenceController {
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 					map.add("fromDate", sf.format(firstDay));
 					map.add("toDate", sf.format(lastDay));
+					map.add("userType", userObj.getDesignType());
+					map.add("userId", userObj.getEmpId());
 					AttendanceSheetData attendanceSheetData = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getAttendanceSheet", map, AttendanceSheetData.class);
 
@@ -505,6 +509,8 @@ public class AttendenceController {
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("year", year);
 					map.add("month", month);
+					map.add("userType", userObj.getDesignType());
+					map.add("userId", userObj.getEmpId());
 					SummaryAttendance[] summaryDailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getMonthlySummryAttendace", map, SummaryAttendance[].class);
 					List<SummaryAttendance> summrylist = new ArrayList<SummaryAttendance>(
@@ -1004,12 +1010,13 @@ public class AttendenceController {
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-					/*map = new LinkedMultiValueMap<String, Object>();
-					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("desgType", 1);
-					map.add("departIds", userObj.getHodDeptIds());*/
-					
-					map = new LinkedMultiValueMap<String, Object>(); 
+					/*
+					 * map = new LinkedMultiValueMap<String, Object>(); map.add("date",
+					 * DateConvertor.convertToYMD(date)); map.add("desgType", 1);
+					 * map.add("departIds", userObj.getHodDeptIds());
+					 */
+
+					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("empId", userObj.getEmpId());
 					System.out.println(map);
@@ -1189,8 +1196,7 @@ public class AttendenceController {
 		HttpSession session = request.getSession();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendaceSheetByHr", "attendaceSheetByHr", 1, 0, 0, 0,
-				newModuleList);
+		Info view = AcessController.checkAccess("attendaceSheetByHr", "attendaceSheetByHr", 1, 0, 0, 0, newModuleList);
 
 		if (view.isError() == true) {
 

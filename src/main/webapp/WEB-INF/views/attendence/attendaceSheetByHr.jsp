@@ -182,19 +182,19 @@
 													<option value="0" data-namesd="Select Status" id="newSts0">Select
 														Status</option>
 													<c:forEach items="${lvTypeList}" var="lvTypeList">
-														<c:choose>
+														<%-- <c:choose>
 															<c:when
 																test="${lvTypeList.lvSumupId==13 || lvTypeList.lvSumupId==14}">
 
 															</c:when>
-															<c:otherwise>
+															<c:otherwise> --%>
 																<option value="${lvTypeList.lvSumupId}"
 																	data-namesd="${lvTypeList.nameSd}"
 																	id="newSts${lvTypeList.lvSumupId}">${lvTypeList.nameSdShow}</option>
-															</c:otherwise>
+															<%-- </c:otherwise>
 														</c:choose>
 
-
+ --%>
 													</c:forEach>
 												</select>
 											</div>
