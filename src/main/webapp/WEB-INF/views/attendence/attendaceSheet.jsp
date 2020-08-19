@@ -16,6 +16,12 @@
 	clear: both;
 }
 </style>
+<!-- <style>
+		.dataTables_filter input {
+    	font-size: 1.8125rem;
+ 
+		}
+		</style> -->
 </head>
 
 <body>
@@ -274,11 +280,17 @@
 					minViewMode : "months"
 
 				});
-  
+
 			});
 		</script>
 
 		<script type="text/javascript">
+			/* $(".datatable-fixed-left_custom input").css({
+				"background" : "blue",
+				"font-size" : "178"
+
+			}); */
+
 			$('.datatable-fixed-left_custom').DataTable({
 
 				columnDefs : [ {
@@ -296,6 +308,9 @@
 				}
 
 			});
+			
+			
 		</script>
+		
 </body>
 </html>
