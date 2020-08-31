@@ -190,19 +190,29 @@
 									<c:forEach items="${holList}" var="holList" varStatus="count">
 										<tr class="accordion-toggle collapsed"
 											id="accordion${count.index+1}" data-toggle="collapse"
-											data-parent="#accordion${count.index+1}" href="#collapseOne${count.index+1}">
+											data-parent="#accordion${count.index+1}"
+											href="#collapseOne${count.index+1}">
 											<td><span class="expand-button"></span></td>
 											<td>${holList.yearDate}</td>
 											<td>${holList.hoCatName}</td>
 											<td>${holList.optionalHoliday}/${holList.optionalCount}</td>
 											<td align="center">${holList.fixedCount}</td>
 											<td align="center">${holList.fixedCount+holList.optionalHoliday}</td>
-											<td style="text-align: center;"><a
-												href="javascript:void(0)"
-												class="list-icons-item text-danger-600 bootbox_custom"
-												data-uuid="${holList.calYrId}" data-catid="${holList.catId}"
-												data-popup="tooltip" title="" data-original-title="Delete"><i
-													class="icon-trash"></i></a></td>
+											<td style="text-align: center;"><c:if
+													test="${editAccess == 0}">
+													<a
+														href="${pageContext.request.contextPath}/editHolidayByYearIdAndCategoryId?calYrId=${holList.calYrId}&catId=${holList.catId}"
+														class="list-icons-item text-primary-600"
+														data-popup="tooltip" title="" data-original-title="Edit"><i
+														class="icon-pencil7"></i></a>
+												</c:if> <c:if test="${deleteAccess == 0}">
+													<a href="javascript:void(0)"
+														class="list-icons-item text-danger-600 bootbox_custom"
+														data-uuid="${holList.calYrId}"
+														data-catid="${holList.catId}" data-popup="tooltip"
+														title="" data-original-title="Delete"><i
+														class="icon-trash"></i></a>
+												</c:if></td>
 										</tr>
 										<tr class="hide-table-padding">
 											<!-- <td></td> -->
@@ -215,7 +225,13 @@
 
 														<div class="row">
 															<div class="col-3 row_padd">${holidaylist.exVar2}</div>
-															<div class="col-3 row_padd">${holidaylist.holidayFromdt}</div>
+															<div class="col-3 row_padd">
+																<c:choose>
+																	<c:when test="${holidaylist.hotype==0}">-</c:when>
+																	<c:otherwise>${holidaylist.holidayFromdt}</c:otherwise>
+																</c:choose>
+
+															</div>
 															<div class="col-3 row_padd">
 																<c:choose>
 																	<c:when test="${holidaylist.hotype==1}">Fixed</c:when>

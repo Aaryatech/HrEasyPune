@@ -45,7 +45,7 @@ import com.ats.hreasy.model.LoginResponse;
 @Scope("session")
 public class LeaveHolidayController {
 	Holiday editHoliday = new Holiday();
-
+	List<Holiday> editHolidayList = new ArrayList<>();
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	Date now = new Date();
 	String curDate = dateFormat.format(new Date());
@@ -430,6 +430,120 @@ public class LeaveHolidayController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/editHolidayByYearIdAndCategoryId", method = RequestMethod.GET)
+	public ModelAndView editHolidayByYearIdAndCategoryId(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+		HttpSession session = request.getSession();
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editHoliday", "showHolidayList", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+
+				model = new ModelAndView("master/holiday_edit_list");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				int calYrId = Integer.parseInt(request.getParameter("calYrId"));
+				int catId = Integer.parseInt(request.getParameter("catId"));
+
+				map = new LinkedMultiValueMap<>();
+				map.add("yearId", calYrId);
+				map.add("catId", catId);
+				Holiday[] editHoliday = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getHolidayByYearIdAndCateId", map, Holiday[].class);
+				editHolidayList = new ArrayList<>(Arrays.asList(editHoliday));
+				model.addObject("editHolidayList", editHolidayList);
+
+				for (int i = 0; i < editHolidayList.size(); i++) {
+					editHolidayList.get(i)
+							.setHolidayFromdt(DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayFromdt()));
+					editHolidayList.get(i)
+							.setHolidayTodt(DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayTodt()));
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+
+	@RequestMapping(value = "/submitEditHolidayList", method = RequestMethod.POST)
+	public String submitEditHolidayList(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("editHoliday", "showHolidayList", 0, 0, 1, 0, newModuleList);
+		String a = null;
+		if (view.isError() == true) {
+
+			a = "redirect:/accessDenied";
+
+		} else {
+
+			a = "redirect:/showHolidayList";
+			try {
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int i = 0; i < location.length; i++) {
+					sb = sb.append(location[i].getLocId() + ",");
+
+				}
+				String locIdList = sb.toString();
+				locIdList = locIdList.substring(0, locIdList.length() - 1);
+ 
+
+				for (int i = 0; i < editHolidayList.size(); i++) {
+
+					int typeId = Integer
+							.parseInt(request.getParameter("typeId" + editHolidayList.get(i).getHolidayId()));
+
+					String capName = request.getParameter("capName" + editHolidayList.get(i).getHolidayId());
+					String date = request.getParameter("date" + editHolidayList.get(i).getHolidayId());
+					String remark = request.getParameter("holidayRemark" + editHolidayList.get(i).getHolidayId());
+					
+					if (!capName.equals("")) {
+						editHolidayList.get(i).setExVar2(capName);
+					}
+					editHolidayList.get(i).setExInt3(typeId);
+					editHolidayList.get(i).setHolidayFromdt(DateConvertor.convertToYMD(date));
+					editHolidayList.get(i).setHolidayTodt(DateConvertor.convertToYMD(date));
+					editHolidayList.get(i).setHolidayRemark(remark);
+				}
+ 
+
+				Info res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayList",
+						editHolidayList, Info.class);
+
+				if (res.isError() == false) {
+					session.setAttribute("successMsg", "Holiday Updated Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Update Holiday");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to Update Record");
+			}
+		}
+
+		return a;
 	}
 
 	@RequestMapping(value = "/showHolidayList", method = RequestMethod.GET)
