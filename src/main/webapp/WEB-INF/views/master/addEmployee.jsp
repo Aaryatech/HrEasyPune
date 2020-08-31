@@ -2797,9 +2797,7 @@
 												}
 
 												if ($("#aadhar").val().trim() > 0) {
-													if (!$("#aadhar").val()
-															|| $("#aadhar")
-																	.val().length != 12) {
+													if (!$("#aadhar").val()) {
 
 														isError = true;
 
