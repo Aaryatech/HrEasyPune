@@ -104,8 +104,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Leave Structure
-										Allotment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Leave Structure Allotment
+									</h5></td>
 								<td width="40%" align="right">
 									<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -201,7 +202,7 @@
 												<th class="check" style="text-align: center; width: 5%;"><input
 													type="checkbox" name="selAll" id="selAll" /></th>
 
-												<th class="text-center" width="5%" >Sr. No.</th>
+												<th class="text-center" width="5%">Sr. No.</th>
 												<th class="text-center" width="10%">Employee Code</th>
 												<th class="text-center">Employee Name</th>
 												<th class="text-center">Department</th>
@@ -282,7 +283,7 @@
 												<th class="text-center">Department</th>
 												<th class="text-center">Designation</th>
 												<th class="text-center" width="20%">Structure</th>
-
+												<th class="text-center" width="10%">Action</th>
 
 
 											</tr>
@@ -297,10 +298,12 @@
 
 
 												<c:set var="countOf" value="0"></c:set>
+												<c:set var="countOf" value="0"></c:set>
 												<c:forEach items="${calAllotList}" var="calender"
 													varStatus="count1">
 													<c:if test="${calender.empId == structure.empId}">
 														<c:set var="countOf" value="1"></c:set>
+														<c:set var="lvsaPkey" value="${calender.lvsaPkey}"></c:set>
 													</c:if>
 
 
@@ -318,7 +321,11 @@
 															<td>${structure.empDeptName}</td>
 															<td>${structure.empCatName}</td>
 															<td>${structure.lvsName}</td>
-
+															<td><a
+																href="${pageContext.request.contextPath}/editLeaveStructureAllotment?lvsaPkey=${lvsaPkey}"
+																class="list-icons-item text-primary-600"
+																data-popup="tooltip" title="" data-original-title="Edit"><i
+																	class="icon-pencil7"></i></a></td>
 														</tr>
 													</c:when>
 												</c:choose>

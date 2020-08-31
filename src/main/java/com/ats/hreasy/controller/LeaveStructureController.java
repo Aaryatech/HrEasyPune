@@ -1047,6 +1047,7 @@ public class LeaveStructureController {
 				LeavesAllotment leavesAllotment = new LeavesAllotment();
 				for (int i = 0; i < arrOfStr.length; i++) {
 
+					leavesAllotment = new LeavesAllotment();
 					leavesAllotment.setCalYrId(calculateYear.getCalYrId());
 
 					leavesAllotment.setDelStatus(1);
@@ -1071,6 +1072,77 @@ public class LeaveStructureController {
 			} else {
 				session.setAttribute("errorMsg", "Failed to Allot Leave Structure");
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/leaveStructureAllotment";
+	}
+
+	LeavesAllotment leavesAllotment = new LeavesAllotment();
+
+	@RequestMapping(value = "/editLeaveStructureAllotment", method = RequestMethod.GET)
+	public ModelAndView editLeaveStructureAllotment(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = null;
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("leaveStructureAllotment", "leaveStructureAllotment", 1, 0, 0, 0,
+					newModuleList);
+
+			if (view.isError() == true) {
+
+				model = new ModelAndView("accessDenied");
+
+			} else {
+
+				int lvsaPkey = Integer.parseInt(request.getParameter("lvsaPkey"));
+
+				model = new ModelAndView("leave/editLeaveStructureAllotment");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("lvsaPkey", lvsaPkey);
+				leavesAllotment = Constants.getRestTemplate().postForObject(Constants.url + "/getLeaveAllotmentByKey",
+						map, LeavesAllotment.class);
+				model.addObject("leavesAllotment", leavesAllotment);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				LeaveStructureHeader[] lvStrSummery = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getStructureList", map, LeaveStructureHeader[].class);
+
+				List<LeaveStructureHeader> lSummarylist = new ArrayList<>(Arrays.asList(lvStrSummery));
+				model.addObject("lStrList", lSummarylist);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+
+	@RequestMapping(value = "/submitEditLeaveStructure", method = RequestMethod.POST)
+	public String submitEditLeaveStructure(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			HttpSession session = request.getSession();
+
+			int lvsId = Integer.parseInt(request.getParameter("lvsId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("lvsaPkey", leavesAllotment.getLvsaPkey());
+			map.add("lvsId", lvsId);
+			map.add("empId", leavesAllotment.getEmpId());
+			map.add("yearId", leavesAllotment.getCalYrId());
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/updateLeaveStructure", map,
+					Info.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1447,7 +1519,6 @@ public class LeaveStructureController {
 	List<LeaveHistoryDetailForCarry> leaveHistoryDetailForCarryList = new ArrayList<LeaveHistoryDetailForCarry>();
 	List<GetEmployeeDetailsForCarryFrwdLeave> employeeInfoList = new ArrayList<GetEmployeeDetailsForCarryFrwdLeave>();
 
-	
 	@RequestMapping(value = "/carryForwordLeave", method = RequestMethod.GET)
 	public ModelAndView carryForwordLeave(HttpServletRequest request, HttpServletResponse response) {
 

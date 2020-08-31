@@ -1,34 +1,22 @@
 package com.ats.hreasy.model;
+ 
 
 public class LeavesAllotment {
-
-	private int lvsaPkey;
-
-	private int calYrId;
-
-	private int empId;
-
-	private int lvsId;
-
-	private int delStatus;
-
-	private int isActive;
-
-	private int makerUserId;
-
-	private String makerEnterDatetime;
-
-	private int exInt1;
-
-	private int exInt2;
-
-	private int exInt3;
-
-	private String exVar1;
-
-	private String exVar2;
-
-	private String exVar3;
+ 
+	private int lvsaPkey ; 
+	private int calYrId ; 
+	private int empId; 
+	private int lvsId; 
+	private int delStatus; 
+	private int isActive; 
+	private int makerUserId ; 
+	private String makerEnterDatetime; 
+	private int exInt1; 
+	private int exInt2; 
+	private int exInt3; 
+	private String exVar1;  
+	private String exVar2;  
+	private String exVar3; 
 	private boolean isError;
 
 	public int getLvsaPkey() {
