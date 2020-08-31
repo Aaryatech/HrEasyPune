@@ -449,6 +449,8 @@ public class LeaveHolidayController {
 
 			} else {
 
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
 				model = new ModelAndView("master/holiday_edit_list");
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -463,13 +465,89 @@ public class LeaveHolidayController {
 				editHolidayList = new ArrayList<>(Arrays.asList(editHoliday));
 				model.addObject("editHolidayList", editHolidayList);
 
-				for (int i = 0; i < editHolidayList.size(); i++) {
-					editHolidayList.get(i)
-							.setHolidayFromdt(DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayFromdt()));
-					editHolidayList.get(i)
-							.setHolidayTodt(DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayTodt()));
+				HolidayMaster[] holListArray = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getHolidayMaster", HolidayMaster[].class);
+
+				holiList = new ArrayList<>(Arrays.asList(holListArray));
+
+				CalenderYear[] calenderYear = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getCalculateYearList", CalenderYear[].class);
+				List<CalenderYear> calenderYearList = new ArrayList<CalenderYear>(Arrays.asList(calenderYear));
+
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+						Location[].class);
+
+				StringBuilder sb = new StringBuilder();
+
+				for (int i = 0; i < location.length; i++) {
+					sb = sb.append(location[i].getLocId() + ",");
+
+				}
+				String locIdList = sb.toString();
+				locIdList = locIdList.substring(0, locIdList.length() - 1);
+
+				String date1 = new String();
+				String date2 = new String();
+
+				for (int i = 0; i < calenderYearList.size(); i++) {
+
+					if (calenderYearList.get(i).getCalYrId() == calYrId) {
+
+						date1 = calenderYearList.get(i).getCalYrFromDate();
+						date2 = calenderYearList.get(i).getCalYrToDate();
+						break;
+
+					}
 				}
 
+				String[] datearr = date1.split("-");
+				for (int j = 0; j < holiList.size(); j++) {
+
+					int find = 0;
+
+					for (int i = 0; i < editHolidayList.size(); i++) {
+
+						if (editHolidayList.get(i).getExInt2() == holiList.get(j).getHolidayId()) {
+							editHolidayList.get(i).setHolidayFromdt(
+									DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayFromdt()));
+							editHolidayList.get(i).setHolidayTodt(
+									DateConvertor.convertToDMY(editHolidayList.get(i).getHolidayTodt()));
+							find = 1;
+							break;
+						}
+					}
+
+					if (find == 0) {
+
+						Holiday holiday = new Holiday();
+						holiday.setCalYrId(calYrId);
+						holiday.setCompanyId(1);
+						holiday.setDelStatus(1);
+
+						holiday.setExVar1("NA");
+						holiday.setExVar2(holiList.get(j).getHolidayName());
+						holiday.setExVar3("NA");
+
+						if (holiList.get(j).getHolidayDate() != null) {
+							System.out.println(holiList.get(j).getHolidayDate());
+							holiList.get(j).setHolidayDate(holiList.get(j).getHolidayDate() + "-" + datearr[2]);
+							holiday.setHolidayFromdt(holiList.get(j).getHolidayDate());
+							holiday.setHolidayTodt(holiList.get(j).getHolidayDate());
+						}
+
+						holiday.setHolidayRemark("");
+						holiday.setIsActive(1);
+						holiday.setLocId(locIdList);
+						holiday.setMakerEnterDatetime(dateTime);
+						holiday.setMakerUserId(userObj.getUserId());
+						holiday.setExInt1(catId);
+						holiday.setExInt2(holiList.get(j).getHolidayId());
+						editHolidayList.add(holiday);
+
+					}
+				}
 			}
 
 		} catch (Exception e) {
@@ -494,21 +572,6 @@ public class LeaveHolidayController {
 			a = "redirect:/showHolidayList";
 			try {
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("companyId", 1);
-				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
-						Location[].class);
-
-				StringBuilder sb = new StringBuilder();
-
-				for (int i = 0; i < location.length; i++) {
-					sb = sb.append(location[i].getLocId() + ",");
-
-				}
-				String locIdList = sb.toString();
-				locIdList = locIdList.substring(0, locIdList.length() - 1);
- 
-
 				for (int i = 0; i < editHolidayList.size(); i++) {
 
 					int typeId = Integer
@@ -517,7 +580,7 @@ public class LeaveHolidayController {
 					String capName = request.getParameter("capName" + editHolidayList.get(i).getHolidayId());
 					String date = request.getParameter("date" + editHolidayList.get(i).getHolidayId());
 					String remark = request.getParameter("holidayRemark" + editHolidayList.get(i).getHolidayId());
-					
+
 					if (!capName.equals("")) {
 						editHolidayList.get(i).setExVar2(capName);
 					}
@@ -526,7 +589,6 @@ public class LeaveHolidayController {
 					editHolidayList.get(i).setHolidayTodt(DateConvertor.convertToYMD(date));
 					editHolidayList.get(i).setHolidayRemark(remark);
 				}
- 
 
 				Info res = Constants.getRestTemplate().postForObject(Constants.url + "/saveHolidayList",
 						editHolidayList, Info.class);
@@ -546,7 +608,6 @@ public class LeaveHolidayController {
 		return a;
 	}
 
-	
 	@RequestMapping(value = "/showHolidayList", method = RequestMethod.GET)
 	public ModelAndView showHolidayList(HttpServletRequest request, HttpServletResponse response) {
 
