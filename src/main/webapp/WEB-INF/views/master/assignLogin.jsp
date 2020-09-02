@@ -103,6 +103,7 @@
 										id="login_type"
 										class="form-control form-control-select2 select2-hidden-accessible">
 										<option selected disabled value="-1">Select login</option>
+										<option value="0">NA</option>
 										<option value="1">Web Application</option>
 										<option value="2">Mobile App</option>
 										<option value="3">Mobile and Web Application Both</option>
@@ -314,7 +315,8 @@
 							});
 				});
 	</script> -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
 
 </body>
 </html>

@@ -43,6 +43,7 @@ import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.RandomString;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.EmpType;
+import com.ats.hreasy.model.GetAccessibleLocation;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -134,6 +135,11 @@ public class HomeController {
 							map, EmpType.class);
 					List<AccessRightModule> moduleJsonList = new ArrayList<AccessRightModule>();
 
+					map = new LinkedMultiValueMap<>();
+					map.add("empId", userObj.getEmpId());
+					GetAccessibleLocation eetAccessibleLocation = Constants.getRestTemplate().postForObject(Constants.url + "/getAccessibleLocationAndPresentLocation",
+							map, GetAccessibleLocation.class); 
+					System.out.println(eetAccessibleLocation);
 					try {
 
 						AccessRightModule[] moduleJson = null;
