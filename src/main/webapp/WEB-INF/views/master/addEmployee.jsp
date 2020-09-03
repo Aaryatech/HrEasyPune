@@ -269,16 +269,21 @@
 														class="form-control form-control-select2 select2-hidden-accessible">
 
 														<option value="">Select Location</option>
-														<c:forEach items="${locationList}" var="locationList">
-															<c:choose>
-																<c:when test="${locationList.locId==emp.locationId}">
-																	<option selected="selected"
-																		value="${locationList.locId}">${locationList.locName}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${locationList.locId}">${locationList.locName}</option>
-																</c:otherwise>
-															</c:choose>
+														<c:forEach items="${sessionScope.liveAccesibleLoc}"
+															var="liveAccesibleLoc">
+															<c:forEach items="${locationList}" var="locationList">
+																<c:if test="${locationList.locId==liveAccesibleLoc}">
+																	<c:choose>
+																		<c:when test="${locationList.locId==emp.locationId}">
+																			<option selected="selected"
+																				value="${locationList.locId}">${locationList.locName}</option>
+																		</c:when>
+																		<c:otherwise>
+																			<option value="${locationList.locId}">${locationList.locName}</option>
+																		</c:otherwise>
+																	</c:choose>
+																</c:if>
+															</c:forEach>
 														</c:forEach>
 													</select> <span class="hidedefault   validation-invalid-label"
 														style="display: none;" id="error_locId">This field

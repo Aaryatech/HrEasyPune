@@ -192,9 +192,13 @@ public class EmployeeShiftAssignController {
 			model = new ModelAndView("master/assignSalStructToEmp");
 
 			try {
-				List<SalaryTypesMaster> shiftList = new ArrayList<>();
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-						Constants.url + "/getAllEmployeeDetailshowEmpListToAssignSalStruct",
+				
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId); 
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailshowEmpListToAssignSalStructLocId",map,
 						GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
@@ -202,11 +206,9 @@ public class EmployeeShiftAssignController {
 
 				SalaryTypesMaster[] empdetList2 = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getSalryTypesMst", SalaryTypesMaster[].class);
-
-				shiftList = new ArrayList<SalaryTypesMaster>(Arrays.asList(empdetList2));
+				List<SalaryTypesMaster> shiftList =  new ArrayList<SalaryTypesMaster>(Arrays.asList(empdetList2));
 				model.addObject("shiftList", shiftList);
-				System.err.println("sh list" + shiftList.toString());
-
+				 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -767,8 +769,12 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-						Constants.url + "/getAllEmployeeDetailassignWeekoffCategory", GetEmployeeDetails[].class);
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailassignWeekoffCategoryLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
@@ -856,8 +862,13 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-						Constants.url + "/getAllEmployeeDetailassignSubCompany", GetEmployeeDetails[].class);
+				int locId = (int) session.getAttribute("liveLocationId");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailassignSubCompanyLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
@@ -942,13 +953,18 @@ public class EmployeeShiftAssignController {
 
 			try {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailassignDept", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailassignDeptlocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
 				Department[] department = Constants.getRestTemplate()
@@ -1032,13 +1048,18 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-						Constants.url + "/getAllEmployeeDetailshowAssignDesignation", GetEmployeeDetails[].class);
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailshowAssignDesignationLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
 				map = new LinkedMultiValueMap<>();
@@ -1298,13 +1319,18 @@ public class EmployeeShiftAssignController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-						Constants.url + "/getAllEmployeeDetailshowAssignEmpType", GetEmployeeDetails[].class);
+				int locId = (int) session.getAttribute("liveLocationId");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailshowAssignEmpTypeLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
 
 				map.add("companyId", 1);
 				MstEmpType[] empTypeList = Constants.getRestTemplate()
@@ -1389,13 +1415,17 @@ public class EmployeeShiftAssignController {
 
 			try {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailSkillRate", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailSkillRateLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
-				System.err.println("skill" + empdetList.toString());
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				 
+				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
 				SkillRates[] skillList = Constants.getRestTemplate().getForObject(Constants.url + "/getSkillRateList",
@@ -1479,13 +1509,18 @@ public class EmployeeShiftAssignController {
 
 			try {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailAccesssRole", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailAccesssRoleLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
 				map.add("compId", 1);
 				EmpType[] EmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeList", map,
 						EmpType[].class);

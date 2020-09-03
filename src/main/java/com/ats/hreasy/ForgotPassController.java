@@ -266,9 +266,12 @@ System.err.println("otp " +otp +" userKey ie email " +userKey);
 			ret = "master/assignLogin";
 
 			try {
-
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailForLoginType", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailForLoginTypeLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);

@@ -100,17 +100,20 @@
 										class="form-control form-control-select2 select2-hidden-accessible"
 										required>
 										<option value="">Select Location</option>
-										<c:forEach items="${locationList}" var="locationList">
-
-											<c:choose>
-												<c:when test="${locId==locationList.locId}">
-													<option value="${locationList.locId}" selected>${locationList.locName}</option>
-												</c:when>
-												<c:otherwise>
-													<option value="${locationList.locId}">${locationList.locName}</option>
-												</c:otherwise>
-											</c:choose>
-
+										<c:forEach items="${sessionScope.liveAccesibleLoc}"
+											var="liveAccesibleLoc">
+											<c:forEach items="${locationList}" var="locationList">
+												<c:if test="${locationList.locId==liveAccesibleLoc}">
+													<c:choose>
+														<c:when test="${locId==locationList.locId}">
+															<option value="${locationList.locId}" selected>${locationList.locName}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${locationList.locId}">${locationList.locName}</option>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach>
 										</c:forEach>
 									</select> <span class="validation-invalid-label" id="error_calYrId"
 										style="display: none;">This field is required.</span>

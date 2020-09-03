@@ -702,8 +702,13 @@ public class LeaveStructureController {
 
 				model.addObject("empList", empList);
 
+				
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				GetEmployeeDetails[] empInfoError = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getEmpInfoListForLeaveAuth", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getEmpInfoListForLeaveAuthLocId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> employeeInfo = new ArrayList<>(Arrays.asList(empInfoError));
 				model.addObject("empListAuth", employeeInfo);
@@ -812,10 +817,10 @@ public class LeaveStructureController {
 			model = new ModelAndView("leave/authority_list");
 			try {
 				// LoginResponse userObj = (LoginResponse) session.getAttribute("UserDetail");
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList", 1);
+				map.add("locIdList",locId);
 
 				GetLeaveAuthority[] empInfoError = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getLeaveAuthorityList", map, GetLeaveAuthority[].class);

@@ -127,18 +127,21 @@
 														data-fouc="" aria-hidden="true">
 
 														<option value="">Select Location</option>
-														<c:forEach items="${locationList}" var="locationList">
-															<c:choose>
-																<c:when test="${locationList.locId eq locId}">
-																	<option value="${locationList.locId}" selected>${locationList.locName}</option>
-																</c:when>
-																<c:otherwise>
-																	<option value="${locationList.locId}">${locationList.locName}</option>
-																</c:otherwise>
-															</c:choose>
-
+														<c:forEach items="${sessionScope.liveAccesibleLoc}"
+															var="liveAccesibleLoc">
+															<c:forEach items="${locationList}" var="locationList">
+																<c:if test="${locationList.locId==liveAccesibleLoc}">
+																	<c:choose>
+																		<c:when test="${locationList.locId eq locId}">
+																			<option value="${locationList.locId}" selected>${locationList.locName}</option>
+																		</c:when>
+																		<c:otherwise>
+																			<option value="${locationList.locId}">${locationList.locName}</option>
+																		</c:otherwise>
+																	</c:choose>
+																</c:if>
+															</c:forEach>
 														</c:forEach>
-
 													</select><span class="validation-invalid-label"
 														id="error_assignDate" style="display: none;">This
 														field is required.</span>

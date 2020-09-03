@@ -101,20 +101,15 @@ public class EmployeeController {
 
 			} else {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+
 				model = new ModelAndView("master/employeeList");
 
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("companyId", 1);
+				map.add("locId", locId);
 
-				/*
-				 * EmployeeMaster[] empArr =
-				 * Constants.getRestTemplate().postForObject(Constants.url + "/getAllEmployee",
-				 * map, EmployeeMaster[].class); List<EmployeeMaster> empList = new
-				 * ArrayList<EmployeeMaster>(Arrays.asList(empArr));
-				 */
-
-				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailBylocationId", map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -1688,13 +1683,17 @@ public class EmployeeController {
 
 		try {
 
-			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().getForObject(
-					Constants.url + "/getAllEmployeeDetailassignHolidayCategory", GetEmployeeDetails[].class);
+			int locId = (int) session.getAttribute("liveLocationId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getAllEmployeeDetailassignHolidayCategoryLocId", map, GetEmployeeDetails[].class);
 
 			List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 			model.addAttribute("empdetList", empdetList);
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
 			map.add("companyId", 1);
 			HolidayCategory[] holi = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getHolidayCategoryList", map, HolidayCategory[].class);
