@@ -44,6 +44,7 @@ import com.ats.hreasy.common.RandomString;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.EmpType;
 import com.ats.hreasy.model.GetAccessibleLocation;
+import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
@@ -136,19 +137,30 @@ public class HomeController {
 							map, EmpType.class);
 					List<AccessRightModule> moduleJsonList = new ArrayList<AccessRightModule>();
 
-					map = new LinkedMultiValueMap<>();
-					map.add("empId", userObj.getEmpId());
-					GetAccessibleLocation eetAccessibleLocation = Constants.getRestTemplate().postForObject(Constants.url + "/getAccessibleLocationAndPresentLocation",
-							map, GetAccessibleLocation.class); 
-					System.out.println(eetAccessibleLocation);
 					
-					map = new LinkedMultiValueMap<>();
-					map.add("companyId", 1);
-					Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
-							Location[].class); 
-					List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
-					
-					
+					try {
+						map = new LinkedMultiValueMap<>();
+						map.add("empId", userObj.getEmpId());
+						GetAccessibleLocation eetAccessibleLocation = Constants.getRestTemplate().postForObject(Constants.url + "/getAccessibleLocationAndPresentLocation",
+								map, GetAccessibleLocation.class); 
+						 
+						String[] array = eetAccessibleLocation.getAccessibleLoc().split(",");
+						List<String> list = new ArrayList<String>(Arrays.asList(array));
+						session.setAttribute("liveAccesibleLoc", list);
+						
+						session.setAttribute("liveLocationId", Integer.parseInt(array[0]));
+						
+						map = new LinkedMultiValueMap<>();
+						map.add("companyId", 1);
+						Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
+								Location[].class); 
+						List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
+						session.setAttribute("globalLocationList", locationList);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					 
 					try {
 
 						AccessRightModule[] moduleJson = null;
@@ -223,6 +235,28 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/setLocation", method = RequestMethod.POST)
+	@ResponseBody
+	public  Info setLocation(HttpServletRequest request, HttpServletResponse response) {
+		
+		Info info = new Info();
+		 
+		try {
+			int locationId = Integer.parseInt(request.getParameter("locationId"));
+			 
+			HttpSession session = request.getSession();
+			session.setAttribute("liveLocationId", locationId);
+			info.setError(false);
+		}catch(Exception e) {
+			e.printStackTrace();
+			info.setError(true);
+		}
+		
+		
+		return info;
+	}
+	
+	
 	@RequestMapping(value = "/setSubModId", method = RequestMethod.GET)
 	public @ResponseBody void setSubModId(HttpServletRequest request, HttpServletResponse response) {
 		int subModId = Integer.parseInt(request.getParameter("subModId"));
