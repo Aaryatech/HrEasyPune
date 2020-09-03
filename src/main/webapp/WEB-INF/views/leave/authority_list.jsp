@@ -182,7 +182,7 @@
 													href="${pageContext.request.contextPath}/editLeaveAuthority?empId=${leaveAuth.exVar1}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
-													class="icon-pencil7"></i>${leaveAuth.empId}</a>
+													class="icon-pencil7"></i></a>
 											</c:if> <!-- </div>
 												</div>
 											</div> -->

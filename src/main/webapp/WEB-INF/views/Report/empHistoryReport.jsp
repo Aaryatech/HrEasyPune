@@ -100,7 +100,7 @@
 										class="form-control form-control-select2 select2-hidden-accessible"
 										tabindex="-1" aria-hidden="true">
 										<option value="">Select Employee</option>
-										<option value="-1">All</option>
+										<!-- <option value="-1">All</option> -->
 										<c:forEach items="${employeeInfoList}" var="empInfo">
 											<option value="${empInfo.empId}">${empInfo.surname}
 												${empInfo.firstName}</option>

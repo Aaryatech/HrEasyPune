@@ -1209,8 +1209,11 @@ public class LeaveController {
 						.getForObject(Constants.url + "/getCalculateYearList", CalenderYear[].class);
 				List<CalenderYear> calYearList = new ArrayList<CalenderYear>(Arrays.asList(calenderYear));
 
+				int locId = (int) session.getAttribute("liveLocationId"); 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				EmployeeMaster[] employeeInfo = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getEmplistForAssignAuthorityAll", EmployeeMaster[].class);
+						.postForObject(Constants.url + "/getEmplistForAssignAuthorityAllByLocId",map, EmployeeMaster[].class);
 
 				List<EmployeeMaster> employeeInfoList = new ArrayList<EmployeeMaster>(Arrays.asList(employeeInfo));
 				model.addObject("calYearList", calYearList);

@@ -702,13 +702,12 @@ public class LeaveStructureController {
 
 				model.addObject("empList", empList);
 
-				
 				int locId = (int) session.getAttribute("liveLocationId");
-				 
+
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
-				GetEmployeeDetails[] empInfoError = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmpInfoListForLeaveAuthLocId",map, GetEmployeeDetails[].class);
+				GetEmployeeDetails[] empInfoError = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getEmpInfoListForLeaveAuthLocId", map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> employeeInfo = new ArrayList<>(Arrays.asList(empInfoError));
 				model.addObject("empListAuth", employeeInfo);
@@ -820,7 +819,7 @@ public class LeaveStructureController {
 				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList",locId);
+				map.add("locIdList", locId);
 
 				GetLeaveAuthority[] empInfoError = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getLeaveAuthorityList", map, GetLeaveAuthority[].class);
@@ -1004,8 +1003,12 @@ public class LeaveStructureController {
 				List<LeaveStructureHeader> lSummarylist = new ArrayList<>(Arrays.asList(lvStrSummery));
 				model.addObject("lStrList", lSummarylist);
 
-				GetStructureAllotment[] summary = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getStructureAllotmentList", GetStructureAllotment[].class);
+				int locId = (int) session.getAttribute("liveLocationId");
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+
+				GetStructureAllotment[] summary = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getStructureAllotmentListLocId", map, GetStructureAllotment[].class);
 
 				List<GetStructureAllotment> leaveSummarylist = new ArrayList<>(Arrays.asList(summary));
 				model.addObject("lvStructureList", leaveSummarylist);
@@ -1402,11 +1405,13 @@ public class LeaveStructureController {
 					yearId = Integer.parseInt(request.getParameter("calYrId"));
 					model.addAttribute("yearId", yearId);
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					int locId = (int) session.getAttribute("liveLocationId");
 
 					map = new LinkedMultiValueMap<>();
 					map.add("yearId", yearId);
-					LeaveCashReport[] leaveCashReport = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getPendingListOfleaveCash", map, LeaveCashReport[].class);
+					map.add("locId", locId);
+					LeaveCashReport[] leaveCashReport = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getPendingListOfleaveCashLocId", map, LeaveCashReport[].class);
 					List<LeaveCashReport> list = new ArrayList<>(Arrays.asList(leaveCashReport));
 					model.addAttribute("list", list);
 				} catch (Exception e) {
@@ -1495,13 +1500,15 @@ public class LeaveStructureController {
 				model.addAttribute("calYearList", calYearList);
 
 				try {
+					int locId = (int) session.getAttribute("liveLocationId");
 					int yearId = Integer.parseInt(request.getParameter("calYrId"));
 					model.addAttribute("yearId", yearId);
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map = new LinkedMultiValueMap<>();
 					map.add("yearId", yearId);
-					LeaveCashReport[] leaveCashReport = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getPaidListOfleaveCash", map, LeaveCashReport[].class);
+					map.add("locId", locId);
+					LeaveCashReport[] leaveCashReport = Constants.getRestTemplate().postForObject(
+							Constants.url + "/getPaidListOfleaveCashLocId", map, LeaveCashReport[].class);
 					List<LeaveCashReport> list = new ArrayList<>(Arrays.asList(leaveCashReport));
 
 					for (int i = 0; i < list.size(); i++) {
