@@ -58,9 +58,13 @@ public class OtModuleController {
 				date = request.getParameter("date");
 
 				if (date != null) {
+					
+					int locId = (int) session.getAttribute("liveLocationId");
+					
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("empId", userObj.getEmpId());
+					map.add("locId", locId);
 					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getDailyDailyRecordForOtApproval", map, GetDailyDailyRecord[].class);
 					dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
@@ -141,9 +145,13 @@ public class OtModuleController {
 				date = request.getParameter("date");
 
 				if (date != null) {
+					
+					int locId = (int) session.getAttribute("liveLocationId");
+					
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("empId", userObj.getEmpId());
+					map.add("locId", locId);
 					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getDailyDailyRecordForFinalOtApproval", map, GetDailyDailyRecord[].class);
 					dailyrecordList = new ArrayList<GetDailyDailyRecord>(Arrays.asList(getDailyDailyRecord));
