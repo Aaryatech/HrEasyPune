@@ -462,9 +462,10 @@ public class ClaimStructureAndAllotController {
 				List<ClaimStructureHeader> lSummarylist = new ArrayList<>(Arrays.asList(lvStrSummery));
 				model.addObject("lStrList", lSummarylist);
 
+				int locId = (int) session.getAttribute("liveLocationId");
 				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList", userObj.getLocationIds());
+				map.add("locIdList", locId);
 
 				GetClaimStructureAllotment[] summary = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getClaimStructureAllotmentList", map, GetClaimStructureAllotment[].class);

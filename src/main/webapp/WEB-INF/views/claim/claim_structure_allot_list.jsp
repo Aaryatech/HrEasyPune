@@ -100,7 +100,10 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Claim Structure Allotment List</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Claim Structure Allotment
+							List
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -153,31 +156,31 @@
 							method="post" id="assignstuct">
 
 							<div class="form-group row">
-							
-							<div class="col-md-6">
-								<label class="col-form-label col-lg-5 float" for="lvsId">Select
-									Structure <span style="color: red">* </span>:
-								</label>
-								<div class="col-lg-7 float">
-									<select name="lvsId" data-placeholder="Select Structure"
-										id="lvsId"
-										class="form-control form-control-select2 select2-hidden-accessible"
-										data-fouc="" aria-hidden="true">
-										<option></option>
-										<c:forEach items="${lStrList}" var="str">
 
-											<option value="${str.clmStructHeadId}"
-												id="${str.clmStructHeadId}"
-												data-leavestrname="${str.claimStructName}">${str.claimStructName}</option>
+								<div class="col-md-6">
+									<label class="col-form-label col-lg-5 float" for="lvsId">Select
+										Structure <span style="color: red">* </span>:
+									</label>
+									<div class="col-lg-7 float">
+										<select name="lvsId" data-placeholder="Select Structure"
+											id="lvsId"
+											class="form-control form-control-select2 select2-hidden-accessible"
+											data-fouc="" aria-hidden="true">
+											<option></option>
+											<c:forEach items="${lStrList}" var="str">
+
+												<option value="${str.clmStructHeadId}"
+													id="${str.clmStructHeadId}"
+													data-leavestrname="${str.claimStructName}">${str.claimStructName}</option>
 
 
-										</c:forEach>
-									</select> <span class="validation-invalid-label" id="error_lvsId"
-										style="display: none;">This field is required.</span>
+											</c:forEach>
+										</select> <span class="validation-invalid-label" id="error_lvsId"
+											style="display: none;">This field is required.</span>
+									</div>
 								</div>
-							</div>
-							
-								
+
+
 							</div>
 
 							<table class="table datatable-scroll-y" width="100%"
@@ -199,16 +202,16 @@
 
 									<c:forEach items="${lvStructureList}" var="structure"
 										varStatus="count">
-										
+
 										<c:set var="sty_color" value="orange"></c:set>
-											<c:choose>
-												<c:when test="${structure.clmsName eq null}">
-													<c:set var="sty_color" value="orange"></c:set>
-												</c:when>
-												<c:otherwise>
-													<c:set var="sty_color" value=""></c:set>
-												</c:otherwise>
-											</c:choose>
+										<c:choose>
+											<c:when test="${structure.clmsName eq null}">
+												<c:set var="sty_color" value="orange"></c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set var="sty_color" value=""></c:set>
+											</c:otherwise>
+										</c:choose>
 										<tr style="background: ${sty_color};">
 
 
@@ -266,213 +269,202 @@
 
 
 				<!-- Footer -->
-				<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+
 				<!-- /footer -->
 
 			</div>
 			<!-- /main content -->
-
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		</div>
-		<!-- /page content -->
+	</div>
+	<!-- /page content -->
 
-		<script type="text/javascript">
-			$(document)
-					.ready(
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					//$('#bootstrap-data-table-export').DataTable();
+
+					$("#selAll").click(
 							function() {
-								//$('#bootstrap-data-table-export').DataTable();
-
-								$("#selAll")
-										.click(
-												function() {
-													$(
-															'#printtable1 tbody input[type="checkbox"]')
-															.prop(
-																	'checked',
-																	this.checked);
-												});
+								$('#printtable1 tbody input[type="checkbox"]')
+										.prop('checked', this.checked);
 							});
+				});
 
-			$(document)
-					.ready(
-							function($) {
+		$(document)
+				.ready(
+						function($) {
 
-								$("#assignstuct")
-										.submit(
-												function(e) {
+							$("#assignstuct")
+									.submit(
+											function(e) {
 
-													var table = $(
-															'#printtable1')
-															.DataTable();
-													table.search("").draw();
-													$("#error_lvsId").hide();
-													$("#error_table1").hide();
+												var table = $('#printtable1')
+														.DataTable();
+												table.search("").draw();
+												$("#error_lvsId").hide();
+												$("#error_table1").hide();
 
-													var isError = false;
-													var errMsg = "";
+												var isError = false;
+												var errMsg = "";
 
-													if ($("#lvsId").val() == "") {
+												if ($("#lvsId").val() == "") {
 
-														isError = true;
+													isError = true;
 
-														$("#error_lvsId")
-																.show();
-														//return false;
-													}
+													$("#error_lvsId").show();
+													//return false;
+												}
 
-													var checkedVals = $(
-															'.chk:checkbox:checked')
-															.map(
-																	function() {
-																		return this.value;
-																	}).get();
-													checkedVals = checkedVals
-															.join(',');
+												var checkedVals = $(
+														'.chk:checkbox:checked')
+														.map(function() {
+															return this.value;
+														}).get();
+												checkedVals = checkedVals
+														.join(',');
 
-													if (checkedVals == '') {
-														$("#error_table1")
-																.show();
-														return false;
-													}
-
-													if (!isError) {
-
-														$("#table_grid1 tbody")
-																.empty();
-
-														$(
-																'.chk:checkbox:checked')
-																.each(
-																		function(
-																				i) {
-																			var val = $(
-																					this)
-																					.val();
-
-																			if (val != 'on') {
-																				var name = $(
-																						"#empIds"
-																								+ val)
-																						.attr(
-																								'data-name');
-																				var empcode = $(
-																						"#empIds"
-																								+ val)
-																						.attr(
-																								'data-empcode');
-																				var dept = $(
-																						"#empIds"
-																								+ val)
-																						.attr(
-																								'data-depname');
-
-																				var tr_data = '<tr id="tritem' + val + '">'
-																						+ '<td id="itemCount' + val + '">'
-																						+ empcode
-																						+ '</td>'
-																						+ '<td  >'
-																						+ name
-																						+ '</td>'
-																						+ '<td  >'
-																						+ dept
-																						+ '</td>'
-																						+ '</tr>';
-																				$(
-																						'#table_grid1'
-																								+ ' tbody')
-																						.append(
-																								tr_data);
-																			}
-																		});
-
-														var option = $(
-																"#lvsId option:selected")
-																.attr(
-																		"data-leavestrname");
-														$("#showLeaveStruct")
-																.html(option);
-														$('#modal_scrollable')
-																.modal('show');
-														return false;
-														/* var x = confirm("Do you really want to submit the form?");
-														if (x == true) {
-
-															document.getElementById("btnassignstuct").disabled = true;
-															return true;
-														} */
-														//end ajax send this to php page
-													}
+												if (checkedVals == '') {
+													$("#error_table1").show();
 													return false;
-												});
-							});
-		</script>
-		<script>
-			function submitForm() {
-				$('#modal_scrollable').modal('hide');
-				document.getElementById("btnassignstuct").disabled = true;
-				document.getElementById("assignstuct").submit();
+												}
 
-			}
-		</script>
-		<script>
-			function myFunction1() {
-				var input, filter, table, tr, td, i, txtValue;
-				input = document.getElementById("myInput1");
-				filter = input.value.toUpperCase();
-				table = document.getElementById("printtable2");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[2];
-					if (td) {
-						txtValue = td.textContent || td.innerText;
-						if (txtValue.toUpperCase().indexOf(filter) > -1) {
-							tr[i].style.display = "";
-						} else {
-							tr[i].style.display = "none";
-						}
+												if (!isError) {
+
+													$("#table_grid1 tbody")
+															.empty();
+
+													$('.chk:checkbox:checked')
+															.each(
+																	function(i) {
+																		var val = $(
+																				this)
+																				.val();
+
+																		if (val != 'on') {
+																			var name = $(
+																					"#empIds"
+																							+ val)
+																					.attr(
+																							'data-name');
+																			var empcode = $(
+																					"#empIds"
+																							+ val)
+																					.attr(
+																							'data-empcode');
+																			var dept = $(
+																					"#empIds"
+																							+ val)
+																					.attr(
+																							'data-depname');
+
+																			var tr_data = '<tr id="tritem' + val + '">'
+																					+ '<td id="itemCount' + val + '">'
+																					+ empcode
+																					+ '</td>'
+																					+ '<td  >'
+																					+ name
+																					+ '</td>'
+																					+ '<td  >'
+																					+ dept
+																					+ '</td>'
+																					+ '</tr>';
+																			$(
+																					'#table_grid1'
+																							+ ' tbody')
+																					.append(
+																							tr_data);
+																		}
+																	});
+
+													var option = $(
+															"#lvsId option:selected")
+															.attr(
+																	"data-leavestrname");
+													$("#showLeaveStruct").html(
+															option);
+													$('#modal_scrollable')
+															.modal('show');
+													return false;
+													/* var x = confirm("Do you really want to submit the form?");
+													if (x == true) {
+
+														document.getElementById("btnassignstuct").disabled = true;
+														return true;
+													} */
+													//end ajax send this to php page
+												}
+												return false;
+											});
+						});
+	</script>
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("btnassignstuct").disabled = true;
+			document.getElementById("assignstuct").submit();
+
+		}
+	</script>
+	<script>
+		function myFunction1() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("myInput1");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("printtable2");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[2];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
 					}
 				}
 			}
-		</script>
-		<!-- Scrollable modal -->
-		<div id="modal_scrollable" class="modal fade" data-backdrop="false"
-			tabindex="-1">
-			<div class="modal-dialog modal-dialog-scrollable">
-				<div class="modal-content">
-					<div class="modal-header pb-3">
+		}
+	</script>
+	<!-- Scrollable modal -->
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
 
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
 
-					<div class="modal-body py-0">
-						<h5 class="modal-title">
-							Allocated Leave Structure: <b><span id="showLeaveStruct"></span></b>
-						</h5>
-						<br>
-						<table class="table table-bordered table-hover" id="table_grid1">
-							<thead>
-								<tr class="bgpink">
-									<th width="5%">Code</th>
+				<div class="modal-body py-0">
+					<h5 class="modal-title">
+						Allocated Leave Structure: <b><span id="showLeaveStruct"></span></b>
+					</h5>
+					<br>
+					<table class="table table-bordered table-hover" id="table_grid1">
+						<thead>
+							<tr class="bgpink">
+								<th width="5%">Code</th>
 
-									<th>Employee Name</th>
-									<th>Department</th>
+								<th>Employee Name</th>
+								<th>Department</th>
 
-								</tr>
-							</thead>
-							<tbody>
+							</tr>
+						</thead>
+						<tbody>
 
-							</tbody>
+						</tbody>
 
-						</table>
-					</div>
+					</table>
+				</div>
 
-					<div class="modal-footer pt-3">
-						<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn bg-primary"
-							onclick="submitForm()">Submit</button>
-					</div>
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
 				</div>
 			</div>
 		</div>
-		<!-- /scrollable modal -->
+	</div>
+	<!-- /scrollable modal -->
 </body>
 </html>

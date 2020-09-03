@@ -389,10 +389,10 @@ public class ClaimController {
 			model = new ModelAndView("claim/claim_authority_add");
 			try {
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList", userObj.getLocationIds());
+				map.add("locIdList", locId);
 
 				GetEmployeeInfo[] employeeDepartment = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmpInfoList", map, GetEmployeeInfo[].class);
@@ -404,7 +404,7 @@ public class ClaimController {
 
 				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList", userObj.getLocationIds());
+				map.add("locIdList", locId);
 
 				GetEmployeeInfo[] empInfoError = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getEmpInfoListForClaimAuth", map, GetEmployeeInfo[].class);
@@ -514,10 +514,10 @@ public class ClaimController {
 			try {
 
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
-				map.add("locIdList", userObj.getLocationIds());
+				map.add("locIdList", locId);
 
 				GetClaimAuthority[] empInfoError = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getClaimAuthorityList", map, GetClaimAuthority[].class);

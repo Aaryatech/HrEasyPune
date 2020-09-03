@@ -1619,8 +1619,13 @@ public class ClaimApplicationController {
 			try {
 
 				mav = "claim/changeClaimYearmonth";
+				
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				ClaimApplyHeader[] employeeDoc1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getClaimHeaderToChangeDate", ClaimApplyHeader[].class);
+						.postForObject(Constants.url + "/getClaimHeaderToChangeDate",map, ClaimApplyHeader[].class);
 
 				List<ClaimApplyHeader> claimList1 = new ArrayList<ClaimApplyHeader>(Arrays.asList(employeeDoc1));
 				// System.err.println("claim list" + claimList1.toString());

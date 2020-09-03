@@ -483,7 +483,7 @@ public class AttendenceController {
 				if (date != null) {
 
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-
+					int locId = (int) session.getAttribute("liveLocationId");
 					Date dt = dd.parse("01-" + date);
 					Calendar temp = Calendar.getInstance();
 					temp.setTime(dt);
@@ -498,6 +498,7 @@ public class AttendenceController {
 					map.add("toDate", sf.format(lastDay));
 					map.add("userType", userObj.getDesignType());
 					map.add("userId", userObj.getEmpId());
+					map.add("locId", locId);
 					AttendanceSheetData attendanceSheetData = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getAttendanceSheet", map, AttendanceSheetData.class);
 
@@ -511,6 +512,7 @@ public class AttendenceController {
 					map.add("month", month);
 					map.add("userType", userObj.getDesignType());
 					map.add("userId", userObj.getEmpId());
+					map.add("locId", locId);
 					SummaryAttendance[] summaryDailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getMonthlySummryAttendace", map, SummaryAttendance[].class);
 					List<SummaryAttendance> summrylist = new ArrayList<SummaryAttendance>(
@@ -952,13 +954,13 @@ public class AttendenceController {
 				if (date != null) {
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
+					int locId = (int) session.getAttribute("liveLocationId");
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("desgType", 2);
-					map.add("departIds", userObj.getHodDeptIds());
+					map.add("locId", locId);
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getEmployyeDailyDailyListforHr", map, DailyAttendance[].class);
+							Constants.url + "/getEmployyeDailyDailyListforHrLocId", map, DailyAttendance[].class);
 					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
 					model.addAttribute("date", date);
@@ -1015,13 +1017,13 @@ public class AttendenceController {
 					 * DateConvertor.convertToYMD(date)); map.add("desgType", 1);
 					 * map.add("departIds", userObj.getHodDeptIds());
 					 */
-
+					int locId = (int) session.getAttribute("liveLocationId");
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("empId", userObj.getEmpId());
-					System.out.println(map);
+					map.add("empId", userObj.getEmpId()); 
+					map.add("locId", locId); 
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getEmployyeDailyDailyListByAuthority", map, DailyAttendance[].class);
+							Constants.url + "/getEmployyeDailyDailyListByAuthorityLocId", map, DailyAttendance[].class);
 					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
 					model.addAttribute("dailyDailyList", dailyDailyList);
 					model.addAttribute("date", date);
@@ -1265,11 +1267,14 @@ public class AttendenceController {
 				date = request.getParameter("date");
 
 				if (date != null) {
+					
+					int locId = (int) session.getAttribute("liveLocationId");
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
+					map.add("locId",locId);
 					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
-							Constants.url + "/getDailyDailyRecordForHrByDate", map, GetDailyDailyRecord[].class);
+							Constants.url + "/getDailyDailyRecordForHrByDateLocId", map, GetDailyDailyRecord[].class);
 					List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
 							Arrays.asList(getDailyDailyRecord));
 					model.addAttribute("dailyrecordList", dailyrecordList);
