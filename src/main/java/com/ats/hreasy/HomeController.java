@@ -148,6 +148,7 @@ public class HomeController {
 							Location[].class); 
 					List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
 					
+					
 					try {
 
 						AccessRightModule[] moduleJson = null;
