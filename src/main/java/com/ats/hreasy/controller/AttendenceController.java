@@ -739,11 +739,14 @@ public class AttendenceController {
 				String[] mnth = selectMonth.split("-");
 				month = Integer.parseInt(mnth[0]);
 				year = Integer.parseInt(mnth[1]);
+				int locId = (int) session.getAttribute("liveLocationId");
+				
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 				map.add("month", month);
 				map.add("year", year);
 				map.add("isFixed", 0);
 				map.add("sts", "O");
+				map.add("locId", locId);
 				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
 				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
@@ -812,7 +815,7 @@ public class AttendenceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/fixAttendaceByDateAndEmp";
+		return "redirect:/fixAttendaceByDateAndEmp?selectMonth="+month+"-"+year;
 
 	}
 
@@ -834,7 +837,7 @@ public class AttendenceController {
 			mav = "attendence/unfixAttendace";
 
 			try {
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				String selectMonth = request.getParameter("selectMonth");
 				String[] mnth = selectMonth.split("-");
 				month = Integer.parseInt(mnth[0]);
@@ -844,6 +847,7 @@ public class AttendenceController {
 				map.add("year", year);
 				map.add("isFixed", 1);
 				map.add("sts", "F");
+				map.add("locId", locId);
 				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
 				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
@@ -914,7 +918,7 @@ public class AttendenceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/unfixAttendaceByDateAndEmp";
+		return "redirect:/unfixAttendaceByDateAndEmp?selectMonth="+month+"-"+year;
 
 	}
 
