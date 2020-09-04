@@ -132,7 +132,7 @@
 										class="form-control form-control-select2 select2-hidden-accessible"
 										data-fouc="" aria-hidden="true">
 
-										<option value="0">Select Employee</option>
+										<option value="">Select Employee</option>
 
 										<c:forEach items="${empdetList}" var="empdetList">
 											<option value="${empdetList.empId}">${empdetList.empCode}&nbsp;${empdetList.surname}&nbsp;${empdetList.firstName}</option>

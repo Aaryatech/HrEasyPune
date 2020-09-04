@@ -73,8 +73,11 @@ class LoanAdminController {
 				linkType = getSettingByKey.getValue();
 				model.addObject("linkType", linkType);
 
+				int locId = (int) session.getAttribute("liveLocationId");  
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailBylocationId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -346,11 +349,11 @@ class LoanAdminController {
 
 			try {
 
-				GetEmployeeDetails[] empdetList2 = Constants.getRestTemplate()
+				/*GetEmployeeDetails[] empdetList2 = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList3 = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList2));
-				model.addObject("empdetList", empdetList3);
+				model.addObject("empdetList", empdetList3);*/
 				// System.out.println(" Info-------" + empdetList3.toString());
 
 			} catch (Exception e) {
@@ -366,16 +369,18 @@ class LoanAdminController {
 		List<GetLoan> employeeInfoList = new ArrayList<GetLoan>();
 
 		try {
-
+			HttpSession session = request.getSession();
 			String calYrId = request.getParameter("calYrId");
 			String status = request.getParameter("status");
-
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("status", status);
 			map.add("calYrId", calYrId);
 			map.add("companyId", 1);
-
-			GetLoan[] employeeInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getLoanHistoryEmpWise",
+			map.add("locId", locId);
+			
+			GetLoan[] employeeInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getLoanHistoryEmpWiseLocId",
 					map, GetLoan[].class);
 
 			employeeInfoList = new ArrayList<GetLoan>(Arrays.asList(employeeInfo));
@@ -461,15 +466,15 @@ class LoanAdminController {
 				model.addObject("editAccess", 0);
 			}
 			try {
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("companyId", 1);
+				map.add("locId", locId);
 
 				GetLoan[] employeeInfo = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getLoanHistoryEmpWiseForCompany", map, GetLoan[].class);
+						.postForObject(Constants.url + "/getLoanHistoryEmpWiseForCompanyLocId", map, GetLoan[].class);
 
 				employeeInfoList = new ArrayList<GetLoan>(Arrays.asList(employeeInfo));
-				System.out.println("employeeInfoList" + employeeInfoList.toString());
+				//System.out.println("employeeInfoList" + employeeInfoList.toString());
 
 				model.addObject("loanList", employeeInfoList);
 

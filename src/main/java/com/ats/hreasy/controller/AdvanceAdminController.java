@@ -81,8 +81,12 @@ public class AdvanceAdminController {
 			}
 
 			try {
+				
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailBylocationId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -282,11 +286,12 @@ public class AdvanceAdminController {
 
 			}
 			try {
-
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
+				map.add("locId", locId);
 				GetAdvance[] empdetList1 = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getPendingAdvance", map, GetAdvance[].class);
+						.postForObject(Constants.url + "/getPendingAdvanceLocId", map, GetAdvance[].class);
 
 				List<GetAdvance> empdetList = new ArrayList<GetAdvance>(Arrays.asList(empdetList1));
 				model.addObject("empdetList", empdetList);
@@ -398,13 +403,14 @@ public class AdvanceAdminController {
 			model = new ModelAndView("Advance/advanceHistory");
 			try {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId); 
 				GetEmployeeDetails[] empdetList2 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetail", GetEmployeeDetails[].class);
-
+						.postForObject(Constants.url + "/getAllEmployeeDetailBylocationId",map, GetEmployeeDetails[].class); 
 				List<GetEmployeeDetails> empdetList3 = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList2));
 				model.addObject("empdetList", empdetList3);
-				// System.out.println(" Info-------" + empdetList3.toString());
-
+				 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
