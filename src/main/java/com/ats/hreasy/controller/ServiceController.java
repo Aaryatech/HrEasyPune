@@ -81,25 +81,24 @@ public class ServiceController {
 				try {
 					locId = Integer.parseInt(request.getParameter("locId_list"));
 				}catch (Exception e) {
-					 locId = 0;
-					 System.out.println(e.getMessage());
+					 locId = (int) session.getAttribute("liveLocationId"); 
 					e.printStackTrace();
 				}
 				
 				map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);				
 
-				if(locId>0) {
+				/*if(locId>0) {*/
 					
 					AssetsDetailsList[] assetArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllAssetsByLocation", map
 							, AssetsDetailsList[].class);
 					assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
-				}else {
+				/*}else {
 					
 				AssetsDetailsList[] assetArr = Constants.getRestTemplate().getForObject(Constants.url + "/getAllAssets"
 						, AssetsDetailsList[].class);
 				assetsList = new ArrayList<AssetsDetailsList>(Arrays.asList(assetArr));
-				}
+				}*/
 				for (int i = 0; i < assetsList.size(); i++) {
 
 					assetsList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(assetsList.get(i).getAssetId())));
@@ -124,7 +123,7 @@ public class ServiceController {
 				model.addObject("assetsList", assetsList);
 
 			} catch (Exception e) {
-				System.out.println("Exception in showAllAssets : " + e.getMessage());
+				//System.out.println("Exception in showAllAssets : " + e.getMessage());
 				e.printStackTrace();
 			}
 		}

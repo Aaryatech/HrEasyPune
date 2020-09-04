@@ -88,36 +88,41 @@
 						</c:if>
 					</c:forEach>
 			</span>
-		</a>
+		</a> <c:choose>
+				<c:when test="${showLoc==0}">
 
-			<div class="dropdown-menu dropdown-menu-right">
-				<c:forEach items="${sessionScope.liveAccesibleLoc}"
-					var="liveAccesibleLoc">
-					<c:forEach items="${sessionScope.globalLocationList}"
-						var="globalLocationList">
+				</c:when>
+				<c:otherwise>
+					<div class="dropdown-menu dropdown-menu-right">
+						<c:forEach items="${sessionScope.liveAccesibleLoc}"
+							var="liveAccesibleLoc">
+							<c:forEach items="${sessionScope.globalLocationList}"
+								var="globalLocationList">
 
-						<c:if test="${globalLocationList.locId==liveAccesibleLoc}">
+								<c:if test="${globalLocationList.locId==liveAccesibleLoc}">
 
-							<c:choose>
-								<c:when test="${globalLocationList.locId==liveLocationId}">
-									<a href="#" class="dropdown-item"
-										onclick="setLocation(${globalLocationList.locId})"
-										style="background: #f5f5f5;"><i class="icon-location3"></i>
-										${globalLocationList.locName}</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" class="dropdown-item"
-										onclick="setLocation(${globalLocationList.locId})"><i
-										class="icon-location3"></i> ${globalLocationList.locName}</a>
-								</c:otherwise>
-							</c:choose>
+									<c:choose>
+										<c:when test="${globalLocationList.locId==liveLocationId}">
+											<a href="#" class="dropdown-item"
+												onclick="setLocation(${globalLocationList.locId})"
+												style="background: #f5f5f5;"><i class="icon-location3"></i>
+												${globalLocationList.locName}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="#" class="dropdown-item"
+												onclick="setLocation(${globalLocationList.locId})"><i
+												class="icon-location3"></i> ${globalLocationList.locName}</a>
+										</c:otherwise>
+									</c:choose>
 
-						</c:if>
-					</c:forEach>
+								</c:if>
+							</c:forEach>
 
-				</c:forEach>
+						</c:forEach>
 
-			</div></li>
+					</div>
+				</c:otherwise>
+			</c:choose></li>
 
 		<li class="nav-item dropdown dropdown-user"><a href="#"
 			class="navbar-nav-link d-flex align-items-center dropdown-toggle"

@@ -1073,7 +1073,7 @@ public class AssetMgmtController {
 				try {
 					locId = Integer.parseInt(request.getParameter("locId_list"));
 				}catch (NumberFormatException e) {
-					locId = locationList.get(0).getLocId();
+					locId = (int) session.getAttribute("liveLocationId");
 					e.printStackTrace();
 				}
 				

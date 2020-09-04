@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<c:url value="/getAssetsServiceById" var="getAssetsServiceById"></c:url>
+	<c:url value="/getAssetsServiceById" var="getAssetsServiceById"></c:url>
 	<!-- Main navbar -->
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	<!-- /main navbar -->
@@ -42,7 +42,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Manage Asset Servicing</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Manage Asset Servicing
+									</h5></td>
 								<%-- <td width="40%" align="right"><c:if test="${addAccess==0}">
 										<a href="${pageContext.request.contextPath}/addAsset"
 											class="breadcrumb-elements-item">
@@ -91,54 +93,60 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<form action="showAssetForServicing" id="showAssetForServicing" method="get">
-						<div class="form-group row">									
-											<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="assetCatId">Accessible 
-											Location<span class="text-danger"></span>:</label>
-												<div class="col-lg-6 float">
-													<select name="locId_list" data-placeholder="Select Location" id="locId_list" 
-														class="form-control form-control-select2 select2-hidden-accessible">
+						<form action="showAssetForServicing" id="showAssetForServicing"
+							method="get">
+							<div class="form-group row">
+								<div class="col-md-6">
+									<label
+										class="col-form-label text-info font-weight-bold col-lg-5 float"
+										for="assetCatId">Accessible Location<span
+										class="text-danger"></span>:
+									</label>
+									<div class="col-lg-6 float">
+										<select name="locId_list" data-placeholder="Select Location"
+											id="locId_list"
+											class="form-control form-control-select2 select2-hidden-accessible">
 
-														<!-- <option value="">Select Location</option> -->
-														<c:forEach items="${locationList}" var="locationList">
-															<c:set value="0" var="find"></c:set>
-															<c:forEach items="${locationIds}" var="locationIds">
-																<c:if test="${locationList.locId==locationIds}">
-																	<option selected="selected"
-																		value="${locationList.locId}">${locationList.locName}</option>
-																	<c:set value="1" var="find"></c:set>
-																</c:if>
-															</c:forEach>
-															<c:if test="${find==0}">
+											<!-- <option value="">Select Location</option> -->
+											<c:forEach items="${sessionScope.liveAccesibleLoc}"
+												var="liveAccesibleLoc">
+												<c:forEach items="${locationList}" var="locationList">
+													<c:if test="${locationList.locId==liveAccesibleLoc}">
+														<c:choose>
+															<c:when test="${locationList.locId==locId}">
+																<option value="${locationList.locId}" selected>${locationList.locName}</option>
+															</c:when>
+															<c:otherwise>
 																<option value="${locationList.locId}">${locationList.locName}</option>
-															</c:if>
-														</c:forEach>
-													</select>
-													 <span
-														class="validation-invalid-label" id="error_assetCatId"
-														style="display: none;">This field is required.</span>
-																										
-												</div>
-											</div>		
-									<button type="submit" class="btn blue_btn" id="submtbtn">
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</c:forEach>
+										</select> <span class="validation-invalid-label" id="error_assetCatId"
+											style="display: none;">This field is required.</span>
+
+									</div>
+								</div>
+								<button type="submit" class="btn blue_btn" id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>
 							</div>
-							</form>
-						<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+						</form>
+						<table
+							class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
 							id="printtable1" style="font-size: 13px;">
 							<thead>
 								<tr class="bg-blue">
 
 									<th width="10%">Sr. No.</th>
-									<th>Assets</th>	
+									<th>Assets</th>
 									<th>Category</th>
-									<th>Asset Make</th>	
+									<th>Asset Make</th>
 									<th>Model</th>
 									<th>Serial No.</th>
 									<th>Purchase Date</th>
-									<th>Vendor</th>									
+									<th>Vendor</th>
 									<th width="10%" class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -148,46 +156,49 @@
 								<c:forEach items="${assetsList}" var="assetList"
 									varStatus="count">
 									<tr class="accordion-toggle collapsed"
-											id1="accordion${count.index+1}" data-toggle1="collapse"
-											data-parent1="#accordion${count.index+1}" >
-										 <td><a href="#collapseOne${count.index+1}" id="accordion${count.index+1}"
-										 	 data-toggle="collapse"  onclick="getAssetServiceInfo('${assetList.exVar1}',${count.index+1})"
-											data-parent="#accordion${count.index+1}"><span class="expand-button"></span></a></td>
+										id1="accordion${count.index+1}" data-toggle1="collapse"
+										data-parent1="#accordion${count.index+1}">
+										<td><a href="#collapseOne${count.index+1}"
+											id="accordion${count.index+1}" data-toggle="collapse"
+											onclick="getAssetServiceInfo('${assetList.exVar1}',${count.index+1})"
+											data-parent="#accordion${count.index+1}"><span
+												class="expand-button"></span></a></td>
 										<td>${assetList.assetCode}-${assetList.assetName}</td>
 										<td>${assetList.catName}</td>
 										<td>${assetList.assetMake}</td>
-										<td>${assetList.assetModel}</td>										
+										<td>${assetList.assetModel}</td>
 										<td>${assetList.assetSrno}</td>
 										<td>${assetList.assetPurDate}</td>
 										<td>${assetList.vendor}</td>
 										<td class="text-center"><c:if test="${editAccess == 0}">
-											</c:if> 
-											<a href="${pageContext.request.contextPath}/addAssetServicing?assetId=${assetList.exVar1}"
+											</c:if> <a
+											href="${pageContext.request.contextPath}/addAssetServicing?assetId=${assetList.exVar1}"
 											class="list-icons-item text-primary-600" data-popup="tooltip"
-													title="" data-original-title="Add Asset Servicing"><i
-													class="icon-enlarge5"></i></a>
-											</td>
+											title="" data-original-title="Add Asset Servicing"><i
+												class="icon-enlarge5"></i></a></td>
 									</tr>
-									
+
 									<tr class="hide-table-padding">
-											<!-- <td></td> -->
-											<td colspan="12"><div id="collapseOne${count.index+1}"
-													class="collapse in p-3">														
-														<table class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
-															width="100%" role="grid" id="servicedatatable${count.index+1}">
-															<thead>
-																<tr class="bg-blue">
-																	<th>Sr.No.</th>
-																	<th>Service Vendor</th>
-																	<th>Service Date</th>
-																	<th>Next Service</th>															
-																	<th>Service Type</th>
-																	<th>Action</th>	
-																</tr>
-															</thead>
-															<tbody>
-															</tbody>
-														<%-- <tr>
+										<!-- <td></td> -->
+										<td colspan="12"><div id="collapseOne${count.index+1}"
+												class="collapse in p-3">
+												<table
+													class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic  datatable-button-print-columns1"
+													width="100%" role="grid"
+													id="servicedatatable${count.index+1}">
+													<thead>
+														<tr class="bg-blue">
+															<th>Sr.No.</th>
+															<th>Service Vendor</th>
+															<th>Service Date</th>
+															<th>Next Service</th>
+															<th>Service Type</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+													<%-- <tr>
 															<td>1</td>
 															<td>Intel India</td>
 															<td>01-03-2020</td>
@@ -232,13 +243,11 @@
 													class="icon-trash"></i></a>
 											</c:if></td>					
 														</tr> --%>
-														
-															
-														</table>
-													</div>		
-													
-											</td>
-										</tr>
+
+
+												</table>
+											</div></td>
+									</tr>
 								</c:forEach>
 
 							</tbody>
@@ -262,7 +271,7 @@
 
 	</div>
 	<!-- /page content -->
-<script>
+	<script>
 		// Custom bootbox dialog
 			function bootbox_ban(uuid){
 			 
@@ -290,7 +299,7 @@
 			});
 		}
 	</Script>
-		<script>
+	<script>
 function getAssetServiceInfo(assetId,countIndex){  
   //alert(assetId)
   var serviceType = null;

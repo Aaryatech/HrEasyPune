@@ -91,6 +91,9 @@ public class AttendenceController {
 			 * 
 			 * SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			 */
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar temp = Calendar.getInstance();
 			String month = request.getParameter("selectMonth");
@@ -105,6 +108,7 @@ public class AttendenceController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("fromDate", sf.format(firstDay));
 			map.add("toDate", sf.format(lastDay));
+			map.add("locId", locId);
 			InfoForUploadAttendance infoForUploadAttendance = Constants.getRestTemplate().postForObject(
 					Constants.url + "/getInformationOfUploadedAttendance", map, InfoForUploadAttendance.class);
 
@@ -122,6 +126,7 @@ public class AttendenceController {
 			model.addAttribute("month", month1 + 1);
 			model.addAttribute("infoForUploadAttendance", infoForUploadAttendance);
 
+			model.addAttribute("showLoc", 0);
 			// System.out.println(month);
 
 		} catch (Exception e) {
@@ -217,11 +222,15 @@ public class AttendenceController {
 				 * 
 				 * model.addAttribute("countSal", countSal);
 				 */
-				CountOfAssignPending countSal = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getCountOfAssignForAttendance", CountOfAssignPending.class);
+
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				CountOfAssignPending countSal = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getCountOfAssignForAttendance", map, CountOfAssignPending.class);
 				model.addAttribute("countSal", countSal);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map = new LinkedMultiValueMap<String, Object>();
 
 				Date dt = new Date();
 				Calendar temp = Calendar.getInstance();
@@ -242,6 +251,7 @@ public class AttendenceController {
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("fromDate", sf.format(firstDay));
 				map.add("toDate", sf.format(lastDay));
+				map.add("locId", locId);
 				InfoForUploadAttendance infoForUploadAttendance = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getInformationOfUploadedAttendance", map, InfoForUploadAttendance.class);
 
@@ -278,6 +288,7 @@ public class AttendenceController {
 			int year = Integer.parseInt(request.getParameter("year"));
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			int locId = (int) session.getAttribute("liveLocationId");
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
@@ -287,6 +298,7 @@ public class AttendenceController {
 			map.add("fromDate", sf.format(firstDay));
 			map.add("toDate", sf.format(lastDay));
 			map.add("userId", userObj.getUserId());
+			map.add("locId", locId);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/initiallyInsertDailyRecord", map,
 					Info.class);
 			if (info.isError() == false) {
@@ -740,7 +752,7 @@ public class AttendenceController {
 				month = Integer.parseInt(mnth[0]);
 				year = Integer.parseInt(mnth[1]);
 				int locId = (int) session.getAttribute("liveLocationId");
-				
+
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 				map.add("month", month);
 				map.add("year", year);
@@ -815,7 +827,7 @@ public class AttendenceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/fixAttendaceByDateAndEmp?selectMonth="+month+"-"+year;
+		return "redirect:/fixAttendaceByDateAndEmp?selectMonth=" + month + "-" + year;
 
 	}
 
@@ -918,7 +930,7 @@ public class AttendenceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/unfixAttendaceByDateAndEmp?selectMonth="+month+"-"+year;
+		return "redirect:/unfixAttendaceByDateAndEmp?selectMonth=" + month + "-" + year;
 
 	}
 
@@ -1024,8 +1036,8 @@ public class AttendenceController {
 					int locId = (int) session.getAttribute("liveLocationId");
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("empId", userObj.getEmpId()); 
-					map.add("locId", locId); 
+					map.add("empId", userObj.getEmpId());
+					map.add("locId", locId);
 					DailyAttendance[] dailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployyeDailyDailyListByAuthorityLocId", map, DailyAttendance[].class);
 					dailyDailyList = new ArrayList<DailyAttendance>(Arrays.asList(dailyAttendance));
@@ -1271,12 +1283,12 @@ public class AttendenceController {
 				date = request.getParameter("date");
 
 				if (date != null) {
-					
+
 					int locId = (int) session.getAttribute("liveLocationId");
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 					map.add("date", DateConvertor.convertToYMD(date));
-					map.add("locId",locId);
+					map.add("locId", locId);
 					GetDailyDailyRecord[] getDailyDailyRecord = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getDailyDailyRecordForHrByDateLocId", map, GetDailyDailyRecord[].class);
 					List<GetDailyDailyRecord> dailyrecordList = new ArrayList<GetDailyDailyRecord>(
