@@ -497,11 +497,11 @@ System.err.println("showBonusListGS");
 			String bonusName = null;
 			String base64encodedString1 = request.getParameter("bonusId");
 			String bonusId = FormValidation.DecodeKey(base64encodedString1);
-
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("bonusId", bonusId);
 			map.add("flag", 0);
-
+			map.add("locId", locId);
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAllEmployeeDetailForBonusGS", map, GetEmployeeDetails[].class);
 
@@ -804,10 +804,11 @@ System.err.println("showBonusListGS");
 				}
 
 			}
-
+			int locId = (int) session.getAttribute("liveLocationId");
 			map = new LinkedMultiValueMap<>();
 			map.add("bonusId", bonusId);
 			map.add("flag", 1);
+			map.add("locId",locId);
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAllEmployeeDetailForBonusGS", map, GetEmployeeDetails[].class);
 
