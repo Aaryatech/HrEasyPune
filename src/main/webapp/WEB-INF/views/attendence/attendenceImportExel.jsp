@@ -251,7 +251,7 @@
 														<div class="col-md-4">
 															<button type="button" id="btnUploadCSVSubmit"
 																name="btnUploadCSVSubmit" class="btn btn-primary">
-																Uplaod File <i class="icon-paperplane ml-2"></i>
+																upload File <i class="icon-paperplane ml-2"></i>
 															</button>
 														</div>
 
