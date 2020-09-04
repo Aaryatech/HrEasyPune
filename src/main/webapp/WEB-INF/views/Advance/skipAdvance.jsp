@@ -51,7 +51,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Skip Advance</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Skip Advance
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -108,25 +110,25 @@
 
 
 									<div class="form-group row">
-										<div class="col-md-6">									
-											<label class="col-form-label col-lg-5 float" for="empName">Employee
-												Name : </label> <label class="col-form-label col-lg-7 float" for="empName">${empPersInfoString}
-											</label>										
-										</div>
-										
 										<div class="col-md-6">
-												<label class="col-form-label col-lg-5 float" for="grossSal">Total
-											Gross Salary: </label> <label class="col-form-label col-lg-7 float"
-											for="grossSal">${empPersInfo.grossSalary} </label>
+											<label class="col-form-label col-lg-5 float" for="empName">Employee
+												Name : </label> <label class="col-form-label col-lg-7 float"
+												for="empName">${empPersInfoString} </label>
 										</div>
-									</div>									
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="grossSal">Total
+												Gross Salary: </label> <label class="col-form-label col-lg-7 float"
+												for="grossSal">${empPersInfo.grossSalary} </label>
+										</div>
+									</div>
 
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="voucherNo">Voucher
-												No. : </label> <label class="col-form-label col-lg-7 float" for="voucherNo">
-												${advList.voucherNo} </label>
-										</div>									
+												No. : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${advList.voucherNo} </label>
+										</div>
 
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="advanceAmt">Advance
@@ -138,15 +140,15 @@
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="month">Date
-												: </label> <label class="col-form-label col-lg-7 float" for="voucherNo">
-												${advList.advDate} </label>
+												: </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${advList.advDate} </label>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="advanceAmt">Date(month-year)
-											of Deduction : </label> <label class="col-form-label col-lg-7 float"
-											for="voucherNo"> ${monthName} &nbsp;
-											${advList.dedYear} </label>
+												of Deduction : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${monthName} &nbsp;
+												${advList.dedYear} </label>
 										</div>
 									</div>
 
@@ -154,18 +156,19 @@
 
 									<div class="form-group row">
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-f float" for="month">Reason
+											<label class="col-form-label col-lg-5 float" for="month">Reason
 												/ Remark : </label> <label class="col-form-label col-lg-7 float"
 												for="voucherNo"> ${advList.advRemarks} </label>
 										</div>
-										
+
 										<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="month">
-											Prev Skipped Reason : </label> <label class="col-form-label col-lg-7 float"
-											for="voucherNo"> <c:forEach items="${advDetList}"
-												var="advDetList" varStatus="count">${count.index+1}.${advDetList.skipRemarks}   ${advDetList.skipLoginTime}<br>
-											</c:forEach>
-										</label>
+											<label class="col-form-label col-lg-5 float" for="month">
+												Prev Skipped Reason : </label> <label
+												class="col-form-label col-lg-7 float" for="voucherNo">
+												<c:forEach items="${advDetList}" var="advDetList"
+													varStatus="count">${count.index+1}.${advDetList.skipRemarks}   ${advDetList.skipLoginTime}<br>
+												</c:forEach>
+											</label>
 										</div>
 									</div>
 
@@ -176,20 +179,20 @@
 												Time : </label> <label class="col-form-label col-lg-7 float"
 												for="voucherNo"> ${count} </label>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="remark"> Skipping Reason <span
-											style="color: red">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="remark"
-												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
-											<span class="validation-invalid-label" id="error_remark"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="remark"> Skipping Reason <span
+												style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="remark"
+													name="remark" autocomplete="off" onchange="trim(this)"></textarea>
+												<span class="validation-invalid-label" id="error_remark"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
@@ -205,9 +208,9 @@
 											for="voucherNo"> ${advList.skipLoginTime} </label>
 									</div> --%>
 
-								
+
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -250,40 +253,72 @@
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-			checkSame();
+			//checkSame();
 			return;
 		}
 
-		$(document).ready(function($) {
+		$(document)
+				.ready(
+						function($) {
 
-			$("#submitInsertLocaion").submit(function(e) {
+							$("#submitInsertLocaion")
+									.submit(
+											function(e) {
 
-				var isError = false;
-				var errMsg = "";
+												var isError = false;
+												var errMsg = "";
 
-				if (!$("#remark").val()) {
+												if (!$("#remark").val()) {
 
-					isError = true;
+													isError = true;
 
-					$("#error_remark").show()
+													$("#error_remark").show()
 
-				} else {
-					$("#error_remark").hide()
-				}
+												} else {
+													$("#error_remark").hide()
+												}
 
-				if (!isError) {
+												if (!isError) {
 
-					var x = true;
-					if (x == true) {
+													var x = true;
+													if (x == true) {
 
-						document.getElementById("submtbtn").disabled = true;
-						return true;
-					}
-					//end ajax send this to php page
-				}
-				return false;
-			});
-		});
+														bootbox
+																.confirm({
+																	title : 'Confirm ',
+																	message : 'Are you want to skip advance for 1 month ?',
+																	buttons : {
+																		confirm : {
+																			label : 'Yes',
+																			className : 'btn-success'
+																		},
+																		cancel : {
+																			label : 'Cancel',
+																			className : 'btn-link'
+																		}
+																	},
+																	callback : function(
+																			result) {
+																		if (result) {
+																			document
+																					.getElementById("submtbtn").disabled = true;
+																			document
+																					.getElementById(
+																							'submitInsertLocaion')
+																					.submit();
+
+																		}
+																	}
+																});
+
+														return false;
+
+													}
+													//end ajax send this to php page
+												}
+												return false;
+											});
+						});
 		//
 	</script>
 
