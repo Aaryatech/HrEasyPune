@@ -34,7 +34,7 @@
 
 					<c:choose>
 						<c:when test="${designType==1}">
-							<h6>Weekly off Count</h6>
+							<%-- <h6>Weekly off Count</h6>
 
 							<div class="table-responsive">
 
@@ -69,6 +69,63 @@
 									</tbody>
 								</table>
 							</div>
+ --%>
+
+
+							<!-- Sachin -->
+<c:if test="${is_hod_dashb_show==1}">
+							<h6>HOD DASHBOARD</h6>
+							<div class="table-responsive">
+
+								<table
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
+
+									<thead>
+										<tr class="bg-blue" style="text-align: center;">
+
+											<th class="text-center">Name</th>
+											<th class="text-center">Weeks Completed</th>
+											<th class="text-center">Working Days</th>
+											<th class="text-center">Present Days</th>
+											<th class="text-center">Weekly Offs to be covered</th>
+											<th class="text-center">WO Actually Covered</th>
+											<th class="text-center">Pending Weekly offs</th>
+											<th class="text-center">WIAB</th>
+											<th class="text-center">Last month pending WO</th>
+											<th class="text-center">OT last month</th>
+										</tr>
+									</thead>
+									<tbody>
+
+
+										<c:forEach items="${dashBList}" var="dashBList"
+											varStatus="count">
+											<tr>
+												<td>${dashBList.firstName}&nbsp;${dashBList.surname} (${dashBList.empCode})</td>
+												<td class="text-center">${currWeekNo}</td>
+
+												<td class="text-center">${dashBList.workingDays}</td>
+
+												<td class="text-center">${dashBList.presentDays}</td>
+
+												<td class="text-center">${noOfWoffs-dashBList.weekOffCovered}</td>
+												<td class="text-center">${dashBList.weekOffCovered}</td>
+
+												<td class="text-center">${noOfWoffs-dashBList.weekOffCovered}</td>
+
+												<td class="text-center">${dashBList.abDays}</td>
+
+												<td class="text-center">${noOfWoffs-dashBList.lastMonthPendWoff}</td>
+												<td class="text-center">${dashBList.otLastMonth}</td>
+											</tr>
+										</c:forEach>
+
+
+									</tbody>
+								</table>
+							</div>
+							</c:if>
 						</c:when>
 						<c:otherwise>
 							<h6>Dashboard</h6>
