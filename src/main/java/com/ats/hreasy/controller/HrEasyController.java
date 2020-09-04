@@ -814,7 +814,7 @@ public class HrEasyController {
 
 				model = new ModelAndView("accessDenied");
 
-			} else {
+			} else { 
 
 				model = new ModelAndView("master/bankList");
 
