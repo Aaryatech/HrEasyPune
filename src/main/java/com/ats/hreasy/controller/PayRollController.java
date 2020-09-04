@@ -95,12 +95,15 @@ public class PayRollController {
 				String date = request.getParameter("selectMonth");
 
 				if (date != null) {
+					int locId = (int) session.getAttribute("liveLocationId");
+					
 					String[] monthyear = date.split("-");
 					model.addAttribute("date", date);
 
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 					map.add("month", monthyear[0]);
 					map.add("year", monthyear[1]);
+					map.add("locId", locId);
 					PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployeeListWithEmpSalEnfoForPayRoll", map,
 							PayRollDataForProcessing.class);

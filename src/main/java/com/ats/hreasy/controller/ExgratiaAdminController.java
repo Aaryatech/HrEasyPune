@@ -78,10 +78,11 @@ public class ExgratiaAdminController {
 				}
 
 			}
-
+			int locId = (int) session.getAttribute("liveLocationId");
 			map = new LinkedMultiValueMap<>();
 			map.add("bonusId", bonusId);
 			map.add("flag", 1);
+			map.add("locId", locId);
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getAllEmployeeDetailForBonus", map, GetEmployeeDetails[].class);
 

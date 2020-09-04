@@ -26,6 +26,7 @@ import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.EmployeDoc;
 import com.ats.hreasy.model.EmployeeMaster;
+import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.PayDeduction;
 import com.ats.hreasy.model.PayDeductionDetailList;
@@ -104,8 +105,7 @@ public class PayDeductionController {
 		return model;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/editEmpPayDeduct", method = RequestMethod.GET)
 	public ModelAndView editPayDeduct(HttpServletRequest request, HttpServletResponse response) {
 
@@ -148,8 +148,6 @@ public class PayDeductionController {
 		return model;
 	}
 
-	
-	
 	@RequestMapping(value = "/deletePayDeduct", method = RequestMethod.GET)
 	public String deletePayDeduct(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
@@ -190,7 +188,8 @@ public class PayDeductionController {
 		}
 
 		return a;
-	} 
+	}
+
 	@RequestMapping(value = "/payDeductionAdd", method = RequestMethod.GET)
 	public ModelAndView employeeAdd(HttpServletRequest request, HttpServletResponse response) {
 
@@ -262,12 +261,12 @@ public class PayDeductionController {
 						.postForObject(Constants.url + "/saveDeductnPaymentType", pay, PayDeduction.class);
 
 				if (savePay != null) {
-					if(pay.getDedTypeId()>0) {
+					if (pay.getDedTypeId() > 0) {
 						session.setAttribute("successMsg", "Pay Deduction Type Updated Successfully");
-					}else {
+					} else {
 						session.setAttribute("successMsg", "Pay Deduction Type Inserted Successfully");
 					}
-					
+
 				} else {
 
 					session.setAttribute("errorMsg", "Failed to Insert Pay Deduction Type");
@@ -308,7 +307,6 @@ public class PayDeductionController {
 				model.addObject("pay", pay);
 				model.addObject("title", "Edit Pay Deduction Type");
 
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -316,8 +314,6 @@ public class PayDeductionController {
 		return model;
 
 	}
-
-	
 
 	@RequestMapping(value = "/getPayDeductionTypeRate", method = RequestMethod.GET)
 	public @ResponseBody PayDeduction getPayDeductionTypeRate(HttpServletRequest request, HttpServletResponse response,
@@ -368,9 +364,12 @@ public class PayDeductionController {
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
-				EmployeeMaster[] empArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllEmployee",
-						map, EmployeeMaster[].class);
-				List<EmployeeMaster> empList = new ArrayList<EmployeeMaster>(Arrays.asList(empArr));
+				int locId = (int) session.getAttribute("liveLocationId");
+				map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailBylocationId", map, GetEmployeeDetails[].class);
+				List<GetEmployeeDetails> empList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
 				for (int i = 0; i < empList.size(); i++) {
 
@@ -449,10 +448,6 @@ public class PayDeductionController {
 
 				String base64encodedString = request.getParameter("empId");
 				String empId = FormValidation.DecodeKey(base64encodedString);
-				
-				
-			
-
 
 				/*
 				 * PayDeductionDetails pay = new PayDeductionDetails(); model.addObject("pay",
@@ -463,11 +458,10 @@ public class PayDeductionController {
 				List<PayDeduction> payDeductList = new ArrayList<PayDeduction>(Arrays.asList(payDeductArr));
 
 				model = new ModelAndView("dailywork/addEmpPayDeduct");
- 			
+
 				model.addObject("empId", empId);
 				model.addObject("payDeductList", payDeductList);
-				
-				
+
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("empId", empId);
 
@@ -491,20 +485,20 @@ public class PayDeductionController {
 			int dedId = 0;
 			int empId = 0;
 			int dedTypeId = 0;
-			String monthyear =request.getParameter("monthyear");
-			
-			String a[]=monthyear.split("-");
- 			try {
+			String monthyear = request.getParameter("monthyear");
+
+			String a[] = monthyear.split("-");
+			try {
 				dedId = Integer.parseInt(request.getParameter("dedId"));
 				empId = Integer.parseInt(request.getParameter("empId"));
 				dedTypeId = Integer.parseInt(request.getParameter("dedTypeId"));
-  			} catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 
 				dedId = 0;
 				empId = 0;
 				dedTypeId = 0;
- 				year = 0;
+				year = 0;
 			}
 			PayDeductionDetails pay = new PayDeductionDetails();
 
@@ -572,10 +566,11 @@ public class PayDeductionController {
 			try {
 				model = new ModelAndView("dailywork/payDeductDetailList");
 
-				// MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				int locId = (int) session.getAttribute("liveLocationId");
+				map.add("locId", locId);
 				PayDeductionDetailList[] deductDetailArr = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmpPayDeductDetail", PayDeductionDetailList[].class);
+						.postForObject(Constants.url + "/getAllEmpPayDeductDetailLocId",map, PayDeductionDetailList[].class);
 				List<PayDeductionDetailList> deductList = new ArrayList<PayDeductionDetailList>(
 						Arrays.asList(deductDetailArr));
 
@@ -616,7 +611,5 @@ public class PayDeductionController {
 		return model;
 
 	}
-
-	
 
 }

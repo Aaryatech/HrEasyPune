@@ -53,9 +53,11 @@ public class FullAndFinalController {
 		try {
 
 			mav = "FullAndFinal/showEmpListForFullnfinal";
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("companyId", 1);
-
+			map.add("locId", locId);
 			/*
 			 * EmployeeMaster[] empArr =
 			 * Constants.getRestTemplate().postForObject(Constants.url + "/getAllEmployee",
@@ -64,7 +66,7 @@ public class FullAndFinalController {
 			 */
 
 			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllEmployeeDetailForFullnFinal", GetEmployeeDetails[].class);
+					.postForObject(Constants.url + "/getAllEmployeeDetailForFullnFinalLocId",map, GetEmployeeDetails[].class);
 			List<GetEmployeeDetails> empList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
 			for (int i = 0; i < empList.size(); i++) {
@@ -72,6 +74,7 @@ public class FullAndFinalController {
 				empList.get(i).setExVar1(FormValidation.Encrypt(String.valueOf(empList.get(i).getEmpId())));
 			}
 
+			
 			model.addAttribute("empList", empList);
 		} catch (Exception e) {
 			e.printStackTrace();
