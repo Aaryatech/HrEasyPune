@@ -151,7 +151,28 @@
 
 										</div>
 									</div> --%>
-									<div class="form-group row">								
+									<div class="form-group row">		
+									
+										<c:if test="${is_show_add_man_pow==1}">
+										
+										<div class="col-md-6">			
+										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="man_pow">Department
+											Man Power <span class="text-danger">* </span>:
+										</label>
+										<div class="col-lg-7  float">
+											<input type="text" class="form-control numbersOnly"  value="${dept.exInt1}"
+												placeholder="Enter Man Power Required" id="man_pow" maxlength="4"
+												name="man_pow" autocomplete="off">
+											<span class="validation-invalid-label" id="error_man_pow"
+												style="display: none;">This field is required.</span>
+												
+													</div>
+										</div>	
+										
+										
+										</c:if>
+
+															
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Remark
 											: </label>
@@ -304,7 +325,18 @@
 			$("#submitInsertLocaion").submit(function(e) {
 				var isError = false;
 				var errMsg = "";
-
+				var validation=${is_show_add_man_pow};
+				
+				if(parseInt(validation)==1){
+					
+					if (!$("#man_pow").val() || $("#man_pow").val()<0 ) {
+						isError = true;
+						$("#error_man_pow").show();
+					} else {
+						$("#error_man_pow").hide();
+					}
+				}//end of if validation==1
+				
 				if (!$("#desigName").val()) {
 
 					isError = true;

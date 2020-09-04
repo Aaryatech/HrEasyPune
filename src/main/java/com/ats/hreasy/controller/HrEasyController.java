@@ -570,6 +570,14 @@ public class HrEasyController {
 
 				model.addObject("departmentList", departmentList);
 
+				
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "is_show_add_man_pow");
+				Setting getAddShowManPower = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				model.addObject("is_show_add_man_pow", getAddShowManPower.getValue());
+				
 				Info add = AcessController.checkAccess("showDepartmentList", "showDepartmentList", 0, 1, 0, 0,
 						newModuleList);
 				Info edit = AcessController.checkAccess("showDepartmentList", "showDepartmentList", 0, 0, 1, 0,
@@ -580,7 +588,7 @@ public class HrEasyController {
 				if (add.isError() == false) {
 					System.out.println(" add   Accessable ");
 					model.addObject("addAccess", 0);
-
+					
 				}
 				if (edit.isError() == false) {
 					System.out.println(" edit   Accessable ");
@@ -620,6 +628,16 @@ public class HrEasyController {
 				model = new ModelAndView("master/addDepartment");
 				model.addObject("dept", dept);
 				model.addObject("title", "Add Department");
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "is_show_add_man_pow");
+				Setting getAddShowManPower = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				model.addObject("is_show_add_man_pow", getAddShowManPower.getValue());
+				
+				
 
 			}
 		} catch (Exception e) {
@@ -647,7 +665,11 @@ public class HrEasyController {
 				dept.setCompanyId(1);
 				dept.setDelStatus(1);
 				dept.setDepartId(Integer.parseInt(request.getParameter("deptId")));
-				dept.setExInt1(0);
+				try {
+					dept.setExInt1(Integer.parseInt(request.getParameter("man_pow")));
+				}catch (Exception e) {
+					dept.setExInt1(0);
+				}
 				dept.setExInt2(0);
 				dept.setExVar1("NA");
 				dept.setExVar2("NA");
@@ -706,6 +728,14 @@ public class HrEasyController {
 						Department.class);
 				model.addObject("dept", dept);
 				model.addObject("title", "Edit Department");
+				
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "is_show_add_man_pow");
+				Setting getAddShowManPower = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				model.addObject("is_show_add_man_pow", getAddShowManPower.getValue());
+				
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

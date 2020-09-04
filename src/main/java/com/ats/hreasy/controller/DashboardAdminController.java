@@ -405,7 +405,7 @@ public class DashboardAdminController {
 				map.add("pmFromDate", pmFromDate);
 				map.add("pmToDate", pmToDate);
 				
-
+System.err.println("Map  " +map);
 				HodDashboard[] hodRepArray = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getHodDashboard", map, HodDashboard[].class);
 				List<HodDashboard> dashBList = new ArrayList<>(Arrays.asList(hodRepArray));
