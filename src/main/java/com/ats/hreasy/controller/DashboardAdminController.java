@@ -494,7 +494,6 @@ public class DashboardAdminController {
 			map.add("pmFromDate", pmFromDate);
 			map.add("pmToDate", pmToDate);
 
-			System.err.println("Map  " + map);
 
 			HodDashboard[] hodRepArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDashboard",
 					map, HodDashboard[].class);
@@ -511,7 +510,6 @@ public class DashboardAdminController {
 			map.add("pmFromDate", pmFromDate);
 			map.add("pmToDate", pmToDate);
 
-			System.err.println("Map2  " + map);
 			HodDeptDashb[] hodDeptArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDeptDashb",
 					map, HodDeptDashb[].class);
 			hodDeptDashBList = new ArrayList<HodDeptDashb>(Arrays.asList(hodDeptArray));

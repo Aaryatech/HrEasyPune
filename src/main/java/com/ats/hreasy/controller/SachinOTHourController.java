@@ -45,7 +45,7 @@ public class SachinOTHourController {
 		HttpSession session = request.getSession();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("attendanceSelectMonth", "attendanceSelectMonth", 1, 0, 0, 0,
+		Info view = AcessController.checkAccess("showUpdateOTHours", "showUpdateOTHours", 1, 0, 0, 0,
 				newModuleList);
 
 		if (view.isError() == true) {
@@ -55,6 +55,13 @@ public class SachinOTHourController {
 		} else {
 			mav = "update_ot/update_ot_hour";
 
+			Info editAcc = AcessController.checkAccess("showUpdateOTHours", "showUpdateOTHours", 0, 0, 1, 0,
+					newModuleList);
+			if (editAcc.isError() == true) {
+				model.addAttribute("isAdd", 0);
+			}else {
+				model.addAttribute("isAdd", 1);
+			}
 			try {
 
 				int locId = (int) session.getAttribute("liveLocationId");
@@ -114,6 +121,24 @@ public class SachinOTHourController {
 		try {
 		HttpSession session = request.getSession();
 			
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("showUpdateOTHours", "showUpdateOTHours", 1, 0, 0, 0,
+				newModuleList);
+
+		if (view.isError() == true) {
+
+			mav = "accessDenied";
+
+		}else {
+		
+			Info editAcc = AcessController.checkAccess("showUpdateOTHours", "showUpdateOTHours", 0, 0, 1, 0,
+					newModuleList);
+			if (editAcc.isError() == true) {
+				model.addAttribute("isAdd", 0);
+			}else {
+				model.addAttribute("isAdd", 1);
+			}
+			
 			  String x=request.getParameter("selectMonth"); 
 			  //String  empId=request.getParameter("empId");
 			  String base64encodedString = request.getParameter("empId");
@@ -161,7 +186,7 @@ public class SachinOTHourController {
 
 			model.addAttribute("empList", empdetList);
 			model.addAttribute("month", month);
-			
+		}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,6 +204,15 @@ public class SachinOTHourController {
 		try {
 		HttpSession session = request.getSession();
 		
+		
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info edit = AcessController.checkAccess("showUpdateOTHours", "showUpdateOTHours", 0, 0, 1, 0,
+				newModuleList);
+
+		if (edit.isError() == true) {
+			mav = "accessDenied";
+		}
+		else {
 		List<DailyDaily> outList=new ArrayList<DailyDaily>();
 		
 		for(int i=0;i<dailyList.size();i++) {
@@ -197,7 +231,7 @@ public class SachinOTHourController {
 				Constants.url + "/saveDailyOTUpdate", outList, DailyDaily[].class);
 		
 		session.setAttribute("successMsg", "OT Updated Successfully");
-		
+		}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
