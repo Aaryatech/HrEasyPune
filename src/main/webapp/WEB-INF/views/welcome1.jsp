@@ -386,8 +386,8 @@
 					$.each(data2, function(i, v) {
 						document.getElementById("to_ab_td").innerHTML=v.abDays;
 						document.getElementById("ac_pres_td").innerHTML=v.presentDays;
-								document.getElementById("tot_hr").innerHTML=v.reqEmpCount;
-								document.getElementById("bm_hr").innerHTML=v.actualEmpCount;
+								document.getElementById("tot_hr").innerHTML=v.actualEmpCount;
+								document.getElementById("bm_hr").innerHTML=v.reqEmpCount;
 									document.getElementById("ot_lm").innerHTML=v.otLastMonth;
 						});
 					
