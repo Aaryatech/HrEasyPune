@@ -185,7 +185,7 @@
 												<th class="text-center">Weekly Off</th>
 												<th class="text-center">Paid Holiday</th>
 												<th class="text-center">Paid Leave</th>
-												<th class="text-center">Unpaid Holiday</th>
+												<th class="text-center">Unpaid Leave</th>
 												<!-- <th class="text-center">Unpaid Leave</th> -->
 												<th class="text-center">Late Min</th>
 												<th class="text-center">Late Days</th>
@@ -207,11 +207,11 @@
 													<td>${summrylist.empName}</td>
 													<td class="text-right">${summrylist.workingDays}</td>
 													<td class="text-right">${summrylist.presentDays}</td>
-													<td class="text-right">${summrylist.absentDays+summrylist.unpaidLeave}</td>
+													<td class="text-right">${summrylist.absentDays}</td>
 													<td class="text-right">${summrylist.weeklyOff}</td>
 													<td class="text-right">${summrylist.paidHoliday}</td>
 													<td class="text-right">${summrylist.paidLeave}</td>
-													<td class="text-right">${summrylist.unpaidHoliday}</td>
+													<td class="text-right">${summrylist.unpaidLeave}</td>
 													<%-- <td class="text-right">${summrylist.unpaidLeave}</td> --%>
 													<td class="text-right">${summrylist.totlateMins}</td>
 													<td class="text-right">${summrylist.totLate}</td>
