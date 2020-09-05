@@ -380,11 +380,21 @@
 					if (responseData == "" || responseData == null) {
 						$('#modal_step1').modal('hide');
 					}
-					appendData(responseData);
+					appendData(responseData.hodDashList);
+					var data2=responseData.hodDeptList;
+				//	alert(data2);
+					$.each(data2, function(i, v) {
+						document.getElementById("to_ab_td").innerHTML=v.abDays;
+						document.getElementById("ac_pres_td").innerHTML=v.presentDays;
+							document.getElementById("bm_hr").innerHTML=v.actualEmpCount;
+								document.getElementById("tot_hr").innerHTML=v.reqEmpCount;
+									document.getElementById("ot_lm").innerHTML=v.otLastMonth;
+						});
+					
 				}
 			});
 
-			$
+			/* $
 					.ajax({
 						url : '${pageContext.request.contextPath}/getHodDeptSummaryDashb',
 						type : 'post',
@@ -393,16 +403,6 @@
 						contentType : false,
 						processData : false,
 						success : function(data) {
-							/* var dataTable = $('#printtable2').DataTable();
-							dataTable.clear().draw(); */
-
-							/* $.each(data, function(i, v) {
-								dataTable.row.add(
-										[ v.otLastMonth, v.reqEmpCount,
-												v.actualEmpCount,
-												v.presentDays, v.abDays ])
-										.draw();
-							}); */
 							$.each(data, function(i, v) {
 							document.getElementById("to_ab_td").innerHTML=v.abDays;
 							document.getElementById("ac_pres_td").innerHTML=v.presentDays;
@@ -411,7 +411,7 @@
 										document.getElementById("ot_lm").innerHTML=v.otLastMonth;
 							});
 						}
-					});
+					}); */
 			$('#modal_step1').modal('hide');
 		} //end of Function getData();
 	</script>

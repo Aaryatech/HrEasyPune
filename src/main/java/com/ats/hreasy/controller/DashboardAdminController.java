@@ -47,6 +47,7 @@ import com.ats.hreasy.model.dashboard.LoanAdvDashDet;
 import com.ats.hreasy.model.dashboard.PayRewardDedDash;
 import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
+import com.ats.hreasy.model.report.DashTempBean;
 import com.ats.hreasy.model.report.HodDashboard;
 import com.ats.hreasy.model.report.HodDeptDashb;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
@@ -462,12 +463,12 @@ public class DashboardAdminController {
 	List<HodDeptDashb> hodDeptDashBList = new ArrayList<HodDeptDashb>();
 
 	@RequestMapping(value = "/getHodDashboard", method = RequestMethod.POST)
-	public @ResponseBody List<HodDashboard> getHodDashboard(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Object getHodDashboard(HttpServletRequest request, HttpServletResponse response) {
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 		List<HodDashboard> dashBList = new ArrayList<>();
 
 		HttpSession session = request.getSession();
-
+		DashTempBean responseBean=new DashTempBean();
 		try {
 			String prevMonthStartEnd = getPrevMonthStartEndDate();
 
@@ -499,7 +500,7 @@ public class DashboardAdminController {
 					map, HodDashboard[].class);
 			dashBList = new ArrayList<>(Arrays.asList(hodRepArray));
 			// System.err.println("dashBList " +dashBList);
-
+			responseBean.setHodDashList(dashBList);
 			// NEW DEPT wise
 
 			map = new LinkedMultiValueMap<>();
@@ -514,12 +515,13 @@ public class DashboardAdminController {
 			HodDeptDashb[] hodDeptArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDeptDashb",
 					map, HodDeptDashb[].class);
 			hodDeptDashBList = new ArrayList<HodDeptDashb>(Arrays.asList(hodDeptArray));
+			responseBean.setHodDeptList(hodDeptDashBList);
 			// end NEW DEPT wise
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return dashBList;
+		return responseBean;
 	}
 
 	@RequestMapping(value = "/getHodDeptSummaryDashb", method = RequestMethod.POST)
