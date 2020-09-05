@@ -379,7 +379,7 @@
 				success : function(responseData) {
 					if (responseData == "" || responseData == null) {
 						$('#modal_step1').modal('hide');
-					}
+					} 
 					appendData(responseData.hodDashList);
 					var data2=responseData.hodDeptList;
 				//	alert(data2);
