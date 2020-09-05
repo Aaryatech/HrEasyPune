@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*"
 	import="java.text.SimpleDateFormat"%>
+<%@ page import="com.ats.hreasy.model.LeaveCancelEmployee"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,44 +161,114 @@
 															</div>
 
 														</div>
-														<div class="col-md-6">
-															<div class="table-responsive">
-																<table
-																	class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-																	id="printtable2">
-																	<thead>
-																		<tr class="bg-blue">
+														<div class="form-group row ">
+															<div class="col-md-6">
+																<h6 class="pageTitle" style="font-size: 19px;">Current
+																	Status</h6>
+																<div class="table-responsive">
+																	<table
+																		class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+																		id="printtable2">
+																		<thead>
+																			<tr class="bg-blue">
 
-																			<th class="text-center">Status</th>
-																			<th class="text-center">Count</th>
-
-
-																		</tr>
-																	</thead>
-																	<tbody>
-
-																		<c:set var="total" value="0"></c:set>
-																		<c:forEach items="${list}" var="list"
-																			varStatus="count">
+																				<th class="text-center">Status</th>
+																				<th class="text-center">Count</th>
 
 
+																			</tr>
+																		</thead>
+																		<tbody>
+
+																			<c:set var="total" value="0"></c:set>
+																			<c:forEach items="${list}" var="list"
+																				varStatus="count">
+
+
+																				<tr>
+
+																					<td><c:choose>
+																							<c:when test="${list.lvSumupId==7}">PAID LEAVE</c:when>
+																							<c:otherwise>${list.attsSdShow}</c:otherwise>
+																						</c:choose></td>
+																					<td class="text-right">${list.cnt}</td>
+																					<c:set var="total" value="${total+list.cnt}"></c:set>
+																				</tr>
+
+																			</c:forEach>
 																			<tr>
 
-																				<td>${list.attsSdShow}</td>
-																				<td class="text-right">${list.cnt}</td>
-																				<c:set var="total" value="${total+list.cnt}"></c:set>
+																				<th>Total</th>
+																				<th class="text-right">${total}</th>
+
 																			</tr>
-
-																		</c:forEach>
-																		<tr>
-
-																			<th>Total</th>
-																			<th class="text-right">${total}</th>
-
-																		</tr>
-																	</tbody>
-																</table>
+																		</tbody>
+																	</table>
+																</div>
 															</div>
+															<%
+																if (session.getAttribute("cancelLeaveEmplist") != null) {
+
+																		List<LeaveCancelEmployee> list = (List<LeaveCancelEmployee>) session
+																				.getAttribute("cancelLeaveEmplist");
+
+																		if (list.size() > 0) {
+															%>
+															<div class="col-md-6">
+																<h6 class="pageTitle" style="font-size: 19px;">First
+																	cancel leave of following employee then update
+																	attendance.</h6>
+																<div class="table-responsive">
+																	<table
+																		class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+																		id="printtable2">
+																		<thead>
+																			<tr class="bg-blue">
+
+																				<th class="text-center">EMP CODE</th>
+																				<th class="text-center">EMP NAME</th>
+																				<th class="text-center">LEAVE TYPE</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+
+
+
+																			<%
+																				for (int i = 0; i < list.size(); i++) {
+																			%><tr>
+																				<td class="text-center">
+																					<%
+																						out.println(list.get(i).getEmpCode());
+																					%>
+																				</td>
+																				<td>
+																					<%
+																						out.println(list.get(i).getEmpName());
+																					%>
+																				</td>
+																				<td>
+																					<%
+																						out.println(list.get(i).getLeaveType());
+																					%>
+																				</td>
+																			</tr>
+																			<%
+																				}
+																			%>
+
+
+
+
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+															<%
+																}
+																		session.removeAttribute("cancelLeaveEmplist");
+																	}
+															%>
 														</div>
 
 													</form>

@@ -31,6 +31,7 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.AttendaceLiveCount;
+import com.ats.hreasy.model.AttendaceReturnInfo;
 import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.EmpListForHolidayApprove;
 import com.ats.hreasy.model.FileUploadedData;
@@ -273,10 +274,10 @@ public class OtModuleController {
 
 	@RequestMapping(value = "/attUploadCSVForPresentStatus", method = RequestMethod.POST)
 	@ResponseBody
-	public Info attUploadCSV(@RequestParam("file") List<MultipartFile> file, HttpServletRequest request,
+	public AttendaceReturnInfo attUploadCSV(@RequestParam("file") List<MultipartFile> file, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		Info info = new Info();
+		AttendaceReturnInfo info = new AttendaceReturnInfo();
 		HttpSession session = request.getSession();
 		try {
 
@@ -336,7 +337,7 @@ public class OtModuleController {
 				}
 				bufferedReader.close();
 
-				// System.out.println(fileUploadedDataList);
+				System.out.println(fileUploadedDataList);
 
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
@@ -347,12 +348,11 @@ public class OtModuleController {
 				dataForUpdateAttendance.setFileUploadedDataList(fileUploadedDataList);
 				dataForUpdateAttendance.setEmpId(0);
 
-				info = Constants.getRestTemplate().postForObject(Constants.url + "/importAttendanceByFileAndUpdateForPresentStatus",
-						dataForUpdateAttendance, Info.class);
+				info = Constants.getRestTemplate().postForObject(
+						Constants.url + "/importAttendanceByFileAndUpdateForPresentStatus", dataForUpdateAttendance,
+						AttendaceReturnInfo.class);
 
-				System.out.println(dataForUpdateAttendance);
-
-				//
+				session.setAttribute("cancelLeaveEmplist", info.getList());
 
 				if (info.isError() == false) {
 					session.setAttribute("successMsg", "Attendance Updated Successfully");
