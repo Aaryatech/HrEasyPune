@@ -58,9 +58,9 @@ public class OtModuleController {
 				date = request.getParameter("date");
 
 				if (date != null) {
-					
+
 					int locId = (int) session.getAttribute("liveLocationId");
-					
+
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("empId", userObj.getEmpId());
@@ -134,7 +134,8 @@ public class OtModuleController {
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-			Info view = AcessController.checkAccess("otFinalApprovalList", "otFinalApprovalList", 1, 0, 0, 0, newModuleList);
+			Info view = AcessController.checkAccess("otFinalApprovalList", "otFinalApprovalList", 1, 0, 0, 0,
+					newModuleList);
 
 			if (view.isError() == true) {
 
@@ -145,9 +146,9 @@ public class OtModuleController {
 				date = request.getParameter("date");
 
 				if (date != null) {
-					
+
 					int locId = (int) session.getAttribute("liveLocationId");
-					
+
 					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 					map.add("date", DateConvertor.convertToYMD(date));
 					map.add("empId", userObj.getEmpId());
@@ -230,6 +231,20 @@ public class OtModuleController {
 		}
 
 		return redirect;
+	}
+
+	@RequestMapping(value = "/importCsvFileForPresent", method = RequestMethod.GET)
+	public String importCsvFileForPresent(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "attendence/importCsvFileForPresent";
+
+		try {
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return mav;
 	}
 
 }
