@@ -26,6 +26,7 @@ import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
+import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
@@ -47,10 +48,12 @@ import com.ats.hreasy.model.dashboard.PayRewardDedDash;
 import com.ats.hreasy.model.dashboard.PerformanceProdDash;
 import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 import com.ats.hreasy.model.report.HodDashboard;
+import com.ats.hreasy.model.report.HodDeptDashb;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
 import com.ats.hrmgt.model.assets.CatWiseAssetCount;
 import com.ats.hrmgt.model.assets.ServicingDashDetails;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 @Controller
 @Scope("session")
@@ -348,9 +351,9 @@ public class DashboardAdminController {
 			model.addAttribute("designType", userObj.getDesignType());
 
 			if (userObj.getDesignType() == 1) {
-				 MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
-				/*
+				/* Akshay Code Prev.
 				 * Date dt = new Date();
 				 * 
 				 * SimpleDateFormat mm = new SimpleDateFormat("MM"); SimpleDateFormat yy = new
@@ -369,62 +372,83 @@ public class DashboardAdminController {
 				 */
 				map = new LinkedMultiValueMap<>();
 				map.add("limitKey", "is_hod_dashb_show");
-				Setting getHodKeyVakue = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-						Setting.class);
+				Setting getHodKeyVakue = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+						map, Setting.class);
 				model.addAttribute("is_hod_dashb_show", getHodKeyVakue.getValue());
 
-				if(getHodKeyVakue.getValue().equalsIgnoreCase("1")) {
-				
-				String prevMonthStartEnd=getPrevMonthStartEndDate();
-				
-				String runningMonthStartToCurDate=getFromToDate();
+				if (getHodKeyVakue.getValue().equalsIgnoreCase("1")) {
 
-				String cmFromDate,cmToDate,pmFromDate,pmToDate;
-				String runningMonthStartToCurDateArr[] = runningMonthStartToCurDate.split(" to ");
-				String prevMonthStartEndArr[] = prevMonthStartEnd.split(" to ");
+					map = new LinkedMultiValueMap<>();
+					map.add("deptIdString", userObj.getHodDeptIds());
+					Department[] department = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/getDeptByDeptIds", map, Department[].class);
 
-				cmFromDate=runningMonthStartToCurDateArr[0].trim();
-				cmToDate=runningMonthStartToCurDateArr[1].trim();
-				
-				pmFromDate=prevMonthStartEndArr[0].trim();
-				pmToDate=prevMonthStartEndArr[1].trim();
-				
-				
-				
-				map = new LinkedMultiValueMap<>();
+					List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
 
-				map.add("deptIdList", userObj.getHodDeptIds());
-				map.add("locIdList", session.getAttribute("liveLocationId"));
-				/*
-				 * map.add("cmFromDate", "2020-08-01"); map.add("cmToDate", "2020-08-31");
-				 * map.add("pmFromDate", "2020-07-01"); map.add("pmToDate", "2020-07-31");
-				 */
-				
-				map.add("cmFromDate", cmFromDate);
-				map.add("cmToDate", cmToDate);
-				map.add("pmFromDate", pmFromDate);
-				map.add("pmToDate", pmToDate);
-				
-System.err.println("Map  " +map);
-				HodDashboard[] hodRepArray = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getHodDashboard", map, HodDashboard[].class);
-				List<HodDashboard> dashBList = new ArrayList<>(Arrays.asList(hodRepArray));
-				
-				Calendar cal = Calendar.getInstance();
-			    
-				//System.out.println("Current week of month is : " +cal.get(Calendar.WEEK_OF_MONTH));
-			     
-			    int currWeekNo= cal.get(Calendar.WEEK_OF_MONTH);
-			     
-			    model.addAttribute("currWeekNo", currWeekNo);
-				model.addAttribute("dashBList", dashBList);
-				
-				map = new LinkedMultiValueMap<>();
-				map.add("limitKey", "no_of_woffs");
-				Setting noOfWoffs = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-						Setting.class);
-				model.addAttribute("noOfWoffs", noOfWoffs.getValue());
-				//System.err.println(" dashBList " +dashBList.toString());
+					model.addAttribute("deptList", departmentList);
+					
+					map = new LinkedMultiValueMap<>();
+					map.add("limitKey", "no_of_woffs");
+					Setting noOfWoffs = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+							map, Setting.class);
+					model.addAttribute("noOfWoffs", noOfWoffs.getValue());
+
+					Calendar cal = Calendar.getInstance();
+
+					int currWeekNo = cal.get(Calendar.WEEK_OF_MONTH);
+
+					model.addAttribute("currWeekNo", currWeekNo);
+					
+
+					/*
+					 * String prevMonthStartEnd = getPrevMonthStartEndDate();
+					 * 
+					 * String runningMonthStartToCurDate = getFromToDate();
+					 * 
+					 * String cmFromDate, cmToDate, pmFromDate, pmToDate; String
+					 * runningMonthStartToCurDateArr[] = runningMonthStartToCurDate.split(" to ");
+					 * String prevMonthStartEndArr[] = prevMonthStartEnd.split(" to ");
+					 * 
+					 * cmFromDate = runningMonthStartToCurDateArr[0].trim(); cmToDate =
+					 * runningMonthStartToCurDateArr[1].trim();
+					 * 
+					 * pmFromDate = prevMonthStartEndArr[0].trim(); pmToDate =
+					 * prevMonthStartEndArr[1].trim();
+					 * 
+					 * map = new LinkedMultiValueMap<>();
+					 * 
+					 * map.add("deptIdList", userObj.getHodDeptIds()); map.add("locIdList",
+					 * session.getAttribute("liveLocationId"));
+					 * 
+					 * map.add("cmFromDate", cmFromDate); map.add("cmToDate", cmToDate);
+					 * map.add("pmFromDate", pmFromDate); map.add("pmToDate", pmToDate);
+					 * 
+					 * System.err.println("Map  " + map);
+					 * 
+					 * HodDashboard[] hodRepArray = Constants.getRestTemplate()
+					 * .postForObject(Constants.url + "/getHodDashboard", map,
+					 * HodDashboard[].class); List<HodDashboard> dashBList = new
+					 * ArrayList<>(Arrays.asList(hodRepArray));
+					 * 
+					 * 
+					 * model.addAttribute("dashBList", dashBList);
+					 * 
+					 * 
+					 * map = new LinkedMultiValueMap<>();
+					 * 
+					 * map.add("deptIdList", "5,13"); // get from user Ajax map.add("locIdList",
+					 * session.getAttribute("liveLocationId"));
+					 * 
+					 * map.add("pmFromDate", pmFromDate); map.add("pmToDate", pmToDate);
+					 * 
+					 * System.err.println("Map  " + map); HodDeptDashb[] hodDeptArray =
+					 * Constants.getRestTemplate() .postForObject(Constants.url +
+					 * "/getHodDeptDashb", map, HodDeptDashb[].class); List<HodDeptDashb>
+					 * hodDeptDashBList = new ArrayList<HodDeptDashb>(Arrays.asList(hodDeptArray));
+					 * System.err.println(" hodDeptDashBList " + hodDeptDashBList.toString());
+					 * model.addAttribute("hodDeptDashBList", hodDeptDashBList);
+					 */
+
 				}
 			}
 
@@ -434,7 +458,79 @@ System.err.println("Map  " +map);
 		return mav;
 	}
 
-	//Sachin 04-09-2020
+	// Sachin 05-09-2020
+	List<HodDeptDashb> hodDeptDashBList = new ArrayList<HodDeptDashb>();
+
+	@RequestMapping(value = "/getHodDashboard", method = RequestMethod.POST)
+	public @ResponseBody List<HodDashboard> getHodDashboard(HttpServletRequest request, HttpServletResponse response) {
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+		List<HodDashboard> dashBList = new ArrayList<>();
+
+		HttpSession session = request.getSession();
+
+		try {
+			String prevMonthStartEnd = getPrevMonthStartEndDate();
+
+			String runningMonthStartToCurDate = getFromToDate();
+
+			String cmFromDate, cmToDate, pmFromDate, pmToDate;
+			String runningMonthStartToCurDateArr[] = runningMonthStartToCurDate.split(" to ");
+			String prevMonthStartEndArr[] = prevMonthStartEnd.split(" to ");
+
+			cmFromDate = runningMonthStartToCurDateArr[0].trim();
+			cmToDate = runningMonthStartToCurDateArr[1].trim();
+
+			pmFromDate = prevMonthStartEndArr[0].trim();
+			pmToDate = prevMonthStartEndArr[1].trim();
+
+			map = new LinkedMultiValueMap<>();
+
+			map.add("deptIdList", Integer.parseInt(request.getParameter("deptId")));
+			map.add("locIdList", session.getAttribute("liveLocationId"));
+
+			map.add("cmFromDate", cmFromDate);
+			map.add("cmToDate", cmToDate);
+			map.add("pmFromDate", pmFromDate);
+			map.add("pmToDate", pmToDate);
+
+			System.err.println("Map  " + map);
+
+			HodDashboard[] hodRepArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDashboard",
+					map, HodDashboard[].class);
+			dashBList = new ArrayList<>(Arrays.asList(hodRepArray));
+			// System.err.println("dashBList " +dashBList);
+
+			// NEW DEPT wise
+
+			map = new LinkedMultiValueMap<>();
+
+			map.add("deptIdList", Integer.parseInt(request.getParameter("deptId"))); // get from user Ajax
+			map.add("locIdList", session.getAttribute("liveLocationId"));
+
+			map.add("pmFromDate", pmFromDate);
+			map.add("pmToDate", pmToDate);
+
+			System.err.println("Map2  " + map);
+			HodDeptDashb[] hodDeptArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDeptDashb",
+					map, HodDeptDashb[].class);
+			hodDeptDashBList = new ArrayList<HodDeptDashb>(Arrays.asList(hodDeptArray));
+			// end NEW DEPT wise
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dashBList;
+	}
+
+	@RequestMapping(value = "/getHodDeptSummaryDashb", method = RequestMethod.POST)
+	public @ResponseBody List<HodDeptDashb> getHodDeptSummaryDashb(HttpServletRequest request,
+			HttpServletResponse response ) {
+
+		return hodDeptDashBList;
+
+	}
+
+	// Sachin 04-09-2020
 	public static String getFromToDate() {
 		String leaveDateRange = null;
 		String fromDate = null;
@@ -442,7 +538,7 @@ System.err.println("Map  " +map);
 		Calendar c = Calendar.getInstance(); // this takes current date
 
 		// System.out.println(c.getTime());
-		//c.set(Calendar.DAY_OF_MONTH, 1);
+		// c.set(Calendar.DAY_OF_MONTH, 1);
 		Date toDate1 = c.getTime();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -466,37 +562,34 @@ System.err.println("Map  " +map);
 
 		// System.out.println(c.getTime());
 
-		 c.add(Calendar.MONTH, 1);  
-	        c.set(Calendar.DAY_OF_MONTH, 1);  
-	        c.add(Calendar.DATE, -1);  
+		c.add(Calendar.MONTH, 1);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.add(Calendar.DATE, -1);
 		Date toDate1 = c.getTime();
 //System.err.println("to date "+toDate1);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
 		toDate = sdf.format(toDate1);
-		c = Calendar.getInstance(); 
+		c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_MONTH, 1);
 		Date fromDate1 = c.getTime();
-		
-		
 
 		fromDate = sdf.format(fromDate1);
 
 		leaveDateRange = fromDate.concat(" to ").concat(toDate);
 		return leaveDateRange;
 	}
-	
-	//get PrevMonthStartEndDate 04-09-2020
-	
+
+	// get PrevMonthStartEndDate 04-09-2020
+
 	public String getPrevMonthStartEndDate() {
-		
+
 		String leaveDateRange = null;
 		String fromDate = null;
 		String toDate = null;
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		
 		Calendar aCalendar = Calendar.getInstance();
 		// add -1 month to current month
 		aCalendar.add(Calendar.MONTH, -1);
@@ -508,15 +601,15 @@ System.err.println("Map  " +map);
 		fromDate = sdf.format(firstDateOfPreviousMonth);
 
 		// set actual maximum date of previous month
-		aCalendar.set(Calendar.DATE,     aCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		//read it
+		aCalendar.set(Calendar.DATE, aCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		// read it
 		Date lastDateOfPreviousMonth = aCalendar.getTime();
 		toDate = sdf.format(lastDateOfPreviousMonth);
 
 		leaveDateRange = fromDate.concat(" to ").concat(toDate);
 		return leaveDateRange;
 	}
-	
+
 	@RequestMapping(value = "/dashboardModified", method = RequestMethod.GET)
 	public String dashboardNew(HttpServletRequest request, HttpServletResponse response, Model model) {
 
