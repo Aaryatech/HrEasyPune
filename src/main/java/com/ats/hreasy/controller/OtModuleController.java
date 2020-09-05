@@ -1,5 +1,7 @@
 package com.ats.hreasy.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,13 +20,20 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.AttendaceLiveCount;
+import com.ats.hreasy.model.DataForUpdateAttendance;
 import com.ats.hreasy.model.EmpListForHolidayApprove;
+import com.ats.hreasy.model.FileUploadedData;
 import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -240,11 +249,128 @@ public class OtModuleController {
 
 		try {
 
+			String date = request.getParameter("date");
+
+			if (date != null) {
+				HttpSession session = request.getSession();
+				int locId = (int) session.getAttribute("liveLocationId");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("fromDate", DateConvertor.convertToYMD(date));
+				map.add("locId", locId);
+				AttendaceLiveCount[] attendaceLiveCount = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/presentAttendaceLiveCount", map, AttendaceLiveCount[].class);
+				List<AttendaceLiveCount> list = new ArrayList<AttendaceLiveCount>(Arrays.asList(attendaceLiveCount));
+				model.addAttribute("list", list);
+				model.addAttribute("date", date);
+			}
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 		return mav;
+	}
+
+	@RequestMapping(value = "/attUploadCSVForPresentStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public Info attUploadCSV(@RequestParam("file") List<MultipartFile> file, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		Info info = new Info();
+		HttpSession session = request.getSession();
+		try {
+
+			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+
+			Date dt = new Date();
+
+			VpsImageUpload upload = new VpsImageUpload();
+
+			String date = request.getParameter("date");
+
+			String imageName = new String();
+			imageName = dateTimeInGMT.format(dt) + "_" + file.get(0).getOriginalFilename();
+
+			try {
+
+				SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+
+				upload.saveUploadedFiles(file.get(0), Constants.attsDocSaveUrl, imageName);
+				String fileIn = Constants.attsDocSaveUrl + imageName;
+
+				// String fileIn = "/home/lenovo/Documents/attendance/" + imageName;
+
+				String line = null;
+
+				FileReader fileReader = new FileReader(fileIn);
+				BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+				List<FileUploadedData> fileUploadedDataList = new ArrayList<>();
+
+				FileUploadedData fileUploadedData = new FileUploadedData();
+
+				while ((line = bufferedReader.readLine()) != null) {
+
+					// System.out.println(bufferedReader.readLine());
+					try {
+						fileUploadedData = new FileUploadedData();
+						String[] temp = line.split(",");
+						String empCode = temp[0];
+						String ename = temp[1];
+						String logDate = temp[2];
+						String inTime = temp[3];
+
+						if (sf.parse(logDate).compareTo(sf.parse(date)) == 0) {
+							fileUploadedData.setEmpCode(empCode);
+							fileUploadedData.setEmpName(ename);
+							fileUploadedData.setLogDate(logDate);
+							fileUploadedData.setInTime(inTime);
+							fileUploadedDataList.add(fileUploadedData);
+						}
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+
+				}
+				bufferedReader.close();
+
+				// System.out.println(fileUploadedDataList);
+
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+				DataForUpdateAttendance dataForUpdateAttendance = new DataForUpdateAttendance();
+				dataForUpdateAttendance.setFromDate(DateConvertor.convertToYMD(date));
+				dataForUpdateAttendance.setToDate(DateConvertor.convertToYMD(date));
+				dataForUpdateAttendance.setUserId(userObj.getUserId());
+				dataForUpdateAttendance.setFileUploadedDataList(fileUploadedDataList);
+				dataForUpdateAttendance.setEmpId(0);
+
+				info = Constants.getRestTemplate().postForObject(Constants.url + "/importAttendanceByFileAndUpdateForPresentStatus",
+						dataForUpdateAttendance, Info.class);
+
+				System.out.println(dataForUpdateAttendance);
+
+				//
+
+				if (info.isError() == false) {
+					session.setAttribute("successMsg", "Attendance Updated Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Update Attendance");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			session.setAttribute("errorMsg", "Failed to Update Attendance");
+			e.printStackTrace();
+
+		}
+		return info;
+
 	}
 
 }

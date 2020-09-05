@@ -176,7 +176,7 @@
 										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
-												<th width="5%" class="text-center">Sr.no</th>
+												<!-- <th width="5%" class="text-center">Sr.no</th> -->
 												<th class="text-center">EMP Code</th>
 												<th class="text-center">EMP Name</th>
 												<th class="text-center">Working Days</th>
@@ -202,7 +202,7 @@
 											<c:forEach items="${summrylist}" var="summrylist"
 												varStatus="count">
 												<tr>
-													<td>${count.index+1}</td>
+													<%-- <td>${count.index+1}</td> --%>
 													<td>${summrylist.empCode}</td>
 													<td>${summrylist.empName}</td>
 													<td class="text-right">${summrylist.workingDays}</td>
