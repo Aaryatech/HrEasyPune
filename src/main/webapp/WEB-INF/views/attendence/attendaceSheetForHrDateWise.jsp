@@ -293,9 +293,10 @@
 											onclick="closeEditDetailTab()">Cancel</button>
 										<input type="hidden" class="form-control"
 											placeholder="Out Time" id="dailyId" name="dailyId"
-											autocomplete="off"> <input type="hidden"
-											class="form-control" placeholder="Out Time" id="dailyId"
-											name="dailyId" autocomplete="off"> <input
+											autocomplete="off"><input type="hidden"
+											id="lvSumupId" name="lvSumupId" value="0"> <input
+											type="hidden" class="form-control" placeholder="Out Time"
+											id="dailyId" name="dailyId" autocomplete="off"> <input
 											type="hidden" id="year" name="year" value="${year}">
 										<input type="hidden" id="month" name="month" value="${month}">
 										<input type="hidden" id="empId" name="empId" value="${empId}">
@@ -557,6 +558,7 @@
 							document.getElementById("empCode").value = response.empCode;
 							document.getElementById("empName").value = response.empName;
 							document.getElementById("dailyId").value = response.id;
+							document.getElementById("lvSumupId").value = response.lvSumupId;
 							document.getElementById("attDate").value = response.attDate;
 							document.getElementById("attStatus").value = response.attsSdShow;
 							document.getElementById("selectShift").value = response.currentShiftid;
@@ -635,36 +637,46 @@
 			if (lateMin == "") {
 				lateMin = 0;
 			}
-			$('#modal_step1').modal('show');
+			
+			var lvSumupId = $("#lvSumupId").val();
+			
+			if((lvSumupId==7 || lvSumupId==11) && byStatus==1 && selectStatus!=0){
+				
+				bootbox.alert("Leave has applied on this date. first cancel leave.");
+	 
+			}else{
+				$('#modal_step1').modal('show');
 
-			var fd = new FormData();
-			fd.append('dailyId', dailyId);
-			fd.append('otHours', otHours);
-			fd.append('selectStatus', selectStatus);
-			fd.append('byStatus', byStatus);
-			fd.append('lateMark', lateMark);
-			fd.append('inTime', inTime);
-			fd.append('outTime', outTime);
-			fd.append('selectStatusText', selectStatusText);
-			fd.append('month', month);
-			fd.append('year', year);
-			fd.append('selectShift', selectShift);
-			fd.append('otApproval', otApproval);
-			fd.append('namesd', namesd);
-			fd.append('lateMin', lateMin);
-			$
-					.ajax({
-						url : '${pageContext.request.contextPath}/submitAttendanceDetail',
-						type : 'post',
-						dataType : 'json',
-						data : fd,
-						contentType : false,
-						processData : false,
-						success : function(response) {
+				var fd = new FormData();
+				fd.append('dailyId', dailyId);
+				fd.append('otHours', otHours);
+				fd.append('selectStatus', selectStatus);
+				fd.append('byStatus', byStatus);
+				fd.append('lateMark', lateMark);
+				fd.append('inTime', inTime);
+				fd.append('outTime', outTime);
+				fd.append('selectStatusText', selectStatusText);
+				fd.append('month', month);
+				fd.append('year', year);
+				fd.append('selectShift', selectShift);
+				fd.append('otApproval', otApproval);
+				fd.append('namesd', namesd);
+				fd.append('lateMin', lateMin);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/submitAttendanceDetail',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
 
-							location.reload(true);
-						},
-					});
+								location.reload(true);
+							},
+						});
+			}
+			
 
 		}
 	</script>

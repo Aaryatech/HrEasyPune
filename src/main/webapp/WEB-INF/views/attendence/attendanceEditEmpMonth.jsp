@@ -305,6 +305,7 @@
 											autocomplete="off"> <input type="hidden"
 											class="form-control" placeholder="Out Time" id="dailyId"
 											name="dailyId" autocomplete="off"> <input
+											type="hidden" id="lvSumupId" name="lvSumupId" value="0"><input
 											type="hidden" id="year" name="year" value="${year}">
 										<input type="hidden" id="month" name="month" value="${month}">
 										<input type="hidden" id="empId" name="empId" value="${empId}">
@@ -543,6 +544,7 @@
 					document.getElementById("byStatusDive").style.display = 'block';
 					document.getElementById("byStatus").checked = true;
 					document.getElementById("dailyId").value = response.id;
+					document.getElementById("lvSumupId").value = response.lvSumupId;
 					document.getElementById("attDate").value = response.attDate;
 					document.getElementById("attStatus").value = response.attsSdShow;
 					document.getElementById("selectShift").value = response.currentShiftid;
@@ -626,9 +628,15 @@
 		if(lateMin==""){
 			lateMin=0;
 		}
+		var lvSumupId = $("#lvSumupId").val();
 		
-		$('#modal_step1').modal('show');
-		
+		if((lvSumupId==7 || lvSumupId==11) && byStatus==1 && selectStatus!=0){
+			
+			bootbox.alert("Leave has applied on this date. first cancel leave.");
+ 
+		}else{
+			$('#modal_step1').modal('show');
+			
 			var fd = new FormData();
 			fd.append('dailyId', dailyId);
 			fd.append('otHours', otHours);
@@ -656,7 +664,9 @@
 
 					location.reload(true);
 				},
-			});  
+			}); 
+		}
+		 
 
 		}
 	</script>

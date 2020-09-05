@@ -188,10 +188,10 @@
 
 															</c:when>
 															<c:otherwise> --%>
-																<option value="${lvTypeList.lvSumupId}"
-																	data-namesd="${lvTypeList.nameSd}"
-																	id="newSts${lvTypeList.lvSumupId}">${lvTypeList.nameSdShow}</option>
-															<%-- </c:otherwise>
+														<option value="${lvTypeList.lvSumupId}"
+															data-namesd="${lvTypeList.nameSd}"
+															id="newSts${lvTypeList.lvSumupId}">${lvTypeList.nameSdShow}</option>
+														<%-- </c:otherwise>
 														</c:choose>
 
  --%>
@@ -241,6 +241,7 @@
 											autocomplete="off"> <input type="hidden"
 											class="form-control" placeholder="Out Time" id="dailyId"
 											name="dailyId" autocomplete="off"> <input
+											type="hidden" id="lvSumupId" name="lvSumupId" value="0"><input
 											type="hidden" id="year" name="year" value="${year}">
 										<input type="hidden" id="month" name="month" value="${month}">
 									</div>
@@ -524,7 +525,7 @@
 					}
 					document.getElementById("lateMin").value=response.lateMin;
 					document.getElementById("dailyId").value = response.id;
-					 
+					document.getElementById("lvSumupId").value = response.lvSumupId;
 					 
 				},
 			});
@@ -548,6 +549,15 @@
 		if(lateMin==""){
 			lateMin=0;
 		}
+		
+		var lvSumupId = $("#lvSumupId").val();
+		
+		if((lvSumupId==7 || lvSumupId==11) && selectStatus!=0){
+			
+			bootbox.alert("Leave has applied on this date. first cancel leave.");
+ 
+		}else{
+			
 			var fd = new FormData();
 			fd.append('dailyId', dailyId); 
 			fd.append('selectStatus', selectStatus); 
@@ -570,7 +580,9 @@
 
 					location.reload(true);
 				},
-			});  
+			}); 
+		}
+			 
 
 		}
 	$('.datepickerclass').daterangepicker({
