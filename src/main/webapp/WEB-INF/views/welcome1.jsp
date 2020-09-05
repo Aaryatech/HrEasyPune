@@ -192,26 +192,26 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td class="text-left">Department OT Last Month</td>
+												<th class="text-left">Department OT Last Month</th>
 												<td class="text-left" id="ot_lm"></td>
 											</tr>
 											<tr>
 
-												<td class="text-left">Department Total HR</td>
+												<th class="text-left">Department Total HR</th>
 												<td class="text-left" id="tot_hr"></td>
 											</tr>
 											<tr>
 
-												<td class="text-left">BM-HR</td>
+												<th class="text-left">BM-HR</th>
 												<td class="text-left" id="bm_hr"></td>
 											</tr>
 											<tr>
 
-												<td class="text-left">Actual Present Today</td>
+												<th class="text-left">Actual Present Today</th>
 												<td class="text-left" id="ac_pres_td"></td>
 											</tr>
 											<tr>
-												<td class="text-left">Total Absent Today</td>
+												<th class="text-left">Total Absent Today</th>
 												<td class="text-left" id="to_ab_td"></td>
 											</tr>
 											<%-- <c:forEach items="${dashBList}" var="dashBList"

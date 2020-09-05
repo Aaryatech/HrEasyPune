@@ -159,8 +159,10 @@
 										</div>
 
 										<!-- Left fixed column -->
-										<table class="table datatable-fixed-left_custom" width="100%"
-											id="printtable1">
+										<div class="table-responsive">
+										<table
+										class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+										width="100%" id="printtable1">
 											<thead>
 												<tr class="bg-blue">
 													<th class="text-center;">Date</th>
@@ -175,12 +177,13 @@
 										
 										<td>${daily.attDate}</td>
 										<td>${daily.dayName}</td>
-										<td><input type="text" data-mask="99:99" id="ot_hr${daily.id}" value="${daily.otHr}"  name="ot_hr${daily.id}"></td>
+										<td><input type="text" data-mask="99:99" class="form-control" id="ot_hr${daily.id}" value="${daily.otHr}"  name="ot_hr${daily.id}"></td>
 										</tr>
 											</c:forEach>
 
 											</tbody>
 										</table>
+										</div>
 										<span class="validation-invalid-label" id="error_chk"
 											style="display: none;">Please Select the Employee.</span><br>
 										<!-- /left fixed column -->
@@ -220,6 +223,25 @@
 	<!-- /page content -->
 	
 	<script type="text/javascript">
+	
+	$('.datatable-fixed-left_custom').DataTable({
+
+		columnDefs : [ {
+			orderable : false,
+			targets : [ 0 ]
+		} ],
+		//scrollX : true,
+		scrollX : true,
+		scrollY : '50vh',
+		scrollCollapse : true,
+		paging : false,
+		fixedColumns : {
+			leftColumns : 1,
+			rightColumns : 0
+		}
+
+	});
+	
 	function getEmpOtdata(){
 
 		 var form = document.getElementById("searchEmpOTDataForm");
@@ -241,7 +263,6 @@
 												var table = $('#printtable1')
 														.DataTable();
 												table.search("").draw();
-
 												var isError = false;
 												var errMsg = "";
 												/* var shiftId = $("#shiftId")
@@ -293,7 +314,7 @@
 	</script>
 	
 	<script type="text/javascript">
-		$('.datatable-fixed-left_custom').DataTable({
+		/* $('.datatable-fixed-left_custom').DataTable({
 
 			columnDefs : [ {
 				orderable : false,
@@ -317,7 +338,7 @@
 				leftColumns : 1
 			}
 
-		});
+		}); */
 
 		
 		
