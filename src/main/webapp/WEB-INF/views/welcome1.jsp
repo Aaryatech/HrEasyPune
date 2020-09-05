@@ -181,10 +181,11 @@
 									</table>
 								</div>
 
-								<h6>Department Summary</h6>
+								<h6 style="font-weight: bold; margin-left: 180px;" >Department Summary</h6>
+								<div class="col-md-6">
 								<div class="table-responsive">
 
-									<table class="table table-hover" width="100%" id="printtable2">
+									<table class="table table-bordered  table-hover   table-striped" width="100%" id="printtable2">
 
 										<thead>
 
@@ -237,6 +238,7 @@
 
 										</tbody>
 									</table>
+								</div>
 								</div>
 							</c:if>
 						</c:when>
@@ -352,7 +354,7 @@
 				var x = parseInt(noOfWoffs) - parseInt(v.weekOffCovered);
 				var x1 = parseInt(noOfWoffs) - parseInt(v.lastMonthPendWoff);
 				dataTable.row.add(
-						[ v.firstName + ' ' + v.surname + ' ' + v.empCode,
+						[ v.firstName + ' ' + v.surname + ' (' + v.empCode+')',
 								currWeekNo, v.workingDays, v.presentDays, x,
 								v.weekOffCovered, x, v.abDays, x1,
 								v.otLastMonth ]).draw();
