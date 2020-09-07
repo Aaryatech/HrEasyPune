@@ -660,6 +660,29 @@ public class AttendenceController {
 
 	}
 
+	@RequestMapping(value = "/changeEmpStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public Info changeEmpStatus(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+			int empId = Integer.parseInt(request.getParameter("empId"));
+			int isActive = Integer.parseInt(request.getParameter("isActive"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("empId", empId);
+			map.add("isActive", isActive);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteEmployeeStatus", map, Info.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+
+	}
+
 	@RequestMapping(value = "/submitAttendanceDetail", method = RequestMethod.POST)
 	@ResponseBody
 	public Info submitAttendanceDetail(HttpServletRequest request, HttpServletResponse response, Model model) {

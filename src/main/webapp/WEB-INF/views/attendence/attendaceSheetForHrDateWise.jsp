@@ -320,7 +320,7 @@
 
 										<thead>
 											<tr class="bg-blue" style="text-align: center;">
-
+												<th width="4%">Sr.no</th>
 												<th class="text-center">Name</th>
 												<th class="text-center">Status</th>
 												<th class="text-center">Approve Status</th>
@@ -333,14 +333,16 @@
 												<th class="text-center">Production Incentive <br>Hrs
 												</th>
 												<%-- </c:if> --%>
-												<th class="text-center">Shift</th>
+												<th class="text-center">Status</th>
 												<th class="text-center">Action</th>
 
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${dailyrecordList}" var="dailyrecordList">
+											<c:forEach items="${dailyrecordList}" var="dailyrecordList"
+												varStatus="count">
 												<tr>
+													<td>${count.index+1}</td>
 													<td>${dailyrecordList.empName}
 														&nbsp;(${dailyrecordList.empCode})</td>
 													<td class="text-center">${dailyrecordList.attsSdShow}</td>
@@ -403,7 +405,15 @@
 													</c:choose>
 													<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
 													<%-- </c:if> --%>
-													<td>${dailyrecordList.currentShiftname}</td>
+													<td><select id="isActive${dailyrecordList.empId}"
+														name="isActive${dailyrecordList.empId}"
+														class="form-control"
+														onclick="changeEmpStatus(${dailyrecordList.empId})"><option
+																value="0"
+																${dailyrecordList.rowId == '0'  ? 'Selected': '' }>Active</option>
+															<option value="1"
+																${dailyrecordList.rowId == '1'  ? 'Selected': '' }>Inactive</option>
+													</select></td>
 													<td class="text-center"><c:if
 															test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">
 
@@ -681,6 +691,31 @@
 		}
 	</script>
 	<script>
+	
+function changeEmpStatus(id) {
+		
+		var isActive = $('#isActive'+id).val();
+		//alert(isActive);
+		
+		var fd = new FormData();
+		fd.append('empId', id);
+		fd.append('isActive', isActive);
+		 
+		   $
+		.ajax({
+			url : '${pageContext.request.contextPath}/changeEmpStatus',
+			type : 'post',
+			dataType : 'json',
+			data : fd,
+			contentType : false,
+			processData : false,
+			success : function(response) {
+				//location.reload(true);
+				 
+			},
+		}); 
+
+	}
 		// Custom bootbox dialog
 		$('.bootbox_custom')
 				.on(

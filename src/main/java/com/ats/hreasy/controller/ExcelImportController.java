@@ -370,7 +370,7 @@ public class ExcelImportController {
 							emp.setNewHraRate(0);
 							emp.setSalDedAtFullandfinal(0);
 							emp.setAddedFrom(0);
-							emp.setNoticePayAmount(0);
+							//emp.setNoticePayAmount(0);
 							emp.setAddedBySupervisorId(0);
 							emp.setLoginName(String.valueOf(userObj.getUserId()));
 							emp.setLoginTime(dateTimeInGMT.format(date));

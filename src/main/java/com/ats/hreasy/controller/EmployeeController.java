@@ -431,7 +431,7 @@ public class EmployeeController {
 					emp.setNewDaRate(0);
 					emp.setNewHraRate(0);
 					emp.setNextShiftid(0);
-					emp.setNoticePayAmount(0);
+					//emp.setNoticePayAmount(0);
 					emp.setPanCardNo(request.getParameter("pan"));
 					emp.setPfNo(request.getParameter("pfNo"));
 					emp.setPlCalcBase(0);
@@ -529,7 +529,7 @@ public class EmployeeController {
 					emp.setNewDaRate(0);
 					emp.setNewHraRate(0);
 					emp.setNextShiftid(0);
-					emp.setNoticePayAmount(0);
+					//emp.setNoticePayAmount(0);
 					emp.setPanCardNo(request.getParameter("pan"));
 					emp.setPfNo(request.getParameter("pfNo"));
 					emp.setPlCalcBase(0);

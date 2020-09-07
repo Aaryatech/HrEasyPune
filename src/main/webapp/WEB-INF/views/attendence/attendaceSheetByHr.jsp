@@ -280,6 +280,7 @@
 														<!-- <th class="text-center">WR. Hrs</th> -->
 														<th class="text-center">Production Incentive Hrs</th>
 														<!-- <th class="text-center">OShift/Loc</th> -->
+														<th class="text-center">Status</th>
 														<th class="text-center">Action</th>
 
 													</tr>
@@ -344,7 +345,15 @@
 															<td class="text-right">${dailyrecordList.lateMin}</td>
 															<%-- <td class="text-right">${dailyrecordList.workingHrs}</td> --%>
 															<td class="text-right">${dailyrecordList.otHr}</td>
-															<%-- <td>${dailyrecordList.currentShiftname}</td> --%>
+															<td><select id="isActive${dailyrecordList.empId}"
+																name="isActive${dailyrecordList.empId}"
+																class="form-control"
+																onclick="changeEmpStatus(${dailyrecordList.empId})"><option
+																		value="0"
+																		${dailyrecordList.rowId == '0'  ? 'Selected': '' }>Active</option>
+																	<option value="1"
+																		${dailyrecordList.rowId == '1'  ? 'Selected': '' }>Inactive</option>
+															</select></td>
 															<td class="text-center"><c:if
 																	test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
 																	<a href="#"
@@ -897,6 +906,31 @@
 	</Script>
 
 	<script>
+	 
+	function changeEmpStatus(id) {
+		
+		var isActive = $('#isActive'+id).val();
+		//alert(isActive);
+		
+		var fd = new FormData();
+		fd.append('empId', id);
+		fd.append('isActive', isActive);
+		 
+		   $
+		.ajax({
+			url : '${pageContext.request.contextPath}/changeEmpStatus',
+			type : 'post',
+			dataType : 'json',
+			data : fd,
+			contentType : false,
+			processData : false,
+			success : function(response) {
+				//location.reload(true);
+				 
+			},
+		}); 
+
+	}
 		function submitForm() {
 			$('#modal_scrollable').modal('hide');
 			document.getElementById("btnassignstuct").disabled = true;
