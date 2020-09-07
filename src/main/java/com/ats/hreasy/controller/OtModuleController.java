@@ -249,22 +249,35 @@ public class OtModuleController {
 		String mav = "attendence/importCsvFileForPresent";
 
 		try {
+			HttpSession session = request.getSession();
 
-			String date = request.getParameter("date");
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("importCsvFileForPresent", "importCsvFileForPresent", 1, 0, 0, 0,
+					newModuleList);
 
-			if (date != null) {
-				HttpSession session = request.getSession();
-				int locId = (int) session.getAttribute("liveLocationId");
+			if (view.isError() == true) {
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("fromDate", DateConvertor.convertToYMD(date));
-				map.add("locId", locId);
-				AttendaceLiveCount[] attendaceLiveCount = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/presentAttendaceLiveCount", map, AttendaceLiveCount[].class);
-				List<AttendaceLiveCount> list = new ArrayList<AttendaceLiveCount>(Arrays.asList(attendaceLiveCount));
-				model.addAttribute("list", list);
-				model.addAttribute("date", date);
+				mav = "accessDenied";
+
+			} else {
+				String date = request.getParameter("date");
+
+				if (date != null) {
+
+					int locId = (int) session.getAttribute("liveLocationId");
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map.add("fromDate", DateConvertor.convertToYMD(date));
+					map.add("locId", locId);
+					AttendaceLiveCount[] attendaceLiveCount = Constants.getRestTemplate().postForObject(
+							Constants.url + "/presentAttendaceLiveCount", map, AttendaceLiveCount[].class);
+					List<AttendaceLiveCount> list = new ArrayList<AttendaceLiveCount>(
+							Arrays.asList(attendaceLiveCount));
+					model.addAttribute("list", list);
+					model.addAttribute("date", date);
+				}
 			}
+
 		} catch (Exception e) {
 
 			e.printStackTrace();

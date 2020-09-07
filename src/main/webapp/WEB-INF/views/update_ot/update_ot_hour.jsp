@@ -158,7 +158,6 @@
 										action="${pageContext.request.contextPath}/submitEmpOtUpdt"
 										id="submitEmpShiftList" method="post">
 
-										<div class="form-group row"></div>
 
 										<!-- Left fixed column -->
 										<div class="table-responsive">
@@ -189,8 +188,13 @@
 												</tbody>
 											</table>
 										</div>
-										<span class="validation-invalid-label" id="error_chk"
-											style="display: none;">Please Select the Employee.</span><br>
+										<c:if test="${dailyList.size()==0}">
+											<span class="validation-invalid-label" id="error_chk">No
+												record found.The selected month may be closed or the
+												selected month may not have started.</span>
+											<br>
+										</c:if>
+
 										<!-- /left fixed column -->
 
 										<c:if test="${isAdd==1}">
