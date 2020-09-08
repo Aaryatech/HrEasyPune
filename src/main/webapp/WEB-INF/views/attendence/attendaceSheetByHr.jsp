@@ -348,7 +348,7 @@
 															<td><select id="isActive${dailyrecordList.empId}"
 																name="isActive${dailyrecordList.empId}"
 																class="form-control"
-																onchange="changeEmpStatus(${dailyrecordList.empId})"><option
+																onclick="changeEmpStatus(${dailyrecordList.empId})"><option
 																		value="0"
 																		${dailyrecordList.rowId == '0'  ? 'Selected': '' }>Active</option>
 																	<option value="1"
@@ -910,9 +910,9 @@
 	function changeEmpStatus(id) {
 		
 		var isActive = $('#isActive'+id).val();
-		alert(isActive);
+		//alert(isActive);
 		
-		/* var fd = new FormData();
+		  var fd = new FormData();
 		fd.append('empId', id);
 		fd.append('isActive', isActive);
 		 
@@ -928,7 +928,7 @@
 				//location.reload(true);
 				 
 			},
-		});  */
+		});  
 
 	}
 		function submitForm() {

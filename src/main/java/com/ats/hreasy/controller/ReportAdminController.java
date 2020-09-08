@@ -993,7 +993,7 @@ public class ReportAdminController {
 
 						if (dayCurr == j && empId == progList.get(p).getEmpId()) {
 							flag = 1;
-							stat = progList.get(p).getAttStatus();
+							stat = progList.get(p).getAttsSdShow();
 							break;
 						}
 					}
@@ -1105,7 +1105,7 @@ public class ReportAdminController {
 							int dayCurr = progList.get(l).getEmpType();
 							if (dayCurr == j && emp == progList.get(l).getEmpId()) {
 								flag = 1;
-								stat = progList.get(l).getAttStatus();	
+								stat = progList.get(l).getAttsSdShow();	
 								break;
 							}
 						}
