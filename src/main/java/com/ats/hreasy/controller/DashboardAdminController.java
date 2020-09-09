@@ -407,10 +407,9 @@ public class DashboardAdminController {
 					
 					
 					int diff = difffun(firstDate,date); 
-					int currWeekNo = diff/7;
-					System.out.println(currWeekNo);
+					int currWeekNo = diff/7; 
 					model.addAttribute("currWeekNo", currWeekNo);
-					
+					model.addAttribute("diff", diff);
 
 					/*
 					 * String prevMonthStartEnd = getPrevMonthStartEndDate();

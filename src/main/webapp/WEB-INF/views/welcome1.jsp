@@ -349,14 +349,15 @@
 			dataTable.clear().draw();
 			var currWeekNo = ${currWeekNo};
 			var noOfWoffs = ${noOfWoffs};
-
+			var diff = ${diff};
+			
 			$.each(responseData, function(i, v) {
 				//var x = parseInt(noOfWoffs) - parseInt(v.weekOffCovered);
 				var x = parseInt(currWeekNo) - parseInt(v.weekOffCovered);
 				var x1 = parseInt(noOfWoffs) - parseInt(v.lastMonthPendWoff);
 				dataTable.row.add(
 						[ v.firstName + ' ' + v.surname + ' (' + v.empCode+')',
-								 v.workingDays, v.presentDays, currWeekNo,
+							diff, v.presentDays, currWeekNo,
 								v.weekOffCovered, x, v.abDays, x1,
 								v.otLastMonth ]).draw();
 			});
