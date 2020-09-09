@@ -140,7 +140,7 @@
 											<tr class="bg-blue" style="text-align: center;">
 
 												<th class="text-center">Name</th>
-												<th class="text-center">Weeks Completed</th>
+												<!-- <th class="text-center">Weeks Completed</th> -->
 												<th class="text-center">Working Days</th>
 												<th class="text-center">Present Days</th>
 												<th class="text-center">Weekly Offs to be covered</th>
@@ -351,11 +351,12 @@
 			var noOfWoffs = ${noOfWoffs};
 
 			$.each(responseData, function(i, v) {
-				var x = parseInt(noOfWoffs) - parseInt(v.weekOffCovered);
+				//var x = parseInt(noOfWoffs) - parseInt(v.weekOffCovered);
+				var x = parseInt(currWeekNo) - parseInt(v.weekOffCovered);
 				var x1 = parseInt(noOfWoffs) - parseInt(v.lastMonthPendWoff);
 				dataTable.row.add(
 						[ v.firstName + ' ' + v.surname + ' (' + v.empCode+')',
-								currWeekNo, v.workingDays, v.presentDays, x,
+								 v.workingDays, v.presentDays, currWeekNo,
 								v.weekOffCovered, x, v.abDays, x1,
 								v.otLastMonth ]).draw();
 			});

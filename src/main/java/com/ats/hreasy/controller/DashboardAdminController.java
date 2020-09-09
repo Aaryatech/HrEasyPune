@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -394,10 +395,20 @@ public class DashboardAdminController {
 							map, Setting.class);
 					model.addAttribute("noOfWoffs", noOfWoffs.getValue());
 
-					Calendar cal = Calendar.getInstance();
-
-					int currWeekNo = cal.get(Calendar.WEEK_OF_MONTH);
-
+					//Calendar cal = Calendar.getInstance();
+					//int numDays = cal.getActualMaximum(Calendar.DATE);
+					//System.out.println("************" + numDays);
+					//int currWeekNo = cal.get(Calendar.WEEK_OF_MONTH);
+					Date dt = new Date();
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+					String date = sf.format(dt);
+					String[] arr = date.split("-");
+					String firstDate = arr[0]+"-"+arr[2]+"-01";
+					
+					
+					int diff = difffun(firstDate,date); 
+					int currWeekNo = diff/7;
+					System.out.println(currWeekNo);
 					model.addAttribute("currWeekNo", currWeekNo);
 					
 
@@ -724,6 +735,24 @@ public class DashboardAdminController {
 		model.addAttribute("mstEmpType", mstEmpType);
 
 		return mav;
+	}
+	
+	public int difffun(String date1, String date2) {
+
+		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		int result = 0;
+
+		try {
+			Date date3 = myFormat.parse(date1);
+			Date date4 = myFormat.parse(date2);
+			long diff = date4.getTime() - date3.getTime();
+			result = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+
+		}
+
+		return result + 1;
 	}
 
 }
