@@ -688,7 +688,71 @@
 														style="display: none;" id="error_skillId">This
 														field is required.</span>
 												</div>
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="locId"> Select Holiday Category <span
+													class="text-danger">* </span>:
+												</label>
+												<div class="col-lg-4">
+													<select name="holiCatId"
+														data-placeholder="Select Holiday Category" id="holiCatId"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														data-fouc="" aria-hidden="true">
+														<option value="">Select Holiday Category</option>
+														<c:forEach items="${holiList}" var="holiList">
+
+															<c:choose>
+																<c:when test="${emp.holidayCategory==holiList.hoCatId}">
+																	<option value="${holiList.hoCatId}" selected>${holiList.hoCatName}
+																		[${holiList.hoCatShortName}]</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${holiList.hoCatId}">${holiList.hoCatName}
+																		[${holiList.hoCatShortName}]</option>
+																</c:otherwise>
+															</c:choose>
+
+														</c:forEach>
+													</select> <span class="validation-invalid-label"
+														id="error_holiCatId" style="display: none;">This
+														field is required.</span>
+												</div>
 											</div>
+
+											<div class="form-group row">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="locId"> Select Weekly Off Category <span
+													class="text-danger">* </span>:
+												</label>
+												<div class="col-lg-4">
+													<select name="weeklyCatId"
+														data-placeholder="Select Weekly Off Category"
+														id="weeklyCatId"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														data-fouc="" aria-hidden="true">
+														<option value="">Select Weekly Off Category</option>
+														<c:forEach items="${weklyofflist}" var="weklyofflist">
+
+
+															<c:choose>
+																<c:when
+																	test="${emp.weekendCategory==weklyofflist.woCatId}">
+																	<option value="${weklyofflist.woCatId}" selected>${weklyofflist.woCatName}
+																		[${weklyofflist.woCatShortName}]</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${weklyofflist.woCatId}">${weklyofflist.woCatName}
+																		[${weklyofflist.woCatShortName}]</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select> <span class="validation-invalid-label"
+														id="error_weeklyCatId" style="display: none;">This
+														field is required.</span>
+												</div>
+											</div>
+
 											<div class="form-group text-center">
 												<div class="col-lg-12">
 													<!-- <button type="reset" class="btn btn-light legitRipple">Reset</button> -->
@@ -2782,6 +2846,30 @@
 
 												} else {
 													$("#error_skillId").hide()
+												}
+
+												if (!$("#holiCatId").val()) {
+
+													isError = true;
+
+													$("#error_holiCatId")
+															.show()
+
+												} else {
+													$("#error_holiCatId")
+															.hide()
+												}
+
+												if (!$("#weeklyCatId").val()) {
+
+													isError = true;
+
+													$("#error_weeklyCatId")
+															.show()
+
+												} else {
+													$("#error_weeklyCatId")
+															.hide()
 												}
 
 												if ($("#mobile2").val().trim() > 0) {

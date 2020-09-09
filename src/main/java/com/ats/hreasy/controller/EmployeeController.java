@@ -58,6 +58,7 @@ import com.ats.hreasy.model.TblEmpBankInfo;
 import com.ats.hreasy.model.TblEmpInfo;
 import com.ats.hreasy.model.TblEmpNominees;
 import com.ats.hreasy.model.User;
+import com.ats.hreasy.model.WeekoffCategory;
 import com.ats.hreasy.model.claim.ClaimType;
 
 @Controller
@@ -288,6 +289,19 @@ public class EmployeeController {
 				List<EmpType> empTypelist = new ArrayList<EmpType>(Arrays.asList(EmpType));
 				model.addObject("accessRoleList", empTypelist);
 
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				HolidayCategory[] holi = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getHolidayCategoryList", map, HolidayCategory[].class);
+				List<HolidayCategory> holiList = new ArrayList<HolidayCategory>(Arrays.asList(holi));
+				model.addObject("holiList", holiList);
+
+				WeekoffCategory[] weekoffCategory = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getWeekoffCategoryList", WeekoffCategory[].class);
+
+				List<WeekoffCategory> weklyofflist = new ArrayList<WeekoffCategory>(Arrays.asList(weekoffCategory));
+
+				model.addObject("weklyofflist", weklyofflist);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -342,12 +356,16 @@ public class EmployeeController {
 				int empType = 0;
 				int locId = 0;
 				int skillId = 0;
+				int holiCat = 0;
+				int weeklyCat = 0;
 				try {
 					empId = Integer.parseInt(request.getParameter("empId"));
 					deptId = Integer.parseInt(request.getParameter("deptId"));
 					desigId = Integer.parseInt(request.getParameter("desigId"));
 					empType = Integer.parseInt(request.getParameter("empType"));
 					locId = Integer.parseInt(request.getParameter("locId"));
+					holiCat = Integer.parseInt(request.getParameter("holiCatId"));
+					weeklyCat = Integer.parseInt(request.getParameter("weeklyCatId"));
 				} catch (Exception e) {
 					empId = 0;
 				}
@@ -431,7 +449,7 @@ public class EmployeeController {
 					emp.setNewDaRate(0);
 					emp.setNewHraRate(0);
 					emp.setNextShiftid(0);
-					//emp.setNoticePayAmount(0);
+					// emp.setNoticePayAmount(0);
 					emp.setPanCardNo(request.getParameter("pan"));
 					emp.setPfNo(request.getParameter("pfNo"));
 					emp.setPlCalcBase(0);
@@ -444,7 +462,8 @@ public class EmployeeController {
 					// emp.setExVar1("NA");
 					emp.setExVar2("NA");
 					emp.setDelStatus(1);
-
+					emp.setHolidayCategory(holiCat);
+					emp.setWeekendCategory(weeklyCat);
 					empSave = Constants.getRestTemplate().postForObject(Constants.url + "/saveEmployee", emp,
 							EmployeeMaster.class);
 					// System.out.println("Edit Save = " + empSave);
@@ -529,7 +548,7 @@ public class EmployeeController {
 					emp.setNewDaRate(0);
 					emp.setNewHraRate(0);
 					emp.setNextShiftid(0);
-					//emp.setNoticePayAmount(0);
+					// emp.setNoticePayAmount(0);
 					emp.setPanCardNo(request.getParameter("pan"));
 					emp.setPfNo(request.getParameter("pfNo"));
 					emp.setPlCalcBase(0);
@@ -542,7 +561,8 @@ public class EmployeeController {
 					// emp.setExVar1("NA");
 					emp.setExVar2("NA");
 					emp.setDelStatus(1);
-
+					emp.setHolidayCategory(holiCat);
+					emp.setWeekendCategory(weeklyCat);
 					empSave = Constants.getRestTemplate().postForObject(Constants.url + "/saveEmployee", emp,
 							EmployeeMaster.class);
 					empId = empSave.getEmpId();
@@ -832,6 +852,20 @@ public class EmployeeController {
 				model.addObject("locationIds", userRes.getLocId().split(","));
 
 				model.addObject("userRes", userRes);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				HolidayCategory[] holi = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getHolidayCategoryList", map, HolidayCategory[].class);
+				List<HolidayCategory> holiList = new ArrayList<HolidayCategory>(Arrays.asList(holi));
+				model.addObject("holiList", holiList);
+
+				WeekoffCategory[] weekoffCategory = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getWeekoffCategoryList", WeekoffCategory[].class);
+
+				List<WeekoffCategory> weklyofflist = new ArrayList<WeekoffCategory>(Arrays.asList(weekoffCategory));
+
+				model.addObject("weklyofflist", weklyofflist);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
