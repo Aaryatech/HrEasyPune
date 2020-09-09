@@ -2497,7 +2497,7 @@
 
 			<!-- Full width modal -->
 			<div id="modal_full" class="modal fade" tabindex="-1">
-				<div class="modal-dialog modal-half">
+				<div class="modal-dialog popup_third"><!-- modal-half -->
 					<div class="modal-content">
 
 						<div class="late_popup">
@@ -2514,28 +2514,28 @@
 								</div>
 								<div class="col-md-9">
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Employee Name :-</div>
-										<div class="col-md-9">Akshay Madhukar Raoandore</div>
+										<div class="col-md-4 emp_nm">Employee Name :</div>
+										<div class="col-md-8">Akshay Madhukar Raoandore</div>
 									</div>
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Designation :-</div>
-										<div class="col-md-9">.Net Developer</div>
+										<div class="col-md-4 emp_nm">Designation :</div>
+										<div class="col-md-8">.Net Developer</div>
 									</div>
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Department :-</div>
-										<div class="col-md-9">Development</div>
+										<div class="col-md-4 emp_nm">Department :</div>
+										<div class="col-md-8">Development</div>
 									</div>
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Mobile No :-</div>
-										<div class="col-md-9">+91 9876543210</div>
+										<div class="col-md-4 emp_nm">Mobile No :</div>
+										<div class="col-md-8">+91 9876543210</div>
 									</div>
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Alternate Mobile :-</div>
-										<div class="col-md-9">+91 9876543210</div>
+										<div class="col-md-4 emp_nm">Alternate Mobile :</div>
+										<div class="col-md-8">+91 9876543210</div>
 									</div>
 									<div class="row pop_one_row">
-										<div class="col-md-3 emp_nm">Leave Authorities :-</div>
-										<div class="col-md-9">Human Resource Person (HR)</div>
+										<div class="col-md-4 emp_nm">Leave Authorities :</div>
+										<div class="col-md-8">Human Resource Person (HR)</div>
 									</div>
 
 								</div>
