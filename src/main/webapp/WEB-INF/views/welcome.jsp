@@ -101,7 +101,7 @@
 
 														<tr role="row" class="odd">
 															<td><a href="#" data-toggle="modal"
-																data-target="#modal_full">AKSHAY MADHUKAR RAOANDORE</a></td>
+																onclick="getEmpData(1)">AKSHAY MADHUKAR RAOANDORE</a></td>
 															<td>Development</td>
 															<td>20 Minutes</td>
 															<td>234 Minutes</td>
@@ -536,7 +536,7 @@
 												<a
 													href="${pageContext.request.contextPath}/leaveStructureAllotment"
 													class="text-white"> Assign Leave
-													Type:${masterDet.lvStruvtPending} </a>
+													Structure:${masterDet.lvStruvtPending} </a>
 											</div>
 										</c:if>
 
@@ -546,7 +546,7 @@
 												<a
 													href="${pageContext.request.contextPath}/leaveAuthorityList"
 													class="text-white"> Assign Leave
-													Structure:${masterDet.lvAuthPending} </a>
+													Authority:${masterDet.lvAuthPending} </a>
 											</div>
 										</c:if>
 
@@ -2496,8 +2496,9 @@
 
 
 			<!-- Full width modal -->
-			<div id="modal_full" class="modal fade" tabindex="-1">
-				<div class="modal-dialog popup_third"><!-- modal-half -->
+			<!-- <div id="modal_full" class="modal fade" tabindex="-1">
+				<div class="modal-dialog popup_third">
+					modal-half
 					<div class="modal-content">
 
 						<div class="late_popup">
@@ -2549,6 +2550,61 @@
 
 					</div>
 				</div>
+			</div> -->
+			<div id="modal_full" class="modal fade" tabindex="-1">
+				<div class="modal-dialog popup_third">
+					<!-- modal-half -->
+					<div class="modal-content">
+
+						<div class="late_popup">
+
+							<div class="late_title">Late Employee Details</div>
+
+							<button type="button" class="close cross" data-dismiss="modal">&times;</button>
+							<div class="modal-body" id="modalbody">
+								<!-- <div class="row">
+									<div class="col-md-3">
+										<img
+											src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png"
+											class="late_pic">
+									</div>
+									<div class="col-md-9">
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Employee Name :</div>
+											<div class="col-md-8">Akshay Madhukar Raoandore</div>
+										</div>
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Designation :</div>
+											<div class="col-md-8">.Net Developer</div>
+										</div>
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Department :</div>
+											<div class="col-md-8">Development</div>
+										</div>
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Mobile No :</div>
+											<div class="col-md-8">+91 9876543210</div>
+										</div>
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Alternate Mobile :</div>
+											<div class="col-md-8">+91 9876543210</div>
+										</div>
+										<div class="row pop_one_row">
+											<div class="col-md-4 emp_nm">Leave Authorities :</div>
+											<div class="col-md-8">Human Resource Person (HR)</div>
+										</div>
+
+									</div>
+
+								</div> -->
+
+							</div>
+
+						</div>
+
+
+					</div>
+				</div>
 			</div>
 			<!-- /full width modal -->
 
@@ -2558,6 +2614,19 @@
 
 
 			<script type="text/javascript">
+				function getEmpData(empId) {
+					//alert(empId)
+
+					//alert(var1+':'+var2);
+
+					var strhref = "${pageContext.request.contextPath}/lateMarkDetailAndGraph?empId="
+							+ empId;
+					$("#modalbody").load(strhref);
+					$("#modal_full").modal("show");
+					$('#modal_full').on('hidden.bs.modal', function() {
+						$("#modalbody").html("");
+					});
+				}
 				$(document).ready(
 						function($) {
 

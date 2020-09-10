@@ -181,40 +181,43 @@
 									</table>
 								</div>
 
-								<h6 style="font-weight: bold; margin-left: 180px;" >Department Summary</h6>
+								<h6 style="font-weight: bold; margin-left: 180px;">Department
+									Summary</h6>
 								<div class="col-md-6">
-								<div class="table-responsive">
+									<div class="table-responsive">
 
-									<table class="table table-bordered  table-hover   table-striped" width="100%" id="printtable2">
+										<table
+											class="table table-bordered  table-hover   table-striped"
+											width="100%" id="printtable2">
 
-										<thead>
+											<thead>
 
-										</thead>
-										<tbody>
-											<tr>
-												<th class="text-left">Department OT Last Month</th>
-												<td class="text-left" id="ot_lm"></td>
-											</tr>
-											<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th class="text-left">Department OT Last Month</th>
+													<td class="text-left" id="ot_lm"></td>
+												</tr>
+												<tr>
 
-												<th class="text-left">Department Total HR</th>
-												<td class="text-left" id="tot_hr"></td>
-											</tr>
-											<tr>
+													<th class="text-left">Department Total HR</th>
+													<td class="text-left" id="tot_hr"></td>
+												</tr>
+												<tr>
 
-												<th class="text-left">BM-HR</th>
-												<td class="text-left" id="bm_hr"></td>
-											</tr>
-											<tr>
+													<th class="text-left">BM-HR</th>
+													<td class="text-left" id="bm_hr"></td>
+												</tr>
+												<tr>
 
-												<th class="text-left">Actual Present Today</th>
-												<td class="text-left" id="ac_pres_td"></td>
-											</tr>
-											<tr>
-												<th class="text-left">Total Absent Today</th>
-												<td class="text-left" id="to_ab_td"></td>
-											</tr>
-											<%-- <c:forEach items="${dashBList}" var="dashBList"
+													<th class="text-left">Actual Present Today</th>
+													<td class="text-left" id="ac_pres_td"></td>
+												</tr>
+												<tr>
+													<th class="text-left">Total Absent Today</th>
+													<td class="text-left" id="to_ab_td"></td>
+												</tr>
+												<%-- <c:forEach items="${dashBList}" var="dashBList"
 											varStatus="count">
 											<tr>
 												<td>${dashBList.firstName}&nbsp;${dashBList.surname} (${dashBList.empCode})</td>
@@ -236,9 +239,9 @@
 											</tr>
 										</c:forEach> --%>
 
-										</tbody>
-									</table>
-								</div>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</c:if>
 						</c:when>
@@ -347,18 +350,19 @@
 
 			var dataTable = $('#printtable1').DataTable();
 			dataTable.clear().draw();
-			var currWeekNo = ${currWeekNo};
-			var noOfWoffs = ${noOfWoffs};
-			var diff = ${diff};
-			
+			var currWeekNo = "${currWeekNo}";
+			var noOfWoffs = "${noOfWoffs}";
+
+			var diff = "${diff}"; 
 			$.each(responseData, function(i, v) {
 				//var x = parseInt(noOfWoffs) - parseInt(v.weekOffCovered);
 				var x = parseInt(currWeekNo) - parseInt(v.weekOffCovered);
 				var x1 = parseInt(noOfWoffs) - parseInt(v.lastMonthPendWoff);
 				dataTable.row.add(
-						[ v.firstName + ' ' + v.surname + ' (' + v.empCode+')',
-							diff, v.presentDays, currWeekNo,
-								v.weekOffCovered, x, v.abDays, x1,
+						[
+								v.firstName + ' ' + v.surname + ' ('
+										+ v.empCode + ')', diff, v.presentDays,
+								currWeekNo, v.weekOffCovered, x, v.abDays, x1,
 								v.otLastMonth ]).draw();
 			});
 			$('#modal_step1').modal('hide');
@@ -371,30 +375,39 @@
 
 			fd.append('deptId', deptId);
 
-			$.ajax({
-				url : '${pageContext.request.contextPath}/getHodDashboard',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(responseData) {
-					if (responseData == "" || responseData == null) {
-						$('#modal_step1').modal('hide');
-					} 
-					appendData(responseData.hodDashList);
-					var data2=responseData.hodDeptList;
-				//	alert(data2);
-					$.each(data2, function(i, v) {
-						document.getElementById("to_ab_td").innerHTML=v.abDays;
-						document.getElementById("ac_pres_td").innerHTML=v.presentDays;
-								document.getElementById("tot_hr").innerHTML=v.actualEmpCount;
-								document.getElementById("bm_hr").innerHTML=v.reqEmpCount;
-									document.getElementById("ot_lm").innerHTML=v.otLastMonth;
-						});
-					
-				}
-			});
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getHodDashboard',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(responseData) {
+							if (responseData == "" || responseData == null) {
+								$('#modal_step1').modal('hide');
+							}
+							appendData(responseData.hodDashList);
+							var data2 = responseData.hodDeptList;
+							//	alert(data2);
+							$
+									.each(
+											data2,
+											function(i, v) {
+												document
+														.getElementById("to_ab_td").innerHTML = v.abDays;
+												document
+														.getElementById("ac_pres_td").innerHTML = v.presentDays;
+												document
+														.getElementById("tot_hr").innerHTML = v.actualEmpCount;
+												document
+														.getElementById("bm_hr").innerHTML = v.reqEmpCount;
+												document
+														.getElementById("ot_lm").innerHTML = v.otLastMonth;
+											});
+
+						}
+					});
 
 			/* $
 					.ajax({

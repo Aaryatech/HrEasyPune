@@ -355,8 +355,8 @@ public class DashboardAdminController {
 			if (userObj.getDesignType() == 1) {
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
-				/* Akshay Code Prev.
-				 * Date dt = new Date();
+				/*
+				 * Akshay Code Prev. Date dt = new Date();
 				 * 
 				 * SimpleDateFormat mm = new SimpleDateFormat("MM"); SimpleDateFormat yy = new
 				 * SimpleDateFormat("yyyy");
@@ -388,26 +388,27 @@ public class DashboardAdminController {
 					List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
 
 					model.addAttribute("deptList", departmentList);
-					
+
 					map = new LinkedMultiValueMap<>();
 					map.add("limitKey", "no_of_woffs");
 					Setting noOfWoffs = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
 							map, Setting.class);
 					model.addAttribute("noOfWoffs", noOfWoffs.getValue());
 
-					//Calendar cal = Calendar.getInstance();
-					//int numDays = cal.getActualMaximum(Calendar.DATE);
-					//System.out.println("************" + numDays);
-					//int currWeekNo = cal.get(Calendar.WEEK_OF_MONTH);
+					// Calendar cal = Calendar.getInstance();
+					// int numDays = cal.getActualMaximum(Calendar.DATE);
+					// System.out.println("************" + numDays);
+					// int currWeekNo = cal.get(Calendar.WEEK_OF_MONTH);
 					Date dt = new Date();
 					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 					String date = sf.format(dt);
 					String[] arr = date.split("-");
-					String firstDate = arr[0]+"-"+arr[2]+"-01";
-					
-					
-					int diff = difffun(firstDate,date); 
-					int currWeekNo = diff/7; 
+					String firstDate = arr[0] + "-" + arr[1] + "-01";
+
+					int diff = difffun(firstDate, date);
+
+					System.out.println(diff + " " + firstDate + " " + date);
+					int currWeekNo = diff / 7;
 					model.addAttribute("currWeekNo", currWeekNo);
 					model.addAttribute("diff", diff);
 
@@ -478,7 +479,7 @@ public class DashboardAdminController {
 		List<HodDashboard> dashBList = new ArrayList<>();
 
 		HttpSession session = request.getSession();
-		DashTempBean responseBean=new DashTempBean();
+		DashTempBean responseBean = new DashTempBean();
 		try {
 			String prevMonthStartEnd = getPrevMonthStartEndDate();
 
@@ -503,7 +504,6 @@ public class DashboardAdminController {
 			map.add("cmToDate", cmToDate);
 			map.add("pmFromDate", pmFromDate);
 			map.add("pmToDate", pmToDate);
-
 
 			HodDashboard[] hodRepArray = Constants.getRestTemplate().postForObject(Constants.url + "/getHodDashboard",
 					map, HodDashboard[].class);
@@ -534,7 +534,7 @@ public class DashboardAdminController {
 
 	@RequestMapping(value = "/getHodDeptSummaryDashb", method = RequestMethod.POST)
 	public @ResponseBody List<HodDeptDashb> getHodDeptSummaryDashb(HttpServletRequest request,
-			HttpServletResponse response ) {
+			HttpServletResponse response) {
 
 		return hodDeptDashBList;
 
@@ -733,6 +733,51 @@ public class DashboardAdminController {
 				MstEmpType.class);
 		model.addAttribute("mstEmpType", mstEmpType);
 
+		return mav;
+	}
+
+	
+	@RequestMapping(value = "/lateMarkDetailAndGraph", method = RequestMethod.GET)
+	public String lateMarkDetailAndGraph(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "Graph/lateMarkDetailAndGraph";
+		
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -6);
+		Date result = cal.getTime();
+		System.out.println(cal.MONTH);
+		/*Date date = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		try {
+
+			AssetNotificatn[] assetArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getAllAssetsForNotifiction", AssetNotificatn[].class);
+			List<AssetNotificatn> assetRtnPndngList = new ArrayList<AssetNotificatn>(Arrays.asList(assetArr));
+			model.addAttribute("assetRtnPndngList", assetRtnPndngList);
+
+			AMCExpirationDetail[] assetAMCExpiryArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getAllAssetsAMCForNotifiction", AMCExpirationDetail[].class);
+			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(
+					Arrays.asList(assetAMCExpiryArr));
+			model.addAttribute("assetAMCExpiryList", assetAMCExpiryList);
+
+			ServicingDashDetails[] assetServiceArr = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getServicingDetails", ServicingDashDetails[].class);
+			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(
+					Arrays.asList(assetServiceArr));
+			model.addAttribute("assetServiceList", assetServiceList);
+
+			CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCateWiseAssetCnt", CatWiseAssetCount[].class);
+			List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));
+			model.addAttribute("catAssetList", catAssetList);
+
+		} catch (Exception e) {
+
+		}*/
 		return mav;
 	}
 	
