@@ -28,6 +28,8 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.Department;
+import com.ats.hreasy.model.EmpGraphDetail;
+import com.ats.hreasy.model.EmpInfoForDashBoard;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
@@ -736,51 +738,54 @@ public class DashboardAdminController {
 		return mav;
 	}
 
-	
 	@RequestMapping(value = "/lateMarkDetailAndGraph", method = RequestMethod.GET)
 	public String lateMarkDetailAndGraph(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		String mav = "Graph/lateMarkDetailAndGraph";
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, -6);
-		Date result = cal.getTime();
-		System.out.println(cal.MONTH);
-		/*Date date = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
-		SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
-		HttpSession session = request.getSession();
-		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+		/*
+		 * Calendar cal = Calendar.getInstance(); cal.add(Calendar.MONTH, -6); Date
+		 * result = cal.getTime(); System.out.println(cal.MONTH);
+		 */
+
 		try {
 
-			AssetNotificatn[] assetArr = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllAssetsForNotifiction", AssetNotificatn[].class);
-			List<AssetNotificatn> assetRtnPndngList = new ArrayList<AssetNotificatn>(Arrays.asList(assetArr));
-			model.addAttribute("assetRtnPndngList", assetRtnPndngList);
+			int empId = Integer.parseInt(request.getParameter("empId"));
 
-			AMCExpirationDetail[] assetAMCExpiryArr = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getAllAssetsAMCForNotifiction", AMCExpirationDetail[].class);
-			List<AMCExpirationDetail> assetAMCExpiryList = new ArrayList<AMCExpirationDetail>(
-					Arrays.asList(assetAMCExpiryArr));
-			model.addAttribute("assetAMCExpiryList", assetAMCExpiryList);
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpInfoForDashBoard empInfoForDashBoard = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpInfoForModelGraph", map, EmpInfoForDashBoard.class);
 
-			ServicingDashDetails[] assetServiceArr = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getServicingDetails", ServicingDashDetails[].class);
-			List<ServicingDashDetails> assetServiceList = new ArrayList<ServicingDashDetails>(
-					Arrays.asList(assetServiceArr));
-			model.addAttribute("assetServiceList", assetServiceList);
-
-			CatWiseAssetCount[] catAssetArray = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getCateWiseAssetCnt", CatWiseAssetCount[].class);
-			List<CatWiseAssetCount> catAssetList = new ArrayList<CatWiseAssetCount>(Arrays.asList(catAssetArray));
-			model.addAttribute("catAssetList", catAssetList);
+			model.addAttribute("empInfoForDashBoard", empInfoForDashBoard);
 
 		} catch (Exception e) {
 
-		}*/
+		}
 		return mav;
 	}
-	
+
+	@RequestMapping(value = "/getLateMarkGraph", method = RequestMethod.GET)
+	public @ResponseBody List<EmpGraphDetail> getLateMarkGraph(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<EmpGraphDetail> list = new ArrayList<>();
+		try {
+
+			int empId = Integer.parseInt(request.getParameter("empId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpGraphDetail[] empGraphDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getLateMarkGraph", map, EmpGraphDetail[].class);
+			list = new ArrayList<>(Arrays.asList(empGraphDetail));
+
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
+
 	public int difffun(String date1, String date2) {
 
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");

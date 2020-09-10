@@ -101,7 +101,7 @@
 
 														<tr role="row" class="odd">
 															<td><a href="#" data-toggle="modal"
-																onclick="getEmpData(1)">AKSHAY MADHUKAR RAOANDORE</a></td>
+																onclick="getEmpData(82)">AKSHAY MADHUKAR RAOANDORE</a></td>
 															<td>Development</td>
 															<td>20 Minutes</td>
 															<td>234 Minutes</td>

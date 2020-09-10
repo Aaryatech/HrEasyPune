@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:url var="getEmpAttnGraph" value="/getEmpAttnGraph" />
+<c:url var="getLateMarkGraph" value="/getLateMarkGraph" />
 <c:url var="getEmpAdvanceGraph" value="/getEmpAdvanceGraph" />
 <c:url var="getEmpLoanGraph" value="/getEmpLoanGraph" />
 <c:url var="getEmpDefaultSalGraph" value="/getEmpDefaultSalGraph" />
@@ -15,28 +15,25 @@
 	<div class="col-md-9">
 		<div class="row pop_one_row">
 			<div class="col-md-4 emp_nm">Employee Name :</div>
-			<div class="col-md-8">Akshay Madhukar Raoandore</div>
+			<div class="col-md-8">${empInfoForDashBoard.empName}</div>
 		</div>
 		<div class="row pop_one_row">
 			<div class="col-md-4 emp_nm">Designation :</div>
-			<div class="col-md-8">.Net Developer</div>
+			<div class="col-md-8">${empInfoForDashBoard.designationName}</div>
 		</div>
 		<div class="row pop_one_row">
 			<div class="col-md-4 emp_nm">Department :</div>
-			<div class="col-md-8">Development</div>
+			<div class="col-md-8">${empInfoForDashBoard.departmentName}</div>
 		</div>
 		<div class="row pop_one_row">
 			<div class="col-md-4 emp_nm">Mobile No :</div>
-			<div class="col-md-8">+91 9876543210</div>
+			<div class="col-md-8">${empInfoForDashBoard.contactNo}</div>
 		</div>
-		<div class="row pop_one_row">
-			<div class="col-md-4 emp_nm">Alternate Mobile :</div>
-			<div class="col-md-8">+91 9876543210</div>
-		</div>
-		<div class="row pop_one_row">
+
+		<!-- <div class="row pop_one_row">
 			<div class="col-md-4 emp_nm">Leave Authorities :</div>
 			<div class="col-md-8">Human Resource Person (HR)</div>
-		</div>
+		</div> -->
 
 	</div>
 
@@ -70,27 +67,23 @@
 	});
 	function getGraphs() {
 
-		var empId = 1;
-		var fromDate = "01-2020";
-		var toDate = "11-2020";
+		var empId = "${empInfoForDashBoard.empId}";
 
-		$.getJSON('${getEmpAttnGraph}',
+		$.getJSON('${getLateMarkGraph}',
 
 		{
 			empId : empId,
-			toDate : toDate,
-			fromDate : fromDate,
 			ajax : 'true'
 
 		}, function(data) {
 
-			if (data.length > 6) {
+			//alert(JSON.stringify(data))
+			/* if (data.length > 6) {
 
-				//	alert(data.length);
 				$('#attn_div').removeClass().addClass("col-md-10");
 			} else {
 				$('#attn_div').removeClass().addClass("col-md-6");
-			}
+			} */
 
 			google.charts.load('current', {
 				'packages' : [ 'corechart' ]
@@ -103,16 +96,18 @@
 
 				dataTable.addColumn('string', 'month Year'); // Implicit domain column.
 
-				dataTable.addColumn('number', 'Present Days');
-				dataTable.addColumn('number', 'Payable Days');
+				dataTable.addColumn('number', 'Late Min');
+				dataTable.addColumn('number', 'Late Mark');
 
 				$.each(data, function(key, dt) {
 
-					dataTable.addRows([
+					dataTable
+							.addRows([
 
-					[ dt.date, dt.presentdays, dt.payableDaysDays ]
+							[ dt.month, parseFloat(dt.lateMin),
+									parseFloat(dt.lateMark) ]
 
-					]);
+							]);
 
 				})
 
