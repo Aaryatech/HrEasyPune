@@ -68,6 +68,7 @@
 	function getGraphs() {
 
 		var empId = "${empInfoForDashBoard.empId}";
+		var graphType = "${graphType}";
 
 		$.getJSON('${getLateMarkGraph}',
 
@@ -77,62 +78,101 @@
 
 		}, function(data) {
 
-			//alert(JSON.stringify(data))
-			/* if (data.length > 6) {
+			if (graphType == 1) {
+				google.charts.load('current', {
+					'packages' : [ 'corechart' ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
 
-				$('#attn_div').removeClass().addClass("col-md-10");
-			} else {
-				$('#attn_div').removeClass().addClass("col-md-6");
-			} */
+					var dataTable = new google.visualization.DataTable();
 
-			google.charts.load('current', {
-				'packages' : [ 'corechart' ]
-			});
-			google.charts.setOnLoadCallback(drawChart);
+					dataTable.addColumn('string', 'month Year'); // Implicit domain column.
 
-			function drawChart() {
+					dataTable.addColumn('number', 'Late Min');
+					dataTable.addColumn('number', 'Late Mark');
 
-				var dataTable = new google.visualization.DataTable();
+					$.each(data, function(key, dt) {
 
-				dataTable.addColumn('string', 'month Year'); // Implicit domain column.
+						dataTable.addRows([
 
-				dataTable.addColumn('number', 'Late Min');
-				dataTable.addColumn('number', 'Late Mark');
+						[ dt.month, parseFloat(dt.lateMin),
+								parseFloat(dt.lateMark) ]
 
-				$.each(data, function(key, dt) {
+						]);
 
-					dataTable
-							.addRows([
+					})
 
-							[ dt.month, parseFloat(dt.lateMin),
-									parseFloat(dt.lateMark) ]
-
-							]);
-
-				})
-
-				/* slantedTextAngle: 60 */
-				var options = {
-					hAxis : {
-						title : "Month Year",
-						textPosition : 'out',
-						slantedText : true
-					},
-					vAxis : {
-						title : 'Days',
-						minValue : 0,
-						viewWindow : {
-							min : 0
+					/* slantedTextAngle: 60 */
+					var options = {
+						hAxis : {
+							title : "Month Year",
+							textPosition : 'out',
+							slantedText : true
 						},
-						format : '0',
-					},
-					colors : [ 'orange', 'blue' ],
-					theme : 'material'
-				};
-				var chart = new google.visualization.ColumnChart(document
-						.getElementById('emp_attn_graph'));
+						vAxis : {
+							title : 'Min/Days',
+							minValue : 0,
+							viewWindow : {
+								min : 0
+							},
+							format : '0',
+						},
+						colors : [ 'orange', 'blue' ],
+						theme : 'material'
+					};
+					var chart = new google.visualization.ColumnChart(document
+							.getElementById('emp_attn_graph'));
 
-				chart.draw(dataTable, options);
+					chart.draw(dataTable, options);
+				}
+			} else {
+				google.charts.load('current', {
+					'packages' : [ 'corechart' ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+
+					var dataTable = new google.visualization.DataTable();
+
+					dataTable.addColumn('string', 'month Year'); // Implicit domain column.
+
+					dataTable.addColumn('number', 'PAID LEAVE');
+					dataTable.addColumn('number', 'LWP');
+
+					$.each(data, function(key, dt) {
+
+						dataTable.addRows([
+
+						[ dt.month, dt.leaveCount, dt.lwp ]
+
+						]);
+
+					})
+
+					/* slantedTextAngle: 60 */
+					var options = {
+						hAxis : {
+							title : "Month Year",
+							textPosition : 'out',
+							slantedText : true
+						},
+						vAxis : {
+							title : 'Days',
+							minValue : 0,
+							viewWindow : {
+								min : 0
+							},
+							format : '0',
+						},
+						colors : [ 'orange', 'blue' ],
+						theme : 'material'
+					};
+					var chart = new google.visualization.ColumnChart(document
+							.getElementById('emp_attn_graph'));
+
+					chart.draw(dataTable, options);
+				}
 			}
 
 		});

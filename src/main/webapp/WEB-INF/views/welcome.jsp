@@ -101,13 +101,14 @@
 
 														<tr role="row" class="odd">
 															<td><a href="#" data-toggle="modal"
-																onclick="getEmpData(82)">AKSHAY MADHUKAR RAOANDORE</a></td>
+																onclick="getEmpData(82,1)">AKSHAY MADHUKAR RAOANDORE</a></td>
 															<td>Development</td>
 															<td>20 Minutes</td>
 															<td>234 Minutes</td>
 														</tr>
 														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
+															<td><a href="#" data-toggle="modal"
+																onclick="getEmpData(82,2)">AKSHAY MADHUKAR RAOANDORE</a></td>
 															<td>Development</td>
 															<td>20 Minutes</td>
 															<td>234 Minutes</td>
@@ -2558,7 +2559,8 @@
 
 						<div class="late_popup">
 
-							<div class="late_title">Late Employee Details</div>
+							<div class="late_title" id="detailGraphHead">Late Employee
+								Details</div>
 
 							<button type="button" class="close cross" data-dismiss="modal">&times;</button>
 							<div class="modal-body" id="modalbody">
@@ -2614,14 +2616,20 @@
 
 
 			<script type="text/javascript">
-				function getEmpData(empId) {
+				function getEmpData(empId, graphType) {
 					//alert(empId)
 
 					//alert(var1+':'+var2);
 
+					if (graphType == 1) {
+						$("#detailGraphHead").html("Late Employee Details");
+					} else {
+						$("#detailGraphHead").html("Leave Employee Details");
+					}
 					var strhref = "${pageContext.request.contextPath}/lateMarkDetailAndGraph?empId="
-							+ empId;
+							+ empId + "&graphType=" + graphType;
 					$("#modalbody").load(strhref);
+
 					$("#modal_full").modal("show");
 					$('#modal_full').on('hidden.bs.modal', function() {
 						$("#modalbody").html("");

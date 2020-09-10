@@ -751,14 +751,15 @@ public class DashboardAdminController {
 		try {
 
 			int empId = Integer.parseInt(request.getParameter("empId"));
-
+			int graphType = Integer.parseInt(request.getParameter("graphType"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
+			
 			EmpInfoForDashBoard empInfoForDashBoard = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpInfoForModelGraph", map, EmpInfoForDashBoard.class);
 
 			model.addAttribute("empInfoForDashBoard", empInfoForDashBoard);
-
+			model.addAttribute("graphType", graphType);
 		} catch (Exception e) {
 
 		}
