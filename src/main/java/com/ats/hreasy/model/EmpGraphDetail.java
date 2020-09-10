@@ -9,6 +9,7 @@ public class EmpGraphDetail {
 	private String lateMark; 
 	private int leaveCount; 
 	private int lwp;
+	private String ab;
 	
 	public int getId() {
 		return id;
@@ -53,10 +54,16 @@ public class EmpGraphDetail {
 	public void setLwp(int lwp) {
 		this.lwp = lwp;
 	}
+	public String getAb() {
+		return ab;
+	}
+	public void setAb(String ab) {
+		this.ab = ab;
+	}
 	@Override
 	public String toString() {
 		return "EmpGraphDetail [id=" + id + ", empId=" + empId + ", month=" + month + ", lateMin=" + lateMin
-				+ ", lateMark=" + lateMark + ", leaveCount=" + leaveCount + ", lwp=" + lwp + "]";
+				+ ", lateMark=" + lateMark + ", leaveCount=" + leaveCount + ", lwp=" + lwp + ", ab=" + ab + "]";
 	}
 	
 	

@@ -10,7 +10,7 @@
 	<div class="col-md-3">
 		<img
 			src="https://aeealberta.org/wp-content/uploads/2018/10/profile.png"
-			class="late_pic">
+			class="late_pic" style="width: 45%;">
 	</div>
 	<div class="col-md-9">
 		<div class="row pop_one_row">
@@ -139,12 +139,13 @@
 
 					dataTable.addColumn('number', 'PAID LEAVE');
 					dataTable.addColumn('number', 'LWP');
+					dataTable.addColumn('number', 'ABSENT');
 
 					$.each(data, function(key, dt) {
 
 						dataTable.addRows([
 
-						[ dt.month, dt.leaveCount, dt.lwp ]
+						[ dt.month, dt.leaveCount, dt.lwp, parseFloat(dt.ab) ]
 
 						]);
 
@@ -165,7 +166,7 @@
 							},
 							format : '0',
 						},
-						colors : [ 'orange', 'blue' ],
+						colors : [ 'orange', 'blue','red' ],
 						theme : 'material'
 					};
 					var chart = new google.visualization.ColumnChart(document

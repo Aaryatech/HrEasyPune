@@ -2624,7 +2624,8 @@
 					if (graphType == 1) {
 						$("#detailGraphHead").html("Late Employee Details");
 					} else {
-						$("#detailGraphHead").html("Leave Employee Details");
+						$("#detailGraphHead").html(
+								"Leave and Absent Employee Details");
 					}
 					var strhref = "${pageContext.request.contextPath}/lateMarkDetailAndGraph?empId="
 							+ empId + "&graphType=" + graphType;
