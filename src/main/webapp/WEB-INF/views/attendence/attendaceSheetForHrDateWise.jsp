@@ -814,7 +814,7 @@ function changeEmpStatus(id) {
 			scrollCollapse : true,
 			paging : false,
 			fixedColumns : {
-				leftColumns : 0,
+				leftColumns : 2,
 				rightColumns : 0
 			}
 

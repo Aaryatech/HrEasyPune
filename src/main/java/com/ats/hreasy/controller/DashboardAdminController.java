@@ -22,15 +22,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
+import com.ats.hreasy.model.DailyDaily;
 import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.EmpGraphDetail;
 import com.ats.hreasy.model.EmpInfoForDashBoard;
+import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
+import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstEmpType;
@@ -754,7 +758,7 @@ public class DashboardAdminController {
 			int graphType = Integer.parseInt(request.getParameter("graphType"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
-			
+
 			EmpInfoForDashBoard empInfoForDashBoard = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpInfoForModelGraph", map, EmpInfoForDashBoard.class);
 
@@ -803,6 +807,59 @@ public class DashboardAdminController {
 		}
 
 		return result + 1;
+	}
+
+	List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>();
+
+	@RequestMapping(value = "/employeeChangeEmpCode", method = RequestMethod.GET)
+	public String employeeChangeEmpCode(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "employeeChangeEmpCode";
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			int locId = (int) session.getAttribute("liveLocationId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+
+			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getAllEmployeeDetailBylocationId", map, GetEmployeeDetails[].class);
+
+			empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+			model.addAttribute("empList", empdetList);
+		} catch (Exception e) {
+
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/submitupdateempcode", method = RequestMethod.POST)
+	public String submitupdateempcode(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "redirect:/employeeChangeEmpCode";
+
+		try {
+
+			List<DailyDaily> outList = new ArrayList<DailyDaily>();
+
+			for (int i = 0; i < empdetList.size(); i++) {
+				DailyDaily daily = new DailyDaily();
+				daily.setId(empdetList.get(i).getEmpId());
+				daily.setOtHr(request.getParameter("code" + empdetList.get(i).getEmpId()));
+				outList.add(daily);
+			}
+
+			DailyDaily[] info = Constants.getRestTemplate().postForObject(Constants.url + "/updateEmpCode", outList,
+					DailyDaily[].class);
+
+			System.out.println(outList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 	}
 
 }
