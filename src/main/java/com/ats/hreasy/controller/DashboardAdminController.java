@@ -673,7 +673,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		System.err.println("-------------" + dash.toString());
+		//System.err.println("-------------" + dash.toString());
 
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr

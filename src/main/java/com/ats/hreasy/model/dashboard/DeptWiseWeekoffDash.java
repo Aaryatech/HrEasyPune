@@ -3,7 +3,7 @@ package com.ats.hreasy.model.dashboard;
 public class DeptWiseWeekoffDash {
 	
 	
-	 
+	private String id;
 	private int departId;
 	
 	
@@ -43,9 +43,20 @@ public class DeptWiseWeekoffDash {
 	}
 
 
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	@Override
 	public String toString() {
-		return "DeptWiseWeekoffDash [departId=" + departId + ", nameSd=" + nameSd + ", empCount=" + empCount + "]";
+		return "DeptWiseWeekoffDash [id=" + id + ", departId=" + departId + ", nameSd=" + nameSd + ", empCount="
+				+ empCount + "]";
 	}
 	
 	
