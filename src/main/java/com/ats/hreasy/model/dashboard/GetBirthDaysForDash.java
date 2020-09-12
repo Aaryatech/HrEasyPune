@@ -3,7 +3,7 @@ package com.ats.hreasy.model.dashboard;
  
 public class GetBirthDaysForDash {
  
-
+	private String uuid;
 	private int empId;
 
 	private String name;
@@ -18,6 +18,14 @@ public class GetBirthDaysForDash {
 
 	
 	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getEmpCode() {
 		return empCode;
 	}
@@ -60,8 +68,8 @@ public class GetBirthDaysForDash {
 
 	@Override
 	public String toString() {
-		return "GetBirthDaysForDash [empId=" + empId + ", name=" + name + ", dob=" + dob + ", empCode=" + empCode
-				+ ", age=" + age + "]";
+		return "GetBirthDaysForDash [uuid=" + uuid + ", empId=" + empId + ", name=" + name + ", dob=" + dob
+				+ ", empCode=" + empCode + ", age=" + age + "]";
 	}
 
  

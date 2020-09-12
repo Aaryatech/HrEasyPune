@@ -3,6 +3,12 @@
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet"> -->
+<!-- font-family: 'Grandstander', cursive; -->
+
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
@@ -39,393 +45,409 @@
 
 			</div>-->
 			<div class="content">
-
-
-				<!-- new html start here -->
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="card">
-							<div class="tab_round">
+				<c:if test="${toDayIsBirthday ==1}">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
 								<div class="row">
-									<div class="col-lg-3">
-										<div class="shift_round bg-purple-300">
-											<div class="round_size">
-												<span>980</span> Present Employee
-											</div>
-										</div>
+									<div class="col-md-12">
+										<div class="element"> <i class="fa fa-birthday-cake" aria-hidden="true"></i> Wish You a very very happy returns of the day Dude... </div> 
 									</div>
-									<div class="col-lg-3">
-										<div class="shift_round bg-pink-400"">
-											<div class="round_size">
-												<span>32</span> Late Employee
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3">
-										<div class="shift_round bg-warning">
-											<div class="round_size">
-												<span>11</span> Leave Employee
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3">
-										<div class="shift_round bg-primary">
-											<div class="round_size">
-												<span>26</span> Absent Employee
-											</div>
-										</div>
-									</div>
+									<!--Leave History -->
 								</div>
-
-
-								<!-- Late Employee tab start here -->
-								<div class="row">
-									<div class="late_employee">
-										<!-- <h3 class="bg-pink-400 employee_title">Late Employee</h3> -->
-
-										<div class="late_one fix_scroll">
-
-											<div class="datatable-scroll-wrap">
-												<table
-													class="table table-bordered table-hover datatable-highlight1">
-													<thead>
-														<tr class="bg-pink-400" role="row">
-															<th class="sorting_desc">Employee Name</th>
-															<th class="sorting">Department</th>
-															<th class="sorting">Late Minutes</th>
-															<th class="sorting">Monthly Latemark</th>
-														</tr>
-													</thead>
-													<tbody>
-
-
-														<tr role="row" class="odd">
-															<td><a href="#" data-toggle="modal"
-																onclick="getEmpData(82,1)">AKSHAY MADHUKAR RAOANDORE</a></td>
-															<td>Development</td>
-															<td>20 Minutes</td>
-															<td>234 Minutes</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td><a href="#" data-toggle="modal"
-																onclick="getEmpData(82,2)">AKSHAY MADHUKAR RAOANDORE</a></td>
-															<td>Development</td>
-															<td>20 Minutes</td>
-															<td>234 Minutes</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>20 Minutes</td>
-															<td>234 Minutes</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>20 Minutes</td>
-															<td>234 Minutes</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>20 Minutes</td>
-															<td>234 Minutes</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-								<!-- Leave Employee tab start here -->
-								<div class="row" style="display: none;">
-									<div class="late_employee">
-
-										<div class="late_one fix_scroll">
-
-											<div class="datatable-scroll-wrap">
-												<table
-													class="table table-bordered table-hover datatable-highlight1">
-													<thead>
-														<tr class="bg-warning" role="row">
-															<th class="sorting_desc">Employee Name</th>
-															<th class="sorting">Department</th>
-															<th class="sorting">Todate</th>
-															<th class="sorting">Balance Leaves</th>
-														</tr>
-													</thead>
-													<tbody>
-
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>12 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>15 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>08 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>02 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>01 Leave</td>
-														</tr>
-
-													</tbody>
-												</table>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-								<!-- Absent Employee tab start here -->
-								<div class="row" style="display: none;">
-									<div class="late_employee">
-
-										<div class="late_one fix_scroll">
-
-											<div class="datatable-scroll-wrap">
-												<table
-													class="table table-bordered table-hover datatable-highlight1">
-													<thead>
-														<tr class="bg-primary" role="row">
-															<th class="sorting_desc">Employee Name</th>
-															<th class="sorting">Department</th>
-															<th class="sorting">Todate</th>
-															<th class="sorting">Balance Leaves</th>
-														</tr>
-													</thead>
-													<tbody>
-
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19- 03 - 2020</td>
-															<td>12 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>15 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>08 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>02 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>01 Leave</td>
-														</tr>
-
-													</tbody>
-												</table>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-								<!-- Present Employee tab start here -->
-								<div class="row" style="display: none;">
-									<div class="late_employee">
-
-										<div class="late_one fix_scroll">
-
-											<div class="datatable-scroll-wrap">
-												<table
-													class="table table-bordered table-hover datatable-highlight1">
-													<thead>
-														<tr class="bg-purple-300" role="row">
-															<th class="sorting_desc">Employee Name</th>
-															<th class="sorting">Department</th>
-															<th class="sorting">Todate</th>
-															<th class="sorting">Balance Leaves</th>
-														</tr>
-													</thead>
-													<tbody>
-
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19- 03 - 2020</td>
-															<td>12 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>15 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>08 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>02 Leave</td>
-														</tr>
-
-														<tr role="row" class="odd">
-															<td>AKSHAY MADHUKAR RAOANDORE</td>
-															<td>Development</td>
-															<td>19 - 03 - 2020</td>
-															<td>01 Leave</td>
-														</tr>
-
-													</tbody>
-												</table>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-
 							</div>
 						</div>
 					</div>
-					<c:set var="peningtask" value="0" />
-					<div class="col-md-4">
-						<div class="card bg-warning">
-							<div class="card-header header-elements-inline">
-								<h6 class="card-title dash_title">Pending Master one time</h6>
-								<!-- <div class="list-icons ml-auto">
+				</c:if>
+				<c:if test="${userType ==2}">
+					<!-- new html start here -->
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="card">
+								<div class="tab_round">
+									<div class="row">
+										<div class="col-lg-3">
+											<div class="shift_round bg-purple-300">
+												<div class="round_size">
+													<span>980</span> Present Employee
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="shift_round bg-pink-400"">
+												<div class="round_size">
+													<span>32</span> Late Employee
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="shift_round bg-warning">
+												<div class="round_size">
+													<span>11</span> Leave Employee
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="shift_round bg-primary">
+												<div class="round_size">
+													<span>26</span> Absent Employee
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- Late Employee tab start here -->
+									<div class="row">
+										<div class="late_employee">
+											<!-- <h3 class="bg-pink-400 employee_title">Late Employee</h3> -->
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1">
+														<thead>
+															<tr class="bg-pink-400" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Late Minutes</th>
+																<th class="sorting">Monthly Latemark</th>
+															</tr>
+														</thead>
+														<tbody>
+
+
+															<tr role="row" class="odd">
+																<td><a href="#" data-toggle="modal"
+																	onclick="getEmpData(82,1)">AKSHAY MADHUKAR
+																		RAOANDORE</a></td>
+																<td>Development</td>
+																<td>20 Minutes</td>
+																<td>234 Minutes</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td><a href="#" data-toggle="modal"
+																	onclick="getEmpData(82,2)">AKSHAY MADHUKAR
+																		RAOANDORE</a></td>
+																<td>Development</td>
+																<td>20 Minutes</td>
+																<td>234 Minutes</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>20 Minutes</td>
+																<td>234 Minutes</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>20 Minutes</td>
+																<td>234 Minutes</td>
+															</tr>
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>20 Minutes</td>
+																<td>234 Minutes</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+									<!-- Leave Employee tab start here -->
+									<div class="row" style="display: none;">
+										<div class="late_employee">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1">
+														<thead>
+															<tr class="bg-warning" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Todate</th>
+																<th class="sorting">Balance Leaves</th>
+															</tr>
+														</thead>
+														<tbody>
+
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>12 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>15 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>08 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>02 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>01 Leave</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+									<!-- Absent Employee tab start here -->
+									<div class="row" style="display: none;">
+										<div class="late_employee">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1">
+														<thead>
+															<tr class="bg-primary" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Todate</th>
+																<th class="sorting">Balance Leaves</th>
+															</tr>
+														</thead>
+														<tbody>
+
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19- 03 - 2020</td>
+																<td>12 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>15 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>08 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>02 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>01 Leave</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+									<!-- Present Employee tab start here -->
+									<div class="row" style="display: none;">
+										<div class="late_employee">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1">
+														<thead>
+															<tr class="bg-purple-300" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Todate</th>
+																<th class="sorting">Balance Leaves</th>
+															</tr>
+														</thead>
+														<tbody>
+
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19- 03 - 2020</td>
+																<td>12 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>15 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>08 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>02 Leave</td>
+															</tr>
+
+															<tr role="row" class="odd">
+																<td>AKSHAY MADHUKAR RAOANDORE</td>
+																<td>Development</td>
+																<td>19 - 03 - 2020</td>
+																<td>01 Leave</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+						<c:set var="peningtask" value="0" />
+						<div class="col-md-4">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Pending Master one time</h6>
+									<!-- <div class="list-icons ml-auto">
 									<a class="list-icons-item" data-action="reload"></a>
 								</div> -->
-							</div>
+								</div>
 
-							<div class="card-body white_bg">
-								<div class="table-responsive">
-									<%-- <%
+								<div class="card-body white_bg">
+									<div class="table-responsive">
+										<%-- <%
 										System.out.print("Sdfsdf");
 									%> --%>
 
-									<div class="dashboard_bx">
-										<c:if test="${masterDet.companyCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/companySubAdd"
-													class="text-white"> Add Company:0</a>
-											</div>
-										</c:if>
+										<div class="dashboard_bx">
+											<c:if test="${masterDet.companyCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/companySubAdd"
+														class="text-white"> Add Company:0</a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.emptypeCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/mstEmpTypeAdd"
-													class="text-white"> Add Emp Type:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.emptypeCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/mstEmpTypeAdd"
+														class="text-white"> Add Emp Type:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.locCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/locationAdd"
-													class="text-white"> Add Location:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.locCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/locationAdd"
+														class="text-white"> Add Location:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.desnCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/dsesignationAdd"
-													class="text-white"> Add Designation:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.desnCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/dsesignationAdd"
+														class="text-white"> Add Designation:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.deptCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/departmentAdd"
-													class="text-white"> Add Department:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.deptCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/departmentAdd"
+														class="text-white"> Add Department:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.hoCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/holidayAdd"
-													class="text-white"> Add Holiday:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.hoCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/holidayAdd"
+														class="text-white"> Add Holiday:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.hocatCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/holidayCategoryAdd"
-													class="text-white"> Add Holiday Cat:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.hocatCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/holidayCategoryAdd"
+														class="text-white"> Add Holiday Cat:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.wocatCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/weekoffCategoryAdd"
-													class="text-white"> Add Weekly off Cat:0 </a>
-											</div>
-										</c:if>
-										<c:if test="${calYearCnt==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/calYearAdd"
-													class="text-white"> Add Calendar Year </a>
-											</div>
-										</c:if>
-										<%-- <c:if test="${masterDet.shiftCount==0}">
+											<c:if test="${masterDet.wocatCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/weekoffCategoryAdd"
+														class="text-white"> Add Weekly off Cat:0 </a>
+												</div>
+											</c:if>
+											<c:if test="${calYearCnt==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/calYearAdd"
+														class="text-white"> Add Calendar Year </a>
+												</div>
+											</c:if>
+											<%-- <c:if test="${masterDet.shiftCount==0}">
 											<c:set var="peningtask" value="1" />
 											<div class="dashboard_single">
 												<a href="${pageContext.request.contextPath}/addShift"
@@ -433,95 +455,95 @@
 											</div>
 										</c:if> --%>
 
-										<c:if test="${masterDet.lvtypeCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/leaveTypeAdd"
-													class="text-white"> Add Leave Type:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.lvtypeCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/leaveTypeAdd"
+														class="text-white"> Add Leave Type:0 </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.lvstructCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/addLeaveStructure"
-													class="text-white"> Add Leave Structure:0 </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.lvstructCount==0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/addLeaveStructure"
+														class="text-white"> Add Leave Structure:0 </a>
+												</div>
+											</c:if>
 
-										<!--Pending  -->
+											<!--Pending  -->
 
-										<c:if test="${masterDet.compPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/assignSubCompany"
-													class="text-white"> Assign
-													Company:${masterDet.compPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.compPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/assignSubCompany"
+														class="text-white"> Assign
+														Company:${masterDet.compPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.typePending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/showAssignEmpType"
-													class="text-white"> Assign Emp
-													Type:${masterDet.typePending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.typePending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/showAssignEmpType"
+														class="text-white"> Assign Emp
+														Type:${masterDet.typePending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.locPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/showAssignLocation"
-													class="text-white"> Assign
-													Location:${masterDet.locPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.locPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/showAssignLocation"
+														class="text-white"> Assign
+														Location:${masterDet.locPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.desnPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/showAssignDesignation"
-													class="text-white"> Assign
-													Designation:${masterDet.desnPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.desnPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/showAssignDesignation"
+														class="text-white"> Assign
+														Designation:${masterDet.desnPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.deptPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/assignDept"
-													class="text-white"> Assign
-													Department:${masterDet.deptPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.deptPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a href="${pageContext.request.contextPath}/assignDept"
+														class="text-white"> Assign
+														Department:${masterDet.deptPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.hocatPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/assignHolidayCategory"
-													class="text-white"> Assign
-													Holiday:${masterDet.hocatPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.hocatPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/assignHolidayCategory"
+														class="text-white"> Assign
+														Holiday:${masterDet.hocatPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.wocatPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/assignWeekoffCategory"
-													class="text-white"> Assign Weekly off
-													Cat:${masterDet.wocatPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.wocatPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/assignWeekoffCategory"
+														class="text-white"> Assign Weekly off
+														Cat:${masterDet.wocatPending} </a>
+												</div>
+											</c:if>
 
-										<%-- <c:if test="${masterDet.shiftPending!=0}">
+											<%-- <c:if test="${masterDet.shiftPending!=0}">
 											<c:set var="peningtask" value="1" />
 											<div class="dashboard_single">
 												<a
@@ -531,37 +553,37 @@
 											</div>
 										</c:if> --%>
 
-										<c:if test="${masterDet.lvStruvtPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/leaveStructureAllotment"
-													class="text-white"> Assign Leave
-													Structure:${masterDet.lvStruvtPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.lvStruvtPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/leaveStructureAllotment"
+														class="text-white"> Assign Leave
+														Structure:${masterDet.lvStruvtPending} </a>
+												</div>
+											</c:if>
 
-										<c:if test="${masterDet.lvAuthPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/leaveAuthorityList"
-													class="text-white"> Assign Leave
-													Authority:${masterDet.lvAuthPending} </a>
-											</div>
-										</c:if>
+											<c:if test="${masterDet.lvAuthPending!=0}">
+												<c:set var="peningtask" value="1" />
+												<div class="dashboard_single">
+													<a
+														href="${pageContext.request.contextPath}/leaveAuthorityList"
+														class="text-white"> Assign Leave
+														Authority:${masterDet.lvAuthPending} </a>
+												</div>
+											</c:if>
 
+										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
+
 
 					</div>
 
-
-				</div>
-
-
+				</c:if>
 				<!-- <div class="row">
 					<div class="col-lg-4">
 						<div class="card">
@@ -684,111 +706,111 @@
 				</div> -->
 				<c:if test="${peningtask==1}">
 
+					<c:if test="${userType ==2}">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="card bg-primary">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">
+											<i class="fas fa-birthday-cake "></i>Today's Birthday
+										</h6>
 
-					<div class="row">
-						<div class="col-md-4">
-							<div class="card bg-primary">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">
-										<i class="fas fa-birthday-cake "></i>Today's Birthday
-									</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-
-									<div class="dashboard_bx">
-										<c:forEach items="${birth.birthListToday}" var="birth"
-											varStatus="count">
-											<div class="dashboard_one">
-
-												<div class="dashboard_single">
-													<a class="text-white"><i class="icon-gift "></i>
-														[${birth.empCode}] ${birth.name}</a>
-												</div>
-
-
-											</div>
-										</c:forEach>
 									</div>
 
+									<div class="card-body white_bg">
+
+										<div class="dashboard_bx">
+											<c:forEach items="${birth.birthListToday}" var="birth"
+												varStatus="count">
+												<div class="dashboard_one">
+
+													<div class="dashboard_single">
+														<a class="text-white"><i class="icon-gift "></i>
+															[${birth.empCode}] ${birth.name}</a>
+													</div>
 
 
+												</div>
+											</c:forEach>
+										</div>
+
+
+
+									</div>
 								</div>
+
 							</div>
+
+							<div class="col-md-4">
+								<div class="card bg-purple-300 text-white">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">
+											<i class="fas fa-birthday-cake "></i> Upcomming Birthday(next
+											7 days)
+										</h6>
+
+									</div>
+
+									<div class="card-body white_bg">
+										<div class="dashboard_bx">
+											<c:forEach items="${birth.birthListUpcoming}" var="birth"
+												varStatus="count">
+												<div class="dashboard_one">
+
+													<div class="dashboard_single">
+														<a class="text-white"><i class="icon-gift "></i>
+															[${birth.empCode}] ${birth.name} <span
+															style="float: right;">${birth.dob}</span> </a>
+													</div>
+
+
+												</div>
+											</c:forEach>
+										</div>
+
+
+									</div>
+								</div>
+
+
+
+							</div>
+
+							<div class="col-md-4">
+								<div class="card bg-warning">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">
+											<i class="fas fa-calendar-alt "></i> Upcoming Holidays (next
+											30 days)
+										</h6>
+
+									</div>
+
+									<div class="card-body white_bg">
+
+										<div class="dashboard_bx">
+											<c:forEach items="${birth.holiList}" var="birth"
+												varStatus="count">
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">${birth.holidayName}</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${birth.holidayDate}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+											</c:forEach>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+
 
 						</div>
 
-						<div class="col-md-4">
-							<div class="card bg-purple-300 text-white">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">
-										<i class="fas fa-birthday-cake "></i> Upcomming Birthday(next
-										7 days)
-									</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-									<div class="dashboard_bx">
-										<c:forEach items="${birth.birthListUpcoming}" var="birth"
-											varStatus="count">
-											<div class="dashboard_one">
-
-												<div class="dashboard_single">
-													<a class="text-white"><i class="icon-gift "></i>
-														[${birth.empCode}] ${birth.name} <span
-														style="float: right;">${birth.dob}</span> </a>
-												</div>
-
-
-											</div>
-										</c:forEach>
-									</div>
-
-
-								</div>
-							</div>
-
-
-
-						</div>
-
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">
-										<i class="fas fa-calendar-alt "></i> Upcoming Holidays (next
-										30 days)
-									</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-
-									<div class="dashboard_bx">
-										<c:forEach items="${birth.holiList}" var="birth"
-											varStatus="count">
-											<div class="dashboard_one">
-												<div class="dashboard_l">
-													<a class="text-white">${birth.holidayName}</a>
-												</div>
-												<div class="dashboard_r">
-													<a class="text-white">${birth.holidayDate}</a>
-												</div>
-												<div class="clr"></div>
-											</div>
-										</c:forEach>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-
-
-					</div>
-					<c:if test="${userType == 2}">
 
 						<div class="row">
 							<div class="col-md-4">
@@ -1547,46 +1569,98 @@
 
 							<!-- end of if condtion -->
 
-							<c:if test="${userType == 2 || isAuth > 0 }">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="card bg-primary">
+										<div class="card-header header-elements-inline">
+											<h6 class="card-title dash_title">My Attendance (Current
+												Month)</h6>
 
-								<div class="row">
+										</div>
+
+										<div class="card-body white_bg">
+
+											<div class="dashboard_bx">
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">Present</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.presentDays}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">Absent</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.absentDays}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">LWP Leaves</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.unpaidLeave}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">Paid Leaves</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.paidLeave}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">Weekly Off</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.weeklyOff}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+												<div class="dashboard_one">
+													<div class="dashboard_l">
+														<a class="text-white">Holiday</a>
+													</div>
+													<div class="dashboard_r">
+														<a class="text-white">${attnLastMon.paidHoliday}</a>
+													</div>
+													<div class="clr"></div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+								<c:if test="${isAuth > 0 }">
 									<div class="col-md-4">
 										<div class="card bg-primary">
 											<div class="card-header header-elements-inline">
-												<h6 class="card-title dash_title">My Attendance
-													(Current Month)</h6>
+												<h6 class="card-title dash_title">Today's Task</h6>
 
 											</div>
 
 											<div class="card-body white_bg">
-
 												<div class="dashboard_bx">
 													<div class="dashboard_one">
 														<div class="dashboard_l">
-															<a class="text-white">Present</a>
+															<a class="text-white"
+																href="${pageContext.request.contextPath}/showLeaveApprovalByAuthority">Total
+																Pending Application</a>
 														</div>
 														<div class="dashboard_r">
-															<a class="text-white">${attnLastMon.presentDays}</a>
-														</div>
-														<div class="clr"></div>
-													</div>
-
-													<div class="dashboard_one">
-														<div class="dashboard_l">
-															<a class="text-white">LWP Leaves</a>
-														</div>
-														<div class="dashboard_r">
-															<a class="text-white">${attnLastMon.unpaidLeave}</a>
-														</div>
-														<div class="clr"></div>
-													</div>
-
-													<div class="dashboard_one">
-														<div class="dashboard_l">
-															<a class="text-white">Paid Leaves</a>
-														</div>
-														<div class="dashboard_r">
-															<a class="text-white">${attnLastMon.paidLeave}</a>
+															<a class="text-white">${list1Count}</a>
 														</div>
 														<div class="clr"></div>
 													</div>
@@ -1596,41 +1670,7 @@
 										</div>
 
 									</div>
-
-									<c:if test="${userType == 2}">
-										<div class="col-md-4">
-											<div class="card bg-primary">
-												<div class="card-header header-elements-inline">
-													<h6 class="card-title dash_title">Today's Task</h6>
-
-												</div>
-
-												<div class="card-body white_bg">
-													<div class="dashboard_bx">
-														<div class="dashboard_one">
-															<div class="dashboard_l">
-																<a class="text-white">Total Pending Application</a>
-															</div>
-															<div class="dashboard_r">
-																<a class="text-white">${list1Count}</a>
-															</div>
-															<div class="clr"></div>
-														</div>
-													</div>
-
-												</div>
-											</div>
-
-										</div>
-									</c:if>
-
-								</div>
-							</c:if>
-
-
-
-							<div class="row">
-
+								</c:if>
 								<div class="col-md-4">
 									<div class="card bg-warning">
 										<div class="card-header header-elements-inline">
@@ -1680,6 +1720,14 @@
 									</div>
 
 								</div>
+							</div>
+
+
+
+
+							<div class="row">
+
+
 
 
 								<div class="col-md-4">
@@ -1705,7 +1753,7 @@
 													</div>
 												</c:forEach>
 
-												<div class="dashboard_one">
+												<%-- <div class="dashboard_one">
 													<div class="dashboard_l">
 														<a class="text-white">Performance Incentive(Amt/Days)</a>
 													</div>
@@ -1723,7 +1771,7 @@
 														<a class="text-white">${prodList.prodAmt}/${prodList.prodDays}</a>
 													</div>
 													<div class="clr"></div>
-												</div>
+												</div> --%>
 
 											</div>
 
@@ -1734,7 +1782,7 @@
 								</div>
 
 
-								<div class="col-md-4">
+								<%-- <div class="col-md-4">
 									<div class="card bg-primary">
 										<div class="card-header header-elements-inline">
 											<h6 class="card-title dash_title">Important Links</h6>
@@ -1790,16 +1838,11 @@
 										</div>
 									</div>
 
-								</div>
+								</div> --%>
 
 							</div>
 
-							<!-- HR Dash  -->
 
-							<c:if test="${userType ==2}">
-
-							</c:if>
-							<!--Leave Details -->
 
 							<div class="row">
 								<div class="col-md-12">
@@ -1869,7 +1912,7 @@
 								<!--Leave History -->
 							</div>
 
-							<div class="row">
+							<%-- <div class="row">
 								<div class="col-md-12">
 									<div class="table-responsive">
 										<table
@@ -1919,7 +1962,7 @@
 										</table>
 									</div>
 								</div>
-							</div>
+							</div> --%>
 							<br>
 							<c:if test="${userType ==2}">
 

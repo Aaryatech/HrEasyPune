@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 public class Constants {
 
 	// local
+
 	public static final String opsWebApiUrl = "http://107.180.95.11:8080/webapi/";
 
 	public static final String url = "http://localhost:8094/";

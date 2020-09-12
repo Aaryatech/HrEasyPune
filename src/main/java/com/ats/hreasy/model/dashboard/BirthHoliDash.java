@@ -7,7 +7,7 @@ import com.ats.hreasy.model.HolidayMaster;
  
 public class BirthHoliDash {
 	
-	
+	private int loginUserBirthDay;
 	private List<HolidayMaster> holiList;
 	
 	
@@ -15,6 +15,16 @@ public class BirthHoliDash {
 	
 	
 	private List<GetBirthDaysForDash> birthListToday;
+
+
+	public int getLoginUserBirthDay() {
+		return loginUserBirthDay;
+	}
+
+
+	public void setLoginUserBirthDay(int loginUserBirthDay) {
+		this.loginUserBirthDay = loginUserBirthDay;
+	}
 
 
 	public List<HolidayMaster> getHoliList() {
@@ -25,10 +35,7 @@ public class BirthHoliDash {
 	public void setHoliList(List<HolidayMaster> holiList) {
 		this.holiList = holiList;
 	}
-
-
-	 
-
+ 
 	public List<GetBirthDaysForDash> getBirthListUpcoming() {
 		return birthListUpcoming;
 	}
@@ -51,8 +58,8 @@ public class BirthHoliDash {
 
 	@Override
 	public String toString() {
-		return "BirthHoliDash [holiList=" + holiList + ", birthListUpcoming=" + birthListUpcoming + ", birthListToday="
-				+ birthListToday + "]";
+		return "BirthHoliDash [loginUserBirthDay=" + loginUserBirthDay + ", holiList=" + holiList
+				+ ", birthListUpcoming=" + birthListUpcoming + ", birthListToday=" + birthListToday + "]";
 	}
 	
 	
