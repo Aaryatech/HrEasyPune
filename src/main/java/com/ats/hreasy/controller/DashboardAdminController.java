@@ -29,6 +29,7 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyDaily;
+import com.ats.hreasy.model.DashboardLeavePending;
 import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.EmpGraphDetail;
 import com.ats.hreasy.model.EmpInfoForDashBoard;
@@ -673,7 +674,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		//System.err.println("-------------" + dash.toString());
+		// System.err.println("-------------" + dash.toString());
 
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr
@@ -764,6 +765,27 @@ public class DashboardAdminController {
 
 			model.addAttribute("empInfoForDashBoard", empInfoForDashBoard);
 			model.addAttribute("graphType", graphType);
+		} catch (Exception e) {
+
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/leavePendingListForDashboard", method = RequestMethod.GET)
+	public String leavePendingListForDashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "Graph/leavePendingListForDashboard";
+
+		try {
+
+			int type = Integer.parseInt(request.getParameter("type"));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("type", type);
+			DashboardLeavePending[] dashboardLeavePending = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getLeaveApprovalListForDashBoard", map, DashboardLeavePending[].class);
+
+			List<DashboardLeavePending> list = new ArrayList<>(Arrays.asList(dashboardLeavePending));
+			model.addAttribute("list", list);
 		} catch (Exception e) {
 
 		}

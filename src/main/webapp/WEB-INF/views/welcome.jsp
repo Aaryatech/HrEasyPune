@@ -863,7 +863,9 @@
 										<div class="dashboard_bx">
 											<div class="dashboard_one">
 												<div class="dashboard_l">
-													<a class="text-white">New Application</a>
+													<a class="text-white" href="javascript:void(0)"
+														onclick="getPendingLeaveList(1)">Initial Approve
+														Pending</a>
 												</div>
 												<div class="dashboard_r">
 													<a class="text-white">${lvDet.newApp}</a>
@@ -871,7 +873,7 @@
 												<div class="clr"></div>
 											</div>
 
-											<div class="dashboard_one">
+											<%-- <div class="dashboard_one">
 												<div class="dashboard_l">
 													<a class="text-white">Initial Authority
 														Pending/Approved</a>
@@ -880,11 +882,12 @@
 													<a class="text-white">${lvDet.newApp}/${lvDet.finalPending}</a>
 												</div>
 												<div class="clr"></div>
-											</div>
+											</div> --%>
 
 											<div class="dashboard_one">
 												<div class="dashboard_l">
-													<a class="text-white">Final Authority Pending</a>
+													<a class="text-white" href="javascript:void(0)"
+														onclick="getPendingLeaveList(2)">Final Approve Pending</a>
 												</div>
 												<div class="dashboard_r">
 													<a class="text-white">${lvDet.finalPending}</a>
@@ -903,7 +906,7 @@
 
 
 
-							<div class="col-md-4">
+							<%-- <div class="col-md-4">
 								<div class="card bg-primary">
 									<div class="card-header header-elements-inline">
 										<h6 class="card-title dash_title">Attendance Previous Day
@@ -979,16 +982,9 @@
 									</div>
 								</div>
 
-							</div>
+							</div> --%>
 
 
-
-						</div>
-
-					</c:if>
-
-					<c:if test="${userType == 2}">
-						<div class="row">
 
 							<div class="col-md-4">
 								<div class="card bg-warning">
@@ -1022,10 +1018,14 @@
 
 							</div>
 
-
 						</div>
+
+					</c:if>
+
+					<c:if test="${userType == 2}">
+
 						<div class="row">
-							<div class="col-md-4">
+							<%-- <div class="col-md-4">
 								<div class="card bg-primary">
 									<div class="card-header header-elements-inline">
 										<h6 class="card-title dash_title">Advance Deduction
@@ -1063,12 +1063,12 @@
 									</div>
 								</div>
 
-							</div>
+							</div> --%>
 
 							<div class="col-md-4">
 								<div class="card bg-purple-300 text-white">
 									<div class="card-header header-elements-inline">
-										<h6 class="card-title dash_title">Loan Deduction (Current
+										<h6 class="card-title dash_title">Deduction (Current
 											Moth)</h6>
 
 									</div>
@@ -1077,15 +1077,32 @@
 										<div class="dashboard_bx">
 											<div class="dashboard_one">
 												<div class="dashboard_l">
-													<a class="text-white">Total Emp/amount</a>
+													<a class="text-white"> Loan (EMP/Amount)</a>
 												</div>
 												<div class="dashboard_r">
 													<a class="text-white">${loanDet.emp}/${loanDet.advTot}</a>
 												</div>
 												<div class="clr"></div>
 											</div>
-
 											<div class="dashboard_one">
+												<div class="dashboard_l">
+													<a class="text-white"> Advance (EMP/Amount)</a>
+												</div>
+												<div class="dashboard_r">
+													<a class="text-white">${advDet.emp}/${advDet.advTot}</a>
+												</div>
+												<div class="clr"></div>
+											</div>
+											<div class="dashboard_one">
+												<div class="dashboard_l">
+													<a class="text-white"> Pay Deduction (EMP/Amount)</a>
+												</div>
+												<div class="dashboard_r">
+													<a class="text-white">${dedDet.empCount}/${dedDet.tot}</a>
+												</div>
+												<div class="clr"></div>
+											</div>
+											<%-- <div class="dashboard_one">
 												<div class="dashboard_l">
 													<a class="text-white">Total Skip Emp/Amt</a>
 												</div>
@@ -1093,7 +1110,7 @@
 													<a class="text-white">${loanDet.skipId}/${loanDet.skipTott}</a>
 												</div>
 												<div class="clr"></div>
-											</div>
+											</div> --%>
 										</div>
 
 									</div>
@@ -1102,8 +1119,33 @@
 
 
 							</div>
-
 							<div class="col-md-4">
+								<div class="card bg-warning">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">Reward (Current Month)</h6>
+
+									</div>
+
+									<div class="card-body white_bg">
+
+										<div class="dashboard_bx">
+											<div class="dashboard_one">
+												<div class="dashboard_l">
+													<a class="text-white">Total Emp/amount</a>
+												</div>
+												<div class="dashboard_r">
+													<a class="text-white">${rewardDet.empCount}/${rewardDet.tot}</a>
+												</div>
+												<div class="clr"></div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+							</div>
+							<%-- <div class="col-md-4">
 								<div class="card bg-purple-300 text-white">
 									<div class="card-header header-elements-inline">
 										<h6 class="card-title dash_title">Pay Deduction (Current
@@ -1129,8 +1171,9 @@
 
 
 
-							</div>
+							</div> --%>
 						</div>
+
 					</c:if>
 				</c:if>
 				<!--  -->
@@ -1390,7 +1433,7 @@
 				<div class="card" style="margin: 30px 0 0 0;">
 
 					<form action="${pageContext.request.contextPath}/dashboard">
-						<div class="card-body">
+						<%-- <div class="card-body">
 							<div class="form-group row title_row">
 								<label
 									class="col-form-label text-info font-weight-bold spacing_filed"
@@ -1411,7 +1454,7 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						</div> --%>
 						<div class="card-body fixed_height">
 
 
@@ -1754,76 +1797,7 @@
 							<!-- HR Dash  -->
 
 							<c:if test="${userType ==2}">
-								<div class="row">
 
-
-									<div class="col-md-4">
-										<div class="card bg-warning">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title dash_title">Reward (Current
-													Month)</h6>
-
-											</div>
-
-											<div class="card-body white_bg">
-
-												<div class="dashboard_bx">
-													<div class="dashboard_one">
-														<div class="dashboard_l">
-															<a class="text-white">Total Emp/amount</a>
-														</div>
-														<div class="dashboard_r">
-															<a class="text-white">${rewardDet.empCount}/${rewardDet.tot}</a>
-														</div>
-														<div class="clr"></div>
-													</div>
-												</div>
-
-
-											</div>
-										</div>
-
-									</div>
-
-
-									<div class="col-md-4">
-										<div class="card bg-warning">
-											<div class="card-header header-elements-inline">
-												<h6 class="card-title dash_title">Performance Bonus
-													(Current Month)</h6>
-
-											</div>
-											<div class="card-body white_bg">
-
-												<div class="dashboard_bx">
-													<c:forEach items="${perfListDept}" var="perfListDept"
-														varStatus="count">
-
-														<div class="dashboard_one">
-															<div class="dashboard_l">
-																<a class="text-white">${perfListDept.nameSd}</a>
-															</div>
-															<div class="dashboard_r">
-																<a class="text-white">${perfListDept.empCount}</a>
-															</div>
-															<div class="clr"></div>
-														</div>
-													</c:forEach>
-												</div>
-
-
-
-
-											</div>
-										</div>
-
-									</div>
-
-
-
-
-
-								</div>
 							</c:if>
 							<!--Leave Details -->
 
@@ -1946,6 +1920,7 @@
 									</div>
 								</div>
 							</div>
+							<br>
 							<c:if test="${userType ==2}">
 
 								<div class="row">
@@ -2159,6 +2134,23 @@
 
 
 			<script type="text/javascript">
+				function getPendingLeaveList(type) {
+
+					if (type == 1) {
+						$("#detailGraphHead").html(
+								"Initial Approve Pending List");
+					} else {
+						$("#detailGraphHead")
+								.html("Final Approve Pending List");
+					}
+					var strhref = "${pageContext.request.contextPath}/leavePendingListForDashboard?type="
+							+ type;
+					$("#modalbody").load(strhref);
+					$("#modal_full").modal("show");
+					$('#modal_full').on('hidden.bs.modal', function() {
+						$("#modalbody").html("");
+					});
+				}
 				function getEmpData(empId, graphType) {
 					//alert(empId)
 
