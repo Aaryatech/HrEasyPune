@@ -299,7 +299,7 @@
 
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn bg-blue ml-3 legitRipple"
-											id="submtbtn" onclick="saveAttendanceDetail()">Save</button>
+											id="submtbtnn" onclick="saveAttendanceDetail()">Save</button>
 										<button type="button" class="btn btn-primary"
 											onclick="closeEditDetailTab()">Cancel</button>
 										<input type="hidden" class="form-control"

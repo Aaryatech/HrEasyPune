@@ -154,8 +154,8 @@
 															test="${editAccess == 0}">
 															<a
 																href="${pageContext.request.contextPath}/attendanceEditEmpMonth?month=${month}&year=${year}&empId=${infomationList.empId}"
-																class="list-icons-item text-primary-600" title=""
-																data-original-title="Edit"><i class="icon-pencil7"></i></a>
+																class="list-icons-item text-primary-600" title="Edit"><i
+																class="icon-pencil7"></i></a>
 														</c:if></td>
 												</tr>
 											</c:forEach>
