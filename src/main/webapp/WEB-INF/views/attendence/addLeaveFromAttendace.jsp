@@ -184,6 +184,7 @@
 								for="leaveTypeId">Select Leave Type <span
 								style="color: red">* </span>:
 							</label>
+							
 							<div class="col-lg-4">
 								<select name="leaveTypeId" data-placeholder="Select Leave Type"
 									id="leaveTypeId" class="form-control"
