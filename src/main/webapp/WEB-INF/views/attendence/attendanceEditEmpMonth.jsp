@@ -122,7 +122,9 @@
 									<%-- <label class="col-form-label col-lg-1"> Unpaid Leave :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label> --%>
 									<label class="col-form-label col-lg-1"> Absent Days : </label>
-									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays+summaryAttendance.unpaidLeave}</label>
+									<label class="col-form-label col-lg-1">${summaryAttendance.absentDays}</label>
+									<label class="col-form-label col-lg-1"> Unpaid Leave :
+									</label> <label class="col-form-label col-lg-1">${summaryAttendance.unpaidLeave}</label>
 									<label class="col-form-label col-lg-1"> Payable Days :
 									</label> <label class="col-form-label col-lg-1">${summaryAttendance.payableDays}</label>
 									<c:if test="${mstEmpType.otApplicable eq 'Yes' }">

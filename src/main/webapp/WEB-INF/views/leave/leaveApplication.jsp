@@ -217,9 +217,9 @@
 									id="submitInsertLeave" method="post"
 									enctype="multipart/form-data">
 
+									<!-- <input type="hidden" class="form-control numbersOnly"
+										id="dayTypeName" value="1" name="dayTypeName"> -->
 									<input type="hidden" class="form-control numbersOnly"
-										id="dayTypeName" value="1" name="dayTypeName"> <input
-										type="hidden" class="form-control numbersOnly"
 										id="noOfDaysExclude" name="noOfDaysExclude" autocomplete="off">
 
 									<div class="form-group row">
@@ -280,23 +280,41 @@
 											</div>
 										</div>
 
-										<!-- <div class="col-lg-2">
-											<select data-placeholder="Select a Day Type" id="dayTypeName"
-												name="dayTypeName"
-												class="form-control form-control-select2 select2-hidden-accessible"
-												data-fouc="" aria-hidden="true"
-												onchange="calholidayWebservice()">
-												<option></option>
-												<option selected value="1">Full Day</option>
-												<option value="2">1st Half</option>
-												<option value="3">2nd Half</option>
-
-
-											</select><span class="validation-invalid-label" id="error_dayType"
-												style="display: none;">This field is required.</span>
-										</div> -->
 									</div>
 
+									<c:choose>
+										<c:when test="${HALF_DAY_LEAVE_SHOW.value==1}">
+											<div class="form-group row">
+												<div class="col-md-6">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-5 float"
+														for="dayTypeName">Select<span style="color: red">*
+													</span> :
+													</label>
+													<div class="col-lg-7 float">
+														<select data-placeholder="Select a Day Type"
+															id="dayTypeName" name="dayTypeName"
+															class="form-control form-control-select2 select2-hidden-accessible"
+															data-fouc="" aria-hidden="true"
+															onchange="calholidayWebservice()">
+															<option></option>
+															<option selected value="1">Full Day</option>
+															<option value="2">1st Half</option>
+															<option value="3">2nd Half</option>
+
+
+														</select><span class="validation-invalid-label" id="error_dayType"
+															style="display: none;">This field is required.</span>
+													</div>
+												</div>
+
+											</div>
+										</c:when>
+										<c:otherwise>
+											<input type="hidden" class="form-control numbersOnly"
+												id="dayTypeName" value="1" name="dayTypeName">
+										</c:otherwise>
+									</c:choose>
 
 									<div class="form-group row">
 										<div class="col-md-6">

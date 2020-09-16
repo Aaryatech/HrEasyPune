@@ -7,8 +7,70 @@
 <!-- <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet"> -->
 <!-- font-family: 'Grandstander', cursive; -->
 
-<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+	rel="stylesheet">
+<style type="text/css">
+.birthday-bg {
+	background: url(${pageContext.request.contextPath}/resources/global_assets/images/birthday_bg.jpg) no-repeat center top;
+	background-size: cover;
+	padding: 50px 20px;
+	text-align: center;
+	/* border-radius: 5px;
+	font-size: 36px;
+	color: #FFF;
+	
+	text-shadow: 0px 6px 10px rgba(0, 0, 0, 0.6);
+	animation: color-change 1s infinite; */
+	position: relative;
+}
 
+.birthday-bg:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(220, 0, 112, 0.7);
+}
+
+.birthday-bg span {
+	position: relative;
+	z-index: 10;
+}
+
+@
+keyframes color-change { 0% {
+	color: #fac307;
+}
+50%
+{
+color
+:
+ 
+#FFF
+;
+ 
+}
+100%
+{
+color
+:
+ 
+#fac307
+;
+ 
+}
+}
+
+/*
+blue color code : #01bcf3 #0089c2;
+purple color : #7200a9    #8317c2;
+Yellow color : #d7ac00    #ffd709;
+Green Color : #007c24     #07a43d
+*/
+</style>
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
@@ -45,20 +107,23 @@
 
 			</div>-->
 			<div class="content">
-				<c:if test="${toDayIsBirthday ==1}">
+				<%-- <c:if test="${toDayIsBirthday ==1}"> --%>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="card">
 								<div class="row">
 									<div class="col-md-12">
-										<div class="element"> <i class="fa fa-birthday-cake" aria-hidden="true"></i> Wish You a very very happy returns of the day Dude... </div> 
+										<!-- <div class="element"> <i class="fa fa-birthday-cake" aria-hidden="true"></i> Wish You a very very happy returns of the day Dude... </div>  -->
+										<div class="birthday-bg" >
+											<span class="element">Happy Birthday Mohsin</span>
+										</div>
 									</div>
 									<!--Leave History -->
 								</div>
 							</div>
 						</div>
 					</div>
-				</c:if>
+				<%-- </c:if> --%>
 				<c:if test="${userType ==2}">
 					<!-- new html start here -->
 					<div class="row">

@@ -212,8 +212,8 @@
 									style="display: none;">This field is required.</span>
 							</div>
 
-							<input type="hidden" class="numbersOnly" id="dayTypeName"
-								name="dayTypeName" autocomplete="off" value="1">
+							<!-- <input type="hidden" class="numbersOnly" id="dayTypeName"
+								name="dayTypeName" autocomplete="off" value="1"> -->
 
 
 						</div>
@@ -232,11 +232,43 @@
 
 							</div>
 						</div>
+						<div class="form-group row">
+							<c:choose>
+								<c:when test="${HALF_DAY_LEAVE_SHOW.value==1}">
+									<label class="col-form-label  col-lg-2" for="dayTypeName">Select<span
+										style="color: red">* </span> :
+									</label>
+									<div class="col-lg-4">
+										<select data-placeholder="Select a Day Type" id="dayTypeName"
+											name="dayTypeName" class="form-control"
+											onchange="calholidayWebservice()">
+											<option selected value="1">Full Day</option>
+											<option value="2">1st Half</option>
+											<option value="3">2nd Half</option>
 
 
-						<input type="hidden" class=" numbersOnly" id="noOfDays"
-							name="noOfDays" autocomplete="off" value="1"> <input
-							type="hidden" class=" numbersOnly" id="noOfDaysExclude"
+										</select><span class="validation-invalid-label" id="error_dayType"
+											style="display: none;">This field is required.</span>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<input type="hidden" class="numbersOnly" id="dayTypeName"
+										name="dayTypeName" autocomplete="off" value="1">
+								</c:otherwise>
+							</c:choose>
+							<label class="col-form-label  col-lg-2" for="dayTypeName">No.
+								of Days : </label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control numbersOnly"
+									placeholder="No. of Days " id="noOfDays" name="noOfDays"
+									autocomplete="off" readonly value="1">
+							</div>
+						</div>
+
+
+						<!-- <input type="hidden" class=" numbersOnly" id="noOfDays"
+							name="noOfDays" autocomplete="off" value="1"> -->
+						<input type="hidden" class=" numbersOnly" id="noOfDaysExclude"
 							name="noOfDaysExclude" autocomplete="off" value="0">
 
 
@@ -566,39 +598,46 @@
 </script>
 
 <script>
-	/* function calholidayWebservice() {
+	function calholidayWebservice() {
 
-		var daterange = document.getElementById("leaveDateRange").value;
+		var dayTypeName = document.getElementById("dayTypeName").value;
+		if (dayTypeName == "" || dayTypeName == 1) {
+			document.getElementById("noOfDays").value = 1;
+		} else {
+			document.getElementById("noOfDays").value = 1 / 2;
+		}
+
+		/*var daterange = document.getElementById("leaveDateRange").value;
 		var dayTypeName = document.getElementById("dayTypeName").value;
 		var res = daterange.split(" to ");
 		var empId = document.getElementById("empId").value;
 		document.getElementById("submtbtn").disabled = true;
 		$
-				.getJSON(
-						'${calholidayWebservice}',
-						{
+			.getJSON(
+					'${calholidayWebservice}',
+					{
 
-							fromDate : res[0],
-							toDate : res[1],
-							empId : empId,
-							ajax : 'true',
+						fromDate : res[0],
+						toDate : res[1],
+						empId : empId,
+						ajax : 'true',
 
-						},
-						function(data) {
+					},
+					function(data) {
 
-							document.getElementById("noOfDaysExclude").value = data.holidaycount;
+						document.getElementById("noOfDaysExclude").value = data.holidaycount;
 
-							if (dayTypeName == "" || dayTypeName == 1) {
-								document.getElementById("noOfDays").value = data.leavecount;
-							} else {
-								document.getElementById("noOfDays").value = data.leavecount / 2;
-							}
+						if (dayTypeName == "" || dayTypeName == 1) {
+							document.getElementById("noOfDays").value = data.leavecount;
+						} else {
+							document.getElementById("noOfDays").value = data.leavecount / 2;
+						}
 
-							//checkDays(data.leavecount);
-							checkDatesRange();
-						});
+						//checkDays(data.leavecount);
+						checkDatesRange();
+					});*/
 
-	} */
+	}
 
 	function trim(el) {
 		el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces

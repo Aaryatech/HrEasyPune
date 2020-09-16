@@ -751,6 +751,12 @@ public class LeaveController {
 			model.addObject("CONTILEAVE", isContinueLeave);
 
 			map = new LinkedMultiValueMap<>();
+			map.add("limitKey", "HALF_DAY_LEAVE_SHOW");
+			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			model.addObject("HALF_DAY_LEAVE_SHOW", HALF_DAY_LEAVE_SHOW);
+			
+			map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 					MstEmpType.class);
@@ -1654,6 +1660,13 @@ public class LeaveController {
 					Setting.class);
 			model.addAttribute("CONTILEAVE", isContinueLeave);
 
+			map = new LinkedMultiValueMap<>();
+			map.add("limitKey", "HALF_DAY_LEAVE_SHOW");
+			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			model.addAttribute("HALF_DAY_LEAVE_SHOW", HALF_DAY_LEAVE_SHOW);
+			
+			
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
