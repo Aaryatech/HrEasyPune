@@ -335,8 +335,16 @@
  -->
 											<c:choose>
 												<c:when test="${stat==7}">
-													<button type="submit" class="btn blue_btn" id="submtbtn"
-														onclick="changeOrinalSts(${stat})">Cancel Leave</button>
+													<c:choose>
+														<c:when test="${isFreeze>0}">
+															<p class="desc text-danger fontsize11">You cannot
+																cancel leave. Month is freeze.</p>
+														</c:when>
+														<c:otherwise>
+															<button type="submit" class="btn blue_btn" id="submtbtn"
+																onclick="changeOrinalSts(${stat})">Cancel Leave</button>
+														</c:otherwise>
+													</c:choose>
 													<a
 														href="${pageContext.request.contextPath}/showLeaveHistList?empId=${encryptEmpId}"><button
 															type="button" class="btn btn-light">

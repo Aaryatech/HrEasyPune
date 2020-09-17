@@ -201,7 +201,7 @@
 													<td>${emp.lvTitle}</td>
 													<td id="dataEarn${emp.empId}${emp.lvTypeId}"
 														data-earn="${emp.lvs_alloted_leaves}"><input
-														class="form-control"
+														class="form-control numbersOnly"
 														id="opning${emp.empId}${emp.lvTypeId}"
 														name="opning${emp.empId}${emp.lvTypeId}"
 														onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
@@ -359,93 +359,45 @@
 
 												var table = $('#printtable1')
 														.DataTable();
-												table.search("").draw();
-												$("#error_lvsId").hide();
-												$("#error_table1").hide();
+												table.search("").draw(); 
 
 												var isError = false;
 												var errMsg = "";
-
-												if ($("#lvsId").val() == "") {
-
-													isError = true;
-
-													$("#error_lvsId").show();
-													//return false;
-												}
-
-												var checkedVals = $(
-														'.chk:checkbox:checked')
-														.map(function() {
-															return this.value;
-														}).get();
-												checkedVals = checkedVals
-														.join(',');
-
-												if (checkedVals == '') {
-													$("#error_table1").show();
-													return false;
-												}
-
+ 
 												if (!isError) {
+ 
+													bootbox
+													.confirm({
+														title : 'Confirm ',
+														message : 'Are you sure to set leave opening balance ?',
+														buttons : {
+															confirm : {
+																label : 'Yes',
+																className : 'btn-success'
+															},
+															cancel : {
+																label : 'Cancel',
+																className : 'btn-link'
+															}
+														},
+														callback : function(result) {
+															if (result) {
+																document
+																		.getElementById("btnassignstuct").disabled = true;
+																document
+																		.getElementById(
+																				"assignstuct")
+																		.submit();
 
-													$("#table_grid1 tbody")
-															.empty();
-
-													$('.chk:checkbox:checked')
-															.each(
-																	function(i) {
-																		var val = $(
-																				this)
-																				.val();
-
-																		if (val != 'on') {
-																			var name = $(
-																					"#empIds"
-																							+ val)
-																					.attr(
-																							'data-name');
-																			var empcode = $(
-																					"#empIds"
-																							+ val)
-																					.attr(
-																							'data-empcode');
-																			var dept = $(
-																					"#empIds"
-																							+ val)
-																					.attr(
-																							'data-depname');
-
-																			var tr_data = '<tr id="tritem' + val + '">'
-																					+ '<td id="itemCount' + val + '">'
-																					+ empcode
-																					+ '</td>'
-																					+ '<td  >'
-																					+ name
-																					+ '</td> </tr>';
-																			$(
-																					'#table_grid1'
-																							+ ' tbody')
-																					.append(
-																							tr_data);
-																		}
-																	});
-
-													var option = $(
-															"#lvsId option:selected")
-															.attr(
-																	"data-leavestrname");
-													$("#showLeaveStruct").html(
-															option);
-													$('#modal_scrollable')
-															.modal('show');
-													return false;
-													/* var x = confirm("Do you really want to submit the form?");
+															}
+														}
+													});
+													 /*  var x = confirm("Do you really want to submit the form?");
 													if (x == true) {
 
 														document.getElementById("btnassignstuct").disabled = true;
 														return true;
-													} */
+													}   */
 													//end ajax send this to php page
 												}
 												return false;
@@ -465,6 +417,11 @@
 			
 			var dataEarn = parseFloat($("#dataEarn"+empId+""+typeId).data("earn"));
 			var opning = parseFloat($("#opning"+empId+""+typeId).val()); 
+			 
+			if(isNaN(opning)){
+				opning=dataEarn;
+				$("#opning"+empId+""+typeId).val(dataEarn);
+			}
 			var bal=dataEarn-opning;
 			
 			if(bal<0){
@@ -476,26 +433,7 @@
 			
 			
 		}
-
-		function myFunction1() {
-			var input, filter, table, tr, td, i, txtValue;
-			input = document.getElementById("myInput1");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("printtable2");
-			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[2];
-				if (td) {
-					txtValue = td.textContent || td.innerText;
-					if (txtValue.toUpperCase().indexOf(filter) > -1) {
-						tr[i].style.display = "";
-					} else {
-						tr[i].style.display = "none";
-					}
-				}
-			}
-		}
-
+ 
 		function myFunction2() {
 			var input, filter, table, tr, td, i, txtValue;
 			input = document.getElementById("myInput2");
@@ -515,44 +453,6 @@
 			}
 		}
 	</script>
-	<!-- Scrollable modal -->
-	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
-		tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header pb-3">
 
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<div class="modal-body py-0">
-					<h5 class="modal-title">
-						Allocated Leave Structure: <b><span id="showLeaveStruct"></span></b>
-					</h5>
-					<br>
-					<table class="table table-bordered table-hover" id="table_grid1">
-						<thead>
-							<tr class="bgpink">
-								<th width="5%">Code</th>
-
-								<th>Employee Name</th>
-
-							</tr>
-						</thead>
-						<tbody>
-
-						</tbody>
-
-					</table>
-				</div>
-
-				<div class="modal-footer pt-3">
-					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /scrollable modal -->
 </body>
 </html>

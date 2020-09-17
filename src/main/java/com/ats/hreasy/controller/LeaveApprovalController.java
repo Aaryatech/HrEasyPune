@@ -42,15 +42,15 @@ public class LeaveApprovalController {
 			int leaveId = Integer.parseInt(FormValidation.DecodeKey(request.getParameter("leaveId")));
 			String apprsts = request.getParameter("apprsts");
 			String rejctsts = request.getParameter("rejctsts");
-			
+
 			String encryptEmpId = request.getParameter("empId");
-			
+
 			model.addObject("encryptEmpId", encryptEmpId);
 			model.addObject("empId", empId);
 			model.addObject("leaveId", leaveId);
 			model.addObject("stat", apprsts);
 			model.addObject("stat2", rejctsts);
-			
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("leaveId", leaveId);
 			GetLeaveStatus[] employeeDoc = Constants.getRestTemplate()
@@ -69,6 +69,14 @@ public class LeaveApprovalController {
 			model.addObject("lvEmp", lvEmp);
 
 			model.addObject("imageUrl", Constants.leaveDocShowUrl);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			map.add("fromDate", DateConvertor.convertToYMD(lvEmp.getLeaveFromdt()));
+			map.add("toDate", DateConvertor.convertToYMD(lvEmp.getLeaveTodt()));
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/getStatusForFreezeMonth", map,
+					Info.class);
+			model.addObject("isFreeze", info.getMsg());
 
 		} catch (Exception e) {
 			e.printStackTrace();
