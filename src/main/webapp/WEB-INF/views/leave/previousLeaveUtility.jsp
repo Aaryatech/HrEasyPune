@@ -156,164 +156,140 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<ul class="nav nav-tabs nav-tabs-highlight nav-justified1">
-							<li class="nav-item"><a href="#highlighted-justified-tab1"
-								class="nav-link active" data-toggle="tab">Allocation Pending</a></li>
-							<li class="nav-item"><a href="#highlighted-justified-tab2"
-								class="nav-link" data-toggle="tab">Allocated</a></li>
-
-						</ul>
-
-						<div class="tab-content">
-							<div class="tab-pane fade show active"
-								id="highlighted-justified-tab1">
-								<form
-									action="${pageContext.request.contextPath}/submitPriviousLeave"
-									method="post" id="assignstuct">
-									<input type="text" id="myInput2" class="myInput"
-										onkeyup="myFunction2()" placeholder="Search for employee.."
-										title="Type in a name">
-									<div class="table-responsive">
-										<table
-											class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-											id="printtable1">
-											<thead>
-												<tr class="bg-blue">
-
-													<th class="text-center" width="5%">Sr. No.</th>
-													<th class="text-center">Employee Name</th>
-													<th class="text-center">Leave Type</th>
-													<th class="text-center">Opening</th>
-													<th class="text-center">No. of Day to Apply</th>
-												</tr>
-											</thead>
-											<tbody>
-
-
-												<c:set value="0" var="sameEmpId"></c:set>
-												<c:set value="0" var="previousEmpId"></c:set>
-												<c:set value="0" var="index"></c:set>
-												<c:forEach items="${list}" var="emp" varStatus="count">
-													<tr>
-														<td><c:choose>
-																<c:when test="${emp.empId==previousEmpId}"></c:when>
-																<c:otherwise>${index+1}<c:set var="index"
-																		value="${index+1}"></c:set>
-																</c:otherwise>
-															</c:choose></td>
-
-														<td>${emp.empName}&nbsp;(${emp.empCode})</td>
-														<td>${emp.lvTitle}</td>
-														<td id="dataEarn${emp.empId}${emp.lvTypeId}"
-															data-earn="${emp.lvs_alloted_leaves}"><input
-															class="form-control"
-															id="opning${emp.empId}${emp.lvTypeId}"
-															name="opning${emp.empId}${emp.lvTypeId}"
-															onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
-															value="0"></td>
-														<td><input class="form-control"
-															id="noOfDay${emp.empId}${emp.lvTypeId}"
-															name="noOfDay${emp.empId}${emp.lvTypeId}" value="0"
-															readonly="readonly"></td>
-													</tr>
-													<c:set value="${emp.empId}" var="previousEmpId"></c:set>
-												</c:forEach>
-
-											</tbody>
-										</table>
-									</div>
-									<span class="validation-invalid-label" id="error_table1"
-										style="display: none;">Please select one employee.</span> <br>
-
-									<div class="form-group text-center ">
-										<input type="submit" class="btn blue_btn" value="Save"
-											id="btnassignstuct">
-
-									</div>
 
 
 
-								</form>
-							</div>
-
-							<div class="tab-pane fade" id="highlighted-justified-tab2">
-
-
-								<input type="text" id="myInput1" class="myInput"
-									onkeyup="myFunction1()" placeholder="Search for employee.."
-									title="Type in a name">
+						<div class="tab-pane fade show active"
+							id="highlighted-justified-tab1">
+							<form
+								action="${pageContext.request.contextPath}/submitPriviousLeave"
+								method="post" id="assignstuct">
+								<!-- <input type="text" id="myInput2" class="myInput"
+									onkeyup="myFunction2()" placeholder="Search for employee.."
+									title="Type in a name"> -->
 								<div class="table-responsive">
 									<table
-										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-										id="printtable2">
+										class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
 
 												<th class="text-center" width="5%">Sr. No.</th>
-												<th class="text-center" width="10%">Employee Code</th>
 												<th class="text-center">Employee Name</th>
-												<th class="text-center">Department</th>
-												<th class="text-center">Designation</th>
-												<th class="text-center" width="20%">Structure</th>
-												<th class="text-center" width="10%">Action</th>
+												<th class="text-center">Leave Type</th>
+												<th class="text-center">Opening</th>
+												<th class="text-center">No. of Day to Apply</th>
 
 
 											</tr>
 										</thead>
 										<tbody>
+											<c:set value="0" var="sameEmpId"></c:set>
+											<c:set value="0" var="previousEmpId"></c:set>
+											<c:set value="0" var="index"></c:set>
+											<c:forEach items="${list}" var="emp" varStatus="count">
 
-											<c:set var="index" value="0"></c:set>
-											<c:forEach items="${lvStructureList}" var="structure"
-												varStatus="count">
+												<tr>
+													<td><c:choose>
+															<c:when test="${emp.empId==previousEmpId}"></c:when>
+															<c:otherwise>${index+1}<c:set var="index"
+																	value="${index+1}"></c:set>
+															</c:otherwise>
+														</c:choose></td>
 
-
-
-
-												<c:set var="countOf" value="0"></c:set>
-												<c:set var="countOf" value="0"></c:set>
-												<c:forEach items="${calAllotList}" var="calender"
-													varStatus="count1">
-													<c:if test="${calender.empId == structure.empId}">
-														<c:set var="countOf" value="1"></c:set>
-														<c:set var="lvsaPkey" value="${calender.lvsaPkey}"></c:set>
-													</c:if>
-
-
-												</c:forEach>
-
-
-
-												<c:choose>
-													<c:when test="${countOf==1}">
-														<tr>
-															<td>${index+1}</td>
-															<c:set var="index" value="${index+1}"></c:set>
-															<td>${structure.empCode}</td>
-															<td>${structure.empSname}&nbsp;${structure.empFname}</td>
-															<td>${structure.empDeptName}</td>
-															<td>${structure.empCatName}</td>
-															<td>${structure.lvsName}</td>
-															<td><a
-																href="${pageContext.request.contextPath}/editLeaveStructureAllotment?lvsaPkey=${lvsaPkey}"
-																class="list-icons-item text-primary-600"
-																data-popup="tooltip" title="" data-original-title="Edit"><i
-																	class="icon-pencil7"></i></a></td>
-														</tr>
-													</c:when>
-												</c:choose>
-
-
-
-
-
+													<td>${emp.empName}&nbsp;(${emp.empCode})</td>
+													<td>${emp.lvTitle}</td>
+													<td id="dataEarn${emp.empId}${emp.lvTypeId}"
+														data-earn="${emp.lvs_alloted_leaves}"><input
+														class="form-control"
+														id="opning${emp.empId}${emp.lvTypeId}"
+														name="opning${emp.empId}${emp.lvTypeId}"
+														onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
+														value="${emp.lvs_alloted_leaves-emp.leaveNumDays}"></td>
+													<td><input class="form-control"
+														id="noOfDay${emp.empId}${emp.lvTypeId}"
+														name="noOfDay${emp.empId}${emp.lvTypeId}" value="0"
+														readonly="readonly"></td>
+												</tr>
+												<c:set value="${emp.empId}" var="previousEmpId"></c:set>
 											</c:forEach>
 
 										</tbody>
 									</table>
 								</div>
-							</div>
+
+								<%-- <input type="text" id="myInput2" class="myInput"
+									onkeyup="myFunction2()" placeholder="Search for employee.."
+									title="Type in a name">
+								<table
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
+									<thead>
+										<tr class="bg-blue">
+
+											<th class="text-center" width="5%">Sr. No.</th>
+											<th class="text-center">Employee Name</th>
+											<th class="text-center">Leave Type</th>
+											<th class="text-center">Opening</th>
+											<th class="text-center">No. of Day to Apply</th>
+										</tr>
+									</thead>
+									<tbody>
 
 
+										<c:set value="0" var="sameEmpId"></c:set>
+										<c:set value="0" var="previousEmpId"></c:set>
+										<c:set value="0" var="index"></c:set>
+										<c:forEach items="${list}" var="emp" varStatus="count">
+
+											<c:choose>
+												<c:when test="${emp.empId==previousEmpId}">
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td colspan="5"></td>
+													</tr>
+												</c:otherwise>
+
+											</c:choose>
+											<tr>
+												<td><c:choose>
+														<c:when test="${emp.empId==previousEmpId}"></c:when>
+														<c:otherwise>${index+1}<c:set var="index"
+																value="${index+1}"></c:set>
+														</c:otherwise>
+													</c:choose></td>
+
+												<td>${emp.empName}&nbsp;(${emp.empCode})</td>
+												<td>${emp.lvTitle}</td>
+												<td id="dataEarn${emp.empId}${emp.lvTypeId}"
+													data-earn="${emp.lvs_alloted_leaves}"><input
+													class="form-control" id="opning${emp.empId}${emp.lvTypeId}"
+													name="opning${emp.empId}${emp.lvTypeId}"
+													onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
+													value="${emp.lvs_alloted_leaves-emp.leaveNumDays}"></td>
+												<td><input class="form-control"
+													id="noOfDay${emp.empId}${emp.lvTypeId}"
+													name="noOfDay${emp.empId}${emp.lvTypeId}" value="0"
+													readonly="readonly"></td>
+											</tr>
+											<c:set value="${emp.empId}" var="previousEmpId"></c:set>
+										</c:forEach>
+
+									</tbody>
+								</table> --%>
+								<span class="validation-invalid-label" id="error_table1"
+									style="display: none;">Please select one employee.</span> <br>
+
+								<div class="form-group text-center ">
+									<input type="submit" class="btn blue_btn" value="Save"
+										id="btnassignstuct">
+
+								</div>
+
+
+
+							</form>
 						</div>
 
 					</div>
@@ -335,6 +311,33 @@
 	<!-- /page content -->
 
 	<script type="text/javascript">
+	
+	$('.datatable-fixed-left_custom').DataTable({
+
+		columnDefs : [ {
+			orderable : false,
+			targets : [0]
+		}, {
+			width : "10px",
+			targets : [ 0 ]
+		}, {
+			width : "10px",
+			targets : [ 1 ]
+		}, {
+			width : "200px",
+			targets : [ 3 ]
+		} ],"order": [],
+		//scrollX : true,
+		scrollX : true,
+		scrollY : '65vh',
+		scrollCollapse : true,
+		paging : false,
+		fixedColumns : {
+			leftColumns : 0,
+			rightColumns : 0
+		}
+
+	});
 		$(document).ready(
 				function() {
 					//$('#bootstrap-data-table-export').DataTable();
@@ -465,8 +468,8 @@
 			var bal=dataEarn-opning;
 			
 			if(bal<0){
-				$("#noOfDay"+empId+""+typeId).val(dataEarn);
-				$("#opning"+empId+""+typeId).val(0);
+				$("#noOfDay"+empId+""+typeId).val(0);
+				$("#opning"+empId+""+typeId).val(dataEarn);
 			}else{
 				$("#noOfDay"+empId+""+typeId).val(bal);
 			}
