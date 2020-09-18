@@ -31,6 +31,7 @@ import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyDaily;
 import com.ats.hreasy.model.DashboardLeavePending;
 import com.ats.hreasy.model.Department;
+import com.ats.hreasy.model.EmpDeptWise;
 import com.ats.hreasy.model.EmpGraphDetail;
 import com.ats.hreasy.model.EmpInfoForDashBoard;
 import com.ats.hreasy.model.GetEmployeeDetails;
@@ -674,7 +675,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		  //System.err.println("-------------" + dash.getBirth().getLoginUserBirthDay());
+		// System.err.println("-------------" + dash.getBirth().getLoginUserBirthDay());
 		model.addAttribute("toDayIsBirthday", dash.getBirth().getLoginUserBirthDay());
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr
@@ -805,6 +806,26 @@ public class DashboardAdminController {
 			map.add("empId", empId);
 			EmpGraphDetail[] empGraphDetail = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLateMarkGraph", map, EmpGraphDetail[].class);
+			list = new ArrayList<>(Arrays.asList(empGraphDetail));
+
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
+
+	@RequestMapping(value = "/getdeptwiseEmp", method = RequestMethod.GET)
+	public @ResponseBody List<EmpDeptWise> getdeptwiseEmp(HttpServletRequest request, HttpServletResponse response) {
+
+		List<EmpDeptWise> list = new ArrayList<>();
+		try {
+
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			EmpDeptWise[] empGraphDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getDeparmentWiseEmpCount", map, EmpDeptWise[].class);
 			list = new ArrayList<>(Arrays.asList(empGraphDetail));
 
 		} catch (Exception e) {
