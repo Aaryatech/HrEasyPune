@@ -167,7 +167,11 @@
 													value="${apprvlList.id}" name="ids" class="select_all"></td>
 												<td>${apprvlList.empCode}</td>
 												<td>${apprvlList.empName}</td>
-												<td>${apprvlList.holidayName}&nbsp;(${apprvlList.holidate})</td>
+												<td>${apprvlList.holidayName}&nbsp;(${apprvlList.holidate})<input
+													type="hidden" value="${apprvlList.holidate}"
+													name="date${apprvlList.id}"><input type="hidden"
+													value="${apprvlList.empId}" name="empId${apprvlList.id}">
+												</td>
 												<td>${apprvlList.remark}</td>
 
 											</tr>

@@ -26,6 +26,7 @@ import com.ats.hreasy.common.UpateAttendaceCommon;
 import com.ats.hreasy.model.AuthorityInformation;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.EmpDetailForOptionalHoliday;
+import com.ats.hreasy.model.EmpIdAndDate;
 import com.ats.hreasy.model.EmpListForHolidayApprove;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmployeeDetails;
@@ -207,12 +208,17 @@ public class OptionalHolidayController {
 			String[] ids = request.getParameterValues("ids");
 			StringBuilder sb = new StringBuilder();
 
-			List<Integer> empIdList = new ArrayList<>();
+			List<EmpIdAndDate> empIdList = new ArrayList<>();
 
 			for (int i = 0; i < ids.length; i++) {
 				sb = sb.append(ids[i] + ",");
-				empIdList.add(Integer.parseInt(ids[i]));
+				EmpIdAndDate empIdAndDate = new EmpIdAndDate();
 
+				int empId = Integer.parseInt(request.getParameter("empId" + ids[i]));
+				String date = request.getParameter("date" + ids[i]);
+				empIdAndDate.setEmpId(empId);
+				empIdAndDate.setDate(date);
+				empIdList.add(empIdAndDate);
 			}
 
 			String items = sb.toString();
@@ -235,6 +241,13 @@ public class OptionalHolidayController {
 					session.setAttribute("successMsg", "Optional Holiday Rejected Successfully");
 				} else {
 					session.setAttribute("successMsg", "Optional Holiday Approved Successfully");
+					for (int i = 0; i < empIdList.size(); i++) {
+
+						UpateAttendaceCommon upateAttendaceCommon = new UpateAttendaceCommon();
+						Info updateAttendaceInfo = upateAttendaceCommon.changeInDailyDailyAfterLeaveTransaction(
+								empIdList.get(i).getDate(), empIdList.get(i).getDate(), empIdList.get(i).getEmpId(),
+								userObj.getUserId());
+					}
 				}
 
 			} else {
