@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.common.UpateAttendaceCommon;
 import com.ats.hreasy.model.AuthorityInformation;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.EmpDetailForOptionalHoliday;
@@ -316,9 +317,9 @@ public class OptionalHolidayController {
 
 			Date dt = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
+			// sf.format(dt)
 			map = new LinkedMultiValueMap<>();
-			map.add("date", sf.format(dt));
+			map.add("date", "2020-05-01");
 			map.add("yearId", calculateYear.getCalYrId());
 			map.add("catId", empDetail.getHolidayCategory());
 			map.add("empId", empId);
@@ -382,6 +383,10 @@ public class OptionalHolidayController {
 
 			if (res != null) {
 				session.setAttribute("successMsg", "Optional Holiday Apply Successfully");
+				UpateAttendaceCommon upateAttendaceCommon = new UpateAttendaceCommon();
+				Info updateAttendaceInfo = upateAttendaceCommon.changeInDailyDailyAfterLeaveTransaction(
+						DateConvertor.convertToDMY(save.getHolidate()), DateConvertor.convertToDMY(save.getHolidate()),
+						empDetail.getEmpId(), userObj.getUserId());
 			} else {
 				session.setAttribute("errorMsg", "Failed to Apply Optional Holiday");
 			}

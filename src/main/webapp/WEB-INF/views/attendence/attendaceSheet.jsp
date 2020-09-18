@@ -124,7 +124,7 @@
 										<thead>
 											<tr class="bg-blue">
 												<!-- <th style="text-align: center;">Sr.no</th> -->
-												<th style="text-align: center;">EMP Code</th>
+												<!-- <th style="text-align: center;">EMP Code</th> -->
 												<th style="text-align: center;">EMP Name</th>
 												<th style="text-align: center;">Month</th>
 												<th style="text-align: center;">Year</th>
@@ -141,8 +141,8 @@
 												var="infomationList" varStatus="count">
 												<tr>
 													<%-- 	<td>${count.index+1}</td> --%>
-													<td style="text-align: center;">${infomationList.empCode}</td>
-													<td>${infomationList.empName}</td>
+													<%-- <td style="text-align: center;">${infomationList.empCode}</td> --%>
+													<td>${infomationList.empName}&nbsp;(${infomationList.empCode})</td>
 													<td style="text-align: right;">${month}</td>
 													<td style="text-align: right;">${year}</td>
 													<c:forEach items="${infomationList.sttsList}"
@@ -177,7 +177,7 @@
 										<thead>
 											<tr class="bg-blue">
 												<!-- <th width="5%" class="text-center">Sr.no</th> -->
-												<th class="text-center">EMP Code</th>
+												<!-- <th class="text-center">EMP Code</th> -->
 												<th class="text-center">EMP Name</th>
 												<th class="text-center">Working Days</th>
 												<th class="text-center">Present Days</th>
@@ -203,8 +203,8 @@
 												varStatus="count">
 												<tr>
 													<%-- <td>${count.index+1}</td> --%>
-													<td>${summrylist.empCode}</td>
-													<td>${summrylist.empName}</td>
+													<%-- <td>${summrylist.empCode}</td> --%>
+													<td>${summrylist.empName}&nbsp;(${summrylist.empCode})</td>
 													<td class="text-right">${summrylist.workingDays}</td>
 													<td class="text-right">${summrylist.presentDays}</td>
 													<td class="text-right">${summrylist.absentDays}</td>
@@ -302,7 +302,7 @@
 				scrollCollapse : true,
 				paging : false,
 				fixedColumns : {
-					leftColumns : 2,
+					leftColumns : 1,
 					rightColumns : 1
 				}
 

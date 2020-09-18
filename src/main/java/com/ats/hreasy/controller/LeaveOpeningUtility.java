@@ -73,12 +73,14 @@ public class LeaveOpeningUtility {
 	@RequestMapping(value = "/submitPriviousLeave", method = RequestMethod.POST)
 	public String insertOpningLeave(HttpServletRequest request, HttpServletResponse response) {
 		String empId1 = request.getParameter("empId");
+		HttpSession session = request.getSession();
+		
 		try {
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-			HttpSession session = request.getSession();
+			
 			Date date = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -143,7 +145,14 @@ public class LeaveOpeningUtility {
 			}
 			LeaveApply[] res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLeaveApplyList",
 					save, LeaveApply[].class);
+			
+			if (res != null) {
+				session.setAttribute("successMsg", "Update leave opening Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update leave opening");
+			}
 		} catch (Exception e) {
+			session.setAttribute("errorMsg", "Failed to update leave opening");
 			e.printStackTrace();
 		}
 
