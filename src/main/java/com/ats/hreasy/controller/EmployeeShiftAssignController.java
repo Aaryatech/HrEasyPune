@@ -1234,13 +1234,18 @@ public class EmployeeShiftAssignController {
 
 			try {
 
+				int locId = (int) session.getAttribute("liveLocationId");
+				 
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				
 				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getAllEmployeeDetailAccesibleLoc", GetEmployeeDetails[].class);
+						.postForObject(Constants.url + "/getAllEmployeeDetailAccesibleLocBylocationId",map, GetEmployeeDetails[].class);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
 				map.add("companyId", 1);
 
 				Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
