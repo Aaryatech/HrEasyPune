@@ -208,7 +208,13 @@ public class EmployeeShiftAssignController {
 						.getForObject(Constants.url + "/getSalryTypesMst", SalaryTypesMaster[].class);
 				List<SalaryTypesMaster> shiftList =  new ArrayList<SalaryTypesMaster>(Arrays.asList(empdetList2));
 				model.addObject("shiftList", shiftList);
-				 
+				Info edit = AcessController.checkAccess("showEmpListToAssignSalStruct", "showEmpListToAssignSalStruct", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addObject("editAccess", 0);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -785,7 +791,13 @@ public class EmployeeShiftAssignController {
 				List<WeekoffCategory> locationList1 = new ArrayList<WeekoffCategory>(Arrays.asList(location1));
 
 				model.addAttribute("holiList", locationList1);
-
+				Info edit = AcessController.checkAccess("assignWeekoffCategory", "assignWeekoffCategory", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -880,6 +892,14 @@ public class EmployeeShiftAssignController {
 				List<MstCompanySub> locationList1 = new ArrayList<MstCompanySub>(Arrays.asList(location1));
 				model.addAttribute("subCompList", locationList1);
 
+				Info edit = AcessController.checkAccess("assignSubCompany", "assignSubCompany", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -973,6 +993,14 @@ public class EmployeeShiftAssignController {
 				List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
 
 				model.addAttribute("departmentList", departmentList);
+				
+				Info edit = AcessController.checkAccess("assignDept", "assignDept", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1070,6 +1098,14 @@ public class EmployeeShiftAssignController {
 				List<Designation> designationList = new ArrayList<Designation>(Arrays.asList(designation));
 				model.addAttribute("designationList", designationList);
 
+				Info edit = AcessController.checkAccess("showAssignDesignation", "showAssignDesignation", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1162,6 +1198,16 @@ public class EmployeeShiftAssignController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			 
+			Info edit = AcessController.checkAccess("showAssignLocation", "showAssignLocation", 0, 0, 1, 0,
+					newModuleList);
+			  
+			if (edit.isError() == false) {
+				// System.out.println(" edit Accessable ");
+				model.addAttribute("editAccess", 0);
+			}
+			 
 		}
 		return ret;
 	}
@@ -1254,6 +1300,14 @@ public class EmployeeShiftAssignController {
 
 				model.addAttribute("locationList", locationList);
 
+				Info edit = AcessController.checkAccess("showAssignAccesibleLocation", "showAssignAccesibleLocation", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1344,6 +1398,14 @@ public class EmployeeShiftAssignController {
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
 
 				model.addAttribute("empTypeList", empTypeList1);
+				
+				Info edit = AcessController.checkAccess("showAssignEmpType", "showAssignEmpType", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1440,6 +1502,14 @@ public class EmployeeShiftAssignController {
 
 				model.addAttribute("skillList1", skillList1);
 
+				Info edit = AcessController.checkAccess("showAssignSkillRate", "showAssignSkillRate", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1533,7 +1603,13 @@ public class EmployeeShiftAssignController {
 				List<EmpType> empTypeList = new ArrayList<EmpType>(Arrays.asList(EmpType));
 
 				model.addAttribute("empTypeList", empTypeList);
-
+				Info edit = AcessController.checkAccess("showAssignAccessRole", "showAssignAccessRole", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -275,7 +275,13 @@ System.err.println("otp " +otp +" userKey ie email " +userKey);
 
 				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 				model.addAttribute("empdetList", empdetList);
-				
+				Info edit = AcessController.checkAccess("showAssignLogin", "showAssignLogin", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -361,11 +367,13 @@ System.err.println("otp " +otp +" userKey ie email " +userKey);
 			
 			int empId=Integer.parseInt(request.getParameter("empId"));
 			String empEmail= request.getParameter("empEmail");
-			System.err.println("empEmail " +empEmail);
+			String empCode = request.getParameter("empCode");
+			
+			//System.err.println("empEmail " +empEmail);
 			try {
 
 			EmailUtility.sendEmailWithSubMsgAndToAdd("HR Application Credentials ", "Your credentials to use the HR Application as below "
-					+ "\n User name: " + empEmail + " \n Password : " + password,empEmail);
+					+ "\n User name: " + empCode + " \n Password : " + password,empEmail);
 			}catch (Exception e2) {
 				info=new Info();
 				return info;

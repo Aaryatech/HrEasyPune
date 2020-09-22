@@ -89,96 +89,96 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<form
-							action="${pageContext.request.contextPath}/submitAssignLocToEmp"
-							id="submitInsertEmp" method="post">
+						<c:if test="${editAccess == 0}">
+							<form
+								action="${pageContext.request.contextPath}/submitAssignLocToEmp"
+								id="submitInsertEmp" method="post">
+						</c:if>
+						<div class="form-group row">
 
-							<div class="form-group row">
+							<label class="col-form-label text-info font-weight-bold col-lg-2"
+								for="locId">Location <span class="text-danger">*</span>:
+							</label>
+							<div class="col-lg-4">
+								<select name="locId" data-placeholder="Select Location"
+									id="locId"
+									class="form-control form-control-select2 select2-hidden-accessible">
 
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="locId">Location <span class="text-danger">*</span>:
-								</label>
-								<div class="col-lg-4">
-									<select name="locId" data-placeholder="Select Location"
-										id="locId"
-										class="form-control form-control-select2 select2-hidden-accessible">
+									<option value="">Select Location</option>
+									<c:forEach items="${locationList}" var="locationList">
 
-										<option value="">Select Location</option>
-										<c:forEach items="${locationList}" var="locationList">
+										<option value="${locationList.locId}">${locationList.locName}
+											[${locationList.locNameShort}]</option>
 
-											<option value="${locationList.locId}">${locationList.locName}
-												[${locationList.locNameShort}]</option>
-
-										</c:forEach>
-									</select> <span class="hidedefault   validation-invalid-label"
-										style="display: none;" id="error_locId">This field is
-										required.</span>
-								</div>
+									</c:forEach>
+								</select> <span class="hidedefault   validation-invalid-label"
+									style="display: none;" id="error_locId">This field is
+									required.</span>
 							</div>
+						</div>
 
-							<div class="table-responsive">
-								<!-- <table
+						<div class="table-responsive">
+							<!-- <table
 							class="table table-bordered table-hover datatable-highlight" id="printtable1"> -->
-								<table
-									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-									width="100%" id="printtable1">
-									<thead>
-										<tr class="bg-blue">
+							<table
+								class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+								width="100%" id="printtable1">
+								<thead>
+									<tr class="bg-blue">
 
-											<th width="10%">Sr.no</th>
+										<th width="10%">Sr.no</th>
 
-											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-											<th>Employee Code</th>
-											<th>Employee Detail</th>
-											<th>Location</th>
-											<th>Company</th>
+										<th><input type="checkbox" name="selAll" id="selAll" /></th>
+										<th>Employee Code</th>
+										<th>Employee Detail</th>
+										<th>Location</th>
+										<th>Company</th>
 
+
+									</tr>
+								</thead>
+								<tbody>
+
+
+									<c:forEach items="${empdetList}" var="empdetList"
+										varStatus="count">
+										<c:set var="sty_color" value="orange"></c:set>
+										<c:choose>
+											<c:when test="${empdetList.locName eq null}">
+												<c:set var="sty_color" value="orange"></c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set var="sty_color" value=""></c:set>
+											</c:otherwise>
+										</c:choose>
+										<tr style="background: ${sty_color};">
+
+											<td>${count.index+1}</td>
+											<td><input type="checkbox" id="empId${empdetList.empId}"
+												value="${empdetList.empId}" name="empId" class="select_all"></td>
+											<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+											<td>${empdetList.locName}</td>
+											<td>${empdetList.subCompName}</td>
 
 										</tr>
-									</thead>
-									<tbody>
+									</c:forEach>
 
+								</tbody>
+							</table>
+						</div>
+						<br /> <span class="validation-invalid-label" id="error_chk"
+							style="display: none;">Please Select the Employee.</span>
 
-										<c:forEach items="${empdetList}" var="empdetList"
-											varStatus="count">
-											<c:set var="sty_color" value="orange"></c:set>
-											<c:choose>
-												<c:when test="${empdetList.locName eq null}">
-													<c:set var="sty_color" value="orange"></c:set>
-												</c:when>
-												<c:otherwise>
-													<c:set var="sty_color" value=""></c:set>
-												</c:otherwise>
-											</c:choose>
-											<tr style="background: ${sty_color};">
-
-												<td>${count.index+1}</td>
-												<td><input type="checkbox"
-													id="empId${empdetList.empId}" value="${empdetList.empId}"
-													name="empId" class="select_all"></td>
-												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
-												<td>${empdetList.locName}</td>
-												<td>${empdetList.subCompName}</td>
-
-											</tr>
-										</c:forEach>
-
-									</tbody>
-								</table>
-							</div>
-							<br /> <span class="validation-invalid-label" id="error_chk"
-								style="display: none;">Please Select the Employee.</span>
-
-
+						<c:if test="${editAccess == 0}">
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>
-						</form>
+							</form>
+						</c:if>
 
 					</div>
 
@@ -242,7 +242,7 @@
 		});
 	</script>
 
-<!-- 	<script type="text/javascript">
+	<!-- 	<script type="text/javascript">
 		$(document).ready(
 				function() {
 					//	$('#printtable').DataTable();
@@ -254,6 +254,7 @@
 							});
 				});
 	</script> -->
-<script src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
 </body>
 </html>

@@ -88,138 +88,137 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<form
-							action="${pageContext.request.contextPath}/submitAssignLoginType"
-							id="submitInsertEmp" method="post">
+						<c:if test="${editAccess == 0}">
+							<form
+								action="${pageContext.request.contextPath}/submitAssignLoginType"
+								id="submitInsertEmp" method="post">
+						</c:if>
+						<div class="form-group row">
 
-							<div class="form-group row">
+							<label class="col-form-label text-info font-weight-bold col-lg-2"
+								for="desigId"> Login Types <span class="text-danger">*</span>:
+							</label>
+							<div class="col-lg-4">
+								<select name="login_type" data-placeholder="Select  Login Type"
+									id="login_type"
+									class="form-control form-control-select2 select2-hidden-accessible">
+									<option selected disabled value="-1">Select login</option>
+									<option value="0">NA</option>
+									<option value="1">Web Application</option>
+									<option value="2">Mobile App</option>
+									<option value="3">Mobile and Web Application Both</option>
 
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="desigId"> Login Types <span class="text-danger">*</span>:
-								</label>
-								<div class="col-lg-4">
-									<select name="login_type" data-placeholder="Select  Login Type"
-										id="login_type"
-										class="form-control form-control-select2 select2-hidden-accessible">
-										<option selected disabled value="-1">Select login</option>
-										<option value="0">NA</option>
-										<option value="1">Web Application</option>
-										<option value="2">Mobile App</option>
-										<option value="3">Mobile and Web Application Both</option>
+								</select> <span class="hidedefault   validation-invalid-label"
+									style="display: none;" id="error_desigId">This field is
+									required.</span>
+							</div>
+							<div class="col-lg-3">
+								<div id="loader" align="center" style="display: none;">
 
-									</select> <span class="hidedefault   validation-invalid-label"
-										style="display: none;" id="error_desigId">This field is
-										required.</span>
-								</div>
-								<div class="col-lg-3">
-									<div id="loader" align="center" style="display: none;">
-
-										<button type="button" class="btn bg-teal-400 ml-2"
-											id="spinner-dark">
-											<i class="icon-spinner spinner mr-2"></i> Sending...
-										</button>
-									</div>
+									<button type="button" class="btn bg-teal-400 ml-2"
+										id="spinner-dark">
+										<i class="icon-spinner spinner mr-2"></i> Sending...
+									</button>
 								</div>
 							</div>
+						</div>
 
-							<div class="table-responsive">
+						<div class="table-responsive">
 
 
-								<table
-									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-									width="100%" id="printtable1">
+							<table
+								class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+								width="100%" id="printtable1">
 
-									<!-- <table class="table datatable-scroll-y" width="100%"
+								<!-- <table class="table datatable-scroll-y" width="100%"
 									id="printtable1"> -->
-									<thead>
-										<tr class="bg-blue">
+								<thead>
+									<tr class="bg-blue">
 
-											<th width="10%">Sr.no</th>
+										<th width="10%">Sr.no</th>
 
-											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-											<th>Employee Code</th>
-											<th>Employee Detail</th>
-											<!-- <th>Department</th>
+										<th><input type="checkbox" name="selAll" id="selAll" /></th>
+										<th>Employee Code</th>
+										<th>Employee Detail</th>
+										<!-- <th>Department</th>
 											<th>Designation</th> -->
-											<th>Mobile</th>
-											<th>Email</th>
-											<th>Login Type</th>
-											<th>Action</th>
+										<th>Mobile</th>
+										<th>Email</th>
+										<th>Login Type</th>
+										<th>Action</th>
 
-										</tr>
-									</thead>
-									<tbody>
+									</tr>
+								</thead>
+								<tbody>
 
 
-										<c:forEach items="${empdetList}" var="empdetList"
-											varStatus="count">
+									<c:forEach items="${empdetList}" var="empdetList"
+										varStatus="count">
 
-											<c:set var="sty_color" value="orange"></c:set>
+										<c:set var="sty_color" value="orange"></c:set>
+										<c:choose>
+											<c:when test="${empdetList.shiftname eq '0'}">
+												<c:set var="sty_color" value="orange"></c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set var="sty_color" value=""></c:set>
+											</c:otherwise>
+										</c:choose>
+										<tr id="empId${empdetList.empId}"
+											style="background: ${sty_color};">
+
+											<td>${count.index+1}</td>
+											<td><input type="checkbox" id="empId${empdetList.empId}"
+												value="${empdetList.empId}" name="empId" class="select_all"></td>
+											<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
+											<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
+												(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+
+											<td>${empdetList.mobileNo1}</td>
+											<td>${empdetList.woCatName}</td>
+
+											<%-- <td>${empdetList.deptName}</td>
+												<td>${empdetList.empDesgn}</td> --%>
+											<c:set var="loginType" value="NA" />
 											<c:choose>
-												<c:when test="${empdetList.shiftname eq '0'}">
-													<c:set var="sty_color" value="orange"></c:set>
+												<c:when test="${empdetList.shiftname eq '1'}">
+													<c:set var="loginType" value="Web Application" />
+												</c:when>
+												<c:when test="${empdetList.shiftname eq '2'}">
+													<c:set var="loginType" value="Mobile App" />
+												</c:when>
+												<c:when test="${empdetList.shiftname eq '3'}">
+													<c:set var="loginType"
+														value="Mobile and Web Application Both" />
 												</c:when>
 												<c:otherwise>
-													<c:set var="sty_color" value=""></c:set>
+													<c:set var="loginType" value="NA" />
 												</c:otherwise>
 											</c:choose>
-											<tr id="empId${empdetList.empId}"
-												style="background: ${sty_color};">
+											<td>${loginType}</td>
 
-												<td>${count.index+1}</td>
-												<td><input type="checkbox"
-													id="empId${empdetList.empId}" value="${empdetList.empId}"
-													name="empId" class="select_all"></td>
-												<td>${empdetList.empCode}&nbsp;(${empdetList.empTypeName})</td>
-												<td>${empdetList.surname}&nbsp;&nbsp;${empdetList.firstName}
-													(${empdetList.empDesgn} - ${empdetList.deptName})</td>
+											<td><a href="#"
+												title="Reset and send Login Credential on Email"
+												onclick="sendUserCred(${empdetList.empId},'${empdetList.woCatName}','${empdetList.empCode}')"><i
+													class="icon-mail5 mr-3 icon-2x" style="color: red;"></i></a></td>
 
-												<td>${empdetList.mobileNo1}</td>
-												<td>${empdetList.woCatName}</td>
+										</tr>
+									</c:forEach>
 
-												<%-- <td>${empdetList.deptName}</td>
-												<td>${empdetList.empDesgn}</td> --%>
-												<c:set var="loginType" value="NA" />
-												<c:choose>
-													<c:when test="${empdetList.shiftname eq '1'}">
-														<c:set var="loginType" value="Web Application" />
-													</c:when>
-													<c:when test="${empdetList.shiftname eq '2'}">
-														<c:set var="loginType" value="Mobile App" />
-													</c:when>
-													<c:when test="${empdetList.shiftname eq '3'}">
-														<c:set var="loginType"
-															value="Mobile and Web Application Both" />
-													</c:when>
-													<c:otherwise>
-														<c:set var="loginType" value="NA" />
-													</c:otherwise>
-												</c:choose>
-												<td>${loginType}</td>
+								</tbody>
+							</table>
+						</div>
+						<br /> <span class="validation-invalid-label" id="error_chk"
+							style="display: none;">Please Select the Employee.</span>
 
-												<td><a href="#"
-													title="Reset and send Login Credential on Email"
-													onclick="sendUserCred(${empdetList.empId},'${empdetList.woCatName}')"><i
-														class="icon-mail5 mr-3 icon-2x" style="color: red;"></i></a></td>
-
-											</tr>
-										</c:forEach>
-
-									</tbody>
-								</table>
-							</div>
-							<br /> <span class="validation-invalid-label" id="error_chk"
-								style="display: none;">Please Select the Employee.</span>
-
-
+						<c:if test="${editAccess == 0}">
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>
-						</form>
-
+							</form>
+						</c:if>
 					</div>
 
 				</div>
@@ -241,11 +240,12 @@
 
 
 	<script type="text/javascript">
-	function sendUserCred(empId,empEmail){
+	function sendUserCred(empId,empEmail,empCode){
 		$("#loader").show();
 		$.getJSON('${sendUserCred}', { 
 			empId : empId,
 			empEmail : empEmail,
+			empCode: empCode,
 			ajax : 'true',
 		},
 

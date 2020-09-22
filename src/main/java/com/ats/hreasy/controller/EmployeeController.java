@@ -1701,43 +1701,49 @@ public class EmployeeController {
 	public String assignHolidayCategory(HttpServletRequest request, HttpServletResponse response, Model model) {
 		HttpSession session = request.getSession();
 		String ret = new String();
-		/*
-		 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
-		 * session.getAttribute("moduleJsonList"); Info view =
-		 * AcessController.checkAccess("showEmpListToAssignSalStruct",
-		 * "showEmpListToAssignSalStruct", 1, 0, 0, 0, newModuleList);
-		 * 
-		 * if (view.isError() == true) {
-		 * 
-		 * model = new ModelAndView("accessDenied");
-		 * 
-		 * } else {
-		 */
-		ret = "master/assignHolidayCategory";
 
-		try {
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("assignHolidayCategory", "assignHolidayCategory", 1, 0, 0,
+				0, newModuleList);
 
-			int locId = (int) session.getAttribute("liveLocationId");
+		if (view.isError() == true) {
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
-			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
-					Constants.url + "/getAllEmployeeDetailassignHolidayCategoryLocId", map, GetEmployeeDetails[].class);
+			ret = "accessDenied";
 
-			List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
-			model.addAttribute("empdetList", empdetList);
+		} else {
 
-			map = new LinkedMultiValueMap<>();
-			map.add("companyId", 1);
-			HolidayCategory[] holi = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getHolidayCategoryList", map, HolidayCategory[].class);
-			List<HolidayCategory> holiList = new ArrayList<HolidayCategory>(Arrays.asList(holi));
-			model.addAttribute("holiList", holiList);
+			ret = "master/assignHolidayCategory";
 
-		} catch (Exception e) {
-			e.printStackTrace();
+			try {
+
+				int locId = (int) session.getAttribute("liveLocationId");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailassignHolidayCategoryLocId", map,
+						GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				model.addAttribute("empdetList", empdetList);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				HolidayCategory[] holi = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getHolidayCategoryList", map, HolidayCategory[].class);
+				List<HolidayCategory> holiList = new ArrayList<HolidayCategory>(Arrays.asList(holi));
+				model.addAttribute("holiList", holiList);
+				Info edit = AcessController.checkAccess("assignHolidayCategory", "assignHolidayCategory", 0, 0, 1, 0,
+						newModuleList);
+				  
+				if (edit.isError() == false) {
+					// System.out.println(" edit Accessable ");
+					model.addAttribute("editAccess", 0);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		// }
 		return ret;
 	}
 

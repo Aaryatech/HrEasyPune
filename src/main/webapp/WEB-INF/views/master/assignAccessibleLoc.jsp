@@ -43,8 +43,10 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee
-									Accessible Location Assignment</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Employee Accessible
+										Location Assignment
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -87,102 +89,101 @@
 							session.removeAttribute("successMsg");
 							}
 						%>
-						<form
-							action="${pageContext.request.contextPath}/submitAssignAccLocToEmp"
-							id="submitInsertEmp" method="post">
+						<c:if test="${editAccess == 0}">
+							<form
+								action="${pageContext.request.contextPath}/submitAssignAccLocToEmp"
+								id="submitInsertEmp" method="post">
+						</c:if>
+						<div class="form-group row">
 
-							<div class="form-group row">
+							<label class="col-form-label text-info font-weight-bold col-lg-2"
+								for="locId_list"> Accessible Location <span
+								class="text-danger">*</span>:
+							</label>
+							<div class="col-lg-4">
+								<select name="locId_list" data-placeholder="Select Location"
+									id="locId_list" multiple="multiple"
+									class="form-control form-control-sm select"
+									data-container-css-class="select-sm" data-fouc>
 
-								<label
-									class="col-form-label text-info font-weight-bold col-lg-2"
-									for="locId_list"> Accessible Location <span
-									class="text-danger">*</span>:
-								</label>
-								<div class="col-lg-4">
-									<select name="locId_list" data-placeholder="Select Location"
-										id="locId_list" multiple="multiple"
-										class="form-control form-control-sm select"
-										data-container-css-class="select-sm" data-fouc>
-
-										<c:forEach items="${locationList}" var="locationList">
-											<c:set value="0" var="find"></c:set>
-											<c:forEach items="${locationIds}" var="locationIds">
-												<c:if test="${locationList.locId==locationIds}">
-													<option selected="selected" value="${locationList.locId}">${locationList.locName}</option>
-													<c:set value="1" var="find"></c:set>
-												</c:if>
-											</c:forEach>
-											<c:if test="${find==0}">
-												<option value="${locationList.locId}">${locationList.locName}</option>
+									<c:forEach items="${locationList}" var="locationList">
+										<c:set value="0" var="find"></c:set>
+										<c:forEach items="${locationIds}" var="locationIds">
+											<c:if test="${locationList.locId==locationIds}">
+												<option selected="selected" value="${locationList.locId}">${locationList.locName}</option>
+												<c:set value="1" var="find"></c:set>
 											</c:if>
 										</c:forEach>
-									</select> <span class="hidedefault  validation-invalid-label"
-										style="display: none;" id="error_locId_list">This field
-										is required.</span>
-								</div>
-
+										<c:if test="${find==0}">
+											<option value="${locationList.locId}">${locationList.locName}</option>
+										</c:if>
+									</c:forEach>
+								</select> <span class="hidedefault  validation-invalid-label"
+									style="display: none;" id="error_locId_list">This field
+									is required.</span>
 							</div>
 
-							<div class="table-responsive">
+						</div>
+
+						<div class="table-responsive">
 							<!-- <table
 							class="table table-bordered table-hover datatable-highlight" id="printtable1"> -->
-								<table
-									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-									width="100%" id="printtable1">
-									<thead>
-										<tr class="bg-blue">
+							<table
+								class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+								width="100%" id="printtable1">
+								<thead>
+									<tr class="bg-blue">
 
-											<th width="10%">Sr.no</th>
+										<th width="10%">Sr.no</th>
 
-											<th><input type="checkbox" name="selAll" id="selAll" /></th>
-											<th>Employee Code</th>
-											<th>Employee Name</th>
-											<th>Employee Type</th>
-											<th>Department</th>
-											<th>Designation</th>
-											<th>Accessible Location</th>
-											<th>Company</th>
+										<th><input type="checkbox" name="selAll" id="selAll" /></th>
+										<th>Employee Code</th>
+										<th>Employee Name</th>
+										<th>Employee Type</th>
+										<th>Department</th>
+										<th>Designation</th>
+										<th>Accessible Location</th>
+										<th>Company</th>
 
+
+									</tr>
+								</thead>
+								<tbody>
+
+
+									<c:forEach items="${empdetList}" var="empdetList"
+										varStatus="count">
+										<tr>
+
+											<td>${count.index+1}</td>
+
+											<td><input type="checkbox" id="empId${empdetList.empId}"
+												value="${empdetList.empId}" name="empId" class="select_all"></td>
+											<td>${empdetList.empCode}</td>
+											<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
+											<td>${empdetList.empTypeName}</td>
+											<td>${empdetList.deptName}</td>
+											<td>${empdetList.empDesgn}</td>
+											<td>${empdetList.locName}</td>
+											<td>${empdetList.subCompName}</td>
 
 										</tr>
-									</thead>
-									<tbody>
+									</c:forEach>
 
+								</tbody>
+							</table>
+						</div>
+						<br /> <span class="validation-invalid-label" id="error_chk"
+							style="display: none;">Please Select the Employee.</span>
 
-										<c:forEach items="${empdetList}" var="empdetList"
-											varStatus="count">
-											<tr>
-
-												<td>${count.index+1}</td>
-
-												<td><input type="checkbox"
-													id="empId${empdetList.empId}" value="${empdetList.empId}"
-													name="empId" class="select_all"></td>
-												<td>${empdetList.empCode}</td>
-												<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}</td>
-												<td>${empdetList.empTypeName}</td>
-												<td>${empdetList.deptName}</td>
-												<td>${empdetList.empDesgn}</td>
-												<td>${empdetList.locName}</td>
-												<td>${empdetList.subCompName}</td>
-
-											</tr>
-										</c:forEach>
-
-									</tbody>
-								</table>
-							</div>
-							<br /> <span class="validation-invalid-label" id="error_chk"
-								style="display: none;">Please Select the Employee.</span>
-
-
+						<c:if test="${editAccess == 0}">
 							<div style="text-align: center;">
 								<input type="submit" class="btn blue_btn" value="Assign"
 									id="deleteId"
 									style="align-content: center; width: 113px; margin-left: 40px;">
 							</div>
-						</form>
-
+							</form>
+						</c:if>
 					</div>
 
 				</div>
@@ -209,10 +210,10 @@
 
 				var table = $('#printtable1').DataTable();
 				table.search("").draw();
-				
+
 				var isError = false;
 				var errMsg = "";
- 
+
 				var checked = $("#submitInsertEmp input:checked").length > 0;
 				if (!checked) {
 					$("#error_chk").show()
@@ -236,7 +237,7 @@
 
 					var x = true;
 					if (x == true) {
-						
+
 						document.getElementById("deleteId").disabled = true;
 
 						return true;
@@ -260,7 +261,8 @@
 							});
 				});
 	</script> -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/scrolltable.js"></script>
 
 </body>
 </html>
