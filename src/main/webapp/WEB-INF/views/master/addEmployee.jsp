@@ -1906,7 +1906,37 @@
 											</div>
 											<div id="pf_block" class="pf_block" style="display: none;">
 
+												<div class="form-group row">
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="pfEmpPer">Employer Ceiling Limit Applicable <span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<select name="empyrCeilingLimit" id="empyrCeilingLimit"
+															data-rel="chosen" class="form-control">
+															<option value="yes"
+																${empAllowanceId.ceilingLimitEmployerApplicable == 'yes' ? 'selected' : ''}>Yes</option>
+															<option value="no"
+																${empAllowanceId.ceilingLimitEmployerApplicable == 'no' ? 'selected' : ''}>No</option>
+														</select>
+													</div>
+													<label
+														class="col-form-label text-info font-weight-bold col-lg-2"
+														for="pfEmpPer">Employee Ceiling Limit Applicable <span
+														class="text-danger">*</span>:
+													</label>
+													<div class="col-lg-4">
+														<select name="empyeeCeilingLimit" id="empyeeCeilingLimit"
+															data-rel="chosen" class="form-control">
+															<option value="yes"
+																${empAllowanceId.ceilingLimitEmpApplicable == 'yes' ? 'selected' : ''}>Yes</option>
+															<option value="no"
+																${empAllowanceId.ceilingLimitEmpApplicable == 'no' ? 'selected' : ''}>No</option>
+														</select>
+													</div>
 
+												</div>
 												<div class="form-group row">
 													<label
 														class="col-form-label text-info font-weight-bold col-lg-2"
@@ -1922,22 +1952,6 @@
 															style="display: none;" id="error_pfEmpPer">This
 															field is required.</span>
 													</div>
-
-													<%-- <label
-														class="col-form-label text-info font-weight-bold col-lg-2"
-														for="pfEmployerPer">PF Employer Per <span
-														class="text-danger">*</span>:
-													</label>
-													<div class="col-lg-4">
-														<input type="text" class="form-control numbersOnly"
-															placeholder="PF Employer Per" id="pfEmployerPer"
-															name="pfEmployerPer" autocomplete="off"
-															onchange="trim(this)"
-															value="${empAllowanceId.pfEmplrPer}"> <span
-															class="hidedefault  validation-invalid-label"
-															style="display: none;" id="error_pfEmployerPer">This
-															field is required.</span>
-													</div> --%>
 
 
 													<input type="hidden" id="pfEmployerPer"

@@ -1364,8 +1364,10 @@ public class EmployeeController {
 			empSal.setGrossSalary(grossSal);
 			if (request.getParameter("pfApplicable").equals("yes")) {
 
-				System.err.println("pfApplicable" + request.getParameter("pfApplicable")
-						+ request.getParameter("pfType") + request.getParameter("pfEmployerPer"));
+				String empyrCeilingLimit = request.getParameter("empyrCeilingLimit");
+				String empyeeCeilingLimit = request.getParameter("empyeeCeilingLimit");
+				empSal.setCeilingLimitEmpApplicable(empyeeCeilingLimit);
+				empSal.setCeilingLimitEmployerApplicable(empyrCeilingLimit);
 				empSal.setPfType(request.getParameter("pfType"));
 				empSal.setPfEmpPer(Double.parseDouble(request.getParameter("pfEmpPer")));
 				empSal.setPfEmplrPer(Double.parseDouble(request.getParameter("pfEmployerPer")));
@@ -1373,6 +1375,8 @@ public class EmployeeController {
 				empSal.setPfType("0");
 				empSal.setPfEmpPer(0.0);
 				empSal.setPfEmplrPer(Double.parseDouble(request.getParameter("pfEmployerPer")));
+				empSal.setCeilingLimitEmpApplicable("yes");
+				empSal.setCeilingLimitEmployerApplicable("yes");
 
 			}
 			empSal.setEsicApplicable(request.getParameter("esicApplicable"));
@@ -1703,8 +1707,8 @@ public class EmployeeController {
 		String ret = new String();
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("assignHolidayCategory", "assignHolidayCategory", 1, 0, 0,
-				0, newModuleList);
+		Info view = AcessController.checkAccess("assignHolidayCategory", "assignHolidayCategory", 1, 0, 0, 0,
+				newModuleList);
 
 		if (view.isError() == true) {
 
@@ -1735,7 +1739,7 @@ public class EmployeeController {
 				model.addAttribute("holiList", holiList);
 				Info edit = AcessController.checkAccess("assignHolidayCategory", "assignHolidayCategory", 0, 0, 1, 0,
 						newModuleList);
-				  
+
 				if (edit.isError() == false) {
 					// System.out.println(" edit Accessable ");
 					model.addAttribute("editAccess", 0);
