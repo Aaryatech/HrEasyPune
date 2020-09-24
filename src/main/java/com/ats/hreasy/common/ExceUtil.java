@@ -70,7 +70,7 @@ public class ExceUtil {
 	        Cell titleCell2 = titleRow2.createCell(0);
 	        titleCell2.setCellStyle(style2);
 	        
-	        titleCell2.setCellValue("Lutf Foods Pvt. Ltd.");
+	        titleCell2.setCellValue("");
 	        
 	        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$2:$"+endChar+"$2"));
 	       

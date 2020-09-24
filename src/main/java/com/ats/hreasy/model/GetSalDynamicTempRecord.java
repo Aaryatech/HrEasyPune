@@ -59,6 +59,7 @@ public class GetSalDynamicTempRecord {
 	private double payDed; 
 	private double reward; 
 	private double bhatta;
+	private double other1;
 	private String  commentsForItBonus;
 	private double societyContribution;
 	private String  empCategory;
@@ -450,6 +451,12 @@ public class GetSalDynamicTempRecord {
 	public void setBhatta(double bhatta) {
 		this.bhatta = bhatta;
 	}
+	public double getOther1() {
+		return other1;
+	}
+	public void setOther1(double other1) {
+		this.other1 = other1;
+	}
 	@Override
 	public String toString() {
 		return "GetSalDynamicTempRecord [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -469,10 +476,10 @@ public class GetSalDynamicTempRecord {
 				+ ", miscExpDed=" + miscExpDed + ", miscExpDedDeduct=" + miscExpDedDeduct + ", netSalary=" + netSalary
 				+ ", isLocked=" + isLocked + ", loginName=" + loginName + ", loginTime=" + loginTime
 				+ ", mlwfApplicable=" + mlwfApplicable + ", ptApplicable=" + ptApplicable + ", payDed=" + payDed
-				+ ", reward=" + reward + ", bhatta=" + bhatta + ", commentsForItBonus=" + commentsForItBonus
-				+ ", societyContribution=" + societyContribution + ", empCategory=" + empCategory + ", basicDefault="
-				+ basicDefault + ", empName=" + empName + ", designation=" + designation + ", salTypeName="
-				+ salTypeName + "]";
+				+ ", reward=" + reward + ", bhatta=" + bhatta + ", other1=" + other1 + ", commentsForItBonus="
+				+ commentsForItBonus + ", societyContribution=" + societyContribution + ", empCategory=" + empCategory
+				+ ", basicDefault=" + basicDefault + ", empName=" + empName + ", designation=" + designation
+				+ ", salTypeName=" + salTypeName + "]";
 	}
 	
 	

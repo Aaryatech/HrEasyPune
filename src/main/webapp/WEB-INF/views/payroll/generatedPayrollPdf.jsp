@@ -322,6 +322,16 @@ hr {
 								align="right">${list.nightAllow}</td>
 
 						</tr>
+						<tr>
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+								align="left">Other1</td>
+
+							<td width="50%" valign="top"
+								style="color: #000; font-size: 12px; padding-right: 5px;"
+								align="right">${list.other1}</td>
+
+						</tr>
 
 					</table></td>
 
@@ -376,7 +386,7 @@ hr {
 						<tr>
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">MLWF</td>
+								align="left">LWF</td>
 
 							<td width="50%" valign="top"
 								style="color: #000; font-size: 12px; padding-right: 5px;"

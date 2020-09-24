@@ -96,7 +96,7 @@ public class PayRollController {
 
 				if (date != null) {
 					int locId = (int) session.getAttribute("liveLocationId");
-					
+
 					String[] monthyear = date.split("-");
 					model.addAttribute("date", date);
 
@@ -220,11 +220,12 @@ public class PayRollController {
 			int tempSalDaynamicId = Integer.parseInt(request.getParameter("tempSalDaynamicId"));
 			float itAmt = Float.parseFloat(request.getParameter("itAmt"));
 			float perBonus = Float.parseFloat(request.getParameter("perBonus"));
-
+			float other1 = Float.parseFloat(request.getParameter("other1"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("tempSalDaynamicId", tempSalDaynamicId);
 			map.add("itAmt", itAmt);
 			map.add("perBonus", perBonus);
+			map.add("other1", other1);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateBonusAmt", map, Info.class);
 
 		} catch (Exception e) {
@@ -393,6 +394,7 @@ public class PayRollController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
+			rowData.add("Other1");
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -411,7 +413,7 @@ public class PayRollController {
 			rowData.add("PT");
 			rowData.add("PF");
 			rowData.add("ESIC");
-			rowData.add("MLWF");
+			rowData.add("LWF");
 			/* rowData.add("Society Contribution"); */
 			rowData.add("Deduction AMT");
 			rowData.add("Net Salary");
@@ -491,6 +493,8 @@ public class PayRollController {
 							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 
 				}
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 				if (payroll_reward_show == 1) {
 
 					rowData.add(""
@@ -692,6 +696,7 @@ public class PayRollController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
+			rowData.add("Other1");
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -710,7 +715,7 @@ public class PayRollController {
 			rowData.add("PT");
 			rowData.add("PF");
 			rowData.add("ESIC");
-			rowData.add("MLWF");
+			rowData.add("LWF");
 			/* rowData.add("Society Contribution"); */
 			rowData.add("Deduction AMT");
 			rowData.add("Net Salary");
@@ -791,6 +796,8 @@ public class PayRollController {
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 						}
+						rowData.add("" + String.format("%.2f",
+								ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 						if (payroll_reward_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
@@ -1108,7 +1115,7 @@ public class PayRollController {
 			model.addObject("payroll_payded_show", payroll_payded_show);
 			model.addObject("payroll_reward_show", payroll_reward_show);
 			model.addObject("payroll_bhatta_show", payroll_bhatta_show);
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("empIds", empIds);
 			GetEmpDetailForFullPayslip[] getEmpDetailForFullPayslip = Constants.getRestTemplate().postForObject(

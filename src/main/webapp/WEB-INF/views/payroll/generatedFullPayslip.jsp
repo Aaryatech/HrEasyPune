@@ -438,6 +438,18 @@ hr {
 							<c:set var="earningTotal" value="${earningTotal+list.nightAllow}"></c:set>
 						</tr>
 						<tr>
+							<td valign="top"
+								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+								align="left">Other1</td>
+							<td valign="top"
+								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+								align="right">-</td>
+							<td valign="top"
+								style="color: #000; padding-left: 5px; padding-right: 5px;"
+								align="right">${list.other1}</td>
+							<c:set var="earningTotal" value="${earningTotal+list.other1}"></c:set>
+						</tr>
+						<tr>
 							<th width="33.33%" valign="top"
 								style="color: #000; border-right: 1px solid #313131; border-top: 1px solid #313131;"
 								align="center">TOTAL</th>
@@ -499,7 +511,7 @@ hr {
 						<tr>
 							<td valign="top"
 								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">MLWF</td>
+								align="left">LWF</td>
 
 							<td valign="top"
 								style="color: #000; padding-left: 5px; padding-right: 5px;"

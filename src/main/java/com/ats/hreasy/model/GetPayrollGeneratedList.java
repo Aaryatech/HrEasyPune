@@ -86,6 +86,8 @@ public class GetPayrollGeneratedList {
 	private double adjustPlus;
 	private double reward;
 	private double bhatta;
+	private double other1;
+	
 	private int subCmpId;
 	
 	private String  name; 
@@ -964,6 +966,14 @@ public class GetPayrollGeneratedList {
 		this.getBhattaList = getBhattaList;
 	}
 
+	public double getOther1() {
+		return other1;
+	}
+
+	public void setOther1(double other1) {
+		this.other1 = other1;
+	}
+
 	@Override
 	public String toString() {
 		return "GetPayrollGeneratedList [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -994,12 +1004,12 @@ public class GetPayrollGeneratedList {
 				+ edliAdminPercentage + ", employerEsicPercentage=" + employerEsicPercentage
 				+ ", employeeEsicPercentage=" + employeeEsicPercentage + ", employerMlwf=" + employerMlwf
 				+ ", grossSalDefault=" + grossSalDefault + ", adjustMinus=" + adjustMinus + ", adjustPlus=" + adjustPlus
-				+ ", reward=" + reward + ", bhatta=" + bhatta + ", subCmpId=" + subCmpId + ", name=" + name
-				+ ", empTypeName=" + empTypeName + ", departName=" + departName + ", designName=" + designName
-				+ ", payableDays=" + payableDays + ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff
-				+ ", paidHoliday=" + paidHoliday + ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave
-				+ ", absentDays=" + absentDays + ", email=" + email + ", payrollAllownceList=" + payrollAllownceList
-				+ ", getAdvanceList=" + getAdvanceList + ", getAbsentDedList=" + getAbsentDedList
+				+ ", reward=" + reward + ", bhatta=" + bhatta + ", other1=" + other1 + ", subCmpId=" + subCmpId
+				+ ", name=" + name + ", empTypeName=" + empTypeName + ", departName=" + departName + ", designName="
+				+ designName + ", payableDays=" + payableDays + ", presentDays=" + presentDays + ", weeklyOff="
+				+ weeklyOff + ", paidHoliday=" + paidHoliday + ", paidLeave=" + paidLeave + ", unpaidLeave="
+				+ unpaidLeave + ", absentDays=" + absentDays + ", email=" + email + ", payrollAllownceList="
+				+ payrollAllownceList + ", getAdvanceList=" + getAdvanceList + ", getAbsentDedList=" + getAbsentDedList
 				+ ", getLateMarkDedList=" + getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList="
 				+ getPayDedList + ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance="
 				+ performance + ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword="

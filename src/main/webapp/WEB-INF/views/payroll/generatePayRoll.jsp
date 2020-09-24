@@ -177,6 +177,7 @@
 											<%
 												}
 											%>
+											<th class="text-center">Other1</th>
 											<%
 												if (payroll_reward_show == 1) {
 											%>
@@ -210,7 +211,7 @@
 											<th class="text-center">PT</th>
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
-											<th class="text-center">MLWF</th>
+											<th class="text-center">LWF</th>
 											<!-- <th class="text-center">Society Contribution</th> -->
 											<th class="text-center">Deduction AMT</th>
 											<th class="text-center">Net Salary</th>
@@ -405,6 +406,12 @@
 											<%
 												}
 											%>
+											<td class="text-right">
+												<%
+													out.println(
+																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
+												%>
+											</td>
 											<%
 												if (payroll_reward_show == 1) {
 											%><td class="text-right">

@@ -198,6 +198,7 @@
 											</c:if>
 											<th class="text-center">TDS</th>
 											<th class="text-center">Performance Bonus</th>
+											<th class="text-center">Other1</th>
 											<c:if test="${payroll_reward_show==1}">
 												<th class="text-center">Reward</th>
 											</c:if>
@@ -238,6 +239,13 @@
 													placeholder="Performance Bonus" id="perBonus${empList.id}"
 													name="perBonus${empList.id}" autocomplete="off"
 													data-performancebonus="${empList.performanceBonus}"
+													style="text-align: right;"
+													onchange="saveBonusDetail(${empList.id})"></td>
+												<td class="text-right"><input type="text"
+													class="form-control numbersOnly"
+													value="${empList.other1}" placeholder="Other Amt"
+													id="other1${empList.id}" name="other1${empList.id}"
+													autocomplete="off" data-other1="${empList.other1}"
 													style="text-align: right;"
 													onchange="saveBonusDetail(${empList.id})"></td>
 												<c:if test="${payroll_reward_show==1}">
@@ -376,10 +384,11 @@
 			 
 			var itAmt = document.getElementById("itAmt"+tempSalDaynamicId).value;
 			var perBonus = document.getElementById("perBonus"+tempSalDaynamicId).value;
+			var other1 = document.getElementById("other1"+tempSalDaynamicId).value;
 			
 			var itAmtDefault = $("#itAmt"+tempSalDaynamicId).data("itamt")
 			var perBonusDefault = $("#perBonus"+tempSalDaynamicId).data("performancebonus")
-			
+			var other1Default = $("#other1"+tempSalDaynamicId).data("other1")
 			 
 			if (itAmt == "") {
 				 
@@ -391,6 +400,11 @@
 				document.getElementById("perBonus"+tempSalDaynamicId).value=0;
 				perBonus=0;
 			}
+			if (other1 == "") {
+			 
+				document.getElementById("other1"+tempSalDaynamicId).value=0;
+				other1=0;
+			}
 
 			 
 
@@ -399,7 +413,7 @@
 				fd.append('tempSalDaynamicId', tempSalDaynamicId);
 				fd.append('itAmt', itAmt);
 				fd.append('perBonus', perBonus);
-
+				fd.append('other1', other1);
 				$.ajax({
 					url : '${pageContext.request.contextPath}/saveBonusDetail',
 					type : 'post',
