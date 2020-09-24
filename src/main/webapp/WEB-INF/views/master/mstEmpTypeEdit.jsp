@@ -185,7 +185,7 @@
 											</label>
 											<div class="col-lg-7 float">
 												<select name="otApplicable" data-placeholder="Please Select"
-													id="otApplicable" onchange1="setDate()"
+													id="otApplicable" onchange="setDate()"
 													class="form-control form-control-select2 select2-hidden-accessible"
 													tabindex="-1" aria-hidden="true">
 													<option value="">Please Select</option>
@@ -202,7 +202,33 @@
 										</div>
 									</div>
 
+									<div id="abc" style="display: none;">
+										<div class="form-group row">
+											<div class="col-md-6">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-5 float"
+													for="otType"> Production Incentive Type<span
+													class="text-danger"> * </span>:
+												</label>
+												<div class="col-lg-7 float">
+													<select name="otType" data-placeholder="Please Select"
+														id="otType"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														tabindex="-1" aria-hidden="true">
 
+														<option value="1"
+															${employee.otType == '1' ? 'selected' : ''}>x 1</option>
+
+														<option value="2"
+															${employee.otType == '2' ? 'selected' : ''}>x 2</option>
+
+
+													</select> <span class="validation-invalid-label" id="error_otType"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="form-group row">
 
 
@@ -308,37 +334,7 @@
 										</div>
 									</div>
 
-									<div id="abc" style="display: none;">
-										<div class="form-group row">
-											<label
-												class="col-form-label text-info font-weight-bold col-lg-2"
-												for="otType"> Performance Incentive Type<span
-												class="text-danger"> * </span>:
-											</label>
-											<div class="col-lg-4">
-												<select name="otType" data-placeholder="Please Select"
-													id="otType"
-													class="form-control form-control-select2 select2-hidden-accessible"
-													tabindex="-1" aria-hidden="true">
-													<option value="">Please Select</option>
-													<option value="0"
-														${employee.otType == '0' ? 'selected' : ''}>No</option>
-													<option value="1"
-														${employee.otType == '1' ? 'selected' : ''}>1 HR
-														of Gross Salary x 1</option>
-													<option value="1.5"
-														${employee.otType == '1.5' ? 'selected' : ''}>1
-														HR of Gross Salary x 1.5</option>
-													<option value="2"
-														${employee.otType == '2' ? 'selected' : ''}>1 HR
-														of Gross Salary x 2</option>
 
-
-												</select> <span class="validation-invalid-label" id="error_otType"
-													style="display: none;">This field is required.</span>
-											</div>
-										</div>
-									</div>
 
 
 									<div class="form-group row mb-0">

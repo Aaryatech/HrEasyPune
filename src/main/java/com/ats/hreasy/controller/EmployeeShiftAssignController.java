@@ -343,6 +343,7 @@ public class EmployeeShiftAssignController {
 				String halfDayDed = request.getParameter("halfDayDed");
 				String minWorkRule = request.getParameter("minWorkRule");
 				String woRemarks = request.getParameter("woRemarks");
+				String otType = request.getParameter("otType");
 				// String prodApplicable = request.getParameter("prodApplicable");
 
 				Boolean ret = false;
@@ -406,7 +407,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setHalfDay(halfDayDed);
 					mstEmpType.setLmApplicable(lateMark);
 					mstEmpType.setOtApplicable(otApplicable);
-					mstEmpType.setOtType("");
+					mstEmpType.setOtType(otType);
 					mstEmpType.setDelStatus(1);
 					mstEmpType.setWhWork(weekOffWork);
 					mstEmpType.setMinWorkHr(minWorkHr);
@@ -640,6 +641,7 @@ public class EmployeeShiftAssignController {
 				String minWorkRule = request.getParameter("minWorkRule");
 				String woRemarks = request.getParameter("woRemarks");
 				String empTypeId = request.getParameter("empTypeId");
+				String otType = request.getParameter("otType");
 				// String prodApplicable = request.getParameter("prodApplicable");
 
 				/*
@@ -711,7 +713,7 @@ public class EmployeeShiftAssignController {
 					mstEmpType.setHalfDay(halfDayDed);
 					mstEmpType.setLmApplicable(lateMark);
 					mstEmpType.setOtApplicable(otApplicable);
-					mstEmpType.setOtType("");
+					mstEmpType.setOtType(otType);
 					mstEmpType.setDelStatus(1);
 					mstEmpType.setWhWork(weekOffWork);
 					mstEmpType.setEmpTypeId(Integer.parseInt(empTypeId));

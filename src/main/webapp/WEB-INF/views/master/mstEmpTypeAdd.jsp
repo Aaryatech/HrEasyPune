@@ -173,7 +173,7 @@
 											</label>
 											<div class="col-lg-7 float">
 												<select name="otApplicable" data-placeholder="Please Select"
-													id="otApplicable" onchange1="setDate()"
+													id="otApplicable" onchange="setDate()"
 													class="form-control form-control-select2 select2-hidden-accessible"
 													tabindex="-1" aria-hidden="true">
 													<option value="">Please Select</option>
@@ -186,7 +186,30 @@
 											</div>
 										</div>
 									</div>
+									<div class="form-group row">
 
+
+										<div class="col-md-6">
+											<div id="abc" style="display: none;">
+												<label
+													class="col-form-label text-info font-weight-bold col-lg-5 float"
+													for="otType"> Production Incentive Type<span
+													class="text-danger"> * </span>:
+												</label>
+												<div class="col-lg-7 float">
+													<select name="otType" data-placeholder="Please Select"
+														id="otType"
+														class="form-control form-control-select2 select2-hidden-accessible"
+														tabindex="-1" aria-hidden="true">
+														<option value="1">x 1</option>
+														<option value="2">x 2</option>
+
+													</select> <span class="validation-invalid-label" id="error_otType"
+														style="display: none;">This field is required.</span>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="form-group row">
 
 
@@ -287,30 +310,6 @@
 												<span class="validation-invalid-label" id="error_woRemarks"
 													style="display: none;">This field is required.</span>
 
-											</div>
-										</div>
-
-										<div class="col-md-6">
-											<div id="abc" style="display: none;">
-												<label
-													class="col-form-label text-info font-weight-bold col-lg-5 float"
-													for="otType"> Performance Incentive Type<span
-													class="text-danger"> * </span>:
-												</label>
-												<div class="col-lg-7 float">
-													<select name="otType" data-placeholder="Please Select"
-														id="otType"
-														class="form-control form-control-select2 select2-hidden-accessible"
-														tabindex="-1" aria-hidden="true">
-														<option value="">Please Select</option>
-														<option value="0">No</option>
-														<option value="1">1 HR of Gross Salary x 1</option>
-														<option value="1.5">1 HR of Gross Salary x 1.5</option>
-														<option value="2">1 HR of Gross Salary x 2</option>
-
-													</select> <span class="validation-invalid-label" id="error_otType"
-														style="display: none;">This field is required.</span>
-												</div>
 											</div>
 										</div>
 									</div>
