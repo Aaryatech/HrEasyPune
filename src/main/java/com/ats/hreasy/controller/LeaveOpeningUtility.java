@@ -31,6 +31,7 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveTrail;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.OpbalAndId;
 import com.ats.hreasy.model.OpeningPendingLeaveEmployeeList;
 import com.ats.hreasy.model.Setting;
 
@@ -74,13 +75,12 @@ public class LeaveOpeningUtility {
 	public String insertOpningLeave(HttpServletRequest request, HttpServletResponse response) {
 		String empId1 = request.getParameter("empId");
 		HttpSession session = request.getSession();
-		
+
 		try {
 
 			CalenderYear calculateYear = Constants.getRestTemplate()
 					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-			
 			Date date = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -98,8 +98,9 @@ public class LeaveOpeningUtility {
 
 			String[] dt = OPENING_LEAVE_DATE.getValue().split("to");
 
-			List<LeaveApply>  save = new ArrayList<>();
-			
+			List<LeaveApply> save = new ArrayList<>();
+			List<OpbalAndId> updateOp = new ArrayList<>();
+
 			for (int i = 0; i < list.size(); i++) {
 				LeaveApply leaveSummary = new LeaveApply();
 				leaveSummary.setLeaveId(list.get(i).getLeaveId());
@@ -126,7 +127,13 @@ public class LeaveOpeningUtility {
 				leaveSummary.setMakerUserId(userObj.getUserId());
 				leaveSummary.setMakerEnterDatetime(sf.format(date));
 				save.add(leaveSummary);
-				 
+
+				OpbalAndId opbalAndId = new OpbalAndId();
+				opbalAndId.setBalId(Integer.parseInt(
+						request.getParameter("opBalId" + list.get(i).getEmpId() + "" + list.get(i).getLvTypeId())));
+				opbalAndId.setOpBal(Float.parseFloat(
+						request.getParameter("opBal" + list.get(i).getEmpId() + "" + list.get(i).getLvTypeId())));
+				updateOp.add(opbalAndId);
 				/*
 				 * if (res != null) { LeaveTrail lt = new LeaveTrail();
 				 * lt.setEmpRemarks("FOR OPENING"); lt.setLeaveId(res.getLeaveId());
@@ -143,9 +150,10 @@ public class LeaveOpeningUtility {
 				 * map, Info.class); }
 				 */
 			}
-			LeaveApply[] res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLeaveApplyList",
-					save, LeaveApply[].class);
-			
+			LeaveApply[] res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLeaveApplyList", save,
+					LeaveApply[].class);
+			OpbalAndId[] updateRes = Constants.getRestTemplate().postForObject(Constants.url + "/updateOpning", updateOp,
+					OpbalAndId[].class);
 			if (res != null) {
 				session.setAttribute("successMsg", "Update leave opening Successfully.");
 			} else {

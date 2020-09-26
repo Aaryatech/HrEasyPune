@@ -12,6 +12,9 @@ public class OpeningPendingLeaveEmployeeList {
 	private float lvs_alloted_leaves; 
 	private int leaveId;  
 	private float leaveNumDays;
+	private float opBal;
+	private int lvbalId;
+	
 	public String getId() {
 		return id;
 	}
@@ -72,12 +75,24 @@ public class OpeningPendingLeaveEmployeeList {
 	public void setLeaveNumDays(float leaveNumDays) {
 		this.leaveNumDays = leaveNumDays;
 	}
+	public float getOpBal() {
+		return opBal;
+	}
+	public void setOpBal(float opBal) {
+		this.opBal = opBal;
+	}
+	public int getLvbalId() {
+		return lvbalId;
+	}
+	public void setLvbalId(int lvbalId) {
+		this.lvbalId = lvbalId;
+	}
 	@Override
 	public String toString() {
 		return "OpeningPendingLeaveEmployeeList [id=" + id + ", empId=" + empId + ", empCode=" + empCode + ", empName="
 				+ empName + ", lvsId=" + lvsId + ", lvTitle=" + lvTitle + ", lvTypeId=" + lvTypeId
 				+ ", lvs_alloted_leaves=" + lvs_alloted_leaves + ", leaveId=" + leaveId + ", leaveNumDays="
-				+ leaveNumDays + "]";
+				+ leaveNumDays + ", opBal=" + opBal + ", lvbalId=" + lvbalId + "]";
 	}
 	
 	

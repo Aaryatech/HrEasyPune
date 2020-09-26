@@ -177,7 +177,9 @@
 												<th class="text-center" width="5%">Sr. No.</th>
 												<th class="text-center">Employee Name</th>
 												<th class="text-center">Leave Type</th>
-												<th class="text-center">Opening</th>
+												<th class="text-center">Year Opening</th>
+												<th class="text-center">Year Earning</th>
+												<th class="text-center">Month Opening</th>
 												<th class="text-center">No. of Day to Apply</th>
 
 
@@ -199,13 +201,25 @@
 
 													<td>${emp.empName}&nbsp;(${emp.empCode})</td>
 													<td>${emp.lvTitle}</td>
+													<td><input class="form-control numbersOnly"
+														id="opBal${emp.empId}${emp.lvTypeId}"
+														name="opBal${emp.empId}${emp.lvTypeId}"
+														onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
+														value="${emp.opBal}"> <input type="hidden"
+														id="opBalId${emp.empId}${emp.lvTypeId}"
+														name="opBalId${emp.empId}${emp.lvTypeId}"
+														value="${emp.lvbalId}"></td>
+													<td><input class="form-control"
+														id="earning${emp.empId}${emp.lvTypeId}"
+														name="earning${emp.empId}${emp.lvTypeId}"
+														value="${emp.lvs_alloted_leaves}" readonly="readonly"></td>
 													<td id="dataEarn${emp.empId}${emp.lvTypeId}"
 														data-earn="${emp.lvs_alloted_leaves}"><input
 														class="form-control numbersOnly"
 														id="opning${emp.empId}${emp.lvTypeId}"
 														name="opning${emp.empId}${emp.lvTypeId}"
 														onchange="calNoOfDay(${emp.empId},${emp.lvTypeId})"
-														value="${emp.lvs_alloted_leaves-emp.leaveNumDays}"></td>
+														value="${emp.opBal+emp.lvs_alloted_leaves-emp.leaveNumDays}"></td>
 													<td><input class="form-control"
 														id="noOfDay${emp.empId}${emp.lvTypeId}"
 														name="noOfDay${emp.empId}${emp.lvTypeId}" value="0"
@@ -415,6 +429,7 @@
 	<script>
 		function calNoOfDay(empId, typeId) {
 			
+			var opBal = parseFloat($("#opBal"+empId+""+typeId).val()); 
 			var dataEarn = parseFloat($("#dataEarn"+empId+""+typeId).data("earn"));
 			var opning = parseFloat($("#opning"+empId+""+typeId).val()); 
 			 
@@ -422,11 +437,11 @@
 				opning=dataEarn;
 				$("#opning"+empId+""+typeId).val(dataEarn);
 			}
-			var bal=dataEarn-opning;
+			var bal=opBal+dataEarn-opning;
 			
 			if(bal<0){
 				$("#noOfDay"+empId+""+typeId).val(0);
-				$("#opning"+empId+""+typeId).val(dataEarn);
+				$("#opning"+empId+""+typeId).val(opBal+dataEarn);
 			}else{
 				$("#noOfDay"+empId+""+typeId).val(bal);
 			}
