@@ -1036,25 +1036,17 @@ class LoanAdminController {
 			String partialAmt = request.getParameter("partialAmt");
 			String endDate = request.getParameter("endDate");
 			String loanId = request.getParameter("loanId");
-
+			String empId = request.getParameter("empId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("currentOutstanding", currentOutstanding);
 			map.add("loanEmi", loanEmi);
 			map.add("partialAmt", partialAmt);
 			map.add("endDate", DateConvertor.convertToYMD(endDate));
 			map.add("loanId", loanId);
-
+			map.add("empId", empId);
 			employeeInfo = Constants.getRestTemplate().postForObject(Constants.url + "/calDatePartialPay", map,
 					Info.class);
-
-			if (employeeInfo.isError() == false) {
-
-				employeeInfo.setMsg(DateConvertor.convertToDMY(employeeInfo.getMsg()));
-				System.err.println("employeeInfo***" + employeeInfo.toString());
-			} else {
-				employeeInfo.setMsg("");
-			}
-
+ 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

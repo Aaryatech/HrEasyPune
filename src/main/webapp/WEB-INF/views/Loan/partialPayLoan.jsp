@@ -52,8 +52,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Partial Pay
-												Loan</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Partial Pay Loan
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -215,37 +216,38 @@
 									<hr>
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="advanceAmt">PartialPay Amount (Rs) <span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="Enter  Amount" id="partialAmt"
-												name="partialAmt" onchange="show()" value="0"
-												autocomplete="off"> <span
-												class="validation-invalid-label" id="error_partialAmt"
-												style="display: none;">This field is required.</span> <span
-												class="validation-invalid-label" id="error_partialAmtGreat"
-												style="display: none;">Partial Pay Amount Should Be
-												Less Than Current Outstanding </span>
-										</div>
-										</div>
-										
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="joiningDate"> Date <span style="color: red">*
-										</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control datepickerclass "
-												name="joiningDate" id="joiningDate" placeholder=" Date"><span
-												class="validation-invalid-label" id="error_joiningDate"
-												style="display: none;">This field is required.</span>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="advanceAmt">PartialPay Amount (Rs) <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Enter  Amount" id="partialAmt"
+													name="partialAmt" onchange="show()" value="0"
+													autocomplete="off"> <span
+													class="validation-invalid-label" id="error_partialAmt"
+													style="display: none;">This field is required.</span> <span
+													class="validation-invalid-label" id="error_partialAmtGreat"
+													style="display: none;">Partial Pay Amount Should Be
+													Less Than Current Outstanding </span>
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="joiningDate"> Date <span style="color: red">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass "
+													name="joiningDate" id="joiningDate" placeholder=" Date"
+													onchange="show()"><span
+													class="validation-invalid-label" id="error_joiningDate"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 
 									</div>
@@ -260,23 +262,23 @@
 
 									<div class="form-group row">
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="remark"> Remark <span style="color: red">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="reason"
-												name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
-											<span class="validation-invalid-label" id="error_reason"
-												style="display: none;">This field is required.</span>
-										</div>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="remark"> Remark <span style="color: red">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="reason"
+													name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
+												<span class="validation-invalid-label" id="error_reason"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -331,8 +333,7 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want To Submit This
-						Record</h5>
+					<h5 class="modal-title">Submit partial loan?</h5>
 					<br>
 
 				</div>
@@ -354,8 +355,10 @@
 					.getElementById("currentOutstanding").value;
 			var loanEmi = document.getElementById("loanEmi").value;
 			var partialAmt = document.getElementById("partialAmt").value;
-			var endDate = document.getElementById("startDate").value;
+			var endDate = document.getElementById("joiningDate").value;
 			var loanId = document.getElementById("id").value;
+			var empId = document.getElementById("empId").value;
+
 			var valid = false;
 			if ((parseFloat(partialAmt) <= parseFloat(currentOutstanding))
 					&& (parseFloat(partialAmt) > 0)) {
@@ -372,14 +375,21 @@
 					partialAmt : partialAmt,
 					endDate : endDate,
 					loanId : loanId,
+					empId : empId,
 					ajax : 'true',
 				},
 
 				function(data) {
 
 					//alert("Data " + JSON.stringify(data));
-					document.getElementById("joiningDate").value = data.msg;
+					//document.getElementById("joiningDate").value = data.msg;
 					//alert(data.msg);
+
+					if (data.error == true) {
+						document.getElementById("joiningDate").value = "";
+						$("#error_joiningDate").html("Month is freeze.");
+						$("#error_joiningDate").show();
+					}
 
 				});
 			}
@@ -442,7 +452,9 @@
 
 												if (!$("#joiningDate").val()) {
 													isError = true;
-
+													$("#error_joiningDate")
+															.html(
+																	"This field is required.");
 													$("#error_joiningDate")
 															.show()
 

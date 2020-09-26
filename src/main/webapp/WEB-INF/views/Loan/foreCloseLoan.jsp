@@ -7,6 +7,7 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+<c:url var="calDateForPartialPay" value="/calDateForPartialPay" />
 </head>
 
 <body>
@@ -224,7 +225,7 @@
 												<input type="text" class="form-control" readonly="readonly"
 													placeholder="Enter  Amount" id="foreclose_amt"
 													name="foreclose_amt" value="${advList.currentOutstanding}"
-													autocomplete="off" onchange="calAmt()"> <span
+													autocomplete="off"> <span
 													class="validation-invalid-label" id="error_foreclose_amt"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -239,7 +240,7 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass "
 													name="joiningDate" id="joiningDate"
-													placeholder="Joining Date"> <span
+													placeholder="Joining Date" onchange="show()"> <span
 													class="validation-invalid-label" id="error_joiningDate"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -309,7 +310,7 @@
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
 			replace(/\n +/, "\n"); // Removes spaces after newlines
-			checkSame();
+			//checkSame();
 			return;
 		}
 
@@ -335,6 +336,15 @@
 
 				} else {
 					$("#error_foreclose_amt").hide()
+				}
+
+				if (!$("#joiningDate").val()) {
+					isError = true;
+					$("#error_joiningDate").html("This field is required.");
+					$("#error_joiningDate").show()
+
+				} else {
+					$("#error_joiningDate").hide()
 				}
 
 				if (!isError) {
@@ -366,8 +376,7 @@
 				</div>
 
 				<div class="modal-body py-0">
-					<h5 class="modal-title">Are You Sure You Want To Submit This
-						Record</h5>
+					<h5 class="modal-title">Submit foreclose loan?</h5>
 					<br>
 
 				</div>
@@ -379,7 +388,40 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function show() {
 
+			//alert("Hi View Orders  ");
+
+			var endDate = document.getElementById("joiningDate").value;
+			var empId = document.getElementById("empId").value;
+
+			$.getJSON('${calDateForPartialPay}', {
+				currentOutstanding : 0,
+				loanEmi : 0,
+				partialAmt : 0,
+				endDate : endDate,
+				loanId : 0,
+				empId : empId,
+				ajax : 'true',
+			},
+
+			function(data) {
+
+				//alert("Data " + JSON.stringify(data));
+				//document.getElementById("joiningDate").value = data.msg;
+				//alert(data.msg);
+
+				if (data.error == true) {
+					document.getElementById("joiningDate").value = "";
+					$("#error_joiningDate").html("Month is freeze.");
+					$("#error_joiningDate").show();
+				}
+
+			});
+
+		}
+	</script>
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({

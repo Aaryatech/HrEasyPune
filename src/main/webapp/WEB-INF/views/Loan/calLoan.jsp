@@ -50,7 +50,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Loan</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Loan
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -150,56 +152,57 @@
 									<hr>
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="voucherNo">Loan
-											Application No. <span style="color: red"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" readonly="readonly"
-												id="appNo" value="${appNo}" name="appNo" autocomplete="off">
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="voucherNo">Loan
+												Application No. <span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" readonly="readonly"
+													id="appNo" value="${appNo}" name="appNo" autocomplete="off">
 
+											</div>
 										</div>
-									</div>	
-	
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="voucherNo">
-											Today : </label> <label class="col-form-label col-lg-7 float"
-											for="voucherNo"> ${todaysDate} </label>
-									</div>
+
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="voucherNo">
+												Today : </label> <label class="col-form-label col-lg-7 float"
+												for="voucherNo"> ${todaysDate} </label>
+										</div>
 									</div>
 
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="advanceAmt">Loan Amount (Rs) <span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="Enter Loan Amount" id="loanAmt" name="loanAmt"
-												value="0" autocomplete="off" onchange="calAmt()"> <input
-												type="hidden" class="form-control" id="roi" name="roi"
-												value="0" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_loanAmt"
-												style="display: none;">This field is required.</span>
-										</div>
-										</div>
-										
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="month">Loan Tenure In Month <span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" id="tenure" value="1"
-												name="tenure" autocomplete="off" readonly="readonly">
-											<span class="validation-invalid-label" id="error_tenure"
-												style="display: none;">This field is required.</span>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="advanceAmt">Loan Amount (Rs) <span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Enter Loan Amount" id="loanAmt" name="loanAmt"
+													value="0" autocomplete="off" onchange="calAmt()"> <input
+													type="hidden" class="form-control" id="roi" name="roi"
+													value="0" autocomplete="off"> <span
+													class="validation-invalid-label" id="error_loanAmt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="month">Loan Tenure In Month <span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="tenure"
+													value="1" name="tenure" autocomplete="off"
+													readonly="readonly"> <span
+													class="validation-invalid-label" id="error_tenure"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
@@ -217,88 +220,88 @@
 									</div> -->
 									<div class="form-group row">
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="month">Loan EMI <span style="color: red">
-												*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" id="emi" name="emi"
-												autocomplete="off" onchange="calAmt()" value="0"> <span
-												class="validation-invalid-label" id="error_emi"
-												style="display: none;">This field is required.</span>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="month">Loan EMI <span style="color: red">
+													*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="emi" name="emi"
+													autocomplete="off" onchange="calAmt()" value="0"> <span
+													class="validation-invalid-label" id="error_emi"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>
-										
+
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="month">Total Repay Amount <span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" id="repayAmt"
-												readonly="readonly" name="repayAmt" autocomplete="off"
-												onchange="trim(this)" readonly="readonly"> <span
-												class="validation-invalid-label" id="error_repayAmt"
-												style="display: none;">This field is required.</span>
-										</div>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="month">Total Repay Amount <span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="repayAmt"
+													readonly="readonly" name="repayAmt" autocomplete="off"
+													onchange="trim(this)" readonly="readonly"> <span
+													class="validation-invalid-label" id="error_repayAmt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-									
-									
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="startDate"> Start Date of Cutting <span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control datepickerclass "
-												onchange="calAmt()" name="startDate" id="startDate"
-												placeholder="Joining Date">
-										</div>
-										</div>	
-										
 										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="joiningDate"> End Date of Cutting<span
-											style="color: red"> *</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control datepickerclass1 "
-												name="endDate" id="endDate" placeholder="Joining Date"
-												readonly="readonly">
+
+
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="startDate"> Start Date of Cutting <span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass "
+													onchange="calAmt()" name="startDate" id="startDate"
+													placeholder="Joining Date">
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="joiningDate"> End Date of Cutting<span
+												style="color: red"> *</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control datepickerclass1 "
+													name="endDate" id="endDate" placeholder="Joining Date"
+													readonly="readonly">
+											</div>
 										</div>
-																			
+
 									</div>
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="remark"> Remark <span style="color: red">
-												*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="remark"
-												name="remark" autocomplete="off" onchange="trim(this)"></textarea>
-											<span class="validation-invalid-label" id="error_remark"
-												style="display: none;">This field is required.</span>
-										</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="remark"> Remark <span style="color: red">
+													*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="remark"
+													name="remark" autocomplete="off" onchange="trim(this)"></textarea>
+												<span class="validation-invalid-label" id="error_remark"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -335,7 +338,28 @@
 
 	</div>
 	<!-- /page content -->
+	<div id="modal_scrollable" class="modal fade" data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header pb-3">
 
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body py-0">
+					<h5 class="modal-title">Are you want to apply loan ?</h5>
+					<br>
+
+				</div>
+
+				<div class="modal-footer pt-3">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		function calAmt() {
 			var tenure = 0
@@ -462,8 +486,9 @@
 					var x = true;
 					if (x == true) {
 
-						document.getElementById("submtbtn").disabled = true;
-						return true;
+						//document.getElementById("submtbtn").disabled = true;
+						$('#modal_scrollable').modal('show');
+						return false;
 					}
 					//end ajax send this to php page
 				}
@@ -472,7 +497,14 @@
 		});
 		//
 	</script>
+	<script>
+		function submitForm() {
+			$('#modal_scrollable').modal('hide');
+			document.getElementById("submtbtn").disabled = true;
+			document.getElementById("submitInsertLocaion").submit();
 
+		}
+	</script>
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
