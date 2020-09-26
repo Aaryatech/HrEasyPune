@@ -121,6 +121,7 @@ public class HomeController {
 						mav = "redirect:/changePassPage";
 					}else {
 					
+					request.getSession().setMaxInactiveInterval(14400);
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("limitKey", "header_color");
 					Setting getSettingByKey = Constants.getRestTemplate()

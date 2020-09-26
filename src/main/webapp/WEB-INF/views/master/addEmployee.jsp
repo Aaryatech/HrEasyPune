@@ -1958,6 +1958,21 @@
 														name="pfEmployerPer" value="0.0">
 												</div>
 
+												<%-- <label
+													class="col-form-label text-info font-weight-bold col-lg-2"
+													for="pfEmpPer">Remaining AMT to Add <span
+													class="text-danger">*</span>:
+												</label>
+												<div class="col-lg-4">
+													<select name="empyeeCeilingLimit" id="empyeeCeilingLimit"
+														data-rel="chosen" class="form-control">
+														<option value="yes"
+															${empAllowanceId.ceilingLimitEmpApplicable == 'yes' ? 'selected' : ''}>Yes</option>
+														<option value="no"
+															${empAllowanceId.ceilingLimitEmpApplicable == 'no' ? 'selected' : ''}>No</option>
+													</select>
+												</div> --%>
+
 											</div>
 
 											<div class="form-group row">
