@@ -11,7 +11,7 @@ public class LeavePenDash {
 	private int  newApp;
 	
 	private int finalPending;
-
+	private int ohPending;
 	public String getUniKey() {
 		return uniKey;
 	}
@@ -36,9 +36,18 @@ public class LeavePenDash {
 		this.finalPending = finalPending;
 	}
 
+	public int getOhPending() {
+		return ohPending;
+	}
+
+	public void setOhPending(int ohPending) {
+		this.ohPending = ohPending;
+	}
+
 	@Override
 	public String toString() {
-		return "LeavePenDash [uniKey=" + uniKey + ", newApp=" + newApp + ", finalPending=" + finalPending + "]";
+		return "LeavePenDash [uniKey=" + uniKey + ", newApp=" + newApp + ", finalPending=" + finalPending
+				+ ", ohPending=" + ohPending + "]";
 	}
 	
 	

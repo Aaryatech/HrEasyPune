@@ -675,7 +675,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		// System.err.println("-------------" + dash.getBirth().getLoginUserBirthDay());
+		  System.err.println("-------------" + dash.getBirth());
 		model.addAttribute("toDayIsBirthday", dash.getBirth().getLoginUserBirthDay());
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr
@@ -787,6 +787,7 @@ public class DashboardAdminController {
 
 			List<DashboardLeavePending> list = new ArrayList<>(Arrays.asList(dashboardLeavePending));
 			model.addAttribute("list", list);
+			model.addAttribute("type", type);
 		} catch (Exception e) {
 
 		}

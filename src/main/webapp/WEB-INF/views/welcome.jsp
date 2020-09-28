@@ -424,16 +424,11 @@ Green Color : #007c24     #07a43d
 							<div class="card bg-warning">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Pending Master one time</h6>
-									<!-- <div class="list-icons ml-auto">
-									<a class="list-icons-item" data-action="reload"></a>
-								</div> -->
+
 								</div>
 
 								<div class="card-body white_bg">
 									<div class="table-responsive">
-										<%-- <%
-										System.out.print("Sdfsdf");
-									%> --%>
 
 										<div class="dashboard_bx">
 											<c:if test="${masterDet.companyCount==0}">
@@ -509,13 +504,6 @@ Green Color : #007c24     #07a43d
 														class="text-white"> Add Calendar Year </a>
 												</div>
 											</c:if>
-											<%-- <c:if test="${masterDet.shiftCount==0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a href="${pageContext.request.contextPath}/addShift"
-													class="text-white"> Add Shift:0 </a>
-											</div>
-										</c:if> --%>
 
 											<c:if test="${masterDet.lvtypeCount==0}">
 												<c:set var="peningtask" value="1" />
@@ -605,16 +593,6 @@ Green Color : #007c24     #07a43d
 												</div>
 											</c:if>
 
-											<%-- <c:if test="${masterDet.shiftPending!=0}">
-											<c:set var="peningtask" value="1" />
-											<div class="dashboard_single">
-												<a
-													href="${pageContext.request.contextPath}/showEmpListToAssignShift"
-													class="text-white"> Assign
-													Shift:${masterDet.shiftPending} </a>
-											</div>
-										</c:if> --%>
-
 											<c:if test="${masterDet.lvStruvtPending!=0}">
 												<c:set var="peningtask" value="1" />
 												<div class="dashboard_single">
@@ -654,7 +632,7 @@ Green Color : #007c24     #07a43d
 					<div class="row">
 
 						<c:if
-							test="${birth.birthListToday.size()>0 || birth.birthListUpcoming>0}">
+							test="${birth.birthListToday.size()>0 || birth.birthListUpcoming.size()>0}">
 							<div class="col-md-4">
 								<div class="card bg-primary">
 									<div class="card-header header-elements-inline">
@@ -710,7 +688,7 @@ Green Color : #007c24     #07a43d
 													<div class="dashboard_single">
 														<a class="text-white"><i class="icon-gift "></i>
 															[${birth.empCode}] ${birth.name} <span
-															style="float: right;">${birth.dob}</span> </a>
+															style="float: right;">${birth.dateMonth}</span> </a>
 													</div>
 
 
@@ -877,6 +855,17 @@ Green Color : #007c24     #07a43d
 											</div>
 											<div class="dashboard_r">
 												<a class="text-white">${lvDet.finalPending}</a>
+											</div>
+											<div class="clr"></div>
+										</div>
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white" href="javascript:void(0)"
+													onclick="getPendingLeaveList(3)">Optional Holiday
+													Pending</a>
+											</div>
+											<div class="dashboard_r">
+												<a class="text-white">${lvDet.ohPending}</a>
 											</div>
 											<div class="clr"></div>
 										</div>
@@ -1419,8 +1408,10 @@ Green Color : #007c24     #07a43d
 
 			if (type == 1) {
 				$("#detailGraphHead").html("Initial Approve Pending List");
-			} else {
+			} else if (type == 2) {
 				$("#detailGraphHead").html("Final Approve Pending List");
+			} else {
+				$("#detailGraphHead").html("Optional Holiday Pending List");
 			}
 			var strhref = "${pageContext.request.contextPath}/leavePendingListForDashboard?type="
 					+ type;
