@@ -922,7 +922,7 @@ Green Color : #007c24     #07a43d
 						<div class="col-md-4">
 							<div class="card bg-purple-300 text-white">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Deduction (Current Moth)</h6>
+									<h6 class="card-title dash_title">Deduction (Current Month)</h6>
 
 								</div>
 
