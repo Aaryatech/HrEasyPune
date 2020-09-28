@@ -39,6 +39,7 @@ import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.MonthWithOT;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
@@ -837,17 +838,17 @@ public class DashboardAdminController {
 	}
 
 	@RequestMapping(value = "/totalOtPrevioussixMonth", method = RequestMethod.GET)
-	public @ResponseBody List<TotalOT> totalOtPrevioussixMonth(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody List<MonthWithOT> totalOtPrevioussixMonth(HttpServletRequest request, HttpServletResponse response) {
 
-		List<TotalOT> list = new ArrayList<>();
+		List<MonthWithOT> list = new ArrayList<>();
 		try {
 
 			HttpSession session = request.getSession();
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("locId", locId);
-			TotalOT[] empGraphDetail = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/totalOtPrevioussixMonth", map, TotalOT[].class);
+			MonthWithOT[] empGraphDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/totalOtPrevioussixMonth", map, MonthWithOT[].class);
 			list = new ArrayList<>(Arrays.asList(empGraphDetail));
 
 		} catch (Exception e) {
