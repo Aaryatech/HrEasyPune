@@ -371,7 +371,7 @@
 									.submit(
 											function(e) {
 
-												var table = $('#printtable1')
+												var table = $('#printtable2')
 														.DataTable();
 												table.search("").draw(); 
 

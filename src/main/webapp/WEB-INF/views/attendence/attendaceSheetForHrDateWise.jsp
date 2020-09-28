@@ -320,7 +320,7 @@
 
 										<thead>
 											<tr class="bg-blue" style="text-align: center;">
-												<th width="4%">Sr.no</th>
+												<!-- <th width="4%">Sr.no</th> -->
 												<th class="text-center">Name</th>
 												<th class="text-center">Status</th>
 												<th class="text-center">Approve Status</th>
@@ -341,110 +341,117 @@
 										<tbody>
 											<c:forEach items="${dailyrecordList}" var="dailyrecordList"
 												varStatus="count">
-												<tr>
-													<td>${count.index+1}</td>
-													<td>${dailyrecordList.empName}
-														&nbsp;(${dailyrecordList.empCode})</td>
-													<td class="text-center">${dailyrecordList.attsSdShow}</td>
-													<c:choose>
-														<c:when test="${dailyrecordList.commentsSupervisor==0}">
-															<td class="text-center"
-																style="background-color: #f51c1c;">Security Pending</td>
-														</c:when>
-														<c:when test="${dailyrecordList.commentsSupervisor==8}">
-															<td class="text-center"
-																style="background-color: #f51c1c;">HOD Pending
-																(${dailyrecordList.fileName})</td>
-														</c:when>
-														<c:when test="${dailyrecordList.commentsSupervisor==9}">
-															<td class="text-center">HOD Approved</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">-</td>
-														</c:otherwise>
-													</c:choose>
-													<c:choose>
-														<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
-															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">${dailyrecordList.inTime}</td>
-														</c:otherwise>
-													</c:choose>
+												<c:choose>
+													<c:when test="${dailyrecordList.rowId ==1}">
+														<tr style="background-color: #D3D3D3;">
+													</c:when>
+													<c:otherwise>
+														<tr>
+													</c:otherwise>
+												</c:choose>
 
-													<c:choose>
-														<c:when test="${dailyrecordList.outTime eq '00:00:00'}">
-															<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.outTime}</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">${dailyrecordList.outTime}</td>
-														</c:otherwise>
-													</c:choose>
+												<%-- <td>${count.index+1}</td> --%>
+												<td>${dailyrecordList.empName}
+													&nbsp;(${dailyrecordList.empCode})</td>
+												<td class="text-center">${dailyrecordList.attsSdShow}</td>
+												<c:choose>
+													<c:when test="${dailyrecordList.commentsSupervisor==0}">
+														<td class="text-center" style="background-color: #f51c1c;">Security
+															Pending</td>
+													</c:when>
+													<c:when test="${dailyrecordList.commentsSupervisor==8}">
+														<td class="text-center" style="background-color: #f51c1c;">HOD
+															Pending (${dailyrecordList.fileName})</td>
+													</c:when>
+													<c:when test="${dailyrecordList.commentsSupervisor==9}">
+														<td class="text-center">HOD Approved</td>
+													</c:when>
+													<c:otherwise>
+														<td class="text-center">-</td>
+													</c:otherwise>
+												</c:choose>
+												<c:choose>
+													<c:when test="${dailyrecordList.inTime eq '00:00:00'}">
+														<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.inTime}</td>
+													</c:when>
+													<c:otherwise>
+														<td class="text-center">${dailyrecordList.inTime}</td>
+													</c:otherwise>
+												</c:choose>
+
+												<c:choose>
+													<c:when test="${dailyrecordList.outTime eq '00:00:00'}">
+														<td class="text-center" style="background-color: #FFA8A8">${dailyrecordList.outTime}</td>
+													</c:when>
+													<c:otherwise>
+														<td class="text-center">${dailyrecordList.outTime}</td>
+													</c:otherwise>
+												</c:choose>
 
 
-													<c:choose>
-														<c:when test="${dailyrecordList.lateMark==1}">
-															<td class="text-center" style="background-color: #FF9">Yes</td>
-														</c:when>
-														<c:otherwise>
-															<td class="text-center">No</td>
-														</c:otherwise>
-													</c:choose>
-													<td class="text-right">${dailyrecordList.lateMin}</td>
-													<td class="text-right">${dailyrecordList.workingHrs}</td>
-													<%-- <c:if test="${mstEmpType.otApplicable eq 'Yes' }"> --%>
+												<c:choose>
+													<c:when test="${dailyrecordList.lateMark==1}">
+														<td class="text-center" style="background-color: #FF9">Yes</td>
+													</c:when>
+													<c:otherwise>
+														<td class="text-center">No</td>
+													</c:otherwise>
+												</c:choose>
+												<td class="text-right">${dailyrecordList.lateMin}</td>
+												<td class="text-right">${dailyrecordList.workingHrs}</td>
+												<%-- <c:if test="${mstEmpType.otApplicable eq 'Yes' }"> --%>
 
-													<c:set value="" var="bgclr"></c:set>
-													<c:choose>
-														<c:when test="${dailyrecordList.freezeBySupervisor==1}">
-															<c:set value="#e4cf12" var="bgclr"></c:set>
-														</c:when>
-														<c:when test="${dailyrecordList.freezeBySupervisor==2}">
-															<c:set value="#a2951e" var="bgclr"></c:set>
-														</c:when>
-													</c:choose>
-													<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
-													<%-- </c:if> --%>
-													<td><select id="isActive${dailyrecordList.empId}"
-														name="isActive${dailyrecordList.empId}"
-														class="form-control"
-														onclick="changeEmpStatus(${dailyrecordList.empId})"><option
-																value="0"
-																${dailyrecordList.rowId == '0'  ? 'Selected': '' }>Active</option>
-															<option value="1"
-																${dailyrecordList.rowId == '1'  ? 'Selected': '' }>Inactive</option>
-													</select></td>
-													<td class="text-center"><c:if
-															test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">
+												<c:set value="" var="bgclr"></c:set>
+												<c:choose>
+													<c:when test="${dailyrecordList.freezeBySupervisor==1}">
+														<c:set value="#e4cf12" var="bgclr"></c:set>
+													</c:when>
+													<c:when test="${dailyrecordList.freezeBySupervisor==2}">
+														<c:set value="#a2951e" var="bgclr"></c:set>
+													</c:when>
+												</c:choose>
+												<td class="text-right" style="background-color: ${bgclr}">${dailyrecordList.otHr}</td>
+												<%-- </c:if> --%>
+												<td><select id="isActive${dailyrecordList.empId}"
+													name="isActive${dailyrecordList.empId}"
+													class="form-control"
+													onclick="changeEmpStatus(${dailyrecordList.empId})"><option
+															value="0"
+															${dailyrecordList.rowId == '0'  ? 'Selected': '' }>Active</option>
+														<option value="1"
+															${dailyrecordList.rowId == '1'  ? 'Selected': '' }>Inactive</option>
+												</select></td>
+												<td class="text-center"><c:if
+														test="${dailyrecordList.isFixed==0 && dailyrecordList.atsummUid eq '0'}">
 
-															<c:choose>
-																<c:when
-																	test="${(dailyrecordList.attStatus eq 'WO-OT' 
+														<c:choose>
+															<c:when
+																test="${(dailyrecordList.attStatus eq 'WO-OT' 
 																	|| dailyrecordList.attStatus eq 'PH-OT' 
 																	|| dailyrecordList.attStatus eq 'PH-WO-P')}">
-																	<a href="#"
-																		onclick="editAttendanceDetail(${dailyrecordList.id})"
-																		class="list-icons-item text-primary-600"
-																		data-popup="tooltip" title="edit"><i
-																		class="icon-pencil7"></i></a>&nbsp;
+																<a href="#"
+																	onclick="editAttendanceDetail(${dailyrecordList.id})"
+																	class="list-icons-item text-primary-600"
+																	data-popup="tooltip" title="edit"><i
+																	class="icon-pencil7"></i></a>&nbsp;
 																		 <c:if test="${dailyrecordList.empJson eq 'Compoff'}">
-																		<a href="#"
-																			class="list-icons-item text-primary-600 bootbox_custom"
-																			data-dailyid="${dailyrecordList.id}"
-																			data-attstatus="${dailyrecordList.attStatus}"
-																			data-popup="tooltip" title="Mark As Compoff">Mark
-																			as Compoff</a>
-																	</c:if>
-																</c:when>
-																<c:otherwise>
 																	<a href="#"
-																		onclick="editAttendanceDetail(${dailyrecordList.id})"
-																		class="list-icons-item text-primary-600"
-																		data-popup="tooltip" title=""><i
-																		class="icon-pencil7"></i></a>
-																</c:otherwise>
-															</c:choose>
-														</c:if></td>
+																		class="list-icons-item text-primary-600 bootbox_custom"
+																		data-dailyid="${dailyrecordList.id}"
+																		data-attstatus="${dailyrecordList.attStatus}"
+																		data-popup="tooltip" title="Mark As Compoff">Mark
+																		as Compoff</a>
+																</c:if>
+															</c:when>
+															<c:otherwise>
+																<a href="#"
+																	onclick="editAttendanceDetail(${dailyrecordList.id})"
+																	class="list-icons-item text-primary-600"
+																	data-popup="tooltip" title=""><i
+																	class="icon-pencil7"></i></a>
+															</c:otherwise>
+														</c:choose>
+													</c:if></td>
 												</tr>
 											</c:forEach>
 
@@ -807,14 +814,14 @@ function changeEmpStatus(id) {
 			columnDefs : [ {
 				orderable : false,
 				targets : [ 0 ]
-			} ],
+			} ],"order": [],
 			//scrollX : true,
 			scrollX : true,
 			scrollY : '65vh',
 			scrollCollapse : true,
 			paging : false,
 			fixedColumns : {
-				leftColumns : 2,
+				leftColumns : 1,
 				rightColumns : 0
 			}
 
