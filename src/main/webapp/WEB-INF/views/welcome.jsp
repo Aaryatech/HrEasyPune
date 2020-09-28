@@ -1546,7 +1546,7 @@ Green Color : #007c24     #07a43d
 
 			}, function(data1) {
 
-				//alert(JSON.stringify(data1))
+				alert(JSON.stringify(data1))
 				/* google.charts.load("current", {
 					packages : [ "imagelinechart" ]
 				});
@@ -1589,11 +1589,18 @@ Green Color : #007c24     #07a43d
 					var data = new google.visualization.DataTable();
 					data.addColumn('string', 'Month');
 					data.addColumn('number', 'Production HRS');
+					data.addColumn('number', 'Production HRS');
+					data.addColumn('number', 'Production HRS');
 					$.each(data1, function(key, dt) {
 
-						//dept.push([ dt.month, dt.ot ]);
-						data.addRows([ [ dt.month, dt.ot ] ]);
+						var dept = [];
+						dept.push(dt.month);
 
+						for (var i = 0; i < dt.otlist.length; i++) {
+							alert(i)
+							dept.push(dt.otList[i].ot);
+						}
+						data.addRows([ dept ]);
 					})
 
 					/* data.addRows([ [ 1, 37.8, 80.8, 41.8 ],
