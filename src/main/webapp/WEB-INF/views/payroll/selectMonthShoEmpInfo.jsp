@@ -42,8 +42,10 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Employee Salary Information For
-							Payroll process</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Employee Salary Information
+							For Payroll process
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -123,15 +125,13 @@
 
 							<div class="table-responsive">
 								<table
-									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-									id="bootstrap-data-table1">
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 									<thead>
 										<tr class="bg-blue">
-											<th width="5%" class="text-center">Sr.no</th>
+											<th class="text-center">EMP Name</th>
 											<th width="5%" class="text-center">All <input
 												type="checkbox" name="selectAll" id="selectAll"></th>
-											<th width="10%" class="text-center">EMP Code</th>
-											<th class="text-center">EMP Name</th>
 											<th class="text-center">EMP Type</th>
 											<th class="text-center">Salary STR.</th>
 											<th class="text-center">Department</th>
@@ -169,11 +169,9 @@
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
 											<tr>
-												<td>${count.index+1}</td>
+												<td>${empList.empName}&nbsp;(${empList.empCode})</td>
 												<td><input type="checkbox" name="selectEmp"
 													id="selectEmp${empList.empId}" value="${empList.empId}"></td>
-												<td>${empList.empCode}</td>
-												<td>${empList.empName}</td>
 												<td>${empList.empTypeName}</td>
 												<td>${empList.salTypeName}</td>
 												<td>${empList.deptName}</td>
@@ -273,6 +271,26 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			"order" : [],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 0
+			}
+
+		});
+	</script>
+	<script type="text/javascript">
 		// Single picker
 		/* $(function() {
 			$("#datepicker").datepicker({
@@ -302,6 +320,9 @@
 			$('#myModal_checklist').modal('show');
 		}); */
 		function submitForm() {
+			
+			var table = $('#printtable1').DataTable();
+			table.search("").draw();
 			$("#error_emp").hide();
 			var list = [];
 

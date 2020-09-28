@@ -80,8 +80,8 @@
 
 							<div class="table-responsive">
 								<table
-									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-									id="bootstrap-data-table1">
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 									<thead>
 
 										<%
@@ -141,8 +141,8 @@
 												session.setAttribute("payroll_bhatta_show", payroll_bhatta_show);
 										%>
 										<tr class="bg-blue">
-											<th width="5%" class="text-center">Sr.no</th>
-											<th class="text-center">EMP Code</th>
+											<!-- <th width="5%" class="text-center">Sr.no</th>
+											<th class="text-center">EMP Code</th> -->
 											<th width="20%" class="text-center">EMP Name</th>
 											<th width="20%" class="text-center">Department</th>
 											<th width="20%" class="text-center">Designation</th>
@@ -247,7 +247,7 @@
 
 												for (int i = 0; i < list.size(); i++) {
 										%><tr>
-											<td>
+											<%-- <td>
 												<%
 													out.println(i + 1);
 												%>
@@ -256,10 +256,10 @@
 												<%
 													out.println(list.get(i).getEmpCode());
 												%>
-											</td>
+											</td> --%>
 											<td>
 												<%
-													out.println(list.get(i).getEmpName());
+													out.println(list.get(i).getEmpName() + " (" + list.get(i).getEmpCode() + ")");
 												%>
 											</td>
 
@@ -648,7 +648,26 @@
 
 		}
 	</script>
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
 
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			"order" : [],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 0
+			}
+
+		});
+	</script>
 	<script>
 		// Custom bootbox dialog
 		$('.bootbox_custom')

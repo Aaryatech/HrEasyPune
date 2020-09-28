@@ -43,7 +43,9 @@
 				<!-- Highlighting rows and columns -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="pageTitle"><i class="icon-list-unordered"></i> Freeze Attendance</h5>
+						<h5 class="pageTitle">
+							<i class="icon-list-unordered"></i> Freeze Attendance
+						</h5>
 						<!-- <div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -61,40 +63,40 @@
 							id="fixAttendaceByDateAndEmp" method="get">
 
 							<%
-									if (session.getAttribute("errorMsg") != null) {
+								if (session.getAttribute("errorMsg") != null) {
+							%>
+							<div
+								class="alert bg-danger text-white alert-styled-left alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert">
+									<span>×</span>
+								</button>
+								<span class="font-weight-semibold">Oh snap!</span>
+								<%
+									out.println(session.getAttribute("errorMsg"));
 								%>
-								<div
-									class="alert bg-danger text-white alert-styled-left alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert">
-										<span>×</span>
-									</button>
-									<span class="font-weight-semibold">Oh snap!</span>
-									<%
-										out.println(session.getAttribute("errorMsg"));
-									%>
-								</div>
+							</div>
 
+							<%
+								session.removeAttribute("errorMsg");
+								}
+							%>
+							<%
+								if (session.getAttribute("successMsg") != null) {
+							%>
+							<div
+								class="alert bg-success text-white alert-styled-left alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert">
+									<span>×</span>
+								</button>
+								<span class="font-weight-semibold">Well done!</span>
 								<%
-									session.removeAttribute("errorMsg");
-									}
+									out.println(session.getAttribute("successMsg"));
 								%>
-								<%
-									if (session.getAttribute("successMsg") != null) {
-								%>
-								<div
-									class="alert bg-success text-white alert-styled-left alert-dismissible">
-									<button type="button" class="close" data-dismiss="alert">
-										<span>×</span>
-									</button>
-									<span class="font-weight-semibold">Well done!</span>
-									<%
-										out.println(session.getAttribute("successMsg"));
-									%>
-								</div>
-								<%
-									session.removeAttribute("successMsg");
-									}
-								%>
+							</div>
+							<%
+								session.removeAttribute("successMsg");
+								}
+							%>
 
 							<div class="form-group row">
 								<label
@@ -107,8 +109,7 @@
 										class="form-control" value="${selectMonth}" required />
 								</div>
 
-								<button type="submit" class="btn blue_btn"
-									id="submtbtn">
+								<button type="submit" class="btn blue_btn" id="submtbtn">
 									Search <i class="icon-paperplane ml-2"></i>
 								</button>
 
@@ -125,8 +126,8 @@
 							id="submitFixAttendaceByDateAndEmp" method="post">
 							<div class="table-responsive">
 								<table
-									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-									id="bootstrap-data-table1">
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 									<thead>
 										<tr class="bg-blue">
 											<th width="5%" class="text-center">Sr.no</th>
@@ -167,8 +168,8 @@
 								</div>
 							</c:if>
 						</form>
-							<p class="desc text-danger fontsize11">Note : * Fields are
-									mandatory.</p>
+						<p class="desc text-danger fontsize11">Note : * Fields are
+							mandatory.</p>
 					</div>
 
 				</div>
@@ -278,6 +279,8 @@
 						'click',
 						function() {
 							//var uuid = $(this).data("uuid") // will return the number 123
+							var table = $('#printtable1').DataTable();
+							table.search("").draw();
 							$("#error_emp").hide();
 							var list = [];
 
@@ -317,5 +320,25 @@
 							}
 						});
 	</Script>
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			"order" : [],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 0
+			}
+
+		});
+	</script>
 </body>
 </html>

@@ -43,6 +43,7 @@ import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
+import com.ats.hreasy.model.TotalOT;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
 import com.ats.hreasy.model.dashboard.CommonDash;
@@ -835,6 +836,26 @@ public class DashboardAdminController {
 		return list;
 	}
 
+	@RequestMapping(value = "/totalOtPrevioussixMonth", method = RequestMethod.GET)
+	public @ResponseBody List<TotalOT> totalOtPrevioussixMonth(HttpServletRequest request, HttpServletResponse response) {
+
+		List<TotalOT> list = new ArrayList<>();
+		try {
+
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			TotalOT[] empGraphDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/totalOtPrevioussixMonth", map, TotalOT[].class);
+			list = new ArrayList<>(Arrays.asList(empGraphDetail));
+
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
+	
 	public int difffun(String date1, String date2) {
 
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");

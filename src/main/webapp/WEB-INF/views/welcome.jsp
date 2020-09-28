@@ -7,6 +7,7 @@
 <!-- <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet"> -->
 <!-- font-family: 'Grandstander', cursive; -->
 <c:url var="getdeptwiseEmp" value="/getdeptwiseEmp" />
+<c:url var="totalOtPrevioussixMonth" value="/totalOtPrevioussixMonth" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
 	rel="stylesheet">
@@ -419,6 +420,38 @@ Green Color : #007c24     #07a43d
 								</div>
 							</div>
 						</div>
+
+						<div class="col-md-4">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Today Weekly Off (Total)</h6>
+
+								</div>
+
+								<div class="card-body white_bg">
+
+									<div class="dashboard_bx">
+										<c:forEach items="${deptwiseWkoff}" var="deptwiseWkoff"
+											varStatus="count">
+											<div class="dashboard_one">
+												<div class="dashboard_l">
+													<a class="text-white">${deptwiseWkoff.nameSd}</a>
+												</div>
+												<div class="dashboard_r">
+													<a class="text-white">${deptwiseWkoff.empCount}</a>
+												</div>
+												<div class="clr"></div>
+											</div>
+										</c:forEach>
+									</div>
+
+
+
+								</div>
+							</div>
+
+						</div>
+
 						<c:set var="peningtask" value="0" />
 						<div class="col-md-4">
 							<div class="card bg-warning">
@@ -621,16 +654,33 @@ Green Color : #007c24     #07a43d
 						</div>
 
 
-					</div>
+						<div class="col-md-4">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Department wise Employee
+									</h6>
 
-				</c:if>
+								</div>
 
+								<div class="card-body white_bg">
+									<div id="dept_pie_chart" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
 
-				<%-- <c:if test="${peningtask==1}"> --%>
+						</div>
+						<div class="col-md-4">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Production HRS</h6>
 
-				<c:if test="${userType ==2}">
-					<div class="row">
+								</div>
 
+								<div class="card-body white_bg">
+									<div id="dept_prod_ince" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
+
+						</div>
 						<c:if
 							test="${birth.birthListToday.size()>0 || birth.birthListUpcoming.size()>0}">
 							<div class="col-md-4">
@@ -736,26 +786,8 @@ Green Color : #007c24     #07a43d
 
 							</div>
 
-							<div class="col-md-4">
-								<div class="card bg-warning">
-									<div class="card-header header-elements-inline">
-										<h6 class="card-title dash_title">
-											<i class="fas fa-calendar-alt "></i> Department wise Employee
-										</h6>
-
-									</div>
-
-									<div class="card-body white_bg">
-										<div id="dept_pie_chart" style="width: 100%; height: 100%;"></div>
-									</div>
-								</div>
-
-							</div>
 						</c:if>
-					</div>
 
-
-					<div class="row">
 						<div class="col-md-4">
 							<div class="card bg-primary">
 								<div class="card-header header-elements-inline">
@@ -879,50 +911,14 @@ Green Color : #007c24     #07a43d
 
 						</div>
 
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Today Weekly Off (Total)</h6>
 
-								</div>
-
-								<div class="card-body white_bg">
-
-									<div class="dashboard_bx">
-										<c:forEach items="${deptwiseWkoff}" var="deptwiseWkoff"
-											varStatus="count">
-											<div class="dashboard_one">
-												<div class="dashboard_l">
-													<a class="text-white">${deptwiseWkoff.nameSd}</a>
-												</div>
-												<div class="dashboard_r">
-													<a class="text-white">${deptwiseWkoff.empCount}</a>
-												</div>
-												<div class="clr"></div>
-											</div>
-										</c:forEach>
-									</div>
-
-
-
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-
-				</c:if>
-
-				<c:if test="${userType == 2}">
-
-					<div class="row">
 
 
 						<div class="col-md-4">
 							<div class="card bg-purple-300 text-white">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Deduction (Current Month)</h6>
+									<h6 class="card-title dash_title">Deduction (Current
+										Month)</h6>
 
 								</div>
 
@@ -1366,7 +1362,6 @@ Green Color : #007c24     #07a43d
 				</div>
 
 				<!-- /highlighting rows and columns -->
-				</form>
 			</div>
 		</div>
 
@@ -1400,7 +1395,6 @@ Green Color : #007c24     #07a43d
 	</div>
 	<!-- /main content -->
 
-	</div>
 	<script type="text/javascript"
 		src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
@@ -1498,6 +1492,7 @@ Green Color : #007c24     #07a43d
 	<script type="text/javascript">
 		$(document).ready(function() {
 			getGraphs();
+			getLineGraphs();
 		});
 		function getGraphs() {
 
@@ -1537,6 +1532,99 @@ Green Color : #007c24     #07a43d
 
 					chart.draw(data, options);
 				}
+			});
+
+		}
+
+		function getLineGraphs() {
+
+			$.getJSON('${totalOtPrevioussixMonth}',
+
+			{
+
+				ajax : 'true'
+
+			}, function(data1) {
+
+				//alert(JSON.stringify(data1))
+				/* google.charts.load("current", {
+					packages : [ "imagelinechart" ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+
+				function drawChart() {
+					var dept = [];
+
+					dept.push([ 'Year', 'Collevtive OT' ]);
+
+					$.each(data1, function(key, dt) {
+
+						dept.push([ dt.month, dt.ot ]);
+
+					})
+
+					  var data = google.visualization.arrayToDataTable([
+							[ 'Year', 'Sales', 'Expenses' ],
+							[ '2004', 1000, 400 ], [ '2005', 1170, 460 ],
+							[ '2006', 660, 1120 ], [ '2007', 1030, 540 ] ]);  
+
+					 var data = google.visualization.arrayToDataTable(dept);
+					  var chart = new google.visualization.ImageLineChart(
+							document.getElementById('dept_prod_ince'));  
+
+					chart.draw(data, {
+						width : 400,
+						height : 240,
+						min : 0
+					});
+				} */
+
+				google.charts.load('current', {
+					'packages' : [ 'line' ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+
+				function drawChart() {
+
+					var data = new google.visualization.DataTable();
+					data.addColumn('string', 'Month');
+					data.addColumn('number', 'Production HRS');
+					$.each(data1, function(key, dt) {
+
+						//dept.push([ dt.month, dt.ot ]);
+						data.addRows([ [ dt.month, dt.ot ] ]);
+
+					})
+
+					/* data.addRows([ [ 1, 37.8, 80.8, 41.8 ],
+							[ 2, 30.9, 69.5, 32.4 ],
+							[ 3, 25.4, 57, 25.7 ],
+							[ 4, 11.7, 18.8, 10.5 ],
+							[ 5, 11.9, 17.6, 10.4 ],
+							[ 6, 8.8, 13.6, 7.7 ],
+							[ 7, 7.6, 12.3, 9.6 ],
+							[ 8, 12.3, 29.2, 10.6 ],
+							[ 9, 16.9, 42.9, 14.8 ],
+							[ 10, 12.8, 30.9, 11.6 ],
+							[ 11, 5.3, 7.9, 4.7 ],
+							[ 12, 6.6, 8.4, 5.2 ],
+							[ 13, 4.8, 6.3, 3.6 ],
+							[ 14, 4.2, 6.2, 3.4 ] ]); */
+
+					var options = {
+						chart : {
+							title : 'Production HRS'
+						}
+					};
+
+					var chart = new google.charts.Line(document
+							.getElementById('dept_prod_ince'));
+
+					chart
+							.draw(data, google.charts.Line
+									.convertOptions(options));
+				}
+
 			});
 
 		}

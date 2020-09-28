@@ -140,8 +140,8 @@
 
 							<div class="table-responsive">
 								<table
-									class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
-									id="bootstrap-data-table1">
+									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+									width="100%" id="printtable1">
 
 									<c:set value="0" var="payroll_claim_show"></c:set>
 									<c:set value="0" var="payroll_advance_show"></c:set>
@@ -179,8 +179,8 @@
 									</c:forEach>
 									<thead>
 										<tr class="bg-blue">
-											<th width="5%" class="text-center">Sr.no</th>
-											<th class="text-center">EMP Code</th>
+											<!-- <th width="5%" class="text-center">Sr.no</th>
+											<th class="text-center">EMP Code</th> -->
 											<th width="20%" class="text-center">EMP Name</th>
 											<th class="text-center">Salary STR.</th>
 											<th class="text-center">Designation</th>
@@ -210,9 +210,9 @@
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
 											<tr>
-												<td>${count.index+1}</td>
-												<td>${empList.empCode}</td>
-												<td>${empList.empName}</td>
+												<%-- <td>${count.index+1}</td>
+												<td></td> --%>
+												<td>${empList.empName}&nbsp;${empList.empCode}</td>
 												<td>${empList.salTypeName}</td>
 												<td>${empList.designation}</td>
 												<c:if test="${payroll_claim_show==1}">
@@ -242,11 +242,10 @@
 													style="text-align: right;"
 													onchange="saveBonusDetail(${empList.id})"></td>
 												<td class="text-right"><input type="text"
-													class="form-control numbersOnly"
-													value="${empList.other1}" placeholder="Other Amt"
-													id="other1${empList.id}" name="other1${empList.id}"
-													autocomplete="off" data-other1="${empList.other1}"
-													style="text-align: right;"
+													class="form-control numbersOnly" value="${empList.other1}"
+													placeholder="Other Amt" id="other1${empList.id}"
+													name="other1${empList.id}" autocomplete="off"
+													data-other1="${empList.other1}" style="text-align: right;"
 													onchange="saveBonusDetail(${empList.id})"></td>
 												<c:if test="${payroll_reward_show==1}">
 													<td class="text-right">${empList.reward}</td>
@@ -465,6 +464,26 @@
 				}); 
 			}
 			} */
+	</script>
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			"order" : [],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '65vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 1,
+				rightColumns : 0
+			}
+
+		});
 	</script>
 </body>
 </html>
