@@ -38,6 +38,7 @@ import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveHistory;
+import com.ats.hreasy.model.LineGraphData;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MonthWithOT;
 import com.ats.hreasy.model.MstEmpType;
@@ -677,7 +678,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		  System.err.println("-------------" + dash.getBirth());
+		System.err.println("-------------" + dash.getBirth());
 		model.addAttribute("toDayIsBirthday", dash.getBirth().getLoginUserBirthDay());
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr
@@ -742,6 +743,13 @@ public class DashboardAdminController {
 		MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 				MstEmpType.class);
 		model.addAttribute("mstEmpType", mstEmpType);
+
+		Calendar cal2 = Calendar.getInstance();
+		int month = cal2.get(Calendar.MONTH) + 1;
+		int year = cal2.get(Calendar.YEAR);
+
+		model.addAttribute("month", month);
+		model.addAttribute("year", year);
 
 		return mav;
 	}
@@ -838,25 +846,35 @@ public class DashboardAdminController {
 	}
 
 	@RequestMapping(value = "/totalOtPrevioussixMonth", method = RequestMethod.GET)
-	public @ResponseBody List<MonthWithOT> totalOtPrevioussixMonth(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody LineGraphData totalOtPrevioussixMonth(HttpServletRequest request,
+			HttpServletResponse response) {
 
-		List<MonthWithOT> list = new ArrayList<>();
+		LineGraphData lineGraphData = new LineGraphData();
 		try {
+
+			String monthYearLineGraph = request.getParameter("monthYearLineGraph");
+			String[] split = monthYearLineGraph.split("-");
+
+			/*
+			 * int month = Integer.parseInt(request.getParameter("month")); int year =
+			 * Integer.parseInt(request.getParameter("year"));
+			 */
 
 			HttpSession session = request.getSession();
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("locId", locId);
-			MonthWithOT[] empGraphDetail = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/totalOtPrevioussixMonth", map, MonthWithOT[].class);
-			list = new ArrayList<>(Arrays.asList(empGraphDetail));
+			map.add("month", split[0]);
+			map.add("year", split[1]);
+			lineGraphData = Constants.getRestTemplate().postForObject(Constants.url + "/totalOtPrevioussixMonth", map,
+					LineGraphData.class);
 
 		} catch (Exception e) {
 
 		}
-		return list;
+		return lineGraphData;
 	}
-	
+
 	public int difffun(String date1, String date2) {
 
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");

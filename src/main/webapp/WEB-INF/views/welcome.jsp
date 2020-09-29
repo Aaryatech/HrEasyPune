@@ -71,7 +71,11 @@ Green Color : #007c24     #07a43d
 <head>
 
 <jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 
 
 </head>
@@ -452,6 +456,47 @@ Green Color : #007c24     #07a43d
 
 						</div>
 
+
+
+						<div class="col-md-4">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Department wise Employee
+									</h6>
+
+								</div>
+
+								<div class="card-body white_bg">
+									<div id="dept_pie_chart" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-8">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">
+										Production HRS <!-- <a class="list-icons-item" data-action="reload"></a> -->
+									</h6>
+									<div class="col-md-2" style="background: white;">
+										<input type="text" class="form-control monthYear"
+											placeholder="Select Date " id="monthYearLineGraph"
+											name="monthYearLineGraph" value="${month}-${year}"
+											autocomplete="off" onchange="getLineGraphs()">
+									</div>
+									<!-- <div class="col-md-2">
+										<button type="button" class="btn blue_btn1" id="submtbtn"
+											onclick="getLineGraphs()">Search</button>
+									</div> -->
+								</div>
+
+								<div class="card-body white_bg">
+
+									<div id="dept_prod_ince" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
+
+						</div>
 						<c:set var="peningtask" value="0" />
 						<div class="col-md-4">
 							<div class="card bg-warning">
@@ -648,35 +693,6 @@ Green Color : #007c24     #07a43d
 
 										</div>
 									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Department wise Employee
-									</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-									<div id="dept_pie_chart" style="width: 100%; height: 100%;"></div>
-								</div>
-							</div>
-
-						</div>
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Production HRS</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-									<div id="dept_prod_ince" style="width: 100%; height: 100%;"></div>
 								</div>
 							</div>
 
@@ -1464,6 +1480,18 @@ Green Color : #007c24     #07a43d
 		}, function (start_date) {
 		    $('#leaveDate').val(start_date.format('DD-MM-YYYY'));
 		}); */
+
+		$(document).ready(function() {
+			// month selector
+			$('.monthYear').datepicker({
+				autoclose : true,
+				format : "mm-yyyy",
+				viewMode : "months",
+				minViewMode : "months"
+
+			});
+
+		});
 		$('.datepickerclass').daterangepicker({
 			"autoUpdateInput" : false,
 			singleDatePicker : true,
@@ -1492,7 +1520,7 @@ Green Color : #007c24     #07a43d
 	<script type="text/javascript">
 		$(document).ready(function() {
 			getGraphs();
-			getLineGraphs();
+			//getLineGraphs();
 		});
 		function getGraphs() {
 
@@ -1538,47 +1566,19 @@ Green Color : #007c24     #07a43d
 
 		function getLineGraphs() {
 
+			var monthYearLineGraph = $("#monthYearLineGraph").val();
+
+			//alert(monthYearLineGraph);
 			$.getJSON('${totalOtPrevioussixMonth}',
 
 			{
-
+				monthYearLineGraph : monthYearLineGraph,
 				ajax : 'true'
 
-			}, function(data1) {
+			}, function(lineGraphData) {
 
-				//alert(JSON.stringify(data1))
-				/* google.charts.load("current", {
-					packages : [ "imagelinechart" ]
-				});
-				google.charts.setOnLoadCallback(drawChart);
-
-				function drawChart() {
-					var dept = [];
-
-					dept.push([ 'Year', 'Collevtive OT' ]);
-
-					$.each(data1, function(key, dt) {
-
-						dept.push([ dt.month, dt.ot ]);
-
-					})
-
-					  var data = google.visualization.arrayToDataTable([
-							[ 'Year', 'Sales', 'Expenses' ],
-							[ '2004', 1000, 400 ], [ '2005', 1170, 460 ],
-							[ '2006', 660, 1120 ], [ '2007', 1030, 540 ] ]);  
-
-					 var data = google.visualization.arrayToDataTable(dept);
-					  var chart = new google.visualization.ImageLineChart(
-							document.getElementById('dept_prod_ince'));  
-
-					chart.draw(data, {
-						width : 400,
-						height : 240,
-						min : 0
-					});
-				} */
-
+				var data1 = lineGraphData.list;
+				var deptList = lineGraphData.deptList;
 				google.charts.load('current', {
 					'packages' : [ 'line' ]
 				});
@@ -1588,43 +1588,26 @@ Green Color : #007c24     #07a43d
 
 					var data = new google.visualization.DataTable();
 					data.addColumn('string', 'Month');
-					data.addColumn('number', 'Production HRS');
-					data.addColumn('number', 'Production HRS');
-					data.addColumn('number', 'Production HRS');
+					for (var j = 0; j < deptList.length; j++) {
+						data.addColumn('number', deptList[j].name);
+					}
+
 					for (var j = 0; j < data1.length; j++) {
 
 						var dept = [];
 						dept.push(data1[j].month);
-						/* dept.push(5);
-						dept.push(6);
-						dept.push(7); */
-						//alert(dt.otlist.length)
+
 						console.log(data1[j].otlist)
 						for (var i = 0; i < data1[j].otlist.length; i++) {
-							try {
-								dept.push(data1[j].otlist[i].ot);
-							} catch (err) {
+							/* try { */
+							dept.push(data1[j].otlist[i].ot);
+							/* } catch (err) {
 								dept.push(0);
 								//document.getElementById("demo").innerHTML = err.message;
-							}
+							} */
 						}
 						data.addRows([ dept ]);
 					}
-
-					/* data.addRows([ [ 1, 37.8, 80.8, 41.8 ],
-							[ 2, 30.9, 69.5, 32.4 ],
-							[ 3, 25.4, 57, 25.7 ],
-							[ 4, 11.7, 18.8, 10.5 ],
-							[ 5, 11.9, 17.6, 10.4 ],
-							[ 6, 8.8, 13.6, 7.7 ],
-							[ 7, 7.6, 12.3, 9.6 ],
-							[ 8, 12.3, 29.2, 10.6 ],
-							[ 9, 16.9, 42.9, 14.8 ],
-							[ 10, 12.8, 30.9, 11.6 ],
-							[ 11, 5.3, 7.9, 4.7 ],
-							[ 12, 6.6, 8.4, 5.2 ],
-							[ 13, 4.8, 6.3, 3.6 ],
-							[ 14, 4.2, 6.2, 3.4 ] ]); */
 
 					var options = {
 						chart : {
@@ -1635,9 +1618,7 @@ Green Color : #007c24     #07a43d
 					var chart = new google.charts.Line(document
 							.getElementById('dept_prod_ince'));
 
-					chart
-							.draw(data, google.charts.Line
-									.convertOptions(options));
+					chart.draw(data, options);
 				}
 
 			});
