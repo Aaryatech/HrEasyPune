@@ -9,6 +9,7 @@
 <c:url var="getdeptwiseEmp" value="/getdeptwiseEmp" />
 <c:url var="totalOtPrevioussixMonth" value="/totalOtPrevioussixMonth" />
 <c:url var="getAmtBarGraph" value="/getAmtBarGraph" />
+<c:url var="getPresentData" value="/getPresentData" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
 	rel="stylesheet">
@@ -132,33 +133,47 @@ Green Color : #007c24     #07a43d
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="card">
+
+
+								<div class="col-lg-2">
+									<input type="text" class="form-control datepickerclass"
+										placeholder="Select Date " id="attendaceDate"
+										name="attendaceDate" value="01-08-2020" autocomplete="off">
+
+								</div>
+								<div class="col-lg-2">
+
+									<button type="button" class="btn blue_btn" id="submtbtn"
+										onclick="getPresentData()">Search</button>
+								</div>
+
 								<div class="tab_round">
 									<div class="row">
 										<div class="col-lg-3">
 											<div class="shift_round bg-purple-300">
 												<div class="round_size">
-													<span>980</span> Present Employee
+													<span id="present_count">0</span> Present Employee
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-3">
-											<div class="shift_round bg-pink-400"">
+											<div class="shift_round bg-pink-400">
 												<div class="round_size">
-													<span>32</span> Late Employee
+													<span id="late_count">0</span> Late Employee
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-3">
 											<div class="shift_round bg-warning">
 												<div class="round_size">
-													<span>11</span> Leave Employee
+													<span id="leave_count">0</span> Leave Employee
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-3">
 											<div class="shift_round bg-primary">
 												<div class="round_size">
-													<span>26</span> Absent Employee
+													<span id="absent_count">0</span> Absent Employee
 												</div>
 											</div>
 										</div>
@@ -1526,6 +1541,7 @@ Green Color : #007c24     #07a43d
 
 			});
 			getGraphs();
+			getPresentData();
 		});
 		$('.datepickerclass').daterangepicker({
 			"autoUpdateInput" : false,
@@ -1718,6 +1734,26 @@ Green Color : #007c24     #07a43d
 
 			});
 
+		}
+
+		function getPresentData() {
+			var attendaceDate = $("#attendaceDate").val();
+
+			alert(attendaceDate);
+			$.getJSON('${getPresentData}',
+
+			{
+				attendaceDate : attendaceDate,
+				ajax : 'true'
+
+			}, function(res) {
+
+				$("#present_count").html(res.countData.present);
+				$("#absent_count").html(res.countData.absent);
+				$("#leave_count").html(res.countData.leavecount);
+				$("#late_count").html(res.countData.latemark);
+				//alert(JSON.stringify(res))
+			});
 		}
 	</script>
 </body>

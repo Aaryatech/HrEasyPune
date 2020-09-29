@@ -63,6 +63,7 @@ import com.ats.hreasy.model.dashboard.PreDayAttnDash;
 import com.ats.hreasy.model.report.DashTempBean;
 import com.ats.hreasy.model.report.HodDashboard;
 import com.ats.hreasy.model.report.HodDeptDashb;
+import com.ats.hrmgt.model.AttendaceLiveData;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
 import com.ats.hrmgt.model.assets.CatWiseAssetCount;
@@ -899,6 +900,28 @@ public class DashboardAdminController {
 
 		}
 		return list;
+	}
+
+	@RequestMapping(value = "/getPresentData", method = RequestMethod.GET)
+	public @ResponseBody AttendaceLiveData getPresentData(HttpServletRequest request, HttpServletResponse response) {
+
+		AttendaceLiveData attendaceLiveData = new AttendaceLiveData();
+		try {
+
+			String attendaceDate = request.getParameter("attendaceDate");
+
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			map.add("date", DateConvertor.convertToYMD(attendaceDate));
+			attendaceLiveData = Constants.getRestTemplate().postForObject(Constants.url + "/liveAttendaceDashboardData",
+					map, AttendaceLiveData.class);
+
+		} catch (Exception e) {
+
+		}
+		return attendaceLiveData;
 	}
 
 	public int difffun(String date1, String date2) {
