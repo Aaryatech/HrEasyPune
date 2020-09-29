@@ -476,7 +476,8 @@ Green Color : #007c24     #07a43d
 							<div class="card bg-warning">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">
-										Production HRS <!-- <a class="list-icons-item" data-action="reload"></a> -->
+										Production HRS
+										<!-- <a class="list-icons-item" data-action="reload"></a> -->
 									</h6>
 									<div class="col-md-2" style="background: white;">
 										<input type="text" class="form-control monthYear"
@@ -493,6 +494,34 @@ Green Color : #007c24     #07a43d
 								<div class="card-body white_bg">
 
 									<div id="dept_prod_ince" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Amount Disbursed Month
+										Wise</h6>
+
+								</div>
+
+								<div class="card-body white_bg">
+									<div id="deduction_graph" style="width: 100%; height: 100%;"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="card bg-warning">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title dash_title">Department wise Employee
+									</h6>
+
+								</div>
+
+								<div class="card-body white_bg">
+									<!-- <div id="dept_pie_chart" style="width: 100%; height: 100%;"></div> -->
 								</div>
 							</div>
 
