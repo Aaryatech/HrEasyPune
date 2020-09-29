@@ -8,6 +8,7 @@
 <!-- font-family: 'Grandstander', cursive; -->
 <c:url var="getdeptwiseEmp" value="/getdeptwiseEmp" />
 <c:url var="totalOtPrevioussixMonth" value="/totalOtPrevioussixMonth" />
+<c:url var="getAmtBarGraph" value="/getAmtBarGraph" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
 	rel="stylesheet">
@@ -503,7 +504,12 @@ Green Color : #007c24     #07a43d
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Amount Disbursed Month
 										Wise</h6>
-
+									<div class="col-md-2" style="background: white;">
+										<input type="text" class="form-control monthYear"
+											placeholder="Select Date " id="monthYearBarGraph"
+											name="monthYearBarGraph" value="${month}-${year}"
+											autocomplete="off" onchange="getAmtBarGraph()">
+									</div>
 								</div>
 
 								<div class="card-body white_bg">
@@ -1519,7 +1525,7 @@ Green Color : #007c24     #07a43d
 				minViewMode : "months"
 
 			});
-
+			getGraphs();
 		});
 		$('.datepickerclass').daterangepicker({
 			"autoUpdateInput" : false,
@@ -1547,10 +1553,6 @@ Green Color : #007c24     #07a43d
 	</script>
 	<!-- /page content -->
 	<script type="text/javascript">
-		$(document).ready(function() {
-			getGraphs();
-			//getLineGraphs();
-		});
 		function getGraphs() {
 
 			$.getJSON('${getdeptwiseEmp}',
@@ -1648,6 +1650,70 @@ Green Color : #007c24     #07a43d
 							.getElementById('dept_prod_ince'));
 
 					chart.draw(data, options);
+				}
+
+			});
+
+		}
+
+		function getAmtBarGraph() {
+
+			var monthYearBarGraph = $("#monthYearBarGraph").val();
+
+			//alert(monthYearLineGraph);
+			$.getJSON('${getAmtBarGraph}',
+
+			{
+				monthYearBarGraph : monthYearBarGraph,
+				ajax : 'true'
+
+			}, function(res) {
+
+				google.charts.load('current', {
+					'packages' : [ 'corechart' ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+
+					var dataTable = new google.visualization.DataTable();
+
+					dataTable.addColumn('string', 'Month Year'); // Implicit domain column.
+
+					dataTable.addColumn('number', 'Advance');
+					dataTable.addColumn('number', 'Loan');
+
+					$.each(res, function(key, dt) {
+
+						dataTable.addRows([
+
+						[ dt.month, dt.advAmt, dt.loanAmt ]
+
+						]);
+
+					})
+
+					/* slantedTextAngle: 60 */
+					var options = {
+						hAxis : {
+							title : "Month Year",
+							textPosition : 'out',
+							slantedText : true
+						},
+						vAxis : {
+							title : 'Amount',
+							minValue : 0,
+							viewWindow : {
+								min : 0
+							},
+							format : '0',
+						},
+						colors : [ 'orange', 'blue' ],
+						theme : 'material'
+					};
+					var chart = new google.visualization.ColumnChart(document
+							.getElementById('deduction_graph'));
+
+					chart.draw(dataTable, options);
 				}
 
 			});

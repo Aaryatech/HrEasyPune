@@ -40,6 +40,7 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LineGraphData;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.MonthWiseDisbusedAmt;
 import com.ats.hreasy.model.MonthWithOT;
 import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.Setting;
@@ -873,6 +874,31 @@ public class DashboardAdminController {
 
 		}
 		return lineGraphData;
+	}
+
+	@RequestMapping(value = "/getAmtBarGraph", method = RequestMethod.GET)
+	public @ResponseBody List<MonthWiseDisbusedAmt> getAmtBarGraph(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<MonthWiseDisbusedAmt> list = new ArrayList<>();
+		try {
+
+			String monthYearBarGraph = request.getParameter("monthYearBarGraph");
+			String[] split = monthYearBarGraph.split("-");
+
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			map.add("month", split[0]);
+			map.add("year", split[1]);
+			MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/disbusedAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
+			list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+		} catch (Exception e) {
+
+		}
+		return list;
 	}
 
 	public int difffun(String date1, String date2) {
