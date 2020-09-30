@@ -414,7 +414,7 @@ public class PayRollController {
 			rowData.add("PF");
 			rowData.add("ESIC");
 			rowData.add("LWF");
-			/* rowData.add("Society Contribution"); */
+			rowData.add("Total Earning");
 			rowData.add("Deduction AMT");
 			rowData.add("Net Salary");
 
@@ -526,11 +526,11 @@ public class PayRollController {
 						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
-				/*
-				 * rowData.add("" + String.format("%.2f",
-				 * ReportCostants.castNumber(list.get(i).getSocietyContribution(),
-				 * amount_round)));
-				 */
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber((list.get(i).getGrossSalaryDytemp()
+						+ list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd() + list.get(i).getReward()
+						+ list.get(i).getOtWages() + list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
+						+ list.get(i).getBhatta() + list.get(i).getOther1()), amount_round)));
 
 				double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
 						+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()

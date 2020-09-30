@@ -212,7 +212,7 @@
 											<th class="text-center">PF</th>
 											<th class="text-center">ESIC</th>
 											<th class="text-center">LWF</th>
-											<!-- <th class="text-center">Society Contribution</th> -->
+											<th class="text-center">Total Earning</th>
 											<th class="text-center">Deduction AMT</th>
 											<th class="text-center">Net Salary</th>
 										</tr>
@@ -486,12 +486,16 @@
 													out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
 												%>
 											</td>
-											<%-- <td class="text-right">
+											<td class="text-right">
 												<%
 													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getSocietyContribution(), amount_round)));
+																	ReportCostants.castNumber((list.get(i).getGrossSalaryDytemp()
+																			+ list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd()
+																			+ list.get(i).getReward() + list.get(i).getOtWages()
+																			+ list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
+																			+ list.get(i).getBhatta() + list.get(i).getOther1()), amount_round)));
 												%>
-											</td> --%>
+											</td>
 											<td class="text-right">
 												<%
 													double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
