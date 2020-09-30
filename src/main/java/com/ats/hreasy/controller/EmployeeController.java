@@ -242,8 +242,18 @@ public class EmployeeController {
 				rowData.add("" + cnt);
 				rowData.add("" + list.get(i).getFirstName() + " " + list.get(i).getSurname() + " ("
 						+ list.get(i).getEmpCode() + ")");
-				rowData.add(list.get(i).getDeptName());
-				rowData.add(list.get(i).getLocName());
+				if (list.get(i).getDeptName() == null) {
+					rowData.add("-");
+				} else {
+					rowData.add(list.get(i).getDeptName());
+				}
+
+				if (list.get(i).getLocName() == null) {
+					rowData.add("-");
+				} else {
+					rowData.add(list.get(i).getLocName());
+				}
+
 				rowData.add(String.format("%.2f", Float.parseFloat(list.get(i).getWoCatName())));
 
 				for (int k = 0; k < allowancesList.size(); k++) {
