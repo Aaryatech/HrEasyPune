@@ -78,10 +78,10 @@ public class ProfileController {
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", Integer.parseInt(empId));
 			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+					.postForObject(Constants.url + "/getEmployeeSalAllowancesInfo", map, EmpSalAllowance[].class);
 
 			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
-			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			System.out.println("EmpSalAllowance Info-------" + empAllowncList.size());
 			model.addAttribute("empAllowncList", empAllowncList);
 
 			//System.err.println("Employee Detail Data-----------" + empAllDtls);

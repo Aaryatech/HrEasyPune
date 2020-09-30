@@ -1,5 +1,12 @@
 package com.ats.hreasy.controller;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
 
 import java.security.MessageDigest;
@@ -9,26 +16,35 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.zefer.pd4ml.PD4Constants;
+import org.zefer.pd4ml.PD4ML;
+import org.zefer.pd4ml.PD4PageMark;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.ExceUtil;
+import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.common.RandomString;
+import com.ats.hreasy.common.ReportCostants;
 import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Allowances;
@@ -43,7 +59,9 @@ import com.ats.hreasy.model.EmpSalaryInfo;
 import com.ats.hreasy.model.EmpType;
 import com.ats.hreasy.model.EmployeDoc;
 import com.ats.hreasy.model.EmployeeMaster;
+import com.ats.hreasy.model.GetEmpDetailForFullPayslip;
 import com.ats.hreasy.model.GetEmployeeDetails;
+import com.ats.hreasy.model.GetPayrollGeneratedList;
 import com.ats.hreasy.model.HolidayCategory;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -51,6 +69,8 @@ import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstCompany;
 import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.PayRollDataForProcessing;
+import com.ats.hreasy.model.SalaryRateData;
 import com.ats.hreasy.model.SalaryTypesMaster;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SkillRates;
@@ -149,6 +169,146 @@ public class EmployeeController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/pdf/exportSalaryDetailPdf/{locId}", method = RequestMethod.GET)
+	public ModelAndView generatedFullPayslip(@PathVariable int locId, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("payroll/exportSalaryDetailPdf");
+		try {
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("locId", locId);
+			SalaryRateData salaryRateData = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getSalaryDetailRate", map, SalaryRateData.class);
+			List<GetEmployeeDetails> list = salaryRateData.getList();
+			List<EmpSalAllowance> alloList = salaryRateData.getAlloList();
+			model.addObject("list", list);
+			model.addObject("alloList", alloList);
+			model.addObject("allownceList", salaryRateData.getAllowancelist());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	@RequestMapping(value = "/exportSalaryDetailExcel/{loc}", method = RequestMethod.GET)
+	public void excelForGeneratedPayroll(@PathVariable("loc") int loc, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("locId", loc);
+			SalaryRateData salaryRateData = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getSalaryDetailRate", map, SalaryRateData.class);
+			List<GetEmployeeDetails> list = salaryRateData.getList();
+			List<EmpSalAllowance> alloList = salaryRateData.getAlloList();
+			List<Allowances> allowancesList = salaryRateData.getAllowancelist();
+
+			String reportName = "SALARY DETAIL";
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("Sr. No");
+			rowData.add("Name (Code)");
+			rowData.add("Department");
+			rowData.add("Location");
+			rowData.add("Basic");
+			for (int i = 0; i < allowancesList.size(); i++) {
+				rowData.add(allowancesList.get(i).getName());
+			}
+			rowData.add("Gross Salary");
+			rowData.add("PF Applicable");
+			rowData.add("Employer Ceiling Limit Applicable");
+			rowData.add("Employee Ceiling Limit Applicable ");
+			rowData.add("ESIC Applicable");
+			rowData.add("LWF Applicable");
+			rowData.add("PT Applicable");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			int cnt = 1;
+
+			for (int i = 0; i < list.size(); i++) {
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("" + cnt);
+				rowData.add("" + list.get(i).getFirstName() + " " + list.get(i).getSurname() + " ("
+						+ list.get(i).getEmpCode() + ")");
+				rowData.add(list.get(i).getDeptName());
+				rowData.add(list.get(i).getLocName());
+				rowData.add(String.format("%.2f", Float.parseFloat(list.get(i).getWoCatName())));
+
+				for (int k = 0; k < allowancesList.size(); k++) {
+					int find = 0;
+					for (int j = 0; j < alloList.size(); j++) {
+						if (alloList.get(j).getAllowanceId() == allowancesList.get(k).getAllowanceId()
+								&& alloList.get(j).getEmpId() == list.get(i).getEmpId()) {
+							rowData.add(String.format("%.2f", alloList.get(j).getAllowanceValue()));
+							find = 1;
+							break;
+
+						}
+					}
+					if (find == 0) {
+						rowData.add(String.format("%.2f", 0.0));
+					}
+
+				}
+				rowData.add(String.format("%.2f", list.get(i).getGrossSalary()));
+				rowData.add(list.get(i).getOrgName());
+				if (list.get(i).getOrgName().equalsIgnoreCase("yes")) {
+					rowData.add(list.get(i).getHoCatName());
+					rowData.add(list.get(i).getEmpDesgn());
+				} else {
+					rowData.add("NA");
+					rowData.add("NA");
+				}
+				rowData.add(list.get(i).getShiftname());
+				rowData.add(list.get(i).getEmpTypeName());
+				rowData.add(list.get(i).getSubCompName());
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				cnt = cnt + 1;
+
+			}
+
+			XSSFWorkbook wb = null;
+			try {
+				// System.out.println("exportToExcelList" + exportToExcelList.toString());
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " ", "", 'Z');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+
 	}
 
 	@RequestMapping(value = "/deleteEmp", method = RequestMethod.GET)
@@ -1950,6 +2110,128 @@ public class EmployeeController {
 		}
 		return "redirect:/showDriverEmployeeList";
 
+	}
+
+	private Dimension format = PD4Constants.A4;
+	private boolean landscapeValue = true;
+	private int topValue = 8;
+	private int leftValue = 0;
+	private int rightValue = 0;
+	private int bottomValue = 8;
+	private String unitsValue = "m";
+	private String proxyHost = "";
+	private int proxyPort = 0;
+
+	private int userSpaceWidth = 850;
+	private static int BUFFER_SIZE = 1024;
+
+	@RequestMapping(value = "/pdfForSalary", method = RequestMethod.GET)
+	public void showPDF(HttpServletRequest request, HttpServletResponse response) {
+
+		String url = request.getParameter("url");
+		File f = new File(Constants.REPORT_SAVE);
+		try {
+			runConverter(Constants.ReportURL + url, f, request, response);
+			// runConverter("www.google.com", f,request,response);
+
+		} catch (IOException e) {
+
+			System.out.println("Pdf conversion exception " + e.getMessage());
+		}
+
+		ServletContext context = request.getSession().getServletContext();
+		String appPath = context.getRealPath("");
+
+		String filePath = Constants.REPORT_SAVE;
+
+		String fullPath = appPath + filePath;
+		File downloadFile = new File(filePath);
+		FileInputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream(downloadFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			// get MIME type of the file
+			String mimeType = context.getMimeType(fullPath);
+			if (mimeType == null) {
+				// set to binary type if MIME mapping not found
+				mimeType = "application/pdf";
+			}
+			// System.out.println("MIME type: " + mimeType);
+
+			String headerKey = "Content-Disposition";
+
+			// response.addHeader("Content-Disposition", "attachment;filename=report.pdf");
+			response.setContentType("application/pdf");
+
+			OutputStream outStream;
+
+			outStream = response.getOutputStream();
+
+			byte[] buffer = new byte[BUFFER_SIZE];
+			int bytesRead = -1;
+
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+
+			inputStream.close();
+			outStream.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void runConverter(String urlstring, File output, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		if (urlstring.length() > 0) {
+			if (!urlstring.startsWith("http://") && !urlstring.startsWith("file:")) {
+				urlstring = "http://" + urlstring;
+			}
+			// System.out.println("PDF URL " + urlstring);
+			java.io.FileOutputStream fos = new java.io.FileOutputStream(output);
+
+			PD4ML pd4ml = new PD4ML();
+
+			try {
+
+				PD4PageMark footer = new PD4PageMark();
+				pd4ml.enableSmartTableBreaks(true);
+				footer.setPageNumberTemplate("page $[page] of $[total]");
+				footer.setTitleAlignment(PD4PageMark.LEFT_ALIGN);
+				footer.setPageNumberAlignment(PD4PageMark.RIGHT_ALIGN);
+				footer.setInitialPageNumber(1);
+				footer.setFontSize(8);
+				footer.setAreaHeight(15);
+
+				pd4ml.setPageFooter(footer);
+
+			} catch (Exception e) {
+				System.out.println("Pdf conversion method excep " + e.getMessage());
+			}
+			try {
+				pd4ml.setPageSize(landscapeValue ? pd4ml.changePageOrientation(format) : format);
+				// pd4ml.setPageSize(new java.awt.Dimension(15*72, 11*72));
+			} catch (Exception e) {
+				System.out.println("Pdf conversion ethod excep " + e.getMessage());
+			}
+
+			if (unitsValue.equals("mm")) {
+				pd4ml.setPageInsetsMM(new Insets(topValue, leftValue, bottomValue, rightValue));
+			} else {
+				pd4ml.setPageInsets(new Insets(topValue, leftValue, bottomValue, rightValue));
+			}
+
+			pd4ml.setHtmlWidth(userSpaceWidth);
+
+			pd4ml.render(urlstring, fos);
+
+		}
 	}
 
 }
