@@ -157,51 +157,57 @@ Green Color : #007c24     #07a43d
 											</div>
 										</div>
 										<div class="col-lg-3">
-											<div class="shift_round bg-pink-400">
-												<div class="round_size">
-													<span id="late_count">0</span> Late Employee
-												</div>
-											</div>
+											<a href="#" onclick="openCloseDive(3)"><div
+													class="shift_round bg-pink-400">
+													<div class="round_size">
+														<span id="late_count">0</span> Late Employee
+													</div>
+												</div></a>
 										</div>
 										<div class="col-lg-3">
-											<div class="shift_round bg-warning">
-												<div class="round_size">
-													<span id="leave_count">0</span> Leave Employee
-												</div>
-											</div>
+											<a href="#" onclick="openCloseDive(2)"><div
+													class="shift_round bg-warning">
+													<div class="round_size">
+														<span id="leave_count">0</span> Leave Employee
+													</div>
+												</div></a>
 										</div>
 										<div class="col-lg-3">
-											<div class="shift_round bg-primary">
-												<div class="round_size">
-													<span id="absent_count">0</span> Absent Employee
-												</div>
-											</div>
+											<a href="#" onclick="openCloseDive(1)"><div
+													class="shift_round bg-primary">
+													<div class="round_size">
+														<span id="absent_count">0</span> Absent Employee
+													</div>
+												</div></a>
 										</div>
 									</div>
 
 
 									<!-- Late Employee tab start here -->
 									<div class="row">
-										<div class="late_employee">
+										<div class="late_employee" id="late_emp_list">
 											<!-- <h3 class="bg-pink-400 employee_title">Late Employee</h3> -->
 
 											<div class="late_one fix_scroll">
 
 												<div class="datatable-scroll-wrap">
+													<!-- <table
+														class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+														width="100%" id="printtable3"> -->
 													<table
-														class="table table-bordered table-hover datatable-highlight1">
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="printtable3">
 														<thead>
 															<tr class="bg-pink-400" role="row">
 																<th class="sorting_desc">Employee Name</th>
 																<th class="sorting">Department</th>
 																<th class="sorting">Late Minutes</th>
-																<th class="sorting">Monthly Latemark</th>
 															</tr>
 														</thead>
 														<tbody>
 
 
-															<tr role="row" class="odd">
+															<!-- <tr role="row" class="odd">
 																<td><a href="#" data-toggle="modal"
 																	onclick="getEmpData(82,1)">AKSHAY MADHUKAR
 																		RAOANDORE</a></td>
@@ -234,7 +240,7 @@ Green Color : #007c24     #07a43d
 																<td>Development</td>
 																<td>20 Minutes</td>
 																<td>234 Minutes</td>
-															</tr>
+															</tr> -->
 														</tbody>
 													</table>
 												</div>
@@ -245,187 +251,58 @@ Green Color : #007c24     #07a43d
 									</div>
 
 									<!-- Leave Employee tab start here -->
-									<div class="row" style="display: none;">
-										<div class="late_employee">
+									<div class="row">
+										<div class="late_employee" id="leave_emp_list"
+											style="display: none;">
 
 											<div class="late_one fix_scroll">
 
 												<div class="datatable-scroll-wrap">
 													<table
-														class="table table-bordered table-hover datatable-highlight1">
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="printtable2">
+														<!-- <table class="table" width="100%" id="printtable2"> -->
 														<thead>
 															<tr class="bg-warning" role="row">
 																<th class="sorting_desc">Employee Name</th>
 																<th class="sorting">Department</th>
-																<th class="sorting">Todate</th>
-																<th class="sorting">Balance Leaves</th>
+																<th class="sorting">Type</th>
 															</tr>
 														</thead>
 														<tbody>
 
 
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>12 Leave</td>
-															</tr>
 
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>15 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>08 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>02 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>01 Leave</td>
-															</tr>
 
 														</tbody>
 													</table>
 												</div>
-
 											</div>
 
 										</div>
 									</div>
 
 									<!-- Absent Employee tab start here -->
-									<div class="row" style="display: none;">
-										<div class="late_employee">
+									<div class="row">
+										<div class="late_employee" id="abs_emp_list"
+											style="display: none;">
 
 											<div class="late_one fix_scroll">
 
 												<div class="datatable-scroll-wrap">
 													<table
-														class="table table-bordered table-hover datatable-highlight1">
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="printtable1">
+														<!-- <table
+															class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+															width="100%" id="printtable1"> -->
 														<thead>
 															<tr class="bg-primary" role="row">
 																<th class="sorting_desc">Employee Name</th>
 																<th class="sorting">Department</th>
-																<th class="sorting">Todate</th>
-																<th class="sorting">Balance Leaves</th>
 															</tr>
 														</thead>
 														<tbody>
-
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19- 03 - 2020</td>
-																<td>12 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>15 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>08 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>02 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>01 Leave</td>
-															</tr>
-
-														</tbody>
-													</table>
-												</div>
-
-											</div>
-
-										</div>
-									</div>
-
-									<!-- Present Employee tab start here -->
-									<div class="row" style="display: none;">
-										<div class="late_employee">
-
-											<div class="late_one fix_scroll">
-
-												<div class="datatable-scroll-wrap">
-													<table
-														class="table table-bordered table-hover datatable-highlight1">
-														<thead>
-															<tr class="bg-purple-300" role="row">
-																<th class="sorting_desc">Employee Name</th>
-																<th class="sorting">Department</th>
-																<th class="sorting">Todate</th>
-																<th class="sorting">Balance Leaves</th>
-															</tr>
-														</thead>
-														<tbody>
-
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19- 03 - 2020</td>
-																<td>12 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>15 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>08 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>02 Leave</td>
-															</tr>
-
-															<tr role="row" class="odd">
-																<td>AKSHAY MADHUKAR RAOANDORE</td>
-																<td>Development</td>
-																<td>19 - 03 - 2020</td>
-																<td>01 Leave</td>
-															</tr>
 
 														</tbody>
 													</table>
@@ -1736,25 +1613,184 @@ Green Color : #007c24     #07a43d
 
 		}
 
+		function openCloseDive(type) {
+
+			if (type == 1) {
+				$("#late_emp_list").hide();
+				$("#leave_emp_list").hide();
+				$("#abs_emp_list").show();
+			} else if (type == 2) {
+				$("#late_emp_list").hide();
+				$("#leave_emp_list").show();
+				$("#abs_emp_list").hide();
+			} else if (type == 3) {
+				$("#late_emp_list").show();
+				$("#leave_emp_list").hide();
+				$("#abs_emp_list").hide();
+			}
+
+		}
 		function getPresentData() {
 			var attendaceDate = $("#attendaceDate").val();
 
-			alert(attendaceDate);
-			$.getJSON('${getPresentData}',
+			//alert(attendaceDate);
+			$
+					.getJSON(
+							'${getPresentData}',
 
-			{
-				attendaceDate : attendaceDate,
-				ajax : 'true'
+							{
+								attendaceDate : attendaceDate,
+								ajax : 'true'
 
-			}, function(res) {
+							},
+							function(res) {
 
-				$("#present_count").html(res.countData.present);
-				$("#absent_count").html(res.countData.absent);
-				$("#leave_count").html(res.countData.leavecount);
-				$("#late_count").html(res.countData.latemark);
-				//alert(JSON.stringify(res))
-			});
+								$("#present_count").html(res.countData.present);
+								$("#absent_count").html(res.countData.absent);
+								$("#leave_count")
+										.html(res.countData.leavecount);
+								$("#late_count").html(res.countData.latemark);
+								//alert(JSON.stringify(res))
+
+								$('#printtable3 td').remove();
+								$('#printtable2 td').remove();
+								$('#printtable1 td').remove();
+
+								/* var table = $('#printtable3').DataTable();
+								var rows = table.rows().remove().draw(); */
+
+								/* var table2 = $('#printtable2').DataTable();
+								var rows = table2.rows().remove().draw(); */
+
+								/* var table1 = $('#printtable1').DataTable();
+								var rows = table1.rows().remove().draw(); */
+
+								for (var i = 0; i < res.lateList.length; i++) {
+
+									var tr = $('<tr></tr>');
+
+									tr
+											.append($(
+													'<td class="text-left"></td>')
+													.html(
+															'<a href="#" data-toggle="modal" onclick="getEmpData('
+																	+ res.lateList[i].empId
+																	+ ',1)">'
+																	+ res.lateList[i].empName
+																	+ '</a>'));
+									tr.append($('<td class="text-left"></td>')
+											.html(res.lateList[i].deptName));
+									tr.append($('<td class="text-right"></td>')
+											.html(res.lateList[i].lateMin));
+									$('#printtable3 tbody').append(tr);
+
+									/* var tr_data = '<tr  >' + '<td >'
+											+ res.lateList[i].empName + '</td>'
+											+ '<td  class="text-right">'
+											+ res.lateList[i].deptName
+											+ '</td><td class="text-right" >'
+											+ res.lateList[i].lateMin + '</td> </tr>';
+									$('#printtable3').append(tr_data); */
+
+									/* $('#printtable3 td').css('white-space', 'initial');
+									$('#printtable3').DataTable().row.add(
+											[ res.lateList[i].empName,
+													res.lateList[i].deptName,
+													res.lateList[i].lateMin ]).draw(); */
+								}
+
+								for (var i = 0; i < res.presentList.length; i++) {
+
+									if (res.presentList[i].lvSumupId == 7
+											|| res.presentList[i].lvSumupId == 11) {
+
+										var tr = $('<tr></tr>');
+
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																		+ res.presentList[i].empId
+																		+ ',2)">'
+																		+ res.presentList[i].empName
+																		+ '</a>'));
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																res.presentList[i].deptName));
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																res.presentList[i].attStatus));
+										$('#printtable2 tbody').append(tr);
+
+										/* var tr_data = '<tr  >' + '<td >'
+												+ res.presentList[i].empName + '</td>'
+												+ '<td  class="text-right">'
+												+ res.presentList[i].deptName
+												+ '</td><td class="text-right" >'
+												+ res.presentList[i].attStatus
+												+ '</td>  </tr>';
+										$('#printtable2').append(tr_data); */
+										/* $('#printtable2 td').css('white-space', 'initial');
+										$('#printtable2').DataTable().row.add(
+												[ res.presentList[i].empName,
+														res.presentList[i].deptName,
+														res.presentList[i].attStatus ]).draw(); */
+									} else if (res.presentList[i].lvSumupId == 22) {
+
+										var tr = $('<tr></tr>');
+
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																		+ res.presentList[i].empId
+																		+ ',2)">'
+																		+ res.presentList[i].empName
+																		+ '</a>'));
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																res.presentList[i].deptName));
+										$('#printtable1 tbody').append(tr);
+
+										/* $('#printtable1 td').css('white-space',
+												'initial');
+										$('#printtable1').DataTable().row.add(
+												[ res.presentList[i].empName,
+														res.presentList[i].deptName,
+														res.presentList[i].attStatus ])
+												.draw(); */
+									}
+
+								}
+							});
 		}
+	</script>
+	<script type="text/javascript">
+		$('.datatable-fixed-left_custom').DataTable({
+
+			columnDefs : [ {
+				orderable : false,
+				targets : [ 0 ]
+			} ],
+			//scrollX : true,
+			scrollX : true,
+			scrollY : '50vh',
+			scrollCollapse : true,
+			paging : false,
+			fixedColumns : {
+				leftColumns : 0,
+				rightColumns : 0
+			}
+
+		});
 	</script>
 </body>
 </html>
