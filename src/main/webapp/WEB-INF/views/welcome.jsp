@@ -80,6 +80,13 @@ Green Color : #007c24     #07a43d
 	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.js"></script>
 
 
+
+<style type="text/css">
+.btn.search{display: block; padding: 8px 0px; font-size: 14px; width: 100%;}
+.form-control.padd_dic{height: 30px;
+    line-height: 30px;}
+</style>
+
 </head>
 
 <body>
@@ -134,18 +141,26 @@ Green Color : #007c24     #07a43d
 						<div class="col-lg-8">
 							<div class="card">
 
-
-								<div class="col-lg-2">
+								<div class="tab_round">
+									<div class="row">
+									
+									<div class="col-md-9">&nbsp;</div>
+								
+									<div class="col-md-2">
 									<input type="text" class="form-control datepickerclass"
 										placeholder="Select Date " id="attendaceDate"
 										name="attendaceDate" value="01-08-2020" autocomplete="off">
 
 								</div>
-								<div class="col-lg-2">
+								<div class="col-md-1">
 
-									<button type="button" class="btn blue_btn" id="submtbtn"
+									<button type="button" class="btn search blue_btn" id="submtbtn"
 										onclick="getPresentData()">Search</button>
 								</div>
+								
+								</div>
+								</div>
+								
 
 								<div class="tab_round">
 									<div class="row">
@@ -373,7 +388,7 @@ Green Color : #007c24     #07a43d
 										<!-- <a class="list-icons-item" data-action="reload"></a> -->
 									</h6>
 									<div class="col-md-2" style="background: white;">
-										<input type="text" class="form-control monthYear"
+										<input type="text" class="form-control padd_dic monthYear"
 											placeholder="Select Date " id="monthYearLineGraph"
 											name="monthYearLineGraph" value="${month}-${year}"
 											autocomplete="off" onchange="getLineGraphs()">
@@ -397,7 +412,7 @@ Green Color : #007c24     #07a43d
 									<h6 class="card-title dash_title">Amount Disbursed Month
 										Wise</h6>
 									<div class="col-md-2" style="background: white;">
-										<input type="text" class="form-control monthYear"
+										<input type="text" class="form-control padd_dic monthYear"
 											placeholder="Select Date " id="monthYearBarGraph"
 											name="monthYearBarGraph" value="${month}-${year}"
 											autocomplete="off" onchange="getAmtBarGraph()">
