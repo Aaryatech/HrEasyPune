@@ -26,7 +26,7 @@
 					</tbody>
 				</table>
 			</c:when>
-			<c:otherwise>
+			<c:when test="${type==1 || type==2}">
 				<table class="table table-bordered table-hover datatable-highlight1">
 					<thead>
 						<tr class="bg-pink-400" role="row">
@@ -50,7 +50,32 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</c:otherwise>
+			</c:when>
+			<c:when test="${type==4 || type==5}">
+				<table class="table table-bordered table-hover datatable-highlight1">
+					<thead>
+						<tr class="bg-pink-400" role="row">
+							<th class="sorting_desc">Employee Name</th>
+							<th class="sorting">Date</th>
+							<th class="sorting">Amount</th>
+							<th class="sorting">Initial Authority</th>
+							<th class="sorting">Final Authority</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<c:forEach items="${list}" var="list">
+							<tr role="row" class="odd">
+								<td>${list.empName}</td>
+								<td>${list.leaveFromdt}</td>
+								<td>${list.leaveTitle}</td>
+								<td>${list.initialAuthName}</td>
+								<td>${list.finalAuthName}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:when>
 		</c:choose>
 
 	</div>

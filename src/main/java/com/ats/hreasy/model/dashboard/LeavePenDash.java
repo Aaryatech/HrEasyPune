@@ -12,6 +12,9 @@ public class LeavePenDash {
 	
 	private int finalPending;
 	private int ohPending;
+	private int newClaimApp;
+	private int finalClaimApp;
+	
 	public String getUniKey() {
 		return uniKey;
 	}
@@ -44,10 +47,27 @@ public class LeavePenDash {
 		this.ohPending = ohPending;
 	}
 
+	public int getNewClaimApp() {
+		return newClaimApp;
+	}
+
+	public void setNewClaimApp(int newClaimApp) {
+		this.newClaimApp = newClaimApp;
+	}
+
+	public int getFinalClaimApp() {
+		return finalClaimApp;
+	}
+
+	public void setFinalClaimApp(int finalClaimApp) {
+		this.finalClaimApp = finalClaimApp;
+	}
+
 	@Override
 	public String toString() {
 		return "LeavePenDash [uniKey=" + uniKey + ", newApp=" + newApp + ", finalPending=" + finalPending
-				+ ", ohPending=" + ohPending + "]";
+				+ ", ohPending=" + ohPending + ", newClaimApp=" + newClaimApp + ", finalClaimApp=" + finalClaimApp
+				+ "]";
 	}
 	
 	

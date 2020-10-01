@@ -902,8 +902,7 @@ Green Color : #007c24     #07a43d
 						<div class="col-md-4">
 							<div class="card bg-purple-300 text-white">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Leave Application
-										Pending</h6>
+									<h6 class="card-title dash_title">Application Pending</h6>
 
 								</div>
 
@@ -913,7 +912,7 @@ Green Color : #007c24     #07a43d
 										<div class="dashboard_one">
 											<div class="dashboard_l">
 												<a class="text-white" href="javascript:void(0)"
-													onclick="getPendingLeaveList(1)">Initial Approve
+													onclick="getPendingLeaveList(1)">Leave Initial Approve
 													Pending</a>
 											</div>
 											<div class="dashboard_r">
@@ -936,7 +935,8 @@ Green Color : #007c24     #07a43d
 										<div class="dashboard_one">
 											<div class="dashboard_l">
 												<a class="text-white" href="javascript:void(0)"
-													onclick="getPendingLeaveList(2)">Final Approve Pending</a>
+													onclick="getPendingLeaveList(2)">Leave Final Approve
+													Pending</a>
 											</div>
 											<div class="dashboard_r">
 												<a class="text-white">${lvDet.finalPending}</a>
@@ -951,6 +951,28 @@ Green Color : #007c24     #07a43d
 											</div>
 											<div class="dashboard_r">
 												<a class="text-white">${lvDet.ohPending}</a>
+											</div>
+											<div class="clr"></div>
+										</div>
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white" href="javascript:void(0)"
+													onclick="getPendingLeaveList(4)">Claim Initial Approve
+													Pending</a>
+											</div>
+											<div class="dashboard_r">
+												<a class="text-white">${lvDet.newClaimApp}</a>
+											</div>
+											<div class="clr"></div>
+										</div>
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white" href="javascript:void(0)"
+													onclick="getPendingLeaveList(5)">Claim Final Approve
+													Pending</a>
+											</div>
+											<div class="dashboard_r">
+												<a class="text-white">${lvDet.finalClaimApp}</a>
 											</div>
 											<div class="clr"></div>
 										</div>
@@ -1449,11 +1471,15 @@ Green Color : #007c24     #07a43d
 		function getPendingLeaveList(type) {
 
 			if (type == 1) {
-				$("#detailGraphHead").html("Initial Approve Pending List");
+				$("#detailGraphHead").html("Leave Initial Approve Pending List");
 			} else if (type == 2) {
-				$("#detailGraphHead").html("Final Approve Pending List");
-			} else {
+				$("#detailGraphHead").html("Leave Final Approve Pending List");
+			} else if (type == 3) {
 				$("#detailGraphHead").html("Optional Holiday Pending List");
+			} else if (type == 4) {
+				$("#detailGraphHead").html("Claim Initial Approve Pending List");
+			} else if (type == 5) {
+				$("#detailGraphHead").html("Claim Final Approve Pending List");
 			}
 			var strhref = "${pageContext.request.contextPath}/leavePendingListForDashboard?type="
 					+ type;
