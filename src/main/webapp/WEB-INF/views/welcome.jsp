@@ -670,20 +670,19 @@ Green Color : #007c24     #07a43d
 																Birthday</strong></a>
 													</div>
 
-
 												</div>
 											</c:if>
 											<c:forEach items="${birth.birthListToday}" var="birth"
 												varStatus="count">
-												<div class="dashboard_one">
+												<!-- <div class="dashboard_one"> -->
 
-													<div class="dashboard_single">
-														<a class="text-white"><i class="icon-gift "></i>
-															[${birth.empCode}] ${birth.name}</a>
-													</div>
-
-
+												<div class="dashboard_single">
+													<a class="text-white"><i class="icon-gift "></i>
+														[${birth.empCode}] ${birth.name}</a>
 												</div>
+
+
+												<!-- </div> -->
 											</c:forEach>
 
 											<c:if test="${birth.birthListUpcoming.size()>0}">
@@ -699,16 +698,16 @@ Green Color : #007c24     #07a43d
 											</c:if>
 											<c:forEach items="${birth.birthListUpcoming}" var="birth"
 												varStatus="count">
-												<div class="dashboard_one">
+												<!-- <div class="dashboard_one"> -->
 
-													<div class="dashboard_single">
-														<a class="text-white"><i class="icon-gift "></i>
-															[${birth.empCode}] ${birth.name} <span
-															style="float: right;">${birth.dateMonth}</span> </a>
-													</div>
-
-
+												<div class="dashboard_single">
+													<a class="text-white"><i class="icon-gift "></i>
+														[${birth.empCode}] ${birth.name} <span
+														style="float: right;">${birth.dateMonth}</span> </a>
 												</div>
+
+
+												<!-- </div> -->
 											</c:forEach>
 										</div>
 
@@ -969,75 +968,100 @@ Green Color : #007c24     #07a43d
 
 
 				<!-- Highlighting rows and columns -->
-				<div class="card" style="margin: 30px 0 0 0;">
 
 
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card bg-primary">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">My Attendance (Current
+									Month)</h6>
 
+							</div>
 
-					<div class="row">
+							<div class="card-body white_bg">
+
+								<div class="dashboard_bx">
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Present</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.presentDays}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Absent</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.absentDays}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">LWP Leaves</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.unpaidLeave}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Paid Leaves</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.paidLeave}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Weekly Off</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.weeklyOff}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Holiday</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${attnLastMon.paidHoliday}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<c:if test="${isAuth > 0 }">
 						<div class="col-md-4">
 							<div class="card bg-primary">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">My Attendance (Current
-										Month)</h6>
+									<h6 class="card-title dash_title">Today's Task</h6>
 
 								</div>
 
 								<div class="card-body white_bg">
-
 									<div class="dashboard_bx">
 										<div class="dashboard_one">
 											<div class="dashboard_l">
-												<a class="text-white">Present</a>
+												<a class="text-white"
+													href="${pageContext.request.contextPath}/showLeaveApprovalByAuthority">Total
+													Pending Application</a>
 											</div>
 											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.presentDays}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">Absent</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.absentDays}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">LWP Leaves</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.unpaidLeave}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">Paid Leaves</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.paidLeave}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">Weekly Off</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.weeklyOff}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">Holiday</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${attnLastMon.paidHoliday}</a>
+												<a class="text-white">${list1Count}</a>
 											</div>
 											<div class="clr"></div>
 										</div>
@@ -1047,134 +1071,106 @@ Green Color : #007c24     #07a43d
 							</div>
 
 						</div>
-
-						<c:if test="${isAuth > 0 }">
-							<div class="col-md-4">
-								<div class="card bg-primary">
-									<div class="card-header header-elements-inline">
-										<h6 class="card-title dash_title">Today's Task</h6>
-
-									</div>
-
-									<div class="card-body white_bg">
-										<div class="dashboard_bx">
-											<div class="dashboard_one">
-												<div class="dashboard_l">
-													<a class="text-white"
-														href="${pageContext.request.contextPath}/showLeaveApprovalByAuthority">Total
-														Pending Application</a>
-												</div>
-												<div class="dashboard_r">
-													<a class="text-white">${list1Count}</a>
-												</div>
-												<div class="clr"></div>
-											</div>
-										</div>
-
-									</div>
-								</div>
+					</c:if>
+					<div class="col-md-4">
+						<div class="card bg-warning">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">My Deductions</h6>
 
 							</div>
-						</c:if>
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">My Deductions</h6>
 
-								</div>
+							<div class="card-body white_bg">
 
-								<div class="card-body white_bg">
-
-									<div class="dashboard_bx">
-										<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
-											varStatus="count">
-											<div class="dashboard_one">
-												<div class="dashboard_l">
-													<a class="text-white">${dedWiseDedList.nameSd}</a>
-												</div>
-												<div class="dashboard_r">
-													<a class="text-white">${dedWiseDedList.empCount}</a>
-												</div>
-												<div class="clr"></div>
-											</div>
-										</c:forEach>
-
+								<div class="dashboard_bx">
+									<c:forEach items="${dedWiseDedList}" var="dedWiseDedList"
+										varStatus="count">
 										<div class="dashboard_one">
 											<div class="dashboard_l">
-												<a class="text-white">Total Advance</a>
+												<a class="text-white">${dedWiseDedList.nameSd}</a>
 											</div>
 											<div class="dashboard_r">
-												<a class="text-white">${icent.perfIncentive}</a>
+												<a class="text-white">${dedWiseDedList.empCount}</a>
 											</div>
 											<div class="clr"></div>
 										</div>
+									</c:forEach>
 
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white">Total Loan</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${icent.prodIncentive}</a>
-											</div>
-											<div class="clr"></div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Total Advance</a>
 										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${icent.perfIncentive}</a>
+										</div>
+										<div class="clr"></div>
 									</div>
 
-
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Total Loan</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${icent.prodIncentive}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
 								</div>
-							</div>
 
+
+							</div>
 						</div>
+
+					</div>
+				</div>
+
+
+
+
+				<div class="row">
+
+
+
+
+					<div class="col-md-4">
+						<div class="card bg-warning">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">My Rewards</h6>
+
+							</div>
+
+							<div class="card-body white_bg">
+
+								<div class="dashboard_bx">
+									<c:forEach items="${rewardWiseDedList}" var="rewardWiseDedList"
+										varStatus="count">
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white">${rewardWiseDedList.nameSd}</a>
+											</div>
+											<div class="dashboard_r">
+												<a class="text-white">${rewardWiseDedList.empCount}</a>
+											</div>
+											<div class="clr"></div>
+										</div>
+									</c:forEach>
+
+
+
+								</div>
+
+
+							</div>
+						</div>
+
 					</div>
 
 
 
 
-					<div class="row">
+				</div>
 
 
-
-
-						<div class="col-md-4">
-							<div class="card bg-warning">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">My Rewards</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-
-									<div class="dashboard_bx">
-										<c:forEach items="${rewardWiseDedList}"
-											var="rewardWiseDedList" varStatus="count">
-											<div class="dashboard_one">
-												<div class="dashboard_l">
-													<a class="text-white">${rewardWiseDedList.nameSd}</a>
-												</div>
-												<div class="dashboard_r">
-													<a class="text-white">${rewardWiseDedList.empCount}</a>
-												</div>
-												<div class="clr"></div>
-											</div>
-										</c:forEach>
-
-
-
-									</div>
-
-
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-					</div>
-
-
-
+				<div class="card">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive marg_btm">
@@ -1241,91 +1237,89 @@ Green Color : #007c24     #07a43d
 						</div>
 						<!--Leave History -->
 					</div>
+				</div>
 
+				<c:if test="${userType ==2}">
 
-					<br>
-					<c:if test="${userType ==2}">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card bg-primary">
+								<div class="card-header header-elements-inline">
+									<h6 class="card-title">Employee Diversity Report</h6>
 
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card bg-primary">
-									<div class="card-header header-elements-inline">
-										<h6 class="card-title">Employee Diversity Report</h6>
+								</div>
 
+								<div class="card-body">
+
+									<div class="row">
+										<div class="col-md-3">Gender</div>
+										<div class="col-md-3">Age</div>
+										<div class="col-md-3">Experience</div>
+										<div class="col-md-3">Salary</div>
 									</div>
 
-									<div class="card-body">
 
-										<div class="row">
-											<div class="col-md-3">Gender</div>
-											<div class="col-md-3">Age</div>
-											<div class="col-md-3">Experience</div>
-											<div class="col-md-3">Salary</div>
-										</div>
-
-
-										<div class="row">
-											<div class="col-md-3">
-												Male:${ageDiv.maleEmp} <br> Female:${ageDiv.femaleEmp}
-												<br> Other:${ageDiv.othEmp} <br>------<br>
-												<c:forEach items="${deptWiseEmpCntList}"
-													var="deptWiseEmpCntList" varStatus="count">
-													<c:if test="${deptWiseEmpCntList.empCount >0}">
+									<div class="row">
+										<div class="col-md-3">
+											Male:${ageDiv.maleEmp} <br> Female:${ageDiv.femaleEmp} <br>
+											Other:${ageDiv.othEmp} <br>------<br>
+											<c:forEach items="${deptWiseEmpCntList}"
+												var="deptWiseEmpCntList" varStatus="count">
+												<c:if test="${deptWiseEmpCntList.empCount >0}">
  													
 													 ${deptWiseEmpCntList.nameSd}:   ${deptWiseEmpCntList.empCount}
 													 
 													 
 													 <br>
-													</c:if>
+												</c:if>
 
-												</c:forEach>
+											</c:forEach>
 
-											</div>
-											<div class="col-md-3">
+										</div>
+										<div class="col-md-3">
 
-												18-20: ${ageDiversity.ageRange1}<br> 21-25:
-												${ageDiversity.ageRange2}<br> 26-30:
-												${ageDiversity.ageRange3}<br> 31-35:
-												${ageDiversity.ageRange5}<br> 36-40:
-												${ageDiversity.ageRange6}<br> 41-45:
-												${ageDiversity.ageRange7}<br> 46-50:
-												${ageDiversity.ageRange8}<br> 51-55:
-												${ageDiversity.ageRange9}<br> 56-60:
-												${ageDiversity.ageRange10}<br> 60-65:
-												${ageDiversity.ageRange11}<br>
+											18-20: ${ageDiversity.ageRange1}<br> 21-25:
+											${ageDiversity.ageRange2}<br> 26-30:
+											${ageDiversity.ageRange3}<br> 31-35:
+											${ageDiversity.ageRange5}<br> 36-40:
+											${ageDiversity.ageRange6}<br> 41-45:
+											${ageDiversity.ageRange7}<br> 46-50:
+											${ageDiversity.ageRange8}<br> 51-55:
+											${ageDiversity.ageRange9}<br> 56-60:
+											${ageDiversity.ageRange10}<br> 60-65:
+											${ageDiversity.ageRange11}<br>
 
-											</div>
-											<div class="col-md-3">
+										</div>
+										<div class="col-md-3">
 
-												0 Year: ${expDiversity.ageRange1}<br> 1
-												Year:${expDiversity.ageRange2}<br> 2
-												Year:${expDiversity.ageRange3}<br> 5
-												Year:${expDiversity.ageRange4}<br> 10
-												Year:${expDiversity.ageRange5}<br> 10+ :
-												${expDiversity.ageRange6}<br>
+											0 Year: ${expDiversity.ageRange1}<br> 1
+											Year:${expDiversity.ageRange2}<br> 2
+											Year:${expDiversity.ageRange3}<br> 5
+											Year:${expDiversity.ageRange4}<br> 10
+											Year:${expDiversity.ageRange5}<br> 10+ :
+											${expDiversity.ageRange6}<br>
 
-											</div>
-											<div class="col-md-3">
-												up to 10000 : ${salDiversity.ageRange1}<br>
-												10000-20000: ${salDiversity.ageRange2}<br> 21000-30000:
-												${salDiversity.ageRange3}<br>
+										</div>
+										<div class="col-md-3">
+											up to 10000 : ${salDiversity.ageRange1}<br> 10000-20000:
+											${salDiversity.ageRange2}<br> 21000-30000:
+											${salDiversity.ageRange3}<br>
 
-												31000-40000:${salDiversity.ageRange4}<br> 41000-50000:
-												${salDiversity.ageRange5}<br> 51000-60000:
-												${salDiversity.ageRange6}<br> 61000-70000 :
-												${salDiversity.ageRange7}<br> 71000-80000:
-												${salDiversity.ageRange8}<br> 81000-9000:
-												${salDiversity.ageRange9}<br> 91000-100000:
-												${salDiversity.ageRange10}<br>
-											</div>
+											31000-40000:${salDiversity.ageRange4}<br> 41000-50000:
+											${salDiversity.ageRange5}<br> 51000-60000:
+											${salDiversity.ageRange6}<br> 61000-70000 :
+											${salDiversity.ageRange7}<br> 71000-80000:
+											${salDiversity.ageRange8}<br> 81000-9000:
+											${salDiversity.ageRange9}<br> 91000-100000:
+											${salDiversity.ageRange10}<br>
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
-					</c:if>
-				</div>
+
+					</div>
+				</c:if>
 
 				<!-- /highlighting rows and columns -->
 			</div>

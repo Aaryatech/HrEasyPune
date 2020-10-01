@@ -671,12 +671,14 @@ public class DashboardAdminController {
 		model.addAttribute("isAuth", n);
 
 		// Commondash
-
+		 
+		int locId = (int) session.getAttribute("liveLocationId");
 		map = new LinkedMultiValueMap<>();
 		map.add("fiterdate", fiterdate);
 		map.add("empId", userObj.getEmpId());
 		map.add("userType", userObj.getDesignType());
 		map.add("isAuth", n);
+		map.add("locId", locId);
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
