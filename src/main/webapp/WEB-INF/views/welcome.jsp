@@ -12,6 +12,7 @@
 <c:url var="getPresentData" value="/getPresentData" />
 <c:url var="getClaimRewardAmtBarGraph"
 	value="/getClaimRewardAmtBarGraph" />
+<c:url var="getselfAttendanceData" value="/getAttendaceByMonth" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
 	rel="stylesheet">
@@ -1086,7 +1087,12 @@ Green Color : #007c24     #07a43d
 							<div class="card-header header-elements-inline">
 								<h6 class="card-title dash_title">My Attendance (Current
 									Month)</h6>
-
+								<div class="col-md-2" style="background: white;">
+									<input type="text" class="form-control padd_dic monthYear"
+										placeholder="Select Date " id="monthYearMyAttendance"
+										name="monthYearMyAttendance" value="${month}-${year}"
+										autocomplete="off" onchange="getselfAttendanceData()">
+								</div>
 							</div>
 
 							<div class="card-body white_bg">
@@ -1097,7 +1103,7 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">Present</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.presentDays}</a>
+											<a class="text-white" id="self_present_count">${attnLastMon.presentDays}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1106,7 +1112,7 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">Absent</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.absentDays}</a>
+											<a class="text-white" id="self_absent_count">${attnLastMon.absentDays}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1115,7 +1121,7 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">LWP Leaves</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.unpaidLeave}</a>
+											<a class="text-white" id="self_lwp_count">${attnLastMon.unpaidLeave}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1125,7 +1131,7 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">Paid Leaves</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.paidLeave}</a>
+											<a class="text-white" id="self_paid_count">${attnLastMon.paidLeave}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1134,7 +1140,7 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">Weekly Off</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.weeklyOff}</a>
+											<a class="text-white" id="self_weeklyoff_count">${attnLastMon.weeklyOff}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1143,7 +1149,66 @@ Green Color : #007c24     #07a43d
 											<a class="text-white">Holiday</a>
 										</div>
 										<div class="dashboard_r">
-											<a class="text-white">${attnLastMon.paidHoliday}</a>
+											<a class="text-white" id="self_holiday_count">${attnLastMon.paidHoliday}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white">Payable Days</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white" id="self_payable_count">${attnLastMon.payableDays}</a>
+										</div>
+										<div class="clr"></div>
+									</div>
+
+									<div class="dashboard_one" style="text-align: center;">
+
+										<a class="text-white" href="#"
+											onclick="showSelftAttendaceDetail()">Show Detail</a>
+
+
+										<div class="clr"></div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<%-- <c:if test="${isAuth > 0 }"> --%>
+					<div class="col-md-4">
+						<div class="card bg-primary">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">Today's Task</h6>
+
+							</div>
+
+							<div class="card-body white_bg">
+								<div class="dashboard_bx">
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white"
+												href="${pageContext.request.contextPath}/showLeaveApprovalByAuthority">Leave
+												Pending Application</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${list1Count}</a>
+										</div>
+
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white"
+												href="/hreasy/showClaimApprovalByAuthority">Claim
+												Pending Application</a>
+										</div>
+										<div class="dashboard_r">
+											<a class="text-white">${list2Count}</a>
 										</div>
 										<div class="clr"></div>
 									</div>
@@ -1153,35 +1218,7 @@ Green Color : #007c24     #07a43d
 						</div>
 
 					</div>
-
-					<c:if test="${isAuth > 0 }">
-						<div class="col-md-4">
-							<div class="card bg-primary">
-								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Today's Task</h6>
-
-								</div>
-
-								<div class="card-body white_bg">
-									<div class="dashboard_bx">
-										<div class="dashboard_one">
-											<div class="dashboard_l">
-												<a class="text-white"
-													href="${pageContext.request.contextPath}/showLeaveApprovalByAuthority">Total
-													Pending Application</a>
-											</div>
-											<div class="dashboard_r">
-												<a class="text-white">${list1Count}</a>
-											</div>
-											<div class="clr"></div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-					</c:if>
+					<%-- </c:if> --%>
 					<div class="col-md-4">
 						<div class="card bg-warning">
 							<div class="card-header header-elements-inline">
@@ -1471,18 +1508,35 @@ Green Color : #007c24     #07a43d
 		function getPendingLeaveList(type) {
 
 			if (type == 1) {
-				$("#detailGraphHead").html("Leave Initial Approve Pending List");
+				$("#detailGraphHead")
+						.html("Leave Initial Approve Pending List");
 			} else if (type == 2) {
 				$("#detailGraphHead").html("Leave Final Approve Pending List");
 			} else if (type == 3) {
 				$("#detailGraphHead").html("Optional Holiday Pending List");
 			} else if (type == 4) {
-				$("#detailGraphHead").html("Claim Initial Approve Pending List");
+				$("#detailGraphHead")
+						.html("Claim Initial Approve Pending List");
 			} else if (type == 5) {
 				$("#detailGraphHead").html("Claim Final Approve Pending List");
 			}
 			var strhref = "${pageContext.request.contextPath}/leavePendingListForDashboard?type="
 					+ type;
+			$("#modalbody").load(strhref);
+			$("#modal_full").modal("show");
+			$('#modal_full').on('hidden.bs.modal', function() {
+				$("#modalbody").html("");
+			});
+		}
+		function showSelftAttendaceDetail() {
+ 
+			$("#detailGraphHead")
+					.html(
+							"Attendace Detail"
+									+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+			var monthYear = $("#monthYearMyAttendance").val();
+			var strhref = "${pageContext.request.contextPath}/getSelfAttendace?monthYear="
+					+ monthYear;
 			$("#modalbody").load(strhref);
 			$("#modal_full").modal("show");
 			$('#modal_full').on('hidden.bs.modal', function() {
@@ -1843,6 +1897,28 @@ Green Color : #007c24     #07a43d
 			}
 
 		}
+
+		function getselfAttendanceData() {
+			var monthYearMyAttendance = $("#monthYearMyAttendance").val();
+
+			$.getJSON('${getselfAttendanceData}', {
+				monthYearBarGraph : monthYearMyAttendance,
+				ajax : 'true'
+
+			}, function(res) {
+
+				$("#self_present_count").html(res.presentDays);
+				$("#self_absent_count").html(res.absentDays);
+				$("#self_lwp_count").html(res.unpaidLeave);
+				$("#self_paid_count").html(res.paidLeave);
+				$("#self_weeklyoff_count").html(res.weeklyOff);
+				$("#self_holiday_count").html(res.paidHoliday);
+				$("#self_payable_count").html(res.payableDays);
+
+				//alert(JSON.stringify(res))
+			});
+		}
+
 		function getPresentData() {
 			var attendaceDate = $("#attendaceDate").val();
 

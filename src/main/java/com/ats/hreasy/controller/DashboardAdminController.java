@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -43,10 +44,12 @@ import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MonthWiseDisbusedAmt;
 import com.ats.hreasy.model.MonthWithOT;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.SelfAttendanceDetail;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.TotalOT;
+import com.ats.hreasy.model.claim.GetClaimApplyAuthwise;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
 import com.ats.hreasy.model.dashboard.CommonDash;
@@ -667,17 +670,19 @@ public class DashboardAdminController {
 
 		map.add("empId", userObj.getEmpId());
 
-		Integer n = Constants.getRestTemplate().postForObject(Constants.url + "/chkIsAuth", map, Integer.class);
-		model.addAttribute("isAuth", n);
+		/*
+		 * Integer n = Constants.getRestTemplate().postForObject(Constants.url +
+		 * "/chkIsAuth", map, Integer.class); model.addAttribute("isAuth", n);
+		 */
 
 		// Commondash
-		 
+
 		int locId = (int) session.getAttribute("liveLocationId");
 		map = new LinkedMultiValueMap<>();
 		map.add("fiterdate", fiterdate);
 		map.add("empId", userObj.getEmpId());
 		map.add("userType", userObj.getDesignType());
-		map.add("isAuth", n);
+		map.add("isAuth", 0);
 		map.add("locId", locId);
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
@@ -716,21 +721,27 @@ public class DashboardAdminController {
 
 		// userType == 2
 
-		if (userObj.getDesignType() == 2) {
-			map = new LinkedMultiValueMap<>();
-			map.add("empId", userObj.getEmpId());
-			map.add("currYrId", calculateYear.getCalYrId());
+		/* if (n > 0) { */
+		map = new LinkedMultiValueMap<>();
+		map.add("empId", userObj.getEmpId());
+		map.add("currYrId", calculateYear.getCalYrId());
 
-			GetLeaveApplyAuthwise[] employeeDoc = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getLeaveApplyListForPending", map, GetLeaveApplyAuthwise[].class);
-			List<GetLeaveApplyAuthwise> leaveList = new ArrayList<GetLeaveApplyAuthwise>(Arrays.asList(employeeDoc));
+		GetLeaveApplyAuthwise[] employeeDoc = Constants.getRestTemplate()
+				.postForObject(Constants.url + "/getLeaveApplyListForPending", map, GetLeaveApplyAuthwise[].class);
+		List<GetLeaveApplyAuthwise> leaveList = new ArrayList<GetLeaveApplyAuthwise>(Arrays.asList(employeeDoc));
 
-			model.addAttribute("list1Count", leaveList.size());
+		model.addAttribute("list1Count", leaveList.size());
 
-		} else {
-			model.addAttribute("list1Count", 0);
-
-		}
+		map = new LinkedMultiValueMap<>();
+		map.add("empId", userObj.getEmpId());
+		GetClaimApplyAuthwise[] employeeDocClaim = Constants.getRestTemplate()
+				.postForObject(Constants.url + "/getClaimApplyListForPending", map, GetClaimApplyAuthwise[].class);
+		model.addAttribute("list2Count", employeeDocClaim.length);
+		/*
+		 * } else { model.addAttribute("list1Count", 0);
+		 * 
+		 * }
+		 */
 
 		map = new LinkedMultiValueMap<>();
 		map.add("empId", userObj.getEmpId());
@@ -810,6 +821,37 @@ public class DashboardAdminController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/getSelfAttendace", method = RequestMethod.GET)
+	public String getSelfAttendace(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "dashboard/getSelfAttendace";
+
+		try {
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+			String monthYearLineGraph = request.getParameter("monthYear");
+			String[] split = monthYearLineGraph.split("-");
+			Date firstDay = new GregorianCalendar(Integer.parseInt(split[1]), Integer.parseInt(split[0]) - 1, 1)
+					.getTime();
+			Date lastDay = new GregorianCalendar(Integer.parseInt(split[1]), Integer.parseInt(split[0]), 0).getTime();
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("fromDate", sf.format(firstDay));
+			map.add("toDate", sf.format(lastDay));
+			map.add("empId", userObj.getEmpId());
+			SelfAttendanceDetail[] selfAttendanceDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getSelfAttendaceForDashboard", map, SelfAttendanceDetail[].class);
+			List<SelfAttendanceDetail> list = new ArrayList<>(Arrays.asList(selfAttendanceDetail));
+			model.addAttribute("list", list);
+
+		} catch (Exception e) {
+
+		}
+		return mav;
+	}
+
 	@RequestMapping(value = "/getLateMarkGraph", method = RequestMethod.GET)
 	public @ResponseBody List<EmpGraphDetail> getLateMarkGraph(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -838,12 +880,16 @@ public class DashboardAdminController {
 		try {
 
 			HttpSession session = request.getSession();
-			int locId = (int) session.getAttribute("liveLocationId");
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
-			EmpDeptWise[] empGraphDetail = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getDeparmentWiseEmpCount", map, EmpDeptWise[].class);
-			list = new ArrayList<>(Arrays.asList(empGraphDetail));
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			if (userObj.getDesignType() == 2) {
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				EmpDeptWise[] empGraphDetail = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDeparmentWiseEmpCount", map, EmpDeptWise[].class);
+				list = new ArrayList<>(Arrays.asList(empGraphDetail));
+			}
 
 		} catch (Exception e) {
 
@@ -857,24 +903,27 @@ public class DashboardAdminController {
 
 		LineGraphData lineGraphData = new LineGraphData();
 		try {
-
-			String monthYearLineGraph = request.getParameter("monthYearLineGraph");
-			String[] split = monthYearLineGraph.split("-");
-
-			/*
-			 * int month = Integer.parseInt(request.getParameter("month")); int year =
-			 * Integer.parseInt(request.getParameter("year"));
-			 */
-
 			HttpSession session = request.getSession();
-			int locId = (int) session.getAttribute("liveLocationId");
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
-			map.add("month", split[0]);
-			map.add("year", split[1]);
-			lineGraphData = Constants.getRestTemplate().postForObject(Constants.url + "/totalOtPrevioussixMonth", map,
-					LineGraphData.class);
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
+			if (userObj.getDesignType() == 2) {
+
+				String monthYearLineGraph = request.getParameter("monthYearLineGraph");
+				String[] split = monthYearLineGraph.split("-");
+
+				/*
+				 * int month = Integer.parseInt(request.getParameter("month")); int year =
+				 * Integer.parseInt(request.getParameter("year"));
+				 */
+
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				map.add("month", split[0]);
+				map.add("year", split[1]);
+				lineGraphData = Constants.getRestTemplate().postForObject(Constants.url + "/totalOtPrevioussixMonth",
+						map, LineGraphData.class);
+			}
 		} catch (Exception e) {
 
 		}
@@ -887,44 +936,76 @@ public class DashboardAdminController {
 
 		List<MonthWiseDisbusedAmt> list = new ArrayList<>();
 		try {
-
-			String monthYearBarGraph = request.getParameter("monthYearBarGraph");
-			String[] split = monthYearBarGraph.split("-");
-
 			HttpSession session = request.getSession();
-			int locId = (int) session.getAttribute("liveLocationId");
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
-			map.add("month", split[0]);
-			map.add("year", split[1]);
-			MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/disbusedAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
-			list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			if (userObj.getDesignType() == 2) {
+				String monthYearBarGraph = request.getParameter("monthYearBarGraph");
+				String[] split = monthYearBarGraph.split("-");
+
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				map.add("month", split[0]);
+				map.add("year", split[1]);
+				MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/disbusedAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
+				list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+			}
 		} catch (Exception e) {
 
 		}
 		return list;
 	}
-	
+
 	@RequestMapping(value = "/getClaimRewardAmtBarGraph", method = RequestMethod.GET)
 	public @ResponseBody List<MonthWiseDisbusedAmt> getClaimRewardAmtBarGraph(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		List<MonthWiseDisbusedAmt> list = new ArrayList<>();
 		try {
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			if (userObj.getDesignType() == 2) {
+				String monthYearBarGraph = request.getParameter("monthYearBarGraph");
+				String[] split = monthYearBarGraph.split("-");
+
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				map.add("month", split[0]);
+				map.add("year", split[1]);
+				MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate().postForObject(
+						Constants.url + "/rewardAndClaimAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
+				list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+			}
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
+
+	@RequestMapping(value = "/getAttendaceByMonth", method = RequestMethod.GET)
+	public @ResponseBody SummaryDailyAttendance getAttendaceByMonth(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		SummaryDailyAttendance list = new SummaryDailyAttendance();
+		try {
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			String monthYearBarGraph = request.getParameter("monthYearBarGraph");
 			String[] split = monthYearBarGraph.split("-");
 
-			HttpSession session = request.getSession();
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
+			map.add("empId", userObj.getEmpId());
 			map.add("month", split[0]);
 			map.add("year", split[1]);
-			MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/rewardAndClaimAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
-			list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+			list = Constants.getRestTemplate().postForObject(Constants.url + "/getAttendaceByMonth", map,
+					SummaryDailyAttendance.class);
+
 		} catch (Exception e) {
 
 		}
