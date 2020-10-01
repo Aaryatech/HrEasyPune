@@ -148,7 +148,13 @@ Green Color : #007c24     #07a43d
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="card">
+								<!-- <div class="card bg-warning">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">Department wise
+											Employee</h6>
 
+									</div>
+								</div> -->
 								<div class="tab_round">
 									<div class="row">
 

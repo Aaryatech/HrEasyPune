@@ -792,10 +792,12 @@ public class DashboardAdminController {
 		String mav = "Graph/leavePendingListForDashboard";
 
 		try {
-
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
 			int type = Integer.parseInt(request.getParameter("type"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("type", type);
+			map.add("locId", locId);
 			DashboardLeavePending[] dashboardLeavePending = Constants.getRestTemplate().postForObject(
 					Constants.url + "/getLeaveApprovalListForDashBoard", map, DashboardLeavePending[].class);
 
