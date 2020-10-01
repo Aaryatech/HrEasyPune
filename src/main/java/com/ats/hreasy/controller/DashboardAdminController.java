@@ -905,6 +905,31 @@ public class DashboardAdminController {
 		}
 		return list;
 	}
+	
+	@RequestMapping(value = "/getClaimRewardAmtBarGraph", method = RequestMethod.GET)
+	public @ResponseBody List<MonthWiseDisbusedAmt> getClaimRewardAmtBarGraph(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<MonthWiseDisbusedAmt> list = new ArrayList<>();
+		try {
+
+			String monthYearBarGraph = request.getParameter("monthYearBarGraph");
+			String[] split = monthYearBarGraph.split("-");
+
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			map.add("month", split[0]);
+			map.add("year", split[1]);
+			MonthWiseDisbusedAmt[] monthWiseDisbusedAmt = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/rewardAndClaimAmtMonthWise", map, MonthWiseDisbusedAmt[].class);
+			list = new ArrayList<>(Arrays.asList(monthWiseDisbusedAmt));
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
 
 	@RequestMapping(value = "/getPresentData", method = RequestMethod.GET)
 	public @ResponseBody AttendaceLiveData getPresentData(HttpServletRequest request, HttpServletResponse response) {

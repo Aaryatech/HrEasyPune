@@ -10,6 +10,8 @@
 <c:url var="totalOtPrevioussixMonth" value="/totalOtPrevioussixMonth" />
 <c:url var="getAmtBarGraph" value="/getAmtBarGraph" />
 <c:url var="getPresentData" value="/getPresentData" />
+<c:url var="getClaimRewardAmtBarGraph"
+	value="/getClaimRewardAmtBarGraph" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
 	rel="stylesheet">
@@ -518,13 +520,17 @@ Green Color : #007c24     #07a43d
 						<div class="col-md-6">
 							<div class="card bg-warning">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">Department wise Employee
-									</h6>
-
+									<h6 class="card-title dash_title">Claim And Reward</h6>
+									<div class="col-md-2" style="background: white;">
+										<input type="text" class="form-control padd_dic monthYear"
+											placeholder="Select Date " id="monthYearClaimRewardGraph"
+											name="monthYearClaimRewardGraph" value="${month}-${year}"
+											autocomplete="off" onchange="getClaimRewardAmtBarGraph()">
+									</div>
 								</div>
 
 								<div class="card-body white_bg">
-									<!-- <div id="dept_pie_chart" style="width: 100%; height: 100%;"></div> -->
+									<div id="claim_graph" style="width: 100%; height: 100%;"></div>
 								</div>
 							</div>
 
@@ -1712,6 +1718,70 @@ Green Color : #007c24     #07a43d
 
 		}
 
+		function getClaimRewardAmtBarGraph() {
+
+			var monthYearBarGraph = $("#monthYearClaimRewardGraph").val();
+
+			//alert(monthYearLineGraph);
+			$.getJSON('${getClaimRewardAmtBarGraph}',
+
+			{
+				monthYearBarGraph : monthYearBarGraph,
+				ajax : 'true'
+
+			}, function(res) {
+
+				google.charts.load('current', {
+					'packages' : [ 'corechart' ]
+				});
+				google.charts.setOnLoadCallback(drawChart);
+				function drawChart() {
+
+					var dataTable = new google.visualization.DataTable();
+
+					dataTable.addColumn('string', 'Month Year'); // Implicit domain column.
+
+					dataTable.addColumn('number', 'Reward');
+					dataTable.addColumn('number', 'Claim');
+
+					$.each(res, function(key, dt) {
+
+						dataTable.addRows([
+
+						[ dt.month, dt.advAmt, dt.loanAmt ]
+
+						]);
+
+					})
+
+					/* slantedTextAngle: 60 */
+					var options = {
+						hAxis : {
+							title : "Month Year",
+							textPosition : 'out',
+							slantedText : true
+						},
+						vAxis : {
+							title : 'Amount',
+							minValue : 0,
+							viewWindow : {
+								min : 0
+							},
+							format : '0',
+						},
+						colors : [ 'orange', 'blue' ],
+						theme : 'material'
+					};
+					var chart = new google.visualization.ColumnChart(document
+							.getElementById('claim_graph'));
+
+					chart.draw(dataTable, options);
+				}
+
+			});
+
+		}
+
 		function openCloseDive(type) {
 
 			if (type == 1) {
@@ -1895,11 +1965,7 @@ Green Color : #007c24     #07a43d
 												.append($(
 														'<td class="text-left"></td>')
 														.html(
-																'<a href="#" data-toggle="modal" onclick="getEmpData('
-																		+ res.presentList[i].empId
-																		+ ',2)">'
-																		+ res.presentList[i].empName
-																		+ '</a>'));
+																res.presentList[i].empName));
 										tr
 												.append($(
 														'<td class="text-left"></td>')
@@ -1913,11 +1979,7 @@ Green Color : #007c24     #07a43d
 												.append($(
 														'<td class="text-left"></td>')
 														.html(
-																'<a href="#" data-toggle="modal" onclick="getEmpData('
-																		+ res.presentList[i].empId
-																		+ ',2)">'
-																		+ res.presentList[i].empName
-																		+ '</a>'));
+																res.presentList[i].empName));
 										tr
 												.append($(
 														'<td class="text-left"></td>')

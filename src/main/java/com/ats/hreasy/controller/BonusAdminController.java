@@ -1042,12 +1042,13 @@ public class BonusAdminController {
 			try {
 				mav = "Bonus/rewardEmpList";
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("companyId", 1);
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>(); 
+				map.add("locId", locId);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllEmployeeDetailBylocationId",map, GetEmployeeDetails[].class);
 
-				EmployeeMaster[] empArr = Constants.getRestTemplate().postForObject(Constants.url + "/getAllEmployee",
-						map, EmployeeMaster[].class);
-				List<EmployeeMaster> empList = new ArrayList<EmployeeMaster>(Arrays.asList(empArr));
+				List<GetEmployeeDetails> empList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
 
 				for (int i = 0; i < empList.size(); i++) {
 
