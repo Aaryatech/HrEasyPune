@@ -146,7 +146,7 @@ Green Color : #007c24     #07a43d
 				<c:if test="${userType ==2}">
 					<!-- new html start here -->
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<div class="card">
 
 								<div class="tab_round">
@@ -172,14 +172,14 @@ Green Color : #007c24     #07a43d
 
 								<div class="tab_round">
 									<div class="row">
-										<div class="col-lg-3">
+										<div class="col-lg-2">
 											<div class="shift_round bg-purple-300">
 												<div class="round_size">
 													<span id="present_count">0</span> Present Employee
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-3">
+										<div class="col-lg-2">
 											<a href="#" onclick="openCloseDive(3)"><div
 													class="shift_round bg-pink-400">
 													<div class="round_size">
@@ -187,7 +187,7 @@ Green Color : #007c24     #07a43d
 													</div>
 												</div></a>
 										</div>
-										<div class="col-lg-3">
+										<div class="col-lg-2">
 											<a href="#" onclick="openCloseDive(2)"><div
 													class="shift_round bg-warning">
 													<div class="round_size">
@@ -195,11 +195,27 @@ Green Color : #007c24     #07a43d
 													</div>
 												</div></a>
 										</div>
-										<div class="col-lg-3">
+										<div class="col-lg-2">
 											<a href="#" onclick="openCloseDive(1)"><div
 													class="shift_round bg-primary">
 													<div class="round_size">
 														<span id="absent_count">0</span> Absent Employee
+													</div>
+												</div></a>
+										</div>
+										<div class="col-lg-2">
+											<a href="#" onclick="openCloseDive(4)"><div
+													class="shift_round bg-primary">
+													<div class="round_size">
+														<span id="holiday_count">0</span> Holiday
+													</div>
+												</div></a>
+										</div>
+										<div class="col-lg-2">
+											<a href="#" onclick="openCloseDive(5)"><div
+													class="shift_round bg-primary">
+													<div class="round_size">
+														<span id="weekly_off_count">0</span> Weekly Off
 													</div>
 												</div></a>
 										</div>
@@ -336,12 +352,72 @@ Green Color : #007c24     #07a43d
 										</div>
 									</div>
 
+									<div class="row">
+										<div class="late_employee" id="holiday_emp_list"
+											style="display: none;">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="printtable4">
+														<!-- <table
+															class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+															width="100%" id="printtable1"> -->
+														<thead>
+															<tr class="bg-primary" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+															</tr>
+														</thead>
+														<tbody>
+
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="late_employee" id="weekly_off_emp_list"
+											style="display: none;">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="printtable5">
+														<!-- <table
+															class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+															width="100%" id="printtable1"> -->
+														<thead>
+															<tr class="bg-primary" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+															</tr>
+														</thead>
+														<tbody>
+
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
 
 								</div>
 							</div>
 						</div>
 
-						<div class="col-md-4">
+						<%-- <div class="col-md-4">
 							<div class="card bg-warning">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Today Weekly Off (Total)</h6>
@@ -370,7 +446,7 @@ Green Color : #007c24     #07a43d
 								</div>
 							</div>
 
-						</div>
+						</div> --%>
 
 
 
@@ -1636,14 +1712,32 @@ Green Color : #007c24     #07a43d
 				$("#late_emp_list").hide();
 				$("#leave_emp_list").hide();
 				$("#abs_emp_list").show();
+				$("#holiday_emp_list").hide();
+				$("#weekly_off_emp_list").hide();
 			} else if (type == 2) {
 				$("#late_emp_list").hide();
 				$("#leave_emp_list").show();
 				$("#abs_emp_list").hide();
+				$("#holiday_emp_list").hide();
+				$("#weekly_off_emp_list").hide();
 			} else if (type == 3) {
 				$("#late_emp_list").show();
 				$("#leave_emp_list").hide();
 				$("#abs_emp_list").hide();
+				$("#holiday_emp_list").hide();
+				$("#weekly_off_emp_list").hide();
+			} else if (type == 4) {
+				$("#late_emp_list").hide();
+				$("#leave_emp_list").hide();
+				$("#abs_emp_list").hide();
+				$("#holiday_emp_list").show();
+				$("#weekly_off_emp_list").hide();
+			} else if (type == 5) {
+				$("#late_emp_list").hide();
+				$("#leave_emp_list").hide();
+				$("#abs_emp_list").hide();
+				$("#holiday_emp_list").hide();
+				$("#weekly_off_emp_list").show();
 			}
 
 		}
@@ -1667,12 +1761,16 @@ Green Color : #007c24     #07a43d
 								$("#leave_count")
 										.html(res.countData.leavecount);
 								$("#late_count").html(res.countData.latemark);
+								$("#holiday_count").html(res.countData.holiday);
+								$("#weekly_off_count").html(
+										res.countData.weeklyoff);
 								//alert(JSON.stringify(res))
 
 								$('#printtable3 td').remove();
 								$('#printtable2 td').remove();
 								$('#printtable1 td').remove();
-
+								$('#printtable4 td').remove();
+								$('#printtable5 td').remove();
 								/* var table = $('#printtable3').DataTable();
 								var rows = table.rows().remove().draw(); */
 
@@ -1784,6 +1882,42 @@ Green Color : #007c24     #07a43d
 														res.presentList[i].deptName,
 														res.presentList[i].attStatus ])
 												.draw(); */
+									} else if (res.presentList[i].lvSumupId == 6) {
+										var tr = $('<tr></tr>');
+
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																		+ res.presentList[i].empId
+																		+ ',2)">'
+																		+ res.presentList[i].empName
+																		+ '</a>'));
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																res.presentList[i].deptName));
+										$('#printtable4 tbody').append(tr);
+									} else if (res.presentList[i].lvSumupId == 12) {
+										var tr = $('<tr></tr>');
+
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																		+ res.presentList[i].empId
+																		+ ',2)">'
+																		+ res.presentList[i].empName
+																		+ '</a>'));
+										tr
+												.append($(
+														'<td class="text-left"></td>')
+														.html(
+																res.presentList[i].deptName));
+										$('#printtable5 tbody').append(tr);
 									}
 
 								}
