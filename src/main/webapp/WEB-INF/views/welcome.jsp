@@ -1217,7 +1217,7 @@ Green Color : #007c24     #07a43d
 
 					</div>
 					<%-- </c:if> --%>
-					<div class="col-md-4">
+					<%-- <div class="col-md-4">
 						<div class="card bg-warning">
 							<div class="card-header header-elements-inline">
 								<h6 class="card-title dash_title">My Deductions</h6>
@@ -1265,7 +1265,7 @@ Green Color : #007c24     #07a43d
 							</div>
 						</div>
 
-					</div>
+					</div> --%>
 
 					<div class="col-md-4">
 						<div class="card bg-warning">
@@ -1321,7 +1321,7 @@ Green Color : #007c24     #07a43d
 
 
 
-				<div class="row">
+				<%-- <div class="row">
 
 
 
@@ -1362,7 +1362,7 @@ Green Color : #007c24     #07a43d
 
 
 
-				</div>
+				</div> --%>
 
 
 				<div class="card">

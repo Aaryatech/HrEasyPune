@@ -1,7 +1,8 @@
 package com.ats.hreasy.controller;
 
 import java.text.SimpleDateFormat;
-
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AssetCategory;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyDaily;
@@ -52,6 +54,8 @@ import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.TotalOT;
 import com.ats.hreasy.model.Advance.GetAdvance;
 import com.ats.hreasy.model.Bonus.PayBonusDetails;
+import com.ats.hreasy.model.Loan.LoanDetails;
+import com.ats.hreasy.model.Loan.LoanMain;
 import com.ats.hreasy.model.claim.GetClaimApplyAuthwise;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
@@ -826,6 +830,15 @@ public class DashboardAdminController {
 				PayBonusDetails[] payBonusDetails = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getAllPayPedingDetailsByEmpId", map, PayBonusDetails[].class);
 				model.addAttribute("payBonusDetails", payBonusDetails);
+			} else if (type == 2) {
+				map.add("companyId", 1);
+				LoanMain[] loanMainList = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getLoanHistoryEmpWiseDetailComp", map, LoanMain[].class);
+				model.addAttribute("loanMainList", loanMainList);
+				for (int i = 0; i < loanMainList.length; i++) {
+					loanMainList[i].setExVar1(FormValidation.Encrypt(String.valueOf(loanMainList[i].getId())));
+					loanMainList[i].setExVar2(FormValidation.Encrypt(String.valueOf(loanMainList[i].getEmpId())));
+				}
 			}
 
 			model.addAttribute("type", type);
@@ -834,6 +847,77 @@ public class DashboardAdminController {
 			e.printStackTrace();
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value = "/showRepayLoanDetailEmployee", method = RequestMethod.GET)
+	public ModelAndView showRepayLoan(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("Loan/showRepayLoanDetailEmployee");
+
+		try {
+
+			String base64encodedString = request.getParameter("id");
+			String id = FormValidation.DecodeKey(base64encodedString);
+
+			String base64encodedString1 = request.getParameter("empId");
+			String empId = FormValidation.DecodeKey(base64encodedString1);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			GetEmployeeDetails empPersInfo = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getAllEmployeeDetailByEmpId", map, GetEmployeeDetails.class);
+			// System.out.println("Edit EmpPersonal Info-------" + empPersInfo.toString());
+			model.addObject("encEmpId", FormValidation.Encrypt(String.valueOf(empPersInfo.getEmpId())));
+
+			String empPersInfoString = empPersInfo.getEmpCode().concat(" ").concat(empPersInfo.getFirstName())
+					.concat(" ").concat(empPersInfo.getSurname()).concat("[")
+					.concat(empPersInfo.getEmpDesgn().concat("]"));
+			model.addObject("empPersInfo", empPersInfo);
+			model.addObject("empPersInfoString", empPersInfoString);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("id", id);
+			LoanMain advList = Constants.getRestTemplate().postForObject(Constants.url + "/getLoanById", map,
+					LoanMain.class);
+
+			model.addObject("advList", advList);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("loanId", id);
+			LoanDetails[] employeeInfo = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmpLoanDetailByMainId", map, LoanDetails[].class);
+
+			List<LoanDetails> laonDetalList = new ArrayList<LoanDetails>(Arrays.asList(employeeInfo));
+
+			model.addObject("laonDetalList", laonDetalList);
+			for (int i = 0; i < laonDetalList.size(); i++) {
+
+				int monthNumber = laonDetalList.get(i).getMonths();
+				String a = Month.of(monthNumber).name();
+				laonDetalList.get(i).setLoginName(a);
+
+			}
+
+			Date date2 = new Date();
+			SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			LocalDate localDate = LocalDate.parse(DateConvertor.convertToYMD(advList.getLoanRepayStart()));
+			List<String> dateList = new ArrayList<>();
+			for (int i = 0; i < advList.getLoanTenure(); i++) {
+
+				LocalDate oneMonthLater = localDate.plusMonths(i);
+
+				String x = String.valueOf(oneMonthLater.getMonth()).concat("-")
+						.concat(String.valueOf(oneMonthLater.getYear()));
+				dateList.add(x);
+
+			}
+			model.addObject("dateList", dateList);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 
 	@RequestMapping(value = "/leavePendingListForDashboard", method = RequestMethod.GET)

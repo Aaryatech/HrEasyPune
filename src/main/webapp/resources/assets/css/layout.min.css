@@ -13,17 +13,22 @@ src:url('font/MyriadPro-Regular.woff2') format('woff2'),
 animation: effect 2s linear infinite;  padding:12px 0 16px 0; letter-spacing:0.5px;
  } 
   .element i{display: inline-block; margin: 0 10px 0 0 ; z-index: 999999; position: relative;}
-  
+  /*
+blue color code : #01bcf3 #0089c2;
+purple color : #7200a9    #8317c2;
+Yellow color :     ;
+Green Color : #007c24     #07a43d
+*/
     @keyframes effect { 
-        0% { 
+        0% {     ;
             background: linear-gradient( 
-                #008000, #00FF00); 
+                #FFF, #CCC); 
             -webkit-background-clip: text; 
         } 
   
         100% { 
             background: linear-gradient( 
-                #3CE7D7, #000FFF); 
+                #d7ac00, #ffd709); 
             -webkit-background-clip: text; 
         } 
     } 
