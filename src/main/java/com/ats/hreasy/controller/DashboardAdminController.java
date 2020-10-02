@@ -49,6 +49,7 @@ import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.TotalOT;
+import com.ats.hreasy.model.Advance.GetAdvance;
 import com.ats.hreasy.model.claim.GetClaimApplyAuthwise;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
@@ -793,6 +794,32 @@ public class DashboardAdminController {
 			model.addAttribute("graphType", graphType);
 		} catch (Exception e) {
 
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/getTransactionDetails", method = RequestMethod.GET)
+	public String getTransactionDetails(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "Advance/getTransactionDetails";
+
+		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			int type = Integer.parseInt(request.getParameter("type"));
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("empId", userObj.getEmpId());
+
+			GetAdvance[] getAdvance = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getAdvanceHistoryByEmpId", map, GetAdvance[].class);
+
+			model.addAttribute("getAdvance", getAdvance);
+			// model.addAttribute("graphType", graphType);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return mav;
 	}

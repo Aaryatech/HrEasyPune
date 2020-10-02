@@ -149,7 +149,7 @@ Green Color : #007c24     #07a43d
 				<c:if test="${userType ==2}">
 					<!-- new html start here -->
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-lg-12" id="block_div_attendance">
 							<div class="card">
 								<!-- <div class="card bg-warning">
 									<div class="card-header header-elements-inline">
@@ -189,7 +189,7 @@ Green Color : #007c24     #07a43d
 											</div>
 										</div>
 										<div class="col-lg-2">
-											<a href="#" onclick="openCloseDive(3)"><div
+											<a href="javascript:void(0)" onclick="openCloseDive(3)"><div
 													class="shift_round bg-pink-400">
 													<div class="round_size">
 														<span id="late_count">0</span> Late Employee
@@ -197,7 +197,7 @@ Green Color : #007c24     #07a43d
 												</div></a>
 										</div>
 										<div class="col-lg-2">
-											<a href="#" onclick="openCloseDive(2)"><div
+											<a href="javascript:void(0)" onclick="openCloseDive(2)"><div
 													class="shift_round bg-warning">
 													<div class="round_size">
 														<span id="leave_count">0</span> Leave Employee
@@ -205,7 +205,7 @@ Green Color : #007c24     #07a43d
 												</div></a>
 										</div>
 										<div class="col-lg-2">
-											<a href="#" onclick="openCloseDive(1)"><div
+											<a href="javascript:void(0)" onclick="openCloseDive(1)"><div
 													class="shift_round bg-primary">
 													<div class="round_size">
 														<span id="absent_count">0</span> Absent Employee
@@ -213,7 +213,7 @@ Green Color : #007c24     #07a43d
 												</div></a>
 										</div>
 										<div class="col-lg-2">
-											<a href="#" onclick="openCloseDive(4)"><div
+											<a href="javascript:void(0)" onclick="openCloseDive(4)"><div
 													class="shift_round bg-primary">
 													<div class="round_size">
 														<span id="holiday_count">0</span> Holiday
@@ -221,7 +221,7 @@ Green Color : #007c24     #07a43d
 												</div></a>
 										</div>
 										<div class="col-lg-2">
-											<a href="#" onclick="openCloseDive(5)"><div
+											<a href="javascript:void(0)" onclick="openCloseDive(5)"><div
 													class="shift_round bg-primary">
 													<div class="round_size">
 														<span id="weekly_off_count">0</span> Weekly Off
@@ -256,7 +256,7 @@ Green Color : #007c24     #07a43d
 
 
 															<!-- <tr role="row" class="odd">
-																<td><a href="#" data-toggle="modal"
+																<td><a href="javascript:void(0)" data-toggle="modal"
 																	onclick="getEmpData(82,1)">AKSHAY MADHUKAR
 																		RAOANDORE</a></td>
 																<td>Development</td>
@@ -264,7 +264,7 @@ Green Color : #007c24     #07a43d
 																<td>234 Minutes</td>
 															</tr>
 															<tr role="row" class="odd">
-																<td><a href="#" data-toggle="modal"
+																<td><a href="javascript:void(0)" data-toggle="modal"
 																	onclick="getEmpData(82,2)">AKSHAY MADHUKAR
 																		RAOANDORE</a></td>
 																<td>Development</td>
@@ -474,18 +474,16 @@ Green Color : #007c24     #07a43d
 
 						</div>
 						<div class="col-md-8">
-							<div class="card bg-warning">
+							<div class="card bg-warning" id="block_div">
 								<div class="card-header header-elements-inline">
-									<h6 class="card-title dash_title">
-										Production HRS
-										<!-- <a class="list-icons-item" data-action="reload"></a> -->
-									</h6>
+									<h6 class="card-title dash_title">Production HRS</h6>
 									<div class="col-md-2" style="background: white;">
-										<input type="text" class="form-control padd_dic monthYear"
+										<input type="text" class="form-control padd_dic monthYear "
 											placeholder="Select Date " id="monthYearLineGraph"
 											name="monthYearLineGraph" value="${month}-${year}"
 											autocomplete="off" onchange="getLineGraphs()">
 									</div>
+									<!-- spinner_class -->
 									<!-- <div class="col-md-2">
 										<button type="button" class="btn blue_btn1" id="submtbtn"
 											onclick="getLineGraphs()">Search</button>
@@ -500,7 +498,7 @@ Green Color : #007c24     #07a43d
 
 						</div>
 						<div class="col-md-6">
-							<div class="card bg-warning">
+							<div class="card bg-warning" id="block_amt_graph">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Amount Disbursed Month
 										Wise</h6>
@@ -519,7 +517,7 @@ Green Color : #007c24     #07a43d
 
 						</div>
 						<div class="col-md-6">
-							<div class="card bg-warning">
+							<div class="card bg-warning" id="block_claim_div">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Claim And Reward</h6>
 									<div class="col-md-2" style="background: white;">
@@ -1044,7 +1042,7 @@ Green Color : #007c24     #07a43d
 
 
 						</div>
-						<div class="col-md-4">
+						<%-- <div class="col-md-4">
 							<div class="card bg-warning">
 								<div class="card-header header-elements-inline">
 									<h6 class="card-title dash_title">Reward (Current Month)</h6>
@@ -1069,7 +1067,7 @@ Green Color : #007c24     #07a43d
 								</div>
 							</div>
 
-						</div>
+						</div> --%>
 
 					</div>
 
@@ -1083,7 +1081,7 @@ Green Color : #007c24     #07a43d
 
 				<div class="row">
 					<div class="col-md-4">
-						<div class="card bg-primary">
+						<div class="card bg-primary" id="block_selfAttn_div">
 							<div class="card-header header-elements-inline">
 								<h6 class="card-title dash_title">My Attendance (Current
 									Month)</h6>
@@ -1165,7 +1163,7 @@ Green Color : #007c24     #07a43d
 
 									<div class="dashboard_one" style="text-align: center;">
 
-										<a class="text-white" href="#"
+										<a class="text-white" href="javascript:void(0)"
 											onclick="showSelftAttendaceDetail()">Show Detail</a>
 
 
@@ -1259,6 +1257,56 @@ Green Color : #007c24     #07a43d
 										<div class="dashboard_r">
 											<a class="text-white">${icent.prodIncentive}</a>
 										</div>
+										<div class="clr"></div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-md-4">
+						<div class="card bg-warning">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">Transaction Details</h6>
+
+							</div>
+
+							<div class="card-body white_bg">
+
+								<div class="dashboard_bx">
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white" href="javascript:void(0)"
+												onclick="getTransactionDetails(1)">Advance Details</a>
+										</div>
+
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white" href="javascript:void(0)"
+												onclick="getTransactionDetails(2)">Loan Details</a>
+										</div>
+
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white" href="javascript:void(0)"
+												onclick="getTransactionDetails(3)">Pay Deduction Details</a>
+										</div>
+
+										<div class="clr"></div>
+									</div>
+									<div class="dashboard_one">
+										<div class="dashboard_l">
+											<a class="text-white" href="javascript:void(0)"
+												onclick="getTransactionDetails(4)">Reward Details</a>
+										</div>
+
 										<div class="clr"></div>
 									</div>
 								</div>
@@ -1529,7 +1577,7 @@ Green Color : #007c24     #07a43d
 			});
 		}
 		function showSelftAttendaceDetail() {
- 
+
 			$("#detailGraphHead")
 					.html(
 							"Attendace Detail"
@@ -1562,6 +1610,40 @@ Green Color : #007c24     #07a43d
 				$("#modalbody").html("");
 			});
 		}
+
+		function getTransactionDetails(type) {
+
+			if (type == 1) {
+				$("#detailGraphHead")
+						.html(
+								"Advace Details of "
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+			} else if (type == 2) {
+				$("#detailGraphHead")
+						.html(
+								"Loan Details of "
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+			} else if (type == 3) {
+				$("#detailGraphHead")
+						.html(
+								"Pay Deduction Details of "
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+			} else if (type == 4) {
+				$("#detailGraphHead")
+						.html(
+								"Reward of "
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+			}
+
+			var strhref = "${pageContext.request.contextPath}/getTransactionDetails?type="
+					+ type;
+			$("#modalbody").load(strhref);
+			$("#modal_full").modal("show");
+			$('#modal_full').on('hidden.bs.modal', function() {
+				$("#modalbody").html("");
+			});
+		}
+
 		$(document).ready(
 				function($) {
 
@@ -1676,8 +1758,20 @@ Green Color : #007c24     #07a43d
 		function getLineGraphs() {
 
 			var monthYearLineGraph = $("#monthYearLineGraph").val();
-
 			//alert(monthYearLineGraph);
+			$("#block_div").block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
 			$.getJSON('${totalOtPrevioussixMonth}',
 
 			{
@@ -1685,7 +1779,7 @@ Green Color : #007c24     #07a43d
 				ajax : 'true'
 
 			}, function(lineGraphData) {
-
+				$("#block_div").unblock();
 				var data1 = lineGraphData.list;
 				var deptList = lineGraphData.deptList;
 				google.charts.load('current', {
@@ -1738,6 +1832,19 @@ Green Color : #007c24     #07a43d
 
 			var monthYearBarGraph = $("#monthYearBarGraph").val();
 
+			$("#block_amt_graph").block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
 			//alert(monthYearLineGraph);
 			$.getJSON('${getAmtBarGraph}',
 
@@ -1746,7 +1853,7 @@ Green Color : #007c24     #07a43d
 				ajax : 'true'
 
 			}, function(res) {
-
+				$("#block_amt_graph").unblock();
 				google.charts.load('current', {
 					'packages' : [ 'corechart' ]
 				});
@@ -1801,7 +1908,19 @@ Green Color : #007c24     #07a43d
 		function getClaimRewardAmtBarGraph() {
 
 			var monthYearBarGraph = $("#monthYearClaimRewardGraph").val();
-
+			$("#block_claim_div").block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
 			//alert(monthYearLineGraph);
 			$.getJSON('${getClaimRewardAmtBarGraph}',
 
@@ -1810,7 +1929,7 @@ Green Color : #007c24     #07a43d
 				ajax : 'true'
 
 			}, function(res) {
-
+				$("#block_claim_div").unblock();
 				google.charts.load('current', {
 					'packages' : [ 'corechart' ]
 				});
@@ -1900,13 +2019,25 @@ Green Color : #007c24     #07a43d
 
 		function getselfAttendanceData() {
 			var monthYearMyAttendance = $("#monthYearMyAttendance").val();
-
+			$("#block_selfAttn_div").block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
 			$.getJSON('${getselfAttendanceData}', {
 				monthYearBarGraph : monthYearMyAttendance,
 				ajax : 'true'
 
 			}, function(res) {
-
+				$("#block_selfAttn_div").unblock();
 				$("#self_present_count").html(res.presentDays);
 				$("#self_absent_count").html(res.absentDays);
 				$("#self_lwp_count").html(res.unpaidLeave);
@@ -1922,6 +2053,19 @@ Green Color : #007c24     #07a43d
 		function getPresentData() {
 			var attendaceDate = $("#attendaceDate").val();
 
+			$("#block_div_attendance").block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
 			//alert(attendaceDate);
 			$
 					.getJSON(
@@ -1933,7 +2077,7 @@ Green Color : #007c24     #07a43d
 
 							},
 							function(res) {
-
+								$("#block_div_attendance").unblock();
 								$("#present_count").html(res.countData.present);
 								$("#absent_count").html(res.countData.absent);
 								$("#leave_count")
@@ -1966,7 +2110,7 @@ Green Color : #007c24     #07a43d
 											.append($(
 													'<td class="text-left"></td>')
 													.html(
-															'<a href="#" data-toggle="modal" onclick="getEmpData('
+															'<a href="javascript:void(0)" data-toggle="modal" onclick="getEmpData('
 																	+ res.lateList[i].empId
 																	+ ',1)">'
 																	+ res.lateList[i].empName
@@ -2003,7 +2147,7 @@ Green Color : #007c24     #07a43d
 												.append($(
 														'<td class="text-left"></td>')
 														.html(
-																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																'<a href="javascript:void(0)" data-toggle="modal" onclick="getEmpData('
 																		+ res.presentList[i].empId
 																		+ ',2)">'
 																		+ res.presentList[i].empName
@@ -2041,7 +2185,7 @@ Green Color : #007c24     #07a43d
 												.append($(
 														'<td class="text-left"></td>')
 														.html(
-																'<a href="#" data-toggle="modal" onclick="getEmpData('
+																'<a href="javascript:void(0)" data-toggle="modal" onclick="getEmpData('
 																		+ res.presentList[i].empId
 																		+ ',2)">'
 																		+ res.presentList[i].empName
@@ -2112,6 +2256,23 @@ Green Color : #007c24     #07a43d
 			}
 
 		});
+		/* $('.spinner_class').on('change', function() {
+			var block = $(this).closest('.card');
+			$(block).block({
+				message : '<i class="icon-spinner4 spinner"></i>',
+				overlayCSS : {
+					backgroundColor : '#fff',
+					opacity : 0.8,
+					cursor : 'wait'
+				},
+				css : {
+					border : 0,
+					padding : 0,
+					backgroundColor : 'transparent'
+				}
+			});
+
+		}); */
 	</script>
 </body>
 </html>
