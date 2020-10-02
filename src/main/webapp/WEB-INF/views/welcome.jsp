@@ -1316,6 +1316,82 @@ Green Color : #007c24     #07a43d
 						</div>
 
 					</div>
+
+					<div class="col-md-4">
+						<div class="card bg-warning">
+							<div class="card-header header-elements-inline">
+								<h6 class="card-title dash_title">
+									<i class="fas fa-calendar-alt "></i> User Applicable Holidays
+									(next 30 days) And Weekly Off
+								</h6>
+
+							</div>
+
+							<div class="card-body white_bg">
+								<c:if test="${userApplicableHoliday.size()>0}">
+									<div class="dashboard_one">
+
+										<div class="dashboard_single">
+											<a class="text-white"> <strong> Holidays</strong></a>
+										</div>
+
+									</div>
+								</c:if>
+								<div class="dashboard_bx">
+									<c:forEach items="${userApplicableHoliday}"
+										var="userApplicableHoliday" varStatus="count">
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white">${userApplicableHoliday.holidayName}</a>
+											</div>
+											<div class="dashboard_r">
+												<a class="text-white">${userApplicableHoliday.holidayDate}</a>
+											</div>
+											<div class="clr"></div>
+										</div>
+									</c:forEach>
+									<div class="dashboard_one">
+
+										<div class="dashboard_single">
+											<a class="text-white"> <strong>Weekly Off</strong></a>
+										</div>
+
+									</div>
+									<c:forEach items="${weeklyoffList}" var="weeklyoffList"
+										varStatus="count">
+										<div class="dashboard_one">
+											<div class="dashboard_l">
+												<a class="text-white"> <c:choose>
+														<c:when test="${weeklyoffList.woDay==1}">MONDAY</c:when>
+														<c:when test="${weeklyoffList.woDay==2}">TUESDAY</c:when>
+														<c:when test="${weeklyoffList.woDay==3}">WEDNESDAY</c:when>
+														<c:when test="${weeklyoffList.woDay==4}">THURSDAY</c:when>
+														<c:when test="${weeklyoffList.woDay==5}">FRIDAY</c:when>
+														<c:when test="${weeklyoffList.woDay==6}">SATURDAY</c:when>
+														<c:otherwise>SUNDAY</c:otherwise>
+													</c:choose> (<c:choose>
+														<c:when test="${weeklyoffList.woType==1}">Even</c:when>
+														<c:when test="${weeklyoffList.woType==2}">Odd</c:when>
+														<c:when test="${weeklyoffList.woType==3}">1st</c:when>
+														<c:when test="${weeklyoffList.woType==4}">2nd</c:when>
+														<c:when test="${weeklyoffList.woType==5}">3rd</c:when>
+														<c:when test="${weeklyoffList.woType==6}">4th</c:when>
+														<c:otherwise>All</c:otherwise>
+													</c:choose>)
+												</a>
+											</div>
+
+											<div class="clr"></div>
+										</div>
+									</c:forEach>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+
 				</div>
 
 

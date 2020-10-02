@@ -42,6 +42,8 @@ import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmployeeAllDetails;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
+import com.ats.hreasy.model.GetWeeklyOff;
+import com.ats.hreasy.model.HolidayMaster;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveHistory;
 import com.ats.hreasy.model.LineGraphData;
@@ -766,6 +768,7 @@ public class DashboardAdminController {
 
 		map = new LinkedMultiValueMap<>();
 		map.add("empId", userObj.getEmpId());
+		map.add("date", fiterdate);
 		MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
 				MstEmpType.class);
 		model.addAttribute("mstEmpType", mstEmpType);
@@ -776,6 +779,19 @@ public class DashboardAdminController {
 
 		model.addAttribute("month", month);
 		model.addAttribute("year", year);
+
+		map = new LinkedMultiValueMap<>();
+		map.add("date", fiterdate);
+		map.add("empId", userObj.getEmpId());
+		HolidayMaster[] userApplicableHoliday = Constants.getRestTemplate()
+				.postForObject(Constants.url + "/getUserApplicableHoliday", map, HolidayMaster[].class);
+		List<HolidayMaster> userHoliday = new ArrayList<>(Arrays.asList(userApplicableHoliday));
+		model.addAttribute("userApplicableHoliday", userHoliday);
+		
+		GetWeeklyOff[] getWeeklyOff = Constants.getRestTemplate()
+				.postForObject(Constants.url + "/getWeeklyOffListByEmpIdDashboard", map, GetWeeklyOff[].class);
+		List<GetWeeklyOff> weeklyoffList = new ArrayList<>(Arrays.asList(getWeeklyOff));
+		model.addAttribute("weeklyoffList", weeklyoffList);
 
 		return mav;
 	}
