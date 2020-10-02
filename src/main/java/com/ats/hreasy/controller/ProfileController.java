@@ -67,14 +67,14 @@ public class ProfileController {
 
 			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
 					ViewEmployee.class);
-			
+
 			System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
-			//System.out.println("Accessable Location--------" + accessblLoc);
+			// System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
-			
+
 			model.addAttribute("empInfo", empInfo);
-			
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", Integer.parseInt(empId));
 			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
@@ -84,13 +84,12 @@ public class ProfileController {
 			System.out.println("EmpSalAllowance Info-------" + empAllowncList.size());
 			model.addAttribute("empAllowncList", empAllowncList);
 
-			//System.err.println("Employee Detail Data-----------" + empAllDtls);
-		
+			// System.err.println("Employee Detail Data-----------" + empAllDtls);
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
-	
+
 		return mav;
 
 	}
@@ -115,34 +114,32 @@ public class ProfileController {
 
 			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
 					ViewEmployee.class);
-			
-			//System.out.println("empInfo--------" + empInfo);
+
+			// System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
 			System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
-			
+
 			model.addAttribute("empInfo", empInfo);
-			
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", Integer.parseInt(empId));
 			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getEmployeeSalAllowances", map, EmpSalAllowance[].class);
+					.postForObject(Constants.url + "/getEmployeeSalAllowancesInfo", map, EmpSalAllowance[].class);
 
 			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
-			//System.out.println("EmpSalAllowance Info-------" + empAllowncList);
+			// System.out.println("EmpSalAllowance Info-------" + empAllowncList);
 			model.addAttribute("empAllowncList", empAllowncList);
 
-			//System.err.println("Employee Detail Data-----------" + empAllDtls);
-		
+			// System.err.println("Employee Detail Data-----------" + empAllDtls);
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
-	
+
 		return mav;
 
 	}
-
 
 	public String getAccessblLoc(int empId) {
 		MultiValueMap<String, Object> map = null;
@@ -150,14 +147,14 @@ public class ProfileController {
 		map = new LinkedMultiValueMap<>();
 		map.add("EmpId", empId);
 		User user = Constants.getRestTemplate().postForObject(Constants.url + "/findUserInfoByEmpId", map, User.class);
-		System.out.println("Accessable Location Ids--------"+user.getLocId());
+		System.out.println("Accessable Location Ids--------" + user.getLocId());
 
 		map.add("locIds", user.getLocId());
 		Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationsByIds", map,
 				Location[].class);
 
 		List<Location> locList = new ArrayList<Location>(Arrays.asList(location));
-		//System.out.println("Accessable Location Found--------"+locList);
+		// System.out.println("Accessable Location Found--------"+locList);
 
 		StringBuffer sb = new StringBuffer();
 
@@ -166,7 +163,7 @@ public class ProfileController {
 			sb.append(" / ");
 		}
 		String str = sb.toString();
-		//System.out.println("Built String-------------"+str);
+		// System.out.println("Built String-------------"+str);
 		return str;
 	}
 
@@ -246,17 +243,17 @@ public class ProfileController {
 			String base64encodedString = request.getParameter("empId");
 			String empId = FormValidation.DecodeKey(base64encodedString);
 
-			//System.out.println("Decrypt-----" + empId);
+			// System.out.println("Decrypt-----" + empId);
 
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", Integer.parseInt(empId));
 
 			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
 					ViewEmployee.class);
-			
-			//System.out.println("empInfo--------" + empInfo);
+
+			// System.out.println("empInfo--------" + empInfo);
 			String accessblLoc = getAccessblLoc(Integer.parseInt(empId));
-			//System.out.println("Accessable Location--------" + accessblLoc);
+			// System.out.println("Accessable Location--------" + accessblLoc);
 			empInfo.setAcciessbleLocations(accessblLoc);
 			empAllDtls.setEmpDtl(empInfo);
 
@@ -269,15 +266,15 @@ public class ProfileController {
 			System.out.println("EmpSalAllowance Info-------" + empAllowncList);
 			empAllDtls.setEmpAllowncDtl(empAllowncList);
 
-			//System.err.println("Employee Detail Data-----------" + empAllDtls);
-		
+			// System.err.println("Employee Detail Data-----------" + empAllDtls);
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		return empAllDtls;
 
 	}
-	
+
 	@RequestMapping(value = "/getPieChart", method = RequestMethod.GET)
 	public String getPieChart(HttpServletRequest request, HttpServletResponse response, Model model) {
 

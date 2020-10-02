@@ -134,7 +134,9 @@
 		</a>
 
 			<div class="dropdown-menu dropdown-menu-right">
-				<a href="${pageContext.request.contextPath}/logout"
+				<a href="${pageContext.request.contextPath}/getUserProfile"
+					class="dropdown-item"><i class="icon-profile"></i> Profile</a> <a
+					href="${pageContext.request.contextPath}/logout"
 					class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
 			</div></li>
 	</ul>

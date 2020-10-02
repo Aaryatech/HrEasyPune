@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,8 @@ import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.EmpDeptWise;
 import com.ats.hreasy.model.EmpGraphDetail;
 import com.ats.hreasy.model.EmpInfoForDashBoard;
+import com.ats.hreasy.model.EmpSalAllowance;
+import com.ats.hreasy.model.EmployeeAllDetails;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetLeaveApplyAuthwise;
 import com.ats.hreasy.model.Info;
@@ -52,6 +55,7 @@ import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.TotalOT;
+import com.ats.hreasy.model.ViewEmployee;
 import com.ats.hreasy.model.Advance.GetAdvance;
 import com.ats.hreasy.model.Bonus.PayBonusDetails;
 import com.ats.hreasy.model.Loan.LoanDetails;
@@ -848,7 +852,7 @@ public class DashboardAdminController {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/showRepayLoanDetailEmployee", method = RequestMethod.GET)
 	public ModelAndView showRepayLoan(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1228,4 +1232,47 @@ public class DashboardAdminController {
 		return mav;
 	}
 
+	@Autowired
+	ProfileController profileController;
+
+	@RequestMapping(value = "/getUserProfile", method = RequestMethod.GET)
+	public String getProfilenormal(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+		String mav = "profilenormal";
+
+		MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+		try {
+
+			int empId = userObj.getEmpId();
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+
+			ViewEmployee empInfo = Constants.getRestTemplate().postForObject(Constants.url + "/getEmployeeAllInfo", map,
+					ViewEmployee.class);
+
+			String accessblLoc = profileController.getAccessblLoc(empId);
+			empInfo.setAcciessbleLocations(accessblLoc);
+
+			model.addAttribute("empInfo", empInfo);
+
+			map = new LinkedMultiValueMap<>();
+			map.add("empId", empId);
+			EmpSalAllowance[] empSalAllowance = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getEmployeeSalAllowancesInfo", map, EmpSalAllowance[].class);
+
+			List<EmpSalAllowance> empAllowncList = new ArrayList<EmpSalAllowance>(Arrays.asList(empSalAllowance));
+
+			model.addAttribute("empAllowncList", empAllowncList);
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return mav;
+
+	}
 }
