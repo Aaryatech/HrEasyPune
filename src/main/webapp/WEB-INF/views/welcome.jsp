@@ -1580,8 +1580,8 @@ Green Color : #007c24     #07a43d
 
 			$("#detailGraphHead")
 					.html(
-							"Attendace Detail"
-									+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+							"Attendance Detail of "
+									+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname} (${sessionScope.userInfo.empCode})");
 			var monthYear = $("#monthYearMyAttendance").val();
 			var strhref = "${pageContext.request.contextPath}/getSelfAttendace?monthYear="
 					+ monthYear;
@@ -1617,22 +1617,22 @@ Green Color : #007c24     #07a43d
 				$("#detailGraphHead")
 						.html(
 								"Advace Details of "
-										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname} (${sessionScope.userInfo.empCode})");
 			} else if (type == 2) {
 				$("#detailGraphHead")
 						.html(
 								"Loan Details of "
-										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname} (${sessionScope.userInfo.empCode})");
 			} else if (type == 3) {
 				$("#detailGraphHead")
 						.html(
 								"Pay Deduction Details of "
-										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname} (${sessionScope.userInfo.empCode})");
 			} else if (type == 4) {
 				$("#detailGraphHead")
 						.html(
 								"Reward of "
-										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname}");
+										+ " ${sessionScope.userInfo.firstName} ${sessionScope.userInfo.surname} (${sessionScope.userInfo.empCode})");
 			}
 
 			var strhref = "${pageContext.request.contextPath}/getTransactionDetails?type="

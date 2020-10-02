@@ -44,12 +44,14 @@ import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MonthWiseDisbusedAmt;
 import com.ats.hreasy.model.MonthWithOT;
 import com.ats.hreasy.model.MstEmpType;
+import com.ats.hreasy.model.PayDeductionDetailList;
 import com.ats.hreasy.model.SelfAttendanceDetail;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.SummaryAttendance;
 import com.ats.hreasy.model.SummaryDailyAttendance;
 import com.ats.hreasy.model.TotalOT;
 import com.ats.hreasy.model.Advance.GetAdvance;
+import com.ats.hreasy.model.Bonus.PayBonusDetails;
 import com.ats.hreasy.model.claim.GetClaimApplyAuthwise;
 import com.ats.hreasy.model.dashboard.AgeDiversityDash;
 import com.ats.hreasy.model.dashboard.BirthHoliDash;
@@ -812,11 +814,21 @@ public class DashboardAdminController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", userObj.getEmpId());
 
-			GetAdvance[] getAdvance = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getAdvanceHistoryByEmpId", map, GetAdvance[].class);
+			if (type == 1) {
+				GetAdvance[] getAdvance = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAdvanceHistoryByEmpId", map, GetAdvance[].class);
+				model.addAttribute("getAdvance", getAdvance);
+			} else if (type == 3) {
+				PayDeductionDetailList[] payDeductionlList = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmpPayDeductDetailByEmpId", map, PayDeductionDetailList[].class);
+				model.addAttribute("payDeductionlList", payDeductionlList);
+			} else if (type == 4) {
+				PayBonusDetails[] payBonusDetails = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllPayPedingDetailsByEmpId", map, PayBonusDetails[].class);
+				model.addAttribute("payBonusDetails", payBonusDetails);
+			}
 
-			model.addAttribute("getAdvance", getAdvance);
-			// model.addAttribute("graphType", graphType);
+			model.addAttribute("type", type);
 
 		} catch (Exception e) {
 			e.printStackTrace();
