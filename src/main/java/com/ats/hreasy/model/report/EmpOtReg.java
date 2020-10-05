@@ -6,9 +6,11 @@ public class EmpOtReg {
 	private String empCode;
 	private String empName;
 	private String designation;
-	private float otHr;
+	private String otHr;
 	private String month;
 	private String date;
+	private float otMin;
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -33,10 +35,10 @@ public class EmpOtReg {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	public float getOtHr() {
+	public String getOtHr() {
 		return otHr;
 	}
-	public void setOtHr(float otHr) {
+	public void setOtHr(String otHr) {
 		this.otHr = otHr;
 	}
 	public String getMonth() {
@@ -57,10 +59,17 @@ public class EmpOtReg {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	public float getOtMin() {
+		return otMin;
+	}
+	public void setOtMin(float otMin) {
+		this.otMin = otMin;
+	}
 	@Override
 	public String toString() {
 		return "EmpOtReg [id=" + id + ", empId=" + empId + ", empCode=" + empCode + ", empName=" + empName
-				+ ", designation=" + designation + ", otHr=" + otHr + ", month=" + month + ", date=" + date + "]";
+				+ ", designation=" + designation + ", otHr=" + otHr + ", month=" + month + ", date=" + date + ", otMin="
+				+ otMin + "]";
 	}
 	
 	

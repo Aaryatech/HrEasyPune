@@ -722,8 +722,11 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
+			
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			
@@ -942,7 +945,7 @@ public class ReportController {
 					exportToExcelList.add(expoExcel);
 
 					
-					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtHr();
+					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtMin();
 				}
 				
 				expoExcel = new ExportToExcel();
@@ -998,10 +1001,12 @@ public class ReportController {
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 
-		Boolean ret = false;
+		 
 		try {
+			
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			
@@ -1220,7 +1225,7 @@ public class ReportController {
 					exportToExcelList.add(expoExcel);
 
 					
-					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtHr();
+					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtMin();
 				}
 				
 				expoExcel = new ExportToExcel();
@@ -1278,10 +1283,12 @@ public class ReportController {
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 
-		Boolean ret = false;
+		 
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			
@@ -1584,8 +1591,10 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
+			
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			
@@ -2612,14 +2621,14 @@ public class ReportController {
 
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
-
-		Boolean ret = false;
+ 
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
- 			
+			map.add("locId", locId);
  			EmpDailyAttendanceGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAttendanceSum", map, EmpDailyAttendanceGraph[].class);
 

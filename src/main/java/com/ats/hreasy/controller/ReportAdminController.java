@@ -128,12 +128,15 @@ public class ReportAdminController {
 		String month = request.getParameter("date");
 
 		String temp[] = month.split("-");
-		Boolean ret = false;
+
 		try {
+
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("month", temp[0]);
 			map.add("year", temp[1]);
+			map.add("locId", locId);
 			GetAdvance[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getAdvanceReport", map,
 					GetAdvance[].class);
 			List<GetAdvance> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -385,12 +388,14 @@ public class ReportAdminController {
 		String month = request.getParameter("date");
 
 		String temp[] = month.split("-");
-		Boolean ret = false;
+
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("month", temp[0]);
 			map.add("year", temp[1]);
+			map.add("locId", locId);
 			GetAdvance[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getAdvanceReport", map,
 					GetAdvance[].class);
 			List<GetAdvance> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -857,14 +862,17 @@ public class ReportAdminController {
 
 		Boolean ret = false;
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("fromDate", fromDate);
 			map.add("toDate", toDate);
+			map.add("locId", locId);
 			GetDailyDailyRecord[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getAttendenceRegReport", map, GetDailyDailyRecord[].class);
 			List<GetDailyDailyRecord> progList = new ArrayList<>(Arrays.asList(resArray));
-			//System.err.println("daily rec" + progList.toString());
+			// System.err.println("daily rec" + progList.toString());
 			map = new LinkedMultiValueMap<>();
 			map.add("empRes", -1);
 			map.add("companyId", 1);
@@ -960,57 +968,59 @@ public class ReportAdminController {
 			int index = 0;
 			for (int i = 0; i < empList.size(); i++) {
 
-				EmployeeMaster prog = empList.get(i);
-				int empId = prog.getEmpId();
+				if (locId == empList.get(i).getLocationId()) {
 
-				index++;
-				PdfPCell cell;
-				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					EmployeeMaster prog = empList.get(i);
+					int empId = prog.getEmpId();
 
-				table.addCell(cell);
+					index++;
+					PdfPCell cell;
+					cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEmpCode(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					table.addCell(cell);
 
-				table.addCell(cell);
+					cell = new PdfPCell(new Phrase("" + prog.getEmpCode(), headFontData));
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-				cell = new PdfPCell(
-						new Phrase("" + prog.getFirstName().concat(" ").concat(prog.getSurname()), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					table.addCell(cell);
 
-				table.addCell(cell);
+					cell = new PdfPCell(
+							new Phrase("" + prog.getFirstName().concat(" ").concat(prog.getSurname()), headFontData));
+					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-				for (int j = 1; j <= daysToday; j++) {
+					table.addCell(cell);
 
-					int flag = 0;
-					String stat = null;
-					for (int p = 0; p < progList.size(); p++) {
-						int dayCurr = progList.get(p).getEmpType();
+					for (int j = 1; j <= daysToday; j++) {
 
-						if (dayCurr == j && empId == progList.get(p).getEmpId()) {
-							flag = 1;
-							stat = progList.get(p).getAttsSdShow();
-							break;
+						int flag = 0;
+						String stat = null;
+						for (int p = 0; p < progList.size(); p++) {
+							int dayCurr = progList.get(p).getEmpType();
+
+							if (dayCurr == j && empId == progList.get(p).getEmpId()) {
+								flag = 1;
+								stat = progList.get(p).getAttsSdShow();
+								break;
+							}
 						}
-					}
-					if (flag == 1) {
-						cell = new PdfPCell(new Phrase("" + stat, headFontData));
-						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-						table.addCell(cell);
-					} else {
-						cell = new PdfPCell(new Phrase("" + "-", headFontData));
-						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-						table.addCell(cell);
-					}
+						if (flag == 1) {
+							cell = new PdfPCell(new Phrase("" + stat, headFontData));
+							cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+							cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(cell);
+						} else {
+							cell = new PdfPCell(new Phrase("" + "-", headFontData));
+							cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+							cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(cell);
+						}
 
+					}
 				}
-
 			}
 
 			document.open();
@@ -1088,38 +1098,41 @@ public class ReportAdminController {
 				int cnt = 1;
 
 				for (int i = 0; i < empList.size(); i++) {
-					expoExcel = new ExportToExcel();
-					rowData = new ArrayList<String>();
-					
-					cnt = cnt + i;
-					int emp = empList.get(i).getEmpId();
-					
-					rowData.add("" + (i + 1));
-					rowData.add("" + empList.get(i).getEmpCode());
-					rowData.add("" + empList.get(i).getFirstName().concat(" ").concat(empList.get(i).getSurname()));
-					
-					for (int j = 1; j <= daysToday; j++) {
-						int flag = 0;
-						String stat = null;
-						for (int l = 0; l < progList.size(); l++) {
-							int dayCurr = progList.get(l).getEmpType();
-							if (dayCurr == j && emp == progList.get(l).getEmpId()) {
-								flag = 1;
-								stat = progList.get(l).getAttsSdShow();	
-								break;
+
+					if (locId == empList.get(i).getLocationId()) {
+
+						expoExcel = new ExportToExcel();
+						rowData = new ArrayList<String>();
+
+						cnt = cnt + i;
+						int emp = empList.get(i).getEmpId();
+
+						rowData.add("" + (i + 1));
+						rowData.add("" + empList.get(i).getEmpCode());
+						rowData.add("" + empList.get(i).getFirstName().concat(" ").concat(empList.get(i).getSurname()));
+
+						for (int j = 1; j <= daysToday; j++) {
+							int flag = 0;
+							String stat = null;
+							for (int l = 0; l < progList.size(); l++) {
+								int dayCurr = progList.get(l).getEmpType();
+								if (dayCurr == j && emp == progList.get(l).getEmpId()) {
+									flag = 1;
+									stat = progList.get(l).getAttsSdShow();
+									break;
+								}
 							}
-						}
-						if (flag == 1) {
+							if (flag == 1) {
 
-							rowData.add("" + stat);
-						} else {
-							rowData.add("" + "-");
-						}
+								rowData.add("" + stat);
+							} else {
+								rowData.add("" + "-");
+							}
 
+						}
+						expoExcel.setRowData(rowData);
+						exportToExcelList.add(expoExcel);
 					}
-					expoExcel.setRowData(rowData);
-					exportToExcelList.add(expoExcel);
-
 				}
 
 				XSSFWorkbook wb = null;
@@ -1161,11 +1174,14 @@ public class ReportAdminController {
 		String month = request.getParameter("date");
 
 		String temp[] = month.split("-");
-		Boolean ret = false;
+
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("year", temp[1]);
+			map.add("locId", locId);
 			GetYearlyAdvanceNew[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getAdvanceYearlyReport", map, GetYearlyAdvanceNew[].class);
 			List<GetYearlyAdvanceNew> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -1828,14 +1844,18 @@ public class ReportAdminController {
 		HttpSession session = request.getSession();
 
 		String leaveDateRange = request.getParameter("singleDateRange");
-		//String[] arrOfStr = leaveDateRange.split("to", 2);
-		System.out.println("Dates--------"+leaveDateRange);
-		Boolean ret = false;
+		// String[] arrOfStr = leaveDateRange.split("to", 2);
+		System.out.println("Dates--------" + leaveDateRange);
+		 
 		try {
+			
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		 	map.add("companyId", 1);
+			map.add("companyId", 1);
 			map.add("fromDate", DateConvertor.convertToYMD(leaveDateRange));
 			map.add("toDate", DateConvertor.convertToYMD(leaveDateRange));
+			map.add("locId", locId);
 			EmpAttendeanceRep[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getDailyAttendenceReport", map, EmpAttendeanceRep[].class);
 			List<EmpAttendeanceRep> progList = new ArrayList<>(Arrays.asList(resArray));
