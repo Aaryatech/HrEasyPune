@@ -115,7 +115,7 @@
 
 								<c:forEach items="${shiftList}" var="list" varStatus="count">
 									<tr>
-										<td>${count.index+1}</td>
+										<td width="10%">${count.index+1}</td>
 										<td>${list.shiftname}</td>
 										<c:choose>
 											<c:when test="${list.locationId==0}">

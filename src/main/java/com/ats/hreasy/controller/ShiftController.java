@@ -278,7 +278,7 @@ public class ShiftController {
 
 				}
 
-				//System.out.println(shiftMaster);
+				// System.out.println(shiftMaster);
 
 				ShiftMaster save = Constants.getRestTemplate().postForObject(Constants.url + "/saveShiftMaster",
 						shiftMaster, ShiftMaster.class);
@@ -390,9 +390,9 @@ public class ShiftController {
 						shiftMaster, ShiftMaster.class);
 
 				if (save != null) {
-					session.setAttribute("successMsg", "Shift Inserted Successfully");
+					session.setAttribute("successMsg", "Shift Updated Successfully");
 				} else {
-					session.setAttribute("errorMsg", "Failed to Inserted Shift");
+					session.setAttribute("errorMsg", "Failed to Update Shift");
 				}
 			}
 		} catch (Exception e) {
@@ -428,7 +428,7 @@ public class ShiftController {
 				GetShiftDetail shiftMaster = Constants.getRestTemplate()
 						.postForObject(Constants.url + "/getShiftListByShiftIdLpad", map, GetShiftDetail.class);
 
-				//System.out.println(shiftMaster);
+				// System.out.println(shiftMaster);
 				model.addAttribute("shiftMaster", shiftMaster);
 				SelfGroup[] selfGroup = Constants.getRestTemplate()
 						.getForObject(Constants.url + "/getSelftGroupListForAddShift", SelfGroup[].class);
