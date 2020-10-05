@@ -120,22 +120,31 @@ public class Constants {
 
 	// Aurangabad Hr
 
-	/*public static final String url = "http://107.180.95.11:8080/HrEsayWebApi/";
-	public static String REPORT_SAVE = "/opt/tomcat-latest/webapps/hrdocument/Report.pdf";
-	public static final String ReportURL = "http://107.180.95.11:8080/HrEasy/";// gfpl public public
-	public static final String attsDocSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/attendancedoc/";
-	public static final String docSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/updatedoc/";
-
-	public static final String companyLogoSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/companylogo/";
-	public static final String empDocSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/empdoc/";
-	public static final String leaveDocSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/leavedoc/";
-	public static final String imageSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/mixDoc/";
-
-	public static final String companyLogoShowUrl = "http://107.180.95.11:8080/hrdocument/companylogo/";
-	public static final String empDocShowUrl = "http://107.180.95.11:8080/hrdocument/empdoc/";
-	public static final String leaveDocShowUrl = "http://107.180.95.11:8080/hrdocument/leavedoc/";
-	public static final String imageShowUrl = "http://107.180.95.11:8080/hrdocument/mixDoc/";
-	public static final String templateShowUrl = "http://107.180.95.11:8080/hrdocument/templatedoc/";*/
+	/*
+	 * public static final String url = "http://107.180.95.11:8080/HrEsayWebApi/";
+	 * public static String REPORT_SAVE =
+	 * "/opt/tomcat-latest/webapps/hrdocument/Report.pdf"; public static final
+	 * String ReportURL = "http://107.180.95.11:8080/HrEasy/";// gfpl public public
+	 * public static final String attsDocSaveUrl =
+	 * "/opt/tomcat-latest/webapps/hrdocument/attendancedoc/"; public static final
+	 * String docSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/updatedoc/";
+	 * 
+	 * public static final String companyLogoSaveUrl =
+	 * "/opt/tomcat-latest/webapps/hrdocument/companylogo/"; public static final
+	 * String empDocSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/empdoc/";
+	 * public static final String leaveDocSaveUrl =
+	 * "/opt/tomcat-latest/webapps/hrdocument/leavedoc/"; public static final String
+	 * imageSaveUrl = "/opt/tomcat-latest/webapps/hrdocument/mixDoc/";
+	 * 
+	 * public static final String companyLogoShowUrl =
+	 * "http://107.180.95.11:8080/hrdocument/companylogo/"; public static final
+	 * String empDocShowUrl = "http://107.180.95.11:8080/hrdocument/empdoc/"; public
+	 * static final String leaveDocShowUrl =
+	 * "http://107.180.95.11:8080/hrdocument/leavedoc/"; public static final String
+	 * imageShowUrl = "http://107.180.95.11:8080/hrdocument/mixDoc/"; public static
+	 * final String templateShowUrl =
+	 * "http://107.180.95.11:8080/hrdocument/templatedoc/";
+	 */
 
 	/*
 	 * public static final String url = "http://107.180.91.43:8080/madhaviHrApi/";

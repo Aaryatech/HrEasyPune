@@ -104,6 +104,7 @@
 									<th width="10%" class="text-center">Out Time</th>
 									<th width="10%" class="text-center">Shift Hour</th>
 									<th width="10%" class="text-center">Half Day Hour</th>
+									<th width="10%" class="text-center">Shift OT Hours</th>
 									<th width="10%" class="text-center">Late Allowed MIN</th>
 									<th width="10%" class="text-center">Is Night Shift</th>
 									<th width="10%" class="text-center">Actions</th>
@@ -122,9 +123,11 @@
 												<td class="text-center">${list.totime}</td>
 												<td class="text-right">${list.shiftHr}</td>
 												<td class="text-right">${list.shiftHalfdayHr}</td>
+												<td class="text-right">${list.shiftOtHour}</td>
 												<td class="text-right">${list.maxLateTimeAllowed}</td>
 											</c:when>
 											<c:otherwise>
+												<td class="text-center">-</td>
 												<td class="text-center">-</td>
 												<td class="text-center">-</td>
 												<td class="text-center">-</td>
@@ -137,21 +140,18 @@
 												<c:when test="${list.departmentId==1}">Yes</c:when>
 												<c:otherwise>No</c:otherwise>
 											</c:choose></td>
-										<td class="text-center">
-											<%-- <c:if test="${editAccess == 0}">
+										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a
-													href="${pageContext.request.contextPath}/editShift?compId=${list.id}"
+													href="${pageContext.request.contextPath}/editShift?shiftId=${list.id}"
 													class="list-icons-item text-primary-600"
 													data-popup="tooltip" title="" data-original-title="Edit"><i
 													class="icon-pencil7"></i></a>
-											</c:if> --%> <c:if
-												test="${deleteAccess == 0 and list.locationId==0}">
+											</c:if> <c:if test="${deleteAccess == 0 and list.locationId==0}">
 												<a href="javascript:void(0)"
 													class="list-icons-item text-danger-600 bootbox_custom"
 													data-uuid="${list.id}" data-popup="tooltip" title=""
 													data-original-title="Delete"><i class="icon-trash"></i></a>
-											</c:if>
-										</td>
+											</c:if></td>
 									</tr>
 								</c:forEach>
 

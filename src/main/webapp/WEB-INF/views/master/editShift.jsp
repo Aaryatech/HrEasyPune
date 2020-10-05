@@ -95,7 +95,7 @@
 								%>
 
 								<form
-									action="${pageContext.request.contextPath}/submitShiftTiming"
+									action="${pageContext.request.contextPath}/submitEditShiftTiming"
 									id="submitShiftTiming" method="post">
 									<div class="form-group row">
 										<div class="col-md-6">
@@ -108,7 +108,7 @@
 												<input type="text" class="form-control"
 													placeholder="Shift Short Name" id="shrtName"
 													name="shrtName" autocomplete="off" onchange="trim(this)"
-													maxlength="10"><span
+													value="${shiftMaster.shortName}" maxlength="10"><span
 													class="validation-invalid-label" id="error_shrtName"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -122,7 +122,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
-													placeholder="Shift Name" id="shiftName" name="shiftName"
+													placeholder="Shift Name" id="shiftName"
+													value="${shiftMaster.shiftname}" name="shiftName"
 													autocomplete="off" onchange="trim(this)"> <span
 													class="validation-invalid-label" id="error_shiftName"
 													style="display: none;">This field is required.</span>
@@ -140,8 +141,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="time" class="form-control timehour24 "
-													id="intime" data-mask="23:59" name="intime"
-													autocomplete="off"> <span
+													id="intime" name="intime" autocomplete="off"
+													value="${shiftMaster.fromtime}"> <span
 													class="validation-invalid-label" id="error_intime"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -155,8 +156,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="time" class="form-control timehour24"
-													id="outtime" data-mask="23:59" name="outtime"
-													autocomplete="off"> <span
+													id="outtime" name="outtime" autocomplete="off"
+													value="${shiftMaster.totime}"> <span
 													class="validation-invalid-label" id="error_outtime"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -172,7 +173,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" data-mask="99:99" class="form-control"
-													id="hfdayhour" name="hfdayhour" autocomplete="off">
+													id="hfdayhour" name="hfdayhour" autocomplete="off"
+													value="${shiftMaster.shiftHalfdayHr}">
 												<!-- <input type="time" class="form-control  " id="hfdayhour"
 													name="hfdayhour" autocomplete="off"> -->
 												<span class="validation-invalid-label" id="error_hfdayhour"
@@ -188,7 +190,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" data-mask="99:99" class="form-control"
-													id="othour" name="othour" autocomplete="off">
+													id="othour" name="othour" autocomplete="off"
+													value="${shiftMaster.shiftOtHour}">
 												<!-- <input type="time" class="form-control  " id="othour"
 													name="othour" autocomplete="off"> -->
 												<span class="validation-invalid-label" id="error_othour"
@@ -207,7 +210,8 @@
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control numbersOnly"
-													id="lateMin" name="lateMin" autocomplete="off"> <span
+													id="lateMin" name="lateMin" autocomplete="off"
+													value="${shiftMaster.maxLateTimeAllowed}"> <span
 													class="validation-invalid-label" id="error_lateMin"
 													style="display: none;">This field is required.</span>
 											</div>
@@ -227,7 +231,16 @@
 													onchange="getShiftListByLocationIdAndSelftGroupId()">
 													<option value="">Please Select</option>
 													<c:forEach items="${selfGroupList}" var="selfGroupList">
-														<option value="${selfGroupList.selftGroupId}">${selfGroupList.name}</option>
+														<c:choose>
+															<c:when
+																test="${selfGroupList.selftGroupId==shiftMaster.selfGroupId}">
+																<option value="${selfGroupList.selftGroupId}" selected>${selfGroupList.name}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${selfGroupList.selftGroupId}">${selfGroupList.name}</option>
+															</c:otherwise>
+														</c:choose>
+
 													</c:forEach>
 												</select> <span class="validation-invalid-label" id="error_groupId"
 													style="display: none;">This field is required.</span>
@@ -243,8 +256,17 @@
 											</span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="checkbox" id="ischange" name="ischange"
-													onchange="changeIsChange()">
+												<c:choose>
+													<c:when test="${shiftMaster.changeable==1}">
+														<input type="checkbox" id="ischange" name="ischange"
+															onchange="changeIsChange()" checked="checked">
+													</c:when>
+													<c:otherwise>
+														<input type="checkbox" id="ischange" name="ischange"
+															onchange="changeIsChange()">
+													</c:otherwise>
+												</c:choose>
+
 
 											</div>
 
@@ -257,9 +279,19 @@
 												style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="radio" id="isNightShiftNo" name="isNightShift"
-													checked value="0">No <input type="radio"
-													id="isNightShiftYes" name="isNightShift" value="1">Yes
+												<c:choose>
+													<c:when test="${shiftMaster.departmentId==1}">
+														<input type="radio" id="isNightShiftNo"
+															name="isNightShift" value="0">No <input
+															type="radio" id="isNightShiftYes" name="isNightShift"
+															value="1" checked>Yes</c:when>
+													<c:otherwise>
+														<input type="radio" id="isNightShiftNo"
+															name="isNightShift" checked value="0">No <input
+															type="radio" id="isNightShiftYes" name="isNightShift"
+															value="1">Yes</c:otherwise>
+												</c:choose>
+
 
 											</div>
 
@@ -296,6 +328,10 @@
 													type="button" class="btn btn-light">Back</button></a>
 										</div>
 									</div>
+									<input type="hidden" id="shiftId" name="shiftId"
+										value="${shiftMaster.id}"> <input type="hidden"
+										id="changewithshift" name="changewithshift" autocomplete="off"
+										value="${shiftMaster.changewith}">
 								</form>
 								<p class="desc text-danger fontsize11">MIN : (in Minutes)</p>
 								<p class="desc text-danger fontsize11">Is Changeable - Note
@@ -472,33 +508,46 @@
 	<script type="text/javascript">
 		function getShiftListByLocationIdAndSelftGroupId() {
 
-			//var locationId = $("#locId").val()
+			var changewithshift = $("#changewithshift").val()
+			var shiftId = $("#shiftId").val()
 			var groupId = $("#groupId").val()
 
-			$.getJSON('${getShiftListByLocationIdAndSelftGroupId}', {
-				groupId : groupId,
-				ajax : 'true',
-			},
+			$
+					.getJSON(
+							'${getShiftListByLocationIdAndSelftGroupId}',
+							{
+								groupId : groupId,
+								ajax : 'true',
+							},
 
-			function(data) {
-				var html;
+							function(data) {
+								var html;
 
-				html += '<option  value="" > Change With</option>';
+								html += '<option  value="" > Change With</option>';
 
-				var temp = 0;
+								var temp = 0;
 
-				var len = data.length;
-				for (var i = 0; i < len; i++) {
+								var len = data.length;
+								for (var i = 0; i < len; i++) {
 
-					html += '<option   value="' + data[i].id + '">'
-							+ data[i].shiftname + '</option>';
+									if (shiftId != data[i].id) {
 
-				}
+										if (changewithshift == data[i].id) {
+											html += '<option   value="' + data[i].id + '" selected>'
+													+ data[i].shiftname
+													+ '</option>';
+										} else {
+											html += '<option   value="' + data[i].id + '">'
+													+ data[i].shiftname
+													+ '</option>';
+										}
+									}
+								}
 
-				$('#changeWith').html(html);
-				$("#changeWith").trigger("chosen:updated");
+								$('#changeWith').html(html);
+								$("#changeWith").trigger("chosen:updated");
 
-			});
+							});
 
 		}
 	</script>

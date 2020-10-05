@@ -26,6 +26,7 @@ import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.GetShiftDetail;
 import com.ats.hreasy.model.GetWeekShiftChange;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -155,8 +156,8 @@ public class ShiftController {
 				model.addAttribute("locationList", locationList);
 				model.addAttribute("locationAccess", userObj.getLocationIds().split(","));
 
-				SelfGroup[] selfGroup = Constants.getRestTemplate().getForObject(Constants.url + "/getSelftGroupListForAddShift",
-						SelfGroup[].class);
+				SelfGroup[] selfGroup = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getSelftGroupListForAddShift", SelfGroup[].class);
 
 				List<SelfGroup> selfGroupList = new ArrayList<SelfGroup>(Arrays.asList(selfGroup));
 				model.addAttribute("selfGroupList", selfGroupList);
@@ -177,10 +178,10 @@ public class ShiftController {
 
 		try {
 
-			//int locationId = Integer.parseInt(request.getParameter("locationId"));
+			// int locationId = Integer.parseInt(request.getParameter("locationId"));
 			int groupId = Integer.parseInt(request.getParameter("groupId"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			//map.add("locationId", locationId);
+			// map.add("locationId", locationId);
 			map.add("groupId", groupId);
 			ShiftMaster[] selfGroup = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getShiftListByGroupIdandlocId", map, ShiftMaster[].class);
@@ -213,7 +214,7 @@ public class ShiftController {
 			} else {
 				mav = "redirect:/getshiftList";
 
-				//int locationId = Integer.parseInt(request.getParameter("locId"));
+				// int locationId = Integer.parseInt(request.getParameter("locId"));
 				String shiftName = request.getParameter("shiftName");
 				String intime = request.getParameter("intime");
 				String outtime = request.getParameter("outtime");
@@ -222,11 +223,11 @@ public class ShiftController {
 				int lateMin = Integer.parseInt(request.getParameter("lateMin"));
 				int groupId = Integer.parseInt(request.getParameter("groupId"));
 				int isNightShift = Integer.parseInt(request.getParameter("isNightShift"));
-				
+
 				String changeWith = request.getParameter("changeWith");
 
 				String shrtName = request.getParameter("shrtName");
-				
+
 				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 				ShiftMaster shiftMaster = new ShiftMaster();
@@ -240,7 +241,7 @@ public class ShiftController {
 				shiftMaster.setOtCalculatedTime(outtime + ":00");
 				shiftMaster.setCompanyId(1);
 				shiftMaster.setDepartmentId(isNightShift);
-				shiftMaster.setShortName(shrtName); 
+				shiftMaster.setShortName(shrtName);
 				String[] hfhour = hfdayhour.split(":");
 				String[] ot = othour.split(":");
 
@@ -277,7 +278,7 @@ public class ShiftController {
 
 				}
 
-				System.out.println(shiftMaster);
+				//System.out.println(shiftMaster);
 
 				ShiftMaster save = Constants.getRestTemplate().postForObject(Constants.url + "/saveShiftMaster",
 						shiftMaster, ShiftMaster.class);
@@ -291,6 +292,153 @@ public class ShiftController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("errorMsg", "Failed to Inserted Shift");
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/submitEditShiftTiming", method = RequestMethod.POST)
+	public String submitEditShiftTiming(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+
+		String mav = "redirect:/getshiftList";
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("addShift", "getshiftList", 0, 1, 0, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				mav = "redirect:/accessDenied";
+
+			} else {
+				mav = "redirect:/getshiftList";
+
+				int shiftId = Integer.parseInt(request.getParameter("shiftId"));
+				String shiftName = request.getParameter("shiftName");
+				String intime = request.getParameter("intime");
+				String outtime = request.getParameter("outtime");
+				String hfdayhour = request.getParameter("hfdayhour");
+				String othour = request.getParameter("othour");
+				int lateMin = Integer.parseInt(request.getParameter("lateMin"));
+				int groupId = Integer.parseInt(request.getParameter("groupId"));
+				int isNightShift = Integer.parseInt(request.getParameter("isNightShift"));
+
+				String changeWith = request.getParameter("changeWith");
+
+				String shrtName = request.getParameter("shrtName");
+
+				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+				ShiftMaster shiftMaster = new ShiftMaster();
+				shiftMaster.setShiftname(shiftName);
+				shiftMaster.setLocationId(0);
+				shiftMaster.setTotime(outtime + ":00");
+				shiftMaster.setFromtime(intime + ":00");
+				shiftMaster.setMaxLateTimeAllowed(lateMin);
+				shiftMaster.setStatus(1);
+				shiftMaster.setSelfGroupId(groupId);
+				shiftMaster.setOtCalculatedTime(outtime + ":00");
+				shiftMaster.setCompanyId(1);
+				shiftMaster.setDepartmentId(isNightShift);
+				shiftMaster.setShortName(shrtName);
+				shiftMaster.setId(shiftId);
+				String[] hfhour = hfdayhour.split(":");
+				String[] ot = othour.split(":");
+
+				shiftMaster.setShiftHalfdayHr(
+						String.valueOf((Integer.parseInt(hfhour[0]) * 60) + Integer.parseInt(hfhour[1])));
+				shiftMaster.setShiftOtHour((Integer.parseInt(ot[0]) * 60) + Integer.parseInt(ot[1]));
+
+				Date date = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat yyDtTm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+				String inDttime = sf.format(date) + " " + shiftMaster.getFromtime();
+				String outDttime = sf.format(date) + " " + shiftMaster.getTotime();
+
+				Date inDt = yyDtTm.parse(inDttime);// Set start date
+				Date outDt = yyDtTm.parse(outDttime);
+
+				if (inDt.compareTo(outDt) > 0) {
+					outDt.setTime(outDt.getTime() + 1000 * 60 * 60 * 24);
+				}
+
+				long durationBetweenInOut = outDt.getTime() - inDt.getTime();
+				long diffHoursBetweenInOut = durationBetweenInOut / (60 * 60 * 1000);
+				long diffMinutesBetweenInOut = (durationBetweenInOut / (60 * 1000) % 60) + (diffHoursBetweenInOut * 60);
+
+				shiftMaster.setShiftHr(String.valueOf(diffMinutesBetweenInOut));
+				try {
+					int ischange = Integer.parseInt(request.getParameter("ischange"));
+					if (ischange == 1 && changeWith != "") {
+						shiftMaster.setChangewith(Integer.parseInt(changeWith));
+						shiftMaster.setChangeable(ischange);
+					} else {
+						shiftMaster.setChangeable(0);
+						shiftMaster.setChangewith(shiftId);
+					}
+				} catch (Exception e) {
+
+				}
+
+				// System.out.println(shiftMaster);
+
+				ShiftMaster save = Constants.getRestTemplate().postForObject(Constants.url + "/saveShiftMaster",
+						shiftMaster, ShiftMaster.class);
+
+				if (save != null) {
+					session.setAttribute("successMsg", "Shift Inserted Successfully");
+				} else {
+					session.setAttribute("errorMsg", "Failed to Inserted Shift");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Inserted Shift");
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/editShift", method = RequestMethod.GET)
+	public String editShift(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = "master/editShift";
+
+		try {
+
+			HttpSession session = request.getSession();
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("addShift", "getshiftList", 0, 0, 1, 0, newModuleList);
+
+			if (view.isError() == true) {
+
+				mav = "redirect:/accessDenied";
+
+			} else {
+				int shiftId = Integer.parseInt(request.getParameter("shiftId"));
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("shiftId", shiftId);
+				GetShiftDetail shiftMaster = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getShiftListByShiftIdLpad", map, GetShiftDetail.class);
+
+				//System.out.println(shiftMaster);
+				model.addAttribute("shiftMaster", shiftMaster);
+				SelfGroup[] selfGroup = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getSelftGroupListForAddShift", SelfGroup[].class);
+
+				List<SelfGroup> selfGroupList = new ArrayList<SelfGroup>(Arrays.asList(selfGroup));
+				model.addAttribute("selfGroupList", selfGroupList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return mav;
 
