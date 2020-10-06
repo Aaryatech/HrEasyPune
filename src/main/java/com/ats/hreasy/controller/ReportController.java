@@ -74,11 +74,11 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
-			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
+			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1])); 
 			PendingLoanReport[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpPendingLoanReport", map, PendingLoanReport[].class);
 			List<PendingLoanReport> empLoanList = new ArrayList<>(Arrays.asList(resArray));
@@ -396,8 +396,10 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("companyId", 1);
+			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			

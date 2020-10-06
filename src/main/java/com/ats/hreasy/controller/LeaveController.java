@@ -1244,11 +1244,11 @@ public class LeaveController {
 			int empId = Integer.parseInt(request.getParameter("empId"));
 			int calYrId = Integer.parseInt(request.getParameter("calYrId"));
 			String cal_yr = request.getParameter("cal_yr");
-
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			map.add("calYrId", calYrId);
-
+			map.add("locId", locId);
 			EmpLeaveHistoryRep[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLeaveHistoryRep", map, EmpLeaveHistoryRep[].class);
 
@@ -1256,9 +1256,9 @@ public class LeaveController {
 			// System.out.println("employeeInfoList" + employeeInfoList.toString());
 
 			map = new LinkedMultiValueMap<>();
-
+			map.add("locId", locId);
 			EmployeeMaster[] emp = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getEmplistForAssignAuthorityAll", EmployeeMaster[].class);
+					.postForObject(Constants.url + "/getEmplistForAssignAuthorityAllByLocId",map, EmployeeMaster[].class);
 
 			List<EmployeeMaster> empList1 = new ArrayList<EmployeeMaster>(Arrays.asList(emp));
 

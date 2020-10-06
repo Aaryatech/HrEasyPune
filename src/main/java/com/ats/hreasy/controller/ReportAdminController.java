@@ -2619,11 +2619,16 @@ public class ReportAdminController {
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 		Boolean ret = false;
+		HttpSession session = request.getSession();
+		
+		int locId = (int) session.getAttribute("liveLocationId");
+		
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", 1);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
+			map.add("locId", locId);
 			LoanDedReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getLoanDedReport",
 					map, LoanDedReport[].class);
 			List<LoanDedReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -3321,12 +3326,16 @@ public class ReportAdminController {
 		}
 
 		String cmpName = "-";
-		Boolean ret = false;
+		 
 		try {
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
 			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPfStatement",
 					map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -3593,13 +3602,16 @@ public class ReportAdminController {
 			cmpId = 0;
 		}
 		String cmpName = "-";
-
-		Boolean ret = false;
+ 
 		try {
+			 
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
+			
 			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPfStatement",
 					map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -3871,10 +3883,12 @@ public class ReportAdminController {
 
 		Boolean ret = false;
 		try {
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
 			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPfStatement",
 					map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -4654,11 +4668,14 @@ public class ReportAdminController {
 						map, MstCompanySub.class);
 				cmpName = comp.getCompanyName();
 			}
-
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
 			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPfStatement",
 					map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -4921,8 +4938,8 @@ public class ReportAdminController {
 		} catch (Exception e) {
 			cmpId = 0;
 		}
-
-		System.err.println("cmpId" + cmpId);
+		HttpSession session = request.getSession();
+		int locId = (int) session.getAttribute("liveLocationId");
 
 		String cmpName = "-";
 		Boolean ret = false;
@@ -4941,6 +4958,7 @@ public class ReportAdminController {
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
 			GetSalaryCalcReport[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getMLWFStatement", map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -5254,11 +5272,13 @@ public class ReportAdminController {
 						map, MstCompanySub.class);
 				cmpName = comp.getCompanyName();
 			}
-
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId", locId);
 			StatutoryEsicRep[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getStatutoryEsic",
 					map, StatutoryEsicRep[].class);
 			List<StatutoryEsicRep> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -6210,7 +6230,9 @@ public class ReportAdminController {
 		String cmpName = "-";
 		Boolean ret = false;
 		try {
-
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
 			if (cmpId != 0) {
@@ -6224,6 +6246,7 @@ public class ReportAdminController {
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
+			map.add("locId",locId);
 			EsiSumaryRep[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getEsiSummaryReport",
 					map, EsiSumaryRep[].class);
 			List<EsiSumaryRep> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -6479,11 +6502,11 @@ public class ReportAdminController {
 			int empId = Integer.parseInt(request.getParameter("empId1"));
 			int calYrId = Integer.parseInt(request.getParameter("calYrId"));
 			String cal_yr = request.getParameter("cal_yr");
-
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			map.add("calYrId", calYrId);
-
+			map.add("locId", locId);
 			EmpLeaveHistoryRep[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLeaveHistoryRep", map, EmpLeaveHistoryRep[].class);
 
@@ -6491,9 +6514,9 @@ public class ReportAdminController {
 			// System.out.println("employeeInfoList" + employeeInfoList.toString());
 
 			map = new LinkedMultiValueMap<>();
-
+			map.add("locId", locId);
 			EmployeeMaster[] emp = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getEmplistForAssignAuthorityAll", EmployeeMaster[].class);
+					.postForObject(Constants.url + "/getEmplistForAssignAuthorityAllByLocId",map, EmployeeMaster[].class);
 
 			List<EmployeeMaster> empList1 = new ArrayList<EmployeeMaster>(Arrays.asList(emp));
 
