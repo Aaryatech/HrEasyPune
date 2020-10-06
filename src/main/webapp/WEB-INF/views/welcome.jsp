@@ -1525,18 +1525,26 @@ Green Color : #007c24     #07a43d
 								<div class="card-body">
 
 									<div class="row">
-										<div class="col-md-3">Gender</div>
-										<div class="col-md-3">Age</div>
-										<div class="col-md-3">Experience</div>
-										<div class="col-md-3">Salary</div>
+										<div class="col-md-3">
+											<strong>Gender</strong>
+										</div>
+										<div class="col-md-3">
+											<strong>Age</strong>
+										</div>
+										<div class="col-md-3">
+											<strong>Experience</strong>
+										</div>
+										<div class="col-md-3">
+											<strong>Salary</strong>
+										</div>
 									</div>
 
 
 									<div class="row">
 										<div class="col-md-3">
-											Male:${ageDiv.maleEmp} <br> Female:${ageDiv.femaleEmp} <br>
-											Other:${ageDiv.othEmp} <br>------<br>
-											<c:forEach items="${deptWiseEmpCntList}"
+											Male : ${ageDiv.maleEmp} <br> Female :
+											${ageDiv.femaleEmp} <br> Other : ${ageDiv.othEmp}
+											<%-- <c:forEach items="${deptWiseEmpCntList}"
 												var="deptWiseEmpCntList" varStatus="count">
 												<c:if test="${deptWiseEmpCntList.empCount >0}">
  													
@@ -1546,44 +1554,43 @@ Green Color : #007c24     #07a43d
 													 <br>
 												</c:if>
 
-											</c:forEach>
+											</c:forEach> --%>
 
 										</div>
 										<div class="col-md-3">
 
-											18-20: ${ageDiversity.ageRange1}<br> 21-25:
-											${ageDiversity.ageRange2}<br> 26-30:
-											${ageDiversity.ageRange3}<br> 31-35:
-											${ageDiversity.ageRange5}<br> 36-40:
-											${ageDiversity.ageRange6}<br> 41-45:
-											${ageDiversity.ageRange7}<br> 46-50:
-											${ageDiversity.ageRange8}<br> 51-55:
-											${ageDiversity.ageRange9}<br> 56-60:
-											${ageDiversity.ageRange10}<br> 60-65:
+											18-20 : ${ageDiversity.ageRange1}<br> 21-25 :
+											${ageDiversity.ageRange2}<br> 26-30 :
+											${ageDiversity.ageRange3}<br> 31-35 :
+											${ageDiversity.ageRange5}<br> 36-40 :
+											${ageDiversity.ageRange6}<br> 41-45 :
+											${ageDiversity.ageRange7}<br> 46-50 :
+											${ageDiversity.ageRange8}<br> 51-55 :
+											${ageDiversity.ageRange9}<br> 56-60 :
+											${ageDiversity.ageRange10}<br> 60-65 :
 											${ageDiversity.ageRange11}<br>
 
 										</div>
 										<div class="col-md-3">
 
-											0 Year: ${expDiversity.ageRange1}<br> 1
-											Year:${expDiversity.ageRange2}<br> 2
-											Year:${expDiversity.ageRange3}<br> 5
-											Year:${expDiversity.ageRange4}<br> 10
-											Year:${expDiversity.ageRange5}<br> 10+ :
+											0 Year : ${expDiversity.ageRange1}<br> 1 Year :
+											${expDiversity.ageRange2}<br> 2 Year :
+											${expDiversity.ageRange3}<br> 5 Year :
+											${expDiversity.ageRange4}<br> 10 Year :
+											${expDiversity.ageRange5}<br> 10+ :
 											${expDiversity.ageRange6}<br>
 
 										</div>
 										<div class="col-md-3">
-											up to 10000 : ${salDiversity.ageRange1}<br> 10000-20000:
-											${salDiversity.ageRange2}<br> 21000-30000:
-											${salDiversity.ageRange3}<br>
-
-											31000-40000:${salDiversity.ageRange4}<br> 41000-50000:
-											${salDiversity.ageRange5}<br> 51000-60000:
+											up to 10000 : ${salDiversity.ageRange1}<br> 10000-20000
+											: ${salDiversity.ageRange2}<br> 21000-30000 :
+											${salDiversity.ageRange3}<br> 31000-40000 :
+											${salDiversity.ageRange4}<br> 41000-50000 :
+											${salDiversity.ageRange5}<br> 51000-60000 :
 											${salDiversity.ageRange6}<br> 61000-70000 :
-											${salDiversity.ageRange7}<br> 71000-80000:
-											${salDiversity.ageRange8}<br> 81000-9000:
-											${salDiversity.ageRange9}<br> 91000-100000:
+											${salDiversity.ageRange7}<br> 71000-80000 :
+											${salDiversity.ageRange8}<br> 81000-9000 :
+											${salDiversity.ageRange9}<br> 91000-100000 :
 											${salDiversity.ageRange10}<br>
 										</div>
 									</div>
