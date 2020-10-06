@@ -483,6 +483,8 @@ Green Color : #007c24     #07a43d
 											name="monthYearLineGraph" value="${month}-${year}"
 											autocomplete="off" onchange="getLineGraphs()">
 									</div>
+									<!-- <input
+											type='button' id='btn' value='Print' onclick='printDiv();'> -->
 									<!-- spinner_class -->
 									<!-- <div class="col-md-2">
 										<button type="button" class="btn blue_btn1" id="submtbtn"
@@ -1876,28 +1878,32 @@ Green Color : #007c24     #07a43d
 						var dept = [];
 						dept.push(data1[j].month);
 
-						console.log(data1[j].otlist)
+						//console.log(data1[j].otlist)
 						for (var i = 0; i < data1[j].otlist.length; i++) {
-							/* try { */
+
 							dept.push(data1[j].otlist[i].ot);
-							/* } catch (err) {
-								dept.push(0);
-								//document.getElementById("demo").innerHTML = err.message;
-							} */
+
 						}
 						data.addRows([ dept ]);
 					}
 
-					var options = {
+					/* var options = {
 						chart : {
 							title : 'Production HRS'
 						}
+					}; */
+
+					/* var chart = new google.charts.Line(document
+						.getElementById('dept_prod_ince'));
+
+					chart.draw(data, options);   */
+
+					var options = {
+						pointSize : 5
 					};
-
-					var chart = new google.charts.Line(document
-							.getElementById('dept_prod_ince'));
-
-					chart.draw(data, options);
+					new google.visualization.LineChart(document
+							.getElementById('dept_prod_ince')).draw(data,
+							options);
 				}
 
 			});
@@ -2349,6 +2355,24 @@ Green Color : #007c24     #07a43d
 			});
 
 		}); */
+		/* function printDiv() {
+
+			var divToPrint = document.getElementById('block_div');
+
+			var newWin = window.open('', 'Print-Window');
+
+			newWin.document.open();
+
+			newWin.document.write('<html><body onload="window.print()">'
+					+ divToPrint.innerHTML + '</body></html>');
+
+			newWin.document.close();
+
+			setTimeout(function() {
+				newWin.close();
+			}, 10);
+
+		} */
 	</script>
 </body>
 </html>
