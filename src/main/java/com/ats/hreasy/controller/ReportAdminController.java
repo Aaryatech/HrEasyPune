@@ -4423,11 +4423,14 @@ public class ReportAdminController {
 
 		Boolean ret = false;
 		try {
+			
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
-
+			map.add("locId", locId);
 			GetPtChallan[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPtChallanRep", map,
 					GetPtChallan[].class);
 			List<GetPtChallan> progList = new ArrayList<>(Arrays.asList(resArray));
@@ -4707,12 +4710,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(6);
+			PdfPTable table = new PdfPTable(5);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f});
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -4746,11 +4749,11 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("PT calculated On", tableHeaderFont));
+			/*hcell = new PdfPCell(new Phrase("PT calculated On", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
-			table.addCell(hcell);
+			table.addCell(hcell);*/
 
 			hcell = new PdfPCell(new Phrase("PT Amount", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -4789,10 +4792,10 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getGrossSalary(), headFontData));
+				/*cell = new PdfPCell(new Phrase("" + prog.getGrossSalary(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-				table.addCell(cell);
+				table.addCell(cell);*/
 
 				cell = new PdfPCell(new Phrase("" + prog.getPtDed(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -4867,7 +4870,7 @@ public class ReportAdminController {
 				rowData.add("Emp Code");
 				rowData.add("Emp Name");
 				rowData.add("Month-Year %");
-				rowData.add("PT calculated On");
+				//rowData.add("PT calculated On");
 				rowData.add("PT Amount");
 
 				expoExcel.setRowData(rowData);
@@ -4882,7 +4885,7 @@ public class ReportAdminController {
 					rowData.add("" + progList.get(i).getEmpCode());
 					rowData.add("" + progList.get(i).getEmpName());
 					rowData.add("" + progList.get(i).getCalcMonth() + "-" + progList.get(i).getCalcYear());
-					rowData.add("" + progList.get(i).getGrossSalary());
+					//rowData.add("" + progList.get(i).getGrossSalary());
 					rowData.add("" + progList.get(i).getPtDed());
 
 					expoExcel.setRowData(rowData);
@@ -5426,13 +5429,13 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getNetSalary(), headFontData));
+				cell = new PdfPCell(new Phrase("" + prog.getEsicWagesCal(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEsicWagesCal(), headFontData));
+				cell = new PdfPCell(new Phrase("" + prog.getEsic(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
@@ -5444,8 +5447,8 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				salWagesTot = salWagesTot + prog.getNetSalary();
-				empCalTot = empCalTot + prog.getEsicWagesCal();
+				salWagesTot = salWagesTot + prog.getEsicWagesCal();
+				empCalTot = empCalTot + prog.getEsic();
 				empr = empr + prog.getEmployerEsic();
 
 			}
@@ -5540,14 +5543,14 @@ public class ReportAdminController {
 					rowData.add("" + progList.get(i).getEsicNo());
 					rowData.add("" + progList.get(i).getPresentDays());
 					rowData.add("" + progList.get(i).getMonth() + "-" + progList.get(i).getYear());
-					rowData.add("" + progList.get(i).getNetSalary());
 					rowData.add("" + progList.get(i).getEsicWagesCal());
+					rowData.add("" + progList.get(i).getEsic());
 					rowData.add("" + progList.get(i).getEmployerEsic());
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					salWagesTot = salWagesTot + progList.get(i).getNetSalary();
-					empCalTot = empCalTot + progList.get(i).getEsicWagesCal();
+					salWagesTot = salWagesTot + progList.get(i).getEsicWagesCal();
+					empCalTot = empCalTot + progList.get(i).getEsic();
 					empr = empr + progList.get(i).getEmployerEsic();
 
 				}
@@ -7440,7 +7443,7 @@ public class ReportAdminController {
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			int dedTot = 0;
+			double dedTot = 0;
 			String leaveDateRange = request.getParameter("leaveDateRange");
 			String[] arrOfStr = leaveDateRange.split("to", 2);
 
@@ -7482,12 +7485,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(8);
+			PdfPTable table = new PdfPTable(7);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f, 3.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 3.0f, 6.5f, 3.5f, 3.5f, 3.5f, 3.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -7527,17 +7530,17 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Deduction Rate", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-
 			hcell = new PdfPCell(new Phrase("Deduction Total", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
+
+			/*hcell = new PdfPCell(new Phrase("Deduction Total", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);*/
 
 			hcell = new PdfPCell(new Phrase("Deduction Remark", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -7588,11 +7591,11 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getDedTotal(), headFontData));
+				/*cell = new PdfPCell(new Phrase("" + prog.getDedTotal(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-				table.addCell(cell);
+				table.addCell(cell);*/
 
 				cell = new PdfPCell(new Phrase("" + prog.getDedRemark(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -7600,7 +7603,7 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				dedTot = dedTot + prog.getDedTotal();
+				dedTot = dedTot + prog.getDedRate();
 
 			}
 
@@ -7668,8 +7671,8 @@ public class ReportAdminController {
 				rowData.add("Emp Name");
 				rowData.add("Deduction Month-Year");
 				rowData.add("Deduction Type");
-				rowData.add("Deduction Rate");
 				rowData.add("Deduction Total");
+				//rowData.add("Deduction Total");
 				rowData.add("Deduction Remark");
 
 				expoExcel.setRowData(rowData);
@@ -7688,12 +7691,12 @@ public class ReportAdminController {
 
 					rowData.add("" + progList.get(i).getExVar2());
 					rowData.add("" + progList.get(i).getDedRate());
-					rowData.add("" + progList.get(i).getDedTotal());
+					//rowData.add("" + progList.get(i).getDedTotal());
 					rowData.add("" + progList.get(i).getDedRemark());
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
-					dedTot = dedTot + progList.get(i).getDedTotal();
+					dedTot = dedTot + progList.get(i).getDedRate();
 				}
 
 				XSSFWorkbook wb = null;

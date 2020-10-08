@@ -16,7 +16,7 @@ public class StatutoryEsicRep {
 	private double esicWagesCal;
 
 	private double employerEsic;
-
+	private double esic;
 	private int presentDays;
 	private int month;
 
@@ -110,12 +110,20 @@ public class StatutoryEsicRep {
 		this.presentDays = presentDays;
 	}
 
+	public double getEsic() {
+		return esic;
+	}
+
+	public void setEsic(double esic) {
+		this.esic = esic;
+	}
+
 	@Override
 	public String toString() {
 		return "StatutoryEsicRep [keyNew=" + keyNew + ", empId=" + empId + ", empName=" + empName + ", empCode="
 				+ empCode + ", esicNo=" + esicNo + ", netSalary=" + netSalary + ", esicWagesCal=" + esicWagesCal
-				+ ", employerEsic=" + employerEsic + ", presentDays=" + presentDays + ", month=" + month + ", year="
-				+ year + "]";
+				+ ", employerEsic=" + employerEsic + ", esic=" + esic + ", presentDays=" + presentDays + ", month="
+				+ month + ", year=" + year + "]";
 	}
 
 }
