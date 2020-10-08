@@ -179,10 +179,16 @@ public class Constants {
 	public static String[] values = { "jpg", "jpeg", "gif", "png" };
 	public static String empLoanAgrDocViewUrl;
 	public static String empLoanAgrDocSaveUrl;
+	public static String JWTToken;
 
 	public static RestTemplate getRestTemplate() {
 		rest = new RestTemplate();
 		rest.getInterceptors().add(new BasicAuthorizationInterceptor("aaryatech", "Aaryatech@1cr"));
+		/*rest.getInterceptors().add((request, body, execution) -> {
+			request.getHeaders().add("Authorization", "Bearer " + JWTToken);
+			return execution.execute(request, body);
+		});*/
+		 
 		return rest;
 
 	}

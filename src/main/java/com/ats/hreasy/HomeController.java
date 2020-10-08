@@ -100,8 +100,15 @@ public class HomeController {
 				mav = "redirect:/";
 				session.setAttribute("errorMsg", "Login Failed");
 			} else {
-
+				RestTemplate rest = new RestTemplate();
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				/*TempClass temp = new TempClass();
+				temp.setUsername(name);
+				temp.setPassword(password);
+				GetToken res = rest.postForObject(Constants.url + "authenticate", temp,
+						GetToken.class);
+				Constants.JWTToken=res.getToken();*/
+				map= new LinkedMultiValueMap<String, Object>();
 
 				MessageDigest md = MessageDigest.getInstance("MD5");
 				byte[] messageDigest = md.digest(password.getBytes());

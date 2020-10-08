@@ -57,7 +57,7 @@
 								class="breadcrumb-item active">Dashboard</span>
 						</div>
 
-						<a href="#" class="header-elements-toggle text-default d-md-none"><i
+						<a href="javascript:void(0)" class="header-elements-toggle text-default d-md-none"><i
 							class="icon-more"></i></a>
 					</div>
 				</div>
@@ -178,22 +178,22 @@
 											<div class="advance_bx">
 												<ul>
 													<li>Employee Advance Payment (F1) <span> <a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showAdvancePaymentRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f1',1,'showAdvancePaymentRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger    "
 																style="color: black;"></i></a>
 													</span></li>
 													<li>Yearly Advance Amount(F1) <span> <a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showAdvancePaymentYearlyRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f1',1,'showAdvancePaymentYearlyRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger   "
@@ -202,11 +202,11 @@
 													</li>
 
 													<li>Employee Advance Skip Report (F1) <span> <a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showAdvanceSkipRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f1',1,'showAdvanceSkipRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger  "
@@ -231,11 +231,11 @@
 
 											<div class="advance_bx">
 												<ul>
-													<li>Attendance Register(F1) <span><a href="#"
+													<li>Attendance Register(F1) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showEmpAttendRegisterRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f1',1,'showEmpAttendRegisterRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger   "
@@ -243,11 +243,11 @@
 													</li>
 
 													<li>Monthly Attendance Summary(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showMonthlyAttndanceSummary')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showMonthlyAttndanceSummary')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -255,11 +255,11 @@
 													</li>
 
 													<li>Daily Attendance Summary(F4) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f4',0,'showEmpAttendanceRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f4',1,'showEmpAttendanceRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger    "
@@ -267,10 +267,10 @@
 													</li>
 
 													<li>Employee Production Incentive(F2) <span><a
-															href="#" onclick="getProgReport('f2',0,'showEmpOtReg')"
+															href="javascript:void(0)" onclick="getProgReport('f2',0,'showEmpOtReg')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showEmpOtReg')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -278,11 +278,11 @@
 													</li>
 
 													<li>Employee Production Incentive Details(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpOtRegDetail')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showEmpOtRegDetail')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -290,11 +290,11 @@
 													</li>
 
 													<li>Employee Late Mark Summary(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpLateMark')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showEmpLateMark')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -302,11 +302,11 @@
 													</li>
 
 													<li>Employee Late Mark Detail(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpLateMarkDetail')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showEmpLateMarkDetail')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -331,22 +331,22 @@
 
 											<div class="advance_bx">
 												<ul>
-													<li>Loan Deduction Report(F2) <span><a href="#"
+													<li>Loan Deduction Report(F2) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showLoanDedRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showLoanDedRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>Pending Loan Details(F2) <span><a href="#"
+													<li>Pending Loan Details(F2) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showPendingLoanRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showPendingLoanRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -354,11 +354,11 @@
 													</li>
 
 													<li>Loan Statement Details(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showLoanStatement')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showLoanStatement')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -383,10 +383,10 @@
 											<div class="advance_bx">
 												<ul>
 													<li>Employee PF Statement(F2,F3) <span><a
-															href="#" onclick="getProgReport('f3',0,'showEmpPfRep')"
+															href="javascript:void(0)" onclick="getProgReport('f3',0,'showEmpPfRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEmpPfRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -394,11 +394,11 @@
 													</li>
 
 													<li>Employer PF Statement(F2,F3) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEmployerPfRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEmployerPfRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -406,11 +406,11 @@
 													</li>
 
 													<li>Employee Employer PF Statement(F2,F3) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEmployeeEmployerPfRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEmployeeEmployerPfRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -436,39 +436,39 @@
 											<div class="advance_bx">
 												<ul>
 													<li>PT Challen Statement (F2,F3) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'getPtChallanRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'getPtChallanRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>Professional Tax Statement(F2,F3) <span><a
-															href="#"
+													<!-- <li>Professional Tax Statement(F2,F3) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEmpPTStatRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEmpPTStatRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>MLWF Statement(F2,F3) <span><a href="#"
+													<li>MLWF Statement(F2,F3) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showMlwfStatRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showMlwfStatRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
-													</li>
+													</li> -->
 												</ul>
 											</div>
 
@@ -488,11 +488,11 @@
 											<div class="advance_bx">
 												<ul>
 													<li>Statutory ESIC Statement (F2,F3) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showStatutoryEsicRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showStatutoryEsicRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -500,33 +500,33 @@
 													</li>
 
 													<li>Professional Tax Statement (F2,F3) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEmpPTStatRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEmpPTStatRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>MLWF Statement (F2,F3) <span><a href="#"
+													<li>MLWF Statement (F2,F3) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showMlwfStatRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showMlwfStatRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>ESIC Statement(F2,F3) <span><a href="#"
+													<li>ESIC Statement(F2,F3) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEsiSummaryRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f3',1,'showEsiSummaryRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -534,11 +534,11 @@
 													</li>
 
 													<li>Employee Payment Deduction(F2) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpDedRepAll')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f2',1,'showEmpDedRepAll')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -587,10 +587,10 @@
 													</li>
 
 													<li>Employee Bonus Details(F4) <span><a
-															href="#" onclick="getProgReport('f4',0,'showBonusRep')"
+															href="javascript:void(0)" onclick="getProgReport('f4',0,'showBonusRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f4',1,'showBonusRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -598,11 +598,11 @@
 													</li>
 
 													<li>Employee Exgratia Details(F4) <span><a
-															href="#"
+															href="javascript:void(0)"
 															onclick="getProgReport('f4',0,'showExgratiaRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f4',1,'showExgratiaRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
@@ -652,11 +652,11 @@
 
 													</li>
 
-													<li>Leave History (F5) <span><a href="#"
+													<li>Leave History (F5) <span><a href="javascript:void(0)"
 															onclick="getProgReport('f5',0,'showEmpLeaveHistoryRepNew')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success text-success"
-																style="color: black;"></i></a> <a href="#"
+																style="color: black;"></i></a> <a href="javascript:void(0)"
 															onclick="getProgReport('f5',1,'showEmpLeaveHistoryRepNew')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger  text-danger  "
