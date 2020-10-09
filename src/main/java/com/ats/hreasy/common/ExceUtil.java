@@ -85,7 +85,7 @@ public class ExceUtil {
 
 		Cell titleCell3 = titleRow3.createCell(0);
 		titleCell3.setCellStyle(style2);
-		titleCell3.setCellValue(reportName);// Need Dynamic
+		titleCell3.setCellValue(reportName + reportSummary);// Need Dynamic
 
 		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$3:$" + endChar + "$3"));
 
@@ -136,7 +136,7 @@ public class ExceUtil {
 
 		Cell titleCell4 = titleRow4.createCell(0);
 		titleCell4.setCellStyle(style2);
-		titleCell4.setCellValue(reportSummary);// Need Dynamic
+		// titleCell4.setCellValue(reportSummary);// Need Dynamic
 
 		String s = "$A$" + cellNum + ":$" + endChar + "$" + cellNum;
 		sheet.addMergedRegion(CellRangeAddress.valueOf(s));

@@ -188,6 +188,17 @@
 																class="icon-file-pdf icon-1x text-danger  text-danger    "
 																style="color: black;"></i></a>
 													</span></li>
+													<li>Employee Advance Deduct Report (F1) <span>
+															<a href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'showAdvanceDeudctionReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showAdvanceDeudctionReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger    "
+																style="color: black;"></i></a>
+													</span></li>
 													<li>Yearly Advance Amount(F1) <span> <a
 															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showAdvancePaymentYearlyRep')"
@@ -344,7 +355,17 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-
+													<li>Loan Ledger Report(F2) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f2',0,'showLoanLedgerReort')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f2',1,'showLoanLedgerReort')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
 													<li>Pending Loan Details <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showPendingLoanRep')"
@@ -357,17 +378,7 @@
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>Loan Statement Details(F2) <span><a
-															href="javascript:void(0)"
-															onclick="getProgReport('f2',0,'showLoanStatement')"
-															title="excel"><i
-																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="javascript:void(0)"
-															onclick="getProgReport('f2',1,'showLoanStatement')"
-															title="PDF"><i
-																class="icon-file-pdf icon-1x text-danger    "
-																style="color: black;"></i></a></span>
-													</li>
+
 
 
 												</ul>
