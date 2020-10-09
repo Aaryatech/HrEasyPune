@@ -60,7 +60,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
 @Scope("session")
-public class ReportController {	
+public class ReportController {
 
 	@RequestMapping(value = "/showPendingLoanRep", method = RequestMethod.GET)
 	public void showEmpLateMarkRep(HttpServletRequest request, HttpServletResponse response) {
@@ -78,7 +78,7 @@ public class ReportController {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
-			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1])); 
+			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
 			PendingLoanReport[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpPendingLoanReport", map, PendingLoanReport[].class);
 			List<PendingLoanReport> empLoanList = new ArrayList<>(Arrays.asList(resArray));
@@ -116,7 +116,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f , 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -173,7 +173,7 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Pending Amt", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
@@ -199,7 +199,8 @@ public class ReportController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getFirstName()+" "+prog.getMiddleName()+" "+prog.getSurname(), headFontData));
+				cell = new PdfPCell(new Phrase(
+						"" + prog.getFirstName() + " " + prog.getMiddleName() + " " + prog.getSurname(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
@@ -234,7 +235,7 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getCurrentOutstanding(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -242,7 +243,7 @@ public class ReportController {
 				table.addCell(cell);
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -250,7 +251,7 @@ public class ReportController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("Date : " + arrOfStr[0] + "To" + arrOfStr[1]));
+			// document.add(new Paragraph("Date : " + arrOfStr[0] + "To" + arrOfStr[1]));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
@@ -310,7 +311,7 @@ public class ReportController {
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
-				
+
 				float ttlLoanAmt = 0;
 				float ttlEmiAmt = 0;
 				float ttlPaid = 0;
@@ -322,7 +323,8 @@ public class ReportController {
 					cnt = cnt + i;
 					rowData.add("" + (i + 1));
 					rowData.add("" + empLoanList.get(i).getEmpCode());
-					rowData.add("" + empLoanList.get(i).getFirstName()+" "+empLoanList.get(i).getMiddleName()+" "+empLoanList.get(i).getSurname()  );
+					rowData.add("" + empLoanList.get(i).getFirstName() + " " + empLoanList.get(i).getMiddleName() + " "
+							+ empLoanList.get(i).getSurname());
 					rowData.add("" + empLoanList.get(i).getDepatarment());
 					rowData.add("" + empLoanList.get(i).getDesignation());
 					rowData.add("" + empLoanList.get(i).getLoanAmt());
@@ -332,16 +334,16 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					ttlLoanAmt = ttlLoanAmt+empLoanList.get(i).getLoanAmt();
-					ttlEmiAmt = ttlEmiAmt+empLoanList.get(i).getLoanEmi();
-					ttlPaid = ttlPaid+empLoanList.get(i).getCurrentTotpaid();
-					ttlPending = ttlPending+empLoanList.get(i).getCurrentOutstanding();
+					ttlLoanAmt = ttlLoanAmt + empLoanList.get(i).getLoanAmt();
+					ttlEmiAmt = ttlEmiAmt + empLoanList.get(i).getLoanEmi();
+					ttlPaid = ttlPaid + empLoanList.get(i).getCurrentTotpaid();
+					ttlPending = ttlPending + empLoanList.get(i).getCurrentOutstanding();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
@@ -356,8 +358,7 @@ public class ReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
-							"Date:" + arrOfStr[0] + "To" + arrOfStr[1], "", 'H');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "", "", 'H');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -382,8 +383,10 @@ public class ReportController {
 
 		}
 	}
-	
-	/**************************************Loan Statement Details**********************************/
+
+	/**************************************
+	 * Loan Statement Details
+	 **********************************/
 	@RequestMapping(value = "/showLoanStatement", method = RequestMethod.GET)
 	public void showLoanStatement(HttpServletRequest request, HttpServletResponse response) {
 
@@ -397,15 +400,16 @@ public class ReportController {
 		Boolean ret = false;
 		try {
 			int locId = (int) session.getAttribute("liveLocationId");
-			
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
+
 			LoanStatementDetailsReport[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLoanStatemnetReport", map, LoanStatementDetailsReport[].class);
-			List<LoanStatementDetailsReport> empLoanList = new ArrayList<LoanStatementDetailsReport>(Arrays.asList(resArray));
+			List<LoanStatementDetailsReport> empLoanList = new ArrayList<LoanStatementDetailsReport>(
+					Arrays.asList(resArray));
 			System.err.println("data:" + empLoanList.toString());
 			String header = "";
 			String title = "                 ";
@@ -440,7 +444,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f , 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -492,13 +496,12 @@ public class ReportController {
 
 			table.addCell(hcell);
 
-			
 			hcell = new PdfPCell(new Phrase("Loan EMI", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Loan EMI Interest", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
@@ -559,7 +562,7 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLoanEmiIntrest(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -567,7 +570,7 @@ public class ReportController {
 				table.addCell(cell);
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -635,7 +638,7 @@ public class ReportController {
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
-				
+
 				float ttlLoanAmt = 0;
 				float ttlEmiAmt = 0;
 				float ttlPaid = 0;
@@ -658,26 +661,26 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					ttlLoanAmt = ttlLoanAmt+empLoanList.get(i).getLoanAmt();
-					ttlEmiAmt = ttlEmiAmt+empLoanList.get(i).getLoanEmi();
-					ttlPaid = ttlPaid+empLoanList.get(i).getCurrentTotpaid();
-					ttlPending = ttlPending+empLoanList.get(i).getCurrentOutstanding();
-					ttlEmiInterest = ttlEmiInterest+empLoanList.get(i).getLoanEmiIntrest();
+					ttlLoanAmt = ttlLoanAmt + empLoanList.get(i).getLoanAmt();
+					ttlEmiAmt = ttlEmiAmt + empLoanList.get(i).getLoanEmi();
+					ttlPaid = ttlPaid + empLoanList.get(i).getCurrentTotpaid();
+					ttlPending = ttlPending + empLoanList.get(i).getCurrentOutstanding();
+					ttlEmiInterest = ttlEmiInterest + empLoanList.get(i).getLoanEmiIntrest();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlLoanAmt);
-				rowData.add("" + ttlPaid);				
+				rowData.add("" + ttlPaid);
 				rowData.add("" + ttlPending);
 				rowData.add("" + ttlEmiAmt);
 				rowData.add("" + ttlEmiInterest);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
@@ -710,8 +713,10 @@ public class ReportController {
 
 		}
 	}
-	
-	/****************************Employee Over Time Register Report***********************/
+
+	/****************************
+	 * Employee Over Time Register Report
+	 ***********************/
 	@RequestMapping(value = "/showEmpOtReg", method = RequestMethod.GET)
 	public void showEmpOtReg(HttpServletRequest request, HttpServletResponse response) {
 
@@ -724,16 +729,16 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
-			
+
 			int locId = (int) session.getAttribute("liveLocationId");
-			
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
-			EmpOtReg[] resArray = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getEmpOtRegSummary", map, EmpOtReg[].class);
+
+			EmpOtReg[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpOtRegSummary", map,
+					EmpOtReg[].class);
 			List<EmpOtReg> empOtList = new ArrayList<EmpOtReg>(Arrays.asList(resArray));
 			System.err.println("data:" + empOtList.toString());
 			String header = "";
@@ -769,7 +774,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -802,20 +807,18 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Month", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-		
+
 			hcell = new PdfPCell(new Phrase("OT Hours", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
-			
 
 			int index = 0;
 			for (int i = 0; i < empOtList.size(); i++) {
@@ -839,7 +842,7 @@ public class ReportController {
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	
+
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getDesignation(), headFontData));
@@ -847,23 +850,21 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMonth(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getOtHr(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
-			
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -925,13 +926,12 @@ public class ReportController {
 				rowData.add("Designation");
 				rowData.add("Month");
 				rowData.add("OT Hours");
-				
 
 				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);				
-				
+				exportToExcelList.add(expoExcel);
+
 				float ttlOtHrs = 0;
-				
+
 				int cnt = 1;
 				for (int i = 0; i < empOtList.size(); i++) {
 					expoExcel = new ExportToExcel();
@@ -946,20 +946,19 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					
-					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtMin();
+					ttlOtHrs = ttlOtHrs + empOtList.get(i).getOtMin();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlOtHrs);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
@@ -992,7 +991,7 @@ public class ReportController {
 
 		}
 	}
-	
+
 	@RequestMapping(value = "/showEmpOtRegDetail", method = RequestMethod.GET)
 	public void showEmpOtRegDetail(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1003,17 +1002,16 @@ public class ReportController {
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 
-		 
 		try {
-			
+
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
-			EmpOtReg[] resArray = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getEmpOtRegDetails", map, EmpOtReg[].class);
+
+			EmpOtReg[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpOtRegDetails", map,
+					EmpOtReg[].class);
 			List<EmpOtReg> empOtList = new ArrayList<EmpOtReg>(Arrays.asList(resArray));
 			System.err.println("data:" + empOtList.toString());
 			String header = "";
@@ -1049,7 +1047,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1082,20 +1080,18 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Date", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-		
+
 			hcell = new PdfPCell(new Phrase("OT Hours", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
-			
 
 			int index = 0;
 			for (int i = 0; i < empOtList.size(); i++) {
@@ -1119,7 +1115,7 @@ public class ReportController {
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	
+
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getDesignation(), headFontData));
@@ -1127,23 +1123,21 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getDate(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getOtHr(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
-			
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -1205,13 +1199,12 @@ public class ReportController {
 				rowData.add("Designation");
 				rowData.add("Date");
 				rowData.add("OT Hours");
-				
 
 				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);				
-				
+				exportToExcelList.add(expoExcel);
+
 				float ttlOtHrs = 0;
-				
+
 				int cnt = 1;
 				for (int i = 0; i < empOtList.size(); i++) {
 					expoExcel = new ExportToExcel();
@@ -1226,20 +1219,19 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					
-					ttlOtHrs = ttlOtHrs+empOtList.get(i).getOtMin();
+					ttlOtHrs = ttlOtHrs + empOtList.get(i).getOtMin();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlOtHrs);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
@@ -1272,9 +1264,8 @@ public class ReportController {
 
 		}
 	}
-	
-	
-	/****************************Employee Lare Mark Report***********************/
+
+	/**************************** Employee Lare Mark Report ***********************/
 	@RequestMapping(value = "/showEmpLateMark", method = RequestMethod.GET)
 	public void showEmpLateMark(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1285,15 +1276,14 @@ public class ReportController {
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 
-		 
 		try {
 			int locId = (int) session.getAttribute("liveLocationId");
-			
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
+
 			EmpLateMarkDetails[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpLateMarkSummary", map, EmpLateMarkDetails[].class);
 			List<EmpLateMarkDetails> empOtList = new ArrayList<EmpLateMarkDetails>(Arrays.asList(resArray));
@@ -1331,7 +1321,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1364,19 +1354,19 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Month", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-		
+
 			hcell = new PdfPCell(new Phrase("Late Hours", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			float ttlLateHr = 0.0f;
 
 			int index = 0;
@@ -1401,7 +1391,7 @@ public class ReportController {
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	
+
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getDesignation(), headFontData));
@@ -1409,24 +1399,23 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMonth(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLateHr(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
-				ttlLateHr = ttlLateHr+prog.getLateHr();
+
+				ttlLateHr = ttlLateHr + prog.getLateHr();
 
 			}
-			
-			
+
 			PdfPCell cell;
 			cell = new PdfPCell(new Phrase("Total", headFontData));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1442,16 +1431,15 @@ public class ReportController {
 
 			cell = new PdfPCell(new Phrase("", headFontData));
 			table.addCell(cell);
-			
-			cell = new PdfPCell(new Phrase("" , headFontData));
+
+			cell = new PdfPCell(new Phrase("", headFontData));
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase("" + ttlLateHr, headFontData));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			table.addCell(cell);
-			
-		
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -1513,13 +1501,12 @@ public class ReportController {
 				rowData.add("Designation");
 				rowData.add("Month");
 				rowData.add("Late Hours");
-				
 
 				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);				
-				
+				exportToExcelList.add(expoExcel);
+
 				float ttlLateHrs = 0;
-				
+
 				int cnt = 1;
 				for (int i = 0; i < empOtList.size(); i++) {
 					expoExcel = new ExportToExcel();
@@ -1534,20 +1521,19 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					
-					ttlLateHrs = ttlLateHrs+empOtList.get(i).getLateHr();
+					ttlLateHrs = ttlLateHrs + empOtList.get(i).getLateHr();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlLateHrs);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
@@ -1580,7 +1566,7 @@ public class ReportController {
 
 		}
 	}
-	
+
 	@RequestMapping(value = "/showEmpLateMarkDetail", method = RequestMethod.GET)
 	public void showEmpLateMarkDetail(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1593,13 +1579,13 @@ public class ReportController {
 
 		Boolean ret = false;
 		try {
-			
+
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("locId", locId);
 			map.add("fromDate", DateConvertor.convertToYMD(arrOfStr[0]));
 			map.add("toDate", DateConvertor.convertToYMD(arrOfStr[1]));
-			
+
 			EmpLateMarkDetails[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpLateMarkDetails", map, EmpLateMarkDetails[].class);
 			List<EmpLateMarkDetails> empOtList = new ArrayList<EmpLateMarkDetails>(Arrays.asList(resArray));
@@ -1637,7 +1623,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1670,19 +1656,19 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Date", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-		
+
 			hcell = new PdfPCell(new Phrase("Late Hours", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			float ttlLateHr = 0.0f;
 
 			int index = 0;
@@ -1707,7 +1693,7 @@ public class ReportController {
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	
+
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getDesignation(), headFontData));
@@ -1715,23 +1701,23 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMonth(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLateHr(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
+
 				ttlLateHr = ttlLateHr + prog.getLateHr();
 
 			}
-			
+
 			PdfPCell cell;
 			cell = new PdfPCell(new Phrase("Total", headFontData));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1747,15 +1733,15 @@ public class ReportController {
 
 			cell = new PdfPCell(new Phrase("", headFontData));
 			table.addCell(cell);
-			
-			cell = new PdfPCell(new Phrase("" , headFontData));
+
+			cell = new PdfPCell(new Phrase("", headFontData));
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase("" + ttlLateHr, headFontData));
 			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			table.addCell(cell);
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -1817,13 +1803,12 @@ public class ReportController {
 				rowData.add("Designation");
 				rowData.add("Date");
 				rowData.add("Late Hours");
-				
 
 				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);				
-				
+				exportToExcelList.add(expoExcel);
+
 				float ttlLateHrs = 0;
-				
+
 				int cnt = 1;
 				for (int i = 0; i < empOtList.size(); i++) {
 					expoExcel = new ExportToExcel();
@@ -1838,20 +1823,19 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					
-					ttlLateHrs = ttlLateHrs+empOtList.get(i).getLateHr();
+					ttlLateHrs = ttlLateHrs + empOtList.get(i).getLateHr();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlLateHrs);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
@@ -1884,8 +1868,7 @@ public class ReportController {
 
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/showEmpLateMarkByEmpId", method = RequestMethod.GET)
 	public void showEmpLateMarkByEmpId(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1902,14 +1885,14 @@ public class ReportController {
 		}
 		String fromDate = request.getParameter("datepickerFromRep");
 		String toDate = request.getParameter("datepickerToRep");
-		//System.out.println("Dates---------------"+fromDate+" "+toDate);
+		// System.out.println("Dates---------------"+fromDate+" "+toDate);
 		Boolean ret = false;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("empId", empId);
 			map.add("fromDate", fromDate);
 			map.add("toDate", toDate);
-			
+
 			EmpLateMarkDetails[] resArray = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpLateMarkDetailsByEmpId", map, EmpLateMarkDetails[].class);
 			List<EmpLateMarkDetails> empOtList = new ArrayList<EmpLateMarkDetails>(Arrays.asList(resArray));
@@ -1947,7 +1930,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1980,20 +1963,18 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Month", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-		
+
 			hcell = new PdfPCell(new Phrase("Late Hours", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
-			
 
 			int index = 0;
 			for (int i = 0; i < empOtList.size(); i++) {
@@ -2017,7 +1998,7 @@ public class ReportController {
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-	
+
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getDesignation(), headFontData));
@@ -2025,23 +2006,21 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMonth(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLateHr(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
-			
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -2103,13 +2082,12 @@ public class ReportController {
 				rowData.add("Designation");
 				rowData.add("Month");
 				rowData.add("Late Hours");
-				
 
 				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);				
-				
+				exportToExcelList.add(expoExcel);
+
 				float ttlLateHrs = 0;
-				
+
 				int cnt = 1;
 				for (int i = 0; i < empOtList.size(); i++) {
 					expoExcel = new ExportToExcel();
@@ -2124,28 +2102,27 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					
-					ttlLateHrs = ttlLateHrs+empOtList.get(i).getLateHr();
+					ttlLateHrs = ttlLateHrs + empOtList.get(i).getLateHr();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlLateHrs);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
-							"Date:" + fromDate + "To " + toDate, "", 'H');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Date:" + fromDate + "To " + toDate,
+							"", 'H');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -2170,8 +2147,10 @@ public class ReportController {
 
 		}
 	}
-	
-	/**************************************Loan Statement Details By EmpId**********************************/
+
+	/**************************************
+	 * Loan Statement Details By EmpId
+	 **********************************/
 	@RequestMapping(value = "/showEmpLoanStatDetailByEmp", method = RequestMethod.GET)
 	public void showEmpLoanStatDetailByEmp(HttpServletRequest request, HttpServletResponse response) {
 
@@ -2188,17 +2167,18 @@ public class ReportController {
 		}
 		String fromDate = request.getParameter("datepickerFromRep");
 		String toDate = request.getParameter("datepickerToRep");
-		//System.out.println("Dates---------------"+fromDate+" "+toDate);
+		// System.out.println("Dates---------------"+fromDate+" "+toDate);
 		Boolean ret = false;
 		try {
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("empId", empId);
 			map.add("fromDate", fromDate);
 			map.add("toDate", toDate);
-			
-			LoanStatementDetailsReport[] resArray = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getLoanStatemnetReportByEmpId", map, LoanStatementDetailsReport[].class);
-			List<LoanStatementDetailsReport> empLoanList = new ArrayList<LoanStatementDetailsReport>(Arrays.asList(resArray));
+
+			LoanStatementDetailsReport[] resArray = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getLoanStatemnetReportByEmpId", map, LoanStatementDetailsReport[].class);
+			List<LoanStatementDetailsReport> empLoanList = new ArrayList<LoanStatementDetailsReport>(
+					Arrays.asList(resArray));
 			System.err.println("data:" + empLoanList.toString());
 			String header = "";
 			String title = "                 ";
@@ -2233,7 +2213,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f , 2.0f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 4.0f, 2.0f, 2.0f, 2.0f, 2.0f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -2285,13 +2265,12 @@ public class ReportController {
 
 			table.addCell(hcell);
 
-			
 			hcell = new PdfPCell(new Phrase("Loan EMI", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Loan EMI Interest", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
@@ -2352,7 +2331,7 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLoanEmiIntrest(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -2360,7 +2339,7 @@ public class ReportController {
 				table.addCell(cell);
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -2428,7 +2407,7 @@ public class ReportController {
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
-				
+
 				float ttlLoanAmt = 0;
 				float ttlEmiAmt = 0;
 				float ttlPaid = 0;
@@ -2451,34 +2430,34 @@ public class ReportController {
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
-					ttlLoanAmt = ttlLoanAmt+empLoanList.get(i).getLoanAmt();
-					ttlEmiAmt = ttlEmiAmt+empLoanList.get(i).getLoanEmi();
-					ttlPaid = ttlPaid+empLoanList.get(i).getCurrentTotpaid();
-					ttlPending = ttlPending+empLoanList.get(i).getCurrentOutstanding();
-					ttlEmiInterest = ttlEmiInterest+empLoanList.get(i).getLoanEmiIntrest();
+					ttlLoanAmt = ttlLoanAmt + empLoanList.get(i).getLoanAmt();
+					ttlEmiAmt = ttlEmiAmt + empLoanList.get(i).getLoanEmi();
+					ttlPaid = ttlPaid + empLoanList.get(i).getCurrentTotpaid();
+					ttlPending = ttlPending + empLoanList.get(i).getCurrentOutstanding();
+					ttlEmiInterest = ttlEmiInterest + empLoanList.get(i).getLoanEmiIntrest();
 				}
-				
+
 				expoExcel = new ExportToExcel();
 				rowData = new ArrayList<String>();
-				
-				rowData.add("" +"Total");
+
+				rowData.add("" + "Total");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + "");
 				rowData.add("" + ttlLoanAmt);
-				rowData.add("" + ttlPaid);				
+				rowData.add("" + ttlPaid);
 				rowData.add("" + ttlPending);
 				rowData.add("" + ttlEmiAmt);
 				rowData.add("" + ttlEmiInterest);
-				
+
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
-							"Date:" + fromDate + "To" + toDate, "", 'H');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Date:" + fromDate + "To" + toDate,
+							"", 'H');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -2503,13 +2482,14 @@ public class ReportController {
 
 		}
 	}
+
 	/*****************************************************************************/
 	@RequestMapping(value = "/getEmpDefaultSalGraph", method = RequestMethod.GET)
-	public @ResponseBody List<EmpDefaultSalaryGraph>  getEmpAttnGraph(HttpServletRequest request,
+	public @ResponseBody List<EmpDefaultSalaryGraph> getEmpAttnGraph(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		List<EmpDefaultSalaryGraph> defSalList = new ArrayList<EmpDefaultSalaryGraph>();
-		
+
 		String fromDate = new String();
 		String toDate = new String();
 		HttpSession session = request.getSession();
@@ -2533,21 +2513,21 @@ public class ReportController {
 					.postForObject(Constants.url + "/getDefaultSalByEmpId", map, EmpDefaultSalaryGraph[].class);
 
 			List<EmpDefaultSalaryGraph> salList = new ArrayList<EmpDefaultSalaryGraph>(Arrays.asList(salArr));
-			
+
 			for (int i = 0; i < salList.size(); i++) {
 				EmpDefaultSalaryGraph emp = new EmpDefaultSalaryGraph();
-				
+
 				int mnth = salList.get(i).getMonth();
 				int yr = salList.get(i).getYear();
-				
+
 				String c = Month.of(mnth).name();
-				
-				emp.setDate(shortMonths[mnth-1].concat("-").concat(String.valueOf(yr)));
-				emp.setDefaultSalAmt(salList.get(i).getDefaultSalAmt());				
+
+				emp.setDate(shortMonths[mnth - 1].concat("-").concat(String.valueOf(yr)));
+				emp.setDefaultSalAmt(salList.get(i).getDefaultSalAmt());
 				defSalList.add(emp);
 			}
-			
-			System.out.println("List-----------"+defSalList);
+
+			System.out.println("List-----------" + defSalList);
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -2557,14 +2537,13 @@ public class ReportController {
 		return defSalList;
 
 	}
-	
-	
+
 	@RequestMapping(value = "/getEmpGrossSalGraph", method = RequestMethod.GET)
-	public @ResponseBody List<EmpDefaultSalaryGraph>  getEmpGrossSalGraph(HttpServletRequest request,
+	public @ResponseBody List<EmpDefaultSalaryGraph> getEmpGrossSalGraph(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		List<EmpDefaultSalaryGraph> defSalList = new ArrayList<EmpDefaultSalaryGraph>();
-		
+
 		String fromDate = new String();
 		String toDate = new String();
 		HttpSession session = request.getSession();
@@ -2588,21 +2567,21 @@ public class ReportController {
 					.postForObject(Constants.url + "/getGrossSalByEmpId", map, EmpDefaultSalaryGraph[].class);
 
 			List<EmpDefaultSalaryGraph> salList = new ArrayList<EmpDefaultSalaryGraph>(Arrays.asList(salArr));
-			
+
 			for (int i = 0; i < salList.size(); i++) {
 				EmpDefaultSalaryGraph emp = new EmpDefaultSalaryGraph();
-				
+
 				int mnth = salList.get(i).getMonth();
 				int yr = salList.get(i).getYear();
-				
+
 				String c = Month.of(mnth).name();
-				
-				emp.setDate(shortMonths[mnth-1].concat("-").concat(String.valueOf(yr)));
-				emp.setDefaultSalAmt(salList.get(i).getDefaultSalAmt());				
+
+				emp.setDate(shortMonths[mnth - 1].concat("-").concat(String.valueOf(yr)));
+				emp.setDefaultSalAmt(salList.get(i).getDefaultSalAmt());
 				defSalList.add(emp);
 			}
-			
-			System.out.println("List-----------"+defSalList);
+
+			System.out.println("List-----------" + defSalList);
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -2612,8 +2591,10 @@ public class ReportController {
 		return defSalList;
 
 	}
-	
-	/******************************Monthly Attendance Summary***********************************/
+
+	/******************************
+	 * Monthly Attendance Summary
+	 ***********************************/
 	@RequestMapping(value = "/showMonthlyAttndanceSummary", method = RequestMethod.GET)
 	public void showMonthlyAttndanceSummary(HttpServletRequest request, HttpServletResponse response) {
 
@@ -2623,7 +2604,7 @@ public class ReportController {
 
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
- 
+
 		try {
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -2631,10 +2612,11 @@ public class ReportController {
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
 			map.add("locId", locId);
- 			EmpDailyAttendanceGraph[] employeeInfo = Constants.getRestTemplate()
+			EmpDailyAttendanceGraph[] employeeInfo = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getEmpAttendanceSum", map, EmpDailyAttendanceGraph[].class);
 
- 			List<EmpDailyAttendanceGraph>  employeeInfoList = new ArrayList<EmpDailyAttendanceGraph>(Arrays.asList(employeeInfo));
+			List<EmpDailyAttendanceGraph> employeeInfoList = new ArrayList<EmpDailyAttendanceGraph>(
+					Arrays.asList(employeeInfo));
 			System.err.println("data:" + employeeInfoList.toString());
 			String header = "";
 			String title = "                 ";
@@ -2669,7 +2651,7 @@ public class ReportController {
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f,  2.5f,  2.5f,  2.5f,  2.5f,  2.5f});
+			table.setWidths(new float[] { 1.5f, 2.2f, 4.0f, 2.5f, 2.0f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -2702,20 +2684,18 @@ public class ReportController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Month Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			
-			 hcell = new PdfPCell(new Phrase("Week Off", tableHeaderFont));
-			 hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			 hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-			 
-			 table.addCell(hcell);
-			
+			hcell = new PdfPCell(new Phrase("Week Off", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Present Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -2723,39 +2703,35 @@ public class ReportController {
 
 			table.addCell(hcell);
 
-		
 			hcell = new PdfPCell(new Phrase("Paid Holiday", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Paid Leave", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			
 			hcell = new PdfPCell(new Phrase("Absent", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
+
 			hcell = new PdfPCell(new Phrase("Late Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
-			
-			
 
 			int index = 0;
 			for (int i = 0; i < employeeInfoList.size(); i++) {
 				// System.err.println("I " + i);
 				EmpDailyAttendanceGraph prog = employeeInfoList.get(i);
-				
+
 				index++;
 				PdfPCell cell;
 				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
@@ -2763,13 +2739,13 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getEmpCode(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2781,7 +2757,7 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getMonthDays(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -2817,7 +2793,7 @@ public class ReportController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
 				table.addCell(cell);
-				
+
 				cell = new PdfPCell(new Phrase("" + prog.getLateMarks(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -2825,7 +2801,7 @@ public class ReportController {
 				table.addCell(cell);
 
 			}
-			
+
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
 
@@ -2887,14 +2863,13 @@ public class ReportController {
 				rowData.add("Emp Name");
 				rowData.add("Month Year");
 				rowData.add("Month Days");
-				rowData.add("Week Off");				
- 				rowData.add("Present Days");
+				rowData.add("Week Off");
+				rowData.add("Present Days");
 				rowData.add("Paid Holiday");
 				rowData.add("Paid Leave");
 				rowData.add("Absent");
 				rowData.add("Late Days");
 
-				 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
@@ -2908,13 +2883,13 @@ public class ReportController {
 					rowData.add("" + employeeInfoList.get(i).getEmpName());
 					rowData.add("" + employeeInfoList.get(i).getDate());
 					rowData.add("" + employeeInfoList.get(i).getMonthDays());
-					rowData.add("" + employeeInfoList.get(i).getWeekOff());					
+					rowData.add("" + employeeInfoList.get(i).getWeekOff());
 					rowData.add("" + employeeInfoList.get(i).getPresentdays());
 					rowData.add("" + employeeInfoList.get(i).getPaidHoliday());
 					rowData.add("" + employeeInfoList.get(i).getPaidLeave());
 					rowData.add("" + employeeInfoList.get(i).getUnpaidLeave());
 					rowData.add("" + employeeInfoList.get(i).getLateMarks());
- 
+
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
@@ -2923,7 +2898,8 @@ public class ReportController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Duration:" + arrOfStr[0] + "To" + arrOfStr[1], "", 'J');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
+							"Duration:" + arrOfStr[0] + "To" + arrOfStr[1], "", 'J');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
@@ -2948,6 +2924,5 @@ public class ReportController {
 
 		}
 	}
-	
-	
+
 }

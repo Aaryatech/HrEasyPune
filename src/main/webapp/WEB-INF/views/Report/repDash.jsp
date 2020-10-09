@@ -231,7 +231,8 @@
 
 											<div class="advance_bx">
 												<ul>
-													<li>Attendance Register(F1) <span><a href="javascript:void(0)"
+													<li>Attendance Register(F1) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showEmpAttendRegisterRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -267,7 +268,8 @@
 													</li>
 
 													<li>Employee Production Incentive(F2) <span><a
-															href="javascript:void(0)" onclick="getProgReport('f2',0,'showEmpOtReg')"
+															href="javascript:void(0)"
+															onclick="getProgReport('f2',0,'showEmpOtReg')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="javascript:void(0)"
@@ -331,18 +333,20 @@
 
 											<div class="advance_bx">
 												<ul>
-													<li>Loan Deduction Report(F2) <span><a href="javascript:void(0)"
+													<li>Loan Deduction Report(F1) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'showLoanDedRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="javascript:void(0)"
-															onclick="getProgReport('f2',1,'showLoanDedRep')"
+															onclick="getProgReport('f1',1,'showLoanDedRep')"
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>Pending Loan Details(F2) <span><a href="javascript:void(0)"
+													<li>Pending Loan Details <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showPendingLoanRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -383,7 +387,8 @@
 											<div class="advance_bx">
 												<ul>
 													<li>Employee PF Statement(F2,F3) <span><a
-															href="javascript:void(0)" onclick="getProgReport('f3',0,'showEmpPfRep')"
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showEmpPfRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="javascript:void(0)"
@@ -511,7 +516,8 @@
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>MLWF Statement (F2,F3) <span><a href="javascript:void(0)"
+													<li>MLWF Statement (F2,F3) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showMlwfStatRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -522,7 +528,8 @@
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>ESIC Statement(F2,F3) <span><a href="javascript:void(0)"
+													<li>ESIC Statement(F2,F3) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEsiSummaryRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
@@ -587,7 +594,8 @@
 													</li>
 
 													<li>Employee Bonus Details(F4) <span><a
-															href="javascript:void(0)" onclick="getProgReport('f4',0,'showBonusRep')"
+															href="javascript:void(0)"
+															onclick="getProgReport('f4',0,'showBonusRep')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a> <a href="javascript:void(0)"
@@ -652,7 +660,8 @@
 
 													</li>
 
-													<li>Leave History (F5) <span><a href="javascript:void(0)"
+													<li>Leave History (F5) <span><a
+															href="javascript:void(0)"
 															onclick="getProgReport('f5',0,'showEmpLeaveHistoryRepNew')"
 															title="excel"><i
 																class="icon-file-spreadsheet text-success text-success"
