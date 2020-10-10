@@ -5185,8 +5185,8 @@ public class ReportAdminController {
 
 		String reportName = "Professsional Tax Challen";
 
-		String leaveDateRange = request.getParameter("leaveDateRange");
-		String[] arrOfStr = leaveDateRange.split("to", 2);
+		String leaveDateRange = request.getParameter("date");
+		String[] arrOfStr = leaveDateRange.split("-");
 		int cmpId = 0;
 		try {
 			cmpId = Integer.parseInt(request.getParameter("subCmpId"));
@@ -5206,8 +5206,8 @@ public class ReportAdminController {
 			int locId = (int) session.getAttribute("liveLocationId");
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("companyId", cmpId);
-			map.add("fromDate", arrOfStr[0]);
-			map.add("toDate", arrOfStr[1]);
+			map.add("month", arrOfStr[0]);
+			map.add("year", arrOfStr[1]);
 			map.add("locId", locId);
 			GetPtChallan[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPtChallanRep", map,
 					GetPtChallan[].class);
@@ -5240,12 +5240,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(4);
+			PdfPTable table = new PdfPTable(5);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 5.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 5.5f, 3.5f, 3.5f, 3.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -5254,30 +5254,38 @@ public class ReportAdminController {
 
 			PdfPCell hcell = new PdfPCell();
 			hcell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-
 			hcell = new PdfPCell(new Phrase("Sr.No.", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
+			hcell.setPadding(5);
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("PT Limit", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			hcell.setPadding(5);
+			table.addCell(hcell);
 
+			hcell = new PdfPCell(new Phrase("Rate Per Month", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			hcell.setPadding(5);
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("No. of Employees", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
+			hcell.setPadding(5);
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Total Amount", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
+			hcell.setPadding(5);
 			table.addCell(hcell);
+
+			int totalEmp = 0;
+			double totalAMT = 0;
 
 			int index = 0;
 			for (int i = 0; i < progList.size(); i++) {
@@ -5289,28 +5297,58 @@ public class ReportAdminController {
 				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-
+				cell.setPadding(5);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getMinVal() + "-" + prog.getMaxVal(), headFontData));
+				cell = new PdfPCell(
+						new Phrase("" + prog.getMinVal() + "-" + prog.getMaxVal() + " (" + prog.getGenderName() + ") ",
+								headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				cell.setPadding(5);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + prog.getAmount(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
+				cell.setPadding(5);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEmpCount(), headFontData));
+				cell = new PdfPCell(new Phrase("" + prog.getCount(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
+				cell.setPadding(5);
 				table.addCell(cell);
+				totalEmp = totalEmp + prog.getCount();
 
-				cell = new PdfPCell(new Phrase("" + prog.getTotal(), headFontData));
+				cell = new PdfPCell(new Phrase("" + (prog.getCount() * prog.getAmount()), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
+				cell.setPadding(5);
 				table.addCell(cell);
+				totalAMT = totalAMT + (prog.getCount() * prog.getAmount());
 
 			}
+
+			PdfPCell cell;
+			cell = new PdfPCell(new Phrase("Total", headFontData));
+			cell.setColspan(3);
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			cell.setPadding(5);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totalEmp, headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPadding(5);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("" + totalAMT, headFontData));
+			cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			cell.setPadding(5);
+			table.addCell(cell);
 
 			document.open();
 			Font hf = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.UNDERLINE, BaseColor.BLACK);
@@ -5319,7 +5357,7 @@ public class ReportAdminController {
 			name.setAlignment(Element.ALIGN_CENTER);
 			document.add(name);
 			document.add(new Paragraph("\n"));
-			document.add(new Paragraph("DateRange: " + leaveDateRange));
+			document.add(new Paragraph("Month : " + leaveDateRange));
 
 			document.add(new Paragraph("\n"));
 			DateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
@@ -5370,22 +5408,26 @@ public class ReportAdminController {
 
 				rowData.add("Sr. No");
 				rowData.add("PT Limit");
+				rowData.add("Rate Per Month");
 				rowData.add("NO. of Employees");
 				rowData.add("Total Amount");
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
+
 				for (int i = 0; i < progList.size(); i++) {
+
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
 					cnt = cnt + i;
 
 					rowData.add("" + (i + 1));
-					rowData.add("" + progList.get(i).getMinVal() + "-" + progList.get(i).getMaxVal());
-					rowData.add("" + progList.get(i).getEmpCount());
-					rowData.add("" + progList.get(i).getTotal());
-
+					rowData.add("" + progList.get(i).getMinVal() + "-" + progList.get(i).getMaxVal() + " ( "
+							+ progList.get(i).getGenderName() + " )");
+					rowData.add("" + progList.get(i).getAmount());
+					rowData.add("" + progList.get(i).getCount());
+					rowData.add("" + (progList.get(i).getCount() * progList.get(i).getAmount()));
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
@@ -5394,12 +5436,12 @@ public class ReportAdminController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Date Range:" + leaveDateRange, "",
-							'D');
+					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month :" + leaveDateRange, "",
+							'E');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
-					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					String date = new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date());
 					response.setHeader("Content-disposition",
 							"attachment; filename=" + reportName + "-" + date + ".xlsx");
 					wb.write(response.getOutputStream());
