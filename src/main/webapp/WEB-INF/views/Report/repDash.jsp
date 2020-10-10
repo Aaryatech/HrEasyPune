@@ -562,7 +562,17 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-
+													<li>ESIC Data to Upload(F1) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'showEsicDataUpload')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showEsicDataUpload')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span> -->
+													</li>
 													<li>Employee Payment Deduction(F2) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpDedRepAll')"

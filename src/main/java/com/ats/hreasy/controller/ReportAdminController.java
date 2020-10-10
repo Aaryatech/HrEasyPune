@@ -7265,6 +7265,103 @@ public class ReportAdminController {
 		}
 	}
 
+	@RequestMapping(value = "/showEsicDataUpload", method = RequestMethod.GET)
+	public void showEsicDataUpload(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "ESI Data To Upload";
+		String leaveDateRange = request.getParameter("date");
+		String[] arrOfStr = leaveDateRange.split("-");
+		int cmpId = 0;
+		try {
+			cmpId = Integer.parseInt(request.getParameter("subCmpId"));
+
+		} catch (Exception e) {
+			cmpId = 0;
+		}
+
+		String cmpName = "-";
+		Boolean ret = false;
+		try {
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+			if (cmpId != 0) {
+				map.add("companyId", cmpId);
+				MstCompanySub comp = Constants.getRestTemplate().postForObject(Constants.url + "/getSubCompanyById",
+						map, MstCompanySub.class);
+				cmpName = comp.getCompanyName();
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("companyId", cmpId);
+			map.add("month", arrOfStr[0]);
+			map.add("year", arrOfStr[1]);
+			map.add("locId", locId);
+			StatutoryEsicRep[] resArray = Constants.getRestTemplate()
+					.postForObject(Constants.url + "showEsicDataUpload", map, StatutoryEsicRep[].class);
+			List<StatutoryEsicRep> progList = new ArrayList<>(Arrays.asList(resArray));
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("IPNUMBER");
+			rowData.add("IPNAME");
+			rowData.add("NOOFDAYS");
+			rowData.add("ESI_SALARY");
+			rowData.add("REASON");
+			rowData.add("LASTDAYOFWORKING");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+			int cnt = 1;
+			for (int i = 0; i < progList.size(); i++) {
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+
+				rowData.add("" + progList.get(i).getEsicNo());
+				rowData.add("" + progList.get(i).getEmpName());
+				rowData.add("" + progList.get(i).getPresentDays());
+				rowData.add("" + progList.get(i).getEsicWagesCal());
+				rowData.add("");
+				rowData.add("");
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+			}
+
+			XSSFWorkbook wb = null;
+			try {
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
+						"Date Range:" + leaveDateRange + " Company Name:" + cmpName, "", 'F');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
 //leave 
 
 	@RequestMapping(value = "/showEmpLeaveHistoryRepNew", method = RequestMethod.GET)
