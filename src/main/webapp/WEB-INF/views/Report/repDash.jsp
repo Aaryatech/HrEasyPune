@@ -278,6 +278,18 @@
 																style="color: black;"></i></a></span>
 													</li>
 
+													<li>Daily Attendance Report (F2) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f2',0,'showDailyEmpAttendanceRepExcel')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f2',1,'showDailyEmpAttendanceRepExcel')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger  text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
+
 													<li>Employee Production Incentive(F2) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpOtReg')"
