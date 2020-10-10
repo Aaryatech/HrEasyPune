@@ -527,7 +527,7 @@
 																style="color: black;"></i></a></span>
 													</li>
 
-													<li>MLWF Statement (F2,F3) <span><a
+													<li>LWF Statement (F2,F3) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showMlwfStatRep')"
 															title="excel"><i

@@ -5379,7 +5379,7 @@ public class ReportAdminController {
 	@RequestMapping(value = "/showMlwfStatRep", method = RequestMethod.GET)
 	public void showMlwfStatRep(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "MLWF Statement";
+		String reportName = "LWF Statement";
 		String leaveDateRange = request.getParameter("leaveDateRange");
 		String[] arrOfStr = leaveDateRange.split("to", 2);
 		int cmpId = 0;
@@ -5474,28 +5474,33 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Father Name", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Department", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("DOB", tableHeaderFont));
+			/*
+			 * hcell = new PdfPCell(new Phrase("DOB", tableHeaderFont));
+			 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 * hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			 * 
+			 * table.addCell(hcell);
+			 */
+
+			hcell = new PdfPCell(new Phrase("Gross Salary", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Employee's LWF", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Employeer's LWF", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
 			table.addCell(hcell);
 
 			hcell = new PdfPCell(new Phrase("Total", tableHeaderFont));
@@ -5535,18 +5540,11 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				if (prog.getCompanyName() != null) {
-					cell = new PdfPCell(
-							new Phrase("" + DateConvertor.convertToDMY(prog.getCompanyName()), headFontData));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);
-				} else {
-					cell = new PdfPCell(new Phrase("" + "-", headFontData));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);
-				}
+				cell = new PdfPCell(new Phrase("" + prog.getGrossSalary(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getMlwf(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -5560,7 +5558,7 @@ public class ReportAdminController {
 
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEmployerMlwf() + prog.getMlwf(), headFontData));
+				cell = new PdfPCell(new Phrase("" + (prog.getEmployerMlwf() + prog.getMlwf()), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
@@ -5628,8 +5626,8 @@ public class ReportAdminController {
 				rowData.add("Sr. No");
 				rowData.add("Emp Code");
 				rowData.add("Emp Name");
-				rowData.add("Father's Name");
-				rowData.add("DOB");
+				rowData.add("Department");
+				rowData.add("Gross Salary");
 				rowData.add("Employee's LWF");
 				rowData.add("Employeer's LWF");
 				rowData.add("Total");
@@ -5645,15 +5643,10 @@ public class ReportAdminController {
 					rowData.add("" + (i + 1));
 					rowData.add("" + progList.get(i).getEmpCode());
 					rowData.add("" + progList.get(i).getEmpName());
-					rowData.add("" + progList.get(i).getNameSd());
-					if (progList.get(i).getCompanyName() != null) {
-						rowData.add("" + DateConvertor.convertToDMY(progList.get(i).getCompanyName()));
-					} else {
-						rowData.add("" + "-");
-					}
+					rowData.add("" + progList.get(i).getNameSd()); 
 					rowData.add("" + progList.get(i).getMlwf());
 					rowData.add("" + progList.get(i).getEmployerMlwf());
-					rowData.add("" + progList.get(i).getEmployerMlwf() + progList.get(i).getMlwf());
+					rowData.add("" + (progList.get(i).getEmployerMlwf() + progList.get(i).getMlwf()));
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
@@ -5668,7 +5661,7 @@ public class ReportAdminController {
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
-					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+					String date = new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date());
 					response.setHeader("Content-disposition",
 							"attachment; filename=" + reportName + "-" + date + ".xlsx");
 					wb.write(response.getOutputStream());
@@ -5800,7 +5793,7 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Present Days", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Days", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
