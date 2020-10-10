@@ -194,4 +194,129 @@ public class ExceUtil {
 		return style;
 	}
 
+	public static XSSFWorkbook createPTChalan(List<ExportToExcel> exportToExcelList, String instName, String reportName,
+			String filterValue, String reportSummary, Character endChar) throws IOException {
+
+		XSSFWorkbook wb = new XSSFWorkbook();
+		XSSFSheet sheet = wb.createSheet("Sheet1");
+		// System.err.println("instName" + instName);
+		// sheet.createFreezePane(0, 4);
+		// Character endChar='H';
+		Font font = wb.createFont();
+		font.setFontHeightInPoints((short) 8);
+		font.setFontName("Arial");
+		font.setUnderline(HSSFFont.U_SINGLE);
+
+		CellStyle style = wb.createCellStyle();
+		style.setAlignment(CellStyle.ALIGN_RIGHT);
+		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		style.setWrapText(true);
+		style.setFont(font);
+
+		Row titleRow = sheet.createRow(0);
+		titleRow.setHeightInPoints(20);
+		titleRow.setRowStyle(style);
+		Cell titleCell = titleRow.createCell(0);
+		titleCell.setCellValue("FORM III");
+		titleCell.setCellStyle(style);
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$" + endChar + "$1"));
+
+		// start 2nd row
+
+		titleRow = sheet.createRow(1);
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("Part I - A");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$2:$" + endChar + "$2"));
+
+		// start 3rd row
+		titleRow = sheet.createRow(2); 
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("RETURN - CUM - CHALLAN");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$3:$" + endChar + "$3"));
+		
+		titleRow = sheet.createRow(3); 
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("THE MAHARASHTRA STATE TAX ON PROFESSIONS, TRADERS CALLINGS ");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$4:$" + endChar + "$4"));
+		
+		titleRow = sheet.createRow(4); 
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("AND EMPLOYMENTS ACT 1975 AND RULE 11, 11-A, 11-B, 11-C");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$5:$" + endChar + "$5"));
+
+		// start 5rd row
+		titleRow = sheet.createRow(6); 
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("0028, Other Taxes on Income and Expenditure - Taxes on professions, Trades");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$7:$" + endChar + "$7"));
+
+		// start 6rd row
+		titleRow = sheet.createRow(7); 
+		titleRow.setRowStyle(style);
+		titleCell = titleRow.createCell(0);
+		titleCell.setCellStyle(style);
+		titleCell.setCellValue("Callings and Employment Taxes on Employments.");
+		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$8:$" + endChar + "$8"));
+
+		CellStyle cellStyle = wb.createCellStyle();
+		for (int rowIndex = 0; rowIndex < exportToExcelList.size(); rowIndex++) {
+			XSSFRow row = sheet.createRow(rowIndex + 8);
+			for (int j = 0; j < exportToExcelList.get(rowIndex).getRowData().size(); j++) {
+
+				XSSFCell cell = row.createCell(j);
+
+				// cell.setCellValue(exportToExcelList.get(rowIndex).getRowData().get(j));
+
+				try {
+					// checking valid integer using parseInt() method
+					int value = Integer.parseInt(exportToExcelList.get(rowIndex).getRowData().get(j));
+					cell.setCellValue(value);
+				} catch (NumberFormatException e) {
+					try {
+						// checking valid float using parseInt() method
+						XSSFDataFormat xssfDataFormat = wb.createDataFormat();
+						double value = Double.parseDouble(exportToExcelList.get(rowIndex).getRowData().get(j));
+						cellStyle.setDataFormat(xssfDataFormat.getFormat("#,##0.00"));
+						cell.setCellStyle(cellStyle);
+						cell.setCellValue(value);
+
+					} catch (NumberFormatException e1) {
+						try {
+							cell.setCellValue(exportToExcelList.get(rowIndex).getRowData().get(j));
+						} catch (Exception err) {
+							cell.setCellValue("-");
+						}
+					}
+
+				}
+				/*
+				 * if ((rowIndex + 3) == 3) cell.setCellStyle(createHeaderStyleNew(wb));
+				 */
+			}
+
+		}
+
+		int cellNum = exportToExcelList.size() + incCellValue;
+		Sheet sh = wb.getSheetAt(0);
+		Row titleRow4 = sheet.createRow(sh.getPhysicalNumberOfRows());
+		titleRow4.setHeightInPoints(20);
+		titleRow4.setRowStyle(style);
+		Cell titleCell4 = titleRow4.createCell(0);
+		titleCell4.setCellStyle(style);
+		String s = "$A$" + cellNum + ":$" + endChar + "$" + cellNum;
+		sheet.addMergedRegion(CellRangeAddress.valueOf(s));
+
+		return wb;
+	}
+
 }

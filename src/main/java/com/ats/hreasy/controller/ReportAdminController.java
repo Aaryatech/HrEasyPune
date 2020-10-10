@@ -5436,7 +5436,11 @@ public class ReportAdminController {
 				XSSFWorkbook wb = null;
 				try {
 
-					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month :" + leaveDateRange, "",
+					/*
+					 * wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month :" +
+					 * leaveDateRange, "", 'E');
+					 */
+					wb = ExceUtil.createPTChalan(exportToExcelList, "", reportName, "Month :" + leaveDateRange, "",
 							'E');
 
 					ExceUtil.autoSizeColumns(wb, 3);
