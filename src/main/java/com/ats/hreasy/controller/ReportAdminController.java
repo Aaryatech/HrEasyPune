@@ -37,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
+import com.ats.hreasy.common.EnglishNumberToWords;
 import com.ats.hreasy.common.ExceUtil;
 import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.ItextPageEvent;
@@ -5401,16 +5402,18 @@ public class ReportAdminController {
 				}
 			} else {
 
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("companyId", cmpId);
+				MstCompanySub mstCompanySub = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getSubCompanyById", map, MstCompanySub.class);
 				List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
-
 				ExportToExcel expoExcel = new ExportToExcel();
 				List<String> rowData = new ArrayList<String>();
 
-				rowData.add("Sr. No");
-				rowData.add("PT Limit");
-				rowData.add("Rate Per Month");
-				rowData.add("NO. of Employees");
-				rowData.add("Total Amount");
+				rowData.add("Employees whose Monthly Salary / Wages");
+				rowData.add("Rate of Tax Per Month");
+				rowData.add("No. of Employees");
+				rowData.add("Amount of Tax Deducted");
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -5421,10 +5424,9 @@ public class ReportAdminController {
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
 					cnt = cnt + i;
-
-					rowData.add("" + (i + 1));
-					rowData.add("" + progList.get(i).getMinVal() + "-" + progList.get(i).getMaxVal() + " ( "
-							+ progList.get(i).getGenderName() + " )");
+					String caption = "SALARY>=" + progList.get(i).getMinVal() + " AND SALARY<="
+							+ progList.get(i).getMaxVal() + " ( " + progList.get(i).getGenderName() + " )";
+					rowData.add("" + caption);
 					rowData.add("" + progList.get(i).getAmount());
 					rowData.add("" + progList.get(i).getCount());
 					rowData.add("" + (progList.get(i).getCount() * progList.get(i).getAmount()));
@@ -5432,6 +5434,205 @@ public class ReportAdminController {
 					exportToExcelList.add(expoExcel);
 
 				}
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("TOTAL AMOUNT");
+				rowData.add("");
+				rowData.add("" + totalEmp);
+				rowData.add("" + totalAMT);
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("INTERESET IF ANY");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("0");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("LESS EXCESS TAX PAID IN THE PREVIOUS YR/QTR/MONTH");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("NET AMOUNT PAYABLE");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("" + totalAMT);
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("TOTAL AMOUNT PAID Rs. " + EnglishNumberToWords.convert((long) totalAMT).toUpperCase()
+						+ " ONLY");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("" + totalAMT);
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("PROFESSIONAL TAX REGISTRATION NO.");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("PERIOD TO");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("" + arrOfStr[0] + "/" + arrOfStr[1]);
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("NAME & ADDRESS: ");
+				rowData.add("" + mstCompanySub.getCompanyName() + ", " + mstCompanySub.getLongAdd1());
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("THE ABOVE STATEMENTS ARE TRUE TO THE BEST OF MY KNOWLEDGE AND BELIEF.");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("DATE:");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("PLACE:");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("");
+				rowData.add("FOR THE TREASYRY USE ONLY");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("RECEIVED Rs. ");
+				rowData.add("" + EnglishNumberToWords.convert((long) totalAMT).toUpperCase() + " ONLY");
+				rowData.add("");
+				rowData.add("" + totalAMT);
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("DATE OF ENTRY");
+				rowData.add("");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("Treasurer");
+				rowData.add("Accountant");
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
 
 				XSSFWorkbook wb = null;
 				try {
@@ -5441,7 +5642,7 @@ public class ReportAdminController {
 					 * leaveDateRange, "", 'E');
 					 */
 					wb = ExceUtil.createPTChalan(exportToExcelList, "", reportName, "Month :" + leaveDateRange, "",
-							'E');
+							'D');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");

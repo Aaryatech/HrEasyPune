@@ -463,7 +463,7 @@
 
 											<div class="advance_bx">
 												<ul>
-													<li>PT Challen Statement (F2,F3) <span><a
+													<li>PT Challen Statement (F1,F3) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'getPtChallanRep')"
 															title="excel"><i

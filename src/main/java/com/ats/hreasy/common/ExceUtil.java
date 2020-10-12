@@ -203,26 +203,46 @@ public class ExceUtil {
 		// sheet.createFreezePane(0, 4);
 		// Character endChar='H';
 		Font font = wb.createFont();
-		font.setFontHeightInPoints((short) 8);
-		font.setFontName("Arial");
-		font.setUnderline(HSSFFont.U_SINGLE);
+		font.setFontHeightInPoints((short) 12);
+		font.setFontName("Times New Roman");
+		font.setBold(false);
+		//font.setUnderline(HSSFFont.U_SINGLE);
 
 		CellStyle style = wb.createCellStyle();
-		style.setAlignment(CellStyle.ALIGN_RIGHT);
+		style.setAlignment(CellStyle.ALIGN_CENTER);
 		style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		style.setWrapText(true);
+		style.setBorderBottom((short) 1);
+		style.setBorderLeft((short) 1);
+		style.setBorderTop((short) 1);
+		style.setBorderRight((short) 1); 
 		style.setFont(font);
+		
+		Font font1 = wb.createFont();
+		font1.setFontHeightInPoints((short) 12);
+		font1.setFontName("Times New Roman");
+		font1.setBold(true);
+		//font.setUnderline(HSSFFont.U_SINGLE);
+
+		CellStyle style1 = wb.createCellStyle();
+		style1.setAlignment(CellStyle.ALIGN_CENTER);
+		style1.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		style1.setWrapText(true);
+		style1.setBorderBottom((short) 1);
+		style1.setBorderLeft((short) 1);
+		style1.setBorderTop((short) 1);
+		style1.setBorderRight((short) 1); 
+		style1.setFont(font1);
 
 		Row titleRow = sheet.createRow(0);
 		titleRow.setHeightInPoints(20);
-		titleRow.setRowStyle(style);
+		titleRow.setRowStyle(style1);
 		Cell titleCell = titleRow.createCell(0);
 		titleCell.setCellValue("FORM III");
-		titleCell.setCellStyle(style);
+		titleCell.setCellStyle(style1);
 		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$" + endChar + "$1"));
 
-		// start 2nd row
-
+		// start 2nd row 
 		titleRow = sheet.createRow(1);
 		titleRow.setRowStyle(style);
 		titleCell = titleRow.createCell(0);
@@ -268,7 +288,18 @@ public class ExceUtil {
 		titleCell.setCellValue("Callings and Employment Taxes on Employments.");
 		sheet.addMergedRegion(CellRangeAddress.valueOf("$A$8:$" + endChar + "$8"));
 
+		font = wb.createFont();
+		font.setFontHeightInPoints((short) 10);
+		font.setFontName("Times New Roman");
 		CellStyle cellStyle = wb.createCellStyle();
+		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		cellStyle.setFont(font);
+		cellStyle.setBorderBottom((short) 1);
+		cellStyle.setBorderLeft((short) 1);
+		cellStyle.setBorderTop((short) 1);
+		cellStyle.setBorderRight((short) 1); 
+		cellStyle.setWrapText(false);
+		//cellStyle.setWrapText(true); 
 		for (int rowIndex = 0; rowIndex < exportToExcelList.size(); rowIndex++) {
 			XSSFRow row = sheet.createRow(rowIndex + 8);
 			for (int j = 0; j < exportToExcelList.get(rowIndex).getRowData().size(); j++) {
@@ -281,6 +312,7 @@ public class ExceUtil {
 					// checking valid integer using parseInt() method
 					int value = Integer.parseInt(exportToExcelList.get(rowIndex).getRowData().get(j));
 					cell.setCellValue(value);
+					cell.setCellStyle(cellStyle);
 				} catch (NumberFormatException e) {
 					try {
 						// checking valid float using parseInt() method
@@ -293,6 +325,7 @@ public class ExceUtil {
 					} catch (NumberFormatException e1) {
 						try {
 							cell.setCellValue(exportToExcelList.get(rowIndex).getRowData().get(j));
+							cell.setCellStyle(cellStyle);
 						} catch (Exception err) {
 							cell.setCellValue("-");
 						}
@@ -306,7 +339,7 @@ public class ExceUtil {
 
 		}
 
-		int cellNum = exportToExcelList.size() + incCellValue;
+		/*int cellNum = exportToExcelList.size() + 8;
 		Sheet sh = wb.getSheetAt(0);
 		Row titleRow4 = sheet.createRow(sh.getPhysicalNumberOfRows());
 		titleRow4.setHeightInPoints(20);
@@ -314,7 +347,7 @@ public class ExceUtil {
 		Cell titleCell4 = titleRow4.createCell(0);
 		titleCell4.setCellStyle(style);
 		String s = "$A$" + cellNum + ":$" + endChar + "$" + cellNum;
-		sheet.addMergedRegion(CellRangeAddress.valueOf(s));
+		sheet.addMergedRegion(CellRangeAddress.valueOf(s));*/
 
 		return wb;
 	}
