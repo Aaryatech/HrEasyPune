@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -46,6 +50,7 @@ import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DateAndDay;
+import com.ats.hreasy.model.EcrFileData;
 import com.ats.hreasy.model.EmpLeaveHistoryRep;
 import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmployeeMaster;
@@ -55,6 +60,7 @@ import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveHistTemp;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.LwfChallanData;
 import com.ats.hreasy.model.MstCompanySub;
 import com.ats.hreasy.model.PayDeductionDetails;
 import com.ats.hreasy.model.SalaryRateData;
@@ -3221,6 +3227,86 @@ public class ReportAdminController {
 		}
 	}
 
+	private static final int BUFFER_SIZE = 4096;
+
+	@RequestMapping(value = "/ecrUploadFile", method = RequestMethod.GET)
+	public void ecrUploadFile(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "Loan Deduction Report";
+
+		String leaveDateRange = request.getParameter("date");
+		String[] arrOfStr = leaveDateRange.split("-");
+
+		HttpSession session = request.getSession();
+
+		int locId = (int) session.getAttribute("liveLocationId");
+		int cmpId = 0;
+		try {
+			cmpId = Integer.parseInt(request.getParameter("subCmpId"));
+
+		} catch (Exception e) {
+			cmpId = 0;
+		}
+		try {
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("month", arrOfStr[0]);
+			map.add("year", arrOfStr[1]);
+			map.add("locId", locId);
+			map.add("cmpId", cmpId);
+			EcrFileData[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getEcrFileData", map,
+					EcrFileData[].class);
+			List<EcrFileData> progList = new ArrayList<>(Arrays.asList(resArray));
+
+			// System.out.println(progList);
+			File file = new File(Constants.EPF_SAVE);
+			if (file.createNewFile()) {
+				System.out.println("File created: " + file.getName());
+			} else {
+				System.out.println("File already exists.");
+			}
+
+			PrintWriter writer = new PrintWriter(Constants.EPF_SAVE, "UTF-8");
+
+			for (int i = 0; i < progList.size(); i++) {
+				writer.println(progList.get(i).getUan() + "#~#" + progList.get(i).getFirstName() + " "
+						+ progList.get(i).getMiddleName() + " " + progList.get(i).getSurname() + "#~#"
+						+ progList.get(i).getGrossSalary() + "#~#" + progList.get(i).getEpfWages() + "#~#"
+						+ progList.get(i).getEpsWages() + "#~#" + progList.get(i).getEpsWages() + "#~#"
+						+ progList.get(i).getEmployeePf() + "#~#" + progList.get(i).getEmployerEps() + "#~#"
+						+ progList.get(i).getEmployerPf() + "#~#" + progList.get(i).getNcpDays() + "#~#0");
+			}
+
+			// writer.println("The second line");
+			writer.close();
+
+			// FileUtils.writeStringToFile(file, "helloooo");
+
+			if (file != null) {
+				String date = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+				response.setContentType("application/text");
+
+				response.addHeader("content-disposition",
+						String.format("inline; filename=\"%s\"", "epf_" + date + ".txt"));
+
+				response.setContentLength((int) file.length());
+
+				InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+				try {
+					FileCopyUtils.copy(inputStream, response.getOutputStream());
+				} catch (IOException e) {
+					// System.out.println("Excep in Opening a Pdf File");
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
 	@RequestMapping(value = "/showLoanLedgerReort", method = RequestMethod.GET)
 	public void showLoanLedgerReort(HttpServletRequest request, HttpServletResponse response) {
 
@@ -5704,7 +5790,7 @@ public class ReportAdminController {
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
 			map.add("locId", locId);
-			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPfStatement",
+			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getPtStatement",
 					map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
 
@@ -7587,6 +7673,136 @@ public class ReportAdminController {
 
 				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
 						"Date Range:" + leaveDateRange + " Company Name:" + cmpName, "", 'F');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
+	@RequestMapping(value = "/showLwfDataUpload", method = RequestMethod.GET)
+	public void showLwfDataUpload(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "LWF Data To Upload";
+		String leaveDateRange = request.getParameter("date");
+		String[] arrOfStr = leaveDateRange.split("-");
+
+		String cmpName = "-";
+		Boolean ret = false;
+		try {
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("month", arrOfStr[0]);
+			map.add("year", arrOfStr[1]);
+			map.add("locId", locId);
+			LwfChallanData lwfChallanData = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getLwfDataForChallan", map, LwfChallanData.class);
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+			rowData.add("");
+			rowData.add("No. of Employee");
+			rowData.add("EEC Rs.");
+			rowData.add("ERC Rs.");
+			rowData.add("Penal Int.");
+			rowData.add("Total");
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("Total number of employees whose names stood on the establishment register");
+			rowData.add("" + lwfChallanData.getEmpCount());
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("Total number of Managers");
+			rowData.add("" + lwfChallanData.getLwfNoCount());
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("Employees working in supervisory capacity drawing wages exceeding Rs.3000 pm (refer note 2)");
+			rowData.add("0");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add(
+					"Employees drawing wages upto & inclusive of Rs. 3000.00 pm EEC @ 6.00 per employee ERC @ 18.00 per employee");
+			rowData.add("0");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add(" Employees drawing wages exceeding Rs. 3000.00 pm EEC @ " + lwfChallanData.getEmployeeValue()
+					+ " per employee ERC @ " + lwfChallanData.getEmployerValue() + " per employee");
+			rowData.add("" + lwfChallanData.getCountLwf());
+			rowData.add("" + lwfChallanData.getMlwf());
+			rowData.add("" + lwfChallanData.getEmployerMlwf());
+			rowData.add("");
+			rowData.add("" + (lwfChallanData.getEmployerMlwf() + lwfChallanData.getMlwf()));
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("Total");
+			rowData.add("" + lwfChallanData.getEmpCount());
+			rowData.add("" + lwfChallanData.getMlwf());
+			rowData.add("" + lwfChallanData.getEmployerMlwf());
+			rowData.add("");
+			rowData.add("" + (lwfChallanData.getEmployerMlwf() + lwfChallanData.getMlwf()));
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			XSSFWorkbook wb = null;
+			try {
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month :" + leaveDateRange, "", 'F');
 
 				ExceUtil.autoSizeColumns(wb, 3);
 				response.setContentType("application/vnd.ms-excel");

@@ -26,7 +26,7 @@ public class Constants {
 	public static final String leaveDocShowUrl = "http://localhost:8080/media/";
 	public static final String imageShowUrl = "http://localhost:8080/media/";
 	public static final String templateShowUrl = "http://localhost:8080/hrdocument/templatedoc/";
-
+	public static String EPF_SAVE = "/home/lenovo/Documents/pdf/EPFFILE.txt";
 	// monginispune
 
 	/*

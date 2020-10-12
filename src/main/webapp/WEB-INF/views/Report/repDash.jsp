@@ -444,6 +444,17 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
+													<li>ECR UPLOAD FILE(F1,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'ecrUploadFile')"
+															title="Text file"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showEmployeeEmployerPfRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a> --></span>
+													</li>
 
 
 												</ul>
@@ -457,13 +468,13 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin: 0;">PT Reports</h6>
+												<h6 class="box_title" style="margin: 0;">Challan</h6>
 												<div class="header-elements"></div>
 											</div>
 
 											<div class="advance_bx">
 												<ul>
-													<li>PT Challen Statement (F1,F3) <span><a
+													<li>PT Challan Statement (F1,F3) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'getPtChallanRep')"
 															title="excel"><i
@@ -474,7 +485,28 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-
+													<li>ESIC Data to Upload (F1,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'showEsicDataUpload')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showEsicDataUpload')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a>--></span>
+													</li>
+													<li>LWF Data to Upload (F1) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'showLwfDataUpload')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showEsicDataUpload')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a>--></span>
+													</li>
 													<!-- <li>Professional Tax Statement(F2,F3) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEmpPTStatRep')"
@@ -509,23 +541,13 @@
 										<div class="card">
 											<div
 												class="card-header bg-primary text-white header-elements-inline">
-												<h6 class="box_title" style="margin: 0;">ESIC Reports</h6>
+												<h6 class="box_title" style="margin: 0;">PT/ESIC/LWF
+													Reports</h6>
 												<div class="header-elements"></div>
 											</div>
 
 											<div class="advance_bx">
 												<ul>
-													<li>Statutory ESIC Statement (F2,F3) <span><a
-															href="javascript:void(0)"
-															onclick="getProgReport('f3',0,'showStatutoryEsicRep')"
-															title="excel"><i
-																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <a href="javascript:void(0)"
-															onclick="getProgReport('f3',1,'showStatutoryEsicRep')"
-															title="PDF"><i
-																class="icon-file-pdf icon-1x text-danger    "
-																style="color: black;"></i></a></span>
-													</li>
 
 													<li>Professional Tax Statement (F2,F3) <span><a
 															href="javascript:void(0)"
@@ -550,8 +572,18 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-
-													<li>ESIC Statement(F2,F3) <span><a
+													<li>ESIC Statement (F2,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showStatutoryEsicRep')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f3',1,'showStatutoryEsicRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
+													<li>ESIC Statement(F2,F3) (Month Wise) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f3',0,'showEsiSummaryRep')"
 															title="excel"><i
@@ -562,17 +594,7 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-													<li>ESIC Data to Upload(F1) <span><a
-															href="javascript:void(0)"
-															onclick="getProgReport('f1',0,'showEsicDataUpload')"
-															title="excel"><i
-																class="icon-file-spreadsheet text-success  "
-																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
-															onclick="getProgReport('f1',1,'showEsicDataUpload')"
-															title="PDF"><i
-																class="icon-file-pdf icon-1x text-danger    "
-																style="color: black;"></i></a></span> -->
-													</li>
+
 													<li>Employee Payment Deduction(F2) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f2',0,'showEmpDedRepAll')"
