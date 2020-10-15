@@ -140,12 +140,19 @@
 
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
+
 											<tr>
 												<td>${count.index+1}</td>
-												<td><input type="checkbox" name="selectEmp"
-													id="selectEmp${empList.empId}" value="${empList.empId}"></td>
+												<td><c:if test="${empList.countLeave==0}">
+														<input type="checkbox" name="selectEmp"
+															id="selectEmp${empList.empId}" value="${empList.empId}">
+													</c:if></td>
 												<td class="text-center">${empList.empCode}</td>
-												<td>${empList.empName}</td>
+												<td>${empList.empName}&nbsp;<c:if
+														test="${empList.countLeave>0}">
+														(${empList.countLeave} Leave are pending for action. Can not freeze attendance.)
+													</c:if>
+												</td>
 
 											</tr>
 										</c:forEach>
@@ -326,6 +333,9 @@
 			columnDefs : [ {
 				orderable : false,
 				targets : [ 0 ]
+			}, {
+				orderable : false,
+				targets : [ 1 ]
 			} ],
 			"order" : [],
 			//scrollX : true,

@@ -53,6 +53,7 @@ public class EmpSalaryInfoForPayroll {
 	private int desigId; 
 	private int sumId;
 	private int subCmpId;
+	private int countLeave;
 	List<EmpAllowanceList> empAllowanceList;
 	
 	
@@ -357,6 +358,12 @@ public class EmpSalaryInfoForPayroll {
 	public void setSubCmpId(int subCmpId) {
 		this.subCmpId = subCmpId;
 	}
+	public int getCountLeave() {
+		return countLeave;
+	}
+	public void setCountLeave(int countLeave) {
+		this.countLeave = countLeave;
+	}
 	@Override
 	public String toString() {
 		return "EmpSalaryInfoForPayroll [empId=" + empId + ", salaryInfoId=" + salaryInfoId + ", salaryTypeId="
@@ -375,7 +382,8 @@ public class EmpSalaryInfoForPayroll {
 				+ ", salTypeName=" + salTypeName + ", designation=" + designation + ", deptName=" + deptName
 				+ ", empName=" + empName + ", locName=" + locName + ", empTypeId=" + empTypeId + ", locId=" + locId
 				+ ", departId=" + departId + ", contractorId=" + contractorId + ", desigId=" + desigId + ", sumId="
-				+ sumId + ", subCmpId=" + subCmpId + ", empAllowanceList=" + empAllowanceList + "]";
+				+ sumId + ", subCmpId=" + subCmpId + ", countLeave=" + countLeave + ", empAllowanceList="
+				+ empAllowanceList + "]";
 	}
 	 
 
