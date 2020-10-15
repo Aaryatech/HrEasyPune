@@ -33,6 +33,7 @@ import com.ats.hreasy.model.AuthorityInformation;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetAuthorityIds;
 import com.ats.hreasy.model.Info;
+import com.ats.hreasy.model.InfoForCompOffList;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.Setting;
 import com.ats.hreasy.model.Advance.Advance;
@@ -994,6 +995,35 @@ public class ClaimApplicationController {
 		return model;
 	}
 
+	@RequestMapping(value = "/validationForFreezeMonth", method = RequestMethod.POST)
+	public @ResponseBody Info validationForFreezeMonth(HttpServletRequest request, HttpServletResponse response) {
+
+		Info freeze_validation = new Info();
+
+		try {
+
+			String fromDate = request.getParameter("fromDate");
+			String empId = request.getParameter("empId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map = new LinkedMultiValueMap<>();
+			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+			map.add("toDate", DateConvertor.convertToYMD(fromDate));
+			map.add("empId", empId);
+
+			freeze_validation = Constants.getRestTemplate().postForObject(Constants.url + "/getValidationOfFreezeMonth",
+					map, Info.class);
+			if (freeze_validation.isError() == true) {
+				freeze_validation.setMsg("You have selected date which is in freeze month.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return freeze_validation;
+	}
+
 	@RequestMapping(value = "/uploadOtherMediaProccessForClaim", method = RequestMethod.POST)
 	public void uploadOtherMediaProccessForClaim(@RequestParam("file") List<MultipartFile> file,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -1619,13 +1649,13 @@ public class ClaimApplicationController {
 			try {
 
 				mav = "claim/changeClaimYearmonth";
-				
+
 				int locId = (int) session.getAttribute("liveLocationId");
-				 
+
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
 				ClaimApplyHeader[] employeeDoc1 = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getClaimHeaderToChangeDate",map, ClaimApplyHeader[].class);
+						.postForObject(Constants.url + "/getClaimHeaderToChangeDate", map, ClaimApplyHeader[].class);
 
 				List<ClaimApplyHeader> claimList1 = new ArrayList<ClaimApplyHeader>(Arrays.asList(employeeDoc1));
 				// System.err.println("claim list" + claimList1.toString());

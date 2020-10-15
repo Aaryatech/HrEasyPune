@@ -752,10 +752,10 @@ public class LeaveController {
 
 			map = new LinkedMultiValueMap<>();
 			map.add("limitKey", "HALF_DAY_LEAVE_SHOW");
-			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-					Setting.class);
+			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+					map, Setting.class);
 			model.addObject("HALF_DAY_LEAVE_SHOW", HALF_DAY_LEAVE_SHOW);
-			
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,
@@ -825,27 +825,40 @@ public class LeaveController {
 			String noOfDays = request.getParameter("noOfDays");
 			String shortName = new String();
 
-			for (int i = 0; i < leaveHistoryList.size(); i++) {
-				if (Integer.parseInt(typeId) == leaveHistoryList.get(i).getLvTypeId()) {
-					shortName = leaveHistoryList.get(i).getLvTitleShort();
-					break;
-				}
-			}
-
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map = new LinkedMultiValueMap<>();
 			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
 			map.add("toDate", DateConvertor.convertToYMD(toDate));
 			map.add("empId", empId);
-			map.add("leaveTypeId", typeId);
-			map.add("shortName", shortName);
-			map.add("noOfDays", noOfDays);
-			System.out.println(map);
-			leaveResponse = Constants.getRestTemplate().postForObject(
-					Constants.url + "/checkDateForRepetedLeaveValidation", map, InfoForCompOffList.class);
-			dailyrecordlistforcompoff = leaveResponse.getDailyrecordlistforcompoff();
-			// System.out.println(leaveResponse);
 
+			Info freeze_validation = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getValidationOfFreezeMonth", map, Info.class);
+			if (freeze_validation.isError() == true) {
+				leaveResponse.setError(true);
+				leaveResponse.setMsg("You have selected date which is in freeze month.");
+			} else {
+
+				for (int i = 0; i < leaveHistoryList.size(); i++) {
+					if (Integer.parseInt(typeId) == leaveHistoryList.get(i).getLvTypeId()) {
+						shortName = leaveHistoryList.get(i).getLvTitleShort();
+						break;
+					}
+				}
+
+				map = new LinkedMultiValueMap<>();
+				map = new LinkedMultiValueMap<>();
+				map.add("fromDate", DateConvertor.convertToYMD(fromDate));
+				map.add("toDate", DateConvertor.convertToYMD(toDate));
+				map.add("empId", empId);
+				map.add("leaveTypeId", typeId);
+				map.add("shortName", shortName);
+				map.add("noOfDays", noOfDays);
+				System.out.println(map);
+				leaveResponse = Constants.getRestTemplate().postForObject(
+						Constants.url + "/checkDateForRepetedLeaveValidation", map, InfoForCompOffList.class);
+				dailyrecordlistforcompoff = leaveResponse.getDailyrecordlistforcompoff();
+				// System.out.println(leaveResponse);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			dailyrecordlistforcompoff = new ArrayList<>();
@@ -1215,11 +1228,11 @@ public class LeaveController {
 						.getForObject(Constants.url + "/getCalculateYearList", CalenderYear[].class);
 				List<CalenderYear> calYearList = new ArrayList<CalenderYear>(Arrays.asList(calenderYear));
 
-				int locId = (int) session.getAttribute("liveLocationId"); 
+				int locId = (int) session.getAttribute("liveLocationId");
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 				map.add("locId", locId);
-				EmployeeMaster[] employeeInfo = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/getEmplistForAssignAuthorityAllByLocId",map, EmployeeMaster[].class);
+				EmployeeMaster[] employeeInfo = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getEmplistForAssignAuthorityAllByLocId", map, EmployeeMaster[].class);
 
 				List<EmployeeMaster> employeeInfoList = new ArrayList<EmployeeMaster>(Arrays.asList(employeeInfo));
 				model.addObject("calYearList", calYearList);
@@ -1257,8 +1270,8 @@ public class LeaveController {
 
 			map = new LinkedMultiValueMap<>();
 			map.add("locId", locId);
-			EmployeeMaster[] emp = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getEmplistForAssignAuthorityAllByLocId",map, EmployeeMaster[].class);
+			EmployeeMaster[] emp = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getEmplistForAssignAuthorityAllByLocId", map, EmployeeMaster[].class);
 
 			List<EmployeeMaster> empList1 = new ArrayList<EmployeeMaster>(Arrays.asList(emp));
 
@@ -1662,11 +1675,10 @@ public class LeaveController {
 
 			map = new LinkedMultiValueMap<>();
 			map.add("limitKey", "HALF_DAY_LEAVE_SHOW");
-			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-					Setting.class);
+			Setting HALF_DAY_LEAVE_SHOW = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+					map, Setting.class);
 			model.addAttribute("HALF_DAY_LEAVE_SHOW", HALF_DAY_LEAVE_SHOW);
-			
-			
+
 			map = new LinkedMultiValueMap<>();
 			map.add("empId", empId);
 			MstEmpType mstEmpType = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpTypeByempId", map,

@@ -48,8 +48,9 @@
 					<div class="card-header header-elements-inline">
 						<table width="100%">
 							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Change Claim
-										Paid Date</h5></td>
+								<td width="60%"><h5 class="pageTitle">
+										<i class="icon-list-unordered"></i> Change Claim Paid Date
+									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
 						</table>
@@ -121,16 +122,15 @@
 										<td>${claimList.claimTitle}</td>
 										<td>${claimList.exVar3}</td>
 										<td>${claimList.exVar1}</td>
-										<td>${claimList.cafromDt}to${claimList.caToDt}</td>
-										<td>${claimList.claimAmount}</td>
+										<td>${claimList.cafromDt}&nbsp;to&nbsp;${claimList.caToDt}</td>
+										<td style="text-align: right;">${claimList.claimAmount}</td>
 										<td>${claimList.month}-${claimList.year}</td>
 
 										<td class="text-center"><c:if test="${editAccess == 0}">
 												<a href="#"
-													onclick="chkAssign('${claimList.caHeadId}','${claimList.claimTitle}','${claimList.claimAmount}','${claimList.exVar1}','${claimList.exVar3}','${claimList.cafromDt}','${claimList.caToDt}','${claimList.month}','${claimList.year}')"
+													onclick="chkAssign('${claimList.empId}','${claimList.caHeadId}','${claimList.claimTitle}','${claimList.claimAmount}','${claimList.exVar1}','${claimList.exVar3}','${claimList.cafromDt}','${claimList.caToDt}','${claimList.month}','${claimList.year}')"
 													title="Edit"><i class="icon-pencil7"
-													data-toggle="modal"
-													data-target="#modal_edit"></i></a>
+													data-toggle="modal" data-target="#modal_edit"></i></a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -159,18 +159,20 @@
 
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
-				<div class="modal-header close_area"><!-- modal-header pb-3 -->
+				<div class="modal-header close_area">
+					<!-- modal-header pb-3 -->
 
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<form action="${pageContext.request.contextPath}/updateClmPaidDate"
 					id="submitInsertLeave" method="post">
 					<div class="modal-body py-0">
-						<h5 class="pageTitle" style="margin:0 0 15px 0;"><i class="icon-list-unordered"></i> Change Claim Paid Date</h5>
-						
-					<div class="clr"></div>
-					 <input type="hidden" name="clmHeadId" id="clmHeadId"
-							value="0">
+						<h5 class="pageTitle" style="margin: 0 0 15px 0;">
+							<i class="icon-list-unordered"></i> Change Claim Paid Date
+						</h5>
+
+						<div class="clr"></div>
+						<input type="hidden" name="clmHeadId" id="clmHeadId" value="0">
 						<div class="form-group row">
 							<label class="col-form-label col-lg-4 float" for="empCode1">
 								Employee Code : </label> <label class="col-form-label col-lg-8 float"
@@ -210,14 +212,18 @@
 							<div class="col-lg-8 float">
 								<input type="text" class="form-control datepickerclass"
 									placeholder="Enter Work Date" id="workDate1" name="workDate1"
-									autocomplete="off">
+									autocomplete="off" onchange="freezeMonthValidation()">
+								<span class="validation-invalid-label" id="error_Range_freeze"
+									style="display: none;">This field is required.</span> <input
+									type="hidden" id="empId" name="empId" autocomplete="off">
 							</div>
 						</div>
 
 					</div>
 
-					<div class="modal-footer" style="text-align: center; display: inline-block; 
-					width: 100%;"> <!-- pt-3 -->
+					<div class="modal-footer"
+						style="text-align: center; display: inline-block; width: 100%;">
+						<!-- pt-3 -->
 						<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
 						<button type="button" class="btn bg-primary" id="submtbtn"
 							onclick="submitForm()">Submit</button>
@@ -237,10 +243,13 @@
 		}
 	</script>
 	<script type="text/javascript">
-		function chkAssign(id, title, amt, empName, empCode, fromDate, toDate,
-				month, year) {
+		function chkAssign(empId, id, title, amt, empName, empCode, fromDate,
+				toDate, month, year) {
 			//alert(1);
+			$("#error_Range_freeze").hide();
+			document.getElementById("submtbtn").disabled = false;
 			document.getElementById("clmHeadId").value = id;
+			$('#empId').val(empId);
 			$('#claimAmt1').html(amt);
 			$('#empCode1').html(empCode);
 			$('#empName1').html(empName);
@@ -248,6 +257,41 @@
 			$('#claimDate1').html(fromDate + " To " + toDate);
 			document.getElementById("workDate1").value = month + "-" + year;
 			$('#modal_scrollable').modal('show');
+
+		}
+		function freezeMonthValidation() {
+
+			//alert("hii");
+			//document.getElementById("isEdit").value = 0;
+			//alert("index" + index);
+			var claimDate = $('#workDate1').val();
+			var empId = $('#empId').val();
+			var fd = new FormData();
+
+			fd.append('fromDate', ('01-' + claimDate));
+			fd.append('empId', empId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
+							}
+
+						},
+					});
 
 		}
 	</script>

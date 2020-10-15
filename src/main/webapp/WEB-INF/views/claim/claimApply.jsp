@@ -208,11 +208,12 @@
 												Claim Title <span style="color: red">* </span>:
 											</label>
 											<div class="col-lg-7 float">
-												<input type="text" class="form-control" placeholder="Claim Title"
-													id="claim_title" name="claim_title" autocomplete="off"
-													onchange="trim(this)"> <span
-													class="validation-invalid-label" id="error_claim_title"
-													style="display: none;">This field is required.</span>
+												<input type="text" class="form-control"
+													placeholder="Claim Title" id="claim_title"
+													name="claim_title" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label"
+													id="error_claim_title" style="display: none;">This
+													field is required.</span>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -222,8 +223,10 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass "
 													name="claimDate" data-placeholder="Select Date"
-													id="claimDate"> <span
-													class="validation-invalid-label" id="error_Range"
+													id="claimDate" onchange="freezeMonthValidation()">
+												<span class="validation-invalid-label" id="error_Range"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
 													style="display: none;">This field is required.</span>
 
 											</div>
@@ -796,6 +799,42 @@
 								}
 
 							}); */
+
+		}
+
+		function freezeMonthValidation() {
+
+			//alert("hii");
+			//document.getElementById("isEdit").value = 0;
+			//alert("index" + index);
+			var claimDate = $('#claimDate').val();
+			var empId = $('#empId').val();
+			var fd = new FormData();
+
+			fd.append('fromDate', claimDate);
+			fd.append('empId', empId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
+							}
+
+						},
+					});
 
 		}
 	</script>

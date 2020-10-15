@@ -27,6 +27,7 @@ public class Constants {
 	public static final String imageShowUrl = "http://localhost:8080/media/";
 	public static final String templateShowUrl = "http://localhost:8080/hrdocument/templatedoc/";
 	public static String EPF_SAVE = "/home/lenovo/Documents/pdf/EPFFILE.txt";
+
 	// monginispune
 
 	/*
@@ -85,7 +86,8 @@ public class Constants {
 	 * "http://107.180.88.121:8080/hrdocument/leavedoc/"; public static final String
 	 * imageShowUrl = "http://107.180.88.121:8080/hrdocument/mixDoc/"; public static
 	 * final String templateShowUrl =
-	 * "http://107.180.88.121:8080/hrdocument/templatedoc/";
+	 * "http://107.180.88.121:8080/hrdocument/templatedoc/"; public static String
+	 * EPF_SAVE = "/opt/apache-tomcat-8.5.47/webapps/hrdocument/EPFFILE.txt";
 	 */
 
 	// Mumbai hr
@@ -184,11 +186,13 @@ public class Constants {
 	public static RestTemplate getRestTemplate() {
 		rest = new RestTemplate();
 		rest.getInterceptors().add(new BasicAuthorizationInterceptor("aaryatech", "Aaryatech@1cr"));
-		/*rest.getInterceptors().add((request, body, execution) -> {
-			request.getHeaders().add("Authorization", "Bearer " + JWTToken);
-			return execution.execute(request, body);
-		});*/
-		 
+
+		/*
+		 * rest.getInterceptors().add((request, body, execution) -> {
+		 * request.getHeaders().add("Authorization", "Bearer " + JWTToken); return
+		 * execution.execute(request, body); });
+		 */
+
 		return rest;
 
 	}
