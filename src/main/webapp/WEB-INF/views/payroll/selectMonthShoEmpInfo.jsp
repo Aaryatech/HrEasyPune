@@ -169,9 +169,14 @@
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
 											<tr>
-												<td>${empList.empName}&nbsp;(${empList.empCode})</td>
-												<td><input type="checkbox" name="selectEmp"
-													id="selectEmp${empList.empId}" value="${empList.empId}"></td>
+												<td>${empList.empName}&nbsp;(${empList.empCode})<c:if
+														test="${empList.canGenerateSal==0}">
+														<br>(Can not generate salary for selected month. Clear previous salary.)
+													</c:if></td>
+												<td><c:if test="${empList.canGenerateSal==1}">
+														<input type="checkbox" name="selectEmp"
+															id="selectEmp${empList.empId}" value="${empList.empId}">
+													</c:if></td>
 												<td>${empList.empTypeName}</td>
 												<td>${empList.salTypeName}</td>
 												<td>${empList.deptName}</td>
@@ -276,6 +281,9 @@
 			columnDefs : [ {
 				orderable : false,
 				targets : [ 0 ]
+			}, {
+				orderable : false,
+				targets : [ 1 ]
 			} ],
 			"order" : [],
 			//scrollX : true,
@@ -320,7 +328,7 @@
 			$('#myModal_checklist').modal('show');
 		}); */
 		function submitForm() {
-			
+
 			var table = $('#printtable1').DataTable();
 			table.search("").draw();
 			$("#error_emp").hide();
