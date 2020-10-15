@@ -262,7 +262,11 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass "
 													onchange="calAmt()" name="startDate" id="startDate"
-													placeholder="Joining Date">
+													placeholder="Joining Date"><span
+													class="validation-invalid-label" id="error_startDate"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
+													style="display: none;">This field is required.</span>
 											</div>
 										</div>
 
@@ -275,7 +279,9 @@
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control datepickerclass1 "
 													name="endDate" id="endDate" placeholder="Joining Date"
-													readonly="readonly">
+													readonly="readonly"><span
+													class="validation-invalid-label" id="error_endDate"
+													style="display: none;">This field is required.</span>
 											</div>
 										</div>
 
@@ -366,7 +372,7 @@
 			var loanAmt = 0;
 			var emi = 0;
 			var roi = 0;
-
+			var empId = $('#empId').val();
 			emi = document.getElementById("emi").value;
 			loanAmt = document.getElementById("loanAmt").value;
 			var startDate = document.getElementById("startDate").value;
@@ -375,23 +381,56 @@
 				tenure = parseFloat(loanAmt) / parseFloat(emi);
 			}
 
-			$.getJSON('${loanCalculation}', {
-				roi : roi,
-				tenure : tenure,
-				loanAmt : loanAmt,
-				startDate : startDate,
-				ajax : 'true',
-			},
+			var fd = new FormData();
 
-			function(data) {
+			fd.append('fromDate', startDate);
+			fd.append('empId', empId);
 
-				document.getElementById("repayAmt").value = data.repayAmt;
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
 
-				document.getElementById("tenure").value = tenure;
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
 
-				document.getElementById("endDate").value = data.calDate;
+								$
+										.getJSON(
+												'${loanCalculation}',
+												{
+													roi : roi,
+													tenure : tenure,
+													loanAmt : loanAmt,
+													startDate : startDate,
+													ajax : 'true',
+												},
 
-			});
+												function(data1) {
+
+													document
+															.getElementById("repayAmt").value = data1.repayAmt;
+
+													document
+															.getElementById("tenure").value = tenure;
+
+													document
+															.getElementById("endDate").value = data1.calDate;
+
+												});
+							}
+
+						},
+					});
 
 		}
 	</script>
@@ -412,7 +451,9 @@
 
 				var isError = false;
 				var errMsg = "";
-
+				$("#error_startDate").hide();
+				$("#error_endDate").hide();
+				
 				if (!$("#emi").val()) {
 
 					isError = true;
@@ -479,6 +520,19 @@
 
 				} else {
 					$("#error_remark").hide()
+				}
+
+				if (!$("#endDate").val()) {
+
+					isError = true;
+
+					$("#error_endDate").show()
+
+				}
+				if (!$("#startDate").val()) {
+
+					isError = true;
+					$("#error_startDate").show()
 				}
 
 				if (!isError) {

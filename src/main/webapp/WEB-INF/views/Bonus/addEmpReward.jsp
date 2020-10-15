@@ -55,8 +55,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Employee
-												Reward</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Employee Reward
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -115,116 +116,122 @@
 
 
 									<div class="form-group row">
-									
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
-											Code<span style="color: red"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												value="${emp.empCode}" readonly="readonly">
 
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="dedRate">Employee
+												Code<span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${emp.empCode}" readonly="readonly">
+
+											</div>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
-											Name <span style="color: red"></span>:
-										</label>
-										<div class="col-lg-7  float">
-											<input type="text" class="form-control"
-												value="${emp.firstName} ${emp.surname}" readonly="readonly">
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="dedRate">Employee
+												Name <span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7  float">
+												<input type="text" class="form-control"
+													value="${emp.firstName} ${emp.surname}" readonly="readonly">
+											</div>
 										</div>
-									</div>
-									
-									
-										
+
+
+
 									</div>
 
-									
+
 
 									<div class="form-group row">
-									
-									<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="payTypeId"> Reward Type <span
-											class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="payTypeId"
-												data-placeholder="Select Reward Type" id="payTypeId"
-												onchange="getDeductRate(this.value)"
-												class="form-control form-control-select2 select2-hidden-accessible">
 
-												<option value="">Select</option>
-												<c:forEach items="${payList}" var="payList">
-													<option value="${payList.payTypeId}">${payList.typeName}</option>
-												</c:forEach>
-											</select> <span class="hidedefault   validation-invalid-label"
-												style="display: none;" id="error_payTypeId">This
-												field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="payTypeId"> Reward Type <span
+												class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="payTypeId"
+													data-placeholder="Select Reward Type" id="payTypeId"
+													onchange="getDeductRate(this.value)"
+													class="form-control form-control-select2 select2-hidden-accessible">
+
+													<option value="">Select</option>
+													<c:forEach items="${payList}" var="payList">
+														<option value="${payList.payTypeId}">${payList.typeName}</option>
+													</c:forEach>
+												</select> <span class="hidedefault   validation-invalid-label"
+													style="display: none;" id="error_payTypeId">This
+													field is required.</span>
+											</div>
 										</div>
-									</div>
-									
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="dedRate"> Amount <span class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="Enter  Amount" id="rewardRate"
-												name="rewardRate" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_rewardRate"
-												style="display: none;">This field is required.</span>
 
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="dedRate"> Amount <span class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Enter  Amount" id="rewardRate"
+													name="rewardRate" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_rewardRate"
+													style="display: none;">This field is required.</span>
+
+											</div>
 										</div>
-									</div>
 
 
-										
+
 									</div>
 
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="month"> Reward on Month <span
-											class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" name="monthyear" id="monthyear"
-												class="form-control datepicker" autocomplete="off"
-												data-min-view-mode="months" data-start-view="1"
-												data-format="mm-yyyy"> <span
-												class="validation-invalid-label" id="error_monthyear"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="month"> Reward on Month <span
+												class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" name="monthyear" id="monthyear"
+													class="form-control datepicker" autocomplete="off"
+													onchange="freezeMonthValidation()"
+													placeholder="Select Deduction Month"
+													data-min-view-mode="months" data-start-view="1"
+													data-format="mm-yyyy"> <span
+													class="validation-invalid-label" id="error_monthyear"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="remark">Reason
-											/ Remark <span style="color: red"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="remark"
-												name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
+												/ Remark <span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="remark"
+													name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
 
+											</div>
 										</div>
-										</div>
 
 
-										
+
 									</div>
-									
+
 
 									<div class="form-group row mb-0">
-										<div style="margin:0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
-											<a href="${pageContext.request.contextPath}/viewEmpRewarAddList"><button
+											<a
+												href="${pageContext.request.contextPath}/viewEmpRewarAddList"><button
 													type="button" class="btn btn-light">
 													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
 													Back
@@ -256,6 +263,38 @@
 	<!-- /page content -->
 
 	<script type="text/javascript">
+		function freezeMonthValidation() {
+
+			var claimDate = $('#monthyear').val();
+			var empId = $('#empId').val();
+			var fd = new FormData();
+
+			fd.append('fromDate', '01-' + claimDate);
+			fd.append('empId', empId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
+							}
+
+						},
+					});
+
+		}
 		$(document).ready(function() {
 			// month selector
 			$('.datepicker').datepicker({

@@ -55,7 +55,9 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Advance</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Advance
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -108,7 +110,7 @@
 									id="submitInsertLocaion" method="post">
 									<input type="hidden" value="${empPersInfo.empId}" id="empId"
 										name="empId">
-										
+
 									<div class="form-group row">
 										<div class="col-md-6">
 											<label
@@ -121,21 +123,21 @@
 													value="${empPersInfoString}" id="empName"
 													readonly="readonly" name="empName" autocomplete="off"
 													onchange="trim(this)">
-	
+
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="grossSal">Total Gross Salary <span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" id="grossSal"
-												value="${empPersInfo.grossSalary}" readonly="readonly"
-												name="grossSal" autocomplete="off" onchange="trim(this)">
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="grossSal">Total Gross Salary <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" id="grossSal"
+													value="${empPersInfo.grossSalary}" readonly="readonly"
+													name="grossSal" autocomplete="off" onchange="trim(this)">
+											</div>
 										</div>
 									</div>
 
@@ -156,23 +158,23 @@
 													style="display: none;">This field is required.</span> <span
 													class="validation-invalid-label" id="error_voucherNo1"
 													style="display: none;">Voucher No. Already Exists</span>
-	
+
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="advanceAmt">Advance Amount <span
-											style="color: red">* </span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control numbersOnly"
-												placeholder="Enter Advance Amount" id="advanceAmt"
-												name="advanceAmt" autocomplete="off" onchange="trim(this)">
-											<span class="validation-invalid-label" id="error_advanceAmt"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="advanceAmt">Advance Amount <span
+												style="color: red">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control numbersOnly"
+													placeholder="Enter Advance Amount" id="advanceAmt"
+													name="advanceAmt" autocomplete="off" onchange="trim(this)">
+												<span class="validation-invalid-label" id="error_advanceAmt"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
@@ -203,23 +205,26 @@
 													is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
 											<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="date">Deduction Month <span
-											style="color: red">* </span> :
-										</label>
-										<div class="col-md-7 float">
-											<input type="text" class="form-control "
-												placeholder="Select Deduction Month " id="datepicker"
-												name="date" value="${date}" autocomplete="off"> <span
-												class="validation-invalid-label" id="error_month"
-												style="display: none;">This field is required.</span>
-										</div>
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="date">Deduction Month <span style="color: red">*
+											</span> :
+											</label>
+											<div class="col-md-7 float">
+												<input type="text" class="form-control "
+													placeholder="Select Deduction Month " id="datepicker"
+													name="date" value="${date}" autocomplete="off"
+													onchange="freezeMonthValidation()"> <span
+													class="validation-invalid-label" id="error_month"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
-									
+
 
 									<div class="form-group row">
 										<div class="col-md-6">
@@ -239,7 +244,7 @@
 
 
 									<div class="form-group row mb-0">
-										<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -278,6 +283,38 @@
 	<!-- /page content -->
 
 	<script type="text/javascript">
+		function freezeMonthValidation() {
+
+			var claimDate = $('#datepicker').val();
+			var empId = $('#empId').val();
+			var fd = new FormData();
+
+			fd.append('fromDate', '01-' + claimDate);
+			fd.append('empId', empId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
+							}
+
+						},
+					});
+
+		}
 		function uniqueVoucherNum() {
 
 			var voucherNo = $("#voucherNo").val();
@@ -288,13 +325,13 @@
 			}, function(data) {
 				if (parseInt(data) == 1) {
 
-					document.getElementById("submtbtn").disabled = true;
+					//document.getElementById("submtbtn").disabled = true;
 					document.getElementById("voucherNo").value = "";
 					$("#error_voucherNo1").show();
 
 				} else {
 					valid = true;
-					document.getElementById("submtbtn").disabled = false;
+					//document.getElementById("submtbtn").disabled = false;
 					$("#error_voucherNo1").hide();
 				}
 
@@ -423,7 +460,7 @@
 	<script type="text/javascript">
 		// Single picker
 		$('.datepickerclass').daterangepicker({
-			
+
 			singleDatePicker : true,
 			selectMonths : true,
 			selectYears : true,

@@ -1005,16 +1005,18 @@ public class ClaimApplicationController {
 			String fromDate = request.getParameter("fromDate");
 			String empId = request.getParameter("empId");
 
+			String[] splt = fromDate.split("-");
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 			map = new LinkedMultiValueMap<>();
-			map.add("fromDate", DateConvertor.convertToYMD(fromDate));
-			map.add("toDate", DateConvertor.convertToYMD(fromDate));
+			map.add("month", splt[1]);
+			map.add("year", splt[2]);
 			map.add("empId", empId);
 
-			freeze_validation = Constants.getRestTemplate().postForObject(Constants.url + "/getValidationOfFreezeMonth",
-					map, Info.class);
+			freeze_validation = Constants.getRestTemplate()
+					.postForObject(Constants.url + "/getValidationOfFreezeMonthSalary", map, Info.class);
 			if (freeze_validation.isError() == true) {
-				freeze_validation.setMsg("You have selected date which is in freeze month.");
+				freeze_validation.setMsg("Salary is generated of selected month.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

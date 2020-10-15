@@ -55,8 +55,10 @@
 							<div class="card-header header-elements-inline">
 								<table width="100%">
 									<tr width="100%">
-										<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Add Employee
-												Payment Deduction</h5></td>
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Add Employee Payment
+												Deduction
+											</h5></td>
 										<td width="40%" align="right">
 											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
@@ -114,107 +116,116 @@
 
 										<input type="hidden" value="0" id="dedId" name="dedId">
 									</div>
-									
-									
-									<div class="form-group row">
-											
-										<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="dedRate">Employee
-											 Code<span style="color:red"></span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" value="${emp.empCode}" readonly="readonly">
-												
-										</div>
-										</div>
-										<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="dedRate">Employee Name
-											 <span style="color:red"></span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control" value="${emp.firstName} ${emp.surname}" readonly="readonly"> 
-										</div>
-										</div>
-										
-										
-										
-																				
-									
-										
-									</div> 
-									
-								<div class="form-group row">
-										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="dedTypeId"> Deduction Type <span
-											class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<select name="dedTypeId"
-												data-placeholder="Select Deduction Type" id="dedTypeId"
-												onchange="getDeductRate(this.value)"
-												class="form-control form-control-select2 select2-hidden-accessible">
 
-												<option value="">Select</option>
-												<c:forEach items="${payDeductList}" var="payDeductList">
-													<option value="${payDeductList.dedTypeId}">${payDeductList.typeName}</option>
-												</c:forEach>
-											</select> <span class="hidedefault   validation-invalid-label"
-												style="display: none;" id="error_dedTypeId">This
-												field is required.</span>
-										</div>
-										</div>
-										<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="dedRate"> Amount <span class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Enter Address" id="dedRate" name="dedRate"
-												autocomplete="off" onchange="trim(this)"> <span
-												class="validation-invalid-label" id="error_dedRate"
-												style="display: none;">This field is required.</span>
 
-										</div>
-										</div>
-									</div>
-									
-									
 									<div class="form-group row">
 
-									<div class="col-md-6">
-										<label
-											class="col-form-label text-info font-weight-bold col-lg-5 float"
-											for="month"> Deduction on Month <span class="text-danger">*</span>:
-										</label>
-										<div class="col-lg-7 float">
-											<input type="text" name="monthyear" id="monthyear"
-												class="form-control datepicker" autocomplete="off"
-												data-min-view-mode="months" data-start-view="1"
-												data-format="mm-yyyy"> <span
-												class="validation-invalid-label" id="error_monthyear"
-												style="display: none;">This field is required.</span>
-										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="dedRate">Employee
+												Code<span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${emp.empCode}" readonly="readonly">
+
+											</div>
 										</div>
 										<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="remark">Reason
-											/ Remark <span style="color: red"></span>:
-										</label>
-										<div class="col-lg-7 float">
-											<textarea class="form-control"
-												placeholder="Enter Reason / Remark" id="remark"
-												name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
+											<label class="col-form-label col-lg-5 float" for="dedRate">Employee
+												Name <span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${emp.firstName} ${emp.surname}" readonly="readonly">
+											</div>
+										</div>
 
-										</div>
-										</div>
-										
+
+
+
+
+
 									</div>
 
-									
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="dedTypeId"> Deduction Type <span
+												class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<select name="dedTypeId"
+													data-placeholder="Select Deduction Type" id="dedTypeId"
+													onchange="getDeductRate(this.value)"
+													class="form-control form-control-select2 select2-hidden-accessible">
+
+													<option value="">Select</option>
+													<c:forEach items="${payDeductList}" var="payDeductList">
+														<option value="${payDeductList.dedTypeId}">${payDeductList.typeName}</option>
+													</c:forEach>
+												</select> <span class="hidedefault   validation-invalid-label"
+													style="display: none;" id="error_dedTypeId">This
+													field is required.</span>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="dedRate"> Amount <span class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Enter Address" id="dedRate" name="dedRate"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_dedRate"
+													style="display: none;">This field is required.</span>
+
+											</div>
+										</div>
+									</div>
+
+
+									<div class="form-group row">
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="month"> Deduction on Month <span
+												class="text-danger">*</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" name="monthyear" id="monthyear"
+													class="form-control datepicker" autocomplete="off"
+													data-min-view-mode="months" data-start-view="1"
+													onchange="freezeMonthValidation()"
+													placeholder="Select Deduction Month" data-format="mm-yyyy">
+												<span class="validation-invalid-label" id="error_monthyear"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Reason
+												/ Remark <span style="color: red"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<textarea class="form-control"
+													placeholder="Enter Reason / Remark" id="remark"
+													name="remark" autocomplete="off" onchange="trim(this)"> </textarea>
+
+											</div>
+										</div>
+
+									</div>
+
+
 
 
 									<div class="form-group row mb-0">
-										<div style="margin:0 auto;"><!--  class="col-lg-10 ml-lg-auto" -->
+										<div style="margin: 0 auto;">
+											<!--  class="col-lg-10 ml-lg-auto" -->
 
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
@@ -265,6 +276,38 @@
 		});
 	</script>
 	<script>
+		function freezeMonthValidation() {
+
+			var claimDate = $('#monthyear').val();
+			var empId = $('#empId').val();
+			var fd = new FormData();
+
+			fd.append('fromDate', '01-' + claimDate);
+			fd.append('empId', empId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+
+							if (data.error == true) {
+								$("#error_Range_freeze").show();
+								$("#error_Range_freeze").html(data.msg);
+								document.getElementById("submtbtn").disabled = true;
+							} else {
+								$("#error_Range_freeze").hide();
+								document.getElementById("submtbtn").disabled = false;
+							}
+
+						},
+					});
+
+		}
 		function getDeductRate(deductType) {
 			$.getJSON('${getPayDeductionTypeRate}',
 
@@ -321,7 +364,7 @@
 				} else {
 					$("#error_monthyear").hide()
 				}
-				 
+
 				if (!isError) {
 
 					var x = true;
