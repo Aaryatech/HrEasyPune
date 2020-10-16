@@ -168,12 +168,21 @@
 
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
-											<tr>
+											<c:set var="sty_color" value=""></c:set>
+											<c:if
+												test="${empList.canGenerateSal==0 || empList.countLeave>0}">
+												<c:set var="sty_color" value="#f44336"></c:set>
+											</c:if>
+
+											<tr style="background: ${sty_color};">
 												<td>${empList.empName}&nbsp;(${empList.empCode})<c:if
 														test="${empList.canGenerateSal==0}">
 														<br>(Can not generate salary for selected month. Clear previous salary.)
+													</c:if> <c:if test="${empList.countLeave>0}">
+														<br>(Claim is pending of selected month.)
 													</c:if></td>
-												<td><c:if test="${empList.canGenerateSal==1}">
+												<td><c:if
+														test="${empList.canGenerateSal==1 and empList.countLeave==0}">
 														<input type="checkbox" name="selectEmp"
 															id="selectEmp${empList.empId}" value="${empList.empId}">
 													</c:if></td>
