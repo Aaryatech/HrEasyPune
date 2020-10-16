@@ -294,8 +294,11 @@
 											<div class="col-md-2">
 												<input type="text" class="form-control "
 													placeholder="Select Date " id="datepicker" name="date"
-													value="${date}" autocomplete="off"> <span
+													value="${date}" autocomplete="off"
+													onchange="freezeMonthValidation()"> <span
 													class="validation-invalid-label" id="error_month"
+													style="display: none;">This field is required.</span><span
+													class="validation-invalid-label" id="error_Range_freeze"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
@@ -379,6 +382,38 @@
 	<!-- /page content -->
 
 	<script>
+	function freezeMonthValidation() {
+ 
+		var claimDate = $('#datepicker').val();
+		var empId = $('#empId').val();
+		var fd = new FormData();
+
+		fd.append('fromDate', ('01-' + claimDate));
+		fd.append('empId', empId);
+
+		$
+				.ajax({
+					url : '${pageContext.request.contextPath}/validationForFreezeMonth',
+					type : 'post',
+					dataType : 'json',
+					data : fd,
+					contentType : false,
+					processData : false,
+					success : function(data) {
+
+						if (data.error == true) {
+							$("#error_Range_freeze").show();
+							$("#error_Range_freeze").html(data.msg);
+							document.getElementById("submtbtn").disabled = true;
+						} else {
+							$("#error_Range_freeze").hide();
+							document.getElementById("submtbtn").disabled = false;
+						}
+
+					},
+				});
+
+	}
 	function changeOrinalSts(sts) {
 		document
 		.getElementById("selectedSts").value=sts;
