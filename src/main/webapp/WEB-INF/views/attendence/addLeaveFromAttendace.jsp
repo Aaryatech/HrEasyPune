@@ -184,12 +184,13 @@
 								for="leaveTypeId">Select Leave Type <span
 								style="color: red">* </span>:
 							</label>
-							
+
 							<div class="col-lg-4">
 								<select name="leaveTypeId" data-placeholder="Select Leave Type"
 									id="leaveTypeId" class="form-control"
 									onchange="checkUnique();checkDatesRange()">
-
+									<option value="" data-leavestrname="NA">Select Leave
+										Type</option>
 									<c:forEach items="${leaveHistoryList}" var="leaveHistoryList">
 
 										<c:choose>
@@ -601,42 +602,42 @@
 <script>
 	function calholidayWebservice() {
 
-		var dayTypeName = document.getElementById("dayTypeName").value;
+		/* var dayTypeName = document.getElementById("dayTypeName").value;
 		if (dayTypeName == "" || dayTypeName == 1) {
 			document.getElementById("noOfDays").value = 1;
 		} else {
 			document.getElementById("noOfDays").value = 1 / 2;
-		}
+		} */
 
-		/*var daterange = document.getElementById("leaveDateRange").value;
+		var daterange = document.getElementById("leaveDateRange").value;
 		var dayTypeName = document.getElementById("dayTypeName").value;
 		var res = daterange.split(" to ");
 		var empId = document.getElementById("empId").value;
 		document.getElementById("submtbtn").disabled = true;
 		$
-			.getJSON(
-					'${calholidayWebservice}',
-					{
+				.getJSON(
+						'${calholidayWebservice}',
+						{
 
-						fromDate : res[0],
-						toDate : res[1],
-						empId : empId,
-						ajax : 'true',
+							fromDate : res[0],
+							toDate : res[1],
+							empId : empId,
+							ajax : 'true',
 
-					},
-					function(data) {
+						},
+						function(data) {
 
-						document.getElementById("noOfDaysExclude").value = data.holidaycount;
+							//document.getElementById("noOfDaysExclude").value = data.holidaycount;
 
-						if (dayTypeName == "" || dayTypeName == 1) {
-							document.getElementById("noOfDays").value = data.leavecount;
-						} else {
-							document.getElementById("noOfDays").value = data.leavecount / 2;
-						}
+							if (dayTypeName == "" || dayTypeName == 1) {
+								document.getElementById("noOfDays").value = data.leavecount;
+							} else {
+								document.getElementById("noOfDays").value = data.leavecount / 2;
+							}
 
-						//checkDays(data.leavecount);
-						checkDatesRange();
-					});*/
+							//checkDays(data.leavecount);
+							checkDatesRange();
+						});
 
 	}
 
