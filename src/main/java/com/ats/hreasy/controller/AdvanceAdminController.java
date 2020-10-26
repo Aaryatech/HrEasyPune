@@ -361,13 +361,14 @@ public class AdvanceAdminController {
 		int res = 0;
 
 		try {
-
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
 			String voucherNo = request.getParameter("voucherNo");
 			// System.out.println("Info" + voucherNo);
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
 			map.add("voucherNo", voucherNo);
-
+			map.add("locId", locId);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/checkCustPhone", map, Info.class);
 			// System.out.println("Info" + info+"info.isError()"+info.isError());
 			if (info.isError() == false) {
