@@ -179,6 +179,7 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		
 		private int currentLoc; 
 		private String gender;
+		private int otPerHr;
 		
 		private List<SalAllownceTemp> getAllowanceTempList;
 		public String getUuid() {
@@ -1183,6 +1184,12 @@ public class EmpSalInfoDaiyInfoTempInfo {
 		public void setOther1(double other1) {
 			this.other1 = other1;
 		}
+		public int getOtPerHr() {
+			return otPerHr;
+		}
+		public void setOtPerHr(int otPerHr) {
+			this.otPerHr = otPerHr;
+		}
 		@Override
 		public String toString() {
 			return "EmpSalInfoDaiyInfoTempInfo [uuid=" + uuid + ", id=" + id + ", cmpId=" + cmpId + ", empId=" + empId
@@ -1243,8 +1250,8 @@ public class EmpSalInfoDaiyInfoTempInfo {
 					+ totEarlyGoing + ", atsummUid=" + atsummUid + ", calculationDone=" + calculationDone + ", dob=" + dob
 					+ ", skillId=" + skillId + ", rate=" + rate + ", dailyHr=" + dailyHr + ", monthlyHrTarget="
 					+ monthlyHrTarget + ", monthlyMinimumTarget=" + monthlyMinimumTarget + ", monthlyOtHr=" + monthlyOtHr
-					+ ", currentLoc=" + currentLoc + ", gender=" + gender + ", getAllowanceTempList=" + getAllowanceTempList
-					+ "]";
+					+ ", currentLoc=" + currentLoc + ", gender=" + gender + ", otPerHr=" + otPerHr
+					+ ", getAllowanceTempList=" + getAllowanceTempList + "]";
 		}
 		
 		

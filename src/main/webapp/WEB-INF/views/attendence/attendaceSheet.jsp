@@ -172,7 +172,7 @@
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="bootstrap-data-table1"> -->
 									<table
-										class="table datatable-fixed-left_custom table-bordered  table-hover table-striped"
+										class="table datatable-fixed-left_custom1 table-bordered  table-hover table-striped"
 										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
@@ -289,7 +289,18 @@
 				"font-size" : "178"
 
 			}); */
-
+			$(document).ready(
+					function() {
+						$('a[data-toggle="tab"]')
+								.on(
+										'shown.bs.tab',
+										function(e) {
+											$($.fn.dataTable.tables(true))
+													.DataTable().columns
+													.adjust().responsive
+													.recalc();
+										});
+					});
 			$('.datatable-fixed-left_custom').DataTable({
 
 				columnDefs : [ {
@@ -304,6 +315,23 @@
 				fixedColumns : {
 					leftColumns : 1,
 					rightColumns : 1
+				}
+
+			});
+			$('.datatable-fixed-left_custom1').DataTable({
+
+				columnDefs : [ {
+					orderable : false,
+					targets : [ 0 ]
+				} ],
+				//scrollX : true,
+				scrollX : true,
+				scrollY : '65vh',
+				scrollCollapse : true,
+				paging : false,
+				fixedColumns : {
+					leftColumns : 0,
+					rightColumns : 0
 				}
 
 			});

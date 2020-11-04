@@ -94,7 +94,8 @@ public class MasterController {
 				String contactNo = request.getParameter("contactNo");
 				String email = request.getParameter("email");
 				String remark = request.getParameter("remark");
-
+				int otCal = Integer.parseInt(request.getParameter("otCal"));
+				
 				Boolean ret = false;
 
 				if (FormValidation.Validaton(locName, "") == true) {
@@ -144,7 +145,7 @@ public class MasterController {
 					location.setMakerUserId(userObj.getUserId());
 					location.setCompId(1);
 					location.setMakerEnterDatetime(sf.format(date));
-
+					location.setExInt1(otCal);
 					Location res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLocation", location,
 							Location.class);
 
@@ -337,7 +338,7 @@ public class MasterController {
 				String contactNo = request.getParameter("contactNo");
 				String email = request.getParameter("email");
 				String remark = request.getParameter("remark");
-
+				int otCal = Integer.parseInt(request.getParameter("otCal"));
 				Boolean ret = false;
 
 				if (FormValidation.Validaton(locName, "") == true) {
@@ -382,7 +383,7 @@ public class MasterController {
 					editLocation.setLocRemarks(remark);
 					editLocation.setMakerUserId(1);
 					editLocation.setMakerEnterDatetime(sf.format(date));
-
+					editLocation.setExInt1(otCal);
 					Location res = Constants.getRestTemplate().postForObject(Constants.url + "/saveLocation",
 							editLocation, Location.class);
 

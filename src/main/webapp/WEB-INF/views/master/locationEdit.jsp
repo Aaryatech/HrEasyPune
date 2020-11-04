@@ -26,10 +26,7 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header page-header-light">
-
- 
-			</div>
+			<div class="page-header page-header-light"></div>
 			<!-- /page header -->
 
 
@@ -48,20 +45,22 @@
 
 
 						<div class="card">
-								<div class="card-header header-elements-inline">
- 						<table width="100%">
-							<tr width="100%">
-								<td width="60%"><h5 class="pageTitle"><i class="icon-list-unordered"></i> Edit Location</h5></td>
-								<td width="40%" align="right">
-							  
-								 <%-- <a
+							<div class="card-header header-elements-inline">
+								<table width="100%">
+									<tr width="100%">
+										<td width="60%"><h5 class="pageTitle">
+												<i class="icon-list-unordered"></i> Edit Location
+											</h5></td>
+										<td width="40%" align="right">
+											<%-- <a
 									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
 									class="breadcrumb-elements-item">
 										<button type="button" class="btn btn-primary">KRA List </button>
-								</a>  --%></td>
-							</tr>
-						</table>
-					</div>
+								</a>  --%>
+										</td>
+									</tr>
+								</table>
+							</div>
 
 							<div class="card-body">
 
@@ -69,9 +68,12 @@
 									action="${pageContext.request.contextPath}/submitEditLocation"
 									id="submitInsertLocaion" method="post">
 									<div class="form-group row">
-									<div class="col-md-6">		
-											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="locName">Location
-												Name <span class="text-danger">* </span>:</label>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="locName">Location Name <span
+												class="text-danger">* </span>:
+											</label>
 											<div class="col-lg-7  float">
 												<input type="text" class="form-control"
 													placeholder="Enter Location Name" id="locName"
@@ -81,10 +83,13 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-										
+
 										<div class="col-md-6">
-												<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="locShortName">Location
-											Short Name <span class="text-danger">* </span>:</label>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="locShortName">Location Short Name <span
+												class="text-danger">* </span>:
+											</label>
 											<div class="col-lg-7  float">
 												<input type="text" class="form-control"
 													placeholder="Enter Location Short Name" id="locShortName"
@@ -92,34 +97,39 @@
 													autocomplete="off" onchange="trim(this)" maxlength="5">
 												<span class="validation-invalid-label"
 													id="error_locShortName" style="display: none;">This
-													field is required.</span>
-													<span
-													class="validation-invalid-label" id="error_sameName"
-													style="display: none;">Location Short Name Can Not be same as Location Name.</span>
-													
-													
+													field is required.</span> <span class="validation-invalid-label"
+													id="error_sameName" style="display: none;">Location
+													Short Name Can Not be same as Location Name.</span>
+
+
 											</div>
 										</div>
 									</div>
 
-									
+
 
 									<div class="form-group row">
-									<div class="col-md-6">	
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="add">Location
-											Short Address <span class="text-danger">* </span>:</label>
-										<div class="col-lg-7  float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Location Short Address" onchange="trim(this)"
-												id="add" name="add">  ${editLocation.locShortAddress} </textarea>
-											<span class="validation-invalid-label" id="error_locadd"
-												style="display: none;">This field is required.</span>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="add">Location Short Address <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7  float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Location Short Address" onchange="trim(this)"
+													id="add" name="add">  ${editLocation.locShortAddress} </textarea>
+												<span class="validation-invalid-label" id="error_locadd"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
-										</div>
-										
-										<div class="col-md-6">	
-											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="prsnName">Contact Person
-											Name <span class="text-danger">* </span>:</label>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="prsnName">Contact Person Name <span
+												class="text-danger">* </span>:
+											</label>
 											<div class="col-lg-7  float">
 												<input type="text" class="form-control"
 													placeholder="Contact Person Name" id="prsnName"
@@ -133,58 +143,83 @@
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="contactNo">Contact
-											No. <span class="text-danger">* </span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Contact No." id="contactNo"
-												name="contactNo" autocomplete="off" onchange="trim(this)"
-												value="${editLocation.locHrContactNumber}"  maxlength="10">
-											<span class="validation-invalid-label" id="error_contactNo"
-												style="display: none;">This field is required.</span>
-										</div>
-										</div>
-										
 										<div class="col-md-6">
-											<label class="col-form-label text-info font-weight-bold col-lg-5 float" for="email">Email <span class="text-danger">* </span>:</label>
-										<div class="col-lg-7 float">
-											<input type="text" class="form-control"
-												placeholder="Email" id="email"
-												name="email" autocomplete="off" onchange="trim(this)"
-												value="${editLocation.locHrContactEmail}"> <span
-												class="validation-invalid-label" id="error_email"
-												style="display: none;">This field is required.</span>
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="contactNo">Contact No. <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													placeholder="Contact No." id="contactNo" name="contactNo"
+													autocomplete="off" onchange="trim(this)"
+													value="${editLocation.locHrContactNumber}" maxlength="10">
+												<span class="validation-invalid-label" id="error_contactNo"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
+
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="email">Email <span class="text-danger">*
+											</span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control" placeholder="Email"
+													id="email" name="email" autocomplete="off"
+													onchange="trim(this)"
+													value="${editLocation.locHrContactEmail}"> <span
+													class="validation-invalid-label" id="error_email"
+													style="display: none;">This field is required.</span>
+											</div>
 										</div>
 									</div>
 
 
 									<div class="form-group row">
-									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="remark">Remark
-											: </label>
-										<div class="col-lg-7 float">
-											<textarea rows="3" cols="3" class="form-control"
-												placeholder="Any Remark" onchange="trim(this)" id="remark"
-												name="remark"> ${editLocation.locRemarks} </textarea>
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="remark">Remark
+												: </label>
+											<div class="col-lg-7 float">
+												<textarea rows="3" cols="3" class="form-control"
+													placeholder="Any Remark" onchange="trim(this)" id="remark"
+													name="remark"> ${editLocation.locRemarks} </textarea>
 
+											</div>
 										</div>
-									</div>
+										<div class="col-md-6">
+											<label
+												class="col-form-label text-info font-weight-bold col-lg-5 float"
+												for="otCal">OT Cal Per Hrs (In Min) <span
+												class="text-danger">* </span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="number" class="form-control"
+													placeholder="OT Calculation Per Hrs" id="otCal"
+													name="otCal" autocomplete="off" onchange="trim(this)"
+													min="0" value="${editLocation.exInt1}"> <span
+													class="validation-invalid-label" id="error_otCal"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
 									</div>
 
 									<div class="form-group row mb-0">
-									<div  style="margin: 0 auto;">
+										<div style="margin: 0 auto;">
 											<button type="submit" class="btn blue_btn ml-3 legitRipple"
 												id="submtbtn">
 												Submit <i class="icon-paperplane ml-2"></i>
 											</button>
 											<a href="${pageContext.request.contextPath}/showLocationList"><button
-										type="button" class="btn btn-light"><i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp; Back</button></a>
+													type="button" class="btn btn-light">
+													<i class="${sessionScope.cancelIcon}" aria-hidden="true"></i>&nbsp;&nbsp;
+													Back
+												</button></a>
 										</div>
 									</div>
 								</form>
-									<p class="desc text-danger fontsize11">Note : * Fields are
+								<p class="desc text-danger fontsize11">Note : * Fields are
 									mandatory.</p>
 							</div>
 						</div>
@@ -208,24 +243,22 @@
 	<!-- /page content -->
 
 	<script>
-	
-	function checkSame(){
-		x=document.getElementById("locName").value;
-		y=document.getElementById("locShortName").value;
-		//alert(x);
-		
-		if(x!== '' && y!== ''){
-			if(x==y){
-				$("#error_sameName").show()
-				document.getElementById("locShortName").value="";
+		function checkSame() {
+			x = document.getElementById("locName").value;
+			y = document.getElementById("locShortName").value;
+			//alert(x);
+
+			if (x !== '' && y !== '') {
+				if (x == y) {
+					$("#error_sameName").show()
+					document.getElementById("locShortName").value = "";
+				} else {
+					$("#error_sameName").hide()
+				}
 			}
-			else{
-				$("#error_sameName").hide()
-			}
-	}
-		
-	}
-	
+
+		}
+
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
