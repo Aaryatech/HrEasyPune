@@ -343,7 +343,38 @@
 										</div>
 									</div>
 
+									<div class="col-sm-12 col-md-6">
+										<div class="card">
+											<div
+												class="card-header bg-primary text-white header-elements-inline">
+												<h6 class="box_title" style="margin: 0;">Payroll
+													Reports</h6>
+												<div class="header-elements"></div>
+											</div>
 
+											<div class="advance_bx">
+												<ul>
+													<li>Pay Register Oneline Report (F1) <span> <a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'payOneLineReportExcel')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a>
+													</span></li>
+													<li>Pay Register Department Report (F1) <span>
+															<a href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'payDeptReportExcel')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a>
+													</span></li>
+
+												</ul>
+											</div>
+
+
+										</div>
+									</div>
 
 
 									<div class="col-sm-12 col-md-6">
