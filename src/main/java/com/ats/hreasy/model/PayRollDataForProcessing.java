@@ -8,6 +8,7 @@ public class PayRollDataForProcessing {
 	private List<Allowances> allowancelist ;
 	private List<GetPayrollGeneratedList> payrollGeneratedList ;
 	private List<GetOnelineReport> onelinereportlist;
+	private List<GetDeptPayReport> deptreportlist;
 	
 	public List<EmpSalaryInfoForPayroll> getList() {
 		return list;
@@ -33,10 +34,17 @@ public class PayRollDataForProcessing {
 	public void setOnelinereportlist(List<GetOnelineReport> onelinereportlist) {
 		this.onelinereportlist = onelinereportlist;
 	}
+	public List<GetDeptPayReport> getDeptreportlist() {
+		return deptreportlist;
+	}
+	public void setDeptreportlist(List<GetDeptPayReport> deptreportlist) {
+		this.deptreportlist = deptreportlist;
+	}
 	@Override
 	public String toString() {
 		return "PayRollDataForProcessing [list=" + list + ", allowancelist=" + allowancelist + ", payrollGeneratedList="
-				+ payrollGeneratedList + ", onelinereportlist=" + onelinereportlist + "]";
+				+ payrollGeneratedList + ", onelinereportlist=" + onelinereportlist + ", deptreportlist="
+				+ deptreportlist + "]";
 	}
 	
 	

@@ -55,6 +55,7 @@ import com.ats.hreasy.model.EmpLeaveHistoryRep;
 import com.ats.hreasy.model.EmpSalAllowance;
 import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetDailyDailyRecord;
+import com.ats.hreasy.model.GetDeptPayReport;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetOnelineReport;
 import com.ats.hreasy.model.Info;
@@ -749,6 +750,372 @@ public class ReportAdminController {
 			rowData.add("");
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
+			XSSFWorkbook wb = null;
+			try {
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month-Year:" + month, "", 'Z');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
+	@RequestMapping(value = "/payDeptReportExcel", method = RequestMethod.GET)
+	public void payDeptReportExcel(HttpServletRequest request, HttpServletResponse response) {
+
+		String reportName = "Pay Register Summary the Month of";
+
+		HttpSession session = request.getSession();
+
+		String month = request.getParameter("date");
+
+		String temp[] = month.split("-");
+
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("limitKey", "ab_deduction");
+			Setting abDeduction = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			int ab_deduction = Integer.parseInt(abDeduction.getValue());
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("limitKey", "ammount_format_show");
+			Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+					Setting.class);
+			int amount_round = Integer.parseInt(getSettingByKey.getValue());
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("group", "PAYROLLHIDESHOW");
+			Setting[] setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingListByGroup", map,
+					Setting[].class);
+			List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
+
+			int payroll_claim_show = 0;
+			int payroll_advance_show = 0;
+			int payroll_loan_show = 0;
+			int payroll_payded_show = 0;
+			int payroll_reward_show = 0;
+			int payroll_bhatta_show = 0;
+
+			for (int k = 0; k < settingList.size(); k++) {
+				if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
+					payroll_claim_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_advance_show")) {
+					payroll_advance_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_loan_show")) {
+					payroll_loan_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_payded_show")) {
+					payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
+					payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+				} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+					payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
+				}
+			}
+
+			int locId = (int) session.getAttribute("liveLocationId");
+			map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("month", temp[0]);
+			map.add("year", temp[1]);
+			map.add("locId", locId);
+			PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate()
+					.postForObject(Constants.url + "departmentwisePayrollReport", map, PayRollDataForProcessing.class);
+			List<GetDeptPayReport> list = payRollDataForProcessing.getDeptreportlist();
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			// rowData.add("Sr. No");
+			rowData.add("Department Name");
+			rowData.add("Basic");
+			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
+				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getName());
+				payRollDataForProcessing.getAllowancelist().get(i).setTaxPer(0);
+			}
+
+			rowData.add("Production Incentive");
+			rowData.add("Performance Incentive");
+			rowData.add("Night Allowance");
+			rowData.add("Performance Bonus");
+
+			if (payroll_claim_show == 1) {
+				rowData.add("Claim ADD");
+			}
+			if (payroll_bhatta_show == 1) {
+				rowData.add("Bhatta");
+			}
+			if (payroll_reward_show == 1) {
+				rowData.add("Reward");
+			}
+			rowData.add("Other1");
+			rowData.add("Total Earning");
+
+			if (payroll_advance_show == 1) {
+				rowData.add("Adv");
+			}
+			if (payroll_loan_show == 1) {
+				rowData.add("Loan");
+			}
+
+			rowData.add("TDS");
+			if (payroll_payded_show == 1) {
+				rowData.add("Pay Ded");
+			}
+
+			rowData.add("PT");
+			rowData.add("PF");
+			rowData.add("ESIC");
+			rowData.add("LWF");
+			/* rowData.add("Society Contribution"); */
+			rowData.add("Deduction AMT");
+			rowData.add("Net Salary");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+			int cnt = 1;
+
+			double totBasic = 0;
+			double totClaim = 0;
+			double totProduction = 0;
+			double totPerformance = 0;
+			double totNightAll = 0;
+			double totPerformanceBon = 0;
+			double totBhatta = 0;
+			double totOther = 0;
+			double totReward = 0;
+			double totEarning = 0;
+			double totadv = 0;
+			double totloan = 0;
+			double tottds = 0;
+			double totpayded = 0;
+			double totpt = 0;
+			double totpf = 0;
+			double totesic = 0;
+			double totlwf = 0;
+			double totdudctionamt = 0;
+			double totnetsalary = 0;
+
+			for (int i = 0; i < list.size(); i++) {
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				cnt = cnt + i;
+
+				// rowData.add("" + (i + 1));
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				// rowData.add("" + cnt);
+
+				rowData.add("" + list.get(i).getDepartName());
+
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
+				totBasic = ReportCostants.castNumber(totBasic + list.get(i).getBasicCal(), amount_round);
+
+				for (int k = 0; k < payRollDataForProcessing.getAllowancelist().size(); k++) {
+					int find = 0;
+					for (int j = 0; j < list.get(i).getPayrollAllownceList().size(); j++) {
+						if (list.get(i).getPayrollAllownceList().get(j).getAllowanceId() == payRollDataForProcessing
+								.getAllowancelist().get(k).getAllowanceId()) {
+
+							rowData.add(String.format("%.2f", ReportCostants.castNumber(
+									list.get(i).getPayrollAllownceList().get(j).getAllowanceValueCal(), amount_round)));
+
+							payRollDataForProcessing.getAllowancelist().get(k)
+									.setTaxPer((float) (payRollDataForProcessing.getAllowancelist().get(k).getTaxPer()
+											+ list.get(i).getPayrollAllownceList().get(j).getAllowanceValueCal()));
+							find = 1;
+							break;
+
+						}
+					}
+					if (find == 0) {
+
+						rowData.add(String.format("%.2f", ReportCostants.castNumber(0, amount_round)));
+					}
+
+				}
+
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
+				totProduction = ReportCostants.castNumber(totProduction + list.get(i).getOtWages(), amount_round);
+
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
+				totPerformance = ReportCostants.castNumber(totPerformance + list.get(i).getProductionInsentive(),
+						amount_round);
+
+				rowData.add(""
+						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+				totNightAll = ReportCostants.castNumber(totNightAll + list.get(i).getNightAllow(), amount_round);
+
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+				totPerformanceBon = ReportCostants.castNumber(totPerformanceBon + list.get(i).getPerformanceBonus(),
+						amount_round);
+
+				if (payroll_claim_show == 1) {
+
+					rowData.add("" + String.format("%.2f",
+							ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+					totClaim = ReportCostants.castNumber(totClaim + list.get(i).getMiscExpAdd(), amount_round);
+
+				}
+
+				if (payroll_bhatta_show == 1) {
+					rowData.add(""
+							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+					totBhatta = ReportCostants.castNumber(totBhatta + list.get(i).getBhatta(), amount_round);
+				}
+				if (payroll_reward_show == 1) {
+
+					rowData.add(""
+							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+					totReward = ReportCostants.castNumber(totReward + list.get(i).getReward(), amount_round);
+
+				}
+
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
+				totOther = ReportCostants.castNumber(totOther + list.get(i).getOther1(), amount_round);
+				rowData.add(
+						"" + String.format("%.2f",
+								ReportCostants.castNumber(list.get(i).getGrossSalary() + list.get(i).getOtWages()
+										+ list.get(i).getProductionInsentive() + list.get(i).getPerformanceBonus()
+										+ list.get(i).getNightAllow() + list.get(i).getMiscExpAdd()
+										+ list.get(i).getBhatta() + list.get(i).getReward() + list.get(i).getOther1(),
+										amount_round)));
+				totEarning = ReportCostants.castNumber(totEarning + list.get(i).getGrossSalary()
+						+ list.get(i).getOtWages() + list.get(i).getProductionInsentive()
+						+ list.get(i).getPerformanceBonus() + list.get(i).getNightAllow() + list.get(i).getMiscExpAdd()
+						+ list.get(i).getBhatta() + list.get(i).getReward() + list.get(i).getOther1(), amount_round);
+
+				if (payroll_advance_show == 1) {
+
+					rowData.add("" + String.format("%.2f",
+							ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
+					totadv = ReportCostants.castNumber(totadv + list.get(i).getAdvanceDed(), amount_round);
+
+				}
+				if (payroll_loan_show == 1) {
+
+					rowData.add(""
+							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
+					totloan = ReportCostants.castNumber(totloan + list.get(i).getLoanDed(), amount_round);
+
+				}
+
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
+				tottds = ReportCostants.castNumber(tottds + list.get(i).getItded(), amount_round);
+				if (payroll_payded_show == 1) {
+
+					rowData.add(""
+							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+					totpayded = ReportCostants.castNumber(totpayded + list.get(i).getPayDed(), amount_round);
+				}
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
+				totpt = ReportCostants.castNumber(totpt + list.get(i).getPtDed(), amount_round);
+				rowData.add(""
+						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
+				totpf = ReportCostants.castNumber(totpf + list.get(i).getEmployeePf(), amount_round);
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
+				totesic = ReportCostants.castNumber(totesic + list.get(i).getEsic(), amount_round);
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
+				totlwf = ReportCostants.castNumber(totlwf + list.get(i).getMlwf(), amount_round);
+				/*
+				 * rowData.add("" + String.format("%.2f",
+				 * ReportCostants.castNumber(list.get(i).getSocietyContribution(),
+				 * amount_round)));
+				 */
+				double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
+						+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()
+						+ list.get(i).getEsic() + list.get(i).getMlwf() + list.get(i).getSocietyContribution();
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
+				totdudctionamt = ReportCostants.castNumber(totdudctionamt + finalDed, amount_round);
+				rowData.add(""
+						+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getNetSalary(), amount_round)));
+				totnetsalary = ReportCostants.castNumber(totnetsalary + list.get(i).getNetSalary(), amount_round);
+
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+			}
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			// rowData.add("" + cnt);
+			rowData.add("Total");
+			rowData.add("" + totBasic);
+			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
+				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getTaxPer());
+			}
+
+			rowData.add("" + totProduction);
+			rowData.add("" + totPerformance);
+			rowData.add("" + totNightAll);
+			rowData.add("" + totPerformanceBon);
+
+			if (payroll_claim_show == 1) {
+				rowData.add("" + totClaim);
+			}
+			if (payroll_bhatta_show == 1) {
+				rowData.add("" + totBhatta);
+			}
+			if (payroll_reward_show == 1) {
+				rowData.add("" + totReward);
+			}
+			rowData.add("" + totOther);
+			rowData.add("" + totEarning);
+
+			if (payroll_advance_show == 1) {
+				rowData.add("" + totadv);
+			}
+			if (payroll_loan_show == 1) {
+				rowData.add("" + totloan);
+			}
+
+			rowData.add("" + tottds);
+			if (payroll_payded_show == 1) {
+				rowData.add("" + totpayded);
+			}
+
+			rowData.add("" + totpt);
+			rowData.add("" + totpf);
+			rowData.add("" + totesic);
+			rowData.add("" + totlwf);
+			/* rowData.add("Society Contribution"); */
+			rowData.add("" + totdudctionamt);
+			rowData.add("" + totnetsalary);
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
 			XSSFWorkbook wb = null;
 			try {
 
