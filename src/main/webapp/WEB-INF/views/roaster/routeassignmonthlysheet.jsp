@@ -118,7 +118,7 @@
 										<thead>
 											<tr class="bg-blue">
 												<!-- <th style="text-align: center;">Sr.no</th> -->
-												<th style="text-align: center;">Driver Code</th>
+												<!-- <th style="text-align: center;">Driver Code</th> -->
 												<th style="text-align: center;">Driver Name</th>
 												<th style="text-align: center;">Month</th>
 												<th style="text-align: center;">Year</th>
@@ -136,8 +136,9 @@
 												var="infomationList" varStatus="count">
 												<tr>
 
-													<td style="text-align: center;">${infomationList.empCode}</td>
-													<td>${infomationList.empName}</td>
+													<!-- <td style="text-align: center;"></td> -->
+													<td>${infomationList.empName}
+														(${infomationList.empCode})</td>
 													<td style="text-align: right;">${month}</td>
 													<td style="text-align: right;">${year}</td>
 													<c:forEach items="${infomationList.sttsList}"
@@ -154,6 +155,7 @@
 																<c:when test="${sttsList.routeId!=0}">${sttsList.routeName}</c:when>
 																<c:when test="${sttsList.isoffdayIsff==1}">Off Day</c:when>
 																<c:when test="${sttsList.isoffdayIsff==2}">FF</c:when>
+																<c:when test="${sttsList.isoffdayIsff==3}">Night Shift</c:when>
 																<c:otherwise>NA</c:otherwise>
 															</c:choose></td>
 													</c:forEach>
@@ -177,18 +179,19 @@
 									<!-- <table
 										class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
 										id="bootstrap-data-table1"> -->
-									<table class="table  table-bordered  table-hover table-striped"
+									<table
+										class="table datatable-fixed-left_custom1 table-bordered  table-hover   table-striped"
 										width="100%" id="printtable2">
 										<thead>
 											<tr class="bg-blue">
 
-												<th class="text-center">Driver Code</th>
+												<!-- <th class="text-center">Driver Code</th> -->
 												<th class="text-center">Driver Name</th>
 												<c:forEach items="${roasterSheetData.routeTypelist}"
 													var="routeTypelist">
 													<th style="text-align: center;">${routeTypelist.typeName}</th>
 												</c:forEach>
-												<th class="text-center">FF/Off Days</th>
+												<th class="text-center">FF/Off Days/Night Shift</th>
 												<th class="text-center">Late Mark</th>
 												<th class="text-center">Late Min</th>
 												<th class="text-center">Incentive</th>
@@ -214,8 +217,9 @@
 												<tr>
 
 
-													<td>${roasterSummeryDetailList.empCode}</td>
-													<td>${roasterSummeryDetailList.firstName}&nbsp;${roasterSummeryDetailList.surname}</td>
+													<!-- <td></td> -->
+													<td>${roasterSummeryDetailList.firstName}&nbsp;${roasterSummeryDetailList.surname}
+														(${roasterSummeryDetailList.empCode})</td>
 													<c:forEach items="${roasterSheetData.routeTypelist}"
 														var="routeTypelist">
 														<c:set value="0" var="typeCount"></c:set>
@@ -233,7 +237,7 @@
 														<td class="text-right">${typeCount}</td>
 													</c:forEach>
 
-													<td class="text-right">${roasterSummeryDetailList.ffCount}/${roasterSummeryDetailList.offDayCount}</td>
+													<td class="text-right">${roasterSummeryDetailList.ffCount}/${roasterSummeryDetailList.offDayCount}/${roasterSummeryDetailList.nightCount}</td>
 													<td class="text-right">${roasterSummeryDetailList.lateMark}</td>
 													<td class="text-right">${roasterSummeryDetailList.lateMin}</td>
 													<td class="text-right">${roasterSummeryDetailList.incentive}</td>
@@ -301,6 +305,18 @@
 		</script>
 
 		<script type="text/javascript">
+			$(document).ready(
+					function() {
+						$('a[data-toggle="tab"]')
+								.on(
+										'shown.bs.tab',
+										function(e) {
+											$($.fn.dataTable.tables(true))
+													.DataTable().columns
+													.adjust().responsive
+													.recalc();
+										});
+					});
 			$('.datatable-fixed-left_custom').DataTable({
 
 				columnDefs : [ {
@@ -313,8 +329,25 @@
 				scrollCollapse : true,
 				paging : false,
 				fixedColumns : {
-					leftColumns : 2,
+					leftColumns : 1,
 					rightColumns : 1
+				}
+
+			});
+			$('.datatable-fixed-left_custom1').DataTable({
+
+				columnDefs : [ {
+					orderable : false,
+					targets : [ 0 ]
+				} ],
+				//scrollX : true,
+				scrollX : true,
+				scrollY : '65vh',
+				scrollCollapse : true,
+				paging : false,
+				fixedColumns : {
+					leftColumns : 1,
+					rightColumns : 0
 				}
 
 			});

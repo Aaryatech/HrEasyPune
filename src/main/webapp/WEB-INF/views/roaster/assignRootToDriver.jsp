@@ -256,6 +256,8 @@
 																		Day</option>
 																	<option value="2"
 																		${list.isoffdayIsff==2 ? 'selected' : ''}>FF</option>
+																	<option value="3"
+																		${list.isoffdayIsff==3 ? 'selected' : ''}>Night Shift</option>
 															</select></td>
 															<c:if test="${flag==1}">
 																<td class="text-center"><c:choose>

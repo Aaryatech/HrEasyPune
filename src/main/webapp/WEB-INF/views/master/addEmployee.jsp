@@ -358,7 +358,7 @@
 													<select name="contractor"
 														data-placeholder="Select Contractor" id="contractor"
 														class="form-control form-control-select2 select2-hidden-accessible">
-														<option value="">Select Contractor</option>
+														<option value="0">NA</option>
 														<c:forEach items="${contractorsList}"
 															var="contractorsList">
 															<c:choose>

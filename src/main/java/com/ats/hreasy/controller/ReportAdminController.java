@@ -399,14 +399,13 @@ public class ReportAdminController {
 	@RequestMapping(value = "/payOneLineReportExcel", method = RequestMethod.GET)
 	public void payOneLineReportExcel(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Pay Register For the Month of";
-
+		 
 		HttpSession session = request.getSession();
 
 		String month = request.getParameter("date");
 
 		String temp[] = month.split("-");
-
+		String reportName = "Pay Register For the Month of" + month;
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -780,14 +779,13 @@ public class ReportAdminController {
 	@RequestMapping(value = "/payDeptReportExcel", method = RequestMethod.GET)
 	public void payDeptReportExcel(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Pay Register Summary the Month of";
-
 		HttpSession session = request.getSession();
 
 		String month = request.getParameter("date");
 
 		String temp[] = month.split("-");
 
+		String reportName = "Pay Register Summary the Month of" + month;
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();

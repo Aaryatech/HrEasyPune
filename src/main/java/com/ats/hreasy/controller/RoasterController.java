@@ -379,6 +379,9 @@ public class RoasterController {
 
 			List<RouteListFromOps> routeListFromOpsList = new ArrayList<>(Arrays.asList(routeListFromOps));
 
+			for (int j = 0; j < routeList.size(); j++) {
+				routeList.get(j).setDelStatus(0);
+			}
 			for (int i = 0; i < routeListFromOpsList.size(); i++) {
 
 				int flag = 0;
@@ -389,6 +392,7 @@ public class RoasterController {
 						routeList.get(j).setFrIds(routeListFromOpsList.get(i).getFr_ids());
 						routeList.get(j).setFrName(routeListFromOpsList.get(i).getFr_names());
 						routeList.get(j).setRouteName(routeListFromOpsList.get(i).getRoute_name());
+						routeList.get(j).setDelStatus(1);
 						flag = 1;
 
 						break;
@@ -408,7 +412,7 @@ public class RoasterController {
 
 			}
 
-			System.out.println(routeList);
+			// System.out.println(routeListFromOpsList.size() + " " + routeList.size());
 
 			RouteList[] info = Constants.getRestTemplate().postForObject(Constants.url + "/saveRouteList", routeList,
 					RouteList[].class);
@@ -665,14 +669,14 @@ public class RoasterController {
 									map.add("nameSd", pText);
 								} else {
 
-									if (driverPlanList.get(j).getIsoffdayIsff() == 2) {
-										map.add("selectStatus", p);
-										map.add("selectStatusText", psts);
-										map.add("nameSd", pText);
-									} else {
+									if (driverPlanList.get(j).getIsoffdayIsff() == 1) {
 										map.add("selectStatus", wo);
 										map.add("selectStatusText", wosts);
 										map.add("nameSd", woText);
+									} else {
+										map.add("selectStatus", p);
+										map.add("selectStatusText", psts);
+										map.add("nameSd", pText);
 									}
 								}
 
@@ -1337,8 +1341,8 @@ public class RoasterController {
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail", "confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0,
-				newModuleList);
+		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail",
+				"confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0, newModuleList);
 
 		if (view.isError() == true) {
 
@@ -1389,7 +1393,7 @@ public class RoasterController {
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/updateRouteName", method = RequestMethod.POST)
 	@ResponseBody
 	public Info updateRouteName(HttpServletRequest request, HttpServletResponse response) {
@@ -1399,18 +1403,18 @@ public class RoasterController {
 		try {
 			HttpSession session = request.getSession();
 			int planDetailId = Integer.parseInt(request.getParameter("planDetailId"));
-			String routeName =  request.getParameter("routeName") ;
+			String routeName = request.getParameter("routeName");
 			float routeBhattaChange = Float.parseFloat(request.getParameter("routeBhattaChange"));
-			String frNameChange =  request.getParameter("frNameChange") ;
+			String frNameChange = request.getParameter("frNameChange");
 			int kmChange = Integer.parseInt(request.getParameter("kmChange"));
-			
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("planDetailId", planDetailId);
 			map.add("routeName", routeName);
-			map.add("incentive", routeBhattaChange); 
-			map.add("frNameChange", frNameChange); 
-			map.add("kmChange", kmChange); 
-			
+			map.add("incentive", routeBhattaChange);
+			map.add("frNameChange", frNameChange);
+			map.add("kmChange", kmChange);
+
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateRouteName", map, Info.class);
 
 		} catch (Exception e) {
@@ -1420,16 +1424,16 @@ public class RoasterController {
 
 	}
 
-	
 	@RequestMapping(value = "/submitConfirmationRoasterChange", method = RequestMethod.POST)
-	public String submitConfirmationRoasterChange(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String submitConfirmationRoasterChange(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 		HttpSession session = request.getSession();
 		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 		String mav = null;
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
-		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail", "confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0,
-				newModuleList);
+		Info view = AcessController.checkAccess("confirmationRouteByDateAndChangeDetail",
+				"confirmationRouteByDateAndChangeDetail", 1, 0, 0, 0, newModuleList);
 
 		if (view.isError() == true) {
 
@@ -1556,5 +1560,5 @@ public class RoasterController {
 		return mav;
 
 	}
-	
+
 }

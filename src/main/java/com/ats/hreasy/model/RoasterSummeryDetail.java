@@ -10,6 +10,7 @@ public class RoasterSummeryDetail {
 	private String surname; 
 	private int offDayCount; 
 	private int ffCount; 
+	private int nightCount;
 	private int lateMark; 
 	private int lateMin; 
 	private int km; 
@@ -80,12 +81,18 @@ public class RoasterSummeryDetail {
 	public void setIncentive(float incentive) {
 		this.incentive = incentive;
 	}
+	public int getNightCount() {
+		return nightCount;
+	}
+	public void setNightCount(int nightCount) {
+		this.nightCount = nightCount;
+	}
 	@Override
 	public String toString() {
 		return "RoasterSummeryDetail [empId=" + empId + ", empCode=" + empCode + ", firstName=" + firstName
 				+ ", middleName=" + middleName + ", surname=" + surname + ", offDayCount=" + offDayCount + ", ffCount="
-				+ ffCount + ", lateMark=" + lateMark + ", lateMin=" + lateMin + ", km=" + km + ", incentive="
-				+ incentive + "]";
+				+ ffCount + ", nightCount=" + nightCount + ", lateMark=" + lateMark + ", lateMin=" + lateMin + ", km="
+				+ km + ", incentive=" + incentive + "]";
 	}
 	
 	

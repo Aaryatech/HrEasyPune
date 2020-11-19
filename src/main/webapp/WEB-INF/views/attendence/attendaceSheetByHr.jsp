@@ -269,7 +269,7 @@
 														<th width="5%">Sr.no</th>
 														<th width="5%"><input type="checkbox" name="selAll"
 															id="selAll" /></th>
-														<th class="text-center">EMP Code</th>
+														<!-- <th class="text-center">EMP Code</th> -->
 														<th class="text-center">EMP Name</th>
 														<th class="text-center">Department</th>
 														<th class="text-center">Status</th>
@@ -281,6 +281,7 @@
 														<th class="text-center">Production Incentive Hrs</th>
 														<!-- <th class="text-center">OShift/Loc</th> -->
 														<th class="text-center">Status</th>
+														<th class="text-center">Company/Contractor</th>
 														<th class="text-center">Action</th>
 
 													</tr>
@@ -302,8 +303,9 @@
 																data-lateminshow="${dailyrecordList.lateMin}"
 																data-statusidshow="${dailyrecordList.lvSumupId}"
 																class="select_all"></td>
-															<td class="text-center">${dailyrecordList.empCode}</td>
-															<td>${dailyrecordList.empName}</td>
+															<!-- <td class="text-center"></td> -->
+															<td>${dailyrecordList.empName}
+																(${dailyrecordList.empCode})</td>
 															<td>${dailyrecordList.empJson}</td>
 															<c:choose>
 																<c:when
@@ -354,6 +356,7 @@
 																	<option value="1"
 																		${dailyrecordList.rowId == '1'  ? 'Selected': '' }>Inactive</option>
 															</select></td>
+															<td>${dailyrecordList.reason}</td>
 															<td class="text-center"><c:if
 																	test="${dailyrecordList.isFixed==0 && editAccess==0 && dailyrecordList.atsummUid eq '0'}">
 																	<a href="#"
