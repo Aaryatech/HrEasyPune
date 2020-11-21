@@ -205,6 +205,7 @@ hr {
 						<c:when test="${list.routeId!=0}">${list.routeName}</c:when>
 						<c:when test="${list.isoffdayIsff==1}">Off Day</c:when>
 						<c:when test="${list.isoffdayIsff==2}">FF</c:when>
+						<c:when test="${list.isoffdayIsff==3}">Night Shift</c:when>
 						<c:otherwise>NA</c:otherwise>
 					</c:choose></td>
 			</tr>

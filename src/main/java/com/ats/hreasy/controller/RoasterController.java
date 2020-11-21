@@ -1072,6 +1072,8 @@ public class RoasterController {
 					rowData.add("Off Day");
 				} else if (list.get(i).getIsoffdayIsff() == 2) {
 					rowData.add("FF");
+				} else if (list.get(i).getIsoffdayIsff() == 3) {
+					rowData.add("Night Shift");
 				} else {
 					rowData.add("NA");
 				}
@@ -1240,6 +1242,8 @@ public class RoasterController {
 						rowData.add("Off Day");
 					} else if (list.get(i).getIsoffdayIsff() == 2) {
 						rowData.add("FF");
+					} else if (list.get(i).getIsoffdayIsff() == 3) {
+						rowData.add("Night Shift");
 					} else {
 						rowData.add("NA");
 					}
