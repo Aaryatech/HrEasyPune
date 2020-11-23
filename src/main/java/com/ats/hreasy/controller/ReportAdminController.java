@@ -5202,7 +5202,7 @@ public class ReportAdminController {
 	@RequestMapping(value = "/showEmployerPfRep", method = RequestMethod.GET)
 	public void showEmployerPfRep(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Employeer PF  Statement";
+		String reportName = "Employer PF  Statement";
 
 		HttpSession session = request.getSession();
 
@@ -5257,12 +5257,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(6);
+			PdfPTable table = new PdfPTable(5);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 5.5f, 3.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 3.0f, 5.5f, 3.5f, 3.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -5290,23 +5290,23 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("EPS Wages", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("EPS Contribution", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employeer's Contribution PF", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("EPF Difference", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("EPF %", tableHeaderFont));
+			/*hcell = new PdfPCell(new Phrase("EPF %", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
-			table.addCell(hcell);
+			table.addCell(hcell);*/
 
 			int index = 0;
 			for (int i = 0; i < progList.size(); i++) {
@@ -5344,11 +5344,11 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEpfEmployerPercentage(), headFontData));
+				/*cell = new PdfPCell(new Phrase("" + prog.getEpfEmployerPercentage(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-				table.addCell(cell);
+				table.addCell(cell);*/
 
 				if (cmpId != 0) {
 					cmpName = prog.getCompanyName();
@@ -5417,9 +5417,9 @@ public class ReportAdminController {
 				rowData.add("Sr. No");
 				rowData.add("Emp Code");
 				rowData.add("Emp Name");
-				rowData.add("EPS Wages");
-				rowData.add("Employeer's Contribution PF");
-				rowData.add("EPF %");
+				rowData.add("EPS Contribution");
+				rowData.add("EPF Difference");
+				/*rowData.add("EPF %");*/
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -5434,7 +5434,7 @@ public class ReportAdminController {
 					rowData.add("" + progList.get(i).getEmpName());
 					rowData.add("" + progList.get(i).getEmployerEps());
 					rowData.add("" + progList.get(i).getEmployerPf());
-					rowData.add("" + progList.get(i).getEpfEmployerPercentage());
+					/*rowData.add("" + progList.get(i).getEpfEmployerPercentage());*/
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
@@ -5479,7 +5479,7 @@ public class ReportAdminController {
 	@RequestMapping(value = "/showEmployeeEmployerPfRep", method = RequestMethod.GET)
 	public void showEmployeeEmployerPfRep(HttpServletRequest request, HttpServletResponse response) {
 
-		String reportName = "Employee Employeer PF  Statement";
+		String reportName = "Employee Employer PF  Statement";
 
 		HttpSession session = request.getSession();
 
@@ -5579,7 +5579,7 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employeer's Contribution PF", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Employer's Contribution PF", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -5695,7 +5695,7 @@ public class ReportAdminController {
 				rowData.add("Emp Name");
 				rowData.add("PFable Salary/Wages");
 				rowData.add("Employee's Contribution PF");
-				rowData.add("Employeer's Contribution PF");
+				rowData.add("Employer's Contribution PF");
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -6913,7 +6913,7 @@ public class ReportAdminController {
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employeer's LWF", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Employer's LWF", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 			table.addCell(hcell);
@@ -7044,7 +7044,7 @@ public class ReportAdminController {
 				rowData.add("Department");
 				rowData.add("Gross Salary");
 				rowData.add("Employee's LWF");
-				rowData.add("Employeer's LWF");
+				rowData.add("Employer's LWF");
 				rowData.add("Total");
 
 				expoExcel.setRowData(rowData);
@@ -7232,7 +7232,7 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employeer's Contr.ESIC", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Employer's Contr.ESIC", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -7326,7 +7326,7 @@ public class ReportAdminController {
 			document.add(table);
 			document.add(new Paragraph("Total Salary Wages: " + salWagesTot));
 			document.add(new Paragraph("Employee Contri: " + empCalTot));
-			document.add(new Paragraph("Employeer Contri: " + empr));
+			document.add(new Paragraph("Employer Contri: " + empr));
 			document.add(new Paragraph("Total: " + tot));
 
 			int totalPages = writer.getPageNumber();
@@ -7383,7 +7383,7 @@ public class ReportAdminController {
 				rowData.add("Month-Year");
 				rowData.add("Sal/Wages");
 				rowData.add("Employee's Contr.ESIC");
-				rowData.add("Employeer's Contr.ESIC");
+				rowData.add("Employer's Contr.ESIC");
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -7419,7 +7419,7 @@ public class ReportAdminController {
 					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
 							"Date Range:" + leaveDateRange + " Company Name:" + cmpName,
 							"Total Sal Wages:" + salWagesTot + ",Employee Contribution:" + empCalTot
-									+ ",Employeer Contribution:" + empr + ",Total" + tot,
+									+ ",Employer Contribution:" + empr + ",Total" + tot,
 							'I');
 
 					ExceUtil.autoSizeColumns(wb, 3);
@@ -8176,7 +8176,7 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employeer's Contribution", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Employer's Contribution", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -8294,7 +8294,7 @@ public class ReportAdminController {
 				rowData.add("Employee Count");
 				rowData.add("Month-Year");
 				rowData.add("Employee's Contribution");
-				rowData.add("Employeer's Contribution");
+				rowData.add("Employer's Contribution");
 				rowData.add("Total");
 
 				expoExcel.setRowData(rowData);
