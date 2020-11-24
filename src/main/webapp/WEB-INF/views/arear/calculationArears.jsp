@@ -52,8 +52,8 @@
 
 					<div class="card-body">
 
-						<form action="${pageContext.request.contextPath}/generatePayRoll"
-							id="submitInsertLeave" method="post">
+						<form action="${pageContext.request.contextPath}/generateArears"
+							id="generateArears" method="post">
 
 							<input type="hidden" name="searchDate" id="searchDate"
 								value="${date}" /> <input type="hidden" name="empIds"
@@ -66,7 +66,8 @@
 							</div>
 							<br>
 							<div class="text-center">
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+								<button type="button"
+									class="btn bg-blue ml-3 legitRipple bootbox_custom"
 									id="submtbtn">Complete Arrears Process</button>
 								<button type="button" class="btn bg-blue ml-3 legitRipple"
 									id="button-excel" onclick="getProgReport(0,'excelForArears')">Excel</button>
@@ -187,7 +188,7 @@
 									</tbody>
 								</table>
 							</div> --%>
-							  <div class="table-responsive">
+							<div class="table-responsive">
 								<table
 									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
 									width="100%" id="printtable10">
@@ -285,7 +286,7 @@
 
 									</tbody>
 								</table>
-							</div> 
+							</div>
 
 
 						</form>
@@ -308,18 +309,34 @@
 
 
 	<script type="text/javascript">
-		$(document)
-				.ready(
+		$('.bootbox_custom')
+				.on(
+						'click',
 						function() {
-							$('a[data-toggle="tab"]')
-									.on(
-											'shown.bs.tab',
-											function(e) {
-												$($.fn.dataTable.tables(true))
-														.DataTable().columns
-														.adjust().responsive
-														.recalc();
-											});
+							//var uuid = $(this).data("uuid") // will return the number 123
+							bootbox
+									.confirm({
+										title : 'Confirm ',
+										message : 'Are you sure want to generate the Arrears? Once it Gerenerated you will not able to edit any records/data.',
+										buttons : {
+											confirm : {
+												label : 'Yes',
+												className : 'btn-success'
+											},
+											cancel : {
+												label : 'Cancel',
+												className : 'btn-link'
+											}
+										},
+										callback : function(result) {
+											if (result) {
+												document.getElementById(
+														'generateArears')
+														.submit();
+
+											}
+										}
+									});
 						});
 
 		$('.datatable-fixed-left_custom').DataTable({

@@ -4,6 +4,7 @@ public class AllowanceWithDifferenceForArear {
 	
 	private int allowanceId;
 	private String name; 
+	private String shortName; 
 	private double allowanceValue; // current rate
 	private double allowanceValueCal; //month current rate
 	private double allowanceDifference;
@@ -44,11 +45,17 @@ public class AllowanceWithDifferenceForArear {
 	public void setArearCal(double arearCal) {
 		this.arearCal = arearCal;
 	}
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 	@Override
 	public String toString() {
-		return "AllowanceWithDifferenceForArear [allowanceId=" + allowanceId + ", name=" + name + ", allowanceValue="
-				+ allowanceValue + ", allowanceValueCal=" + allowanceValueCal + ", allowanceDifference="
-				+ allowanceDifference + ", arearCal=" + arearCal + "]";
+		return "AllowanceWithDifferenceForArear [allowanceId=" + allowanceId + ", name=" + name + ", shortName="
+				+ shortName + ", allowanceValue=" + allowanceValue + ", allowanceValueCal=" + allowanceValueCal
+				+ ", allowanceDifference=" + allowanceDifference + ", arearCal=" + arearCal + "]";
 	}
 
 }

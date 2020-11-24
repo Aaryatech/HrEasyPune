@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,8 +96,8 @@ public class ArearController {
 		try {
 			HttpSession session = request.getSession();
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-			String fromMonth = request.getParameter("fromMonth");
-			String toMonth = request.getParameter("toMonth");
+			fromMonth = request.getParameter("fromMonth");
+			toMonth = request.getParameter("toMonth");
 			String[] selectEmp = request.getParameterValues("selectEmp");
 			String empIds = "0";
 
@@ -125,6 +126,32 @@ public class ArearController {
 			model.addAttribute("allowanceList", allowanceList);
 
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/generateArears", method = RequestMethod.POST)
+	public String insertFinalPayRollAndDeleteFroTemp(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+		String mav = "redirect:/empListForArear";
+
+		HttpSession session = request.getSession();
+		try {
+
+			//mav = "redirect:/selectMonthForPayRoll";
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/insertFinalArearsValue",
+					empInfoForArearlist, Info.class);
+
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Arrears Generated Successfully");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Generated Arrears");
+			}
+
+		} catch (Exception e) {
+			session.setAttribute("errorMsg", "Failed to Generated Arrears");
 			e.printStackTrace();
 		}
 		return mav;
@@ -168,10 +195,13 @@ public class ArearController {
 
 				if (empInfoForArearlist.get(i).getGeneratedPayrollList().size() > 0) {
 
+					HashMap<String, Double> map = new HashMap<String, Double>();
 					double basicOldTotal = 0;
 					double basicCurrentTotal = 0;
 					double basicDiffTotal = 0;
 					double basicCalTotal = 0;
+					double totalDiff = 0;
+					double totalNet = 0;
 
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
@@ -193,6 +223,14 @@ public class ArearController {
 						rowData.add("");
 						rowData.add("");
 						rowData.add("");
+						map.put(allowanceList.get(j).getAllowanceId() + "Old" + empInfoForArearlist.get(i).getEmpId(),
+								0.0);
+						map.put(allowanceList.get(j).getAllowanceId() + "Current"
+								+ empInfoForArearlist.get(i).getEmpId(), 0.0);
+						map.put(allowanceList.get(j).getAllowanceId() + "Diff" + empInfoForArearlist.get(i).getEmpId(),
+								0.0);
+						map.put(allowanceList.get(j).getAllowanceId() + "Cal" + empInfoForArearlist.get(i).getEmpId(),
+								0.0);
 					}
 
 					expoExcel.setRowData(rowData);
@@ -209,16 +247,19 @@ public class ArearController {
 						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getPayableDays());
 						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getSalTotalDiff());
 						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getNetCalArear());
-						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getBasicCal());
 						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getBasicDefault());
+						rowData.add("" + empInfoForArearlist.get(i).getBasic());
 						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getSalBasicDiff());
 						rowData.add(
 								"" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getBasicCalArear());
 
+						totalDiff = totalDiff
+								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getSalTotalDiff();
+						totalNet = totalNet
+								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getNetCalArear();
 						basicOldTotal = basicOldTotal
-								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getBasicCal();
-						basicCurrentTotal = basicCurrentTotal
 								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getBasicDefault();
+						basicCurrentTotal = basicCurrentTotal + empInfoForArearlist.get(i).getBasic();
 						basicDiffTotal = basicDiffTotal
 								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getSalBasicDiff();
 						basicCalTotal = basicCalTotal
@@ -230,6 +271,37 @@ public class ArearController {
 
 								if (empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getDifAlloList().get(k)
 										.getAllowanceId() == allowanceList.get(m).getAllowanceId()) {
+
+									double old = map
+											.get(allowanceList.get(m).getAllowanceId() + "Old"
+													+ empInfoForArearlist.get(i).getEmpId())
+											+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+													.getDifAlloList().get(k).getAllowanceValueCal();
+									double current = map
+											.get(allowanceList.get(m).getAllowanceId() + "Current"
+													+ empInfoForArearlist.get(i).getEmpId())
+											+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+													.getDifAlloList().get(k).getAllowanceValue();
+									double diff = map
+											.get(allowanceList.get(m).getAllowanceId() + "Diff"
+													+ empInfoForArearlist.get(i).getEmpId())
+											+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+													.getDifAlloList().get(k).getAllowanceDifference();
+									double cal = map
+											.get(allowanceList.get(m).getAllowanceId() + "Cal"
+													+ empInfoForArearlist.get(i).getEmpId())
+											+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+													.getDifAlloList().get(k).getArearCal();
+
+									map.put(allowanceList.get(m).getAllowanceId() + "Old"
+											+ empInfoForArearlist.get(i).getEmpId(), old);
+									map.put(allowanceList.get(m).getAllowanceId() + "Current"
+											+ empInfoForArearlist.get(i).getEmpId(), current);
+									map.put(allowanceList.get(m).getAllowanceId() + "Diff"
+											+ empInfoForArearlist.get(i).getEmpId(), diff);
+									map.put(allowanceList.get(m).getAllowanceId() + "Cal"
+											+ empInfoForArearlist.get(i).getEmpId(), cal);
+
 									rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
 											.getDifAlloList().get(k).getAllowanceValueCal());
 									rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
@@ -255,17 +327,26 @@ public class ArearController {
 					rowData.add("");
 					rowData.add("Total");
 					rowData.add("");
-					rowData.add("");
-					rowData.add("");
+					rowData.add("" + totalDiff);
+					rowData.add("" + totalNet);
 					rowData.add("" + basicOldTotal);
 					rowData.add("" + basicCurrentTotal);
 					rowData.add("" + basicDiffTotal);
-					rowData.add("" + basicCalTotal); 
+					rowData.add("" + basicCalTotal);
 					for (int m = 0; m < allowanceList.size(); m++) {
-						rowData.add("");
-						rowData.add("");
-						rowData.add("");
-						rowData.add("");
+
+						double old = map.get(
+								allowanceList.get(m).getAllowanceId() + "Old" + empInfoForArearlist.get(i).getEmpId());
+						double current = map.get(allowanceList.get(m).getAllowanceId() + "Current"
+								+ empInfoForArearlist.get(i).getEmpId());
+						double diff = map.get(
+								allowanceList.get(m).getAllowanceId() + "Diff" + empInfoForArearlist.get(i).getEmpId());
+						double cal = map.get(
+								allowanceList.get(m).getAllowanceId() + "Cal" + empInfoForArearlist.get(i).getEmpId());
+						rowData.add("" + old);
+						rowData.add("" + current);
+						rowData.add("" + diff);
+						rowData.add("" + cal);
 					}
 
 					expoExcel.setRowData(rowData);
