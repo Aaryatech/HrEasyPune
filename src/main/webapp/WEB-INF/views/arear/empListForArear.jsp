@@ -101,7 +101,9 @@
 								</label>
 								<div class="col-md-2">
 									<input type="text" name="fromMonth" id="fromMonth"
-										class="form-control datepicker" value="${date}" required />
+										class="form-control datepicker" value="${date}" required /> <span
+										class="validation-invalid-label" id="error_fromMonth"
+										style="display: none;">Select from month.</span>
 								</div>
 								<label
 									class="col-form-label text-info font-weight-bold col-lg-2"
@@ -110,7 +112,9 @@
 								</label>
 								<div class="col-md-2">
 									<input type="text" name="toMonth" id="toMonth"
-										class="form-control datepicker" value="${date}" required />
+										class="form-control datepicker" value="${date}" required /><span
+										class="validation-invalid-label" id="error_toMonth"
+										style="display: none;">Select to month.</span>
 								</div>
 
 							</div>
@@ -326,19 +330,38 @@
 		}); */
 		function submitForm() {
 
+			var fromMonth = $('#fromMonth').val();
+			var toMonth = $('#toMonth').val();
 			var table = $('#printtable1').DataTable();
 			table.search("").draw();
 			$("#error_emp").hide();
+			$("#error_toMonth").hide();
+			$("#error_fromMonth").hide();
 			var list = [];
 
 			$("input:checkbox[name=selectEmp]:checked").each(function() {
 				list.push($(this).val());
 			});
-			if (list.length > 0) {
-				document.getElementById('selectMonthForPayRoll').submit();
-			} else {
-				//alert("Select Minimum one employee")
+
+			var flag = 0;
+
+			if (fromMonth == "") {
+				$("#error_fromMonth").show();
+				flag = 1;
+			}
+			if (toMonth == "") {
+				$("#error_toMonth").show();
+				flag = 1;
+			}
+
+			if (list.length <= 0) {
 				$("#error_emp").show();
+				flag = 1;
+			}
+
+			//alert(list.length)
+			if (flag == 0) {
+				document.getElementById('selectMonthForPayRoll').submit();
 			}
 		}
 	</script>

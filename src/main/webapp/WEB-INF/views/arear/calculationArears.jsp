@@ -64,30 +64,161 @@
 									width="150px" height="150px"
 									style="display: block; margin-left: auto; margin-right: auto">
 							</div>
+							<br>
+							<div class="text-center">
+								<button type="submit" class="btn bg-blue ml-3 legitRipple"
+									id="submtbtn">Complete Arrears Process</button>
+								<button type="button" class="btn bg-blue ml-3 legitRipple"
+									id="button-excel" onclick="getProgReport(0,'excelForArears')">Excel</button>
+							</div>
+							<br>
+							<%-- <div class="table-responsive accordion">
+								<table class="table">
+									<thead>
+										<tr class="bg-blue">
+											<th class="text-center" scope="col">#</th>
+											<th class="text-center" scope="col">Employee Name</th>
+											<th class="text-center" scope="col">Department</th>
+											<th class="text-center" scope="col">Designation</th>
+											<th class="text-center" scope="col">Net AMT</th>
+										</tr>
+									</thead>
+									<tbody>
 
-							<div class="table-responsive">
+										<c:forEach items="${empList}" var="empList" varStatus="count">
+											<c:if test="${empList.generatedPayrollList.size()>0}">
+												<tr class="accordion-toggle collapsed"
+													id="accordion${count.index+1}" data-toggle="collapse"
+													data-parent="#accordion${count.index+1}"
+													href="#collapseOne${count.index+1}">
+													<td><span class="expand-button"></span></td>
+													<td>${empList.empName}&nbsp;(${empList.empCode})</td>
+													<td class="text-center">${empList.deptName}</td>
+													<td class="text-center">${empList.designation}</td>
+													<td class="text-right">${empList.totalDiffCal}</td>
+												</tr>
+												<tr class="hide-table-padding">
+
+													<td colspan="5"><div class=" collapse in p-3"
+															id="collapseOne${count.index+1}">
+															<div class="table-responsive ">
+																<table
+																	class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
+																	width="100%" id="printtable${count.index+1}">
+
+
+																	<thead>
+																		<tr class="bg-blue">
+
+																			<th class="text-center" rowspan="2">Month</th>
+																			<th class="text-center" rowspan="2">PayableDays</th>
+																			<th class="text-center" rowspan="2">Total DIFF</th>
+																			<th class="text-center" rowspan="2">Net AMT</th>
+																			<th class="text-center" colspan="4">Basic</th>
+																			<c:forEach items="${allowanceList}"
+																				var="allowanceList">
+																				<th class="text-center" colspan="4">${allowanceList.name}</th>
+																			</c:forEach>
+
+																		</tr>
+																		<tr class="bg-blue">
+
+
+																			<th class="text-center">Old</th>
+																			<th class="text-center">Current</th>
+																			<th class="text-center">DIFF</th>
+																			<th class="text-center">Cal</th>
+																			<c:forEach items="${allowanceList}"
+																				var="allowanceList">
+																				<th class="text-center">Old</th>
+																				<th class="text-center">Current</th>
+																				<th class="text-center">DIFF</th>
+																				<th class="text-center">Cal</th>
+																			</c:forEach>
+
+																		</tr>
+
+																	</thead>
+
+																	<tbody>
+
+																		<c:forEach items="${empList.generatedPayrollList}"
+																			var="generatedPayrollList">
+																			<tr>
+
+																				<td class="text-center">${generatedPayrollList.email}</td>
+
+																				<td class="text-right">${generatedPayrollList.payableDays}</td>
+																				<td class="text-right">${generatedPayrollList.salTotalDiff}</td>
+																				<td class="text-right">${generatedPayrollList.netCalArear}</td>
+																				<td class="text-right">${generatedPayrollList.basicDefault}</td>
+																				<td class="text-right">${empList.basic}</td>
+																				<td class="text-right">${generatedPayrollList.salBasicDiff}</td>
+																				<td class="text-right">${generatedPayrollList.basicCalArear}</td>
+																				<c:forEach items="${allowanceList}"
+																					var="allowanceList">
+																					<c:forEach
+																						items="${generatedPayrollList.difAlloList}"
+																						var="difAlloList">
+																						<c:if
+																							test="${difAlloList.allowanceId==allowanceList.allowanceId}">
+																							<td class="text-right">${difAlloList.allowanceValueCal}
+																							</td>
+																							<td class="text-right">${difAlloList.allowanceValue}
+																							</td>
+																							<td class="text-right">${difAlloList.allowanceDifference}
+																							</td>
+																							<td class="text-right">${difAlloList.arearCal}</td>
+																						</c:if>
+																					</c:forEach>
+																				</c:forEach>
+
+																			</tr>
+																		</c:forEach>
+
+																	</tbody>
+																</table>
+															</div>
+														</div></td>
+												</tr>
+											</c:if>
+										</c:forEach>
+
+									</tbody>
+								</table>
+							</div> --%>
+							  <div class="table-responsive">
 								<table
 									class="table datatable-fixed-left_custom table-bordered  table-hover   table-striped"
-									width="100%" id="printtable1">
+									width="100%" id="printtable10">
 
 
 									<thead>
-
 										<tr class="bg-blue">
 
-											<th width="20%" class="text-center">EMP Name</th>
-											<th class="text-center">Department</th>
-											<th class="text-center">Designation</th>
-											<th class="text-center">Total DIFF</th>
-											<th class="text-center">Basic Old</th>
-											<th class="text-center">Basic Current</th>
-											<th class="text-center">Basic DIFF</th>
-											<th class="text-center">Basic Cal</th>
+											<th width="20%" class="text-center" rowspan="2">EMP Name</th>
+											<th class="text-center" rowspan="2">Department</th>
+											<th class="text-center" rowspan="2">Designation</th>
+											<th class="text-center" rowspan="2">PayableDays</th>
+											<th class="text-center" rowspan="2">Total DIFF</th>
+											<th class="text-center" rowspan="2">Net AMT</th>
+											<th class="text-center" colspan="4">Basic</th>
 											<c:forEach items="${allowanceList}" var="allowanceList">
-												<th class="text-center">${allowanceList.name}&nbsp;Old</th>
-												<th class="text-center">${allowanceList.name}&nbsp;Current</th>
-												<th class="text-center">${allowanceList.name}&nbsp;DIFF</th>
-												<th class="text-center">${allowanceList.name}&nbsp;Cal</th>
+												<th class="text-center" colspan="4">${allowanceList.name}</th>
+											</c:forEach>
+
+										</tr>
+										<tr class="bg-blue">
+
+											<th class="text-center">Old</th>
+											<th class="text-center">Current</th>
+											<th class="text-center">DIFF</th>
+											<th class="text-center">Cal</th>
+											<c:forEach items="${allowanceList}" var="allowanceList">
+												<th class="text-center">Old</th>
+												<th class="text-center">Current</th>
+												<th class="text-center">DIFF</th>
+												<th class="text-center">Cal</th>
 											</c:forEach>
 
 										</tr>
@@ -96,66 +227,66 @@
 
 									<tbody>
 										<c:forEach items="${empList}" var="empList" varStatus="count">
-											<tr>
-
-												<td>${empList.empName}&nbsp;(${empList.empCode})</td>
-												<td class="text-center">${empList.deptName}</td>
-												<td class="text-center">${empList.designation}</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<c:forEach items="${allowanceList}" var="allowanceList">
-													<th class="text-center"></th>
-													<th class="text-center"></th>
-													<th class="text-center"></th>
-												</c:forEach>
-
-											</tr>
-											<c:forEach items="${empList.generatedPayrollList}"
-												var="generatedPayrollList">
+											<c:if test="${empList.generatedPayrollList.size()>0}">
 												<tr>
 
-													<td class="text-center">${generatedPayrollList.email}</td>
-													<td></td>
-													<td></td>
-													<td class="text-right">${generatedPayrollList.salTotalDiff}</td>
-													<td class="text-right">${generatedPayrollList.basicDefault}</td>
-													<td class="text-right">${empList.basic}</td>
-													<td class="text-right">${generatedPayrollList.salBasicDiff}</td>
-													<td class="text-right">${generatedPayrollList.basicCalArear}</td>
+													<td>${empList.empName}&nbsp;(${empList.empCode})</td>
+													<td class="text-center">${empList.deptName}</td>
+													<td class="text-center">${empList.designation}</td>
+													<td colspan="3"></td>
+													<td style="display: none;"></td>
+													<td style="display: none;"></td>
+													<td colspan="4"></td>
+													<td style="display: none;"></td>
+													<td style="display: none;"></td>
+													<td style="display: none;"></td>
 													<c:forEach items="${allowanceList}" var="allowanceList">
-														<c:forEach items="${generatedPayrollList.difAlloList}"
-															var="difAlloList">
-															<c:if
-																test="${difAlloList.allowanceId==allowanceList.allowanceId}">
-																<td class="text-right">${difAlloList.allowanceValueCal}
-																</td>
-																<td class="text-right">${difAlloList.allowanceValue}
-																</td>
-																<td class="text-right">${difAlloList.allowanceDifference}
-																</td>
-															</c:if>
-														</c:forEach>
+														<th class="text-center" colspan="4"></th>
+														<th class="text-center" style="display: none;"></th>
+														<th class="text-center" style="display: none;"></th>
+														<th class="text-center" style="display: none;"></th>
 													</c:forEach>
 
 												</tr>
-											</c:forEach>
+												<c:forEach items="${empList.generatedPayrollList}"
+													var="generatedPayrollList">
+													<tr>
+
+														<td class="text-center">${generatedPayrollList.email}</td>
+														<td colspan="2"></td>
+														<td style="display: none;"></td>
+														<td class="text-right">${generatedPayrollList.payableDays}</td>
+														<td class="text-right">${generatedPayrollList.salTotalDiff}</td>
+														<td class="text-right">${generatedPayrollList.netCalArear}</td>
+														<td class="text-right">${generatedPayrollList.basicDefault}</td>
+														<td class="text-right">${empList.basic}</td>
+														<td class="text-right">${generatedPayrollList.salBasicDiff}</td>
+														<td class="text-right">${generatedPayrollList.basicCalArear}</td>
+														<c:forEach items="${allowanceList}" var="allowanceList">
+															<c:forEach items="${generatedPayrollList.difAlloList}"
+																var="difAlloList">
+																<c:if
+																	test="${difAlloList.allowanceId==allowanceList.allowanceId}">
+																	<td class="text-right">${difAlloList.allowanceValueCal}
+																	</td>
+																	<td class="text-right">${difAlloList.allowanceValue}
+																	</td>
+																	<td class="text-right">${difAlloList.allowanceDifference}
+																	</td>
+																	<td class="text-right">${difAlloList.arearCal}</td>
+																</c:if>
+															</c:forEach>
+														</c:forEach>
+
+													</tr>
+												</c:forEach>
+											</c:if>
 										</c:forEach>
 
 									</tbody>
 								</table>
-							</div>
-							<br>
-							<div class="text-center">
+							</div> 
 
-								<button type="submit" class="btn bg-blue ml-3 legitRipple"
-									id="submtbtn">
-									Process Pay Roll <i class="icon-paperplane ml-2"></i>
-								</button>
-
-							</div>
 
 						</form>
 					</div>
@@ -164,37 +295,7 @@
 				<!-- /highlighting rows and columns -->
 
 			</div>
-			<!-- /content area -->
 
-			<!-- Info modal -->
-			<div id="modal_step1" class="modal fade " data-backdrop="false"
-				tabindex="-1">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header bg-info">
-							<h6 class="modal-title">Updating Record...</h6>
-							<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-						</div>
-
-						<div class="modal-body">
-							<h6 class="font-weight-semibold text-center">
-								<h6>Please wait.....</h6>
-							</h6>
-
-							<hr>
-							<p class="text-center text-info">If it is taking time please
-								reload the page</p>
-						</div>
-
-						<div class="modal-footer">
-							<!--   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Footer -->
 			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 			<!-- /footer -->
 
@@ -207,6 +308,20 @@
 
 
 	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$('a[data-toggle="tab"]')
+									.on(
+											'shown.bs.tab',
+											function(e) {
+												$($.fn.dataTable.tables(true))
+														.DataTable().columns
+														.adjust().responsive
+														.recalc();
+											});
+						});
+
 		$('.datatable-fixed-left_custom').DataTable({
 
 			columnDefs : [ {
@@ -214,6 +329,7 @@
 				targets : [ 0 ]
 			} ],
 			"order" : [],
+			"ordering" : false,
 			//scrollX : true,
 			scrollX : true,
 			scrollY : '65vh',
@@ -225,6 +341,12 @@
 			}
 
 		});
+		function getProgReport(prm, mapping) {
+
+			window.open("${pageContext.request.contextPath}/" + mapping + "/",
+					"_blank");
+
+		}
 	</script>
 </body>
 </html>

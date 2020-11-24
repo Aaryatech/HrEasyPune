@@ -1,7 +1,7 @@
 package com.ats.hreasy.model;
 
 import java.util.List;
- 
+
 public class GetPayrollGeneratedListForArear {
 
 	private int id;
@@ -86,7 +86,7 @@ public class GetPayrollGeneratedListForArear {
 	private double reward;
 	private double bhatta;
 	private double other1;
-	
+
 	private int subCmpId;
 
 	private String name;
@@ -110,18 +110,27 @@ public class GetPayrollGeneratedListForArear {
 	private float workingDays;
 	private float totworkingHrs;
 	private String email;
-	private double grossSalaryDytemp; 
+	private double grossSalaryDytemp;
 	private double esicArear;
 	private double pfArear;
 	private double basicCalArear;
 	List<SalAllownceCal> payrollAllownceList;
-  
+
 	List<AllowanceWithDifferenceForArear> difAlloList;
- 
+
 	private double salBasicDiff;
-	 
+
 	private double salTotalDiff;
-	
+	private double netCalArear;
+
+	public double getNetCalArear() {
+		return netCalArear;
+	}
+
+	public void setNetCalArear(double netCalArear) {
+		this.netCalArear = netCalArear;
+	}
+
 	public double getBasicCalArear() {
 		return basicCalArear;
 	}
@@ -129,6 +138,7 @@ public class GetPayrollGeneratedListForArear {
 	public void setBasicCalArear(double basicCalArear) {
 		this.basicCalArear = basicCalArear;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -984,7 +994,7 @@ public class GetPayrollGeneratedListForArear {
 	public void setGrossSalaryDytemp(double grossSalaryDytemp) {
 		this.grossSalaryDytemp = grossSalaryDytemp;
 	}
- 
+
 	public double getEsicArear() {
 		return esicArear;
 	}
@@ -1039,8 +1049,8 @@ public class GetPayrollGeneratedListForArear {
 				+ monthlyHrTarget + ", monthlyMinimumTarget=" + monthlyMinimumTarget + ", monthlyOtHr=" + monthlyOtHr
 				+ ", totalDaysInmonth=" + totalDaysInmonth + ", workingDays=" + workingDays + ", totworkingHrs="
 				+ totworkingHrs + ", email=" + email + ", grossSalaryDytemp=" + grossSalaryDytemp + ", esicArear="
-				+ esicArear + ", pfArear=" + pfArear + ", basicCalArear=" + basicCalArear + ", payrollAllownceList="
-				+ payrollAllownceList + ", difAlloList=" + difAlloList + ", salBasicDiff=" + salBasicDiff
-				+ ", salTotalDiff=" + salTotalDiff + "]";
+				+ esicArear + ", pfArear=" + pfArear + ", payrollAllownceList=" + payrollAllownceList + ", difAlloList="
+				+ difAlloList + ", salBasicDiff=" + salBasicDiff + ", salTotalDiff=" + salTotalDiff + ", basicCalArear="
+				+ basicCalArear + ", netCalArear=" + netCalArear + "]";
 	}
 }
