@@ -234,18 +234,18 @@
 													<td>${empList.empName}&nbsp;(${empList.empCode})</td>
 													<td class="text-center">${empList.deptName}</td>
 													<td class="text-center">${empList.designation}</td>
-													<td colspan="3"></td>
-													<td style="display: none;"></td>
-													<td style="display: none;"></td>
-													<td colspan="4"></td>
-													<td style="display: none;"></td>
-													<td style="display: none;"></td>
-													<td style="display: none;"></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
 													<c:forEach items="${allowanceList}" var="allowanceList">
-														<th class="text-center" colspan="4"></th>
-														<th class="text-center" style="display: none;"></th>
-														<th class="text-center" style="display: none;"></th>
-														<th class="text-center" style="display: none;"></th>
+														<th class="text-center"></th>
+														<th></th>
+														<th></th>
+														<th></th>
 													</c:forEach>
 
 												</tr>
@@ -254,8 +254,8 @@
 													<tr>
 
 														<td class="text-center">${generatedPayrollList.email}</td>
-														<td colspan="2"></td>
-														<td style="display: none;"></td>
+														<td></td>
+														<td></td>
 														<td class="text-right">${generatedPayrollList.payableDays}</td>
 														<td class="text-right">${generatedPayrollList.salTotalDiff}</td>
 														<td class="text-right">${generatedPayrollList.netCalArear}</td>
@@ -307,7 +307,7 @@
 	<!-- /page content -->
 
 
-
+	<a id="dlink" style="display: none;"></a>
 	<script type="text/javascript">
 		$('.bootbox_custom')
 				.on(
@@ -364,6 +364,76 @@
 					"_blank");
 
 		}
+		/* $(document)
+				.ready(
+						function() {
+							$("#button-excel")
+									.click(
+											function(e) {
+												//getting values of current time for generating the file name
+												var dt = new Date();
+												var day = dt.getDate();
+												var month = dt.getMonth() + 1;
+												var year = dt.getFullYear();
+												var hour = dt.getHours();
+												var mins = dt.getMinutes();
+												var postfix = day + "." + month
+														+ "." + year + "_"
+														+ hour + "." + mins;
+												//creating a temporary HTML link element (they support setting file names)
+												var a = document
+														.createElement('a');
+												//getting data from our div that contains the HTML table
+												var data_type = 'data:application/vnd.ms-excel';
+												var table_div = document
+														.getElementById('printtable10');
+												var table_html = table_div.outerHTML
+														.replace(/ /g, '%20');
+												a.href = data_type + ', '
+														+ table_html;
+												//setting the file name
+												a.download = 'exported_table_'
+														+ postfix + '.xls';
+												//triggering the function
+												a.click();
+												//just in case, prevent default behaviour
+												e.preventDefault();
+											});
+						}); */
+		/* function getProgReport() {
+			var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+			var textRange;
+			var j = 0;
+			tab = document.getElementById('printtable10'); // id of table
+
+			for (j = 0; j < tab.rows.length; j++) {
+				tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+				//tab_text=tab_text+"</tr>";
+			}
+
+			tab_text = tab_text + "</table>";
+			tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+			tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+			tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf("MSIE ");
+
+			if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
+			{
+				txtArea1.document.open("txt/html", "replace");
+				txtArea1.document.write(tab_text);
+				txtArea1.document.close();
+				txtArea1.focus();
+				sa = txtArea1.document.execCommand("SaveAs", true,
+						"Say Thanks to Sumit.xls");
+			} else
+				//other browser not tested on IE 11
+				sa = window.open('data:application/vnd.ms-excel,'
+						+ encodeURIComponent(tab_text));
+
+			return (sa);
+		} */
 	</script>
 </body>
 </html>
