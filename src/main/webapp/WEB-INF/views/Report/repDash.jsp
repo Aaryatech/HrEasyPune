@@ -804,7 +804,17 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
-
+													<li>Arrears ESIC Statement (F2,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showArrearsStatutoryEsicRep')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f3',1,'showArrearsStatutoryEsicRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
 												</ul>
 											</div>
 
