@@ -140,7 +140,7 @@
 										<div class="col-md-7 float">
 											<select name="subCmpId" data-placeholder="Select Sub Company"
 												id="subCmpId" class="form-control form-control-select2 ">
-												<option value="">Select Company</option>
+
 												<c:forEach items="${companySubList}" var="companySubList">
 													<option value="${companySubList.companyId}">${companySubList.companyName}</option>
 
@@ -763,7 +763,53 @@
 
 										</div>
 									</div>
+									<div class="col-sm-12 col-md-6">
+										<div class="card">
+											<div
+												class="card-header bg-primary text-white header-elements-inline">
+												<h6 class="box_title" style="margin: 0;">Arrears
+													Reports</h6>
+												<div class="header-elements"></div>
+											</div>
+											<div class="advance_bx">
+												<ul>
 
+													<li>Arrears Report (F1,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'arearReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success text-success"
+																style="color: black;"></i></a> </span>
+													</li>
+													<li>Arrears Employee PF Statement(F2,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showArrearsEmpPfRep')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f3',1,'showArrearsEmpPfRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
+
+													<li>Arrears Employer PF Statement(F2,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showArrearsEmployerPfRep')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f3',1,'showArrearsEmployerPfRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
+
+												</ul>
+											</div>
+
+										</div>
+									</div>
 
 								</div>
 								<input type="hidden" id="cal_yr" name="cal_yr" value="0">

@@ -58,6 +58,7 @@ import com.ats.hreasy.model.GetDailyDailyRecord;
 import com.ats.hreasy.model.GetDeptPayReport;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetOnelineReport;
+import com.ats.hreasy.model.GetPayrollGeneratedList;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveApply;
 import com.ats.hreasy.model.LeaveHistTemp;
@@ -399,7 +400,6 @@ public class ReportAdminController {
 	@RequestMapping(value = "/payOneLineReportExcel", method = RequestMethod.GET)
 	public void payOneLineReportExcel(HttpServletRequest request, HttpServletResponse response) {
 
-		 
 		HttpSession session = request.getSession();
 
 		String month = request.getParameter("date");
@@ -5302,11 +5302,13 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			/*hcell = new PdfPCell(new Phrase("EPF %", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);*/
+			/*
+			 * hcell = new PdfPCell(new Phrase("EPF %", tableHeaderFont));
+			 * hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			 * hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			 * 
+			 * table.addCell(hcell);
+			 */
 
 			int index = 0;
 			for (int i = 0; i < progList.size(); i++) {
@@ -5344,11 +5346,13 @@ public class ReportAdminController {
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				table.addCell(cell);
 
-				/*cell = new PdfPCell(new Phrase("" + prog.getEpfEmployerPercentage(), headFontData));
-				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-				table.addCell(cell);*/
+				/*
+				 * cell = new PdfPCell(new Phrase("" + prog.getEpfEmployerPercentage(),
+				 * headFontData)); cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				 * cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				 * 
+				 * table.addCell(cell);
+				 */
 
 				if (cmpId != 0) {
 					cmpName = prog.getCompanyName();
@@ -5419,7 +5423,7 @@ public class ReportAdminController {
 				rowData.add("Emp Name");
 				rowData.add("EPS Contribution");
 				rowData.add("EPF Difference");
-				/*rowData.add("EPF %");*/
+				/* rowData.add("EPF %"); */
 
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
@@ -5434,7 +5438,7 @@ public class ReportAdminController {
 					rowData.add("" + progList.get(i).getEmpName());
 					rowData.add("" + progList.get(i).getEmployerEps());
 					rowData.add("" + progList.get(i).getEmployerPf());
-					/*rowData.add("" + progList.get(i).getEpfEmployerPercentage());*/
+					/* rowData.add("" + progList.get(i).getEpfEmployerPercentage()); */
 
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
@@ -9805,6 +9809,136 @@ public class ReportAdminController {
 					if (wb != null) {
 						wb.close();
 					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
+	@RequestMapping(value = "/arearReport", method = RequestMethod.GET)
+	public void arearReport(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+
+		String monthAndYear = request.getParameter("date");
+		String subCmpId = request.getParameter("subCmpId");
+		String temp[] = monthAndYear.split("-");
+
+		try {
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("month", temp[0]);
+			map.add("year", temp[1]);
+			map.add("locId", locId);
+			map.add("companyId", subCmpId);
+
+			PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getArearsGenratedList", map, PayRollDataForProcessing.class);
+			List<GetPayrollGeneratedList> list = payRollDataForProcessing.getPayrollGeneratedList();
+
+			String[] monthAndYearsplt = monthAndYear.split("-");
+			String[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August",
+					"September", "October", "November", "December" };
+			String monthName = monthNames[Integer.parseInt(monthAndYearsplt[0]) - 1];
+
+			String reportName = "Arrears For the Month of " + monthName + " " + monthAndYearsplt[1];
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("EMP Name");
+			rowData.add("EMP Type");
+			rowData.add("Department");
+			rowData.add("Designation");
+
+			rowData.add("Payable Days");
+			rowData.add("Gross Salary");
+			rowData.add("Basic");
+			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
+				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getName());
+
+			}
+
+			rowData.add("Net Salary");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			int cnt = 1;
+			float empTotal = 0;
+
+			for (int i = 0; i < list.size(); i++) {
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				rowData.add("" + list.get(i).getName() + " (" + list.get(i).getEmpCode() + ")");
+				rowData.add("" + list.get(i).getEmpTypeName());
+				rowData.add("" + list.get(i).getDepartName());
+				rowData.add("" + list.get(i).getDesignName());
+				rowData.add("" + list.get(i).getPayableDays());
+				rowData.add("" + list.get(i).getGrossSalDefault());
+				rowData.add("" + String.format("%.2f", list.get(i).getBasicCal()));
+
+				for (int k = 0; k < payRollDataForProcessing.getAllowancelist().size(); k++) {
+					int find = 0;
+					for (int j = 0; j < list.get(i).getPayrollAllownceList().size(); j++) {
+						if (list.get(i).getPayrollAllownceList().get(j).getAllowanceId() == payRollDataForProcessing
+								.getAllowancelist().get(k).getAllowanceId()) {
+							rowData.add(String.format("%.2f", ReportCostants.castNumber(
+									list.get(i).getPayrollAllownceList().get(j).getAllowanceValueCal(), 1)));
+							find = 1;
+							break;
+
+						}
+					}
+					if (find == 0) {
+						rowData.add(String.format("%.2f", ReportCostants.castNumber(0, 1)));
+					}
+
+				}
+
+				/*
+				 * double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() +
+				 * list.get(i).getItded() + list.get(i).getPayDed() + list.get(i).getPtDed() +
+				 * list.get(i).getEmployeePf() + list.get(i).getEsic() + list.get(i).getMlwf() +
+				 * list.get(i).getSocietyContribution();
+				 * 
+				 * rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed,
+				 * 1)));
+				 */
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getNetSalary(), 1)));
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				cnt = cnt + 1;
+
+			}
+
+			XSSFWorkbook wb = null;
+			try {
+				// System.out.println("exportToExcelList" + exportToExcelList.toString());
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, " ", "", 'Z');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
 				}
 			}
 
