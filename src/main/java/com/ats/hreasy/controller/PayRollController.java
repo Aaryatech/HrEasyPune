@@ -433,8 +433,8 @@ public class PayRollController {
 				rowData.add("" + list.get(i).getEmpName());
 				for (int k = 0; k < getEmpDetaillist.length; k++) {
 					if (getEmpDetaillist[k].getEmpId() == list.get(i).getEmpId()) {
-						rowData.add(getEmpDetaillist[i].getDeptName());
-						rowData.add(getEmpDetaillist[i].getEmpDesgn());
+						rowData.add(getEmpDetaillist[k].getDeptName());
+						rowData.add(getEmpDetaillist[k].getEmpDesgn());
 						break;
 					}
 
