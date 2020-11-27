@@ -5538,12 +5538,12 @@ public class ReportAdminController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(6);
+			PdfPTable table = new PdfPTable(8);
 
 			table.setHeaderRows(1);
 
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2.0f, 3.0f, 5.5f, 3.5f, 3.5f, 3.5f });
+			table.setWidths(new float[] { 2.0f, 6.5f, 3.0f, 3.0f, 2.5f, 2.5f, 2.5f, 2.5f });
 			Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 			// BaseColor.BLACK);
 			Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -5559,31 +5559,41 @@ public class ReportAdminController {
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employee Code", tableHeaderFont));
-			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
-
-			table.addCell(hcell);
-
 			hcell = new PdfPCell(new Phrase("Employee Name", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("PFable Salary/Wages", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("PF A/c No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("UAN No.", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("EPF Wages", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employee's Contribution PF", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("Contribution EPF", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
 			table.addCell(hcell);
 
-			hcell = new PdfPCell(new Phrase("Employer's Contribution PF", tableHeaderFont));
+			hcell = new PdfPCell(new Phrase("EPF Difference", tableHeaderFont));
+			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+
+			table.addCell(hcell);
+
+			hcell = new PdfPCell(new Phrase("EPS Value", tableHeaderFont));
 			hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 
@@ -5599,25 +5609,26 @@ public class ReportAdminController {
 				cell = new PdfPCell(new Phrase(String.valueOf(index), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEmpCode(), headFontData));
+				cell = new PdfPCell(new Phrase("" + prog.getEmpName() + " (" + prog.getEmpCode() + ")", headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-
 				table.addCell(cell);
 
-				cell = new PdfPCell(new Phrase("" + prog.getEmpName(), headFontData));
+				cell = new PdfPCell(new Phrase(prog.getCompanyName(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(cell);
 
+				cell = new PdfPCell(new Phrase(prog.getNameSd(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getEpfWages(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getEmployeePf(), headFontData));
@@ -5626,6 +5637,11 @@ public class ReportAdminController {
 				table.addCell(cell);
 
 				cell = new PdfPCell(new Phrase("" + prog.getEmployerPf(), headFontData));
+				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				table.addCell(cell);
+
+				cell = new PdfPCell(new Phrase("" + prog.getEmployerEps(), headFontData));
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 				table.addCell(cell);
@@ -5695,12 +5711,13 @@ public class ReportAdminController {
 				List<String> rowData = new ArrayList<String>();
 
 				rowData.add("Sr. No");
-				rowData.add("Emp Code");
 				rowData.add("Emp Name");
-				rowData.add("PFable Salary/Wages");
-				rowData.add("Employee's Contribution PF");
-				rowData.add("Employer's Contribution PF");
-
+				rowData.add("PF A/C No.");
+				rowData.add("UAN No.");
+				rowData.add("EPF Wages");
+				rowData.add("Contribution EPF");
+				rowData.add("EPF Difference");
+				rowData.add("EPS Value");
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);
 				int cnt = 1;
@@ -5710,10 +5727,12 @@ public class ReportAdminController {
 					cnt = cnt + i;
 
 					rowData.add("" + (i + 1));
-					rowData.add("" + progList.get(i).getEmpCode());
-					rowData.add("" + progList.get(i).getEmpName());
+					rowData.add("" + progList.get(i).getEmpName() + " " + progList.get(i).getEmpCode());
+					rowData.add("" + progList.get(i).getCompanyName());
+					rowData.add("" + progList.get(i).getNameSd());
 					rowData.add("" + progList.get(i).getEpfWages());
 					rowData.add("" + progList.get(i).getEmployeePf());
+					rowData.add("" + progList.get(i).getEmployerEps());
 					rowData.add("" + progList.get(i).getEmployerPf());
 
 					expoExcel.setRowData(rowData);
@@ -5730,7 +5749,7 @@ public class ReportAdminController {
 				try {
 
 					wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName,
-							"DateRange:" + leaveDateRange + " Company Name:" + cmpName, "", 'F');
+							"DateRange:" + leaveDateRange + " Company Name:" + cmpName, "", 'H');
 
 					ExceUtil.autoSizeColumns(wb, 3);
 					response.setContentType("application/vnd.ms-excel");
