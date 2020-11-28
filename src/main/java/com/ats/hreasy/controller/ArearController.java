@@ -163,7 +163,7 @@ public class ArearController {
 		HttpSession session = request.getSession();
 		try {
 
-			//mav = "redirect:/selectMonthForPayRoll";
+			// mav = "redirect:/selectMonthForPayRoll";
 
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/insertFinalArearsValue",
 					empInfoForArearlist, Info.class);
@@ -211,7 +211,11 @@ public class ArearController {
 				rowData.add(allowanceList.get(i).getName() + " Diff");
 				rowData.add(allowanceList.get(i).getName() + " CAL");
 			}
-
+			rowData.add("Production Incentive");
+			rowData.add("Performance Incentive");
+			rowData.add("PT");
+			rowData.add("PF");
+			rowData.add("ESIC");
 			expoExcel.setRowData(rowData);
 			exportToExcelList.add(expoExcel);
 
@@ -226,6 +230,12 @@ public class ArearController {
 					double basicCalTotal = 0;
 					double totalDiff = 0;
 					double totalNet = 0;
+
+					double otwagesTotal = 0;
+					double productionTotal = 0;
+					double ptTotal = 0;
+					double pfTotal = 0;
+					double esicTotal = 0;
 
 					expoExcel = new ExportToExcel();
 					rowData = new ArrayList<String>();
@@ -256,7 +266,11 @@ public class ArearController {
 						map.put(allowanceList.get(j).getAllowanceId() + "Cal" + empInfoForArearlist.get(i).getEmpId(),
 								0.0);
 					}
-
+					rowData.add("");
+					rowData.add("");
+					rowData.add("");
+					rowData.add("");
+					rowData.add("");
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 
@@ -339,6 +353,23 @@ public class ArearController {
 
 							}
 						}
+
+						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearOtWages());
+						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+								.getArearProductionInsentive());
+						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearPtDed());
+						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getPfArear());
+						rowData.add("" + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getEsicArear());
+
+						otwagesTotal = otwagesTotal
+								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearOtWages();
+						productionTotal = otwagesTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+								.getArearProductionInsentive();
+						ptTotal = ptTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearPtDed();
+						pfTotal = pfTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getPfArear();
+						esicTotal = esicTotal
+								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getEsicArear();
+
 						expoExcel.setRowData(rowData);
 						exportToExcelList.add(expoExcel);
 
@@ -372,7 +403,11 @@ public class ArearController {
 						rowData.add("" + diff);
 						rowData.add("" + cal);
 					}
-
+					rowData.add("" + otwagesTotal);
+					rowData.add("" + productionTotal);
+					rowData.add("" + ptTotal);
+					rowData.add("" + pfTotal);
+					rowData.add("" + esicTotal);
 					expoExcel.setRowData(rowData);
 					exportToExcelList.add(expoExcel);
 				}
@@ -406,7 +441,7 @@ public class ArearController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/showArrearsEmployerPfRep", method = RequestMethod.GET)
 	public void showArrearsEmployerPfRep(HttpServletRequest request, HttpServletResponse response) {
 
@@ -434,8 +469,8 @@ public class ArearController {
 			map.add("toDate", arrOfStr[1]);
 			map.add("locId", locId);
 
-			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getArrearsPfStatement",
-					map, GetSalaryCalcReport[].class);
+			GetSalaryCalcReport[] resArray = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getArrearsPfStatement", map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
 
 			String header = "";
@@ -687,7 +722,7 @@ public class ArearController {
 
 		}
 	}
-	
+
 	@RequestMapping(value = "/showArrearsEmpPfRep", method = RequestMethod.GET)
 	public void showArrearsEmpPfRep(HttpServletRequest request, HttpServletResponse response) {
 
@@ -713,8 +748,8 @@ public class ArearController {
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
 			map.add("locId", locId);
-			GetSalaryCalcReport[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getArrearsPfStatement",
-					map, GetSalaryCalcReport[].class);
+			GetSalaryCalcReport[] resArray = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getArrearsPfStatement", map, GetSalaryCalcReport[].class);
 			List<GetSalaryCalcReport> progList = new ArrayList<>(Arrays.asList(resArray));
 
 			String header = "";
@@ -961,7 +996,7 @@ public class ArearController {
 
 		}
 	}
-	
+
 	@RequestMapping(value = "/showArrearsStatutoryEsicRep", method = RequestMethod.GET)
 	public void showArrearsStatutoryEsicRep(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1002,8 +1037,8 @@ public class ArearController {
 			map.add("fromDate", arrOfStr[0]);
 			map.add("toDate", arrOfStr[1]);
 			map.add("locId", locId);
-			StatutoryEsicRep[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getArearsStatutoryEsic",
-					map, StatutoryEsicRep[].class);
+			StatutoryEsicRep[] resArray = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getArearsStatutoryEsic", map, StatutoryEsicRep[].class);
 			List<StatutoryEsicRep> progList = new ArrayList<>(Arrays.asList(resArray));
 
 			String header = "";

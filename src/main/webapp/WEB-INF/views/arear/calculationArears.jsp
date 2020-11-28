@@ -207,7 +207,12 @@
 											<c:forEach items="${allowanceList}" var="allowanceList">
 												<th class="text-center" colspan="4">${allowanceList.name}</th>
 											</c:forEach>
-
+											<th class="text-center" rowspan="2">Production Incentive</th>
+											<th class="text-center" rowspan="2">Performance
+												Incentive</th>
+											<th class="text-center" rowspan="2">PT</th>
+											<th class="text-center" rowspan="2">PF</th>
+											<th class="text-center" rowspan="2">ESIC</th>
 										</tr>
 										<tr class="bg-blue">
 
@@ -234,28 +239,32 @@
 													<td>${empList.empName}&nbsp;(${empList.empCode})</td>
 													<td class="text-center">${empList.deptName}</td>
 													<td class="text-center">${empList.designation}</td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
+													<td colspan="3"></td>
+													<th style="display: none;"></th>
+													<th style="display: none;"></th>
+													<td colspan="4"></td>
+													<th style="display: none;"></th>
+													<th style="display: none;"></th>
+													<th style="display: none;"></th>
 													<c:forEach items="${allowanceList}" var="allowanceList">
-														<th class="text-center"></th>
-														<th></th>
-														<th></th>
-														<th></th>
+														<th class="text-center" colspan="4"></th>
+														<th style="display: none;"></th>
+														<th style="display: none;"></th>
+														<th style="display: none;"></th>
 													</c:forEach>
-
+													<td colspan="2"></td>
+													<td style="display: none;"></td>
+													<td></td>
+													<td></td>
+													<td></td>
 												</tr>
 												<c:forEach items="${empList.generatedPayrollList}"
 													var="generatedPayrollList">
 													<tr>
 
 														<td class="text-center">${generatedPayrollList.email}</td>
-														<td></td>
-														<td></td>
+														<td colspan="2"></td>
+														<td style="display: none;"></td>
 														<td class="text-right">${generatedPayrollList.payableDays}</td>
 														<td class="text-right">${generatedPayrollList.salTotalDiff}</td>
 														<td class="text-right">${generatedPayrollList.netCalArear}</td>
@@ -278,7 +287,11 @@
 																</c:if>
 															</c:forEach>
 														</c:forEach>
-
+														<td class="text-right">${generatedPayrollList.arearOtWages}</td>
+														<td class="text-right">${generatedPayrollList.arearProductionInsentive}</td>
+														<td class="text-right">${generatedPayrollList.arearPtDed}</td>
+														<td class="text-right">${generatedPayrollList.pfArear}</td>
+														<td class="text-right">${generatedPayrollList.esicArear}</td>
 													</tr>
 												</c:forEach>
 											</c:if>

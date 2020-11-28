@@ -1,7 +1,7 @@
 package com.ats.hreasy.model;
 
 import java.util.List;
-
+ 
 public class GetPayrollGeneratedListForArear {
 
 	private int id;
@@ -122,6 +122,189 @@ public class GetPayrollGeneratedListForArear {
 
 	private double salTotalDiff;
 	private double netCalArear;
+
+	private double arearEpfWages;
+	private double arearEsicWages;
+	private double arearEpsWages;
+	private double arearEsicWagesDec;
+	private double arearOtWages;
+	private int otPerHr;
+	private float totOthr;
+	private String atsummUid;
+	private float weeklyOffHolidayOffPresent;
+	private float holidayPresent;
+	private float weeklyOffPresent;
+	private double arearProductionInsentive;
+	private float arearEmployerEsic;
+	private double epfArearWagesEmployer;
+	private String ceilingLimitEmpApplicable;
+	private String ceilingLimitEmployerApplicable;
+	private double arearEmployerEps;
+	private double arearEmployerPf;
+	private String gender;
+	private double arearPtDed;
+	
+	
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public double getArearPtDed() {
+		return arearPtDed;
+	}
+
+	public void setArearPtDed(double arearPtDed) {
+		this.arearPtDed = arearPtDed;
+	}
+
+	public double getEpfArearWagesEmployer() {
+		return epfArearWagesEmployer;
+	}
+
+	public void setEpfArearWagesEmployer(double epfArearWagesEmployer) {
+		this.epfArearWagesEmployer = epfArearWagesEmployer;
+	}
+
+	public String getCeilingLimitEmpApplicable() {
+		return ceilingLimitEmpApplicable;
+	}
+
+	public void setCeilingLimitEmpApplicable(String ceilingLimitEmpApplicable) {
+		this.ceilingLimitEmpApplicable = ceilingLimitEmpApplicable;
+	}
+
+	public String getCeilingLimitEmployerApplicable() {
+		return ceilingLimitEmployerApplicable;
+	}
+
+	public void setCeilingLimitEmployerApplicable(String ceilingLimitEmployerApplicable) {
+		this.ceilingLimitEmployerApplicable = ceilingLimitEmployerApplicable;
+	}
+
+	public double getArearEmployerEps() {
+		return arearEmployerEps;
+	}
+
+	public void setArearEmployerEps(double arearEmployerEps) {
+		this.arearEmployerEps = arearEmployerEps;
+	}
+
+	public double getArearEmployerPf() {
+		return arearEmployerPf;
+	}
+
+	public void setArearEmployerPf(double arearEmployerPf) {
+		this.arearEmployerPf = arearEmployerPf;
+	}
+
+	public float getArearEmployerEsic() {
+		return arearEmployerEsic;
+	}
+
+	public void setArearEmployerEsic(float arearEmployerEsic) {
+		this.arearEmployerEsic = arearEmployerEsic;
+	}
+
+	public double getArearEpfWages() {
+		return arearEpfWages;
+	}
+
+	public void setArearEpfWages(double arearEpfWages) {
+		this.arearEpfWages = arearEpfWages;
+	}
+
+	public double getArearEsicWages() {
+		return arearEsicWages;
+	}
+
+	public void setArearEsicWages(double arearEsicWages) {
+		this.arearEsicWages = arearEsicWages;
+	}
+
+	public double getArearEpsWages() {
+		return arearEpsWages;
+	}
+
+	public void setArearEpsWages(double arearEpsWages) {
+		this.arearEpsWages = arearEpsWages;
+	}
+
+	public double getArearEsicWagesDec() {
+		return arearEsicWagesDec;
+	}
+
+	public void setArearEsicWagesDec(double arearEsicWagesDec) {
+		this.arearEsicWagesDec = arearEsicWagesDec;
+	}
+
+	public double getArearOtWages() {
+		return arearOtWages;
+	}
+
+	public void setArearOtWages(double arearOtWages) {
+		this.arearOtWages = arearOtWages;
+	}
+
+	public int getOtPerHr() {
+		return otPerHr;
+	}
+
+	public void setOtPerHr(int otPerHr) {
+		this.otPerHr = otPerHr;
+	}
+
+	public float getTotOthr() {
+		return totOthr;
+	}
+
+	public void setTotOthr(float totOthr) {
+		this.totOthr = totOthr;
+	}
+
+	public String getAtsummUid() {
+		return atsummUid;
+	}
+
+	public void setAtsummUid(String atsummUid) {
+		this.atsummUid = atsummUid;
+	}
+
+	public float getWeeklyOffHolidayOffPresent() {
+		return weeklyOffHolidayOffPresent;
+	}
+
+	public void setWeeklyOffHolidayOffPresent(float weeklyOffHolidayOffPresent) {
+		this.weeklyOffHolidayOffPresent = weeklyOffHolidayOffPresent;
+	}
+
+	public float getHolidayPresent() {
+		return holidayPresent;
+	}
+
+	public void setHolidayPresent(float holidayPresent) {
+		this.holidayPresent = holidayPresent;
+	}
+
+	public float getWeeklyOffPresent() {
+		return weeklyOffPresent;
+	}
+
+	public void setWeeklyOffPresent(float weeklyOffPresent) {
+		this.weeklyOffPresent = weeklyOffPresent;
+	}
+
+	public double getArearProductionInsentive() {
+		return arearProductionInsentive;
+	}
+
+	public void setArearProductionInsentive(double arearProductionInsentive) {
+		this.arearProductionInsentive = arearProductionInsentive;
+	}
 
 	public double getNetCalArear() {
 		return netCalArear;
