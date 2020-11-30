@@ -499,7 +499,6 @@
 					var index = document.getElementById("index").value;
 					if (valid == true) {
 
-						// alert("hii");
 						var fd = new FormData();
 
 						fd.append('file', files);
@@ -517,10 +516,11 @@
 									type : 'post',
 									dataType : 'json',
 									data : fd,
+									async : false,
 									contentType : false,
 									processData : false,
 									success : function(data) {
-
+										 
 										var tempAmt = 0;
 
 										document.getElementById("dataLen").value = data.length;
@@ -567,6 +567,7 @@
 										document.getElementById("tempAmt").value = tempAmt;
 									},
 								});
+						//alert("outer");
 						document.getElementById("doc").value = "";
 						document.getElementById("claimRemark").value = "";
 						document.getElementById("claimAmt").value = 0;
