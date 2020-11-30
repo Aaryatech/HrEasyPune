@@ -1800,14 +1800,18 @@ Green Color : #007c24     #07a43d
 	<script type="text/javascript">
 		function getGraphs() {
 
+			$.ajaxSetup({
+				async : false
+			});
+
 			$.getJSON('${getdeptwiseEmp}',
 
 			{
-
 				ajax : 'true'
 
 			}, function(data1) {
 
+				//alert("inner")
 				google.charts.load('current', {
 					'packages' : [ 'corechart' ]
 				});
@@ -1837,7 +1841,7 @@ Green Color : #007c24     #07a43d
 					chart.draw(data, options);
 				}
 			});
-
+			//alert("outer")
 		}
 
 		function getLineGraphs() {
