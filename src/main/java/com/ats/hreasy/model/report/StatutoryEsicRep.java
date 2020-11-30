@@ -1,5 +1,4 @@
 package com.ats.hreasy.model.report;
-
  
 public class StatutoryEsicRep {
 	private String keyNew;
@@ -21,6 +20,26 @@ public class StatutoryEsicRep {
 	private int month;
 
 	private int year;
+	private String reason;
+
+	private String esicLeaveDate;
+	
+	
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getEsicLeaveDate() {
+		return esicLeaveDate;
+	}
+
+	public void setEsicLeaveDate(String esicLeaveDate) {
+		this.esicLeaveDate = esicLeaveDate;
+	}
 
 	public int getMonth() {
 		return month;

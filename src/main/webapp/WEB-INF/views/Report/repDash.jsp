@@ -475,6 +475,17 @@
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
 													</li>
+													<li>Employee Employer PF Summary Statement(F2,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f3',0,'showPfSummaryReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <a href="javascript:void(0)"
+															onclick="getProgReport('f3',1,'showPfSummaryReport')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a></span>
+													</li>
 													<li>ECR UPLOAD FILE(F1,F3) <span><a
 															href="javascript:void(0)"
 															onclick="getProgReport('f1',0,'ecrUploadFile')"
@@ -814,6 +825,17 @@
 															title="PDF"><i
 																class="icon-file-pdf icon-1x text-danger    "
 																style="color: black;"></i></a></span>
+													</li>
+													<li>Arrears ECR UPLOAD FILE(F1,F3) <span><a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'ecrArrearsUploadFile')"
+															title="Text file"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a> <!-- <a href="javascript:void(0)"
+															onclick="getProgReport('f1',1,'showEmployeeEmployerPfRep')"
+															title="PDF"><i
+																class="icon-file-pdf icon-1x text-danger    "
+																style="color: black;"></i></a> --></span>
 													</li>
 												</ul>
 											</div>
