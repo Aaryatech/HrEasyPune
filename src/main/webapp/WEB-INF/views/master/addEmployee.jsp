@@ -1,3 +1,4 @@
+<%@page import="com.ats.hreasy.common.DateConvertor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -2097,7 +2098,7 @@
 											<div class="form-group row">
 												<label class="col-form-label col-lg-2" for="epfJoinDate">EPF
 													Joining Date : </label>
-												<div class="col-lg-4">
+												<div class="col-lg-2">
 
 													<input type="text" class="form-control datepickerclass"
 														placeholder="EPF Joining Date" id="epfJoinDate"
@@ -2113,7 +2114,7 @@
 													for="joinDate">Joining Date <span
 													class="text-danger">*</span>:
 												</label>
-												<div class="col-lg-4">
+												<div class="col-lg-2">
 													<input type="text" class="form-control datepickerclass"
 														placeholder="Joining Date" id="joinDate" name="joinDate"
 														autocomplete="off" onchange="trim(this)"
@@ -2121,6 +2122,24 @@
 														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_joinDate">This
 														field is required.</span>
+												</div>
+
+												<c:set value="${empAllowanceId.exVar1}" var="esicLeave"></c:set>
+												<%
+													String esicLeave = (String) pageContext.getAttribute("esicLeave");
+
+													if (esicLeave != "" && esicLeave != null) {
+														esicLeave = DateConvertor.convertToDMY(esicLeave);
+													}
+													pageContext.setAttribute("esicLeave", esicLeave);
+												%>
+												<c:set value="${esicLeave}" var="esicLeave"></c:set>
+												<label class="col-form-label col-lg-2" for="esicleaveDate">ESIC
+													Leaving Date : </label>
+												<div class="col-lg-2">
+													<input type="text" class="form-control datepickerclass"
+														value="${esicLeave}" placeholder="ESIC Leaving Date"
+														id="esicleaveDate" name="esicleaveDate" autocomplete="off">
 												</div>
 											</div>
 
@@ -2131,7 +2150,7 @@
 													<input type="text" class="form-control datepickerclass"
 														value="${empAllowanceId.cmpLeavingDate}"
 														placeholder="Leaving Date" id="leaveDate" name="leaveDate"
-														autocomplete="off" onchange1="trim(this)">
+														autocomplete="off">
 												</div>
 
 												<label class="col-form-label col-lg-2" for="leaveReason">Leaving

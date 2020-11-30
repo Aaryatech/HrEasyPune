@@ -40,6 +40,7 @@ import org.zefer.pd4ml.PD4PageMark;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
+import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.ExceUtil;
 import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.FormValidation;
@@ -1570,10 +1571,23 @@ public class EmployeeController {
 			empSal.setLeavingReasonEsic(request.getParameter("lrEsic"));
 			empSal.setLeavingReasonPf(request.getParameter("lrForPF"));
 
+			String esicleaveDate = request.getParameter("esicleaveDate");
+
 			empSal.setDelStatus(1);
 			empSal.setExInt1(0);
 			empSal.setExInt2(0);
-			empSal.setExVar1("NA");
+
+			if (esicleaveDate != "") {
+				try {
+					empSal.setExVar1(DateConvertor.convertToYMD(esicleaveDate));
+				} catch (Exception e) {
+					empSal.setExVar1("");
+				}
+
+			} else {
+				empSal.setExVar1("");
+			}
+
 			empSal.setExVar2("NA");
 			empSal.setSalaryTypeId(1);
 

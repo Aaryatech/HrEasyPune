@@ -133,23 +133,36 @@
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="desination">License
-												No. <span class="text-danger"> </span>:
+											<label class="col-form-label col-lg-5 float" for="owner">Owner
+												Name <span class="text-danger"></span>:
+											</label>
+											<div class="col-lg-7 float">
+												<input type="text" class="form-control"
+													value="${contract.owner}" placeholder="Enter Owner Name"
+													id="owner" name="owner" autocomplete="off"
+													onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_owner"
+													style="display: none;">This field is required.</span>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label class="col-form-label col-lg-5 float" for="licenceNo">Labour
+												License No. <span class="text-danger"> </span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
 													value="${contract.licenceNo}"
-													placeholder="Enter Licence No." id="licenceNo"
+													placeholder="Enter Labour Licence No." id="licenceNo"
 													name="licenceNo" autocomplete="off" onchange="trim(this)">
 												<span class="validation-invalid-label" id="error_licenceNo"
 													style="display: none;">This field is required.</span>
 											</div>
 										</div>
-									</div>
-
-									<div class="form-group row">
 										<div class="col-md-6">
 											<label class="col-form-label col-lg-5 float" for="vat">GST
 												No. <span class="text-danger"></span>:
@@ -164,21 +177,7 @@
 											</div>
 										</div>
 
-										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="pan">PAN
-												<span class="text-danger"> </span>:
-											</label>
-											<div class="col-lg-7 float">
-												<input type="text" class="form-control"
-													value="${contract.panNo}" placeholder="Enter PAN "
-													id="panNo" maxlength="10"
-													style="text-transform: uppercase;" name="panNo"
-													autocomplete="off" onchange="trim(this)"> <span
-													class="validation-invalid-label" id="error_pan"
-													style="display: none;">Enter valid pan. example :
-													ABCDE1234F</span>
-											</div>
-										</div>
+
 									</div>
 
 									<div class="form-group row"></div>
@@ -261,16 +260,18 @@
 										</div>
 
 										<div class="col-md-6">
-											<label class="col-form-label col-lg-5 float" for="owner">Owner
-												Name <span class="text-danger"></span>:
+											<label class="col-form-label col-lg-5 float" for="pan">PAN
+												<span class="text-danger"> </span>:
 											</label>
 											<div class="col-lg-7 float">
 												<input type="text" class="form-control"
-													value="${contract.owner}" placeholder="Enter Owner Name"
-													id="owner" name="owner" autocomplete="off"
-													onchange="trim(this)"> <span
-													class="validation-invalid-label" id="error_owner"
-													style="display: none;">This field is required.</span>
+													value="${contract.panNo}" placeholder="Enter PAN "
+													id="panNo" maxlength="10"
+													style="text-transform: uppercase;" name="panNo"
+													autocomplete="off" onchange="trim(this)"> <span
+													class="validation-invalid-label" id="error_pan"
+													style="display: none;">Enter valid pan. example :
+													ABCDE1234F</span>
 											</div>
 										</div>
 									</div>
