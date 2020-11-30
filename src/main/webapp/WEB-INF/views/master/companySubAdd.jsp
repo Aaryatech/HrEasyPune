@@ -389,11 +389,14 @@ System.out.println("val**"+flagNew);%> --%>
 												value="${company.companyId}">
 
 											<div class="form-group row">
-
-												<label class="col-form-label font-weight-bold col-lg-2"
+												<input type="hidden" class="form-control" value="1"
+													id="tanNo" onchange="trim(this)" placeholder="TAN No"
+													name="tanNo" autocomplete="off" maxlength="10">
+												<!-- <label
+													class="col-form-label font-weight-bold col-lg-2"
 													for="taxNo">TAN No. <span class="text-danger">*</span>:
-												</label>
-												<div class="col-lg-4">
+												</label> -->
+												<%-- <div class="col-lg-4">
 													<input type="text" class="form-control"
 														value="${company.tanNo}" id="tanNo" onchange="trim(this)"
 														placeholder="TAN No" name="tanNo" autocomplete="off"
@@ -401,7 +404,7 @@ System.out.println("val**"+flagNew);%> --%>
 														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_tanNo">This field
 														is required.</span>
-												</div>
+												</div> --%>
 
 												<label class="col-form-label col-lg-2" for="ptNo">PT
 													No. <span class="text-danger"></span>:
@@ -419,27 +422,27 @@ System.out.println("val**"+flagNew);%> --%>
 
 											<div class="form-group row">
 
-												<label class="col-form-label col-lg-2" for="serviceTaxNo">Service
-													Tax No. <span class="text-danger"></span>:
+												<label class="col-form-label col-lg-2" for="serviceTaxNo">LWF
+													No. <span class="text-danger"></span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control"
 														value="${company.serviceTaxNo}" id="serviceTaxNo"
-														onchange="trim(this)" placeholder="Service Tax No."
-														maxlength="20" name="serviceTaxNo" autocomplete="off">
-													<span class="hidedefault  validation-invalid-label"
+														onchange="trim(this)" placeholder="LWF No." maxlength="20"
+														name="serviceTaxNo" autocomplete="off"> <span
+														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_serviceTaxNo">This
 														field is required.</span>
 												</div>
 
-												<label class="col-form-label col-lg-2" for="vatNo">VAT
+												<label class="col-form-label col-lg-2" for="vatNo">LIN
 													No. <span class="text-danger"></span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control numbersOnly"
 														maxlength="20" value="${company.vatNo}" id="vatNo"
 														autocomplete="off" onchange="trim(this)"
-														placeholder="VAT No." name="vatNo"> <span
+														placeholder="LIN No." name="vatNo"> <span
 														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_ptNo">This field
 														is required.</span>
@@ -841,15 +844,13 @@ System.out.println("val**"+flagNew);%> --%>
 											<div class="form-group row">
 
 												<label class="col-form-label font-weight-bold col-lg-2"
-													for="manager">Manager Under Shop Act <span
-													class="text-danger">*</span>:
+													for="manager">Factory Act <span class="text-danger">*</span>:
 												</label>
 												<div class="col-lg-4">
 													<input type="text" class="form-control"
 														value="${company.managerUnderAct}" id="manager"
-														onchange="trim(this)"
-														placeholder="Manager Under Shop Act " name="manager"
-														autocomplete="off"> <span
+														onchange="trim(this)" placeholder="Factory Act"
+														name="manager" autocomplete="off"> <span
 														class="hidedefault  validation-invalid-label"
 														style="display: none;" id="error_manager">This
 														field is required.</span>
