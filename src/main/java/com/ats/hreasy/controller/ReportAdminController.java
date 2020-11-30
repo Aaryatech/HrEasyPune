@@ -9885,7 +9885,11 @@ public class ReportAdminController {
 				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getName());
 
 			}
-
+			rowData.add("Production Incentive");
+			rowData.add("Performance Incentive");
+			rowData.add("PT");
+			rowData.add("PF");
+			rowData.add("ESIC");
 			rowData.add("Net Salary");
 
 			expoExcel.setRowData(rowData);
@@ -9933,6 +9937,12 @@ public class ReportAdminController {
 				 * rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed,
 				 * 1)));
 				 */
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), 1)));
+				rowData.add(
+						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getProductionInsentive(), 1)));
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getPtDed(), 1)));
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEmployeePf(), 1)));
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), 1)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getNetSalary(), 1)));
 				expoExcel.setRowData(rowData);
 				exportToExcelList.add(expoExcel);

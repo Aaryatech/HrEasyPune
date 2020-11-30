@@ -363,7 +363,7 @@ public class ArearController {
 
 						otwagesTotal = otwagesTotal
 								+ empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearOtWages();
-						productionTotal = otwagesTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
+						productionTotal = productionTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j)
 								.getArearProductionInsentive();
 						ptTotal = ptTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getArearPtDed();
 						pfTotal = pfTotal + empInfoForArearlist.get(i).getGeneratedPayrollList().get(j).getPfArear();
