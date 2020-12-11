@@ -60,6 +60,7 @@ import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.ReportCostants;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Allowances;
+import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.EmpSalInfoDaiyInfoTempInfo;
 import com.ats.hreasy.model.EmpSalaryInfoForPayroll;
 import com.ats.hreasy.model.GetEmpDetail;
@@ -71,6 +72,7 @@ import com.ats.hreasy.model.InfoForUploadAttendance;
 import com.ats.hreasy.model.LoginResponse;
 import com.ats.hreasy.model.MstCompany;
 import com.ats.hreasy.model.MstCompanySub;
+import com.ats.hreasy.model.MstEmpType;
 import com.ats.hreasy.model.PayRollDataForProcessing;
 import com.ats.hreasy.model.Setting;
 
@@ -96,7 +98,8 @@ public class PayRollController {
 
 				if (date != null) {
 					int locId = (int) session.getAttribute("liveLocationId");
-
+					int deptId = Integer.parseInt(request.getParameter("deptId"));
+					int typeId = Integer.parseInt(request.getParameter("typeId"));
 					String[] monthyear = date.split("-");
 					model.addAttribute("date", date);
 
@@ -104,6 +107,9 @@ public class PayRollController {
 					map.add("month", monthyear[0]);
 					map.add("year", monthyear[1]);
 					map.add("locId", locId);
+					map.add("deptId", deptId);
+					map.add("typeId", typeId);
+					System.out.println(map);
 					PayRollDataForProcessing payRollDataForProcessing = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getEmployeeListWithEmpSalEnfoForPayRoll", map,
 							PayRollDataForProcessing.class);
@@ -111,6 +117,8 @@ public class PayRollController {
 
 					model.addAttribute("empList", list);
 					model.addAttribute("allownceList", payRollDataForProcessing.getAllowancelist());
+					model.addAttribute("deptId", deptId);
+					model.addAttribute("typeId", typeId);
 					// System.out.println(payRollDataForProcessing.getList());
 				} else {
 					Allowances[] allowances = Constants.getRestTemplate()
@@ -118,6 +126,18 @@ public class PayRollController {
 					List<Allowances> allowancelist = new ArrayList<>(Arrays.asList(allowances));
 					model.addAttribute("allownceList", allowancelist);
 				}
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Department[] department = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllDepartments", map, Department[].class);
+
+				List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
+				model.addAttribute("departmentList", departmentList);
+				
+				MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
+						map, MstEmpType[].class); 
+				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
+				model.addAttribute("empTypeList", empTypeList1);
 			}
 
 		} catch (Exception e) {

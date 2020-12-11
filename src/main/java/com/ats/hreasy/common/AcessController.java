@@ -5,20 +5,16 @@ import java.util.List;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Info;
 
- 
-
 public class AcessController {
-	
 
-	
-	public static Info checkAccess(String currentMapping, String viewMapping, int view, int add, int edit,
-			int delete, List<AccessRightModule> newModuleList) {
+	public static Info checkAccess(String currentMapping, String viewMapping, int view, int add, int edit, int delete,
+			List<AccessRightModule> newModuleList) {
 
 		Info info = new Info();
 
 		try {
 
-			//System.out.println("in function newModuleList " + newModuleList);
+			// System.out.println("in function newModuleList " + newModuleList);
 
 			int viewMappingFound = 0;
 
@@ -26,67 +22,80 @@ public class AcessController {
 
 				for (int j = 0; j < newModuleList.get(i).getAccessRightSubModuleList().size(); j++) {
 
-					if (newModuleList.get(i).getAccessRightSubModuleList().get(j).getSubModuleMapping().equals(viewMapping)) {
+					if (newModuleList.get(i).getAccessRightSubModuleList().get(j).getSubModuleMapping()
+							.equals(viewMapping)) {
 						viewMappingFound = 1;
 
-						//System.out.println("Mapping Found");
+						// System.out.println("Mapping Found");
 
 						if (view == 1) {
 
-							//System.out.println("in view");
+							// System.out.println("in view");
 							info.setError(false);
 							info.setMsg("Have Access");
-							
+							break;
 						} else if (add == 1) {
-							
-							//System.out.println("in add");
-							
-							if (newModuleList.get(i).getAccessRightSubModuleList().get(j).getAddApproveConfig()== add) {
-								//System.out.println("in add if");
+
+							// System.out.println("in add");
+
+							if (newModuleList.get(i).getAccessRightSubModuleList().get(j)
+									.getAddApproveConfig() == add) {
+								// System.out.println("in add if");
 								info.setError(false);
 								info.setMsg("Have Access");
+								break;
 							} else {
-								//System.out.println("in add else");
+								// System.out.println("in add else");
 								info.setError(true);
 								info.setMsg("Access denied");
+								break;
 							}
 						} else if (edit == 1) {
 
-							//System.out.println("in edit");
+							// System.out.println("in edit");
 							if (newModuleList.get(i).getAccessRightSubModuleList().get(j).getEditReject() == edit) {
-								//System.out.println("in edit if");
+								// System.out.println("in edit if");
 								info.setError(false);
 								info.setMsg("Have Access");
+								break;
 							} else {
-								//System.out.println("in edit else");
+								// System.out.println("in edit else");
 								info.setError(true);
 								info.setMsg("Access denied");
+								break;
 							}
 						} else if (delete == 1) {
-							//System.out.println("in delete");
-							if (newModuleList.get(i).getAccessRightSubModuleList().get(j).getDeleteRejectApprove()
-									== (delete)) {
-								//System.out.println("in edit if");
+							// System.out.println("in delete");
+							if (newModuleList.get(i).getAccessRightSubModuleList().get(j)
+									.getDeleteRejectApprove() == (delete)) {
+								// System.out.println("in edit if");
 								info.setError(false);
 								info.setMsg("Have Access");
+								break;
 							} else {
-								//System.out.println("in edit else");
+								// System.out.println("in edit else");
 								info.setError(true);
 								info.setMsg("Access denied");
+								break;
 							}
 						} else {
-							//System.out.println("in else");
+							// System.out.println("in else");
 							info.setError(true);
 							info.setMsg("Access denied");
+							break;
 						}
 
 					}
 				}
 
+				if (viewMappingFound == 1) {
+					break;
+				}
+
 			}
 
 			if (viewMappingFound == 0) {
-				//System.out.println("mapping not found");
+				// System.out.println("mapping not found");
 				info.setError(true);
 				info.setMsg("Access Denied");
 			}

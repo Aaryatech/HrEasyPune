@@ -47,6 +47,8 @@ import com.ats.hreasy.common.ExportToExcel;
 import com.ats.hreasy.common.ItextPageEvent;
 import com.ats.hreasy.common.ReportCostants;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.Bank;
+import com.ats.hreasy.model.BankTrasferReport;
 import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DateAndDay;
@@ -1135,6 +1137,127 @@ public class ReportAdminController {
 			}
 
 		} catch (Exception e) {
+
+			System.err.println("Exce in showProgReport " + e.getMessage());
+			e.printStackTrace();
+
+		}
+	}
+
+	@RequestMapping(value = "/showbankTransferReport", method = RequestMethod.GET)
+	public void showbankTransferReport(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+
+		String month = request.getParameter("date");
+
+		String temp[] = month.split("-");
+
+		String reportName = "Bank Transfer Report of  Month -" + month;
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			int locId = (int) session.getAttribute("liveLocationId");
+			map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("month", temp[0]);
+			map.add("year", temp[1]);
+			map.add("locId", locId);
+			BankTrasferReport[] bankTrasferReport = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getBankTransferReport", map, BankTrasferReport[].class);
+			List<BankTrasferReport> list = new ArrayList<>(Arrays.asList(bankTrasferReport));
+
+			map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+
+			Bank[] bank = Constants.getRestTemplate().postForObject(Constants.url + "/getAllBanks", map, Bank[].class);
+
+			List<Bank> bankList = new ArrayList<Bank>(Arrays.asList(bank));
+
+			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
+
+			ExportToExcel expoExcel = new ExportToExcel();
+			List<String> rowData = new ArrayList<String>();
+
+			rowData.add("Sr. No");
+			rowData.add("Name");
+			rowData.add("Account No");
+			rowData.add("Net Pay");
+
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+			int cnt = 1;
+
+			double totAmt = 0;
+			for (int j = 0; j < bankList.size(); j++) {
+
+				expoExcel = new ExportToExcel();
+				rowData = new ArrayList<String>();
+				// rowData.add("" + cnt);
+				rowData.add("");
+				rowData.add("" + bankList.get(j).getName());
+				rowData.add("");
+				rowData.add("");
+				expoExcel.setRowData(rowData);
+				exportToExcelList.add(expoExcel);
+
+				for (int i = 0; i < list.size(); i++) {
+
+					if (bankList.get(j).getBankId() == list.get(i).getBankId()) {
+
+						expoExcel = new ExportToExcel();
+						rowData = new ArrayList<String>();
+						cnt = cnt + i;
+
+						// rowData.add("" + (i + 1));
+						expoExcel = new ExportToExcel();
+						rowData = new ArrayList<String>();
+						rowData.add("" + (i + 1));
+						rowData.add("" + list.get(i).getName());
+						rowData.add("'" + list.get(i).getAccNo());
+						rowData.add("" + list.get(i).getNetSalary());
+						totAmt = ReportCostants.castNumber(totAmt + Double.parseDouble(list.get(i).getNetSalary()), 2);
+
+						expoExcel.setRowData(rowData);
+						exportToExcelList.add(expoExcel);
+					}
+				}
+			}
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			// rowData.add("" + cnt);
+			rowData.add("Total");
+
+			rowData.add("");
+			rowData.add("");
+			rowData.add("" + totAmt);
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
+
+			XSSFWorkbook wb = null;
+			try {
+
+				wb = ExceUtil.createWorkbook(exportToExcelList, "", reportName, "Month-Year:" + month, "", 'D');
+
+				ExceUtil.autoSizeColumns(wb, 3);
+				response.setContentType("application/vnd.ms-excel");
+				String date = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
+				wb.write(response.getOutputStream());
+
+			} catch (IOException ioe) {
+				throw new RuntimeException("Error writing spreadsheet to output stream");
+			} finally {
+				if (wb != null) {
+					wb.close();
+				}
+			}
+
+		} catch (
+
+		Exception e) {
 
 			System.err.println("Exce in showProgReport " + e.getMessage());
 			e.printStackTrace();
@@ -4056,10 +4179,10 @@ public class ReportAdminController {
 
 		}
 	}
-	
+
 	@RequestMapping(value = "/ecrArrearsUploadFile", method = RequestMethod.GET)
 	public void ecrArrearsUploadFile(HttpServletRequest request, HttpServletResponse response) {
- 
+
 		String leaveDateRange = request.getParameter("date");
 		String[] arrOfStr = leaveDateRange.split("-");
 
@@ -4079,8 +4202,8 @@ public class ReportAdminController {
 			map.add("year", arrOfStr[1]);
 			map.add("locId", locId);
 			map.add("cmpId", cmpId);
-			EcrFileData[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getArrearsEcrFileData", map,
-					EcrFileData[].class);
+			EcrFileData[] resArray = Constants.getRestTemplate().postForObject(Constants.url + "getArrearsEcrFileData",
+					map, EcrFileData[].class);
 			List<EcrFileData> progList = new ArrayList<>(Arrays.asList(resArray));
 
 			// System.out.println(progList);

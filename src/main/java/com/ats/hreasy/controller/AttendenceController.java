@@ -47,6 +47,7 @@ import com.ats.hreasy.model.CalenderYear;
 import com.ats.hreasy.model.CountOfAssignPending;
 import com.ats.hreasy.model.DailyAttendance;
 import com.ats.hreasy.model.DataForUpdateAttendance;
+import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.Designation;
 import com.ats.hreasy.model.EmpInfo;
 import com.ats.hreasy.model.EmpSalAllowance;
@@ -768,6 +769,18 @@ public class AttendenceController {
 		} else {
 			mav = "attendence/fixAttendace";
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Department[] department = Constants.getRestTemplate().postForObject(Constants.url + "/getAllDepartments",
+					map, Department[].class);
+			List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
+			model.addAttribute("departmentList", departmentList);
+			MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
+					map, MstEmpType[].class);
+
+			List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList)); 
+			model.addAttribute("empTypeList", empTypeList1);
+			
 			try {
 
 				String selectMonth = request.getParameter("selectMonth");
@@ -776,18 +789,24 @@ public class AttendenceController {
 				year = Integer.parseInt(mnth[1]);
 				int locId = (int) session.getAttribute("liveLocationId");
 
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				int deptId = Integer.parseInt(request.getParameter("deptId"));
+				int typeId = Integer.parseInt(request.getParameter("typeId"));
+
+				map = new LinkedMultiValueMap<String, Object>();
 				map.add("month", month);
 				map.add("year", year);
 				map.add("isFixed", 0);
 				map.add("sts", "O");
 				map.add("locId", locId);
+				map.add("deptId", deptId);
+				map.add("typeId", typeId);
 				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
 				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
 				model.addAttribute("empList", empList);
 				model.addAttribute("selectMonth", selectMonth);
-
+				model.addAttribute("deptId", deptId);
+				model.addAttribute("typeId", typeId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -871,24 +890,42 @@ public class AttendenceController {
 		} else {
 			mav = "attendence/unfixAttendace";
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Department[] department = Constants.getRestTemplate().postForObject(Constants.url + "/getAllDepartments",
+					map, Department[].class);
+			List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
+			model.addAttribute("departmentList", departmentList);
+			MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
+					map, MstEmpType[].class); 
+			List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
+			model.addAttribute("empTypeList", empTypeList1);
+			
 			try {
 				int locId = (int) session.getAttribute("liveLocationId");
 				String selectMonth = request.getParameter("selectMonth");
 				String[] mnth = selectMonth.split("-");
 				month = Integer.parseInt(mnth[0]);
 				year = Integer.parseInt(mnth[1]);
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				int deptId = Integer.parseInt(request.getParameter("deptId"));
+				int typeId = Integer.parseInt(request.getParameter("typeId"));
+				
+				map = new LinkedMultiValueMap<String, Object>();
 				map.add("month", month);
 				map.add("year", year);
 				map.add("isFixed", 1);
 				map.add("sts", "F");
 				map.add("locId", locId);
+				map.add("deptId", deptId);
+				map.add("typeId", typeId);
 				EmpSalaryInfoForPayroll[] empInfo = Constants.getRestTemplate().postForObject(
 						Constants.url + "/getListForfixunfixAttendance", map, EmpSalaryInfoForPayroll[].class);
 				List<EmpSalaryInfoForPayroll> empList = new ArrayList<EmpSalaryInfoForPayroll>(Arrays.asList(empInfo));
 				model.addAttribute("empList", empList);
 				model.addAttribute("selectMonth", selectMonth);
-
+				model.addAttribute("deptId", deptId);
+				model.addAttribute("typeId", typeId);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
