@@ -368,7 +368,13 @@
 																class="icon-file-spreadsheet text-success  "
 																style="color: black;"></i></a>
 													</span></li>
-
+													<li>Bank Transfer Report (F1) <span> <a
+															href="javascript:void(0)"
+															onclick="getProgReport('f1',0,'showbankTransferReport')"
+															title="excel"><i
+																class="icon-file-spreadsheet text-success  "
+																style="color: black;"></i></a>
+													</span></li>
 												</ul>
 											</div>
 
