@@ -130,6 +130,12 @@ public class ReportAdminController {
 
 			model.addObject("bonusList", bonusList);
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Bank[] bank = Constants.getRestTemplate().postForObject(Constants.url + "/getAllBanks", map, Bank[].class);
+			List<Bank> bankList = new ArrayList<Bank>(Arrays.asList(bank));
+			model.addObject("bankList", bankList);
+
 		} catch (Exception e) {
 
 			System.err.println("Exce in showReports " + e.getMessage());
@@ -1156,6 +1162,8 @@ public class ReportAdminController {
 		String reportName = "Bank Transfer Report of  Month -" + month;
 		try {
 
+			int bankId = Integer.parseInt(request.getParameter("bankId"));
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
 			int locId = (int) session.getAttribute("liveLocationId");
@@ -1164,6 +1172,7 @@ public class ReportAdminController {
 			map.add("month", temp[0]);
 			map.add("year", temp[1]);
 			map.add("locId", locId);
+			map.add("bankId", bankId);
 			BankTrasferReport[] bankTrasferReport = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getBankTransferReport", map, BankTrasferReport[].class);
 			List<BankTrasferReport> list = new ArrayList<>(Arrays.asList(bankTrasferReport));
@@ -1192,19 +1201,19 @@ public class ReportAdminController {
 			double totAmt = 0;
 			for (int j = 0; j < bankList.size(); j++) {
 
-				expoExcel = new ExportToExcel();
-				rowData = new ArrayList<String>();
-				// rowData.add("" + cnt);
-				rowData.add("");
-				rowData.add("" + bankList.get(j).getName());
-				rowData.add("");
-				rowData.add("");
-				expoExcel.setRowData(rowData);
-				exportToExcelList.add(expoExcel);
+				if (bankList.get(j).getBankId() == bankId) {
 
-				for (int i = 0; i < list.size(); i++) {
+					expoExcel = new ExportToExcel();
+					rowData = new ArrayList<String>();
+					// rowData.add("" + cnt);
+					rowData.add("");
+					rowData.add("" + bankList.get(j).getName());
+					rowData.add("");
+					rowData.add("");
+					expoExcel.setRowData(rowData);
+					exportToExcelList.add(expoExcel);
 
-					if (bankList.get(j).getBankId() == list.get(i).getBankId()) {
+					for (int i = 0; i < list.size(); i++) {
 
 						expoExcel = new ExportToExcel();
 						rowData = new ArrayList<String>();
@@ -1215,13 +1224,15 @@ public class ReportAdminController {
 						rowData = new ArrayList<String>();
 						rowData.add("" + (i + 1));
 						rowData.add("" + list.get(i).getName());
-						rowData.add("'" + list.get(i).getAccNo());
+						rowData.add("" + list.get(i).getAccNo());
 						rowData.add("" + list.get(i).getNetSalary());
 						totAmt = ReportCostants.castNumber(totAmt + Double.parseDouble(list.get(i).getNetSalary()), 2);
 
 						expoExcel.setRowData(rowData);
 						exportToExcelList.add(expoExcel);
+
 					}
+					break;
 				}
 			}
 

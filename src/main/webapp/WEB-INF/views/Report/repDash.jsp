@@ -101,8 +101,8 @@
 
 									<div class="col-md-6">
 										<label class="col-form-label text-info col-lg-5 float"
-											for="date">Select Date(F1) <span style="color: red">*
-										</span> :
+											for="datepicker">Select Date(F1) <span
+											style="color: red">* </span> :
 										</label>
 										<div class="col-md-7 float">
 											<input type="text" class="form-control datepicker"
@@ -113,8 +113,9 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label class="col-form-label text-info col-lg-5 float ">Date
-											Range(F2)<span style="color: red">* </span>:
+										<label class="col-form-label text-info col-lg-5 float "
+											for="leaveDateRange">Date Range(F2)<span
+											style="color: red">* </span>:
 										</label>
 										<div class="col-lg-7 float">
 											<input type="text" class="form-control daterange-basic_new "
@@ -135,7 +136,7 @@
 
 								<div class="form-group row">
 									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="date">Select
+										<label class="col-form-label col-lg-5 float" for="subCmpId">Select
 											Company(F3): </label>
 										<div class="col-md-7 float">
 											<select name="subCmpId" data-placeholder="Select Sub Company"
@@ -150,8 +151,8 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label class="col-form-label col-lg-5 float" for="date">Select
-											Date(F4): </label>
+										<label class="col-form-label col-lg-5 float"
+											for="singleDateRange">Select Date(F4): </label>
 										<div class="col-md-7 float">
 											<input type="text" class="form-control datepickerclass"
 												name="singleDateRange" data-placeholder="Select Date"
@@ -160,6 +161,24 @@
 												style="display: none;">Please Select Date.</span>
 										</div>
 									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-md-6">
+										<label class="col-form-label col-lg-5 float" for="bankId">Select
+											Bank(F5): </label>
+										<div class="col-md-7 float">
+											<select name="bankId" data-placeholder="Select Sub Company"
+												id="bankId" class="form-control form-control-select2 ">
+
+												<c:forEach items="${bankList}" var="bankList">
+													<option value="${bankList.bankId}">${bankList.name}</option>
+
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+
 								</div>
 
 
