@@ -85,60 +85,60 @@
 									<thead>
 
 										<%
-											try {
-												session = request.getSession();
-												LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-												MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+										try {
+											session = request.getSession();
+											LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+											MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-												map = new LinkedMultiValueMap<String, Object>();
-												map.add("limitKey", "ammount_format_show");
-												Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
-														map, Setting.class);
-												int amount_round = Integer.parseInt(getSettingByKey.getValue());
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("limitKey", "ammount_format_show");
+											Setting getSettingByKey = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+											Setting.class);
+											int amount_round = Integer.parseInt(getSettingByKey.getValue());
 
-												map = new LinkedMultiValueMap<String, Object>();
-												map.add("limitKey", "ab_deduction");
-												Setting abDeduction = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-														Setting.class);
-												int ab_deduction = Integer.parseInt(abDeduction.getValue());
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("limitKey", "ab_deduction");
+											Setting abDeduction = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+											Setting.class);
+											int ab_deduction = Integer.parseInt(abDeduction.getValue());
 
-												session.setAttribute("amount_round", amount_round);
-												session.setAttribute("ab_deduction", ab_deduction);
+											session.setAttribute("amount_round", amount_round);
+											session.setAttribute("ab_deduction", ab_deduction);
 
-												map = new LinkedMultiValueMap<String, Object>();
-												map.add("group", "PAYROLLHIDESHOW");
-												Setting[] setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingListByGroup",
-														map, Setting[].class);
-												List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
+											map = new LinkedMultiValueMap<String, Object>();
+											map.add("group", "PAYROLLHIDESHOW");
+											Setting[] setting = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingListByGroup", map,
+											Setting[].class);
+											List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
 
-												int payroll_claim_show = 0;
-												int payroll_advance_show = 0;
-												int payroll_loan_show = 0;
-												int payroll_payded_show = 0;
-												int payroll_reward_show = 0;
-												int payroll_bhatta_show = 0;
+											int payroll_claim_show = 0;
+											int payroll_advance_show = 0;
+											int payroll_loan_show = 0;
+											int payroll_payded_show = 0;
+											int payroll_reward_show = 0;
+											int payroll_bhatta_show = 0;
 
-												for (int k = 0; k < settingList.size(); k++) {
-													if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
-														payroll_claim_show = Integer.parseInt(settingList.get(k).getValue());
-													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_advance_show")) {
-														payroll_advance_show = Integer.parseInt(settingList.get(k).getValue());
-													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_loan_show")) {
-														payroll_loan_show = Integer.parseInt(settingList.get(k).getValue());
-													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_payded_show")) {
-														payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
-													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
-														payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
-													} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
-														payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
-													}
+											for (int k = 0; k < settingList.size(); k++) {
+												if (settingList.get(k).getKey().equalsIgnoreCase("payroll_claim_show")) {
+											payroll_claim_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_advance_show")) {
+											payroll_advance_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_loan_show")) {
+											payroll_loan_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_payded_show")) {
+											payroll_payded_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_reward_show")) {
+											payroll_reward_show = Integer.parseInt(settingList.get(k).getValue());
+												} else if (settingList.get(k).getKey().equalsIgnoreCase("payroll_bhatta_show")) {
+											payroll_bhatta_show = Integer.parseInt(settingList.get(k).getValue());
 												}
-												session.setAttribute("payroll_claim_show", payroll_claim_show);
-												session.setAttribute("payroll_advance_show", payroll_advance_show);
-												session.setAttribute("payroll_loan_show", payroll_loan_show);
-												session.setAttribute("payroll_payded_show", payroll_payded_show);
-												session.setAttribute("payroll_reward_show", payroll_reward_show);
-												session.setAttribute("payroll_bhatta_show", payroll_bhatta_show);
+											}
+											session.setAttribute("payroll_claim_show", payroll_claim_show);
+											session.setAttribute("payroll_advance_show", payroll_advance_show);
+											session.setAttribute("payroll_loan_show", payroll_loan_show);
+											session.setAttribute("payroll_payded_show", payroll_payded_show);
+											session.setAttribute("payroll_reward_show", payroll_reward_show);
+											session.setAttribute("payroll_bhatta_show", payroll_bhatta_show);
 										%>
 										<tr class="bg-blue">
 											<!-- <th width="5%" class="text-center">Sr.no</th>
@@ -153,60 +153,60 @@
 												<th class="text-center" title="${allowanceslist.name}">${allowanceslist.name}</th>
 											</c:forEach>
 											<%
-												if (ab_deduction == 1) {
+											if (ab_deduction == 1) {
 											%><th class="text-center">Absent Deduction</th>
 											<%
-												}
+											}
 											%>
 											<th class="text-center">Gross Earning</th>
 											<%
-												if (payroll_claim_show == 1) {
+											if (payroll_claim_show == 1) {
 											%>
 											<th class="text-center">Claim ADD</th>
 											<%
-												}
+											}
 											%>
 											<th class="text-center">Production Incentive <!-- (OT AMT) --></th>
 											<th class="text-center">Performance Incentive</th>
 											<th class="text-center">Night Allowance</th>
 											<th class="text-center">Performance Bonus</th>
 											<%
-												if (payroll_bhatta_show == 1) {
+											if (payroll_bhatta_show == 1) {
 											%>
 											<th class="text-center">BHATTA</th>
 											<%
-												}
+											}
 											%>
 											<th class="text-center">Other1</th>
 											<%
-												if (payroll_reward_show == 1) {
+											if (payroll_reward_show == 1) {
 											%>
 											<th class="text-center">Reward</th>
 											<%
-												}
+											}
 											%>
 											<%
-												if (payroll_advance_show == 1) {
+											if (payroll_advance_show == 1) {
 											%>
 											<th class="text-center">ADV</th>
 											<%
-												}
+											}
 											%>
 											<%
-												if (payroll_loan_show == 1) {
+											if (payroll_loan_show == 1) {
 											%>
 											<th class="text-center">Loan</th>
 											<%
-												}
+											}
 											%>
 
 											<th class="text-center">TDS</th>
 											<%
-												if (payroll_payded_show == 1) {
+											if (payroll_payded_show == 1) {
 											%>
 											<th class="text-center">Pay Ded</th>
 											<%
-												}
+											}
 											%>
 											<th class="text-center">PT</th>
 											<th class="text-center">PF</th>
@@ -222,30 +222,29 @@
 									<tbody>
 
 										<%
-											map = new LinkedMultiValueMap<String, Object>();
-												map.add("month", request.getAttribute("month"));
-												map.add("year", request.getAttribute("year"));
-												map.add("empIds", request.getAttribute("empIds"));
-												map.add("userId", userObj.getUserId());
+										map = new LinkedMultiValueMap<String, Object>();
+										map.add("month", request.getAttribute("month"));
+										map.add("year", request.getAttribute("year"));
+										map.add("empIds", request.getAttribute("empIds"));
+										map.add("userId", userObj.getUserId());
 
-												EmpSalInfoDaiyInfoTempInfo[] getSalDynamicTempRecord = Constants.getRestTemplate()
-														.postForObject(Constants.url + "/calculateSalary", map, EmpSalInfoDaiyInfoTempInfo[].class);
-												List<EmpSalInfoDaiyInfoTempInfo> list = new ArrayList<>(Arrays.asList(getSalDynamicTempRecord));
+										EmpSalInfoDaiyInfoTempInfo[] getSalDynamicTempRecord = Constants.getRestTemplate()
+												.postForObject(Constants.url + "/calculateSalary", map, EmpSalInfoDaiyInfoTempInfo[].class);
+										List<EmpSalInfoDaiyInfoTempInfo> list = new ArrayList<>(Arrays.asList(getSalDynamicTempRecord));
 
-												session.setAttribute("payrollexelList", getSalDynamicTempRecord);
+										session.setAttribute("payrollexelList", getSalDynamicTempRecord);
 
-												session.setAttribute("monthAndYear",
-														request.getAttribute("month") + "-" + request.getAttribute("year"));
-												Allowances[] allowanceslist = (Allowances[]) request.getAttribute("allowanceslist");
+										session.setAttribute("monthAndYear", request.getAttribute("month") + "-" + request.getAttribute("year"));
+										Allowances[] allowanceslist = (Allowances[]) request.getAttribute("allowanceslist");
 
-												map = new LinkedMultiValueMap<String, Object>();
-												map.add("empIds", request.getAttribute("empIds"));
-												GetEmpDetail[] getEmpDetail = Constants.getRestTemplate()
-														.postForObject(Constants.url + "/getEmpDetailForPayRoll", map, GetEmpDetail[].class);
-												List<GetEmpDetail> getEmpDetaillist = new ArrayList<>(Arrays.asList(getEmpDetail));
-												session.setAttribute("getEmpDetaillist", getEmpDetail);
+										map = new LinkedMultiValueMap<String, Object>();
+										map.add("empIds", request.getAttribute("empIds"));
+										GetEmpDetail[] getEmpDetail = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpDetailForPayRoll", map,
+												GetEmpDetail[].class);
+										List<GetEmpDetail> getEmpDetaillist = new ArrayList<>(Arrays.asList(getEmpDetail));
+										session.setAttribute("getEmpDetaillist", getEmpDetail);
 
-												for (int i = 0; i < list.size(); i++) {
+										for (int i = 0; i < list.size(); i++) {
 										%><tr>
 											<%-- <td>
 												<%
@@ -259,42 +258,41 @@
 											</td> --%>
 											<td>
 												<%
-													out.println(list.get(i).getEmpName() + " (" + list.get(i).getEmpCode() + ")");
+												out.println(list.get(i).getEmpName() + " (" + list.get(i).getEmpCode() + ")");
 												%>
 											</td>
 
 
 											<%
-												for (int k = 0; k < getEmpDetaillist.size(); k++) {
+											for (int k = 0; k < getEmpDetaillist.size(); k++) {
 
-															if (list.get(i).getEmpId() == getEmpDetaillist.get(k).getEmpId()) {
+												if (list.get(i).getEmpId() == getEmpDetaillist.get(k).getEmpId()) {
 											%><td>
 												<%
-													out.println(getEmpDetaillist.get(k).getDeptName());
+												out.println(getEmpDetaillist.get(k).getDeptName());
 												%>
 											</td>
 											<td>
 												<%
-													out.println(getEmpDetaillist.get(k).getEmpDesgn());
+												out.println(getEmpDetaillist.get(k).getEmpDesgn());
 												%>
 											</td>
 											<%
-												break;
-															}
-														}
+											break;
+											}
+											}
 											%>
 
 
 
 											<td class="text-right">
 												<%
-													out.println(list.get(i).getPayableDays());
+												out.println(list.get(i).getPayableDays());
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
 												%>
 											</td>
 											<%-- <td class="text-right">
@@ -308,215 +306,197 @@
 											</td> --%>
 
 											<%
-												for (int k = 0; k < allowanceslist.length; k++) {
+											for (int k = 0; k < allowanceslist.length; k++) {
 
-															int find = 0;
-															for (int j = 0; j < list.get(i).getGetAllowanceTempList().size(); j++) {
-																if (allowanceslist[k].getAllowanceId() == list.get(i).getGetAllowanceTempList().get(j)
-																		.getAllowanceId()) {
+												int find = 0;
+												for (int j = 0; j < list.get(i).getGetAllowanceTempList().size(); j++) {
+													if (allowanceslist[k].getAllowanceId() == list.get(i).getGetAllowanceTempList().get(j).getAllowanceId()) {
 											%>
 
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																				ReportCostants.castNumber(
-																						list.get(i).getGetAllowanceTempList().get(j).getAllowanceValueCal(),
-																						amount_round)));
+												out.println(String.format("%.2f",
+														ReportCostants.castNumber(list.get(i).getGetAllowanceTempList().get(j).getAllowanceValueCal(), amount_round)));
 												%>
 											</td>
 											<%
-												find = 1;
-																	break;
-																}
-															}
+											find = 1;
+											break;
+											}
+											}
 
-															if (find == 0) {
+											if (find == 0) {
 											%>
 
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f", ReportCostants.castNumber(0, amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(0, amount_round)));
 												%>
 											</td>
 											<%
-												}
-														}
+											}
+											}
 											%>
 											<%
-												if (ab_deduction == 1) {
+											if (ab_deduction == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getGrossSalaryDytemp(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getGrossSalaryDytemp(), amount_round)));
 												%>
 											</td>
 											<%
-												if (payroll_claim_show == 1) {
+											if (payroll_claim_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
 												%>
 											</td>
 											<%
-												if (payroll_bhatta_show == 1) {
+											if (payroll_bhatta_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 												%>
 											</td>
 											<%
-												if (payroll_reward_show == 1) {
+											if (payroll_reward_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 
 											<%
-												if (payroll_advance_show == 1) {
+											if (payroll_advance_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 											<%
-												if (payroll_loan_show == 1) {
+											if (payroll_loan_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
 												%>
 											</td>
 
 											<%
-												if (payroll_payded_show == 1) {
+											if (payroll_payded_show == 1) {
 											%><td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																		ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
 												%>
 											</td>
 											<%
-												}
+											}
 											%>
 
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), 1)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(String.format("%.2f",
-																	ReportCostants.castNumber((list.get(i).getGrossSalaryDytemp()
-																			+ list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd()
-																			+ list.get(i).getReward() + list.get(i).getOtWages()
-																			+ list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
-																			+ list.get(i).getBhatta() + list.get(i).getOther1()), amount_round)));
+												out.println(String.format("%.2f",
+														ReportCostants.castNumber(
+														(list.get(i).getGrossSalaryDytemp() + list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd()
+																+ list.get(i).getReward() + list.get(i).getOtWages() + list.get(i).getProductionInsentive()
+																+ list.get(i).getNightAllow() + list.get(i).getBhatta() + list.get(i).getOther1()),
+														amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
-																	+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()
-																	+ list.get(i).getEsic() + list.get(i).getMlwf() + list.get(i).getSocietyContribution();
-															out.println(String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
+												double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
+														+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf() + list.get(i).getEsic()
+														+ list.get(i).getMlwf() + list.get(i).getSocietyContribution();
+												out.println(String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
 												%>
 											</td>
 											<td class="text-right">
 												<%
-													out.println(
-																	String.format("%.2f", ReportCostants.castNumber(list.get(i).getNetSalary(), amount_round)));
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getNetSalary(), amount_round)));
 												%>
 											</td>
 
 										</tr>
 										<%
-											}
-											} catch (Exception e) {
-												e.printStackTrace();
-											}
+										}
+										} catch (Exception e) {
+										e.printStackTrace();
+										}
 										%>
 
 										<%-- <c:forEach items="${empList}" var="empList" varStatus="count">

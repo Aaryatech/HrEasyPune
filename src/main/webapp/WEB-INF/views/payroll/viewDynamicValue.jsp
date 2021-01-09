@@ -202,6 +202,9 @@
 											<c:if test="${payroll_reward_show==1}">
 												<th class="text-center">Reward</th>
 											</c:if>
+											<c:if test="${nightAlloCal.value==0}">
+												<th class="text-center">Night Allowance</th>
+											</c:if>
 											<!-- <th class="text-center">Edit</th> -->
 										</tr>
 
@@ -249,6 +252,17 @@
 													onchange="saveBonusDetail(${empList.id})"></td>
 												<c:if test="${payroll_reward_show==1}">
 													<td class="text-right">${empList.reward}</td>
+												</c:if>
+
+												<c:if test="${nightAlloCal.value==0}">
+													<td class="text-right"><input type="text"
+														class="form-control numbersOnly"
+														value="${empList.nightAllow}" placeholder="Night Allownce"
+														id="nightAllow${empList.id}"
+														name="nightAllow${empList.id}" autocomplete="off"
+														data-nightallow="${empList.nightAllow}"
+														style="text-align: right;"
+														onchange="saveBonusDetail(${empList.id})"></td>
 												</c:if>
 												<%-- <td class="text-center"><a href="#"
 													onclick="editBonus(${empList.id})"
@@ -389,6 +403,10 @@
 			var perBonusDefault = $("#perBonus"+tempSalDaynamicId).data("performancebonus")
 			var other1Default = $("#other1"+tempSalDaynamicId).data("other1")
 			 
+			var nightAllowCal = "${nightAlloCal.value}";
+			var nightAllowAmt=0;
+			
+			//alert(nightAllowCal);
 			if (itAmt == "") {
 				 
 				document.getElementById("itAmt"+tempSalDaynamicId).value=0;
@@ -405,7 +423,16 @@
 				other1=0;
 			}
 
-			 
+			 if(nightAllowCal==0){
+				
+				   nightAllowAmt = document.getElementById("nightAllow"+tempSalDaynamicId).value; 
+				  // alert(nightAllowAmt);
+				   if (nightAllowAmt == "") {
+						 
+						document.getElementById("nightAllow"+tempSalDaynamicId).value=0;
+						nightAllowAmt=0;
+					}
+			 }
 
 				//$('#modal_step1').modal('show');
 				var fd = new FormData();
@@ -413,6 +440,7 @@
 				fd.append('itAmt', itAmt);
 				fd.append('perBonus', perBonus);
 				fd.append('other1', other1);
+				fd.append('nightAllowAmt', nightAllowAmt);
 				$.ajax({
 					url : '${pageContext.request.contextPath}/saveBonusDetail',
 					type : 'post',

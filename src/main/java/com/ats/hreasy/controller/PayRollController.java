@@ -133,9 +133,9 @@ public class PayRollController {
 
 				List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
 				model.addAttribute("departmentList", departmentList);
-				
-				MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
-						map, MstEmpType[].class); 
+
+				MstEmpType[] empTypeList = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getMstEmpTypeList", map, MstEmpType[].class);
 				List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
 				model.addAttribute("empTypeList", empTypeList1);
 			}
@@ -196,6 +196,13 @@ public class PayRollController {
 							.postForObject(Constants.url + "/getSettingListByGroup", map, Setting[].class);
 					List<Setting> settingList = new ArrayList<>(Arrays.asList(setting));
 					model.addAttribute("settingList", settingList);
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("limitKey", "nightAllowCal");
+					Setting nightAlloCal = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey",
+							map, Setting.class);
+
+					model.addAttribute("nightAlloCal", nightAlloCal);
 				}
 				model.addAttribute("empIds", empIds);
 				model.addAttribute("date", date);
@@ -241,11 +248,13 @@ public class PayRollController {
 			float itAmt = Float.parseFloat(request.getParameter("itAmt"));
 			float perBonus = Float.parseFloat(request.getParameter("perBonus"));
 			float other1 = Float.parseFloat(request.getParameter("other1"));
+			float nightAllowAmt = Float.parseFloat(request.getParameter("nightAllowAmt"));
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("tempSalDaynamicId", tempSalDaynamicId);
 			map.add("itAmt", itAmt);
 			map.add("perBonus", perBonus);
 			map.add("other1", other1);
+			map.add("nightAllowAmt", nightAllowAmt);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "/updateBonusAmt", map, Info.class);
 
 		} catch (Exception e) {
