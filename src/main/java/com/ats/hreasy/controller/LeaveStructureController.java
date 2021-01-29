@@ -18,8 +18,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -1834,8 +1837,6 @@ public class LeaveStructureController {
 		return model;
 	}
 
-	List<OpeningPendingLeaveEmployeeList> list = new ArrayList<OpeningPendingLeaveEmployeeList>();
-
 	@RequestMapping(value = "/submitUploadLeaveData", method = RequestMethod.POST)
 	public String submitUploadLeaveData(@RequestParam("fileNew") List<MultipartFile> fileNew,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -1852,7 +1853,8 @@ public class LeaveStructureController {
 			OpeningPendingLeaveEmployeeList[] employeeDoc = Constants.getRestTemplate().postForObject(
 					Constants.url + "/getEmplistForOpeningLeave", map, OpeningPendingLeaveEmployeeList[].class);
 
-			list = new ArrayList<OpeningPendingLeaveEmployeeList>(Arrays.asList(employeeDoc));
+			List<OpeningPendingLeaveEmployeeList> list = new ArrayList<OpeningPendingLeaveEmployeeList>(
+					Arrays.asList(employeeDoc));
 			List<OpbalAndId> updateOp = new ArrayList<>();
 
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
@@ -1866,10 +1868,13 @@ public class LeaveStructureController {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			upload.saveUploadedFiles(fileNew.get(0), Constants.docSaveUrl, imageName);
 			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
-			HSSFWorkbook workbook = new HSSFWorkbook(file);
-			HSSFSheet sheet = workbook.getSheetAt(0);
-			
-			
+			OPCPackage pkg = OPCPackage.open(new File(Constants.docSaveUrl + imageName));
+
+			// HSSFWorkbook workbook = new HSSFWorkbook(file);
+			XSSFWorkbook workbook = new XSSFWorkbook(pkg);
+
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
 			Row row;
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				row = (Row) sheet.getRow(i); // sheet number
@@ -1886,17 +1891,17 @@ public class LeaveStructureController {
 							if (list.get(j).getLvTypeId() == 5) {
 								OpbalAndId opbalAndId = new OpbalAndId();
 								opbalAndId.setBalId(list.get(j).getLvbalId());
-								opbalAndId.setOpBal((int) row.getCell(5).getNumericCellValue());
+								opbalAndId.setOpBal((float) row.getCell(5).getNumericCellValue());
 								updateOp.add(opbalAndId);
 							} else if (list.get(j).getLvTypeId() == 4) {
 								OpbalAndId opbalAndId = new OpbalAndId();
 								opbalAndId.setBalId(list.get(j).getLvbalId());
-								opbalAndId.setOpBal((int) row.getCell(6).getNumericCellValue());
+								opbalAndId.setOpBal((float) row.getCell(6).getNumericCellValue());
 								updateOp.add(opbalAndId);
 							} else if (list.get(j).getLvTypeId() == 3) {
 								OpbalAndId opbalAndId = new OpbalAndId();
 								opbalAndId.setBalId(list.get(j).getLvbalId());
-								opbalAndId.setOpBal((int) row.getCell(7).getNumericCellValue());
+								opbalAndId.setOpBal((float) row.getCell(7).getNumericCellValue());
 								updateOp.add(opbalAndId);
 							}
 
