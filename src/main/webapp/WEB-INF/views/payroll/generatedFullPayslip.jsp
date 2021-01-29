@@ -324,21 +324,24 @@ hr {
 								value="${rateTotal+payrollAllownceList.allowanceValue}"></c:set>
 							<c:set var="earningTotal"
 								value="${earningTotal+payrollAllownceList.allowanceValueCal}"></c:set>
-							<tr>
-								<td valign="top"
-									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-									align="left">${payrollAllownceList.shortName}</td>
+							<c:if test="${payrollAllownceList.allowanceValue>0}">
+								<tr>
+									<td valign="top"
+										style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+										align="left">${payrollAllownceList.exVar1}</td>
 
-								<td valign="top"
-									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-									align="right">${payrollAllownceList.allowanceValue}</td>
-								<td valign="top"
-									style="color: #000; padding-left: 5px; padding-right: 5px;"
-									align="right">${payrollAllownceList.allowanceValueCal}</td>
-							</tr>
+									<td valign="top"
+										style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+										align="right">${payrollAllownceList.allowanceValue}</td>
+									<td valign="top"
+										style="color: #000; padding-left: 5px; padding-right: 5px;"
+										align="right">${payrollAllownceList.allowanceValueCal}</td>
+								</tr>
+							</c:if>
+
 						</c:forEach>
 
-						<c:if test="${payroll_claim_show==1}">
+						<c:if test="${payroll_claim_show==1 && list.miscExpAdd>0}">
 							<tr>
 								<td valign="top"
 									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
@@ -354,47 +357,51 @@ hr {
 
 							<c:set var="earningTotal" value="${earningTotal+list.miscExpAdd}"></c:set>
 						</c:if>
-
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Performance Bonus</td>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-								align="right">-</td>
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.performanceBonus}</td>
-							<c:set var="earningTotal"
-								value="${earningTotal+list.performanceBonus}"></c:set>
-						</tr>
-
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Production Incentive</td>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-								align="right">-</td>
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.otWages}</td>
-							<c:set var="earningTotal" value="${earningTotal+list.otWages}"></c:set>
-						</tr>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Performance Incentive</td>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-								align="right">-</td>
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.productionInsentive}</td>
-							<c:set var="earningTotal"
-								value="${earningTotal+list.productionInsentive}"></c:set>
-						</tr>
-						<c:if test="${payroll_bhatta_show==1}">
+						<c:if test="${list.performanceBonus>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Performance Bonus</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.performanceBonus}</td>
+								<c:set var="earningTotal"
+									value="${earningTotal+list.performanceBonus}"></c:set>
+							</tr>
+						</c:if>
+						<c:if test="${list.otWages>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Production Incentive</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.otWages}</td>
+								<c:set var="earningTotal" value="${earningTotal+list.otWages}"></c:set>
+							</tr>
+						</c:if>
+						<c:if test="${list.productionInsentive>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Performance Incentive</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.productionInsentive}</td>
+								<c:set var="earningTotal"
+									value="${earningTotal+list.productionInsentive}"></c:set>
+							</tr>
+						</c:if>
+						<c:if test="${payroll_bhatta_show==1 && list.bhatta>0}">
 							<tr>
 
 								<td valign="top"
@@ -410,7 +417,7 @@ hr {
 
 							</tr>
 						</c:if>
-						<c:if test="${payroll_reward_show==1}">
+						<c:if test="${payroll_reward_show==1 && list.reward>0}">
 							<tr>
 								<td valign="top"
 									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
@@ -424,31 +431,36 @@ hr {
 								<c:set var="earningTotal" value="${earningTotal+list.reward}"></c:set>
 							</tr>
 						</c:if>
+						<c:if test="${list.nightAllow>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Night Allowance</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.nightAllow}</td>
+								<c:set var="earningTotal"
+									value="${earningTotal+list.nightAllow}"></c:set>
+							</tr>
+						</c:if>
+						<c:if test="${list.other1>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Other1</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.other1}</td>
+								<c:set var="earningTotal" value="${earningTotal+list.other1}"></c:set>
+							</tr>
+						</c:if>
 
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Night Allowance</td>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-								align="right">-</td>
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.nightAllow}</td>
-							<c:set var="earningTotal" value="${earningTotal+list.nightAllow}"></c:set>
-						</tr>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">Other1</td>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
-								align="right">-</td>
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.other1}</td>
-							<c:set var="earningTotal" value="${earningTotal+list.other1}"></c:set>
-						</tr>
 						<tr>
 							<th width="33.33%" valign="top"
 								style="color: #000; border-right: 1px solid #313131; border-top: 1px solid #313131;"
@@ -463,6 +475,7 @@ hr {
 
 
 						</tr>
+
 					</table> <br> <c:set var="deductTotal" value="0"></c:set>
 					<table width="100%"
 						style="border-top: 1px solid #313131; border-right: 1px solid #313131; border-left: 1px solid #313131; border-bottom: 1px solid #313131;">
@@ -476,50 +489,58 @@ hr {
 								align="center">DEDUCTION</th>
 						</tr>
 						<c:set var="deductTotal" value="${deductTotal+list.employeePf}"></c:set>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">PROVIDENT FUND</td>
+						<c:if test="${list.employeePf>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">PROVIDENT FUND</td>
 
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.employeePf}</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.employeePf}</td>
 
-						</tr>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">PROF TAX</td>
+							</tr>
+						</c:if>
+						<c:if test="${list.ptDed>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">PROF TAX</td>
 
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.ptDed}</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.ptDed}</td>
 
-						</tr>
+							</tr>
+						</c:if>
 						<c:set var="deductTotal" value="${deductTotal+list.ptDed}"></c:set>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">ESIC</td>
+						<c:if test="${list.esic>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">ESIC</td>
 
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align=right>${list.esic}</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align=right>${list.esic}</td>
 
-						</tr>
+							</tr>
+						</c:if>
 						<c:set var="deductTotal" value="${deductTotal+list.esic}"></c:set>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">LWF</td>
+						<c:if test="${list.mlwf>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">LWF</td>
 
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.mlwf}</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.mlwf}</td>
 
-						</tr>
-						<c:set var="deductTotal" value="${deductTotal+list.mlwf}"></c:set>
-						<c:if test="${payroll_advance_show==1}">
+							</tr>
+							<c:set var="deductTotal" value="${deductTotal+list.mlwf}"></c:set>
+						</c:if>
+						<c:if test="${payroll_advance_show==1 && list.advanceDed>0}">
 							<tr>
 
 								<td valign="top"
@@ -533,18 +554,20 @@ hr {
 							</tr>
 							<c:set var="deductTotal" value="${deductTotal+list.advanceDed}"></c:set>
 						</c:if>
-						<tr>
-							<td valign="top"
-								style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
-								align="left">TDS</td>
+						<c:if test="${list.itded>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">TDS</td>
 
-							<td valign="top"
-								style="color: #000; padding-left: 5px; padding-right: 5px;"
-								align="right">${list.itded}</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.itded}</td>
 
-						</tr>
+							</tr>
+						</c:if>
 						<c:set var="deductTotal" value="${deductTotal+list.itded}"></c:set>
-						<c:if test="${payroll_loan_show==1}">
+						<c:if test="${payroll_loan_show==1 && list.loanDed>0}">
 							<tr>
 								<td valign="top"
 									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
@@ -557,7 +580,7 @@ hr {
 							</tr>
 							<c:set var="deductTotal" value="${deductTotal+list.loanDed}"></c:set>
 						</c:if>
-						<c:if test="${payroll_payded_show==1}">
+						<c:if test="${payroll_payded_show==1 && list.payDed>0}">
 							<tr>
 								<td valign="top"
 									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"

@@ -1,5 +1,7 @@
 package com.ats.hreasy.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.DateFormat;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +27,16 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.hreasy.common.AcessController;
 import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
+import com.ats.hreasy.common.VpsImageUpload;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.Allowances;
 import com.ats.hreasy.model.CalenderYear;
@@ -50,6 +59,8 @@ import com.ats.hreasy.model.LeaveType;
 import com.ats.hreasy.model.LeavesAllotment;
 import com.ats.hreasy.model.Location;
 import com.ats.hreasy.model.LoginResponse;
+import com.ats.hreasy.model.OpbalAndId;
+import com.ats.hreasy.model.OpeningPendingLeaveEmployeeList;
 import com.ats.hreasy.model.Setting;
 
 @Controller
@@ -1808,6 +1819,107 @@ public class LeaveStructureController {
 			session.setAttribute("errorMsg", "Failed to Allocate Stucture");
 		}
 		return "redirect:/carryForwordLeave?locId=" + locId;
+	}
+
+	@RequestMapping(value = "/importPreviousLeave", method = RequestMethod.GET)
+	public String importPreviousLeave(HttpServletRequest request, HttpServletResponse response) {
+
+		String model = "leave/importPreviousLeave";
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+
+	List<OpeningPendingLeaveEmployeeList> list = new ArrayList<OpeningPendingLeaveEmployeeList>();
+
+	@RequestMapping(value = "/submitUploadLeaveData", method = RequestMethod.POST)
+	public String submitUploadLeaveData(@RequestParam("fileNew") List<MultipartFile> fileNew,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			CalenderYear calculateYear = Constants.getRestTemplate()
+					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+			HttpSession session = request.getSession();
+			int locId = (int) session.getAttribute("liveLocationId");
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			map.add("yearId", calculateYear.getCalYrId());
+			OpeningPendingLeaveEmployeeList[] employeeDoc = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getEmplistForOpeningLeave", map, OpeningPendingLeaveEmployeeList[].class);
+
+			list = new ArrayList<OpeningPendingLeaveEmployeeList>(Arrays.asList(employeeDoc));
+			List<OpbalAndId> updateOp = new ArrayList<>();
+
+			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+			SimpleDateFormat dateTimeInGMT = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+			Date date = new Date();
+			VpsImageUpload upload = new VpsImageUpload();
+			String imageName = new String();
+			imageName = dateTimeInGMT.format(date) + "_" + fileNew.get(0).getOriginalFilename();
+
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			upload.saveUploadedFiles(fileNew.get(0), Constants.docSaveUrl, imageName);
+			FileInputStream file = new FileInputStream(new File(Constants.docSaveUrl + imageName));
+			HSSFWorkbook workbook = new HSSFWorkbook(file);
+			HSSFSheet sheet = workbook.getSheetAt(0);
+			
+			
+			Row row;
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				row = (Row) sheet.getRow(i); // sheet number
+
+				DataFormatter formatter = new DataFormatter();
+				String empCode = formatter.formatCellValue(row.getCell(0));
+
+				try {
+
+					for (int j = 0; j < list.size(); j++) {
+
+						if (list.get(j).getEmpCode().equalsIgnoreCase(empCode)) {
+
+							if (list.get(j).getLvTypeId() == 5) {
+								OpbalAndId opbalAndId = new OpbalAndId();
+								opbalAndId.setBalId(list.get(j).getLvbalId());
+								opbalAndId.setOpBal((int) row.getCell(5).getNumericCellValue());
+								updateOp.add(opbalAndId);
+							} else if (list.get(j).getLvTypeId() == 4) {
+								OpbalAndId opbalAndId = new OpbalAndId();
+								opbalAndId.setBalId(list.get(j).getLvbalId());
+								opbalAndId.setOpBal((int) row.getCell(6).getNumericCellValue());
+								updateOp.add(opbalAndId);
+							} else if (list.get(j).getLvTypeId() == 3) {
+								OpbalAndId opbalAndId = new OpbalAndId();
+								opbalAndId.setBalId(list.get(j).getLvbalId());
+								opbalAndId.setOpBal((int) row.getCell(7).getNumericCellValue());
+								updateOp.add(opbalAndId);
+							}
+
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			OpbalAndId[] updateRes = Constants.getRestTemplate().postForObject(Constants.url + "/updateOpning",
+					updateOp, OpbalAndId[].class);
+			if (updateRes != null) {
+				session.setAttribute("successMsg", "Update leave opening Successfully.");
+			} else {
+				session.setAttribute("errorMsg", "Failed to update leave opening");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/importPreviousLeave";
 	}
 
 }

@@ -44,13 +44,13 @@
 								<td width="60%"><h5 class="pageTitle">
 										<i class="icon-list-unordered"></i> Carry forward Leave
 									</h5></td>
-								<td width="40%" align="right">
-									<%-- <a
-									href="${pageContext.request.contextPath}/showAddKra?empId=${editKra.exVar3}&finYrId=${editKra.exVar2}"
-									class="breadcrumb-elements-item">
-										<button type="button" class="btn btn-primary">KRA List </button>
-								</a>  --%>
-								</td>
+								<td width="40%" align="right"><a
+									href="${pageContext.request.contextPath}/importPreviousLeave"
+									class="">
+										<button type="button"
+											class="btn blue_btn legitRipple legitRipple-empty">Import
+											Previous Leave</button>
+								</a></td>
 							</tr>
 						</table>
 					</div>
@@ -58,7 +58,7 @@
 					<div class="card-body">
 
 						<%
-							if (session.getAttribute("errorMsg") != null) {
+						if (session.getAttribute("errorMsg") != null) {
 						%>
 						<div
 							class="alert bg-danger text-white alert-styled-left alert-dismissible">
@@ -67,16 +67,16 @@
 							</button>
 							<span class="font-weight-semibold">Oh snap!</span>
 							<%
-								out.println(session.getAttribute("errorMsg"));
+							out.println(session.getAttribute("errorMsg"));
 							%>
 						</div>
 
 						<%
-							session.removeAttribute("errorMsg");
-							}
+						session.removeAttribute("errorMsg");
+						}
 						%>
 						<%
-							if (session.getAttribute("successMsg") != null) {
+						if (session.getAttribute("successMsg") != null) {
 						%>
 						<div
 							class="alert bg-success text-white alert-styled-left alert-dismissible">
@@ -85,12 +85,12 @@
 							</button>
 							<span class="font-weight-semibold">Well done!</span>
 							<%
-								out.println(session.getAttribute("successMsg"));
+							out.println(session.getAttribute("successMsg"));
 							%>
 						</div>
 						<%
-							session.removeAttribute("successMsg");
-							}
+						session.removeAttribute("successMsg");
+						}
 						%>
 						<form
 							action="${pageContext.request.contextPath}/carryForwordLeave"
