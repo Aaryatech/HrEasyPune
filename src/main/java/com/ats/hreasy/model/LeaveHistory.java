@@ -32,6 +32,8 @@ public class LeaveHistory {
 		
 		private int isInCash;
 		
+		private float leaveEncashCount;
+		
 		public int getLvsId() {
 			return lvsId;
 		}
@@ -144,13 +146,22 @@ public class LeaveHistory {
 			this.isInCash = isInCash;
 		}
 
+		public float getLeaveEncashCount() {
+			return leaveEncashCount;
+		}
+
+		public void setLeaveEncashCount(float leaveEncashCount) {
+			this.leaveEncashCount = leaveEncashCount;
+		}
+
 		@Override
 		public String toString() {
 			return "LeaveHistory [lvTypeId=" + lvTypeId + ", lvsId=" + lvsId + ", lvTitleShort=" + lvTitleShort
 					+ ", lvTitle=" + lvTitle + ", lvsAllotedLeaves=" + lvsAllotedLeaves + ", balLeave=" + balLeave
 					+ ", aplliedLeaeve=" + aplliedLeaeve + ", sactionLeave=" + sactionLeave + ", isFile=" + isFile
 					+ ", maxAccumulateCarryforward=" + maxAccumulateCarryforward + ", isCarryforward=" + isCarryforward
-					+ ", maxCarryforward=" + maxCarryforward + ", lvsName=" + lvsName + ", isInCash=" + isInCash + "]";
+					+ ", maxCarryforward=" + maxCarryforward + ", lvsName=" + lvsName + ", isInCash=" + isInCash
+					+ ", leaveEncashCount=" + leaveEncashCount + "]";
 		}
 
 		

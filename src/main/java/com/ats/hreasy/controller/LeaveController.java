@@ -792,7 +792,8 @@ public class LeaveController {
 				if (leaveTypeId == leaveHistoryList.get(i).getLvTypeId()) {
 					String balance = String.valueOf(leaveHistoryList.get(i).getBalLeave()
 							+ leaveHistoryList.get(i).getLvsAllotedLeaves() - leaveHistoryList.get(i).getSactionLeave()
-							- leaveHistoryList.get(i).getAplliedLeaeve());
+							- leaveHistoryList.get(i).getAplliedLeaeve()
+							- leaveHistoryList.get(i).getLeaveEncashCount());
 					int isRequered = leaveHistoryList.get(i).getIsFile();
 					info.setMsg(balance + "," + isRequered);
 					info.setError(false);

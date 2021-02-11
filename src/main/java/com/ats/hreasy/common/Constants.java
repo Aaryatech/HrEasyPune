@@ -11,9 +11,9 @@ public class Constants {
 
 	public static final String url = "http://localhost:8094/";
 	public static String REPORT_SAVE = "/home/ashay/Documents/PDF/Report.pdf";
-	public static final String ReportURL = "http://localhost:8081/hreasy/";
+	public static final String ReportURL = "http://localhost:8080/hreasy/";
 	public static final String attsDocSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
-	public static final String docSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
+	public static final String docSaveUrl = "/home/ashay/Documents/uploaddoc/";
 
 	public static final String companyLogoSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String empDocSaveUrl = "/home/maddy/ats-11/";
