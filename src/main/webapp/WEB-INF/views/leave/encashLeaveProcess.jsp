@@ -493,12 +493,13 @@
 
 			$("#error_leaveTypeId").hide();
 			$("#error_noOfDays").hide();
-			var leaveCount = $("#noOfDays").val();
+			var leaveCount = parseFloat($("#noOfDays").val());
 			var leaveTypeId = $("#leaveTypeId").val();
 			if (leaveTypeId != "") {
 
-				var bal = $("#typeId" + leaveTypeId).data("bal")
+				var bal = parseFloat($("#typeId" + leaveTypeId).data("bal"));
 
+				//alert(bal + " " + leaveCount)
 				if (leaveCount > bal) {
 					$("#error_noOfDays").html(
 							"Insuffient leave count for encash.");

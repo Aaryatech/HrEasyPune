@@ -177,6 +177,7 @@
 											<%
 											}
 											%>
+											<th class="text-center">Leave Encash Amount</th>
 											<th class="text-center">Other1</th>
 											<%
 											if (payroll_reward_show == 1) {
@@ -395,6 +396,11 @@
 											%>
 											<td class="text-right">
 												<%
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
+												%>
+											</td>
+											<td class="text-right">
+												<%
 												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 												%>
 											</td>
@@ -469,12 +475,14 @@
 											</td>
 											<td class="text-right">
 												<%
-												out.println(String.format("%.2f",
+												out.println(
+														String.format("%.2f",
 														ReportCostants.castNumber(
-														(list.get(i).getGrossSalaryDytemp() + list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd()
-																+ list.get(i).getReward() + list.get(i).getOtWages() + list.get(i).getProductionInsentive()
-																+ list.get(i).getNightAllow() + list.get(i).getBhatta() + list.get(i).getOther1()),
-														amount_round)));
+																(list.get(i).getGrossSalaryDytemp() + list.get(i).getPerformanceBonus()
+																		+ list.get(i).getMiscExpAdd() + list.get(i).getReward() + list.get(i).getOtWages()
+																		+ list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
+																		+ list.get(i).getBhatta() + list.get(i).getOther1() + list.get(i).getLeaveEncashAmt()),
+																amount_round)));
 												%>
 											</td>
 											<td class="text-right">

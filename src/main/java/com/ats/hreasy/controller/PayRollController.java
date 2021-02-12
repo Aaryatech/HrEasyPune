@@ -423,7 +423,10 @@ public class PayRollController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
+			
+			rowData.add("Leave Encash Amount");
 			rowData.add("Other1");
+			
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -522,8 +525,12 @@ public class PayRollController {
 							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 
 				}
+
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
+
 				if (payroll_reward_show == 1) {
 
 					rowData.add(""
@@ -582,7 +589,7 @@ public class PayRollController {
 
 				ExceUtil.autoSizeColumns(wb, 3);
 				response.setContentType("application/vnd.ms-excel");
-				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+				String date = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
 				response.setHeader("Content-disposition", "attachment; filename=" + reportName + "-" + date + ".xlsx");
 				wb.write(response.getOutputStream());
 
