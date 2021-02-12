@@ -460,6 +460,21 @@ hr {
 								<c:set var="earningTotal" value="${earningTotal+list.other1}"></c:set>
 							</tr>
 						</c:if>
+						<c:if test="${list.leaveEncashAmt>0}">
+							<tr>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Leave Encash Amount</td>
+								<td valign="top"
+									style="color: #000; border-right: 1px solid #313131; padding-right: 5px;"
+									align="right">-</td>
+								<td valign="top"
+									style="color: #000; padding-left: 5px; padding-right: 5px;"
+									align="right">${list.leaveEncashAmt}</td>
+								<c:set var="earningTotal"
+									value="${earningTotal+list.leaveEncashAmt}"></c:set>
+							</tr>
+						</c:if>
 
 						<tr>
 							<th width="33.33%" valign="top"

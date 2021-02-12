@@ -341,6 +341,18 @@ hr {
 
 							</tr>
 						</c:if>
+						<c:if test="${list.leaveEncashAmt>0}">
+							<tr>
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; border-right: 1px solid #313131; padding-left: 5px;"
+									align="left">Leave Encash Amount</td>
+
+								<td width="50%" valign="top"
+									style="color: #000; font-size: 12px; padding-right: 5px;"
+									align="right">${list.leaveEncashAmt}</td>
+
+							</tr>
+						</c:if>
 
 					</table></td>
 

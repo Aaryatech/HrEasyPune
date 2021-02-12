@@ -513,6 +513,7 @@ public class ReportAdminController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
+			rowData.add("Leave Encash Amount");
 			rowData.add("Other1");
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
@@ -625,6 +626,8 @@ public class ReportAdminController {
 					rowData.add(""
 							+ String.format("%.2f", ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 				}
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 				if (payroll_reward_show == 1) {
@@ -876,6 +879,7 @@ public class ReportAdminController {
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
+			rowData.add("Leave Encash Amount");
 			rowData.add("Other1");
 			rowData.add("Total Earning");
 
@@ -911,6 +915,7 @@ public class ReportAdminController {
 			double totPerformanceBon = 0;
 			double totBhatta = 0;
 			double totOther = 0;
+			double totLeaveEncash = 0;
 			double totReward = 0;
 			double totEarning = 0;
 			double totadv = 0;
@@ -1002,7 +1007,10 @@ public class ReportAdminController {
 					totReward = ReportCostants.castNumber(totReward + list.get(i).getReward(), amount_round);
 
 				}
-
+				rowData.add("" + String.format("%.2f",
+						ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
+				totLeaveEncash = ReportCostants.castNumber(totLeaveEncash + list.get(i).getLeaveEncashAmt(),
+						amount_round);
 				rowData.add(
 						"" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 				totOther = ReportCostants.castNumber(totOther + list.get(i).getOther1(), amount_round);
@@ -1097,6 +1105,7 @@ public class ReportAdminController {
 			if (payroll_reward_show == 1) {
 				rowData.add("" + totReward);
 			}
+			rowData.add("" + totLeaveEncash);
 			rowData.add("" + totOther);
 			rowData.add("" + totEarning);
 

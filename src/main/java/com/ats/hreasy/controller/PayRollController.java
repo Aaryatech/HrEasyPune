@@ -423,10 +423,10 @@ public class PayRollController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
-			
+
 			rowData.add("Leave Encash Amount");
 			rowData.add("Other1");
-			
+
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
 			}
@@ -563,10 +563,12 @@ public class PayRollController {
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
 				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
 
-				rowData.add("" + String.format("%.2f", ReportCostants.castNumber((list.get(i).getGrossSalaryDytemp()
-						+ list.get(i).getPerformanceBonus() + list.get(i).getMiscExpAdd() + list.get(i).getReward()
-						+ list.get(i).getOtWages() + list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
-						+ list.get(i).getBhatta() + list.get(i).getOther1()), amount_round)));
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(
+						(list.get(i).getGrossSalaryDytemp() + list.get(i).getPerformanceBonus()
+								+ list.get(i).getMiscExpAdd() + list.get(i).getReward() + list.get(i).getOtWages()
+								+ list.get(i).getProductionInsentive() + list.get(i).getNightAllow()
+								+ list.get(i).getBhatta() + list.get(i).getOther1() + list.get(i).getLeaveEncashAmt()),
+						amount_round)));
 
 				double finalDed = list.get(i).getAdvanceDed() + list.get(i).getLoanDed() + list.get(i).getItded()
 						+ list.get(i).getPayDed() + list.get(i).getPtDed() + list.get(i).getEmployeePf()
@@ -732,6 +734,7 @@ public class PayRollController {
 			if (payroll_bhatta_show == 1) {
 				rowData.add("Bhatta");
 			}
+			rowData.add("Leave Encash Amount");
 			rowData.add("Other1");
 			if (payroll_reward_show == 1) {
 				rowData.add("Reward");
@@ -832,6 +835,8 @@ public class PayRollController {
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
 						}
+						rowData.add("" + String.format("%.2f",
+								ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
 						if (payroll_reward_show == 1) {

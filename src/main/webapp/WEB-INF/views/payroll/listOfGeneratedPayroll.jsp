@@ -309,6 +309,7 @@
 											<%
 											}
 											%>
+											<th class="text-center">Leave Encash Amount</th>
 											<th class="text-center">Other1</th>
 											<%
 											if (payroll_reward_show == 1) {
@@ -493,6 +494,11 @@
 											<%
 											}
 											%>
+											<td class="text-right">
+												<%
+												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
+												%>
+											</td>
 											<td class="text-right">
 												<%
 												out.println(String.format("%.2f", ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));

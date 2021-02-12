@@ -87,6 +87,7 @@ public class GetPayrollGeneratedList {
 	private double reward;
 	private double bhatta;
 	private double other1;
+	private double leaveEncashAmt;
 	
 	private int subCmpId;
 	
@@ -974,6 +975,14 @@ public class GetPayrollGeneratedList {
 		this.other1 = other1;
 	}
 
+	public double getLeaveEncashAmt() {
+		return leaveEncashAmt;
+	}
+
+	public void setLeaveEncashAmt(double leaveEncashAmt) {
+		this.leaveEncashAmt = leaveEncashAmt;
+	}
+
 	@Override
 	public String toString() {
 		return "GetPayrollGeneratedList [id=" + id + ", cmpId=" + cmpId + ", empId=" + empId + ", empCode=" + empCode
@@ -1004,16 +1013,17 @@ public class GetPayrollGeneratedList {
 				+ edliAdminPercentage + ", employerEsicPercentage=" + employerEsicPercentage
 				+ ", employeeEsicPercentage=" + employeeEsicPercentage + ", employerMlwf=" + employerMlwf
 				+ ", grossSalDefault=" + grossSalDefault + ", adjustMinus=" + adjustMinus + ", adjustPlus=" + adjustPlus
-				+ ", reward=" + reward + ", bhatta=" + bhatta + ", other1=" + other1 + ", subCmpId=" + subCmpId
-				+ ", name=" + name + ", empTypeName=" + empTypeName + ", departName=" + departName + ", designName="
-				+ designName + ", payableDays=" + payableDays + ", presentDays=" + presentDays + ", weeklyOff="
-				+ weeklyOff + ", paidHoliday=" + paidHoliday + ", paidLeave=" + paidLeave + ", unpaidLeave="
-				+ unpaidLeave + ", absentDays=" + absentDays + ", email=" + email + ", payrollAllownceList="
-				+ payrollAllownceList + ", getAdvanceList=" + getAdvanceList + ", getAbsentDedList=" + getAbsentDedList
-				+ ", getLateMarkDedList=" + getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList="
-				+ getPayDedList + ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance="
-				+ performance + ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword="
-				+ moneyInword + "]";
+				+ ", reward=" + reward + ", bhatta=" + bhatta + ", other1=" + other1 + ", leaveEncashAmt="
+				+ leaveEncashAmt + ", subCmpId=" + subCmpId + ", name=" + name + ", empTypeName=" + empTypeName
+				+ ", departName=" + departName + ", designName=" + designName + ", payableDays=" + payableDays
+				+ ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff + ", paidHoliday=" + paidHoliday
+				+ ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave + ", absentDays=" + absentDays
+				+ ", email=" + email + ", payrollAllownceList=" + payrollAllownceList + ", getAdvanceList="
+				+ getAdvanceList + ", getAbsentDedList=" + getAbsentDedList + ", getLateMarkDedList="
+				+ getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList=" + getPayDedList
+				+ ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance=" + performance
+				+ ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword=" + moneyInword
+				+ "]";
 	}
 	
 	
