@@ -526,6 +526,7 @@
 		}
 		function submitForm() {
 			$('#modal_scrollable').modal('hide');
+			$('#modal_step1').modal('show');
 			document.getElementById("submtbtn").disabled = true;
 			//document.getElementById("submitInsertLeave").submit();
 
@@ -535,28 +536,20 @@
 			fd.append('datepicker', $("#datepicker").val());
 			fd.append('leaveRemark', $("#leaveRemark").val());
 
-			$.ajax({
-				url : '${pageContext.request.contextPath}/submitLeaveEncash',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(data) {
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/submitLeaveEncash',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(data) {
+							$('#modal_step1').modal('hide');
+							window.location = "${pageContext.request.contextPath}/empListForLeaveIncash";
 
-					if (data.error == true) {
-						$("#error_Range_freeze").show();
-						$("#error_Range_freeze").html(data.msg);
-						$("#leaveCanEncash").val(1);
-						document.getElementById("submtbtn").disabled = true;
-					} else {
-						$("#error_Range_freeze").hide();
-						document.getElementById("submtbtn").disabled = false;
-						$("#leaveCanEncash").val(0);
-					}
-
-				},
-			});
+						},
+					});
 		}
 
 		$(document).ready(function() {
@@ -620,6 +613,33 @@
 				<div class="modal-footer pt-3">
 					<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn bg-primary" onclick="submitForm()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="modal_step1" class="modal fade " data-backdrop="false"
+		tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h6 class="modal-title"></h6>
+					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+				</div>
+
+				<div class="modal-body">
+					<h6 class="font-weight-semibold text-center">
+						<h6>Please wait.....</h6>
+					</h6>
+
+					<hr>
+					<p class="text-center text-info">If it is taking time please
+						reload the page</p>
+				</div>
+
+				<div class="modal-footer">
+					<!--   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+
 				</div>
 			</div>
 		</div>

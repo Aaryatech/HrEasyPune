@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -52,8 +52,8 @@
 						<table width="100%">
 							<tr width="100%">
 								<td width="60%"><h5 class="pageTitle">
-										<i class="icon-list-unordered"></i> Employee List For Encash
-										Leave
+										<i class="icon-list-unordered"></i> ${editEmp.firstName}
+										${editEmp.surname} Leave Encash History
 									</h5></td>
 								<td width="40%" align="right"></td>
 							</tr>
@@ -104,10 +104,13 @@
 							<thead>
 								<tr class="bg-blue">
 
-									<th width="10%">Sr.No</th>
-									<th>Employee Name</th>
-									<th>Emp Type - Department - Designation</th>
-									<th>Action</th>
+									<th style="text-align: center;" width="10%">Sr.No</th>
+									<th style="text-align: center;">Leave Type</th>
+									<th style="text-align: center;">Leave Count</th>
+									<th style="text-align: center;">Per Day</th>
+									<th style="text-align: center;">Total</th>
+									<th style="text-align: center;">Paying Month-Year</th>
+									<th style="text-align: center;">Action</th>
 
 
 								</tr>
@@ -115,24 +118,34 @@
 							<tbody>
 
 
-								<c:forEach items="${empdetList}" var="empdetList"
+								<c:forEach items="${encashHistoryList}" var="encashHistoryList"
 									varStatus="count">
 									<tr>
 
-										<td>${count.index+1}</td>
-										<td>${empdetList.surname}&nbsp;${empdetList.middleName}&nbsp;${empdetList.firstName}
-											(${empdetList.empCode})</td>
-										<td>${empdetList.empTypeName}-${empdetList.deptName}-
-											${empdetList.empDesgn}</td>
-										<td style="text-align: center;">
-											<%-- <c:if test="${editAccess == 0}"> --%> <a
-											href="${pageContext.request.contextPath}/encashLeaveProcess?empId=${empdetList.empId}"
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="Encash Leave"><i class="icon-enlarge5 "></i></a> <a
-											href="${pageContext.request.contextPath}/leaveEncashHistory?empId=${empdetList.empId}"
-											title="Leave Encash History"><i class="icon-history"></i></a>
-											<%-- </c:if> --%>
-										</td>
+										<td style="text-align: center;">${count.index+1}</td>
+
+										<td>${encashHistoryList.lvTitle}</td>
+										<td>${encashHistoryList.leaveCount}</td>
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
+												groupingUsed="false" value="${encashHistoryList.perDayAmt}" /></td>
+										<td style="text-align: right;"><fmt:formatNumber
+												type="number" maxFractionDigits="2" minFractionDigits="2"
+												groupingUsed="false" value="${encashHistoryList.totalAmt}" /></td>
+										<td style="text-align: center;">${encashHistoryList.month}-${encashHistoryList.year}</td>
+										<td style="text-align: center;"><c:choose>
+												<c:when test="${encashHistoryList.isFreeze==0}">
+													<a href="javascript:void(0)"
+														class="list-icons-item text-danger-600 bootbox_custom"
+														data-uuid="${encashHistoryList.id}"
+														data-empid="${encashHistoryList.empId}" title="Delete"><i
+														class="icon-trash"></i></a>
+													<%-- <a
+														href="${pageContext.request.contextPath}/deleteEncashLeave?empId=${encashHistoryList.empId}&id=${encashHistoryList.id}"
+														title="Cancel"><i class="icon-cancel-square "></i></a> --%>
+												</c:when>
+												<c:otherwise>Salary is Generated</c:otherwise>
+											</c:choose></td>
 
 									</tr>
 								</c:forEach>
@@ -140,7 +153,12 @@
 							</tbody>
 						</table>
 
+						<div class="col-md-12" style="text-align: center;">
 
+							<a
+								href="${pageContext.request.contextPath}/empListForLeaveIncash"><button
+									type="button" class="btn btn-light">Back</button></a>
+						</div>
 
 
 					</div>
@@ -163,58 +181,40 @@
 	<!-- /page content -->
 
 
-	<script type="text/javascript">
-		$(document).ready(function($) {
-			$("#submitInsertEmp").submit(function(e) {
+	<script>
+		// Custom bootbox dialog
+		$('.bootbox_custom')
+				.on(
+						'click',
+						function() {
+							var uuid = $(this).data("uuid")
+							var empid = $(this).data("empid")// will return the number 123
+							bootbox
+									.confirm({
+										title : 'Confirm ',
+										message : 'Are you sure you want to delete records ?',
+										buttons : {
+											confirm : {
+												label : 'Yes',
+												className : 'btn-success'
+											},
+											cancel : {
+												label : 'Cancel',
+												className : 'btn-link'
+											}
+										},
+										callback : function(result) {
+											if (result) {
+												location.href = "${pageContext.request.contextPath}/deleteEncashLeave?empId="
+														+ empid + "&id=" + uuid;
 
-				var isError = false;
-				var errMsg = "";
-				var shiftId = $("#shiftId").val();
+											}
+										}
+									});
+						});
+	</Script>
 
-				var checked = $("#submitInsertEmp input:checked").length > 0;
-				if (!checked) {
-					$("#error_chk").show()
-					isError = true;
-				} else {
-					$("#error_chk").hide()
-					isError = false;
-				}
-				//alert("checked" +checked);
-				if (shiftId == null || shiftId == "") {
-					isError = true;
-					$("#error_shiftId").show()
-				} else {
-					$("#error_shiftId").hide()
-				}
 
-				if (!isError) {
-
-					var x = true;
-					if (x == true) {
-
-						document.getElementById("deleteId").disabled = true;
-
-						return true;
-					}
-					//end ajax send this to php page
-				}
-				return false;
-			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					//	$('#printtable').DataTable();
-
-					$("#selAll").click(
-							function() {
-								$('#printtable1 tbody input[type="checkbox"]')
-										.prop('checked', this.checked);
-							});
-				});
-	</script>
 
 </body>
 </html>
