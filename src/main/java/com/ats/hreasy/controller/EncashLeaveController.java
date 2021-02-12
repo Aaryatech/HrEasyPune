@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -201,6 +202,8 @@ public class EncashLeaveController {
 		return info;
 	}
 
+	List<GetLeaveEncashDetail> encashHistoryList = new ArrayList<GetLeaveEncashDetail>();
+
 	@RequestMapping(value = "/leaveEncashHistory", method = RequestMethod.GET)
 	public String leaveEncashHistory(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -234,8 +237,7 @@ public class EncashLeaveController {
 			GetLeaveEncashDetail[] encashHistory = Constants.getRestTemplate()
 					.postForObject(Constants.url + "/getLeaveEncashDetailByEmpId", map, GetLeaveEncashDetail[].class);
 
-			List<GetLeaveEncashDetail> encashHistoryList = new ArrayList<GetLeaveEncashDetail>(
-					Arrays.asList(encashHistory));
+			encashHistoryList = new ArrayList<GetLeaveEncashDetail>(Arrays.asList(encashHistory));
 
 			editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId", map,
 					EmployeeMaster.class);
@@ -262,18 +264,27 @@ public class EncashLeaveController {
 			try {
 				int empId = Integer.parseInt(request.getParameter("empId"));
 				int id = Integer.parseInt(request.getParameter("id"));
+
+				Optional<GetLeaveEncashDetail> result = encashHistoryList.stream().filter(obj -> id == obj.getId())
+						.findFirst();
+
 				returnLink = "redirect:/leaveEncashHistory?empId=" + empId;
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-				map.add("id", id);
 
-				Info res = Constants.getRestTemplate().postForObject(Constants.url + "/deleteEncashLeave", map,
-						Info.class);
+				if (result.get().getIsFreeze() == 0) {
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+					map.add("id", id);
 
-				if (res.isError()) {
-					session.setAttribute("errorMsg", "Failed to Delete Leave Encash Record");
+					Info res = Constants.getRestTemplate().postForObject(Constants.url + "/deleteEncashLeave", map,
+							Info.class);
+
+					if (res.isError()) {
+						session.setAttribute("errorMsg", "Failed to Delete Leave Encash Record");
+					} else {
+						session.setAttribute("successMsg", "Leave Encash Record Deleted Successfully");
+
+					}
 				} else {
-					session.setAttribute("successMsg", "Leave Encash Record Deleted Successfully");
-
+					session.setAttribute("errorMsg", "Salary is generated of that month.");
 				}
 
 			} catch (Exception e) {
