@@ -50,25 +50,31 @@ public class EncashLeaveController {
 
 		try {
 
-			/*
-			 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
-			 * session.getAttribute("moduleJsonList"); Info view =
-			 * AcessController.checkAccess("leaveTypeAdd", "showLeaveTypeList", 0, 1, 0, 0,
-			 * newModuleList);
-			 * 
-			 * if (view.isError() == false) {
-			 */
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 1, 0, 0, 0,
+					newModuleList);
 
-			returnLink = "leave/empListForLeaveIncash";
-			int locId = (int) session.getAttribute("liveLocationId");
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			map.add("locId", locId);
-			GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
-					Constants.url + "/getAllEmployeeDetailBylocationId", map, GetEmployeeDetails[].class);
+			if (view.isError() == false) {
 
-			List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
-			model.addAttribute("empdetList", empdetList);
-			// }
+				returnLink = "leave/empListForLeaveIncash";
+				int locId = (int) session.getAttribute("liveLocationId");
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("locId", locId);
+				GetEmployeeDetails[] empdetList1 = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getAllEmployeeDetailBylocationId", map, GetEmployeeDetails[].class);
+
+				List<GetEmployeeDetails> empdetList = new ArrayList<GetEmployeeDetails>(Arrays.asList(empdetList1));
+				model.addAttribute("empdetList", empdetList);
+
+				Info add = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 0, 1, 0, 0,
+						newModuleList);
+
+				if (add.isError() == false) {
+
+					model.addAttribute("addAccess", 0);
+
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,44 +95,50 @@ public class EncashLeaveController {
 		String returnLink = "accessDenied";
 
 		try {
-			returnLink = "leave/encashLeaveProcess";
-			int empId = Integer.parseInt(request.getParameter("empId"));
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 0, 1, 0, 0,
+					newModuleList);
 
-			CalenderYear calculateYear = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+			if (view.isError() == false) {
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			model.addAttribute("empId", empId);
+				returnLink = "leave/encashLeaveProcess";
+				int empId = Integer.parseInt(request.getParameter("empId"));
 
-			map = new LinkedMultiValueMap<>();
-			map.add("empId", empId);
-			map.add("currYrId", calculateYear.getCalYrId());
+				CalenderYear calculateYear = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-			LeaveHistory[] leaveHistory = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getLeaveHistoryList", map, LeaveHistory[].class);
-			leaveHistoryList = new ArrayList<LeaveHistory>(Arrays.asList(leaveHistory));
-			model.addAttribute("leaveHistoryList", leaveHistoryList);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				model.addAttribute("empId", empId);
 
-			editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId", map,
-					EmployeeMaster.class);
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empId);
+				map.add("currYrId", calculateYear.getCalYrId());
 
-			model.addAttribute("editEmp", editEmp);
+				LeaveHistory[] leaveHistory = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getLeaveHistoryList", map, LeaveHistory[].class);
+				leaveHistoryList = new ArrayList<LeaveHistory>(Arrays.asList(leaveHistory));
+				model.addAttribute("leaveHistoryList", leaveHistoryList);
 
-			map = new LinkedMultiValueMap<>();
-			map.add("limitKey", "monthday");
-			Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
-					Setting.class);
-			model.addAttribute("day", dayInMonth.getValue());
-			day = Integer.parseInt(dayInMonth.getValue());
+				editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId", map,
+						EmployeeMaster.class);
 
-			map = new LinkedMultiValueMap<>();
-			map.add("empId", empId);
-			map.add("currYrId", calculateYear.getCalYrId());
-			employeeInfo = Constants.getRestTemplate().postForObject(
-					Constants.url + "/getDetailForCarryForwordLeaveByEmpId", map,
-					GetEmployeeDetailsForCarryFrwdLeave.class);
-			model.addAttribute("employeeInfo", employeeInfo);
-			// }
+				model.addAttribute("editEmp", editEmp);
+
+				map = new LinkedMultiValueMap<>();
+				map.add("limitKey", "monthday");
+				Setting dayInMonth = Constants.getRestTemplate().postForObject(Constants.url + "/getSettingByKey", map,
+						Setting.class);
+				model.addAttribute("day", dayInMonth.getValue());
+				day = Integer.parseInt(dayInMonth.getValue());
+
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empId);
+				map.add("currYrId", calculateYear.getCalYrId());
+				employeeInfo = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getDetailForCarryForwordLeaveByEmpId", map,
+						GetEmployeeDetailsForCarryFrwdLeave.class);
+				model.addAttribute("employeeInfo", employeeInfo);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,59 +151,70 @@ public class EncashLeaveController {
 		Info info = new Info();
 		HttpSession session = request.getSession();
 		try {
-			float bal = 0;
-			int leaveTypeId = Integer.parseInt(request.getParameter("leaveTypeId"));
-			float noOfDays = Float.parseFloat(request.getParameter("noOfDays"));
-			String datepicker = request.getParameter("datepicker");
-			String leaveRemark = request.getParameter("leaveRemark");
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 0, 1, 0, 0,
+					newModuleList);
 
-			for (int i = 0; i < leaveHistoryList.size(); i++) {
+			if (view.isError() == false) {
 
-				if (leaveHistoryList.get(i).getLvTypeId() == leaveTypeId) {
-					bal = leaveHistoryList.get(i).getBalLeave() + leaveHistoryList.get(i).getLvsAllotedLeaves()
-							- leaveHistoryList.get(i).getSactionLeave() - leaveHistoryList.get(i).getAplliedLeaeve()
-							- leaveHistoryList.get(i).getLeaveEncashCount();
-					break;
+				float bal = 0;
+				int leaveTypeId = Integer.parseInt(request.getParameter("leaveTypeId"));
+				float noOfDays = Float.parseFloat(request.getParameter("noOfDays"));
+				String datepicker = request.getParameter("datepicker");
+				String leaveRemark = request.getParameter("leaveRemark");
+
+				for (int i = 0; i < leaveHistoryList.size(); i++) {
+
+					if (leaveHistoryList.get(i).getLvTypeId() == leaveTypeId) {
+						bal = leaveHistoryList.get(i).getBalLeave() + leaveHistoryList.get(i).getLvsAllotedLeaves()
+								- leaveHistoryList.get(i).getSactionLeave() - leaveHistoryList.get(i).getAplliedLeaeve()
+								- leaveHistoryList.get(i).getLeaveEncashCount();
+						break;
+					}
 				}
-			}
 
-			if (noOfDays <= bal) {
+				if (noOfDays <= bal) {
 
-				LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
-				CalenderYear calculateYear = Constants.getRestTemplate()
-						.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+					CalenderYear calculateYear = Constants.getRestTemplate()
+							.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-				float perday = (float) (employeeInfo.getBasic() + employeeInfo.getAllowSum()) / day;
-				DecimalFormat df = new DecimalFormat("#.00");
+					float perday = (float) (employeeInfo.getBasic() + employeeInfo.getAllowSum()) / day;
+					DecimalFormat df = new DecimalFormat("#.00");
 
-				String[] st = datepicker.split("-");
-				LeaveEncash leaveEncash = new LeaveEncash();
-				leaveEncash.setDelStatus(1);
-				leaveEncash.setEmpId(editEmp.getEmpId());
-				leaveEncash.setLeaveCount(noOfDays);
-				leaveEncash.setLvTypeId(leaveTypeId);
-				leaveEncash.setMonth(Integer.parseInt(st[0]));
-				leaveEncash.setYear(Integer.parseInt(st[1]));
-				leaveEncash.setPerDayAmt(Float.parseFloat(df.format(perday)));
-				leaveEncash.setTotalAmt(Math.round(perday * noOfDays));
-				leaveEncash.setRemark(leaveRemark);
-				leaveEncash.setYearId(calculateYear.getCalYrId());
-				leaveEncash.setAddedBy(userObj.getEmpId());
+					String[] st = datepicker.split("-");
+					LeaveEncash leaveEncash = new LeaveEncash();
+					leaveEncash.setDelStatus(1);
+					leaveEncash.setEmpId(editEmp.getEmpId());
+					leaveEncash.setLeaveCount(noOfDays);
+					leaveEncash.setLvTypeId(leaveTypeId);
+					leaveEncash.setMonth(Integer.parseInt(st[0]));
+					leaveEncash.setYear(Integer.parseInt(st[1]));
+					leaveEncash.setPerDayAmt(Float.parseFloat(df.format(perday)));
+					leaveEncash.setTotalAmt(Math.round(perday * noOfDays));
+					leaveEncash.setRemark(leaveRemark);
+					leaveEncash.setYearId(calculateYear.getCalYrId());
+					leaveEncash.setAddedBy(userObj.getEmpId());
 
-				info = Constants.getRestTemplate().postForObject(Constants.url + "/newLeaveEncash", leaveEncash,
-						Info.class);
+					info = Constants.getRestTemplate().postForObject(Constants.url + "/newLeaveEncash", leaveEncash,
+							Info.class);
+				} else {
+					info.setError(true);
+					info.setMsg("Insufienct leave bal.");
+				}
+
+				if (info.isError() == false) {
+					// retString = info.getMsg();
+					session.setAttribute("successMsg", "Leave encash successfully submitted.");
+
+				} else {
+					session.setAttribute("errorMsg", "Error while encash leave.");
+
+				}
 			} else {
+				session.setAttribute("errorMsg", "Access Denied");
 				info.setError(true);
-				info.setMsg("Insufienct leave bal.");
-			}
-
-			if (info.isError() == false) {
-				// retString = info.getMsg();
-				session.setAttribute("successMsg", "Leave encash successfully submitted.");
-
-			} else {
-				session.setAttribute("errorMsg", "Error while encash leave.");
-
+				info.setMsg("Access Denied");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,38 +236,36 @@ public class EncashLeaveController {
 
 		try {
 
-			/*
-			 * List<AccessRightModule> newModuleList = (List<AccessRightModule>)
-			 * session.getAttribute("moduleJsonList"); Info view =
-			 * AcessController.checkAccess("leaveTypeAdd", "showLeaveTypeList", 0, 1, 0, 0,
-			 * newModuleList);
-			 * 
-			 * if (view.isError() == false) {
-			 */
-			returnLink = "leave/leaveEncashHistory";
-			int empId = Integer.parseInt(request.getParameter("empId"));
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 0, 1, 0, 0,
+					newModuleList);
 
-			CalenderYear calculateYear = Constants.getRestTemplate()
-					.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
+			if (view.isError() == false) {
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-			model.addAttribute("empId", empId);
+				returnLink = "leave/leaveEncashHistory";
+				int empId = Integer.parseInt(request.getParameter("empId"));
 
-			map = new LinkedMultiValueMap<>();
-			map.add("empId", empId);
-			map.add("currYrId", calculateYear.getCalYrId());
+				CalenderYear calculateYear = Constants.getRestTemplate()
+						.getForObject(Constants.url + "/getCalculateYearListIsCurrent", CalenderYear.class);
 
-			GetLeaveEncashDetail[] encashHistory = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getLeaveEncashDetailByEmpId", map, GetLeaveEncashDetail[].class);
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				model.addAttribute("empId", empId);
 
-			encashHistoryList = new ArrayList<GetLeaveEncashDetail>(Arrays.asList(encashHistory));
+				map = new LinkedMultiValueMap<>();
+				map.add("empId", empId);
+				map.add("currYrId", calculateYear.getCalYrId());
 
-			editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId", map,
-					EmployeeMaster.class);
+				GetLeaveEncashDetail[] encashHistory = Constants.getRestTemplate().postForObject(
+						Constants.url + "/getLeaveEncashDetailByEmpId", map, GetLeaveEncashDetail[].class);
 
-			model.addAttribute("editEmp", editEmp);
-			model.addAttribute("encashHistoryList", encashHistoryList);
-			// }
+				encashHistoryList = new ArrayList<GetLeaveEncashDetail>(Arrays.asList(encashHistory));
+
+				editEmp = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpId", map,
+						EmployeeMaster.class);
+
+				model.addAttribute("editEmp", editEmp);
+				model.addAttribute("encashHistoryList", encashHistoryList);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -258,7 +279,8 @@ public class EncashLeaveController {
 
 		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
 
-		Info view = AcessController.checkAccess("deleteContractor", "showContractorsList", 0, 0, 0, 1, newModuleList);
+		Info view = AcessController.checkAccess("empListForLeaveIncash", "empListForLeaveIncash", 0, 1, 0, 0,
+				newModuleList);
 		if (view.isError() == false) {
 
 			try {

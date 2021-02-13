@@ -124,15 +124,17 @@
 											(${empdetList.empCode})</td>
 										<td>${empdetList.empTypeName}-${empdetList.deptName}-
 											${empdetList.empDesgn}</td>
-										<td style="text-align: center;">
-											<%-- <c:if test="${editAccess == 0}"> --%> <a
-											href="${pageContext.request.contextPath}/encashLeaveProcess?empId=${empdetList.empId}"
-											class="list-icons-item text-primary-600" data-popup="tooltip"
-											title="Encash Leave"><i class="icon-enlarge5 "></i></a> <a
-											href="${pageContext.request.contextPath}/leaveEncashHistory?empId=${empdetList.empId}"
-											title="Leave Encash History"><i class="icon-history"></i></a>
-											<%-- </c:if> --%>
-										</td>
+										<td style="text-align: center;"><c:if
+												test="${addAccess == 0}">
+												<a
+													href="${pageContext.request.contextPath}/encashLeaveProcess?empId=${empdetList.empId}"
+													class="list-icons-item text-primary-600"
+													data-popup="tooltip" title="Encash Leave"><i
+													class="icon-enlarge5 "></i></a>
+												<a
+													href="${pageContext.request.contextPath}/leaveEncashHistory?empId=${empdetList.empId}"
+													title="Leave Encash History"><i class="icon-history"></i></a>
+											</c:if></td>
 
 									</tr>
 								</c:forEach>
