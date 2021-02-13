@@ -1323,13 +1323,13 @@ public class LeaveController {
 			writer.setPageEvent(event);
 			// writer.add(new Paragraph("Curricular Aspects"));
 
-			PdfPTable table = new PdfPTable(8);
+			PdfPTable table = new PdfPTable(9);
 
 			table.setHeaderRows(1);
 
 			try {
 				table.setWidthPercentage(100);
-				table.setWidths(new float[] { 2.0f, 5.0f, 4.5f, 4.5f, 4.5f, 4.5f, 4.5f, 4.5f });
+				table.setWidths(new float[] { 2.0f, 5.0f, 4.5f, 4.5f, 4.5f, 4.5f, 4.5f, 4.5f, 4.5f });
 				Font headFontData = ReportCostants.headFontData;// new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL,
 				// BaseColor.BLACK);
 				Font tableHeaderFont = ReportCostants.tableHeaderFont; // new Font(FontFamily.HELVETICA, 12, Font.BOLD,
@@ -1378,7 +1378,11 @@ public class LeaveController {
 				hcell = new PdfPCell(new Phrase("Applied", tableHeaderFont));
 				hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+				table.addCell(hcell);
 
+				hcell = new PdfPCell(new Phrase("Encash", tableHeaderFont));
+				hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 				table.addCell(hcell);
 
 				hcell = new PdfPCell(new Phrase("Balanced", tableHeaderFont));
@@ -1442,11 +1446,16 @@ public class LeaveController {
 						cell = new PdfPCell(new Phrase("" + prog.getRec().get(j).getAplliedLeaeve(), headFontData));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						table.addCell(cell);
 
+						cell = new PdfPCell(new Phrase("" + prog.getRec().get(j).getLeaveEncashCount(), headFontData));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 						table.addCell(cell);
 
 						float x = prog.getRec().get(j).getBalLeave() + prog.getRec().get(j).getLvsAllotedLeaves()
-								- prog.getRec().get(j).getSactionLeave() - prog.getRec().get(j).getAplliedLeaeve();
+								- prog.getRec().get(j).getSactionLeave() - prog.getRec().get(j).getAplliedLeaeve()
+								- prog.getRec().get(j).getLeaveEncashCount();
 
 						cell = new PdfPCell(new Phrase("" + x, headFontData));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1523,6 +1532,7 @@ public class LeaveController {
 					rowData.add("Earned");
 					rowData.add("Approved");
 					rowData.add("Applied");
+					rowData.add("Encash");
 					rowData.add("Balanced");
 					expoExcel.setRowData(rowData);
 
@@ -1547,10 +1557,12 @@ public class LeaveController {
 							rowData.add("" + finalList.get(i).getRec().get(j).getLvsAllotedLeaves());
 							rowData.add("" + finalList.get(i).getRec().get(j).getSactionLeave());
 							rowData.add("" + finalList.get(i).getRec().get(j).getAplliedLeaeve());
+							rowData.add("" + finalList.get(i).getRec().get(j).getLeaveEncashCount());
 							float a = finalList.get(i).getRec().get(j).getBalLeave()
 									+ finalList.get(i).getRec().get(j).getLvsAllotedLeaves()
 									- finalList.get(i).getRec().get(j).getSactionLeave()
-									- finalList.get(i).getRec().get(j).getAplliedLeaeve();
+									- finalList.get(i).getRec().get(j).getAplliedLeaeve()
+									- finalList.get(i).getRec().get(j).getLeaveEncashCount();
 
 							rowData.add("" + a);
 

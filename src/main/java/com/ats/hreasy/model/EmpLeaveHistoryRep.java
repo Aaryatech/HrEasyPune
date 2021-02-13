@@ -23,7 +23,7 @@ public class EmpLeaveHistoryRep {
 	private float sactionLeave;
 	
 	private float aplliedLeaeve;
-
+	private float leaveEncashCount;
 	
 
 	public String getRecId() {
@@ -117,12 +117,20 @@ public class EmpLeaveHistoryRep {
 		this.aplliedLeaeve = aplliedLeaeve;
 	}
 
+	public float getLeaveEncashCount() {
+		return leaveEncashCount;
+	}
+
+	public void setLeaveEncashCount(float leaveEncashCount) {
+		this.leaveEncashCount = leaveEncashCount;
+	}
+
 	@Override
 	public String toString() {
 		return "EmpLeaveHistoryRep [recId=" + recId + ", empId=" + empId + ", empName=" + empName + ", lvTypeId="
 				+ lvTypeId + ", lvTitleShort=" + lvTitleShort + ", lvTitle=" + lvTitle + ", lvsAllotedLeaves="
 				+ lvsAllotedLeaves + ", lvsId=" + lvsId + ", balLeave=" + balLeave + ", sactionLeave=" + sactionLeave
-				+ ", aplliedLeaeve=" + aplliedLeaeve + "]";
+				+ ", aplliedLeaeve=" + aplliedLeaeve + ", leaveEncashCount=" + leaveEncashCount + "]";
 	}
 
  

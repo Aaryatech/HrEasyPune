@@ -9245,7 +9245,11 @@ public class ReportAdminController {
 				hcell = new PdfPCell(new Phrase("Applied", tableHeaderFont));
 				hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
+				table.addCell(hcell);
 
+				hcell = new PdfPCell(new Phrase("Encash", tableHeaderFont));
+				hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				hcell.setBackgroundColor(ReportCostants.baseColorTableHeader);
 				table.addCell(hcell);
 
 				hcell = new PdfPCell(new Phrase("Balanced", tableHeaderFont));
@@ -9309,11 +9313,16 @@ public class ReportAdminController {
 						cell = new PdfPCell(new Phrase("" + prog.getRec().get(j).getAplliedLeaeve(), headFontData));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						table.addCell(cell);
 
+						cell = new PdfPCell(new Phrase("" + prog.getRec().get(j).getLeaveEncashCount(), headFontData));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 						table.addCell(cell);
 
 						float x = prog.getRec().get(j).getBalLeave() + prog.getRec().get(j).getLvsAllotedLeaves()
-								- prog.getRec().get(j).getSactionLeave() - prog.getRec().get(j).getAplliedLeaeve();
+								- prog.getRec().get(j).getSactionLeave() - prog.getRec().get(j).getAplliedLeaeve()
+								- prog.getRec().get(j).getLeaveEncashCount();
 
 						cell = new PdfPCell(new Phrase("" + x, headFontData));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
