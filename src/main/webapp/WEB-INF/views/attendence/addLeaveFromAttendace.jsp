@@ -49,7 +49,7 @@
 
 				<div class="card-body">
 					<%
-						if (session.getAttribute("errorMsg") != null) {
+					if (session.getAttribute("errorMsg") != null) {
 					%>
 					<div
 						class="alert bg-danger text-white alert-styled-left alert-dismissible">
@@ -58,16 +58,16 @@
 						</button>
 						<span class="font-weight-semibold">Oh snap!</span>
 						<%
-							out.println(session.getAttribute("errorMsg"));
+						out.println(session.getAttribute("errorMsg"));
 						%>
 					</div>
 
 					<%
-						session.removeAttribute("errorMsg");
-						}
+					session.removeAttribute("errorMsg");
+					}
 					%>
 					<%
-						if (session.getAttribute("successMsg") != null) {
+					if (session.getAttribute("successMsg") != null) {
 					%>
 					<div
 						class="alert bg-success text-white alert-styled-left alert-dismissible">
@@ -76,12 +76,12 @@
 						</button>
 						<span class="font-weight-semibold">Well done!</span>
 						<%
-							out.println(session.getAttribute("successMsg"));
+						out.println(session.getAttribute("successMsg"));
 						%>
 					</div>
 					<%
-						session.removeAttribute("successMsg");
-						}
+					session.removeAttribute("successMsg");
+					}
 					%>
 
 					<span class="validation-invalid-label" id="error_assign"
@@ -126,6 +126,7 @@
 									<th>Earned</th>
 									<th>Approved</th>
 									<th>Applied</th>
+									<th>Encash</th>
 									<th>Balanced</th>
 
 
@@ -144,7 +145,8 @@
 													<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
 													<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
 													<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
-													<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+													<td style="text-align: right;">${leaveHistoryList.leaveEncashCount}</td>
+													<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve-leaveHistoryList.leaveEncashCount}</td>
 
 												</tr>
 											</c:if>
@@ -157,7 +159,8 @@
 												<td style="text-align: right;">${leaveHistoryList.lvsAllotedLeaves}</td>
 												<td style="text-align: right;">${leaveHistoryList.sactionLeave}</td>
 												<td style="text-align: right;">${leaveHistoryList.aplliedLeaeve}</td>
-												<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve}</td>
+												<td style="text-align: right;">${leaveHistoryList.leaveEncashCount}</td>
+												<td style="text-align: right;">${leaveHistoryList.balLeave+leaveHistoryList.lvsAllotedLeaves-leaveHistoryList.sactionLeave-leaveHistoryList.aplliedLeaeve-leaveHistoryList.leaveEncashCount}</td>
 
 											</tr>
 										</c:otherwise>
