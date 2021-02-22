@@ -129,7 +129,8 @@
 			data-toggle="dropdown" aria-expanded="false"> <img
 				src="${sessionScope.imgViewUrl}${sessionScope.userInfo.empPhoto}"
 				width="36" height="36" class="rounded-circle" alt=""
-				onerror="imgError(this);"> <span style="margin: 0 0 0 5px;">${sessionScope.userInfo.firstName}&nbsp;
+				onerror="if (this.src != '${pageContext.request.contextPath}/resources/global_assets/images/default-user.jpg') this.src = '${pageContext.request.contextPath}/resources/global_assets/images/default-user.jpg';">
+				<span style="margin: 0 0 0 5px;">${sessionScope.userInfo.firstName}&nbsp;
 					${sessionScope.userInfo.surname}</span>
 		</a>
 

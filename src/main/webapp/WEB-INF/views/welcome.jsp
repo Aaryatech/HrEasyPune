@@ -149,6 +149,116 @@ Green Color : #007c24     #07a43d
 				<c:if test="${userType ==2}">
 					<!-- new html start here -->
 					<div class="row">
+						<div class="col-lg-12" id="block_div_attendance1">
+							<div class="card">
+								<div class="card bg-primary">
+									<div class="card-header header-elements-inline">
+										<h6 class="card-title dash_title">Live Data</h6>
+
+									</div>
+								</div>
+
+								<div class="tab_round">
+									<div class="row">
+										<div class="col-lg-2">
+											<a href="javascript:void(0)" onclick="liveDivOpnClose(1)"><div
+													class="shift_round bg-primary">
+													<div class="round_size">
+														<span>${presentList.size()}</span> Present
+													</div>
+												</div></a>
+										</div>
+										<div class="col-lg-2">
+											<a href="javascript:void(0)" onclick="liveDivOpnClose(2)"><div
+													class="shift_round bg-primary">
+													<div class="round_size">
+														<span>${availableist.size()}</span> Available
+													</div>
+												</div></a>
+										</div>
+
+									</div>
+
+									<!-- Leave Employee tab start here -->
+									<div class="row">
+										<div class="late_employee" id="presentEmpListDive">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="livetable1">
+														<!-- <table class="table" width="100%" id="printtable2"> -->
+														<thead>
+															<tr class="bg-primary" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Thumb Record</th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${presentList}" var="presentList"
+																varStatus="count">
+
+																<tr role="row" class="odd">
+																	<td style="text-align: left;">${presentList.empName}&nbsp;(${presentList.empCode})</td>
+																	<td style="text-align: left;">${presentList.deptName}</td>
+																	<td style="text-align: left;">${presentList.thumbRecord}</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+										</div>
+										<div class="late_employee" id="availableEmpListDive"
+											style="display: none;">
+
+											<div class="late_one fix_scroll">
+
+												<div class="datatable-scroll-wrap">
+													<table
+														class="table table-bordered table-hover datatable-highlight1 datatable-button-html5-basic1  datatable-button-print-columns1"
+														id="livetable2">
+														<!-- <table class="table" width="100%" id="printtable2"> -->
+														<thead>
+															<tr class="bg-primary" role="row">
+																<th class="sorting_desc">Employee Name</th>
+																<th class="sorting">Department</th>
+																<th class="sorting">Thumb Record</th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${availableist}" var="presentList"
+																varStatus="count">
+
+																<tr role="row" class="odd">
+																	<td style="text-align: left;">${presentList.empName}&nbsp;(${presentList.empCode})</td>
+																	<td style="text-align: left;">${presentList.deptName}</td>
+																	<td style="text-align: left;">${presentList.thumbRecord}</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+									<!-- Absent Employee tab start here -->
+
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
 						<div class="col-lg-12" id="block_div_attendance">
 							<div class="card">
 								<!-- <div class="card bg-warning">
@@ -2074,6 +2184,15 @@ Green Color : #007c24     #07a43d
 
 		}
 
+		function liveDivOpnClose(type) {
+			if (type == 1) {
+				$("#availableEmpListDive").hide();
+				$("#presentEmpListDive").show();
+			} else if (type == 2) {
+				$("#presentEmpListDive").hide();
+				$("#availableEmpListDive").show();
+			}
+		}
 		function openCloseDive(type) {
 
 			if (type == 1) {

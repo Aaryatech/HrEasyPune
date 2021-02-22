@@ -80,6 +80,7 @@ import com.ats.hreasy.model.report.DashTempBean;
 import com.ats.hreasy.model.report.HodDashboard;
 import com.ats.hreasy.model.report.HodDeptDashb;
 import com.ats.hrmgt.model.AttendaceLiveData;
+import com.ats.hrmgt.model.ThumbLiveRecord;
 import com.ats.hrmgt.model.assets.AMCExpirationDetail;
 import com.ats.hrmgt.model.assets.AssetNotificatn;
 import com.ats.hrmgt.model.assets.CatWiseAssetCount;
@@ -436,7 +437,7 @@ public class DashboardAdminController {
 
 					int diff = difffun(firstDate, date);
 
-					System.out.println(diff + " " + firstDate + " " + date);
+					//System.out.println(diff + " " + firstDate + " " + date);
 					int currWeekNo = diff / 7;
 					model.addAttribute("currWeekNo", currWeekNo);
 					model.addAttribute("diff", diff);
@@ -700,7 +701,7 @@ public class DashboardAdminController {
 		CommonDash dash = Constants.getRestTemplate().postForObject(Constants.url + "/getCommonDash", map,
 				CommonDash.class);
 
-		System.err.println("-------------" + dash.getBirth());
+		//System.err.println("-------------" + dash.getBirth());
 		model.addAttribute("toDayIsBirthday", dash.getBirth().getLoginUserBirthDay());
 		model.addAttribute("birth", dash.getBirth()); // alll
 		model.addAttribute("newHire", dash.getNewHire()); // hr
@@ -787,11 +788,29 @@ public class DashboardAdminController {
 				.postForObject(Constants.url + "/getUserApplicableHoliday", map, HolidayMaster[].class);
 		List<HolidayMaster> userHoliday = new ArrayList<>(Arrays.asList(userApplicableHoliday));
 		model.addAttribute("userApplicableHoliday", userHoliday);
-		
+
 		GetWeeklyOff[] getWeeklyOff = Constants.getRestTemplate()
 				.postForObject(Constants.url + "/getWeeklyOffListByEmpIdDashboard", map, GetWeeklyOff[].class);
 		List<GetWeeklyOff> weeklyoffList = new ArrayList<>(Arrays.asList(getWeeklyOff));
 		model.addAttribute("weeklyoffList", weeklyoffList);
+
+		try {
+
+			map = new LinkedMultiValueMap<>();
+			map.add("locId", locId);
+			ThumbLiveRecord[] thumbLiveRecordPresent = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getPresentAttendaceLiveRecordFromThumb", map, ThumbLiveRecord[].class);
+			List<ThumbLiveRecord> presentList = new ArrayList<>(Arrays.asList(thumbLiveRecordPresent));
+			model.addAttribute("presentList", presentList);
+
+			ThumbLiveRecord[] available = Constants.getRestTemplate().postForObject(
+					Constants.url + "/getAvailableAttendaceLiveRecordFromThumb", map, ThumbLiveRecord[].class);
+			List<ThumbLiveRecord> availableist = new ArrayList<>(Arrays.asList(available));
+			model.addAttribute("availableist", availableist);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return mav;
 	}
@@ -1241,7 +1260,7 @@ public class DashboardAdminController {
 			DailyDaily[] info = Constants.getRestTemplate().postForObject(Constants.url + "/updateEmpCode", outList,
 					DailyDaily[].class);
 
-			System.out.println(outList);
+			//System.out.println(outList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
