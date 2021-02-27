@@ -117,30 +117,31 @@
 											<div class="col-md-6">
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-5 float"
-													for="locId"> Select Location <span
+													for="deptId"> Select Department <span
 													class="text-danger">* </span>:
 												</label>
 												<div class="col-lg-7 float">
-													<select name="locId" data-placeholder="Select Location"
-														id="locId"
+													<select name="deptId" data-placeholder="Select Department"
+														id="deptId"
 														class="form-control form-control-select2 select2-hidden-accessible"
-														data-fouc="" aria-hidden="true">
+														required="required">
 
-														<option value="">Select Location</option>
-														<c:forEach items="${sessionScope.liveAccesibleLoc}"
-															var="liveAccesibleLoc">
-															<c:forEach items="${locationList}" var="locationList">
-																<c:if test="${locationList.locId==liveAccesibleLoc}">
-																	<c:choose>
-																		<c:when test="${locationList.locId eq locId}">
-																			<option value="${locationList.locId}" selected>${locationList.locName}</option>
-																		</c:when>
-																		<c:otherwise>
-																			<option value="${locationList.locId}">${locationList.locName}</option>
-																		</c:otherwise>
-																	</c:choose>
-																</c:if>
-															</c:forEach>
+														<option value="0">All Department</option>
+														<c:forEach items="${departmentList}" var="deptList">
+
+															<c:choose>
+																<c:when test="${deptId==deptList.departId}">
+																	<option value="${deptList.departId}" selected>${deptList.name}
+																		[${deptList.nameSd}]</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${deptList.departId}">${deptList.name}
+																		[${deptList.nameSd}]</option>
+																</c:otherwise>
+															</c:choose>
+
+
+
 														</c:forEach>
 													</select><span class="validation-invalid-label"
 														id="error_assignDate" style="display: none;">This
@@ -229,8 +230,6 @@
 
 												<tr class="bg-blue">
 
-													<th class="text-center;">Emp Code</th>
-
 													<th class="text-center;">Emp Name</th>
 
 													<th class="text-center"><input type="checkbox"
@@ -249,9 +248,7 @@
 
 													<tr>
 
-														<td class="text-center">${empList.empCode}</td>
-
-														<td>${empList.name}</td>
+														<td>${empList.name}&nbsp;(${empList.empCode})</td>
 														<td><input type="checkbox" id="empId${empList.empId}"
 															value="${empList.empId}" name="empId" class="select_all"></td>
 
@@ -513,7 +510,7 @@
 
 				var isError = false;
 
-				var locId = $("#locId").val();
+				var locId = $("#deptId").val();
 
 				if (locId == null || locId == "") {
 					isError = true;
@@ -678,21 +675,12 @@
 			columnDefs : [ {
 				orderable : false,
 				targets : [ 2 ]
-			}, {
-				width : "50px",
-				targets : [ 2 ]
-			}, {
-				width : "100px",
-				targets : [ 0 ]
-			}, {
-				width : "700px",
-				targets : [ 1 ]
 			} ],
 			scrollX : true,
-			//scrollY : '600px',
+			scrollY : '65vh',
 			scrollCollapse : true,
 			paging : false,
-
+			"order" : [],
 			fixedColumns : {
 				leftColumns : 2
 			}

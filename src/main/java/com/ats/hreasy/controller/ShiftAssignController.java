@@ -27,6 +27,7 @@ import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.model.AccessRightModule;
 import com.ats.hreasy.model.CountOfAssignPending;
 import com.ats.hreasy.model.DateAndDay;
+import com.ats.hreasy.model.Department;
 import com.ats.hreasy.model.EmpWithShiftDetail;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.Info;
@@ -399,123 +400,160 @@ public class ShiftAssignController {
 
 		try {
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("companyId", 1);
+			Department[] department = Constants.getRestTemplate().postForObject(Constants.url + "/getAllDepartments",
+					map, Department[].class);
+
+			List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
+			model.addAttribute("departmentList", departmentList);
+
 			HttpSession session = request.getSession();
+
 			LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar temp = Calendar.getInstance();
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map = new LinkedMultiValueMap<String, Object>();
 			ShiftMaster[] shiftMaster = Constants.getRestTemplate().postForObject(Constants.url + "/getShiftListByLpad",
 					map, ShiftMaster[].class);
 			model.addAttribute("shiftMaster", shiftMaster);
 
-			map = new LinkedMultiValueMap<>();
-			map.add("companyId", 1);
-			Location[] location = Constants.getRestTemplate().postForObject(Constants.url + "/getLocationList", map,
-					Location[].class);
+			/*
+			 * map = new LinkedMultiValueMap<>(); map.add("companyId", 1); Location[]
+			 * location = Constants.getRestTemplate().postForObject(Constants.url +
+			 * "/getLocationList", map, Location[].class);
+			 */
 
-			List<Location> locationList = new ArrayList<Location>(Arrays.asList(location));
-			model.addAttribute("locationList", locationList);
+			// List<Location> locationList = new
+			// ArrayList<Location>(Arrays.asList(location));
+			// model.addAttribute("locationList", locationList);
 
-			locId = Integer.parseInt(request.getParameter("locId"));
+			locId = (int) session.getAttribute("liveLocationId");
+			int deptId = -1;
 
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("userId", userObj.getUserId());
-			map.add("locId", locId);
-			ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
-					.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
+			try {
+				deptId = Integer.parseInt(request.getParameter("deptId"));
+			} catch (Exception e) {
+				deptId = -1;
+			}
 
-			Date myDate = sf.parse(shiftCurrentMonth.getDate());
-			Date currentDate = new Date();
+			if (deptId != -1) {
 
-			Date oneDayBefore = new Date(myDate.getTime() - 2);
-			String previousDate = sf.format(oneDayBefore);
+				String deptIds = "0";
 
-			if (currentDate.compareTo(oneDayBefore) < 0) {
+				System.out.println(deptId);
+				if (deptId == 0) {
 
-				String[] monthsplt = previousDate.split("-");
-
-				/*
-				 * Date firstDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]),
-				 * Integer.parseInt(monthsplt[1]) - 1, 1).getTime();
-				 */
-				Date firstDay = currentDate;
-				Date lastDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]), 0)
-						.getTime();
-
-				Date fmdt = sf.parse(sf.format(firstDay));
-				Date todt = sf.parse(sf.format(lastDay));
-
-				SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
-
-				temp = Calendar.getInstance();
-				temp.setTime(currentDate);
-
-				int year = temp.get(Calendar.YEAR);
-				int month = temp.get(Calendar.MONTH);
-
-				Date firstDayOfMonth = new GregorianCalendar(year, month, 1).getTime();
-
-				map = new LinkedMultiValueMap<String, Object>();
-				map.add("fromDate", sf.format(firstDayOfMonth));
-				map.add("toDate", sf.format(lastDay));
-				map.add("locId", locId);
-				map.add("userId", userObj.getUserId());
-
-				Info info = Constants.getRestTemplate()
-						.postForObject(Constants.url + "/checkRemainingEmployeeForProjection", map, Info.class);
-
-				try {
-
-					SimpleDateFormat sdf = new SimpleDateFormat("EEE");
-
-					List<DateAndDay> dateAndDayList = new ArrayList<>();
-
-					for (Date j = fmdt; j.compareTo(todt) <= 0;) {
-
-						temp = Calendar.getInstance();
-						temp.setTime(j);
-
-						int date = temp.get(Calendar.DATE);
-
-						DateAndDay dateAndDay = new DateAndDay();
-						String stringDate = sdf.format(j);
-						dateAndDay.setDate(dd.format(j));
-						/* dateAndDay.setDate(String.valueOf(date)); */
-
-						dateAndDay.setDay(stringDate);
-						dateAndDayList.add(dateAndDay);
-
-						j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
-
-						/* System.out.println(sf.parse(sf.format(j))); */
+					for (int i = 0; i < departmentList.size(); i++) {
+						deptIds = deptIds + "," + departmentList.get(i).getDepartId();
 					}
 
-					model.addAttribute("dateAndDayList", dateAndDayList);
-
-					map = new LinkedMultiValueMap<String, Object>();
-					map.add("fromDate", sf.format(firstDay));
-					map.add("toDate", sf.format(lastDay));
-					map.add("locId", locId);
-
-					EmpWithShiftDetail[] empList = Constants.getRestTemplate()
-							.postForObject(Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
-					model.addAttribute("empList", empList);
-
-					model.addAttribute("locId", locId);
-
-					model.addAttribute("firstDate", dd.format(firstDay));
-					model.addAttribute("lastDate", dd.format(lastDay));
-
-				} catch (Exception e) {
-
+				} else {
+					deptIds = String.valueOf(deptId);
 				}
 
-			} else {
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("userId", userObj.getUserId());
+				map.add("locId", locId);
+				ShiftCurrentMonth shiftCurrentMonth = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getDateFromIsCurrentMonth", map, ShiftCurrentMonth.class);
 
-				session.setAttribute("errorMsg", "Shift Allocation Step is not completed For current Month");
-				System.out.println("Shift Allocation Step is not completed For current Month");
+				Date myDate = sf.parse(shiftCurrentMonth.getDate());
+				Date currentDate = new Date();
+
+				Date oneDayBefore = new Date(myDate.getTime() - 2);
+				String previousDate = sf.format(oneDayBefore);
+
+				if (currentDate.compareTo(oneDayBefore) < 0) {
+
+					String[] monthsplt = previousDate.split("-");
+
+					/*
+					 * Date firstDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]),
+					 * Integer.parseInt(monthsplt[1]) - 1, 1).getTime();
+					 */
+					Date firstDay = currentDate;
+					Date lastDay = new GregorianCalendar(Integer.parseInt(monthsplt[0]), Integer.parseInt(monthsplt[1]),
+							0).getTime();
+
+					Date fmdt = sf.parse(sf.format(firstDay));
+					Date todt = sf.parse(sf.format(lastDay));
+
+					SimpleDateFormat dd = new SimpleDateFormat("dd-MM-yyyy");
+
+					temp = Calendar.getInstance();
+					temp.setTime(currentDate);
+
+					int year = temp.get(Calendar.YEAR);
+					int month = temp.get(Calendar.MONTH);
+
+					Date firstDayOfMonth = new GregorianCalendar(year, month, 1).getTime();
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("fromDate", sf.format(firstDayOfMonth));
+					map.add("toDate", sf.format(lastDay));
+					map.add("locId", locId);
+					map.add("userId", userObj.getUserId());
+
+					Info info = Constants.getRestTemplate()
+							.postForObject(Constants.url + "/checkRemainingEmployeeForProjection", map, Info.class);
+
+					try {
+
+						SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+
+						List<DateAndDay> dateAndDayList = new ArrayList<>();
+
+						for (Date j = fmdt; j.compareTo(todt) <= 0;) {
+
+							temp = Calendar.getInstance();
+							temp.setTime(j);
+
+							int date = temp.get(Calendar.DATE);
+
+							DateAndDay dateAndDay = new DateAndDay();
+							String stringDate = sdf.format(j);
+							dateAndDay.setDate(dd.format(j));
+							/* dateAndDay.setDate(String.valueOf(date)); */
+
+							dateAndDay.setDay(stringDate);
+							dateAndDayList.add(dateAndDay);
+
+							j.setTime(j.getTime() + 1000 * 60 * 60 * 24);
+
+							/* System.out.println(sf.parse(sf.format(j))); */
+						}
+
+						model.addAttribute("dateAndDayList", dateAndDayList);
+
+						map = new LinkedMultiValueMap<String, Object>();
+						map.add("fromDate", sf.format(firstDay));
+						map.add("toDate", sf.format(lastDay));
+						map.add("locId", locId);
+						map.add("userType", userObj.getDesignType());
+						map.add("userId", userObj.getEmpId());
+						map.add("deptId", deptIds);
+						EmpWithShiftDetail[] empList = Constants.getRestTemplate().postForObject(
+								Constants.url + "/getEmpProjectionMatrix", map, EmpWithShiftDetail[].class);
+						model.addAttribute("empList", empList);
+
+						model.addAttribute("locId", locId);
+
+						model.addAttribute("firstDate", dd.format(firstDay));
+						model.addAttribute("lastDate", dd.format(lastDay));
+						model.addAttribute("deptId", deptId);
+
+					} catch (Exception e) {
+
+					}
+
+				} else {
+
+					session.setAttribute("errorMsg", "Shift Allocation Step is not completed For current Month");
+					System.out.println("Shift Allocation Step is not completed For current Month");
+				}
 			}
 			// System.out.println(dates);
 
