@@ -77,9 +77,37 @@
 								<div class="col-md-2">
 									<input type="text" class="form-control "
 										placeholder="Select Date " id="datepicker" name="date"
-										value="${date}" autocomplete="off">
+										value="${date}" autocomplete="off" required="required">
 								</div>
+								<label
+									class="col-form-label text-info font-weight-bold col-lg-1"
+									for="deptId"> Department <span class="text-danger">*</span>:
+								</label>
+								<div class="col-lg-3">
+									<select name="deptId" data-placeholder="Select Department"
+										id="deptId"
+										class="form-control form-control-select2 select2-hidden-accessible"
+										required="required">
 
+										<option value="0" selected>All</option>
+										<c:forEach items="${departmentList}" var="deptList">
+
+											<c:choose>
+												<c:when test="${deptId==deptList.departId}">
+													<option value="${deptList.departId}" selected>${deptList.name}
+														[${deptList.nameSd}]</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${deptList.departId}">${deptList.name}
+														[${deptList.nameSd}]</option>
+												</c:otherwise>
+											</c:choose>
+
+
+
+										</c:forEach>
+									</select>
+								</div>
 
 
 								<button type="submit" class="btn blue_btn" id="submtbtn">

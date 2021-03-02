@@ -481,6 +481,13 @@ public class AttendenceController {
 			mav = "attendence/attendaceSheet";
 
 			try {
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+				map.add("companyId", 1);
+				Department[] department = Constants.getRestTemplate()
+						.postForObject(Constants.url + "/getAllDepartments", map, Department[].class);
+
+				List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
+				model.addAttribute("departmentList", departmentList);
 
 				Info edit = AcessController.checkAccess("attendaceSheet", "attendaceSheet", 0, 0, 1, 0, newModuleList);
 
@@ -495,6 +502,20 @@ public class AttendenceController {
 
 				if (date != null) {
 
+					int deptId = Integer.parseInt(request.getParameter("deptId"));
+
+					String deptIds = "0";
+
+					if (deptId == 0) {
+
+						for (int i = 0; i < departmentList.size(); i++) {
+							deptIds = deptIds + "," + departmentList.get(i).getDepartId();
+
+						}
+					} else {
+						deptIds = String.valueOf(deptId);
+					}
+
 					LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
 					int locId = (int) session.getAttribute("liveLocationId");
 					Date dt = dd.parse("01-" + date);
@@ -506,12 +527,13 @@ public class AttendenceController {
 					Date firstDay = new GregorianCalendar(year, month - 1, 1).getTime();
 					Date lastDay = new GregorianCalendar(year, month, 0).getTime();
 
-					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+					map = new LinkedMultiValueMap<String, Object>();
 					map.add("fromDate", sf.format(firstDay));
 					map.add("toDate", sf.format(lastDay));
 					map.add("userType", userObj.getDesignType());
 					map.add("userId", userObj.getEmpId());
 					map.add("locId", locId);
+					map.add("deptIds", deptIds);
 					AttendanceSheetData attendanceSheetData = Constants.getRestTemplate()
 							.postForObject(Constants.url + "/getAttendanceSheet", map, AttendanceSheetData.class);
 
@@ -526,11 +548,13 @@ public class AttendenceController {
 					map.add("userType", userObj.getDesignType());
 					map.add("userId", userObj.getEmpId());
 					map.add("locId", locId);
+					map.add("deptIds", deptIds);
 					SummaryAttendance[] summaryDailyAttendance = Constants.getRestTemplate().postForObject(
 							Constants.url + "/getMonthlySummryAttendace", map, SummaryAttendance[].class);
 					List<SummaryAttendance> summrylist = new ArrayList<SummaryAttendance>(
 							Arrays.asList(summaryDailyAttendance));
 					model.addAttribute("summrylist", summrylist);
+					model.addAttribute("deptId", deptId);
 
 				}
 
@@ -778,9 +802,9 @@ public class AttendenceController {
 			MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
 					map, MstEmpType[].class);
 
-			List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList)); 
+			List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
 			model.addAttribute("empTypeList", empTypeList1);
-			
+
 			try {
 
 				String selectMonth = request.getParameter("selectMonth");
@@ -897,10 +921,10 @@ public class AttendenceController {
 			List<Department> departmentList = new ArrayList<Department>(Arrays.asList(department));
 			model.addAttribute("departmentList", departmentList);
 			MstEmpType[] empTypeList = Constants.getRestTemplate().postForObject(Constants.url + "/getMstEmpTypeList",
-					map, MstEmpType[].class); 
+					map, MstEmpType[].class);
 			List<MstEmpType> empTypeList1 = new ArrayList<MstEmpType>(Arrays.asList(empTypeList));
 			model.addAttribute("empTypeList", empTypeList1);
-			
+
 			try {
 				int locId = (int) session.getAttribute("liveLocationId");
 				String selectMonth = request.getParameter("selectMonth");
@@ -909,7 +933,7 @@ public class AttendenceController {
 				year = Integer.parseInt(mnth[1]);
 				int deptId = Integer.parseInt(request.getParameter("deptId"));
 				int typeId = Integer.parseInt(request.getParameter("typeId"));
-				
+
 				map = new LinkedMultiValueMap<String, Object>();
 				map.add("month", month);
 				map.add("year", year);
@@ -925,7 +949,7 @@ public class AttendenceController {
 				model.addAttribute("selectMonth", selectMonth);
 				model.addAttribute("deptId", deptId);
 				model.addAttribute("typeId", typeId);
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

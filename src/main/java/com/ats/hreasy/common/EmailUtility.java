@@ -2,7 +2,6 @@ package com.ats.hreasy.common;
 
 import java.util.Properties;
 
-
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -17,16 +16,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.ats.hreasy.model.Info;
 
-
-
 /*<dependency>
 <groupId>javax.mail</groupId>
 <artifactId>mail</artifactId>
 <version>1.4</version>
 </dependency>*/
- 
+
 public class EmailUtility {
-	
 
 	public static String getOTP(int n) {
 
@@ -48,97 +44,100 @@ public class EmailUtility {
 
 		return sb.toString();
 	}
-		
-		
-		public static Info sendEmailWithSubMsgAndToAdd(String mailSubjet,String msgContent,String toAddress) {
-				
-				Info info=new Info();
-				
-				try {
-					
-				final String emailSMTPserver = "smtp.gmail.com";
-				final String emailSMTPPort = "587";
-				final String mailStoreType = "imaps";
-				 String username = "atsinfosoft@gmail.com";
-				 String password = "atsinfosoft#123";
-				 //atsinfosoft@123
-				System.out.println("username" + username);
-				System.out.println("password" + password);
 
-				Properties props = new Properties();
-				props.put("mail.smtp.host", "smtp.gmail.com");
-				props.put("mail.smtp.socketFactory.port", "465");
-				props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-				props.put("mail.smtp.auth", "true");
-				props.put("mail.smtp.port", "587");
-				props.put("mail.smtp.starttls.enable", "true");
+	public static Info sendEmailWithSubMsgAndToAdd(String mailSubjet, String msgContent, String toAddress) {
 
-				Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				});
+		Info info = new Info();
 
-				try {
-					Store mailStore = session.getStore(mailStoreType);
-					mailStore.connect(emailSMTPserver, username, password);
+		try {
 
-					Message mimeMessage = new MimeMessage(session);
-					mimeMessage.setFrom(new InternetAddress(username));
-					mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
-					mimeMessage.setSubject(mailSubjet);
-					mimeMessage.setText(msgContent);
-				
-					Transport.send(mimeMessage);
-				} catch (Exception e) {
-					e.printStackTrace();
-					info.setError(true);
-					info.setMsg("email_exce");
+			final String emailSMTPserver = "smtp.gmail.com";
+			final String emailSMTPPort = "587";
+			final String mailStoreType = "imaps";
+
+			String username = "atsinfosoft@gmail.com";
+			String password = "atsinfosoft#123";
+
+			/*
+			 * String username = "noreply@monginis.net"; String password = "no@reply";
+			 */
+			// atsinfosoft@123
+			System.out.println("username" + username);
+			System.out.println("password" + password);
+
+			Properties props = new Properties();
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.starttls.enable", "true");
+
+			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
 				}
-					
-					info.setError(false);
-					info.setMsg("success_email");
-				}catch (Exception e) {
-					
-					e.printStackTrace();
-					info.setError(true);
-					info.setMsg("email_exce");
-				}
-				
-				return info;
-				
-			}
-		
-		public static String convertMinToHours(String minutes1) {
-			String min = new String();
-			int minutes = Integer.parseInt(minutes1);
+			});
 
 			try {
-				String hrs = String.valueOf(minutes / 60);
-				String rem = String.valueOf(minutes % 60);
-				System.out.println("prev hrs **" + hrs);
-				System.out.println("prev rem  **" + rem);
-				if (String.valueOf(hrs).length() == 1) {
-					hrs = "0".concat(hrs);
-					System.out.println("hrs after **" + hrs);
+				Store mailStore = session.getStore(mailStoreType);
+				mailStore.connect(emailSMTPserver, username, password);
 
-				}
-				if (String.valueOf(rem).length() == 1) {
-					rem = "0".concat(rem);
-					System.out.println("rem after **" + rem);
-	 			}
-	 			min = hrs.concat(":").concat(rem);
+				Message mimeMessage = new MimeMessage(session);
+				mimeMessage.setFrom(new InternetAddress(username));
+				mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
+				mimeMessage.setSubject(mailSubjet);
+				mimeMessage.setText(msgContent);
 
-				/// System.out.println("final hrs**" + min);
-
+				Transport.send(mimeMessage);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				info.setError(true);
+				info.setMsg("email_exce");
 			}
 
-			return min;
+			info.setError(false);
+			info.setMsg("success_email");
+		} catch (Exception e) {
 
+			e.printStackTrace();
+			info.setError(true);
+			info.setMsg("email_exce");
 		}
 
+		return info;
+
+	}
+
+	public static String convertMinToHours(String minutes1) {
+		String min = new String();
+		int minutes = Integer.parseInt(minutes1);
+
+		try {
+			String hrs = String.valueOf(minutes / 60);
+			String rem = String.valueOf(minutes % 60);
+			System.out.println("prev hrs **" + hrs);
+			System.out.println("prev rem  **" + rem);
+			if (String.valueOf(hrs).length() == 1) {
+				hrs = "0".concat(hrs);
+				System.out.println("hrs after **" + hrs);
+
+			}
+			if (String.valueOf(rem).length() == 1) {
+				rem = "0".concat(rem);
+				System.out.println("rem after **" + rem);
+			}
+			min = hrs.concat(":").concat(rem);
+
+			/// System.out.println("final hrs**" + min);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return min;
+
+	}
 
 }
