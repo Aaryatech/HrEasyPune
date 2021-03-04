@@ -438,7 +438,7 @@ public class ShiftAssignController {
 			} catch (Exception e) {
 				deptId = -1;
 			}
-
+			model.addAttribute("0", 0);
 			if (deptId != -1) {
 
 				String deptIds = "0";
