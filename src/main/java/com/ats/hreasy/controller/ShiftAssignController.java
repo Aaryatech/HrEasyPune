@@ -434,7 +434,7 @@ public class ShiftAssignController {
 			int deptId = -1;
 
 			try {
-				deptId = Integer.parseInt(request.getParameter("deptId"));
+				deptId = Integer.parseInt(request.getParameter("locId"));
 			} catch (Exception e) {
 				deptId = -1;
 			}

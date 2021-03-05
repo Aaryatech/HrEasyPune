@@ -117,32 +117,30 @@
 											<div class="col-md-6">
 												<label
 													class="col-form-label text-info font-weight-bold col-lg-5 float"
-													for="deptId"> Select Department <span
+													for="locId"> Select Department <span
 													class="text-danger">* </span>:
 												</label>
 												<div class="col-lg-7 float">
-													<select name="deptId" data-placeholder="Select Department"
-														id="deptId"
+													<select name="locId" data-placeholder="Select Location"
+														id="locId"
 														class="form-control form-control-select2 select2-hidden-accessible"
-														required="required">
+														data-fouc="" aria-hidden="true">
 
-														<option value="0">All Department</option>
-														<c:forEach items="${departmentList}" var="deptList">
+														<option value="0" selected>All</option>
+
+														<c:forEach items="${departmentList}" var="departmentList">
 
 															<c:choose>
-																<c:when test="${deptId==deptList.departId}">
-																	<option value="${deptList.departId}" selected>${deptList.name}
-																		[${deptList.nameSd}]</option>
+																<c:when test="${departmentList.departId==deptId}">
+																	<option value="${departmentList.departId}" selected>${departmentList.name}</option>
 																</c:when>
 																<c:otherwise>
-																	<option value="${deptList.departId}">${deptList.name}
-																		[${deptList.nameSd}]</option>
+																	<option value="${departmentList.departId}">${departmentList.name}</option>
 																</c:otherwise>
 															</c:choose>
 
-
-
 														</c:forEach>
+
 													</select><span class="validation-invalid-label"
 														id="error_assignDate" style="display: none;">This
 														field is required.</span>
@@ -230,6 +228,8 @@
 
 												<tr class="bg-blue">
 
+													<th class="text-center;">Emp Code</th>
+
 													<th class="text-center;">Emp Name</th>
 
 													<th class="text-center"><input type="checkbox"
@@ -248,7 +248,9 @@
 
 													<tr>
 
-														<td>${empList.name}&nbsp;(${empList.empCode})</td>
+														<td class="text-center">${empList.empCode}</td>
+
+														<td>${empList.name}</td>
 														<td><input type="checkbox" id="empId${empList.empId}"
 															value="${empList.empId}" name="empId" class="select_all"></td>
 
@@ -510,7 +512,7 @@
 
 				var isError = false;
 
-				var locId = $("#deptId").val();
+				var locId = $("#locId").val();
 
 				if (locId == null || locId == "") {
 					isError = true;
@@ -675,12 +677,21 @@
 			columnDefs : [ {
 				orderable : false,
 				targets : [ 2 ]
+			}, {
+				width : "50px",
+				targets : [ 2 ]
+			}, {
+				width : "100px",
+				targets : [ 0 ]
+			}, {
+				width : "700px",
+				targets : [ 1 ]
 			} ],
 			scrollX : true,
-			scrollY : '65vh',
+			//scrollY : '600px',
 			scrollCollapse : true,
 			paging : false,
-			"order" : [],
+
 			fixedColumns : {
 				leftColumns : 2
 			}
