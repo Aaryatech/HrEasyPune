@@ -688,7 +688,7 @@
 				targets : [ 1 ]
 			} ],
 			scrollX : true,
-			//scrollY : '600px',
+			scrollY : '600px',
 			scrollCollapse : true,
 			paging : false,
 

@@ -8,6 +8,10 @@ public class SelfAttendanceDetail {
 	private String attDate;
 	private String attStatus; 
 	private String lvSumupId;
+	private String workingHrs;
+	private String outTime;
+	private String inTime; 
+	
 	public String getId() {
 		return id;
 	}
@@ -44,10 +48,29 @@ public class SelfAttendanceDetail {
 	public void setLvSumupId(String lvSumupId) {
 		this.lvSumupId = lvSumupId;
 	}
+	public String getWorkingHrs() {
+		return workingHrs;
+	}
+	public void setWorkingHrs(String workingHrs) {
+		this.workingHrs = workingHrs;
+	}
+	public String getOutTime() {
+		return outTime;
+	}
+	public void setOutTime(String outTime) {
+		this.outTime = outTime;
+	}
+	public String getInTime() {
+		return inTime;
+	}
+	public void setInTime(String inTime) {
+		this.inTime = inTime;
+	}
 	@Override
 	public String toString() {
 		return "SelfAttendanceDetail [id=" + id + ", empCode=" + empCode + ", empName=" + empName + ", attDate="
-				+ attDate + ", attStatus=" + attStatus + ", lvSumupId=" + lvSumupId + "]";
+				+ attDate + ", attStatus=" + attStatus + ", lvSumupId=" + lvSumupId + ", workingHrs=" + workingHrs
+				+ ", outTime=" + outTime + ", inTime=" + inTime + "]";
 	} 
 
 }
