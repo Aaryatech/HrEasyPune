@@ -26,7 +26,9 @@ import com.ats.hreasy.common.Constants;
 import com.ats.hreasy.common.DateConvertor;
 import com.ats.hreasy.common.FormValidation;
 import com.ats.hreasy.model.AccessRightModule;
+import com.ats.hreasy.model.Bank;
 import com.ats.hreasy.model.Designation;
+import com.ats.hreasy.model.Grade;
 import com.ats.hreasy.model.HolidayCategory;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.LeaveType;
@@ -95,7 +97,7 @@ public class MasterController {
 				String email = request.getParameter("email");
 				String remark = request.getParameter("remark");
 				int otCal = Integer.parseInt(request.getParameter("otCal"));
-				
+
 				Boolean ret = false;
 
 				if (FormValidation.Validaton(locName, "") == true) {
@@ -1554,6 +1556,172 @@ public class MasterController {
 
 		return info;
 
+	}
+
+	@RequestMapping(value = "/gradeMasterList", method = RequestMethod.GET)
+	public String gradeMasterList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String returnUrl = "master/gradeMasterList";
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("gradeMasterList", "gradeMasterList", 1, 0, 0, 0, newModuleList);
+
+			Grade[] grade = Constants.getRestTemplate().getForObject(Constants.url + "/getAllGradeList", Grade[].class);
+
+			List<Grade> gradeList = new ArrayList<Grade>(Arrays.asList(grade));
+			model.addAttribute("gradeList", gradeList);
+			/*
+			 * if (view.isError() == true) {
+			 * 
+			 * model = new ModelAndView("accessDenied");
+			 * 
+			 * } else { model = new ModelAndView("master/locationAdd"); }
+			 */
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnUrl;
+	}
+
+	@RequestMapping(value = "/gradeMaster", method = RequestMethod.GET)
+	public String gradeMaster(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String returnUrl = "master/gradeMaster";
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("gradeMaster", "gradeMasterList", 1, 0, 0, 0, newModuleList);
+			model.addAttribute("title", "Add New Grade");
+			/*
+			 * if (view.isError() == true) {
+			 * 
+			 * model = new ModelAndView("accessDenied");
+			 * 
+			 * } else { model = new ModelAndView("master/locationAdd"); }
+			 */
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnUrl;
+	}
+
+	@RequestMapping(value = "/editGrade", method = RequestMethod.GET)
+	public String editGrade(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+		String mav = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+			Info view = AcessController.checkAccess("editGrade", "gradeMasterList", 0, 0, 1, 0, newModuleList);
+
+			/*
+			 * if (view.isError() == true) {
+			 * 
+			 * mav = "accessDenied";
+			 * 
+			 * } else {
+			 */
+
+			mav = "master/gradeMaster";
+			model.addAttribute("title", "Edit Grade ");
+			String gradeId = request.getParameter("gradeId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("gradeId", gradeId);
+			Grade editGrade = Constants.getRestTemplate().postForObject(Constants.url + "/getGradeById", map,
+					Grade.class);
+			model.addAttribute("editGrade", editGrade);
+			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "/submitNewGrade", method = RequestMethod.POST)
+	public String submitNewGrade(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		LoginResponse userObj = (LoginResponse) session.getAttribute("userInfo");
+
+		List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+		Info view = AcessController.checkAccess("submitNewGrade", "gradeMasterList", 0, 1, 0, 0, newModuleList);
+
+		try {
+
+			int skillId = 0;
+			try {
+				skillId = Integer.parseInt(request.getParameter("skillId"));
+			} catch (Exception e) {
+				skillId = 0;
+			}
+
+			String skillName = request.getParameter("skillName");
+
+			Grade grade = new Grade();
+
+			grade.setGradeName(skillName);
+			grade.setGradeId(skillId);
+			grade.setDelStatus(1);
+			Grade res = Constants.getRestTemplate().postForObject(Constants.url + "/saveGrade", grade, Grade.class);
+
+			if (res != null) {
+				if (grade.getGradeId() > 0) {
+					session.setAttribute("successMsg", "Grade Updated Successfully");
+				} else {
+					session.setAttribute("successMsg", "Grade Inserted Successfully");
+				}
+			} else {
+				session.setAttribute("errorMsg", "Failed to Insert Grade");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Insert Skill Rate");
+		}
+
+		return "redirect:/gradeMasterList";
+
+	}
+
+	@RequestMapping(value = "/deleteGrade", method = RequestMethod.GET)
+	public String deleteGrade(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		String a = null;
+
+		try {
+
+			List<AccessRightModule> newModuleList = (List<AccessRightModule>) session.getAttribute("moduleJsonList");
+
+			Info view = AcessController.checkAccess("deleteSkillRate", "gradeMasterList", 0, 0, 0, 1, newModuleList);
+
+			a = "redirect:/gradeMasterList";
+
+			String gradeId = request.getParameter("gradeId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+			map.add("gradeId", gradeId);
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "/deleteGreade", map, Info.class);
+
+			if (info.isError() == false) {
+				session.setAttribute("successMsg", "Failed to Deleted Successfully !!");
+			} else {
+				session.setAttribute("errorMsg", "Failed to Delete");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("errorMsg", "Failed to Delete");
+		}
+		return a;
 	}
 
 }

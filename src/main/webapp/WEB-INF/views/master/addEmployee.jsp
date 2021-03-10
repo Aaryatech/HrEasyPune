@@ -182,6 +182,15 @@
 														field is required.</span>
 												</div>
 
+												<c:choose>
+													<c:when test="${emp.empId==0}">
+														<label
+															class="col-form-label text-info font-weight-bold col-lg-2"
+															id="lastcode"></label>
+													</c:when>
+												</c:choose>
+
+
 											</div>
 
 											<div class="form-group row">
@@ -2723,11 +2732,12 @@
 
 				}, function(data) {
 					//alert(JSON.stringify(data));
-					if (data == 0) {
+					if (data.codeExist == 0) {
 						$("#unique_user").show()
 					} else {
 						$("#unique_user").hide()
 					}
+					$("#lastcode").html(data.lastCode);
 
 				});
 			});

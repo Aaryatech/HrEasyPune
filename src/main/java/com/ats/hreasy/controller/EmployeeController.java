@@ -81,6 +81,7 @@ import com.ats.hreasy.model.TblEmpNominees;
 import com.ats.hreasy.model.User;
 import com.ats.hreasy.model.WeekoffCategory;
 import com.ats.hreasy.model.claim.ClaimType;
+import com.ats.hreasy.model.EmployeeCodeExistRes;
 
 @Controller
 @Scope("session")
@@ -1815,9 +1816,9 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/getUniqEmpCodeResp", method = RequestMethod.GET)
-	public @ResponseBody int getUniqEmpCodeResp(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) {
-		int flag = 0;
+	public @ResponseBody EmployeeCodeExistRes getUniqEmpCodeResp(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
+		EmployeeCodeExistRes flag = new EmployeeCodeExistRes();
 		try {
 			String empCode = request.getParameter("empCode");
 
@@ -1826,10 +1827,18 @@ public class EmployeeController {
 			EmployeeMaster res = Constants.getRestTemplate().postForObject(Constants.url + "/getEmpInfoByEmpCode", map,
 					EmployeeMaster.class);
 
+			if (empCode.length() > 0) {
+				map = new LinkedMultiValueMap<>();
+				map.add("empCode", empCode.substring(0, 1));
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "/getLastEmpCode", map,
+						Info.class);
+				flag.setLastCode(info.getMsg());
+			}
+
 			if (res != null) {
-				flag = 0;
+				flag.setCodeExist(0);
 			} else {
-				flag = 1;
+				flag.setCodeExist(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
