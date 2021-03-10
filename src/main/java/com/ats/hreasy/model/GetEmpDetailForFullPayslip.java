@@ -15,6 +15,7 @@ public class GetEmpDetailForFullPayslip {
 	private String bankName;
 	private String branchName;
 	private String locName;
+	private String gradeName;
 	
 	public int getEmpId() {
 		return empId;
@@ -88,12 +89,18 @@ public class GetEmpDetailForFullPayslip {
 	public void setLocName(String locName) {
 		this.locName = locName;
 	}
+	public String getGradeName() {
+		return gradeName;
+	}
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
 	@Override
 	public String toString() {
 		return "GetEmpDetailForFullPayslip [empId=" + empId + ", pfNo=" + pfNo + ", esicNo=" + esicNo + ", aadharNo="
 				+ aadharNo + ", uan=" + uan + ", cmpJoiningDate=" + cmpJoiningDate + ", panCardNo=" + panCardNo
 				+ ", remLoanAmt=" + remLoanAmt + ", accNo=" + accNo + ", bankName=" + bankName + ", branchName="
-				+ branchName + ", locName=" + locName + "]";
+				+ branchName + ", locName=" + locName + ", gradeName=" + gradeName + "]";
 	}
 	
 	

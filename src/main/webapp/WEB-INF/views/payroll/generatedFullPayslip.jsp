@@ -164,7 +164,8 @@ hr {
 					<c:set value="-" var="remLoanAmt"></c:set> <c:set value="-"
 						var="panCardNo"></c:set> <c:set value="-" var="locName"></c:set> <c:set
 						value="-" var="accNo"></c:set> <c:set value="-" var="bankName"></c:set>
-					<c:forEach items="${empDetailList}" var="empDetailList">
+					<c:set value="-" var="gradeName"></c:set> <c:forEach
+						items="${empDetailList}" var="empDetailList">
 						<c:if test="${list.empId==empDetailList.empId}">
 							<c:set value="${empDetailList.pfNo}" var="pfNo"></c:set>
 							<c:set value="${empDetailList.esicNo}" var="esicNo"></c:set>
@@ -176,6 +177,7 @@ hr {
 							<c:set value="${empDetailList.bankName}" var="bankName"></c:set>
 							<c:set value="${empDetailList.accNo}" var="accNo"></c:set>
 							<c:set value="${empDetailList.locName}" var="locName"></c:set>
+							<c:set value="${empDetailList.gradeName}" var="gradeName"></c:set>
 						</c:if>
 					</c:forEach>
 					<table width="100%">
@@ -259,8 +261,9 @@ hr {
 								No</td>
 							<td valign="top" style="color: #000;" align="left" width="40%">:
 								${esicNo}</td>
-							<td valign="top" style="color: #000;" align="left" width="15%"></td>
-							<td valign="top" style="color: #000;" align="left"></td>
+							<td valign="top" style="color: #000;" align="left" width="15%">Grade</td>
+							<td valign="top" style="color: #000;" align="left">:
+								${gradeName}</td>
 						</tr>
 
 						<tr>

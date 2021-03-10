@@ -63,6 +63,7 @@ import com.ats.hreasy.model.EmployeeMaster;
 import com.ats.hreasy.model.GetEmpDetailForFullPayslip;
 import com.ats.hreasy.model.GetEmployeeDetails;
 import com.ats.hreasy.model.GetPayrollGeneratedList;
+import com.ats.hreasy.model.Grade;
 import com.ats.hreasy.model.HolidayCategory;
 import com.ats.hreasy.model.Info;
 import com.ats.hreasy.model.Location;
@@ -1038,6 +1039,13 @@ public class EmployeeController {
 				List<WeekoffCategory> weklyofflist = new ArrayList<WeekoffCategory>(Arrays.asList(weekoffCategory));
 
 				model.addObject("weklyofflist", weklyofflist);
+
+				Grade[] grade = Constants.getRestTemplate().getForObject(Constants.url + "/getAllGradeList",
+						Grade[].class);
+
+				List<Grade> gradeList = new ArrayList<Grade>(Arrays.asList(grade));
+
+				model.addObject("gradeList", gradeList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1180,6 +1188,8 @@ public class EmployeeController {
 				empInfoId = 0;
 			}
 
+			int gradeId = Integer.parseInt(request.getParameter("gradeId"));
+
 			String img = doc.getOriginalFilename();
 			String imageName = empId + "_" + doc.getOriginalFilename() + "_" + dateTimeInGMT.format(date);
 
@@ -1218,7 +1228,7 @@ public class EmployeeController {
 			empInfo.setUniformSize(request.getParameter("uniformsize"));
 
 			empInfo.setDelStatus(1);
-			empInfo.setExInt1(0);
+			empInfo.setExInt1(gradeId);
 			empInfo.setExInt2(0);
 			empInfo.setExVar1(imageName); /// Profile Image
 			empInfo.setExVar2("NA");

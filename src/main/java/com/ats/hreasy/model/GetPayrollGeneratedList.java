@@ -104,6 +104,7 @@ public class GetPayrollGeneratedList {
 	private float unpaidLeave;
 	private float absentDays;
 	private String email;
+	private int gradeId;
 	
 	List<SalAllownceCal> payrollAllownceList; 
 	List<GetAdvanceDetails> getAdvanceList; 
@@ -982,6 +983,14 @@ public class GetPayrollGeneratedList {
 	public void setLeaveEncashAmt(double leaveEncashAmt) {
 		this.leaveEncashAmt = leaveEncashAmt;
 	}
+ 
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
+	}
 
 	@Override
 	public String toString() {
@@ -1018,12 +1027,12 @@ public class GetPayrollGeneratedList {
 				+ ", departName=" + departName + ", designName=" + designName + ", payableDays=" + payableDays
 				+ ", presentDays=" + presentDays + ", weeklyOff=" + weeklyOff + ", paidHoliday=" + paidHoliday
 				+ ", paidLeave=" + paidLeave + ", unpaidLeave=" + unpaidLeave + ", absentDays=" + absentDays
-				+ ", email=" + email + ", payrollAllownceList=" + payrollAllownceList + ", getAdvanceList="
-				+ getAdvanceList + ", getAbsentDedList=" + getAbsentDedList + ", getLateMarkDedList="
-				+ getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList=" + getPayDedList
-				+ ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance=" + performance
-				+ ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword=" + moneyInword
-				+ "]";
+				+ ", email=" + email + ", gradeId=" + gradeId + ", payrollAllownceList=" + payrollAllownceList
+				+ ", getAdvanceList=" + getAdvanceList + ", getAbsentDedList=" + getAbsentDedList
+				+ ", getLateMarkDedList=" + getLateMarkDedList + ", getClaimList=" + getClaimList + ", getPayDedList="
+				+ getPayDedList + ", getRewardList=" + getRewardList + ", getLoanList=" + getLoanList + ", performance="
+				+ performance + ", production=" + production + ", getBhattaList=" + getBhattaList + ", moneyInword="
+				+ moneyInword + "]";
 	}
 	
 	

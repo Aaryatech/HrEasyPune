@@ -1065,6 +1065,25 @@
 															${empPersInfo.uniformSize=='xxxl' ? 'selected' : ''}>XXXL</option>
 													</select>
 												</div>
+
+												<label class="col-form-label col-lg-2" for="gradeId">Select
+													Grade : </label>
+												<div class="col-lg-4">
+													<select name="gradeId"
+														data-placeholder="Select Uniform Size" id="gradeId"
+														class="form-control form-control-select2 select2-hidden-accessible">
+														<c:forEach items="${gradeList}" var="gradeList">
+															<c:choose>
+																<c:when test="${gradeList.gradeId==empPersInfo.exInt1}">
+																	<option selected value="${gradeList.gradeId}">${gradeList.gradeName}</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="${gradeList.gradeId}">${gradeList.gradeName}</option>
+																</c:otherwise>
+															</c:choose>
+														</c:forEach>
+													</select>
+												</div>
 											</div>
 
 

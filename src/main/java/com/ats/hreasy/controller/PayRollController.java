@@ -697,6 +697,30 @@ public class PayRollController {
 
 			String reportName = "Salary Sheet for the month of " + monthName + " " + monthAndYearsplt[1];
 
+			double grossDefaultTotal = 0;
+			double basicTotal = 0;
+			double abDeductionTotal = 0;
+			double grossTotal = 0;
+			double miscAddTotal = 0;
+			double otWagesTotal = 0;
+			double productionIncTotal = 0;
+			double nightAllTotal = 0;
+			double performanceBonTotal = 0;
+			double bhattaTotal = 0;
+			double leaveEncashTotal = 0;
+			double other1Total = 0;
+			double rewardTotal = 0;
+			double advTotal = 0;
+			double loanTotal = 0;
+			double itDeductionTotal = 0;
+			double paydeductionTotal = 0;
+			double ptDedTotal = 0;
+			double empPfTotal = 0;
+			double esicTotal = 0;
+			double mlwfTotal = 0;
+			double finalDeduTotal = 0;
+			double finalTotal = 0;
+
 			List<ExportToExcel> exportToExcelList = new ArrayList<ExportToExcel>();
 
 			ExportToExcel expoExcel = new ExportToExcel();
@@ -714,6 +738,8 @@ public class PayRollController {
 			rowData.add("Basic");
 			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
 				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getName());
+				payRollDataForProcessing.getAllowancelist().get(i).setGrossSalPer(0);
+				payRollDataForProcessing.getAllowancelist().get(i).setTaxPer(0);
 
 			}
 
@@ -780,8 +806,11 @@ public class PayRollController {
 						rowData.add("" + list.get(i).getDesignName());
 						rowData.add("" + list.get(i).getPayableDays());
 						rowData.add("" + list.get(i).getGrossSalDefault());
+						grossDefaultTotal = grossDefaultTotal + list.get(i).getGrossSalDefault();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getBasicCal(), amount_round)));
+						basicTotal = basicTotal + list.get(i).getBasicCal();
 
 						for (int k = 0; k < payRollDataForProcessing.getAllowancelist().size(); k++) {
 							int find = 0;
@@ -793,6 +822,10 @@ public class PayRollController {
 											ReportCostants.castNumber(
 													list.get(i).getPayrollAllownceList().get(j).getAllowanceValueCal(),
 													amount_round)));
+									payRollDataForProcessing.getAllowancelist().get(k).setTaxPer(
+											(float) (payRollDataForProcessing.getAllowancelist().get(k).getTaxPer()
+													+ list.get(i).getPayrollAllownceList().get(j)
+															.getAllowanceValueCal()));
 									find = 1;
 									break;
 
@@ -808,73 +841,97 @@ public class PayRollController {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getAbDeduction(), amount_round)));
-
+							abDeductionTotal = abDeductionTotal + list.get(i).getAbDeduction();
 						}
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getGrossSalary(), amount_round)));
+						grossTotal = grossTotal + list.get(i).getGrossSalary();
 
 						if (payroll_claim_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getMiscExpAdd(), amount_round)));
-
+							miscAddTotal = miscAddTotal + list.get(i).getMiscExpAdd();
 						}
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getOtWages(), amount_round)));
+						otWagesTotal = otWagesTotal + list.get(i).getOtWages();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getProductionInsentive(), amount_round)));
+						productionIncTotal = productionIncTotal + list.get(i).getProductionInsentive();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getNightAllow(), amount_round)));
+						nightAllTotal = nightAllTotal + list.get(i).getNightAllow();
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getPerformanceBonus(), amount_round)));
+						performanceBonTotal = performanceBonTotal + list.get(i).getPerformanceBonus();
 
 						if (payroll_bhatta_show == 1) {
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getBhatta(), amount_round)));
+							bhattaTotal = bhattaTotal + list.get(i).getBhatta();
 						}
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getLeaveEncashAmt(), amount_round)));
+						leaveEncashTotal = leaveEncashTotal + list.get(i).getLeaveEncashAmt();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getOther1(), amount_round)));
+						other1Total = other1Total + list.get(i).getOther1();
+
 						if (payroll_reward_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getReward(), amount_round)));
+							rewardTotal = rewardTotal + list.get(i).getReward();
 
 						}
 						if (payroll_advance_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getAdvanceDed(), amount_round)));
+							advTotal = advTotal + list.get(i).getAdvanceDed();
 
 						}
 						if (payroll_loan_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getLoanDed(), amount_round)));
+							loanTotal = loanTotal + list.get(i).getLoanDed();
 
 						}
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getItded(), amount_round)));
+						itDeductionTotal = itDeductionTotal + list.get(i).getItded();
+
 						if (payroll_payded_show == 1) {
 
 							rowData.add("" + String.format("%.2f",
 									ReportCostants.castNumber(list.get(i).getPayDed(), amount_round)));
+							paydeductionTotal = paydeductionTotal + list.get(i).getPayDed();
 
 						}
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getPtDed(), amount_round)));
+						ptDedTotal = ptDedTotal + list.get(i).getPtDed();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getEmployeePf(), amount_round)));
+						empPfTotal = empPfTotal + list.get(i).getEmployeePf();
 
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getEsic(), amount_round)));
+						esicTotal = esicTotal + list.get(i).getEsic();
+
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getMlwf(), amount_round)));
+						mlwfTotal = mlwfTotal + list.get(i).getMlwf();
 						/*
 						 * rowData.add("" + String.format("%.2f",
 						 * ReportCostants.castNumber(list.get(i).getSocietyContribution(),
@@ -884,10 +941,13 @@ public class PayRollController {
 								+ list.get(i).getItded() + list.get(i).getPayDed() + list.get(i).getPtDed()
 								+ list.get(i).getEmployeePf() + list.get(i).getEsic() + list.get(i).getMlwf()
 								+ list.get(i).getSocietyContribution();
+						finalDeduTotal = finalDeduTotal + finalDed;
 
 						rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDed, amount_round)));
 						rowData.add("" + String.format("%.2f",
 								ReportCostants.castNumber(list.get(i).getNetSalary(), amount_round)));
+						finalTotal = finalTotal + list.get(i).getNetSalary();
+
 						expoExcel.setRowData(rowData);
 						exportToExcelList.add(expoExcel);
 
@@ -895,6 +955,81 @@ public class PayRollController {
 					}
 				}
 			}
+
+			expoExcel = new ExportToExcel();
+			rowData = new ArrayList<String>();
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("");
+			rowData.add("" + grossDefaultTotal);
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(basicTotal, amount_round)));
+
+			for (int i = 0; i < payRollDataForProcessing.getAllowancelist().size(); i++) {
+
+				rowData.add("" + payRollDataForProcessing.getAllowancelist().get(i).getTaxPer());
+			}
+
+			if (ab_deduction == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(abDeductionTotal, amount_round)));
+
+			}
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(grossTotal, amount_round)));
+
+			if (payroll_claim_show == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(miscAddTotal, amount_round)));
+
+			}
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(otWagesTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(productionIncTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(nightAllTotal, amount_round)));
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(performanceBonTotal, amount_round)));
+
+			if (payroll_bhatta_show == 1) {
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(bhattaTotal, amount_round)));
+			}
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(leaveEncashTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(other1Total, amount_round)));
+			if (payroll_reward_show == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(rewardTotal, amount_round)));
+
+			}
+			if (payroll_advance_show == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(advTotal, amount_round)));
+
+			}
+			if (payroll_loan_show == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(loanTotal, amount_round)));
+
+			}
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(itDeductionTotal, amount_round)));
+			if (payroll_payded_show == 1) {
+
+				rowData.add("" + String.format("%.2f", ReportCostants.castNumber(paydeductionTotal, amount_round)));
+
+			}
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(ptDedTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(empPfTotal, amount_round)));
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(esicTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(mlwfTotal, amount_round)));
+
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalDeduTotal, amount_round)));
+			rowData.add("" + String.format("%.2f", ReportCostants.castNumber(finalTotal, amount_round)));
+			expoExcel.setRowData(rowData);
+			exportToExcelList.add(expoExcel);
 
 			XSSFWorkbook wb = null;
 			try {
